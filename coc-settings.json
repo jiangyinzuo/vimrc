@@ -1,0 +1,6 @@
+{
+	"diagnostic.displayByAle": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+    		"cpp", "c"
+  	]
+}
