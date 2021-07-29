@@ -42,6 +42,9 @@ set number
 " Show matching brackets when text indicator is over them
 set showmatch 
 
+"enable backspace
+set backspace=indent,eol,start
+
 "设置主题
 :colorscheme simple-dark
 
@@ -82,6 +85,8 @@ set completeopt=menu,menuone,noselect
 " suppress annoy messages.
 set shortmess+=c
 
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
 " Initialize plugin system
 call plug#end()
 
@@ -114,3 +119,4 @@ endfunction
 let g:rustfmt_autosave = 1
 
 :packadd termdebug
+let g:termdebug_wide=1
