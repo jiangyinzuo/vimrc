@@ -19,3 +19,8 @@ pip3 install --user pynvim
 
 ### Coc Install Language Server
 `:CocInstall coc-clangd`
+
+### Generate compile_commands.json
+- bear
+- compile_db
+- ...
