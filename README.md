@@ -20,7 +20,17 @@ pip3 install --user pynvim
 ### Coc Install Language Server
 `:CocInstall coc-clangd`
 
-### Generate compile_commands.json
+## Code Completion | Jump | Syntax Check
+- grep
+- ctags + cscope
+- gtags
+- YouCompleteMe
+- LSP(coc + ale)
+
+## Generate compile_commands.json
 - bear
 - compile_db
 - ...
+
+## Debug
+- vimspector
