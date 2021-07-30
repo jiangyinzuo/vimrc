@@ -54,12 +54,21 @@ set guioptions-=m
 "隐藏GVim工具栏
 set guioptions-=T
 
+" Use both cscope and ctags. `:set nocscopetag` to disable cscope
+set cst
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+Plug 'https://hub.fastgit.org/vim-airline/vim-airline.git'
+Plug 'https://hub.fastgit.org/vim-airline/vim-airline-themes.git'
+let g:airline_theme='cool'
+let g:airline#extensions#tabline#formatter = 'unique'
+
 Plug 'https://hub.fastgit.org/tomasiser/vim-code-dark.git'
+Plug 'https://hub.fastgit.org/airblade/vim-gitgutter.git'
 
 if has('nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -70,7 +79,8 @@ else
 endif
 
 Plug 'https://hub.fastgit.org/bfrg/vim-cpp-modern.git'
-" Disable function highlighting (affects both C and C++ files)
+
+" Enable function highlighting (affects both C and C++ files)
 let g:cpp_function_highlight = 1
 
 " Enable highlighting of C++11 attributes
@@ -100,6 +110,7 @@ set completeopt=menu,menuone,noselect
 set shortmess+=c
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+let g:Lf_ShowDevIcons = 0
 
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsFlyMode = 1

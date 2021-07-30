@@ -6,7 +6,7 @@
         "name": "cpp",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${fileDirname}/main",
+        "program": "${fileDirname}/fileBasenameNoExtension",
         "args": ["*${ProgramArgs}"],
         "cwd": "${workspaceRoot}",
         "environment": [],
