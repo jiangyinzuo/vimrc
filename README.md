@@ -26,6 +26,7 @@ pip3 install --user pynvim
 - gtags
 - YouCompleteMe
 - LSP(coc + ale)
+  - clangd ccls
 
 ## Generate compile_commands.json
 - bear
@@ -34,3 +35,6 @@ pip3 install --user pynvim
 
 ## Debug
 - vimspector
+
+## Code Format
+- json(run `sudo apt install jq` before): `:%!jq .`
