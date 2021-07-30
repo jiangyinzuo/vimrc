@@ -60,7 +60,6 @@ set guioptions-=T
 call plug#begin('~/.vim/plugged')
 
 Plug 'https://hub.fastgit.org/tomasiser/vim-code-dark.git'
-colorscheme codedark
 
 if has('nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -159,4 +158,8 @@ let g:rustfmt_autosave = 1
 
 :packadd termdebug
 let g:termdebug_wide=1
+
+set t_Co=256
+set t_ut=
+:colorscheme codedark
 
