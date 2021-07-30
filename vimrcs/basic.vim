@@ -33,6 +33,8 @@ set magic
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+set mouse=a
+
 "语法高亮显示
 syntax on
 
@@ -97,6 +99,9 @@ let g:goto_header_open_in_new_tab = 1
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 source ~/.vimrc.d/coc_config.vim
+
+Plug 'puremourning/vimspector'
+let g:vimspector_enable_mappings = 'HUMAN'
 
 " Initialize plugin system
 call plug#end()
@@ -238,6 +243,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 " Use ALE and coc.nvim together
 let g:ale_disable_lsp = 1
+
+Plug 'https://hub.fastgit.org/puremourning/vimspector.git'
 
 " Initialize plugin system
 call plug#end()
