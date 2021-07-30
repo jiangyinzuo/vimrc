@@ -3,7 +3,7 @@
 ## Requirements
 
 for linux
-- vim8.2+
+- vim8.2+, with feature python3
 - python3.6+
 - node12.12+
 - gnu/global6.6+

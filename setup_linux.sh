@@ -6,6 +6,8 @@ cat ./vimrcs/basic.vim > ~/.vimrc
 mkdir -p ~/.vim/colors
 cp -r ./colors/* ~/.vim/colors
 
+cp -r vimrc.d/ ~/.vimrc.d
+
 cp ./coc-settings.json ~/.vim/
 
 mkdir -p ~/.vim/autoload
