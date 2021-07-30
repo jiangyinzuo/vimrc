@@ -33,6 +33,9 @@ set magic
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+set smarttab
+set autoindent
+
 set mouse=a
 
 "语法高亮显示
@@ -61,6 +64,7 @@ set cst
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+Plug 'https://hub.fastgit.org/tpope/vim-sleuth.git'
 
 Plug 'https://hub.fastgit.org/vim-airline/vim-airline.git'
 Plug 'https://hub.fastgit.org/vim-airline/vim-airline-themes.git'
