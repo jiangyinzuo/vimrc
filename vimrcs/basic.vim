@@ -96,6 +96,7 @@ let g:goto_header_open_in_new_tab = 1
 
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+source ~/.vimrc.d/coc_config.vim
 
 " Initialize plugin system
 call plug#end()
