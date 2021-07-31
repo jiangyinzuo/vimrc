@@ -46,3 +46,6 @@ python3 install.py --go-completer
 
 ## Code Format
 - json(run `sudo apt install jq` before): `:%!jq .`
+
+### Auto Use/Import in Rust/Java
+It is supported by coc.nvim: `<leader>a`

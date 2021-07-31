@@ -167,7 +167,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " ccl config
 nmap <silent> <M-j> <Plug>(coc-definition)
 nmap <silent> <C-,> <Plug>(coc-references)
-nn <silent> K :call CocActionAsync('doHover')<cr>
+
 set updatetime=300
 au CursorHold * sil call CocActionAsync('highlight')
 au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
