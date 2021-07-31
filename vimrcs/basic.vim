@@ -51,7 +51,7 @@ set showmatch
 set backspace=indent,eol,start
 
 "设置GVim字体
-set guifont=LiberationMono\ 20
+set guifont=LiberationMono\ 14
 "隐藏GVim菜单栏
 set guioptions-=m
 "隐藏GVim工具栏
@@ -59,28 +59,41 @@ set guioptions-=T
 
 " Use both cscope and ctags. `:set nocscopetag` to disable cscope
 set cst
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
+
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+
+" Automatically adjusts tab indent
 Plug 'https://hub.fastgit.org/tpope/vim-sleuth.git'
+
+Plug 'https://hub.fastgit.org/tpope/vim-unimpaired.git'
 
 Plug 'https://hub.fastgit.org/vim-airline/vim-airline.git'
 Plug 'https://hub.fastgit.org/vim-airline/vim-airline-themes.git'
 let g:airline_theme='cool'
-let g:airline#extensions#tabline#formatter = 'unique'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 Plug 'https://hub.fastgit.org/tomasiser/vim-code-dark.git'
+
+" similar plugin: mhinz/vim-signify
 Plug 'https://hub.fastgit.org/airblade/vim-gitgutter.git'
 
 if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/defx.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
+" Tags
+Plug 'https://hub.fastgit.org/ludovicchabant/vim-gutentags.git'
+Plug 'https://hub.fastgit.org/skywind3000/gutentags_plus.git'
+source ~/.vimrc.d/tag_config.vim
 
 Plug 'https://hub.fastgit.org/bfrg/vim-cpp-modern.git'
 
@@ -96,7 +109,6 @@ let g:cpp_member_highlight = 1
 " Put all standard C and C++ keywords under Vim's highlight group 'Statement'
 " (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 " completion
 Plug 'skywind3000/vim-auto-popmenu'
@@ -168,8 +180,6 @@ function! s:defx_toggle_tree() abort
     endif
     return defx#do_action('multi', ['drop'])
 endfunction
-
-let g:rustfmt_autosave = 1
 
 :packadd termdebug
 let g:termdebug_wide=1
