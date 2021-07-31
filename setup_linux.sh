@@ -1,9 +1,8 @@
 #!/bin/sh
 set -e
 
-cat ./vimrcs/basic.vim > ~/.vimrc
-
-cp -r ./vimrcs/vimrc.d/ ~/.vimrc.d
+ln -s `pwd`/init.vim ~/.vimrc
+ln -s `pwd`/vimrc.d ~/vimrc.d
 
 cp ./coc-settings.json ~/.vim/
 

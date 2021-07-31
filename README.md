@@ -6,7 +6,7 @@ for linux
 - vim8.2+, with feature python3
 - python3.6+
 - node12.12+
-- gnu/global6.6+
+- gnu/global6.6+, universal ctags (manually install)
 - clangd
 
 ## Setup
@@ -14,8 +14,15 @@ for linux
 ```shell
 # for Defx
 pip3 install --user pynvim
+# for tags
 pip install pygments
 ./setup_linux.sh
+```
+
+### Install YouCompleteMe
+```shell
+cd ~/.vim/plugged/YouCompleteMe
+python3 install.py --go-completer
 ```
 
 ### Coc Install Language Server

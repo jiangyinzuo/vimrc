@@ -58,10 +58,9 @@ set guioptions-=m
 set guioptions-=T
 
 " Use both cscope and ctags. `:set nocscopetag` to disable cscope
-set cst
 set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
 
-
+nnoremap <BS> X
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -93,7 +92,7 @@ endif
 " Tags
 Plug 'https://hub.fastgit.org/ludovicchabant/vim-gutentags.git'
 Plug 'https://hub.fastgit.org/skywind3000/gutentags_plus.git'
-source ~/.vimrc.d/tag_config.vim
+source ~/vimrc.d/tag_config.vim
 
 Plug 'https://hub.fastgit.org/bfrg/vim-cpp-modern.git'
 
@@ -112,15 +111,22 @@ let g:cpp_simple_highlight = 1
 
 " completion
 Plug 'skywind3000/vim-auto-popmenu'
-
 " enable this plugin for filetypes, '*' for all files.
 let g:apc_enable_ft = {'*': 1}
-
 " source for dictionary, current or other loaded buffers, see ':help cpt'
 set cpt=.,k,w,b
 
+Plug 'https://hub.fastgit.org/rust-lang/rust.vim.git', {'for': 'rust' }
+let g:rustfmt_autosave = 1
+
+Plug 'https://hub.fastgit.org/python-mode/python-mode.git', { 'for': 'python', 'branch': 'develop' }
+Plug 'https://hub.fastgit.org/fatih/vim-go.git', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+
+Plug 'https://hub.fastgit.org/ycm-core/YouCompleteMe.git'
+source ~/vimrc.d/ycm_config.vim
+
 " don't select the first item.
-set completeopt=menu,menuone,noselect
+set completeopt=menu,menuone,noinsert,noselect
 
 " suppress annoy messages.
 set shortmess+=c
@@ -139,47 +145,24 @@ Plug 'liuchengxu/vista.vim'
 let g:vista_executive_for = {
   \ 'c': 'coc',
   \ 'cpp': 'coc',
+  \ 'rust': 'coc',
+  \ 'go': 'coc',
+  \ 'python': 'coc',
+  \ 'java': 'coc',
   \ }
 
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-source ~/.vimrc.d/coc_config.vim
+source ~/vimrc.d/coc_config.vim
 
 Plug 'dense-analysis/ale'
-" Use ALE and coc.nvim together
-let g:ale_disable_lsp = 1
+source ~/vimrc.d/ale_config.vim
 
 Plug 'https://hub.fastgit.org/puremourning/vimspector.git'
 let g:vimspector_enable_mappings = 'HUMAN'
 
 " Initialize plugin system
 call plug#end()
-
-" config Defx
-call defx#custom#option('_', {
-      \ 'winwidth': 30,
-      \ 'split': 'vertical',
-      \ 'direction': 'botright',
-      \ 'show_ignored_files': 0,
-      \ 'buffer_name': '',
-      \ 'toggle': 1,
-      \ 'resume': 1
-      \ })
-autocmd FileType defx call s:defx_mappings()
-
-function! s:defx_mappings() abort
-  nnoremap <silent><buffer><expr> l     <SID>defx_toggle_tree()                    " 打开或者关闭文件夹，文件
-  nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')     " 显示隐藏文件
-  nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
-endfunction
-
-function! s:defx_toggle_tree() abort
-    " Open current file, or toggle directory expand/collapse
-    if defx#is_directory()
-        return defx#do_action('open_or_close_tree')
-    endif
-    return defx#do_action('multi', ['drop'])
-endfunction
 
 :packadd termdebug
 let g:termdebug_wide=1
