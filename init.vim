@@ -121,6 +121,7 @@ let g:rustfmt_autosave = 1
 
 Plug 'https://hub.fastgit.org/python-mode/python-mode.git', { 'for': 'python', 'branch': 'develop' }
 Plug 'https://hub.fastgit.org/fatih/vim-go.git', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'https://hub.fastgit.org/artur-shaik/vim-javacomplete2.git', { 'for': 'java'}
 
 Plug 'https://hub.fastgit.org/ycm-core/YouCompleteMe.git'
 source ~/vimrc.d/ycm_config.vim

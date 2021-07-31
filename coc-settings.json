@@ -1,8 +1,14 @@
-{
+{ 
+  "hover.target": "echo",
+  "clangd.enabled": false,
   "diagnostic.displayByAle": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "cpp",
-    "c"
+    "c",
+    "go",
+    "rust",
+    "python",
+    "java"
   ],
   "languageserver": {
     "ccls": {
@@ -27,5 +33,6 @@
         }
       }
     }
-  }
+  },
+  "rust-analyzer.server.path": "/usr/bin/rust-analyzer"
 }

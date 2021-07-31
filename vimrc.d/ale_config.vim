@@ -16,5 +16,6 @@ let g:ale_linters = {
 \  'c': 'all',
 \  'c++': 'all',
 \  'rust': ['analyzer', 'rustfmt'],
+\  'java': 'all',
 \}
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
