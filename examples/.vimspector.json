@@ -6,7 +6,7 @@
         "name": "cpp",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${fileDirname}/fileBasenameNoExtension",
+        "program": "${fileDirname}/${fileBasenameNoExtension}",
         "args": ["*${ProgramArgs}"],
         "cwd": "${workspaceRoot}",
         "environment": [],
@@ -16,6 +16,13 @@
         "logging": {
           "engineLogging": true
         }
+      }
+    },
+    "Rust - Test": {
+      "adapter": "CodeLLDB",
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/target/debug/${fileBasenameNoExtension}"
       }
     }
   }
