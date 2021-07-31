@@ -14,6 +14,7 @@ for linux
 ```shell
 # for Defx
 pip3 install --user pynvim
+pip install pygments
 ./setup_linux.sh
 ```
 
