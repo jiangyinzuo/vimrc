@@ -203,3 +203,8 @@ nn <silent><buffer> <C-k> :call CocLocations('ccls','$ccls/navigate',{'direction
 nn <silent><buffer> <C-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>
 nn <silent><buffer> <C-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
 
+" Do not show documentation when hovering the mouse,
+" instead, use <leader>D
+let g:ycm_auto_hover=''
+nmap <leader>D <plug>(YCMHover)
+

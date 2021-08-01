@@ -1,5 +1,4 @@
 { 
-  "hover.target": "echo",
   "clangd.enabled": false,
   "diagnostic.displayByAle": true,
   "coc.preferences.formatOnSaveFiletypes": [
