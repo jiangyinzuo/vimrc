@@ -5,7 +5,7 @@
 for linux
 - vim8.2+, with feature python3
 - python3.6+
-- node12.12+
+- node12.12+ (coc.nvim)
 - gnu/global6.6+, universal ctags (manually install)
 - clangd
 
@@ -24,9 +24,13 @@ pip install pygments
 cd ~/.vim/plugged/YouCompleteMe
 python3 install.py --go-completer
 ```
+To add completer, pass arg `--skip-build`
+Do not run --rust-completer because it will install the whole rust-toolchain.
+If installing java-completer is too slow, modify eclipse URL in `~/.vim/plugged/YouCompleteMe/third_party/ycmd/build.py` to
+`https://mirrors.tuna.tsinghua.edu.cn/eclipse/jdtls/snapshots/`
 
-### Coc Install Language Server
-`:CocInstall coc-clangd`
+### Coc Install Extensions
+`:CocInstall coc-clangd coc-rust-analyzer coc-pyright coc-java coc-java-debug coc-go coc-pairs `
 
 ## Code Completion | Jump | Syntax Check
 - grep
@@ -42,7 +46,34 @@ python3 install.py --go-completer
 - ...
 
 ## Debug
-- vimspector
+
+### Termdebug (gdb)
+
+### vimspector (dap)
+
+#### Installation
+
+If installation is too slow, you can `grep` the github URL in `~/.vim/plugged/vimspector/python3/vimspector/` directory and replace the URL. Then run `./install_gadget.py` script, take golang for example:
+```
+200~./install_gadget.py --enable-go --sudo
+```
+
+#### Setup
+
+Put `.vimspector.json` (for example `example/.vimspector.json`) in project root folder.
+
+#### Debugging Java
+
+For example, we run the JDWP server at 5005
+
+```
+javac -g Hello.java
+java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y Hello
+```
+Then press `<leader><F5>` or `<F1>` to launch vimspector.
+
+#### Useful Commands
+`:VimspectorEval`: evaluate expression
 
 ## Code Format
 - json(run `sudo apt install jq` before): `:%!jq .`

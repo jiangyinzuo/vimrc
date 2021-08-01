@@ -1,4 +1,10 @@
 {
+  "adapters": {
+    "java-debug-server": {
+      "name": "vscode-java",
+      "port": "${AdapterPort}"
+    }
+  },
   "configurations": {
     "cpp:launch": {
       "adapter": "vscode-cpptools",
@@ -7,7 +13,9 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}/${fileBasenameNoExtension}",
-        "args": ["*${ProgramArgs}"],
+        "args": [
+          "*${ProgramArgs}"
+        ],
         "cwd": "${workspaceRoot}",
         "environment": [],
         "externalConsole": false,
@@ -18,13 +26,49 @@
         }
       }
     },
-    "Rust - Test": {
+    "Rust": {
       "adapter": "CodeLLDB",
       "configuration": {
         "request": "launch",
         "program": "${workspaceRoot}/target/debug/${fileBasenameNoExtension}"
       }
+    },
+    "python: Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "python: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "${fileDirname}/${fileBasename}"
+      }
+    },
+    "golang": {
+      "adapter": "vscode-go",
+      "configuration": {
+        "request": "launch",
+        "program": "${fileDirname}",
+        "mode": "debug",
+        "dlvToolPath": "$HOME/go/bin/dlv"
+      }
+    },
+    "Java Attach": {
+      "default": true,
+      "adapter": "java-debug-server",
+      "configuration": {
+        "request": "attach",
+        "host": "127.0.0.1",
+        "port": "5005"
+      },
+      "breakpoints": {
+        "exception": {
+          "caught": "Y",
+          "uncaught": "Y"
+        }
+      }
     }
   }
 }
-
