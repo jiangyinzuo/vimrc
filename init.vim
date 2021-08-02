@@ -196,5 +196,6 @@ let g:termdebug_wide=1
 set t_Co=256
 set t_ut=
 :colorscheme codedark
+hi debugPC term=reverse ctermbg=4 guibg=darkblue
 source ~/vimrc.d/defx_config.vim
 
