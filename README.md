@@ -42,8 +42,7 @@ If installing java-completer is too slow, modify eclipse URL in `~/.vim/plugged/
 - LSP(coc + ale)
   - clangd ccls
 
-##
-Use Cscope(not recommended)
+## Use Cscope(not recommended)
 
 Create database
 [https://stackoverflow.com/questions/11718272/build-cscope-out-files-in-a-separate-directory](https://stackoverflow.com/questions/11718272/build-cscope-out-files-in-a-separate-directory)
@@ -60,6 +59,10 @@ Find in vim
 ```
 :cs
 ```
+
+## Use vim-gutentags
+:h gutentags
+
 ## Generate compile_commands.json
 - bear
 - compile_db
