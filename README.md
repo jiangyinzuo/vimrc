@@ -7,7 +7,9 @@ for linux
 - python3.6+
 - node12.12+ (coc.nvim)
 - gnu/global6.6+, universal ctags (manually install)
+- cscope (https://sourceforge.net/projects/cscope/)
 - clangd
+- ccls(`snap install ccls`)
 
 ## Setup
 
@@ -40,6 +42,24 @@ If installing java-completer is too slow, modify eclipse URL in `~/.vim/plugged/
 - LSP(coc + ale)
   - clangd ccls
 
+##
+Use Cscope(not recommended)
+
+Create database
+[https://stackoverflow.com/questions/11718272/build-cscope-out-files-in-a-separate-directory](https://stackoverflow.com/questions/11718272/build-cscope-out-files-in-a-separate-directory)
+```
+find . -name '*.c' -o -name '*.h' >  /my/db/cscope.file
+cscope -i /my/db/cscope.files
+CSCOPE_DB=/my/db/cscope.out; export CSCOPE_DB
+```
+or
+```
+cscope -Rbq
+```
+Find in vim
+```
+:cs
+```
 ## Generate compile_commands.json
 - bear
 - compile_db
