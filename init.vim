@@ -59,9 +59,6 @@ set guioptions-=m
 "隐藏GVim工具栏
 set guioptions-=T
 
-" Use both cscope and ctags. `:set nocscopetag` to disable cscope
-set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
-
 " TextEdit might fail if hidden is not set.
 set hidden
 

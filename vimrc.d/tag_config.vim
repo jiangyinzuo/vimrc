@@ -1,3 +1,7 @@
+" Use both cscope and ctags. `:set nocscopetag` to disable cscope
+set cst
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
+
 " https://www.zhihu.com/question/47691414/answer/373700711
 " https://zhuanlan.zhihu.com/p/36279445
 
