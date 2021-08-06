@@ -145,7 +145,10 @@ Plug 'https://hub.fastgit.org/rust-lang/rust.vim.git', {'for': 'rust' }
 let g:rustfmt_autosave = 1
 
 Plug 'https://hub.fastgit.org/python-mode/python-mode.git', { 'for': 'python', 'branch': 'develop' }
+
 Plug 'https://hub.fastgit.org/fatih/vim-go.git', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+source ~/vimrc.d/go_config.vim
+
 Plug 'https://hub.fastgit.org/artur-shaik/vim-javacomplete2.git', { 'for': 'java'}
 
 Plug 'https://hub.fastgit.org/ycm-core/YouCompleteMe.git'
@@ -196,3 +199,8 @@ set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
 source ~/vimrc.d/defx_config.vim
 
+" Disable YCM
+" let g:loaded_youcompleteme = 1
+
+" Debug for gutentags
+" let g:gutentags_define_advanced_commands = 1
