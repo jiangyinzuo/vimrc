@@ -34,6 +34,9 @@ If installing java-completer is too slow, modify eclipse URL in `~/.vim/plugged/
 ### Coc Install Extensions
 `:CocInstall coc-clangd coc-rust-analyzer coc-pyright coc-java coc-java-debug coc-go coc-pairs `
 
+## Manual
+see wiki
+
 ## Code Completion | Jump | Syntax Check
 - grep
 - ctags + cscope
