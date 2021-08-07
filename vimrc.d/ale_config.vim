@@ -10,7 +10,11 @@ let g:ale_sign_error = "E"
 let g:ale_sign_warning = "W"
 
 nnoremap <C-LeftMouse> :ALEGoToDefinition<CR>
-let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+let g:ale_fixers = {
+\  'c': ['clang-format'],
+\  'c++': ['clang-format'],
+\  'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']
+\}
 " Required, explicitly enable Elixir LS
 let g:ale_linters = {
 \  'c': 'all',
@@ -18,6 +22,7 @@ let g:ale_linters = {
 \  'rust': ['analyzer', 'rustfmt'],
 \  'java': 'all',
 \}
+let g:ale_fix_on_save = 1
 
 let g:ale_cpp_clangtidy_checks = []
 let g:ale_cpp_clangtidy_executable = 'clang-tidy'
