@@ -78,6 +78,7 @@ let g:Lf_ShowDevIcons = 0
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 source ~/vimrc.d/coc_config.vim
+source ~/vimrc.d/cpp_config.vim
 
 " Initialize plugin system
 call plug#end()
