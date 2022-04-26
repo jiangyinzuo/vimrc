@@ -76,21 +76,19 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 "Leaderf settings
 """"""""""""""""""""""""""""""
 "文件搜索
-nnoremap <silent> <Leader>f :Leaderf file<CR>
+nnoremap <silent> <c-f> :Leaderf file<CR>
 
 "历史打开过的文件
-nnoremap <silent> <Leader>m :Leaderf mru<CR>
+nnoremap <silent> <c-h> :Leaderf mru<CR>
 
 "Buffer
-nnoremap <silent> <Leader>b :Leaderf buffer<CR>
+nnoremap <silent> <c-b> :Leaderf buffer<CR>
 
-"函数搜索（仅当前文件里）
-nnoremap <silent> <Leader>F :Leaderf function<CR>
-
-"模糊搜索，很强大的功能，迅速秒搜
-nnoremap <silent> <Leader>rg :Leaderf rg<CR>
+"Based on ripgrep
+nnoremap <silent> <Leader>rg :Leaderf rg --nameOnly<CR>
 
 let g:Lf_ShowDevIcons = 0
+let g:Lf_RgConfig = ["--glob=!deps/*"]
 
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
