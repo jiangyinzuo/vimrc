@@ -68,8 +68,11 @@ nnoremap <BS> X
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+Plug 'tomasiser/vim-code-dark'
+
 " similar plugin: mhinz/vim-signify
-Plug 'https://gitclone.com/github.com/airblade/vim-gitgutter.git'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 """"""""""""""""""""""""""""""
