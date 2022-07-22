@@ -93,18 +93,11 @@ nnoremap <silent> <Leader>rg :Leaderf rg --nameOnly<CR>
 let g:Lf_ShowDevIcons = 0
 let g:Lf_RgConfig = ["--glob=!deps/*"]
 
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 source ~/vimrc.d/coc_config.vim
-source ~/vimrc.d/cpp_config.vim
+" source ~/vimrc.d/cpp_config.vim
+source ~/vimrc.d/go_config.vim
 
 " Initialize plugin system
 call plug#end()
 
-:packadd termdebug
-let g:termdebug_wide=1
-
-set t_Co=256
-set t_ut=
-hi debugPC term=reverse ctermbg=4 guibg=darkblue
+" source ~/vimrc.d/termdebug_config.vim
