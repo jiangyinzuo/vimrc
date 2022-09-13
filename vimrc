@@ -69,6 +69,7 @@ nnoremap <BS> X
 call plug#begin('~/.vim/plugged')
 
 Plug 'tomasiser/vim-code-dark'
+Plug 'MattesGroeger/vim-bookmarks'
 
 " similar plugin: mhinz/vim-signify
 Plug 'airblade/vim-gitgutter'
