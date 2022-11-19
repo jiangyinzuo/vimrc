@@ -70,6 +70,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tomasiser/vim-code-dark'
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'vim-airline/vim-airline'
 
 " similar plugin: mhinz/vim-signify
 Plug 'airblade/vim-gitgutter'
@@ -97,7 +98,6 @@ let g:Lf_WildIgnore = {
     \ 'dir': ['.svn', '.git', '.cache', 'deps', 'build'],
     \ 'file': []
     \}
-""""""""""""""""""""""""""""""
 
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
