@@ -154,3 +154,5 @@ hi debugPC term=reverse ctermbg=4 guibg=darkblue
 
 autocmd Filetype c,cpp packadd termdebug
 let g:termdebug_wide = 1
+
+source ~/vimrc.d/run_code.vim
