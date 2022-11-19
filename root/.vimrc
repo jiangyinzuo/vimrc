@@ -25,11 +25,26 @@ set magic
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+""""""""""""""""""""""""""""""
+"indent and tab
+""""""""""""""""""""""""""""""
 set smarttab
 set autoindent
+set smartindent
+set cindent
+
+augroup cpp
+    autocmd!
+    autocmd FileType cpp setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
+augroup end
+augroup python
+    autocmd!
+    autocmd FileType python setlocal noexpandtab tabstop=4
+augroup end
 
 set mouse=a
 set encoding=utf-8
+""""""""""""""""""""""""""""""
 
 "语法高亮显示
 syntax on
@@ -132,5 +147,10 @@ source ~/vimrc.d/cpp_config.vim
 " Initialize plugin system
 call plug#end()
 
-" source ~/vimrc.d/termdebug_config.vim
 colorscheme codedark
+set t_Co=256
+set t_ut=
+hi debugPC term=reverse ctermbg=4 guibg=darkblue
+
+autocmd Filetype c,cpp packadd termdebug
+let g:termdebug_wide = 1
