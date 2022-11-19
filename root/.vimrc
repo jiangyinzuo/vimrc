@@ -3,14 +3,14 @@ set history=500
 
 " Enable filetype plugins
 filetype indent on
-filetype plugin on
+filetype plugin on  
 filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
 
-"Always show current position set ruler " Height of the command bar set cmdheight=2 " Ignore case when searching set ignorecase " When searching try to be smart about cases
+"Always show current position set ruler " Height of the command bar set cmdheight=2 " Ignore case when searching set ignorecase " When searching try to be smart about cases 
 set smartcase
 
 " Highlight search results
@@ -38,7 +38,7 @@ syntax on
 set number
 
 " Show matching brackets when text indicator is over them
-set showmatch
+set showmatch 
 
 "enable backspace
 set backspace=indent,eol,start
