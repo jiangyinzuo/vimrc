@@ -5,5 +5,7 @@ vim编译选项
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
 
 打包给docker用
+```
 tar -cvf myvim.tar node root
 docker build -t myvim:1 .
+```
