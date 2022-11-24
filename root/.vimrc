@@ -87,6 +87,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-airline/vim-airline'
 
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+vnoremap <leader>c :OSCYank<CR>
+
 Plug 'preservim/nerdtree'
 """"""""""""""""""""""""""""""
 "nerdtree settings
