@@ -7,11 +7,11 @@ nnoremap <Leader>rc :RunCode<CR>
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
   autocmd!
-  autocmd FileType c,cpp,java,scala 	       let b:comment_leader = '// '
-  autocmd FileType sh,ruby,python,conf,fstab   let b:comment_leader = '# '
-  autocmd FileType tex                         let b:comment_leader = '% '
-  autocmd FileType mail                        let b:comment_leader = '> '
-  autocmd FileType vim                         let b:comment_leader = '" '
+  autocmd FileType c,cpp,java,scala 	                   let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
+  autocmd FileType tex                                   let b:comment_leader = '% '
+  autocmd FileType mail                                  let b:comment_leader = '> '
+  autocmd FileType vim                                   let b:comment_leader = '" '
 augroup END
 
 " a sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
