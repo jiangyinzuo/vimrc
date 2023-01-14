@@ -1,3 +1,4 @@
+Plug 'bfrg/vim-cpp-modern'
 " Enable function highlighting (affects both C and C++ files)
 let g:cpp_function_highlight = 1
 

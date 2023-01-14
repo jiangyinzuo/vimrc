@@ -1,10 +1,10 @@
+set nocp
 " Sets how many lines of history VIM has to remember
 set history=500
 
 " Enable filetype plugins
 filetype indent on
-filetype plugin on  
-filetype plugin indent on
+" filetype plugin on  
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -25,6 +25,10 @@ set magic
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+set nobackup       "no backup files
+set nowritebackup  "only in case you don't want a backup file while editing
+set noswapfile     "no swap files
+
 """"""""""""""""""""""""""""""
 "indent and tab
 """"""""""""""""""""""""""""""
@@ -35,7 +39,7 @@ set cindent
 
 augroup cpp
     autocmd!
-    autocmd FileType cpp setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType cpp,vim setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 augroup python
     autocmd!
@@ -44,7 +48,6 @@ augroup end
 
 set mouse=a
 set encoding=utf-8
-""""""""""""""""""""""""""""""
 
 "语法高亮显示
 syntax on
@@ -68,91 +71,27 @@ set guioptions-=T
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" Give more space for displaying messages.
+set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
 
-nnoremap <BS> X
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
-Plug 'mhinz/vim-startify'
-Plug 'markonm/traces.vim'
-Plug 'tomasiser/vim-code-dark'
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'vim-airline/vim-airline'
+" nnoremap <BS> X
 
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-vnoremap <leader>c :OSCYank<CR>
-
-Plug 'preservim/nerdtree'
-""""""""""""""""""""""""""""""
-"nerdtree settings
-""""""""""""""""""""""""""""""
-let NERDTreeShowHidden=1
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-" https://zhuanlan.zhihu.com/p/458380268
-" Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
-
-" Start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-""""""""""""""""""""""""""""""
-
-" similar plugin: mhinz/vim-signify
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-""""""""""""""""""""""""""""""
-"Leaderf settings
-""""""""""""""""""""""""""""""
-"文件搜索
-nnoremap <silent> <c-f> :Leaderf file<CR>
-
-"历史打开过的文件
-nnoremap <silent> <c-h> :Leaderf mru<CR>
-
-"Buffer
-nnoremap <silent> <c-b> :Leaderf buffer<CR>
-
-"Based on ripgrep
-nnoremap <silent> <Leader>rg :Leaderf rg --nameOnly<CR>
-
-let g:Lf_ShowDevIcons = 0
-let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/*"]
-let g:Lf_WildIgnore = {
-    \ 'dir': ['.svn', '.git', '.cache', 'deps', 'build'],
-    \ 'file': []
-    \}
-""""""""""""""""""""""""""""""
-
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-source ~/vimrc.d/coc_config.vim
-
-Plug 'bfrg/vim-cpp-modern'
-source ~/vimrc.d/cpp_config.vim
-
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" source ~/vimrc.d/go_config.vim
-
-" Initialize plugin system
-call plug#end()
-
-colorscheme codedark
 set t_Co=256
 set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
@@ -160,39 +99,90 @@ hi debugPC term=reverse ctermbg=4 guibg=darkblue
 autocmd Filetype c,cpp packadd termdebug
 let g:termdebug_wide = 1
 
-source ~/vimrc.d/run_code.vim
-let g:ascii = [
-        \'⠉⠈⠁⠉⠈⠁⠉⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠁⠉⠈⠉⠈⠁⠉⠈⠁⠉⠁⠉⠈⠁⠉⠁⠉⠈⠁⠉⠈⠁⠉⠈⣥⣭⣥⣭⣬',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⢿⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣸⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⢰⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⠡⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠅⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⢹⠂⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⠀⡗⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡐⠀⠀⠀⠀⠀⡘⠀⠀⣰⡇⠀⠀⠀⣰⠁⢀⠄⠀⠀⠀⠀⠼⠀⠀⠀⠀⠀⠀⠀⠸⠁⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⣰⠃⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⣀⣀⡁⠀⠀⡴⠃⢀⡈⠀⢀⠀⠀⣤⣤⠀⠀⠀⠀⠀⠀⠀⡆⢱⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⡌⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⠀⣀⡴⠂⠜⢀⡠⠾⢿⣿⠁⠀⣊⠅⢠⠞⠀⡴⠁⣀⣾⡿⡟⠀⠀⠀⠀⠀⠀⠀⡗⢸⣿⣿⣿',
-        \'⠀⠀⠀⠀⡄⠠⢁⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣯⡴⡤⠶⢭⠿⡽⣯⣖⣶⣿⣯⢐⣋⣴⡿⣱⠾⠷⠒⠚⠁⠀⠀⠀⠀⠀⠀⠀⠃⢺⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⠀⣼⠆⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣯⣤⣴⡄⠀⠀⠀⠀⣤⣨⣽⣿⣿⣿⣿⣿⣓⣯⡄⠀⠀⣠⠿⠀⠀⠀⠀⠀⠀⠀⢠⢻⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⢸⢿⠃⠀⠀⠀⠀⠀⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠰⢹⣿⣙⡧⢤⡤⣤⢦⢟⣻⣿⣿⣿⣿⣿⣿⡬⣿⣖⣰⣤⢭⡔⠀⠀⠀⠀⠀⠀⠀⢸⢺⣿⣿⣿',
-        \'⠀⠀⠀⠀⠀⣻⡇⠀⠀⠀⠀⠀⡌⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠘⡼⣿⣿⣿⣾⣷⣾⣷⣿⣿⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⢠⢸⣸⣿⣿⣿',
-        \'⠀⠀⠀⠀⢰⡿⠀⠀⠀⠀⠀⡄⠀⠀⣰⣿⡇⠀⠀⠀⠀⠀⠀⠀⠄⣛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⢸⡂⢼⣿⣿⣿',
-        \'⠀⠀⠀⢀⣾⠁⠂⠀⠀⠠⠌⠀⠀⢠⣿⣿⡷⠀⠀⠀⠀⠀⠀⠀⠀⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡜⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⢸⡅⢸⣿⣿⣿',
-        \'⠀⠀⢀⡾⠃⠀⠀⠀⠔⠁⠀⠀⢠⡜⣿⣿⣯⢡⠀⠀⠀⠀⠀⠀⠀⡅⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢻⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡃⢼⣿⣿⣿',
-        \'⢀⣴⣿⠁⠀⠀⠀⠀⢀⠄⢀⢎⣾⣿⣌⢿⣿⠰⠀⠀⠀⠀⠀⠀⠀⠔⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠿⣿⠿⠈⠀⠀⡌⠀⠀⡀⠀⠀⠀⠀⢸⠁⣿⣿⣿⣿',
-        \'⠈⠯⠀⠀⠀⢀⣠⠆⠁⡸⢃⣾⣿⣿⣿⣦⠻⡇⡃⠀⠀⠀⠀⠀⠀⢊⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣷⠗⠀⠀⢀⡴⠀⠀⡐⠄⠀⠀⠀⠀⣸⠠⣿⣿⣿⣿',
-        \'⠈⣁⣠⣤⠶⠋⠁⣠⠘⣵⣿⣿⣿⣿⣿⣿⣷⣄⠡⠀⠀⠀⠀⠀⠀⢹⢸⣿⣿⣿⣿⣿⣿⠿⠿⠿⢻⣛⣻⡿⠉⠀⠀⠠⠞⠀⢀⠆⣜⠆⠀⠀⠀⠀⡞⢸⣿⣿⣿⣿',
-        \'⠈⠉⠁⠀⢀⣀⣮⣴⡎⣿⣿⣿⣿⣿⣿⣿⣿⣿⠰⠀⠀⠀⠀⠀⠀⡸⢸⣿⣿⣿⣿⣯⣤⣄⣤⣠⣴⣿⠋⠀⠀⠀⡠⠀⠀⠴⠃⡸⢪⠄⠀⠀⠀⠠⠇⣿⣿⣿⣿⣿',
-        \'⢈⣿⣿⣿⣿⣿⣷⣽⣳⣍⠿⣿⣿⣿⣿⣿⣿⣿⡇⠆⠀⠀⠀⠀⠀⢱⢸⣿⣿⣿⣿⣟⣹⣛⣋⣿⠍⣄⠀⣀⣀⣤⠰⠞⠉⣠⠚⣵⣿⠀⠀⠀⠀⠘⢠⣿⣿⣿⣿⣿',
-        \'⢈⣿⣿⣿⣿⣿⣿⣿⣧⡛⢷⣌⠿⣿⣿⣿⣿⣿⣇⢨⠀⠀⠀⠀⠀⡄⣙⠿⢿⣿⣿⣿⣿⣿⡿⢋⣾⣷⣀⣉⣉⡀⢠⣒⣡⢶⣿⣌⠗⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿',
-        \'⢈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⡻⣷⣬⠻⣿⣿⣿⣿⢀⠀⠀⠀⠀⠀⡆⢟⣣⣦⣭⣙⣛⣛⡯⣵⣿⢻⣿⢧⣿⣿⣏⡧⣿⣿⡸⣿⣿⠃⠀⠀⠀⢀⢆⣿⣿⣿⣿⣿⣿',
-        \'⢈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣮⣛⢿⣬⡛⣿⣿⡆⠆⠀⠀⠀⠀⡄⢺⣟⣻⣿⣿⣿⣿⡇⢻⣿⡇⣿⢭⣿⣿⢸⣷⢹⣿⣧⢻⡇⠀⠀⠀⠀⠌⣼⣿⣿⣿⣿⣿⣿',
-        \'⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡙⠇⢣⠀⠀⠀⢰⠃⣼⡿⣾⣿⣿⣿⣿⡇⣚⢿⣿⣸⢽⣿⡇⢻⣿⣜⣿⣿⡘⠀⠀⠀⠀⢀⡸⢿⣿⣿⣿⣿⣿⣿',
-        \'⠈⣧⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⡀⠀⠀⠸⢀⣟⣿⣿⣿⣿⣿⣿⡷⢸⡞⣿⡞⣼⣿⣸⣏⣿⣿⣿⣿⠁⠀⠀⠀⢀⢿⣿⣎⢻⣿⣿⣿⣿⣿',
-        \'⠰⡸⣧⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⡁⠀⠀⠒⣸⣿⣿⣿⣿⣿⣿⣿⡷⢸⣹⡼⣷⢸⡇⣿⡎⣿⣿⣿⠃⠀⠀⠀⣠⢿⣧⡻⣿⣷⡙⢿⣿⣿⣿',
-        \'⠀⣷⢻⣧⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⡄⢃⠀⠀⡇⣬⡛⢿⣿⣿⣿⣿⣿⣟⢸⣧⢷⡹⡿⣼⣾⣭⣿⣿⠃⠀⠀⣠⡘⣿⣟⣿⣷⡞⢿⣿⣮⠻⣿⢙',
-        \'⠰⡜⣏⢿⣷⡹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢃⣾⣷⠈⡄⢰⢡⢿⣿⢢⡹⣿⣿⣿⣿⣟⢸⣿⡜⣷⡽⣿⣿⣿⡽⢁⠂⡬⣶⣿⣷⢻⣿⣼⣿⣿⡜⣷⠝⣣⣶⣿',
-        \]
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
-let g:startify_custom_header = 'startify#center(g:ascii)'
+" RunCode
+autocmd FileType c :command! -nargs=0 RunCode :!cc % -o %:r && ./%:r
+autocmd FileType cpp :command! -nargs=0 RunCode :!c++ % -o %:r && ./%:r
+autocmd FileType python :command! -nargs=0 RunCode :!python3 %
+
+nnoremap <Leader>rc :RunCode<CR>
+
+" Commenting blocks of code.
+augroup commenting_blocks_of_code
+  autocmd!
+  autocmd FileType c,cpp,java,scala 	                 let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
+  autocmd FileType tex                                   let b:comment_leader = '% '
+  autocmd FileType mail                                  let b:comment_leader = '> '
+  autocmd FileType vim                                   let b:comment_leader = '" '
+augroup end
+
+" a sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
+" as for the silent thingies they just suppress output from commands. 
+" :nohlsearch stops it from highlighting the sed search
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+function ShowQuickfixListIfNotEmpty()
+	let length = len(getqflist())
+	if length > 1
+		copen
+	elseif length == 1
+		copen
+		ccl
+	elseif length == 0
+		echo 'empty quickfix list'
+	endif
+endfunction
+
+function VimGrepFindWord()
+	silent exe 'silent! vimgrep' '/\<'.expand("<cword>").'\>/' '**'
+  call ShowQuickfixListIfNotEmpty()
+endfunction
+
+noremap <silent> <leader>gw :call VimGrepFindWord()<CR>
+
+function VimGrepFindType()
+	call setqflist([])
+	let cur_word = expand("<cword>")
+	if &filetype == 'c'	
+		silent exe 'silent! vimgrepadd' '/\<struct '.cur_word.'\>/' '**/*.c' '**/*.h'
+	  silent exe 'silent! vimgrepadd' '/\<union '.cur_word.'\>/' '**/*.c' '**/*.h'
+	elseif &filetype == 'cpp'
+	  silent! exe 'silent! vimgrepadd' '/\<struct '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	  silent! exe 'silent! vimgrepadd' '/\<union '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	  silent! exe 'silent! vimgrepadd' '/\<class '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	elseif &filetype == 'python'
+	  silent exe 'silent! vimgrepadd' '/\<class '.cur_word.'\>/' '**/*.py'
+	elseif &filetype == 'go'
+	  silent exe 'silent! vimgrepadd' '/\<type '.cur_word.'\>/' '**/*.go'
+	else
+		echo 'unsupport filetype: '.&filetype
+		return
+	endif
+  call ShowQuickfixListIfNotEmpty()
+endfunction
+
+noremap <silent> <leader>gy :call VimGrepFindType()<CR>
+
+" vim.fandom.com/wiki/Searching_for_files
+" find files and populate the quickfix list
+function FindFiles(filename)
+  let error_file = tempname()
+  silent exe '!find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/" > '.error_file
+  set errorformat=%f:%l:%m
+  exe "cfile ". error_file
+  call ShowQuickfixListIfNotEmpty()
+  call delete(error_file)
+endfunction
+command! -nargs=1 Fd call FindFiles(<q-args>)
+
+" quickfix window
+nnoremap <silent> co :copen<CR>
+nnoremap <silent> cn :cn<CR>
+nnoremap <silent> cp :cp<CR>
+nnoremap <silent> ccl :ccl<CR>
+
+" source ~/vimrc.d/plugin.vim
