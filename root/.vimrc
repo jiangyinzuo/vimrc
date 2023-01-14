@@ -138,7 +138,16 @@ function ShowQuickfixListIfNotEmpty()
 endfunction
 
 function VimGrepFindWord()
-	silent exe 'silent! vimgrep' '/\<'.expand("<cword>").'\>/' '**'
+	if &filetype == 'c' || &filetype == 'cpp'
+		let extention = '**/*.c **/*.cpp **/*.cc **/*.h'
+	elseif &filetype == 'python'
+		let extention = '**/*.py'
+	elseif &filetype == 'go'
+		let extention = '**/*.go'
+	else
+		let extention = '**'
+	endif
+	silent exe 'silent! vimgrep' '/\<'.expand("<cword>").'\>/' extention
   call ShowQuickfixListIfNotEmpty()
 endfunction
 
