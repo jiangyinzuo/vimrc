@@ -1,3 +1,4 @@
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " 禁用vim-go的lsp功能，使用coc.nvim的lsp
 let g:go_gopls_enabled = 0
 let g:go_code_completion_enabled = 0
