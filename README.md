@@ -9,3 +9,10 @@ vim编译选项
 tar -cvf myvim.tar node root
 docker build -t myvim:1 .
 ```
+
+创建软链接：
+```
+ln -s vimrc/root/.vimrc .vimrc
+ln -s vimrc/root/vimrc.d vimrc.d
+ln -s vimrc/root/.vim .vim
+```
