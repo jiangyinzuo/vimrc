@@ -21,11 +21,14 @@ call plug#begin('~/.vim/plugged')
 " Plug 'airblade/vim-gitgutter'
 " Plug 'tpope/vim-fugitive'
 
-source ~/vimrc.d/leaderf.vim
+" source ~/vimrc.d/leaderf.vim
+source ~/vimrc.d/fzf.vim
 
-source ~/vimrc.d/coc.vim
+" source ~/vimrc.d/coc.vim
 
-source ~/vimrc.d/cpp.vim
+" source ~/vimrc.d/cpp.vim
+
+source ~/vimrc.d/markdown.vim
 
 " source ~/vimrc.d/go.vim
 

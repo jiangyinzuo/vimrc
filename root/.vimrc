@@ -99,8 +99,8 @@ hi debugPC term=reverse ctermbg=4 guibg=darkblue
 autocmd Filetype c,cpp packadd termdebug
 let g:termdebug_wide = 1
 
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
+" let g:loaded_netrw = 1
+" let g:loaded_netrwPlugin = 1
 
 " RunCode
 autocmd FileType c :command! -nargs=0 RunCode :!cc % -o %:r && ./%:r
@@ -125,6 +125,20 @@ augroup end
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
+function GetVisualSelection()
+	  " https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
 function ShowQuickfixListIfNotEmpty()
 	let length = len(getqflist())
 	if length > 1
@@ -137,7 +151,7 @@ function ShowQuickfixListIfNotEmpty()
 	endif
 endfunction
 
-function VimGrepFindWord()
+function VimGrepFindWord(word)
 	if &filetype == 'c' || &filetype == 'cpp'
 		let extention = '**/*.c **/*.cpp **/*.cc **/*.h'
 	elseif &filetype == 'python'
@@ -147,26 +161,27 @@ function VimGrepFindWord()
 	else
 		let extention = '**'
 	endif
-	silent exe 'silent! vimgrep' '/\<'.expand("<cword>").'\>/' extention
+	silent exe 'silent! vimgrep' '/\<'.a:word.'\>/' extention
   call ShowQuickfixListIfNotEmpty()
 endfunction
 
-noremap <silent> <leader>gw :call VimGrepFindWord()<CR>
+nnoremap <silent> <leader>fw :call VimGrepFindWord(expand("<cword>"))<CR>
+vnoremap <silent> <leader>fw :call VimGrepFindWord(GetVisualSelection())<CR>
+command! -nargs=1 Vimfw call VimGrepFindWord(<q-args>)
 
-function VimGrepFindType()
+function VimGrepFindType(word)
 	call setqflist([])
-	let cur_word = expand("<cword>")
 	if &filetype == 'c'	
-		silent exe 'silent! vimgrepadd' '/\<struct '.cur_word.'\>/' '**/*.c' '**/*.h'
-	  silent exe 'silent! vimgrepadd' '/\<union '.cur_word.'\>/' '**/*.c' '**/*.h'
+		silent exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.c' '**/*.h'
+	  silent exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.c' '**/*.h'
 	elseif &filetype == 'cpp'
-	  silent! exe 'silent! vimgrepadd' '/\<struct '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-	  silent! exe 'silent! vimgrepadd' '/\<union '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-	  silent! exe 'silent! vimgrepadd' '/\<class '.cur_word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	  silent! exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	  silent! exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+	  silent! exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
 	elseif &filetype == 'python'
-	  silent exe 'silent! vimgrepadd' '/\<class '.cur_word.'\>/' '**/*.py'
+	  silent exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.py'
 	elseif &filetype == 'go'
-	  silent exe 'silent! vimgrepadd' '/\<type '.cur_word.'\>/' '**/*.go'
+	  silent exe 'silent! vimgrepadd' '/\<type '.a:word.'\>/' '**/*.go'
 	else
 		echo 'unsupport filetype: '.&filetype
 		return
@@ -174,7 +189,28 @@ function VimGrepFindType()
   call ShowQuickfixListIfNotEmpty()
 endfunction
 
-noremap <silent> <leader>gy :call VimGrepFindType()<CR>
+nnoremap <silent> <leader>fy :call VimGrepFindType(expand("<cword>"))<CR>
+vnoremap <silent> <leader>fd :call VimGrepFindType(GetVisualSelection())<CR>
+command! -nargs=1 Vimfy call VimGrepFindType(<q-args>)
+
+function VimGrepFindDefinition(word)
+	call setqflist([])
+	if &filetype == 'cpp' || &filetype == 'c'
+		silent! exe 'silent! vimgrepadd' '/\<'.a:word.'(\(\w\|,\|\s\|\r\|\n\)\{-})\(\s\|\r\|\n\)\{-}{/' '**/*.cpp' '**/*.cc' '**/*.h'
+	elseif &filetype == 'python'
+		silent! exe 'silent! vimgrepadd' '/\<def '.a:word.'(/' '**/*.py'
+	elseif &filetype == 'go'
+		silent! exe 'silent! vimgrepadd' '/\<func '.a:word.'(/' '**/*.go'
+	else
+		echo 'unsupport filetype: '.&filetype
+		return
+	endif
+  call ShowQuickfixListIfNotEmpty()
+endfunction
+
+nnoremap <silent> <leader>fd :call VimGrepFindDefinition(expand("<cword>"))<CR>
+vnoremap <silent> <leader>fd :call VimGrepFindDefinition(GetVisualSelection())<CR>
+command! -nargs=1 Vimfd call VimGrepFindDefinition(<q-args>)
 
 " vim.fandom.com/wiki/Searching_for_files
 " find files and populate the quickfix list
@@ -194,4 +230,4 @@ nnoremap <silent> cn :cn<CR>
 nnoremap <silent> cp :cp<CR>
 nnoremap <silent> ccl :ccl<CR>
 
-" source ~/vimrc.d/plugin.vim
+ source ~/vimrc.d/plugin.vim
