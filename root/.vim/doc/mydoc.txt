@@ -1,0 +1,29 @@
+*mydoc.txt*
+
+                                My Documents~
+
+MyDoc                                                                   *mydoc*
+
+1. Basic                                                             |my-basic|
+2. Markdown                                                       |my-markdown|
+
+===============================================================================
+1. Basic                                                             *my-basic*
+
+cheetsheets:
+https://devhints.io/vim-help
+
+===============================================================================
+2. Markdown                                                       *my-markdown*
+
+*marp* Markdown Presentation Ecosystem
+
+See: https://github.com/marp-team/marp-cli
+
+watch mode >
+  npx @marp-team/marp-cli@latest note.md -w
+<
+
+md -> html >
+  :AsyncRun npx @marp-team/marp-cli@latest note.md
+<

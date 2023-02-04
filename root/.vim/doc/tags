@@ -1,0 +1,5 @@
+marp	mydoc.txt	/*marp*
+my-basic	mydoc.txt	/*my-basic*
+my-markdown	mydoc.txt	/*my-markdown*
+mydoc	mydoc.txt	/*mydoc*
+mydoc.txt	mydoc.txt	/*mydoc.txt*
