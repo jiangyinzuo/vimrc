@@ -10,16 +10,11 @@ docker build -t myvim:1 .
 
 ## 初始化
 
-创建软链接：
 ```sh
 ln -s vimrc/root/.vimrc .vimrc
 ln -s vimrc/root/vimrc.d vimrc.d
 ln -s vimrc/root/.vim .vim
-```
-
-shell alias:
-```sh
-source vimrc/root/alias.sh
+source vimrc/root/bashrc
 ```
 
 ## 命令行工具

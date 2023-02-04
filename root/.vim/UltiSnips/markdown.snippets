@@ -1,0 +1,33 @@
+priority -1
+snippet slides "make slides with marp.app" b
+<!--
+paginate: true
+-->
+
+<!-- 第1张slide居中，其它slides不居中 -->
+<style>
+section {
+	display: block;
+	padding: 50px;
+}
+
+section[id="1"] {
+	display: flex;
+}
+</style>
+
+# ${0:Title}
+
+---
+endsnippet
+
+snippet img "css style for image" b
+<style>
+img[alt$="${0:figure2}"] {
+	float: left;
+	margin: 0 5px 5px 0;
+	width: 35%;
+	height: auto;
+}
+</style>
+endsnippet
