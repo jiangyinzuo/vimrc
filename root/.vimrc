@@ -4,26 +4,31 @@ set history=500
 
 " Enable filetype plugins
 filetype indent on
-" filetype plugin on  
+filetype plugin on  
+
+syntax on "语法高亮显示
+set mouse=a
+set encoding=utf-8
+set number "显示行号
+set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
+set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
+set hidden " 未保存文本就可以隐藏buffer
+set cmdheight=1 " cmd行高1
+set updatetime=300 " GitGutter更新和自动保存.swp的延迟时间
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number " 合并git状态与行号
+else
+  set signcolumn=yes " 同时显示git状态和行号
+endif
 
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
 
-"Always show current position set ruler " Height of the command bar set cmdheight=2 " Ignore case when searching set ignorecase " When searching try to be smart about cases 
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-" For regular expressions turn magic on
-set magic
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
+set hlsearch " Highlight search results
+set incsearch " 输入搜索内容时就显示搜索结果
+set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
+set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
 
 set nobackup       "no backup files
 set nowritebackup  "only in case you don't want a backup file while editing
@@ -33,9 +38,8 @@ set noswapfile     "no swap files
 "indent and tab
 """"""""""""""""""""""""""""""
 set smarttab
-set autoindent
-set smartindent
-set cindent
+set autoindent " 跟随上一行的缩进方式
+set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
 augroup indent2
     autocmd!
@@ -51,51 +55,7 @@ augroup markdown
     autocmd FileType markdown setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 
-set mouse=a
-set encoding=utf-8
-
-"语法高亮显示
-syntax on
-
-"显示行号
-set number
-
-" Show matching brackets when text indicator is over them
-set showmatch 
-
-"enable backspace
-set backspace=indent,eol,start
-
-"设置GVim字体
-set guifont=LiberationMono\ 14
-"隐藏GVim菜单栏
-set guioptions-=m
-"隐藏GVim工具栏
-set guioptions-=T
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-" nnoremap <BS> X
+""""""""""""""""""""""""""""
 
 set t_Co=256
 set t_ut=
