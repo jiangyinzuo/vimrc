@@ -14,7 +14,7 @@ set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{�
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=1 " cmd行高1
-set updatetime=300 " GitGutter更新和自动保存.swp的延迟时间
+set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number " 合并git状态与行号
 else
@@ -43,19 +43,18 @@ set smartindent " 以 { 或cinword变量开始的行（if、while...），换行
 
 augroup indent2
     autocmd!
-    autocmd FileType cpp,vim,tex setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType cpp,vim,tex,markdown,html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 augroup python
     autocmd!
-    autocmd FileType python setlocal noexpandtab tabstop=4
-augroup end
-
-augroup markdown 
-    autocmd!
-    autocmd FileType markdown setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType python setlocal tabstop=4 softtabstop=4
 augroup end
 
 """"""""""""""""""""""""""""
+
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
 
 set t_Co=256
 set t_ut=
@@ -195,6 +194,11 @@ nnoremap <silent> cn :cn<CR>
 nnoremap <silent> cp :cp<CR>
 nnoremap <silent> ccl :ccl<CR>
 
+vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
+nnoremap <silent> <leader>t :term ++rows=9<CR>
+tnoremap <silent> <leader>t <C-W>:hide<CR>
+
 helptags ~/.vim/doc
+source ~/vimrc.d/timer.vim
 source ~/vimrc.d/markdown.vim
 source ~/vimrc.d/plugin.vim

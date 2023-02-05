@@ -35,8 +35,6 @@ source ~/vimrc.d/latex.vim
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'skywind3000/asyncrun.vim'
-
 " Initialize plugin system
 call plug#end()
 
