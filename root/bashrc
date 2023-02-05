@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -o vi
 alias fzfcd='cd "$(find * -type d | fzf)"'
 
 alias start='cmd.exe /C start ""'

@@ -35,6 +35,7 @@ source ~/vimrc.d/latex.vim
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" 可选插件任务系统 skywind3000/asynctask.vim
 Plug 'skywind3000/asyncrun.vim'
 
 " Initialize plugin system
