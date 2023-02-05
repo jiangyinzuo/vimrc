@@ -10,8 +10,17 @@ MyDoc                                                                   *mydoc*
 ===============================================================================
 1. Basic                                                             *my-basic*
 
-cheetsheets:
-https://devhints.io/vim-help
+welcome: `:intro` `:smile`
+
+cheetsheets: https://devhints.io/vim-help
+
+close all the other windows: `:only` (similar `:tabonly`)
+
+paste in (search-)command-mode: `<C-R>"`
+
+split with height 10 and open buffer 1: `:10sp #1`
+
+create terminal in new tab: `:tab ter`
 
 ===============================================================================
 2. Markdown                                                       *my-markdown*
@@ -21,7 +30,7 @@ https://devhints.io/vim-help
 See: https://github.com/marp-team/marp-cli
 
 watch mode >
-  npx @marp-team/marp-cli@latest note.md -w
+  npx @marp-team/marp-cli@latest note.md -w --html
 <
 
 md -> html >

@@ -1,2 +1,10 @@
 #[url "https://github.moeyy.xyz/https://github.com/"]
 #       insteadOf = https://github.com/
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false

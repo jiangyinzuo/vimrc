@@ -1,0 +1,25 @@
+*unused.txt*
+
+                                    Unused Plugins/Scripts~
+=======================================================================================
+
+*mhinz/vim-startify* beautify dashboard, see >
+  git show v0.2.1:root/vimrc.d/startify.vim
+<
+*vim-airline/vim-airline* beautify status line
+
+*skywind3000/vim-quickui*: top menu
+
+*preservim/nerdtree* file system explorer, see >
+  git show v0.2.1:root/vimrc.d/nerdtree.vim
+<
+*tpope/vim-fugitive* a git wrapper
+
+*skywind3000/asyncrun.vim* *skywind3000/asynctask.vim*
+enhanced workflow, async task system
+
+Terminal Manager: https://zhuanlan.zhihu.com/p/469396812
+
+*im-select.exe* switch CN/US input method >
+  git show v0.2.2:root/vimrc.d/.vim/ftplugin/markdown.vim
+<
