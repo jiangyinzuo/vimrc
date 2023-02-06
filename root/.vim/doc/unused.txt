@@ -1,6 +1,6 @@
-*unused.txt*
+*awesome.txt*
 
-                                    Unused Plugins/Scripts~
+                                    Awesome Plugins/Scripts~
 =======================================================================================
 
 *mhinz/vim-startify* beautify dashboard, see >
@@ -8,7 +8,7 @@
 <
 *vim-airline/vim-airline* beautify status line
 
-*skywind3000/vim-quickui*: top menu
+*skywind3000/vim-quickui* top menu
 
 *preservim/nerdtree* file system explorer, see >
   git show v0.2.1:root/vimrc.d/nerdtree.vim
@@ -16,7 +16,14 @@
 *tpope/vim-fugitive* a git wrapper
 
 *skywind3000/asyncrun.vim* *skywind3000/asynctask.vim*
-enhanced workflow, async task system
+Async run command. Async task system, replaces `:RunCode` script. >
+  " RunCode
+  autocmd FileType c :command! -nargs=0 RunCode :!cc % -o %:r && ./%:r
+  autocmd FileType cpp :command! -nargs=0 RunCode :!c++ % -o %:r && ./%:r
+  autocmd FileType python :command! -nargs=0 RunCode :!python3 %
+  
+  nnoremap <Leader>rc :RunCode<CR>
+<
 
 Terminal Manager: https://zhuanlan.zhihu.com/p/469396812
 

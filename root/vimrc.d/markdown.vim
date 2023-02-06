@@ -1,3 +1,9 @@
+Plug 'godlygeek/tabular', { 'for': 'markdown' }
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
+
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_folding_disabled = 1
+
 if (has('unix') && exists('$WSLENV'))
 	let g:basepath='D:/doc2'
 	let g:wsl_basepath = '/mnt/d/doc2'

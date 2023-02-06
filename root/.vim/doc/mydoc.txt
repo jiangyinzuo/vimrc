@@ -5,25 +5,94 @@
 MyDoc                                                                   *mydoc*
 
 1. Basic                                                             |my-basic|
-2. Markdown                                                       |my-markdown|
+2. Git                                                                 |my-git|
+  2.1 Diff                                                        |my-git-diff|
+  2.2 Merge                                                      |my-git-merge|
+3. Tags                                                               |my-tags|
+4. Format                                                           |my-format|
+5. Lint                                                               |my-lint|
+6. Markdown                                                       |my-markdown|
+7. LSP(coc.nvim)                                                       |my-lsp|
 
 ===============================================================================
 1. Basic                                                             *my-basic*
 
-welcome: `:intro` `:smile`
+Welcome: `:intro` `:smile`
 
-cheetsheets: https://devhints.io/vim-help
+Cheetsheets: https://devhints.io/vim-help
 
-close all the other windows: `:only` (similar `:tabonly`)
+Close all the other windows: `:only` (similar `:tabonly`)
 
-paste in (search-)command-mode: `<C-R>"`
+Paste in (search-)command-mode: `<C-R>"`
 
-split with height 10 and open buffer 1: `:10sp #1`
+Execute selected(yanked) text: `:@"`, see `:h :@`
 
-create terminal in new tab: `:tab ter`
+Split with height 10 and open buffer 1: `:10sp #1`
 
-===============================================================================
-2. Markdown                                                       *my-markdown*
+Create terminal in new tab: `:tab ter`
+
+Increment Number: `<C-A>`
+
+Global Replace:
+Put grep results into quickfixlist, then replace by `:cdo` >
+  :cdo %s/<search term>/<replace term>/cg
+<
+
+Add ` galaxy` to the end of line: `:%s/$/ galaxy/g`
+Add `hello ` to the begin of line: `:%s/^/hello /g`
+
+-------------------------------------------------------------------------------
+2. Git                                                                 *my-git*
+  2.1 Diff                                                        *my-git-diff*
+
+`git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`
+
+-------------------------------------------------------------------------------
+  2.2 Merge                                                      *my-git-merge*
+
+Tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
+`git mergetool`
+
+Clean LOCAL, BASE, REMOTE files: >
+  git clean -i
+<
+
+-------------------------------------------------------------------------------
+3. Tags                                                               *my-tags*
+
+See root/vimrc.d/tags.vim
+
+Comparison with ctags, gtags and cscope:
+  https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
+
+gtags(global) > cscope > ctags
+
+Universal Ctags: a maintained implementation of ctags
+Exuberant Ctags: unmaintained
+
+Install on Ubuntu: >
+  sudo apt install global
+  sudo apt install cscpoe
+  sudo apt install universal-ctags
+  # sudo apt insatll exuberant-ctags
+<
+
+-------------------------------------------------------------------------------
+4. Format                                                           *my-format*
+
+clang-format: `:%!clang-format` or `:'<,'>!clang-format`.
+No need of `Plug 'rhysd/vim-clang-format'`
+
+-------------------------------------------------------------------------------
+5. Lint                                                               *my-lint*
+
+*clang-tidy* 
+output to quickfix list: >
+  :CExprsys clang-tidy hello.cpp
+<
+
+-------------------------------------------------------------------------------
+6. Markdown                                                       *my-markdown*
 
 *marp* Markdown Presentation Ecosystem
 
@@ -36,3 +105,8 @@ watch mode >
 md -> html >
   :AsyncRun npx @marp-team/marp-cli@latest note.md
 <
+
+-------------------------------------------------------------------------------
+7. LSP(coc.nvim)                                                       *my-lsp*
+
+TODO: LSP formatter, LSP linter

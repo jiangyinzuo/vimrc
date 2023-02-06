@@ -1,6 +1,5 @@
-set nocp
-" Sets how many lines of history VIM has to remember
-set history=500
+set nocp "no Vi-compatible
+set history=500 " Sets how many lines of history VIM has to remember
 
 " Enable filetype plugins
 filetype indent on
@@ -15,6 +14,8 @@ set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删�
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=1 " cmd行高1
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
+set timeoutlen=3000 " key map 超时时间
+
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number " 合并git状态与行号
 else
@@ -63,15 +64,9 @@ hi debugPC term=reverse ctermbg=4 guibg=darkblue
 autocmd Filetype c,cpp packadd termdebug
 let g:termdebug_wide = 1
 
+" Netrw Plugin
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
-
-" RunCode
-autocmd FileType c :command! -nargs=0 RunCode :!cc % -o %:r && ./%:r
-autocmd FileType cpp :command! -nargs=0 RunCode :!c++ % -o %:r && ./%:r
-autocmd FileType python :command! -nargs=0 RunCode :!python3 %
-
-nnoremap <Leader>rc :RunCode<CR>
 
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
@@ -83,8 +78,9 @@ augroup commenting_blocks_of_code
   autocmd FileType vim                                   let b:comment_leader = '" '
 augroup end
 
-" a sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
-" as for the silent thingies they just suppress output from commands. 
+" https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+" A sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
+" As for the silent thingies they just suppress output from commands. 
 " :nohlsearch stops it from highlighting the sed search
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
@@ -176,19 +172,22 @@ nnoremap <silent> <leader>fd :call VimGrepFindDefinition(expand("<cword>"))<CR>
 vnoremap <silent> <leader>fd :call VimGrepFindDefinition(GetVisualSelection())<CR>
 command! -nargs=1 Vimfd call VimGrepFindDefinition(<q-args>)
 
-" vim.fandom.com/wiki/Searching_for_files
+" Reference vim.fandom.com/wiki/Searching_for_files
 " find files and populate the quickfix list
 function FindFiles(filename)
-  let error_file = tempname()
-  silent exe '!find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/" > '.error_file
+	cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
   set errorformat=%f:%l:%m
-  exe "cfile ". error_file
   call ShowQuickfixListIfNotEmpty()
-  call delete(error_file)
 endfunction
 command! -nargs=1 Fd call FindFiles(<q-args>)
 
-" quickfix window
+function Ripgrep(args)
+	cexpr system('rg --vimgrep ' . a:args)
+  call ShowQuickfixListIfNotEmpty()
+endfunction
+command! -nargs=1 Rg call Ripgrep(<q-args>)
+
+"""""""""""""""""""""""""""""""""""""" quickfix window
 nnoremap <silent> co :copen<CR>
 nnoremap <silent> cn :cn<CR>
 nnoremap <silent> cp :cp<CR>
@@ -198,7 +197,13 @@ vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 nnoremap <silent> <leader>t :term ++rows=9<CR>
 tnoremap <silent> <leader>t <C-W>:hide<CR>
 
+function CExprSystem(args)
+	cexpr system(a:args)
+  call ShowQuickfixListIfNotEmpty()
+endfunction
+command! -nargs=1 CExprsys call CExprSystem(<q-args>)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 helptags ~/.vim/doc
-source ~/vimrc.d/timer.vim
-source ~/vimrc.d/markdown.vim
+source ~/vimrc.d/tags.vim
 source ~/vimrc.d/plugin.vim

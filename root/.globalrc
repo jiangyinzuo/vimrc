@@ -1,0 +1,2 @@
+default:\
+    :skip=tags,TAGS,gtags.files,cscope.files,cscope.out,cscope.po.out,cscope.in.out,*.o,*.a,*.so,*.lo,*.zip,*.gz,*.bz2,*.xz,*.tgz,build/,third_party/:

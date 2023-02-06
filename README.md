@@ -1,5 +1,8 @@
+# Vimrc
 
-vim编译选项
+Ubuntu22.04下安装`sudo apt install vim-gtk3`
+
+Vim编译选项
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
 
 `:CocInstall`后，连同nodejs打包给docker容器用
@@ -17,13 +20,14 @@ ln -s vimrc/root/.vim .vim
 source vimrc/root/bashrc
 ```
 
-## 命令行工具
+## 其它命令行工具
 
 查找: find -> fd（还没用过）
 模糊查找: fzf
 内容搜索: grep -> ripgrep
 下载: wget -> axel
 git终端: lazygit
+Linux文本处理: awk, sed, cut
 
 ### LSP
 c++: clangd
