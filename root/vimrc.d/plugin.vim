@@ -19,21 +19,18 @@ Plug 'airblade/vim-gitgutter'
 source ~/vimrc.d/leaderf.vim
 source ~/vimrc.d/fzf.vim
 
-source ~/vimrc.d/coc.vim
+" source ~/vimrc.d/coc.vim
 
-" source ~/vimrc.d/cpp.vim
+source ~/vimrc.d/cpp.vim
 " source ~/vimrc.d/go.vim
-
-Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
-let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_folding_disabled = 1
-
+source ~/vimrc.d/markdown.vim
 source ~/vimrc.d/latex.vim
 
 " :CocInstall coc-snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+source ~/vimrc.d/asynctasks.vim
 
 " Initialize plugin system
 call plug#end()

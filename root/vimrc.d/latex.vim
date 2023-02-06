@@ -4,7 +4,7 @@
 " sudo apt install texlive-latex-extra texlive-science latexmk xdotool
 " :CocInstall coc-vimtex
 
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', {'for': 'tex'}
 let g:tex_flavor='latex'
 
 " alternative pdf viewer: 
