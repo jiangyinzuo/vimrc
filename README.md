@@ -25,10 +25,16 @@ source vimrc/root/bashrc
 查找: find -> fd（还没用过）
 模糊查找: fzf
 内容搜索: grep -> ripgrep
+https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/
+
 下载: wget -> axel
 git终端: lazygit
 Linux文本处理: awk, sed, cut
-
+cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。
+```
+sudo apt install bat
+batcat --version
+```
 ### LSP
 c++: clangd
 go: gopls（可以通过vim-go下载后，配置环境变量）

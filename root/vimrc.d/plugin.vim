@@ -6,6 +6,9 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+" Plug 'LunarWatcher/auto-pairs'
+" let g:AutoPairsMapBS = 1
+
 Plug 'markonm/traces.vim'
 Plug 'tomasiser/vim-code-dark'
 
@@ -16,18 +19,27 @@ Plug 'tomasiser/vim-code-dark'
 
 Plug 'airblade/vim-gitgutter'
 
-source ~/vimrc.d/leaderf.vim
-source ~/vimrc.d/fzf.vim
+if executable('python3')
+  source ~/vimrc.d/leaderf.vim
+endif
 
-" source ~/vimrc.d/coc.vim
+if executable('fzf')
+  source ~/vimrc.d/fzf.vim
+endif
+
+if executable('node')
+  source ~/vimrc.d/coc.vim
+endif
 
 source ~/vimrc.d/cpp.vim
 " source ~/vimrc.d/go.vim
 source ~/vimrc.d/markdown.vim
 source ~/vimrc.d/latex.vim
 
-" :CocInstall coc-snippets
-Plug 'SirVer/ultisnips'
+" Use :CocInstall coc-snippets
+if !has_key(g:plugs, 'coc.nvim')
+  Plug 'SirVer/ultisnips'
+endif
 Plug 'honza/vim-snippets'
 
 source ~/vimrc.d/asynctasks.vim
