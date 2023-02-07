@@ -27,9 +27,9 @@ endif
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_ShowDevIcons = 0
-let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/*"]
+let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]
 let g:Lf_WildIgnore = {
     \ 'dir': ['.svn', '.git', '.cache', 'deps', 'build'],
-    \ 'file': []
+    \ 'file': ['*.html']
     \}
 """"""""""""""""""""""""""""""

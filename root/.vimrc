@@ -13,6 +13,7 @@ set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{�
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=1 " cmd行高1
+set wildmenu " command自动补全时显示菜单
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 set timeoutlen=3000 " key map 超时时间
 
@@ -22,9 +23,19 @@ else
   set signcolumn=yes " 同时显示git状态和行号
 endif
 
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " Set to auto read when a file is changed from the outside
 set autoread
-au FocusGained,BufEnter * checktime
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+			\ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+			\ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
 
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
@@ -51,12 +62,13 @@ augroup python
     autocmd FileType python setlocal tabstop=4 softtabstop=4
 augroup end
 
-""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
 
 if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
 set t_Co=256
 set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
@@ -64,9 +76,18 @@ hi debugPC term=reverse ctermbg=4 guibg=darkblue
 autocmd Filetype c,cpp packadd termdebug
 let g:termdebug_wide = 1
 
-" Netrw Plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
+"  open explorer :Ex :Sex :Vex
+" close explorer :Rex
+"
+" do not load netrw
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
+let g:netrw_browse_split = 0 " open the file using netrw buffer
+let g:netrw_liststyle = 3 " tree style listing
+let g:netrw_preview = 0 " preview window horizontally
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
@@ -185,9 +206,11 @@ function Ripgrep(args)
 	cexpr system('rg --vimgrep ' . a:args)
   call ShowQuickfixListIfNotEmpty()
 endfunction
-command! -nargs=1 Rg call Ripgrep(<q-args>)
+" fzf.vim defines :Rg
+command! -nargs=1 Myrg call Ripgrep(<q-args>)
 
 """""""""""""""""""""""""""""""""""""" quickfix window
+
 nnoremap <silent> co :copen<CR>
 nnoremap <silent> cn :cn<CR>
 nnoremap <silent> cp :cp<CR>
@@ -202,6 +225,7 @@ function CExprSystem(args)
   call ShowQuickfixListIfNotEmpty()
 endfunction
 command! -nargs=1 CExprsys call CExprSystem(<q-args>)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 helptags ~/.vim/doc

@@ -23,7 +23,11 @@ Cheetsheets: https://devhints.io/vim-help
 
 Close all the other windows: `:only` (similar `:tabonly`)
 
-Paste in (search-)command-mode: `<C-R>"`
+Paste in (search-)command-mode: CTRL-R"
+
+Select history command: `q:`
+Select Commands in popup window(fzf.vim): `:Commands`.
+Select Commits in popup window(fzf.vim): `:Commits`.
 
 Execute selected(yanked) text: `:@"`, see `:h :@`
 
@@ -31,18 +35,35 @@ Split with height 10 and open buffer 1: `:10sp #1`
 
 Create terminal in new tab: `:tab ter`
 
-Increment Number: `<C-A>`
+Increment Number: CTRL-A
 
 Global Replace:
 Put grep results into quickfixlist, then replace by `:cdo` >
   :cdo %s/<search term>/<replace term>/cg
 <
 
+Each register is identified by a letter a to z or number 0-9 or ".
+recording a macro: >
+  qd	start recording to register d
+  ...	your complex series of commands
+  q	stop recording
+  @d	execute register d (your macro)
+  @@	execute your macro again
+<
+
+Terminal window executes shortcuts: CTRL-W{shortcuts}
+
 Add ` galaxy` to the end of line: `:%s/$/ galaxy/g`
 Add `hello ` to the begin of line: `:%s/^/hello /g`
 
+Put Vim progress to the background: CTRL-Z, see linux tool `fg`, `bg`.
+
 -------------------------------------------------------------------------------
 2. Git                                                                 *my-git*
+
+git checkout a file's history version: `git checkout v0.2.2 -- markdown.vim`
+
+-------------------------------------------------------------------------------
   2.1 Diff                                                        *my-git-diff*
 
 `git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`

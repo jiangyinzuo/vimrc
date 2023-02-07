@@ -7,4 +7,6 @@ alias start='cmd.exe /C start ""'
 
 alias vimt='vim --servername TEX'
 
+source ~/vimrc/root/rfv.sh
+
 . ~/vimrc/root/z.sh
