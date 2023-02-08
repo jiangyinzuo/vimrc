@@ -1,7 +1,5 @@
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-""""""""""""""""""""""""""""""
-"Leaderf settings
-""""""""""""""""""""""""""""""
+
 "文件搜索
 nnoremap <silent> <leader>f :Leaderf file<CR>
 
@@ -28,8 +26,14 @@ let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_ShowDevIcons = 0
 let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]
+
+" 查找时忽略以下目录和文件
 let g:Lf_WildIgnore = {
-    \ 'dir': ['.svn', '.git', '.cache', 'deps', 'build'],
-    \ 'file': ['*.html']
-    \}
-""""""""""""""""""""""""""""""
+  \ 'dir': ['.git', '__pycache__', '.DS_Store', '.svn', '.cache', 'deps', 'build'],
+  \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png',
+  \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
+  \ '*.zip', '*.bin', '*.pptx', '*.xlsx', '*.docx', '*.pdf', '*.tmp',
+  \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',
+  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html']
+  \}
+

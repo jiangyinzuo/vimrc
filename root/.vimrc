@@ -17,6 +17,27 @@ set wildmenu " command自动补全时显示菜单
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 set timeoutlen=3000 " key map 超时时间
 
+" 设置状态行-----------------------------------
+" 设置状态行显示常用信息
+" %F 完整文件路径名
+" %m 当前缓冲被修改标记
+" %m 当前缓冲只读标记
+" %h 帮助缓冲标记
+" %w 预览缓冲标记
+" %Y 文件类型
+" %b ASCII值
+" %B 十六进制值
+" %l 行数
+" %v 列数
+" %p 当前行数占总行数的的百分比
+" %L 总行数
+" %{...} 评估表达式的值，并用值代替
+" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
+" %{&ff} 显示文件类型
+" 链接：https://zhuanlan.zhihu.com/p/532430825
+set laststatus=2
+set statusline=%1*%F%m%r%h%w%=\ %2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL
+
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number " 合并git状态与行号
 else
@@ -228,6 +249,90 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
-helptags ~/.vim/doc
-source ~/vimrc.d/tags.vim
-source ~/vimrc.d/plugin.vim
+" https://www.zhihu.com/question/30782510/answer/70078216
+nnoremap zp :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
+" unfold all: zR
+
+set makeprg=make
+
+let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    TAGS                                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 递归向上层寻找tags文件
+" set tags=tags;/
+
+" Reference: https://cscope.sourceforge.net/cscope_maps.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CSCOPE settings for vim           
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let s:tags_use_cscope = 0
+let s:tags_use_gtags = 0
+
+" This tests to see if vim was configured with the '--enable-cscope' option
+" when it was compiled.  If it wasn't, time to recompile vim... 
+if has("cscope") && s:tags_use_cscope
+
+	""""""""""""" Standard cscope/vim boilerplate
+
+	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+	set cscopetag
+
+	" check cscope for definition of a symbol before checking ctags: set to 1
+	" if you want the reverse search order.
+	set csto=0
+
+	" add any cscope database in current directory
+	if filereadable("cscope.out")
+		cs add cscope.out  
+		" else add the database pointed to by environment variable 
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
+	endif
+
+	" show msg when any other cscope db added
+	set cscopeverbose
+
+	""""""""""""" My cscope/vim key mappings
+	"
+	" The following maps all invoke one of the following cscope search types:
+	"
+	"   's'   symbol: find all references to the token under cursor
+	"   'g'   global: find global definition(s) of the token under cursor
+	"   'c'   calls:  find all calls to the function name under cursor
+	"   't'   text:   find all instances of the text under cursor
+	"   'e'   egrep:  egrep search for the word under cursor
+	"   'f'   file:   open the filename under cursor
+	"   'i'   includes: find files that include the filename under cursor
+	"   'd'   called: find functions that function under cursor calls
+
+	" nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+	" nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+	" nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+
+	if s:tags_use_gtags && s:has_vimrcd
+		" use gtags-cscope
+		set csprg=gtags-cscope
+		source ~/vimrc.d/gtags-cscope.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+	endif
+elseif s:tags_use_gtags && s:has_vimrcd
+	source ~/vimrc.d/gtags.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+	nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+endif
+
+if isdirectory(expand('~/.vim/doc'))
+	helptags ~/.vim/doc
+endif
+
+if s:has_vimrcd
+  source ~/vimrc.d/plugin.vim
+endif
+
+if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
+	" https://zhuanlan.zhihu.com/p/106309525
+	if has("autocmd") && exists("+omnifunc")
+		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+	endif
+endif
