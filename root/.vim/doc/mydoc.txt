@@ -2,24 +2,15 @@
 
                                 My Documents~
 
-MyDoc                                                                   *mydoc*
-
-1. Basic                                                             |my-basic|
-2. Git                                                                 |my-git|
-  2.1 Diff                                                        |my-git-diff|
-  2.2 Merge                                                      |my-git-merge|
-3. Tags                                                               |my-tags|
-4. Format                                                           |my-format|
-5. Lint                                                               |my-lint|
-6. Markdown                                                       |my-markdown|
-7. LSP(coc.nvim)                                                       |my-lsp|
-
 ===============================================================================
-1. Basic                                                             *my-basic*
 
 Welcome: `:intro` `:smile`
 
 Cheetsheets: https://devhints.io/vim-help
+
+Auto-Completion: https://zhuanlan.zhihu.com/p/106309524
+
+Save with sudo `:w !sudo tee %`
 
 Close all the other windows: `:only` (similar `:tabonly`)
 
@@ -58,18 +49,15 @@ Add `hello ` to the begin of line: `:%s/^/hello /g`
 
 Put Vim progress to the background: CTRL-Z, see linux tool `fg`, `bg`.
 
--------------------------------------------------------------------------------
-2. Git                                                                 *my-git*
+*git*
 
 git checkout a file's history version: `git checkout v0.2.2 -- markdown.vim`
 
--------------------------------------------------------------------------------
-  2.1 Diff                                                        *my-git-diff*
+*git diff*
 
 `git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`
 
--------------------------------------------------------------------------------
-  2.2 Merge                                                      *my-git-merge*
+*git merge*
 
 Tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 `git mergetool`
@@ -78,9 +66,19 @@ Clean LOCAL, BASE, REMOTE files: >
   git clean -i
 <
 
--------------------------------------------------------------------------------
-3. Tags                                                               *my-tags*
+*find*
 
+find files
+>
+  set path+=**
+  :find
+<
+
+marks 
+mark: `ma`
+jump: `'a`
+
+*tags*
 See root/vimrc.d/tags.vim
 
 Comparison with ctags, gtags and cscope:
@@ -98,22 +96,19 @@ Install on Ubuntu: >
   # sudo apt insatll exuberant-ctags
 <
 
--------------------------------------------------------------------------------
-4. Format                                                           *my-format*
-
+*format*
 clang-format: `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`
 
--------------------------------------------------------------------------------
-5. Lint                                                               *my-lint*
-
+*lint*
 *clang-tidy* 
 output to quickfix list: >
   :CExprsys clang-tidy hello.cpp
 <
 
+
 -------------------------------------------------------------------------------
-6. Markdown                                                       *my-markdown*
+*markdown*
 
 *marp* Markdown Presentation Ecosystem
 
@@ -127,7 +122,15 @@ md -> html >
   :AsyncRun npx @marp-team/marp-cli@latest note.md
 <
 
--------------------------------------------------------------------------------
-7. LSP(coc.nvim)                                                       *my-lsp*
+md enable inlining html >
+  :AsyncRun npx @marp-team/marp-cli@latest note.md --html
+<
 
+md -> pptx >
+   npx @marp-team/marp-cli@latest llvm-udo.md --pptx --allow-local-files --html
+<
+
+-------------------------------------------------------------------------------
+
+*lsp* *coc.nvim*
 TODO: LSP formatter, LSP linter

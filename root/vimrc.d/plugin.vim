@@ -9,6 +9,17 @@ call plug#begin('~/.vim/plugged')
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 
+" similar Plugin: Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+let g:sneak#label = 1
+" default s: delete [count] charaters and start insert
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
 Plug 'markonm/traces.vim'
 Plug 'tomasiser/vim-code-dark'
 
