@@ -249,6 +249,10 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Example:
+" :e+22 ~/.vimrc
+command! -nargs=0 VimExeLine exe getline(".")
+
 " https://www.zhihu.com/question/30782510/answer/70078216
 nnoremap zp :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
 " unfold all: zR
@@ -276,7 +280,10 @@ let s:tags_use_gtags = 0
 if has("cscope") && s:tags_use_cscope
 
 	""""""""""""" Standard cscope/vim boilerplate
-
+	
+	" reset cscope:
+	" :cs reset
+	
 	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 	set cscopetag
 

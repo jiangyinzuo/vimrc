@@ -5,3 +5,6 @@ let g:asyncrun_open = 6 " open quickfix window automatically at 6 lines height a
 let g:asyncrun_rootmarks = ['.git', '.root']
 let g:asynctasks_term_pos = 'tab'
 let g:asynctasks_term_reuse = 1
+
+" See rff() in bashrc
+command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#get_root('%')) + 1:] . ':' . line(".")
