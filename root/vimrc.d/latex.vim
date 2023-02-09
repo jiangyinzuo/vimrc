@@ -1,5 +1,5 @@
 " usage: vim hello.tex world.tex --servername TEX
-" inverse-search fearure requires +clientserver"
+" Requirement: inverse-search fearure requires +clientserver"
 "
 " sudo apt install texlive-latex-extra texlive-science latexmk xdotool
 " :CocInstall coc-vimtex

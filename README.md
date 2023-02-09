@@ -1,5 +1,7 @@
 # Vimrc
 
+Requirements: vim 8.2.4919
+
 Ubuntu22.04下安装`sudo apt install vim-gtk3`
 
 Vim编译选项
@@ -14,10 +16,10 @@ docker build -t myvim:1 .
 ## 初始化
 
 ```sh
-ln -s vimrc/root/.vimrc .vimrc
-ln -s vimrc/root/vimrc.d vimrc.d
-ln -s vimrc/root/.vim .vim
-source vimrc/root/bashrc
+ln -s vimrc/root/.vimrc ~/.vimrc
+ln -s vimrc/root/vimrc.d ~/.vimrc.d
+ln -s vimrc/root/.vim ~/.vim
+echo 'source vimrc/root/bashrc' >> ~/.bashrc
 ```
 
 ## 其它命令行工具
