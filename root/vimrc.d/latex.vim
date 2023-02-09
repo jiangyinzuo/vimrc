@@ -12,7 +12,7 @@ let g:tex_flavor='latex'
 " let g:vimtex_view_method='zathura'
 
 if (has('unix') && exists('$WSLENV'))
-	let g:vimtex_view_general_viewer = $HOME.'/.vim/sumatrapdf.sh'
+	let g:vimtex_view_general_viewer = $HOME.'/.vim/sumatrapdf.bash'
 	let g:vimtex_view_general_options
 				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\""
 	function SumatrapdfSendToVim(args)
