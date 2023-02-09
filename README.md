@@ -24,7 +24,10 @@ echo 'source vimrc/root/bashrc' >> ~/.bashrc
 
 ## 其它命令行工具
 
-查找: find -> fd（还没用过）
+Ubuntu22.04下均可通过apt安装
+
+目录树: tree
+查找: find -> fd
 模糊查找: fzf
 内容搜索: grep -> ripgrep
 https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/
