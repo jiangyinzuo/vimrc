@@ -10,7 +10,7 @@ if (has('unix') && exists('$WSLENV'))
 	let g:wsl_basepath = '/mnt/d/doc2'
 
 	" xdg-open <uri>
-	" cmd.exe /C start "" 对软链接无效
+	" cmd.exe /C start "" 需要使用cmd.exe /c mklink创建软链接
 	" explorer.exe
 	"
 	" do not work.
