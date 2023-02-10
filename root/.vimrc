@@ -40,23 +40,25 @@ set statusline=%1*%F%m%r%h%w%=\ %2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"
 
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number " 合并git状态与行号
-else
+elseif v:version >= 801
   set signcolumn=yes " 同时显示git状态和行号
 endif
 
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" Set to auto read when a file is changed from the outside
-set autoread
-" Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-			\ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+if v:version >= 801
+	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+	" Set to auto read when a file is changed from the outside
+	set autoread
+	" Triger `autoread` when files changes on disk
+	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+	" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+	autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+				\ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-			\ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+	" Notification after file change
+	" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+	autocmd FileChangedShellPost *
+				\ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+endif
 
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
@@ -94,8 +96,10 @@ set t_Co=256
 set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
 
-autocmd Filetype c,cpp packadd termdebug
-let g:termdebug_wide = 1
+if v:version >= 801
+	autocmd Filetype c,cpp packadd termdebug
+	let g:termdebug_wide = 1
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
 "  open explorer :Ex :Sex :Vex
@@ -240,7 +244,9 @@ nnoremap <silent> ccl :ccl<CR>
 
 vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 nnoremap <silent> <leader>t :term ++rows=9<CR>
-tnoremap <silent> <leader>t <C-W>:hide<CR>
+if exists(':tnoremap')
+	tnoremap <silent> <leader>t <C-W>:hide<CR>
+endif
 
 function CExprSystem(args)
 	cexpr system(a:args)
