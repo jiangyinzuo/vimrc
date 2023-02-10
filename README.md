@@ -1,6 +1,6 @@
 # Vimrc
 
-Requirements: vim 8.2.4919
+Requirements: vim 8.2.4919(full features), vim 7.4(.vimrc)
 
 Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim`
 
