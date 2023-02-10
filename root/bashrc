@@ -6,6 +6,14 @@ set -o vi
 
 alias start='cmd.exe /C start ""'
 
+# cmd.exe /c mklink /d parameter_server  "D:\doc2\cs\aisys\parameter_server"
+mklinkd() {
+	str=$2
+	str=${str/\/mnt\/d/D:}
+	str=${str//\//\\}
+	cmd.exe /c mklink /d $1 $str
+}
+
 alias vimt='vim --servername TEX'
 
 source ~/vimrc/root/fzf/fzf.bash

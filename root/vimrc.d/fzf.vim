@@ -1,3 +1,5 @@
+" Reference: https://github.com/junegunn/fzf/blob/master/README-VIM.md
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
