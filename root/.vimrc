@@ -107,6 +107,7 @@ let g:termdebug_wide = 1
 let g:netrw_browse_split = 0 " open the file using netrw buffer
 let g:netrw_liststyle = 3 " tree style listing
 let g:netrw_preview = 0 " preview window horizontally
+let g:netrw_browsex_viewer="start"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
