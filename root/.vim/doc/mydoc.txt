@@ -21,6 +21,9 @@ Select Commands in popup window(fzf.vim): `:Commands`.
 Select Commits in popup window(fzf.vim): `:Commits`.
 
 Execute selected(yanked) text: `:@"`, see `:h :@`
+Execute current line as vim command: `:exe getline('.')`
+
+Goto file: gf gF CTRL-Vgf CTRL-VgF
 
 Split with height 10 and open buffer 1: `:10sp #1`
 
@@ -134,3 +137,11 @@ md -> pptx >
 
 *lsp* *coc.nvim*
 TODO: LSP formatter, LSP linter
+
+
+-------------------------------------------------------------------------------
+
+*fzf*
+
+"+y           yank to system
+CTRL-SHIFT-V  paste

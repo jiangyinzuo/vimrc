@@ -2,7 +2,7 @@
 
 Requirements: vim 8.2.4919
 
-Ubuntu22.04下安装`sudo apt install vim-gtk3`
+Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim`
 
 Vim编译选项
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
@@ -16,10 +16,10 @@ docker build -t myvim:1 .
 ## 初始化
 
 ```sh
-ln -s vimrc/root/.vimrc ~/.vimrc
-ln -s vimrc/root/vimrc.d ~/.vimrc.d
-ln -s vimrc/root/.vim ~/.vim
-echo 'source vimrc/root/bashrc' >> ~/.bashrc
+ln -s ~/vimrc/root/.vimrc ~/.vimrc
+ln -s ~/vimrc/root/vimrc.d ~/.vimrc.d
+ln -s ~/vimrc/root/.vim ~/.vim
+echo 'source ~/vimrc/root/bashrc' >> ~/.bashrc
 ```
 
 ## 其它命令行工具
@@ -43,3 +43,9 @@ batcat --version
 ### LSP
 c++: clangd
 go: gopls（可以通过vim-go下载后，配置环境变量）
+
+## WSL2
+
+```
+sudo apt install wslu
+```
