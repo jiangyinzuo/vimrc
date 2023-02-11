@@ -52,6 +52,8 @@ Add `hello ` to the begin of line: `:%s/^/hello /g`
 
 Put Vim progress to the background: CTRL-Z, see linux tool `fg`, `bg`.
 
+Close Preview: `:pc`
+
 *git*
 
 git checkout a file's history version: `git checkout v0.2.2 -- markdown.vim`
