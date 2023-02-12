@@ -16,10 +16,7 @@ docker build -t myvim:1 .
 ## 初始化
 
 ```sh
-ln -s ~/vimrc/root/.vimrc ~/.vimrc
-ln -s ~/vimrc/root/vimrc.d ~/.vimrc.d
-ln -s ~/vimrc/root/.vim ~/.vim
-echo 'source ~/vimrc/root/bashrc' >> ~/.bashrc
+./init.sh
 ```
 
 ## 其它命令行工具
