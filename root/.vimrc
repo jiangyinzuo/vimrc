@@ -14,8 +14,14 @@ set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删�
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=1 " cmd行高1
 set wildmenu " command自动补全时显示菜单
+set wildmode=list:full " command自动补全时显示整个列表
+set wildignore=.git,build
+set path=.,, " 当前目录和当前文件所在目录
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 set timeoutlen=3000 " key map 超时时间
+
+" set autowrite " 自动保存
+" set cursorline " 高亮当前行
 
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息
@@ -168,6 +174,7 @@ function VimGrepFindWord(word)
 	else
 		let extention = '**'
 	endif
+	" <pattern>: 匹配整个单词
 	silent exe 'silent! vimgrep' '/\<'.a:word.'\>/' extention
   call ShowQuickfixListIfNotEmpty()
 endfunction
@@ -178,6 +185,7 @@ command! -nargs=1 Vimfw call VimGrepFindWord(<q-args>)
 
 function VimGrepFindType(word)
 	call setqflist([])
+	" <pattern>: 匹配整个单词
 	if &filetype == 'c'	
 		silent exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.c' '**/*.h'
 	  silent exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.c' '**/*.h'
@@ -219,8 +227,13 @@ nnoremap <silent> <leader>fd :call VimGrepFindDefinition(expand("<cword>"))<CR>
 vnoremap <silent> <leader>fd :call VimGrepFindDefinition(GetVisualSelection())<CR>
 command! -nargs=1 Vimfd call VimGrepFindDefinition(<q-args>)
 
-" Reference vim.fandom.com/wiki/Searching_for_files
+" Reference: vim.fandom.com/wiki/Searching_for_files
 " find files and populate the quickfix list
+" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
+" :new 开新的window
+" :edit 在当前buffer
+" :open 无法使用通配符，不能使用wildmode
+" :next 可以打开多个文件
 function FindFiles(filename)
 	cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
   set errorformat=%f:%l:%m

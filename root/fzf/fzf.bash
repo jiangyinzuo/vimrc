@@ -2,10 +2,15 @@
 
 alias fzfcd='cd "$(find * -type d | fzf)"'
 
+# Reference: https://github.com/junegunn/fzf/tree/master/shell
 source ~/vimrc/root/fzf/key-bindings.bash
 source ~/vimrc/root/fzf/completion.bash
 
+# Reference: https://github.com/junegunn/fzf#fzf-tmux-script
 export FZF_TMUX=1
+
+# Reference: https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
+
 # Use ** as the trigger sequence
 export FZF_COMPLETION_TRIGGER='**'
 

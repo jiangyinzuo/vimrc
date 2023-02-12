@@ -11,6 +11,7 @@ mklinkd() {
 	str=$2
 	str=${str/\/mnt\/d/D:}
 	str=${str//\//\\}
+	echo $str
 	cmd.exe /c mklink /d $1 $str
 }
 

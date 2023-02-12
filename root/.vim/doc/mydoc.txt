@@ -4,38 +4,33 @@
 
 ===============================================================================
 
-Welcome: `:intro` `:smile`
+*search-help*
+*search-shortcuts* (by reading help files)
 
-Cheetsheets: https://devhints.io/vim-help
+`:helpgrep` `:Helptags`(fzf.vim)
 
-Auto-Completion: https://zhuanlan.zhihu.com/p/106309524
+*search-command*
+`:command`
+|select-commands-in-popup-window(fzf.vim)|
 
-Save with sudo `:w !sudo tee %`
+*search-maps*
+`:map` `:tmap` `:nnoremap` `:imap`
+|select-maps(n)-in-popup-window(fzf.vim)|
 
-Close all the other windows: `:only` (similar `:tabonly`)
+*auto-completion* https://zhuanlan.zhihu.com/p/106309524
+*cheetsheets* https://devhints.io/vim-help
+*close-preview* `:pc`
+*execute-current-line-as-vim-command* `:exe getline('.')`
+*execute-selected(yanked)-text* `:@"`, see `:h :@`
+*goto-file* gf gF CTRL-Vgf CTRL-VgF
+*increment-number* CTRL-A
+*paste-in-(search-)command-mode* CTRL-R"
+*put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
+*save-with-sudo* `:w !sudo tee %`
+*select-history-command* `q:`
+*welcome* `:intro` `:smile`
 
-Paste in (search-)command-mode: CTRL-R"
-
-Select history command: `q:`
-Select Commands in popup window(fzf.vim): `:Commands`.
-Select Commits in popup window(fzf.vim): `:Commits`.
-
-Execute selected(yanked) text: `:@"`, see `:h :@`
-Execute current line as vim command: `:exe getline('.')`
-
-Goto file: gf gF CTRL-Vgf CTRL-VgF
-
-Split with height 10 and open buffer 1: `:10sp #1`
-
-Create terminal in new tab: `:tab ter`
-
-Increment Number: CTRL-A
-
-Global Replace:
-Put grep results into quickfixlist, then replace by `:cdo` >
-  :cdo %s/<search term>/<replace term>/cg
-<
-
+*macro*
 Each register is identified by a letter a to z or number 0-9 or ".
 recording a macro: >
   qd	start recording to register d
@@ -45,47 +40,50 @@ recording a macro: >
   @@	execute your macro again
 <
 
-Terminal window executes shortcuts: CTRL-W{shortcuts}
+*create-terminal-in-new-tab* `:tab ter`
+*terminal-window-executes-shortcuts* CTRL-W{shortcuts}
+*yank-terminal* CTRL-WN
 
-Add ` galaxy` to the end of line: `:%s/$/ galaxy/g`
-Add `hello ` to the begin of line: `:%s/^/hello /g`
+*close-all-the-other-windows* `:only` (similar `:tabonly`)
+*split-window-with-height-10-and-open-buffer-1* `:10sp #1`
 
-Put Vim progress to the background: CTRL-Z, see linux tool `fg`, `bg`.
+*add-to-the-end-of-line* `:%s/$/ galaxy/g`
+*add-to-the-begin-of-line* `:%s/^/hello /g`
+*put-grep-results-into-quickfixlist-then-execute-by-cdo* `:cdo %s/<search term>/<replace term>/cg`
 
-Close Preview: `:pc`
+*filter-quickfix* >
+  :packadd cfilter
+  :vimgrep /foo/
+  :Cfilter /runtime/
+<
 
+-------------------------------------------------------------------------------
 *git*
 
-git checkout a file's history version: `git checkout v0.2.2 -- markdown.vim`
+*git-checkout-history-file* `git checkout v0.2.2 -- markdown.vim`
 
-*git diff*
+*git-difftool* `git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`
 
-`git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`
+*git-mergetool*
 
-*git merge*
-
-Tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
+tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 `git mergetool`
 
-Clean LOCAL, BASE, REMOTE files: >
-  git clean -i
-<
+*clean-LOCAL-BASE-REMOTE-files* `git clean -i`
 
-*find*
-
-find files
->
+*find-files* (vim will be blocked if directory is too large) >
   set path+=**
-  :find
+  :find <file>
 <
 
-marks 
+`:Fd` see .vimrc
+
+*marks*
 mark: `ma`
 jump: `'a`
 
 *tags*
-See root/vimrc.d/tags.vim
-
+See .vimrc
 Comparison with ctags, gtags and cscope:
   https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
 
@@ -102,7 +100,7 @@ Install on Ubuntu: >
 <
 
 *format*
-clang-format: `:%!clang-format` or `:'<,'>!clang-format`.
+*clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`
 
 *lint*
@@ -110,7 +108,6 @@ No need of `Plug 'rhysd/vim-clang-format'`
 output to quickfix list: >
   :CExprsys clang-tidy hello.cpp
 <
-
 
 -------------------------------------------------------------------------------
 *markdown*
@@ -136,14 +133,22 @@ md -> pptx >
 <
 
 -------------------------------------------------------------------------------
-
 *lsp* *coc.nvim*
 TODO: LSP formatter, LSP linter
 
 
 -------------------------------------------------------------------------------
+*fzf.vim*
 
-*fzf*
+*select-commands-in-popup-window(fzf.vim)* `:Commands`.
+*select-commits-in-popup-window(fzf.vim)* `:Commits`.
+*select-maps(n)-in-popup-window(fzf.vim)* `:Maps`.
+*paste-to-fzf-popup-window*
 
 "+y           yank to system
 CTRL-SHIFT-V  paste
+
+-------------------------------------------------------------------------------
+*wsl*
+
+*create-link* *mklinkd*
