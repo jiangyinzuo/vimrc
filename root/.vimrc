@@ -21,7 +21,7 @@ set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 set timeoutlen=3000 " key map 超时时间
 
 " set autowrite " 自动保存
-" set cursorline " 高亮当前行
+set cursorline " 高亮当前行
 
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息

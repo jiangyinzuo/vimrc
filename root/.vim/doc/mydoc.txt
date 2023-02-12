@@ -9,7 +9,7 @@
 
 `:helpgrep` `:Helptags`(fzf.vim)
 
-*search-command*
+*search-command* *搜索命令*
 `:command`
 |select-commands-in-popup-window(fzf.vim)|
 
