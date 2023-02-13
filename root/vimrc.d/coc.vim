@@ -1,6 +1,15 @@
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
+" 其它可选coc插件(有更好的vim插件可用)：
+" coc-lists(buffer, grep, lines, mru, quickfix, tags, files等列表源 => fzf.vim和leaderf
+" coc-git   => gitgutter lazygit
+" coc-pairs => auto-pairs插件暂时不需要auto-pair补全
+" other sources: https://github.com/neoclide/coc-sources
+" Reference: https://github.com/neoclide
+let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips']
+
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()

@@ -1,4 +1,4 @@
-*awesome.txt*
+*unused.txt*
 
                                     Awesome Plugins/Scripts~
 =======================================================================================
@@ -45,3 +45,6 @@ Terminal Manager: https://zhuanlan.zhihu.com/p/469396812
 		endif
 	endif
 <
+
+game: vim/killersheep
+johngrib/vim-game-snake

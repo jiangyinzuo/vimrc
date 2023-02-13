@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Extended-search-mode
+# 
+# 'wild	exact-match
+# or start fzf with -e
+# Reference: https://github.com/junegunn/fzf#extended-search-mode
+
 alias fzfcd='cd "$(find * -type d | fzf)"'
 
 # Reference: https://github.com/junegunn/fzf/tree/master/shell
