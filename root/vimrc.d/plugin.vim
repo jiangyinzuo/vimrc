@@ -51,10 +51,11 @@ source ~/vimrc.d/cpp.vim
 source ~/vimrc.d/markdown.vim
 source ~/vimrc.d/latex.vim
 
-" Use :CocInstall coc-snippets
-if !has_key(g:plugs, 'coc.nvim')
-  Plug 'SirVer/ultisnips'
-endif
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+
 Plug 'honza/vim-snippets'
 
 source ~/vimrc.d/asynctasks.vim
