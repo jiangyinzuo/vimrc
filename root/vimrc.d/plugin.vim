@@ -34,18 +34,10 @@ let g:floaterm_height = 0.8
 
 Plug 'airblade/vim-gitgutter'
 
-if executable('python3')
-  source ~/vimrc.d/leaderf.vim
-endif
-
-if executable('fzf')
-  source ~/vimrc.d/fzf.vim
-endif
-
-if executable('node')
-  source ~/vimrc.d/coc.vim
-endif
-
+" executable() is slow
+source ~/vimrc.d/leaderf.vim
+source ~/vimrc.d/fzf.vim
+source ~/vimrc.d/coc.vim
 source ~/vimrc.d/cpp.vim
 " source ~/vimrc.d/go.vim
 source ~/vimrc.d/markdown.vim

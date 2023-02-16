@@ -22,13 +22,23 @@
 *close-preview* `:pc`
 *execute-current-line-as-vim-command* `:exe getline('.')`
 *execute-selected(yanked)-text* `:@"`, see `:h :@`
+*重复执行上一个命令* @:
 *goto-file* gf gF CTRL-Vgf CTRL-VgF
 *increment-number* CTRL-A
 *paste-in-(search-)command-mode* CTRL-R"
+*next-in-search-mode* *查找模式下的n和N* CTRL-G CTRL-T
 *put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
 *save-with-sudo* `:w !sudo tee %`
 *select-history-command* `q:`
 *welcome* `:intro` `:smile`
+*print-file*: :f
+
+*搜索并替换整个文件中的第一个模式* `:/pattern/s//replace/`
+解释：
+:/pattern/s: 在满足pattern的第一行的范围下，执行:s command
+//: 搜索模式为空时，默认使用上一个模式
+/replace/: 替换模式
+See: https://vi.stackexchange.com/questions/7194/how-to-substitute-the-first-occurrence-across-the-whole-file
 
 *macro*
 Each register is identified by a letter a to z or number 0-9 or ".
