@@ -1,5 +1,9 @@
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
+augroup load_coc
+    autocmd!
+    autocmd BufReadPost * call plug#load('coc.nvim') | autocmd! load_coc
+augroup END
 
 " coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
 " 其它可选coc插件(有更好的vim插件可用)：
@@ -8,7 +12,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " coc-pairs => auto-pairs插件暂时不需要auto-pair补全
 " other sources: https://github.com/neoclide/coc-sources
 " Reference: https://github.com/neoclide
-let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips']
+let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-ltex']
+let g:coc_filetype_map = {'tex': 'latex'}
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -20,6 +25,9 @@ nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
+
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
