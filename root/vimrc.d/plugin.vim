@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 " similar Plugin: Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
+let g:sneak#s_next = 1
 " default s: delete [count] charaters and start insert
 map s <Plug>Sneak_s
 map S <Plug>Sneak_S
