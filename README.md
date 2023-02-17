@@ -13,6 +13,8 @@ tar -cvf myvim.tar node root
 docker build -t myvim:1 .
 ```
 
+手动安装vim插件和coc插件的安装目录.vim/plugged和.vim/coc文件夹
+
 ## 初始化
 
 ```sh
