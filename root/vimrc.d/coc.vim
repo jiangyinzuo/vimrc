@@ -14,11 +14,13 @@ augroup END
 " coc-pairs => auto-pairs插件暂时不需要auto-pair补全
 " other sources: https://github.com/neoclide/coc-sources
 " Reference: https://github.com/neoclide
-" 
+"
+" 语法类插件（不好用）：
 " coc-ltex依赖ltex-ls LSP
 " 手动安装ltex-ls：前往https://github.com/valentjn/ltex-ls/releases下载并解压缩，解压后的目录位置类似
 " ~/.vim/coc/extensions/node_modules/coc-ltex/lib/ltex-ls-15.2.0
-let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-ltex']
+" coc-grammarly
+let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips']
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
 " Make <CR> auto-select the first completion item and notify coc.nvim to
