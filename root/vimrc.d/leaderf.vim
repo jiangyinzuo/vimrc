@@ -1,10 +1,10 @@
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "文件搜索
-nnoremap <silent> <leader>f :Leaderf file<CR>
+nnoremap <silent> <leader>ff :Leaderf file<CR>
 
 "历史打开过的文件
-nnoremap <silent> <leader>h :Leaderf mru<CR>
+nnoremap <silent> <leader>fh :Leaderf mru<CR>
 
 "Buffer
 nnoremap <silent> <leader>b :Leaderf buffer --nameOnly --auto-preview<CR>
