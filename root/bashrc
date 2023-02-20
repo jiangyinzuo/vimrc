@@ -18,5 +18,6 @@ mklinkd() {
 alias vimt='vim --servername TEX'
 
 source ~/vimrc/root/fzf/fzf.bash
+source ~/vimrc/root/vimdf
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"

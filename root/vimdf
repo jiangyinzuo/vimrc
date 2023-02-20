@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# https://superuser.com/questions/455944/vimdiff-and-git-all-at-once
+vimdf() {
+	commit1=$1
+	commit2=$2
+
+	files=`git diff ${commit1} ${commit2} --name-only`
+
+	cmd="set nosplitright | set nobackup | set noswapfile"
+
+	EXE="| silent exe"
+
+	for f in $files; do
+			if [ -z "$commit2" ]; then
+					cmd+="$EXE ':tabnew $f'"
+			else
+					cmd+="$EXE ':tabnew | f <${commit2}>/${f} | setlocal buftype=nofile | 0read ! git show ${commit2}:$f'"
+			fi
+			cmd+="$EXE ':0 | filetype detect'"
+			cmd+="$EXE ':vnew | f <${commit1}>/${f} | setlocal buftype=nofile | 0read ! git show ${commit1}:$f'"
+			cmd+="$EXE ':0 | filetype detect'"
+			cmd+="$EXE ':windo diffth'"
+	done
+	cmd+="$EXE 'bd 1 | tabfirst'"
+
+	vim -c "$cmd"
+}
