@@ -1,1 +1,0 @@
-/home/jiangyinzuo/vimrc/root/.vim
