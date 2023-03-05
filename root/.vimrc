@@ -363,3 +363,5 @@ if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
 endif
+
+command -nargs=0 Chat AsyncRun -mode=term -pos=curwin /home/jiangyinzuo/vimrc.d/openai_app.py chat

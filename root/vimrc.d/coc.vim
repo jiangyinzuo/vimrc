@@ -20,7 +20,7 @@ augroup END
 " 手动安装ltex-ls：前往https://github.com/valentjn/ltex-ls/releases下载并解压缩，解压后的目录位置类似
 " ~/.vim/coc/extensions/node_modules/coc-ltex/lib/ltex-ls-15.2.0
 " coc-grammarly
-let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips']
+let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-pyright']
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
 " Make <CR> auto-select the first completion item and notify coc.nvim to
