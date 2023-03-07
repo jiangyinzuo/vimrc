@@ -2,7 +2,9 @@
 
 Requirements: vim 8.2.4919(full features), vim 7.4(.vimrc)
 
-Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim`
+Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim` 
+安装Neovim：` sudo apt install neovim python3-pynvim` 
+Neovim WSL使用系统clipboard：https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
 Vim编译选项
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
@@ -48,3 +50,7 @@ go: gopls（可以通过vim-go下载后，配置环境变量）
 ```
 sudo apt install wslu
 ```
+
+## 远程开发
+
+本地开发环境+远程文件系统：sshfs
