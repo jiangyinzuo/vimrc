@@ -1,3 +1,8 @@
+function Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 " run
 " :source %
 " to update
@@ -5,6 +10,8 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+
+Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'), {'do': ':TSUpdate'})
 
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
