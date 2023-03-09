@@ -2,7 +2,8 @@
   "languageserver": {
     "clangd": {
       "command": "clangd",
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+      "args": ["--compile-commands-dir=_build/debug"],
+      "rootPatterns": [".git", "compile_flags.txt", "compile_commands.json"],
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
     },
     "golang": {
