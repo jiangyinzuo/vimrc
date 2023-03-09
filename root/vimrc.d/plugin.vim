@@ -29,7 +29,11 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 Plug 'markonm/traces.vim'
-Plug 'tomasiser/vim-code-dark'
+if has("nvim")
+	Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+else
+	Plug 'tomasiser/vim-code-dark'
+end
 
 Plug 'voldikss/vim-floaterm'
 let g:floaterm_width = 0.8
@@ -63,4 +67,8 @@ source ~/vimrc.d/asynctasks.vim
 " Initialize plugin system
 call plug#end()
 
-colorscheme codedark
+if has("nvim")
+	" colorscheme tokyonight-storm
+else
+	colorscheme codedark
+end

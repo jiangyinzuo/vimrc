@@ -1,5 +1,6 @@
 #/bin/bash
 
+ln -s `pwd` ~/vimrc
 ln -s ~/vimrc/root/.vimrc ~/.vimrc
 ln -s ~/vimrc/root/vimrc.d ~/vimrc.d
 ln -s ~/vimrc/root/.vim ~/.vim
