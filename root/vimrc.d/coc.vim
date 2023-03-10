@@ -37,8 +37,8 @@ nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
-" Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+" Apply the most preferred quickfix code action to fix diagnostic on the current line
+nmap <leader>ca  <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>

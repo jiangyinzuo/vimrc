@@ -25,26 +25,49 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
+ 
 Plug 'markonm/traces.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 if !exists('g:vscode')
+	if has('nvim') && !g:nvim_compatibility_with_vim
+		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+		Plug 'williamboman/mason.nvim'
+		Plug 'neovim/nvim-lspconfig'
+		" Plug 'b0o/schemastore.nvim'  " JSON schema
+		" Plug 'jose-elias-alvarez/null-ls.nvim'
+		Plug 'p00f/clangd_extensions.nvim'
+
+		Plug 'nvim-lua/plenary.nvim'
+		Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+
+		" completion(use ultisnips)
+		Plug 'hrsh7th/cmp-nvim-lsp'
+		Plug 'hrsh7th/cmp-buffer'
+		Plug 'hrsh7th/cmp-path'
+		Plug 'hrsh7th/cmp-cmdline'
+		Plug 'hrsh7th/nvim-cmp'
+
+		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+	else
+		Plug 'tomasiser/vim-code-dark'
+		source ~/vimrc.d/coc.vim
+		source ~/vimrc.d/leaderf.vim
+	end
+
 	Plug 'airblade/vim-gitgutter'
 	" Plug 'MattesGroeger/vim-bookmarks'
-  Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'), {'do': ':TSUpdate'})
-  Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+	Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 	" vnoremap <leader>c :OSCYank<CR>
-	Plug 'folke/tokyonight.nvim', Cond(has('nvim'), { 'branch': 'main' })
-	Plug 'tomasiser/vim-code-dark', Cond(!has('nvim'))
 	
 	Plug 'voldikss/vim-floaterm'
 	let g:floaterm_width = 0.8
 	let g:floaterm_height = 0.8
 	
 	" executable() is slow
-	source ~/vimrc.d/leaderf.vim
 	source ~/vimrc.d/fzf.vim
-	source ~/vimrc.d/coc.vim
 	source ~/vimrc.d/cpp.vim
 	" source ~/vimrc.d/go.vim
 	source ~/vimrc.d/markdown.vim
@@ -62,8 +85,8 @@ end
 " Initialize plugin system
 call plug#end()
 
-if has("nvim")
-	" colorscheme tokyonight-storm
+if has("nvim") && !g:nvim_compatibility_with_vim
+	colorscheme tokyonight-moon
 else
 	colorscheme codedark
 end

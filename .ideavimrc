@@ -1,0 +1,20 @@
+" options and mappings that are supported by both Vim and IdeaVim
+
+if has('ide')
+  " mappings and options that exist only in IdeaVim
+  " set multiple-cursors
+  set sneak
+
+  if &ide =~? 'intellij idea'
+    if &ide =~? 'community'
+      " some mappings and options for IntelliJ IDEA Community Edition
+    elseif &ide =~? 'ultimate'
+      " some mappings and options for IntelliJ IDEA Ultimate Edition
+    endif
+  elseif &ide =~? 'pycharm'
+    " PyCharm specific mappings and options
+  endif
+else
+  " some mappings for Vim/Neovim
+  " nnoremap <leader>f <cmd>Telescope find_files<cr>
+endif
