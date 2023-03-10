@@ -5,7 +5,9 @@
 		"--compile-commands-dir=_build/debug",
 		"--pretty",
 		"--cross-file-rename",
-		"--inlay-hints=true"
+		"--inlay-hints=true",
+		"--background-index",
+		"--suggest-missing-includes=true"
 	],
 	"languageserver": {
 		"golang": {

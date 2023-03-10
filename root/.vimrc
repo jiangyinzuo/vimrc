@@ -77,11 +77,12 @@ let g:netrw_browsex_viewer="start"
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
   autocmd!
-  autocmd FileType c,cpp,java,scala 	                 let b:comment_leader = '// '
+  autocmd FileType c,cpp,java,scala 	                   let b:comment_leader = '// '
   autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
   autocmd FileType tex                                   let b:comment_leader = '% '
   autocmd FileType mail                                  let b:comment_leader = '> '
   autocmd FileType vim                                   let b:comment_leader = '" '
+	autocmd FileType lua                                   let b:comment_leader = '-- '
 augroup end
 
 " https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
