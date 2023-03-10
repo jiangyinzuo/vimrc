@@ -40,9 +40,9 @@ set smartindent " 以 { 或cinword变量开始的行（if、while...），换行
 
 augroup indent2
     autocmd!
-    autocmd FileType cpp,vim,tex,markdown,html,sh,zsh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType cpp,vim,tex,markdown,html,sh,zsh,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
-augroup python
+augroup indent4
     autocmd!
     autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
