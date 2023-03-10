@@ -20,10 +20,13 @@ augroup END
 " 手动安装ltex-ls：前往https://github.com/valentjn/ltex-ls/releases下载并解压缩，解压后的目录位置类似
 " ~/.vim/coc/extensions/node_modules/coc-ltex/lib/ltex-ls-15.2.0
 " coc-grammarly
-let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-pyright']
+"
+" clangd:
+" 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
+let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-pyright', 'coc-json']
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
-" Make <CR> auto-select the first completion item and notify coc.nvim to
+" Make <CR> auto-select the first completion item and notify coc.nvim t:
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -50,3 +53,4 @@ endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>fmt <Plug>(coc-format)

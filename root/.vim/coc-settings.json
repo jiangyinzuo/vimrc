@@ -1,15 +1,21 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "args": ["--compile-commands-dir=_build/debug"],
-      "rootPatterns": [".git", "compile_flags.txt", "compile_commands.json"],
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-    },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
-    }
-  }
+	"clangd.enabled": true,
+	"clangd.arguments": [
+		"--clang-tidy",
+		"--compile-commands-dir=_build/debug",
+		"--pretty",
+		"--cross-file-rename",
+		"--inlay-hints=true"
+	],
+	"languageserver": {
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": [
+				"go.mod"
+			],
+			"filetypes": [
+				"go"
+			]
+		}
+	}
 }

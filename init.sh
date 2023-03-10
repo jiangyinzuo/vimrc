@@ -9,3 +9,4 @@ echo 'source ~/vimrc/root/bashrc' >> ~/.bashrc
 
 # nvim
 ln -s ~/vimrc/root/.config/nvim ~/.config/nvim
+ln -s ~/vimrc/root/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
