@@ -3,7 +3,7 @@ set history=500 " Sets how many lines of history VIM has to remember
 
 " Enable filetype plugins
 filetype indent on
-filetype plugin on  
+filetype plugin on
 
 syntax on "语法高亮显示
 set encoding=utf-8
@@ -38,12 +38,16 @@ set smarttab
 set autoindent " 跟随上一行的缩进方式
 set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
+" 显示空白字符
+set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
+set list
+
 augroup indent2
-    autocmd!
-    autocmd FileType cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
+		autocmd!
+		autocmd FileType cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 augroup indent4
-    autocmd!
-    autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+		autocmd!
+		autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
 

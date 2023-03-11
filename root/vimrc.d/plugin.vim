@@ -89,4 +89,5 @@ if has("nvim") && !g:nvim_compatibility_with_vim
 	colorscheme tokyonight-moon
 else
 	colorscheme codedark
+	hi SpecialKey ctermfg=darkgray guifg=gray70
 end

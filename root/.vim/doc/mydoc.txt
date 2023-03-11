@@ -19,8 +19,6 @@
 
 *auto-completion* https://zhuanlan.zhihu.com/p/106309524
 *cheetsheets* https://devhints.io/vim-help
-*close-preview* `:pc`
-*execute-current-line-as-vim-command* `:exe getline('.')`
 *execute-selected(yanked)-text* `:@"`, see `:h :@`
 *重复执行上一个命令* @:
 *goto-file* gf gF CTRL-Vgf CTRL-VgF
@@ -28,10 +26,7 @@
 *paste-in-(search-)command-mode* CTRL-R"
 *next-in-search-mode* *查找模式下的n和N* CTRL-G CTRL-T
 *put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
-*save-with-sudo* `:w !sudo tee %`
 *select-history-command* `q:`
-*welcome* `:intro` `:smile`
-*print-file*: :f
 
 *搜索并替换整个文件中的第一个模式* `:/pattern/s//replace/`
 解释：
@@ -50,11 +45,9 @@ recording a macro: >
   @@	execute your macro again
 <
 
-*create-terminal-in-new-tab* `:tab ter`
 *terminal-window-executes-shortcuts* CTRL-W{shortcuts}
 *yank-terminal* CTRL-WN
 
-*close-all-the-other-windows* `:only` (similar `:tabonly`)
 *split-window-with-height-10-and-open-buffer-1* `:10sp #1`
 
 *add-to-the-end-of-line* `:%s/$/ galaxy/g`

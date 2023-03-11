@@ -41,3 +41,20 @@ function! s:find_git_root()
 endfunction
 
 command! ProjectFiles execute 'Files' asyncrun#get_root('%')
+
+" See https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzf-inside-terminal-buffer
+" On :LS!, <bang> evaluates to '!', and '!0' becomes 1
+" The query history for this command will be stored as 'ls' inside g:fzf_history_dir.
+" The name is ignored if g:fzf_history_dir is not defined.
+let g:fzf_history_dir = '~/.cache/fzf_history_dir'
+command! -bang -complete=dir -nargs=? LS
+		\ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
+
+function s:exec_command_palette(line)
+	let l:cmd = filter(split(a:line, '\t'), 'v:val != ""')
+	" 把l:cmd放到Command Line且不执行
+	call feedkeys(l:cmd[1])
+endfunction
+
+command! -bang -nargs=0 Palette
+			\ call fzf#run(fzf#wrap('palettle', {'source': 'cat ~/.vim/palette.txt', 'sink': function("s:exec_command_palette")}, <bang>0))
