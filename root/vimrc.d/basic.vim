@@ -39,6 +39,7 @@ set autoindent " 跟随上一行的缩进方式
 set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
 " 显示空白字符
+" https://codepoints.net/U+23B5
 set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
 set list
 
