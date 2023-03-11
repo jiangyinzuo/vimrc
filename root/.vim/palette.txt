@@ -2,6 +2,8 @@
 FZF Vim命令						:Commands
 FZF 搜索所有buffers					:Buffers
 FZF ls							:LS
+FZF 选择git commits 					:Commits
+FZF 选择nmaps 						:Maps
 在新标签页(tab)中创建终端				:tab ter
 执行系统命令并输出到quickfix list			:CExprsys
 Save with sudo						:w !sudo tee %

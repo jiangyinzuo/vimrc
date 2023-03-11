@@ -61,18 +61,6 @@ recording a macro: >
 <
 
 -------------------------------------------------------------------------------
-*git*
-
-*git-checkout-history-file* `git checkout v0.2.2 -- markdown.vim`
-
-*git-difftool* `git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD`
-
-*git-mergetool*
-
-tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
-`git mergetool`
-
-*clean-LOCAL-BASE-REMOTE-files* `git clean -i`
 
 *find-files* (vim will be blocked if directory is too large) >
   set path+=**
@@ -143,15 +131,9 @@ TODO: LSP formatter, LSP linter
 -------------------------------------------------------------------------------
 *fzf.vim*
 
-*select-commands-in-popup-window(fzf.vim)* `:Commands`.
-*select-commits-in-popup-window(fzf.vim)* `:Commits`.
-*select-maps(n)-in-popup-window(fzf.vim)* `:Maps`.
 *paste-to-fzf-popup-window*
 
 "+y           yank to system
 CTRL-SHIFT-V  paste
 
 -------------------------------------------------------------------------------
-*wsl*
-
-*create-link* *mklinkd*
