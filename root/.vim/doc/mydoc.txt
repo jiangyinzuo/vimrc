@@ -191,3 +191,5 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 *vim-visual-multi通过Up/Down创建cursor*	CTRL-Down CTRL-Up
 *vim-visual-multi创建cursor*		\\\
 -------------------------------------------------------------------------------
+
+*打开所有折叠*		zR

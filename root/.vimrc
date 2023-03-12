@@ -228,8 +228,8 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 command! -nargs=0 VimExeLine exe getline(".")
 
 " https://www.zhihu.com/question/30782510/answer/70078216
-nnoremap zp :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
-" unfold all: zR
+nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
+" 打开所有折叠: zR
 
 set makeprg=make
 
