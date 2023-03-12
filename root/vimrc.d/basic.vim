@@ -7,6 +7,10 @@ filetype plugin on
 
 syntax on "语法高亮显示
 set encoding=utf-8
+set fileencoding=utf-8
+" vim自动探测fileencodeing的顺序列表
+set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
+set termencoding=utf-8
 set number "显示行号
 set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符

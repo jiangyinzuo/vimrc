@@ -303,7 +303,9 @@ elseif s:tags_use_gtags && s:has_vimrcd
 	nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
 endif
 
-if isdirectory(expand('~/.vim/doc'))
+" neovim 会报错
+if isdirectory(expand('~/.vim/doc')) && !has('nvim')
+	set helplang=cn
 	helptags ~/.vim/doc
 endif
 

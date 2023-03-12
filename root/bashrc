@@ -16,7 +16,7 @@ mklinkd() {
 }
 
 alias vimt='vim --servername TEX'
-alias vimhelp='vim -c ":Lines!" ~/vimrc/help.md'
+alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 
 source ~/vimrc/root/fzf/fzf.bash
 source ~/vimrc/root/vimdf

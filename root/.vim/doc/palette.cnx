@@ -1,0 +1,27 @@
+*当前buffer的LSP符号表(nvim)*				:Telescope lsp_document_symbols
+*FZF-Vim命令*						:Commands
+*Vim命令*						:command
+*FZF-搜索所有buffers*					:Buffers
+*FZF-ls*						:LS
+*FZF-选择git-commits*					:Commits
+*FZF-选择nmaps*						:Maps
+*vim-查看map*						:map
+*vim-查看tmap*						:tmap
+*FZF-查看helptags*					:Helptags
+*vim-helpgrep*						:helpgrep
+*在新标签页(tab)中创建终端*				:tab-ter
+*执行系统命令并输出到quickfix-list*			:CExprsys
+*执行复制到默认寄存器中的命令(:h-:@)*			:@"
+*Save-with-sudo*					:w !sudo tee %
+*当前行作为vim-command执行*				:exe getline('.')
+*关闭preview窗口*					:pc
+*查看当前文件名*					:f
+*intro*							:intro
+*smile*							:smile
+*关闭其它所有windows*					:only
+*关闭其它所有标签页(tab)*				:tabonly
+*clang-format当前文件*					:%!clang-format
+*跳转到第一行*						:normal gg
+*+1* 							:exe "normal \<c-a>"
+*开启自动保存(vim)*					:call timer#startAutoSave()
+*关闭自动保存(vim)*					:call timer#stopAutoSave()

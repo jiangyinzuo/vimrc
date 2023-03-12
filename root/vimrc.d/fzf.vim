@@ -57,4 +57,28 @@ function s:exec_command_palette(line)
 endfunction
 
 command! -bang -nargs=0 Palette
-			\ call fzf#run(fzf#wrap('palettle', {'source': 'cat ~/.vim/palette.txt', 'sink': function("s:exec_command_palette")}, <bang>0))
+			\ call fzf#run(fzf#wrap('palettle', {'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
+
+" See: github.com/junegunn/fzf.vim/issues/1037
+"" HelpRg command -- like helpgrep but with FZF and ripgrep
+let g:helppaths = uniq(sort(split(globpath(&runtimepath, 'doc/', 1), '\n')))
+
+function ListDocs(A, L, P)
+	let result = ''
+	for helppath in g:helppaths
+		let result = result . system("ls " . helppath . " | grep ^" . a:A)
+	endfor
+	return result
+endfunction
+
+command! -bang -nargs=? -complete=custom,ListDocs HelpRg
+			\ if <q-args> == "" |
+			\		call fzf#vim#grep(
+			\			'rg --column --line-number --no-heading --color=always --smart-case -g "*.txt" -g "*.cnx" "" '. join(g:helppaths), 1,
+			\			{}, <bang>0) |
+			\ else |
+			\		call fzf#vim#grep(
+			\			'rg --column --line-number --no-heading --color=always --smart-case  -g "' . <q-args> . '" "" '. join(g:helppaths), 1,
+			\			{}, <bang>0) |
+			\ end
+
