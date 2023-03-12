@@ -75,11 +75,85 @@ vim.diagnostic.config {
 	signs = true,
 }
 
+local navic = require("nvim-navic")
+if vim.g.enable_symbol_line == 1 then
+	navic.setup {
+		icons = {
+			File = ' ',
+			Module = ' ',
+			Namespace = ' ',
+			Package = ' ',
+			Class = ' ',
+			Method = ' ',
+			Property = ' ',
+			Field = ' ',
+			Constructor = ' ',
+			Enum = ' ',
+			Interface = ' ',
+			Function = ' ',
+			Variable = ' ',
+			Constant = ' ',
+			String = ' ',
+			Number = ' ',
+			Boolean = ' ',
+			Array = ' ',
+			Object = ' ',
+			Key = ' ',
+			Null = ' ',
+			EnumMember = ' ',
+			Struct = ' ',
+			Event = ' ',
+			Operator = ' ',
+			TypeParameter = ' '
+		},
+		highlight = true,
+		separator = " > ",
+		depth_limit = 0,
+		depth_limit_indicator = "..",
+		safe_output = true
+	}
+
+	vim.api.nvim_set_hl(0, "NavicIconsFile", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsModule", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsNamespace", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsPackage", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsClass", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsMethod", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsProperty", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsField", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsConstructor", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsEnum", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsInterface", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsFunction", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsVariable", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsConstant", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsString", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsNumber", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsBoolean", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsArray", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsObject", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsKey", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsNull", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsStruct", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsEvent", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsOperator", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicText", { default = true, bg = "#000000", fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "#000000", fg = "#ffffff" })
+
+	vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+	if vim.g.enable_symbol_line == 1 and client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
+	end
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -88,12 +162,12 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
 	vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
--- 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
--- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
--- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
--- 	vim.keymap.set("n", "<space>wl", function()
--- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
--- 	end, bufopts)
+	-- 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+	-- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+	-- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	-- 	vim.keymap.set("n", "<space>wl", function()
+	-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	-- 	end, bufopts)
 	vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
@@ -244,66 +318,67 @@ cmp.setup {
 }
 
 require("symbols-outline").setup({
-  highlight_hovered_item = true,
-  show_guides = true,
-  auto_preview = false,
-  position = 'right',
-  relative_width = true,
-  width = 25,
-  auto_close = true,
-  show_numbers = false,
-  show_relative_numbers = false,
-  show_symbol_details = true,
-  preview_bg_highlight = 'Pmenu',
-  autofold_depth = nil,
-  auto_unfold_hover = true,
-  fold_markers = { '', '' },
-  wrap = false,
-  keymaps = { -- These keymaps can be a string or a table for multiple keys
-    close = {"<Esc>", "q"},
-    goto_location = "<Cr>",
-    focus_location = "o",
-    hover_symbol = "<C-space>",
-    toggle_preview = "K",
-    rename_symbol = "r",
-    code_actions = "a",
-    fold = "h",
-    unfold = "l",
-    fold_all = "W",
-    unfold_all = "E",
-    fold_reset = "R",
-  },
-  lsp_blacklist = {},
-  symbol_blacklist = {},
+	highlight_hovered_item = true,
+	show_guides = true,
+	auto_preview = false,
+	position = 'right',
+	relative_width = true,
+	width = 25,
+	auto_close = true,
+	show_numbers = false,
+	show_relative_numbers = false,
+	show_symbol_details = true,
+	preview_bg_highlight = 'Pmenu',
+	autofold_depth = nil,
+	auto_unfold_hover = true,
+	fold_markers = { '', '' },
+	wrap = false,
+	keymaps = {
+	            -- These keymaps can be a string or a table for multiple keys
+		close = { "<Esc>", "q" },
+		goto_location = "<Cr>",
+		focus_location = "o",
+		hover_symbol = "<C-space>",
+		toggle_preview = "K",
+		rename_symbol = "r",
+		code_actions = "a",
+		fold = "h",
+		unfold = "l",
+		fold_all = "W",
+		unfold_all = "E",
+		fold_reset = "R",
+	},
+	lsp_blacklist = {},
+	symbol_blacklist = {},
 	-- https://www.nerdfonts.com/cheat-sheet
-  symbols = {
-    File = { icon = "", hl = "@text.uri" },
-    Module = { icon = "", hl = "@namespace" },
-    Namespace = { icon = "", hl = "@namespace" },
-    Package = { icon = "", hl = "@namespace" },
-    Class = { icon = "𝓒", hl = "@type" },
-    Method = { icon = "ƒ", hl = "@method" },
-    Property = { icon = "", hl = "@method" },
-    Field = { icon = "", hl = "@field" },
-    Constructor = { icon = "", hl = "@constructor" },
-    Enum = { icon = "ℰ", hl = "@type" },
-    Interface = { icon = "ﰮ", hl = "@type" },
-    Function = { icon = "", hl = "@function" },
-    Variable = { icon = "", hl = "@constant" },
-    Constant = { icon = "", hl = "@constant" },
-    String = { icon = "𝓐", hl = "@string" },
-    Number = { icon = "#", hl = "@number" },
-    Boolean = { icon = "⊨", hl = "@boolean" },
-    Array = { icon = "", hl = "@constant" },
-    Object = { icon = "⦿", hl = "@type" },
-    Key = { icon = "🔐", hl = "@type" },
-    Null = { icon = "NULL", hl = "@type" },
-    EnumMember = { icon = "", hl = "@field" },
-    Struct = { icon = "𝓢", hl = "@type" },
-    Event = { icon = "🗲", hl = "@type" },
-    Operator = { icon = "+", hl = "@operator" },
-    TypeParameter = { icon = "𝙏", hl = "@parameter" },
-    Component = { icon = "", hl = "@function" },
-    Fragment = { icon = "", hl = "@constant" },
-  },
+	symbols = {
+		File = { icon = "", hl = "@text.uri" },
+		Module = { icon = "", hl = "@namespace" },
+		Namespace = { icon = "", hl = "@namespace" },
+		Package = { icon = "", hl = "@namespace" },
+		Class = { icon = "𝓒", hl = "@type" },
+		Method = { icon = "ƒ", hl = "@method" },
+		Property = { icon = "", hl = "@method" },
+		Field = { icon = "", hl = "@field" },
+		Constructor = { icon = "", hl = "@constructor" },
+		Enum = { icon = "ℰ", hl = "@type" },
+		Interface = { icon = "ﰮ", hl = "@type" },
+		Function = { icon = "", hl = "@function" },
+		Variable = { icon = "", hl = "@constant" },
+		Constant = { icon = "", hl = "@constant" },
+		String = { icon = "𝓐", hl = "@string" },
+		Number = { icon = "#", hl = "@number" },
+		Boolean = { icon = "⊨", hl = "@boolean" },
+		Array = { icon = "", hl = "@constant" },
+		Object = { icon = "⦿", hl = "@type" },
+		Key = { icon = "🔐", hl = "@type" },
+		Null = { icon = "NULL", hl = "@type" },
+		EnumMember = { icon = "", hl = "@field" },
+		Struct = { icon = "𝓢", hl = "@type" },
+		Event = { icon = "🗲", hl = "@type" },
+		Operator = { icon = "+", hl = "@operator" },
+		TypeParameter = { icon = "𝙏", hl = "@parameter" },
+		Component = { icon = "", hl = "@function" },
+		Fragment = { icon = "", hl = "@constant" },
+	},
 })

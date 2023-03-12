@@ -1,3 +1,7 @@
+""""""""""""""""""""""""" Plugin Config """""""""""""""""""""""""""""
+let g:enable_symbol_line = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 function Cond(cond, ...)
   let opts = get(a:000, 0, {})
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
@@ -40,7 +44,8 @@ if !exists('g:vscode')
 		" Plug 'jose-elias-alvarez/null-ls.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
 		Plug 'simrat39/symbols-outline.nvim'
-		
+		Plug 'SmiteshP/nvim-navic'
+
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
