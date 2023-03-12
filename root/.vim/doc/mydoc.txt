@@ -7,6 +7,10 @@
 *auto-completion* https://zhuanlan.zhihu.com/p/106309524
 *cheetsheets* https://devhints.io/vim-help
 *重复执行上一个命令* @:
+
+*命令（command）模式下cursor移动到开头*	CTRL-B
+*命令（command）模式下cursor移动到结尾*	CTRL-E
+
 *goto-file* gf gF CTRL-Vgf CTRL-VgF
 *increment-number* CTRL-A
 *paste-in-(search-)command-mode* CTRL-R"

@@ -1,4 +1,6 @@
-*当前buffer的LSP符号表(nvim)*				:Telescope lsp_document_symbols
+*搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
+*显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
+*搜索当前buffer的LSP-symbol-outline(vim)*		:CocList outline 
 *FZF-Vim命令*						:Commands
 *Vim命令*						:command
 *FZF-搜索所有buffers*					:Buffers

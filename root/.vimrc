@@ -1,6 +1,6 @@
 source ~/vimrc.d/basic.vim
+set guifont=Monospace\ Regular\ 20
 set mouse=a
-
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息
 " %F 完整文件路径名
@@ -329,3 +329,8 @@ endfunction
 
 " command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 command -nargs=0 GitBlame call EchoGitBlame()
+
+if &insertmode == 0
+	" save
+	inoremap <c-S> <esc>:w<CR>i
+end

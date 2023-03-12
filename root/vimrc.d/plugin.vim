@@ -39,7 +39,8 @@ if !exists('g:vscode')
 		" Plug 'b0o/schemastore.nvim'  " JSON schema
 		" Plug 'jose-elias-alvarez/null-ls.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
-
+		Plug 'simrat39/symbols-outline.nvim'
+		
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
