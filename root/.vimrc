@@ -1,26 +1,12 @@
 source ~/vimrc.d/basic.vim
+
+" 显示空白字符
+" https://codepoints.net/U+23B5
+set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
+set list
+
 set guifont=Monospace\ Regular\ 20
 set mouse=a
-" 设置状态行-----------------------------------
-" 设置状态行显示常用信息
-" %F 完整文件路径名
-" %m 当前缓冲被修改标记
-" %m 当前缓冲只读标记
-" %h 帮助缓冲标记
-" %w 预览缓冲标记
-" %Y 文件类型
-" %b ASCII值
-" %B 十六进制值
-" %l 行数
-" %v 列数
-" %p 当前行数占总行数的的百分比
-" %L 总行数
-" %{...} 评估表达式的值，并用值代替
-" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
-" %{&ff} 显示文件类型
-" 链接：https://zhuanlan.zhihu.com/p/532430825
-set laststatus=2
-set statusline=%1*%F%m%r%h%w%=\ %2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL
 
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number " 合并git状态与行号
@@ -233,6 +219,20 @@ nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\
 
 set makeprg=make
 
+command -nargs=0 Chat AsyncRun -mode=term -pos=curwin /home/jiangyinzuo/vimrc.d/openai_app.py chat
+
+function EchoGitBlame()
+	let line_number = line(".")
+	echo system('git blame -L ' . line_number . ',' . line_number . ' -- ' . expand('%'))
+endfunction
+
+" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
+command -nargs=0 GitBlame call EchoGitBlame()
+
+if &insertmode == 0
+	" save
+	inoremap <c-S> <esc>:w<CR>i
+end
 let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -309,6 +309,7 @@ if isdirectory(expand('~/.vim/doc')) && !has('nvim')
 	helptags ~/.vim/doc
 endif
 
+" Load plugins
 if s:has_vimrcd
   source ~/vimrc.d/plugin.vim
 endif
@@ -320,17 +321,29 @@ if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 	endif
 endif
 
-command -nargs=0 Chat AsyncRun -mode=term -pos=curwin /home/jiangyinzuo/vimrc.d/openai_app.py chat
-
-function EchoGitBlame()
-	let line_number = line(".")
-	echo system('git blame -L ' . line_number . ',' . line_number . ' -- ' . expand('%'))
-endfunction
-
-" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
-command -nargs=0 GitBlame call EchoGitBlame()
-
-if &insertmode == 0
-	" save
-	inoremap <c-S> <esc>:w<CR>i
-end
+" 设置状态行-----------------------------------
+" 设置状态行显示常用信息
+" %F 完整文件路径名
+" %m 当前缓冲被修改标记
+" %m 当前缓冲只读标记
+" %h 帮助缓冲标记
+" %w 预览缓冲标记
+" %Y 文件类型
+" %b ASCII值
+" %B 十六进制值
+" %l 行数
+" %v 列数
+" %p 当前行数占总行数的的百分比
+" %L 总行数
+" %{...} 评估表达式的值，并用值代替
+" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
+" %{&ff} 显示文件类型
+" 链接：https://zhuanlan.zhihu.com/p/532430825
+set laststatus=2
+set statusline=%1*%F%m%r%h%w
+if exists("g:plugs") && has_key(g:plugs, 'coc.nvim') && (!has('nvim') || g:nvim_compatibility_with_vim == 1)
+	set statusline+=\ \|%7*\ %{coc#status()}
+endif
+" 左对齐和右对齐的分割点
+set statusline+=%=\ 
+set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
