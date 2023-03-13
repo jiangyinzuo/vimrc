@@ -341,9 +341,9 @@ endif
 " 链接：https://zhuanlan.zhihu.com/p/532430825
 set laststatus=2
 set statusline=%1*%F%m%r%h%w
-if exists("g:plugs") && has_key(g:plugs, 'coc.nvim') && (!has('nvim') || g:nvim_compatibility_with_vim == 1)
-	set statusline+=\ \|%7*\ %{coc#status()}
-endif
+" if exists("g:plugs") && has_key(g:plugs, 'coc.nvim') && (!has('nvim') || g:nvim_compatibility_with_vim == 1)
+" 	set statusline+=\ \|%7*\ %{coc#status()}
+" endif
 " 左对齐和右对齐的分割点
 set statusline+=%=\ 
 set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
