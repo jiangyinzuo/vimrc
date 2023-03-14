@@ -98,3 +98,35 @@ rffv() {
 	[ -n "${selected[0]}" ] && vim "${selected[0]}" "+${selected[1]}"
 }
 
+# https://github.com/ColonelBuendia/rgpipe
+rgi-fzf() {
+	RG_PREFIX="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
+	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ~/vimrc/root/rgpipe --files-with-matches $@"
+	local file
+	file="$(
+			RIPGREP_CONFIG_PATH='' \
+			FZF_DEFAULT_COMMAND="$RG_PREFIX . " \
+			fzf --sort --preview="[[ ! -z {} ]] && rg -iz --pretty --pre ~/vimrc/root/rgpipe {q} {} | head -n 100" \
+				--phony -q "" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	start "$file"
+}
+
+# https://github.com/phiresky/ripgrep-all
+rga-fzf() {
+	echo $@
+	RG_PREFIX="RIPGREP_CONFIG_PATH='' rga --no-ignore --files-with-matches $@"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX . " \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+				--phony -q "" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&
+	start "$file"
+}

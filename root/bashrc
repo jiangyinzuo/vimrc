@@ -21,4 +21,9 @@ alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 source ~/vimrc/root/fzf/fzf.bash
 source ~/vimrc/root/vimdf
 
+alias rgpipe='~/vimrc/root/rgpipe'
+RGPIPE='~/vimrc/root/rgpipe'
+alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
+	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ${RGPIPE}"
+
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"

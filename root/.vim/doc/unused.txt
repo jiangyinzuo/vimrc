@@ -3,6 +3,7 @@
                                     Awesome Plugins/Scripts~
 =======================================================================================
 
+*glepnir/dashboard-nvim* neovim's dashboard plugin
 *mhinz/vim-startify* beautify dashboard, see >
   git show v0.2.1:root/vimrc.d/startify.vim
 <

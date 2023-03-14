@@ -128,9 +128,6 @@ CTRL-SHIFT-V  paste
 
 -------------------------------------------------------------------------------
 
-*WSL创建软链接文件夹*			mklinkd 2023-03-07-1  /mnt/d/doc2/group-meeting/readinggroup/2023-03-07-1
-
-
 *git提交把作者改成自己*				git commit --amend --reset-author --no-edit
 *ssh生成key*					1) ssh-keygen -t rsa -C '邮件地址@youremail.com'	2) cat ~/.ssh/id_rsa.pub
 *git回退版本*					git reset --soft 需要回退的commit hash
@@ -198,3 +195,45 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 -------------------------------------------------------------------------------
 
 *打开所有折叠*		zR
+
+-------------------------------------------------------------------------------
+
+*bash-help*
+
+*start*					WSL用windows打开文件
+*WSL创建软链接文件夹*			mklinkd 2023-03-07-1  /mnt/d/doc2/group-meeting/readinggroup/2023-03-07-1
+
+*z* 模糊跳转autojump
+
+*vimt* tex
+*vimhelp* help
+*vimdf* diff
+
+-------------------------------------------------------------------------------
+
+*bash-fzf*
+
+*fzf跳转* 	fzfcd ALT-C
+*fzf补全*	CTRL-T：递归搜索当前文件夹下文件
+		CTRL-R：历史命令
+
+*fzf查找文件夹并跳转* cd ** <TAB> 	
+*rfv*		ripgrep grep找文件，fzf模糊查找，最后vim打开文件
+*rffv*		ripgrep搜索文件，fzf模糊查找，最后vim打开文件
+*rga* *rgi*	ripgrep查找各种类型的文件
+*rga-fzf*	ripgrep查找各种类型的文件（不支持pptx），fzf模糊查找，最后打开文件
+*rgi-fzf*	ripgrep查找各种类型的文件（支持pptx），fzf模糊查找，最后打开文件
+
+-------------------------------------------------------------------------------
+
+*junegunn/fzf-git.sh*	https://github.com/junegunn/fzf-git.sh/
+
+CTRL-G CTRL-F for Files
+CTRL-G CTRL-B for Branches
+CTRL-G CTRL-T for Tags
+CTRL-G CTRL-R for Remotes
+CTRL-G CTRL-H for commit Hashes
+CTRL-G CTRL-S for Stashes
+CTRL-G CTRL-E for Each ref (git for-each-ref)
+
+-------------------------------------------------------------------------------
