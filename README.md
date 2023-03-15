@@ -14,8 +14,7 @@ Neovim WSL使用系统clipboard：https://github.com/neovim/neovim/wiki/FAQ#how-
 tar -cvf myvim.tar node root
 docker build -t myvim:1 .
 ```
-
-手动安装vim插件和coc插件的安装目录.vim/plugged和.vim/coc文件夹  
+手动复制.vim下plugged(vim插件)、coc(coc插件)和gadgets(dap调试)文件夹  
 
 ## 初始化
 

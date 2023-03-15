@@ -54,6 +54,10 @@ if !exists('g:vscode')
 		Plug 'p00f/clangd_extensions.nvim'
 		Plug 'simrat39/symbols-outline.nvim'
 		Plug 'mfussenegger/nvim-dap'
+		Plug 'rcarriga/nvim-dap-ui'
+		Plug 'theHamsta/nvim-dap-virtual-text'
+		Plug 'folke/neodev.nvim'
+		
 		Plug 'SmiteshP/nvim-navic'
 
 		Plug 'nvim-lua/plenary.nvim'
@@ -71,6 +75,9 @@ if !exists('g:vscode')
 		Plug 'tomasiser/vim-code-dark'
 		source ~/vimrc.d/coc.vim
 		source ~/vimrc.d/leaderf.vim
+		Plug 'puremourning/vimspector'
+		let g:vimspector_enable_mappings='HUMAN'
+		let g:vimspector_base_dir = $HOME . '/.vim'
 	end
 
 	Plug 'airblade/vim-gitgutter'

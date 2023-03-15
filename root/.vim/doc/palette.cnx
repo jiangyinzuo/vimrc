@@ -29,3 +29,4 @@
 *+1* 							:exe "normal \<c-a>"
 *开启自动保存(vim)*					:call timer#startAutoSave()
 *关闭自动保存(vim)*					:call timer#stopAutoSave()
+*neovim打开dap调试界面*					:DapContinue

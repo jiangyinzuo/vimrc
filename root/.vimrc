@@ -41,7 +41,7 @@ set t_Co=256
 set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
 
-if v:version >= 801
+if has('nvim') || v:version >= 801
 	autocmd Filetype c,cpp packadd termdebug
 	let g:termdebug_wide = 1
 endif

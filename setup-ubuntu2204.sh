@@ -6,6 +6,8 @@ apt install -y npm
 npm install -g n
 n latest
 
+# :MasonInstall lua-language-server cpptools
+
 # neovim json lsp
 # npm i -g vscode-langservers-extracted
 

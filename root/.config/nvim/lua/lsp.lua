@@ -263,11 +263,13 @@ require("clangd_extensions").setup {
 local rt = require("rust-tools")
 
 rt.setup({
-  server = {
+	server = {
 		capabilities = capabilities,
 		on_attach = on_attach,
-  },
+	},
 })
+
+require("dapconfig")
 
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
@@ -299,6 +301,9 @@ require 'lspconfig'.lua_ls.setup {
 			telemetry = {
 				enable = false,
 			},
+			completion = {
+				callSnippet = "Replace"
+			}
 		},
 	},
 }
@@ -343,7 +348,7 @@ require("symbols-outline").setup({
 	fold_markers = { '', '' },
 	wrap = false,
 	keymaps = {
-	            -- These keymaps can be a string or a table for multiple keys
+		-- These keymaps can be a string or a table for multiple keys
 		close = { "<Esc>", "q" },
 		goto_location = "<Cr>",
 		focus_location = "o",

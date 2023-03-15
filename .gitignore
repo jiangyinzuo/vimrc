@@ -3,4 +3,5 @@ root/.vim/plugged
 root/.vim/doc/tags
 root/.vim/doc/tags-cn
 root/.vim/coc
+root/.vim/gadgets
 __pycache__
