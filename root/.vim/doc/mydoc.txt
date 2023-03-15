@@ -4,6 +4,7 @@
 
 ===============================================================================
 
+*Neovim和vim使用同样的插件*	.config/nvim/init.vim中`let g:nvim_compatibility_with_vim = 1`
 *fold*
 
 https://vim.fandom.com/wiki/Folding
@@ -138,7 +139,7 @@ CTRL-SHIFT-V  paste
 *git回退版本*					git reset --soft 需要回退的commit hash
 *git先暂存自己的修改，再pull别人的提交*		1) git stash 	2) git pull 	3) git pop
 *git复制某一分支*				git remote set-url
-*git合并commit* 					git reset
+*git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
 *git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
 
 -------------------------------------------------------------------------------

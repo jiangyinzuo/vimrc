@@ -314,6 +314,12 @@ if s:has_vimrcd
   source ~/vimrc.d/plugin.vim
 endif
 
+function UpdateCocExtensions(ext)
+	if exists('g:coc_global_extensions')
+		let g:coc_global_extensions = g:coc_initial_global_extensions + [a:ext]
+	endif
+endfunction
+
 if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 	" https://zhuanlan.zhihu.com/p/106309525
 	if has("autocmd") && exists("+omnifunc")
@@ -342,7 +348,7 @@ endif
 set laststatus=2
 if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline=%1*%F%m%r%h%w\ 
-	let git_branch = system("git rev-parse --abbrev-ref HEAD")
+	let git_branch = system("git rev-parse --abbrev-ref HEAD 2> /dev/null")
 	exe "set statusline +=" . git_branch
 	if exists("g:plugs") && has_key(g:plugs, 'coc.nvim')
 		function CocStatusLine()

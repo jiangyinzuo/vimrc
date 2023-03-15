@@ -15,6 +15,9 @@ endfunction
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+" Test framework
+Plug 'junegunn/vader.vim'
+
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 

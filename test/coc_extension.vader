@@ -1,0 +1,15 @@
+Given cpp:
+Execute:
+  AssertEqual ['coc-ultisnips', 'coc-json', 'coc-clangd'], g:coc_global_extensions
+
+Given rust:
+Execute:
+  AssertEqual ['coc-ultisnips', 'coc-json', 'coc-rust-analyzer'], g:coc_global_extensions
+
+Given python:
+Execute:
+  AssertEqual ['coc-ultisnips', 'coc-json', 'coc-pyright'], g:coc_global_extensions
+
+Given tex:
+Execute:
+  AssertEqual ['coc-ultisnips', 'coc-json', 'coc-vimtex'], g:coc_global_extensions

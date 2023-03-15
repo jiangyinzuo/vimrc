@@ -24,7 +24,8 @@ augroup END
 "
 " clangd:
 " 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
-let g:coc_global_extensions = ['coc-ultisnips', 'coc-json']
+let g:coc_initial_global_extensions = ['coc-ultisnips', 'coc-json']
+let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
 " Make <CR> auto-select the first completion item and notify coc.nvim t:

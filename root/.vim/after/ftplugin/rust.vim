@@ -1,3 +1,1 @@
-if exists('g:coc_global_extensions')
-	let g:coc_global_extensions += ['coc-rust-analyzer']
-endif
+call UpdateCocExtensions('coc-rust-analyzer')

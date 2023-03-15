@@ -3,6 +3,8 @@
                                     Awesome Plugins/Scripts~
 =======================================================================================
 
+*vim-test* https://github.com/vim-test/vim-test Vim多语言单元测试插件
+
 *glepnir/dashboard-nvim* neovim's dashboard plugin
 *mhinz/vim-startify* beautify dashboard, see >
   git show v0.2.1:root/vimrc.d/startify.vim
