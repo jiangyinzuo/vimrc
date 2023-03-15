@@ -3,6 +3,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 augroup load_coc
     autocmd!
     autocmd BufReadPost * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd BufNewFile * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
     autocmd InsertEnter * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
 	" Highlight the symbol and its references when holding the cursor.
 augroup END
@@ -23,7 +24,7 @@ augroup END
 "
 " clangd:
 " 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
-let g:coc_global_extensions = ['coc-vimtex', 'coc-ultisnips', 'coc-pyright', 'coc-json']
+let g:coc_global_extensions = ['coc-ultisnips', 'coc-json']
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
 " Make <CR> auto-select the first completion item and notify coc.nvim t:

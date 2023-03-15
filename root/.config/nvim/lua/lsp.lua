@@ -69,7 +69,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 ---------------------------------------------------------------------
 
--- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 vim.diagnostic.config {
 	virtual_text = true,
 	signs = true,
@@ -177,6 +176,7 @@ local on_attach = function(client, bufnr)
 	end, bufopts)
 end
 
+-- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 require("clangd_extensions").setup {
 	server = {
 		-- options to pass to nvim-lspconfig
@@ -259,6 +259,15 @@ require("clangd_extensions").setup {
 		},
 	},
 }
+
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+		capabilities = capabilities,
+		on_attach = on_attach,
+  },
+})
 
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,

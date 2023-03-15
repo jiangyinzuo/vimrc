@@ -1,4 +1,5 @@
 {
+	"outline.keepWindow": false,
 	"clangd.enabled": true,
 	"clangd.arguments": [
 		"--clang-tidy",

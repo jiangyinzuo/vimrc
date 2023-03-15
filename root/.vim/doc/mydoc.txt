@@ -4,6 +4,11 @@
 
 ===============================================================================
 
+*fold*
+
+https://vim.fandom.com/wiki/Folding
+*折叠右花括号*	`zfa}`	`va}zf`
+
 *auto-completion* https://zhuanlan.zhihu.com/p/106309524
 *cheetsheets* https://devhints.io/vim-help
 *重复执行上一个命令* @:

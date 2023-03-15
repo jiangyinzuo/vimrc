@@ -38,12 +38,19 @@ if !exists('g:vscode')
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+		Plug 'nvim-lualine/lualine.nvim'
+		" If you want to have icons in your statusline choose one of these
+		Plug 'kyazdani42/nvim-web-devicons'
+		Plug 'linrongbin16/lsp-progress.nvim'
+
 		Plug 'williamboman/mason.nvim'
 		Plug 'neovim/nvim-lspconfig'
 		" Plug 'b0o/schemastore.nvim'  " JSON schema
 		" Plug 'jose-elias-alvarez/null-ls.nvim'
+		Plug 'simrat39/rust-tools.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
 		Plug 'simrat39/symbols-outline.nvim'
+		Plug 'mfussenegger/nvim-dap'
 		Plug 'SmiteshP/nvim-navic'
 
 		Plug 'nvim-lua/plenary.nvim'
@@ -91,9 +98,8 @@ end
 " Initialize plugin system
 call plug#end()
 
-if has("nvim") && !g:nvim_compatibility_with_vim
-	colorscheme tokyonight-moon
-else
+if !has("nvim") || g:nvim_compatibility_with_vim
 	colorscheme codedark
 	hi SpecialKey ctermfg=darkgray guifg=gray70
+else
 end

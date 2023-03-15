@@ -340,10 +340,18 @@ endif
 " %{&ff} 显示文件类型
 " 链接：https://zhuanlan.zhihu.com/p/532430825
 set laststatus=2
-set statusline=%1*%F%m%r%h%w
-" if exists("g:plugs") && has_key(g:plugs, 'coc.nvim') && (!has('nvim') || g:nvim_compatibility_with_vim == 1)
-" 	set statusline+=\ \|%7*\ %{coc#status()}
-" endif
-" 左对齐和右对齐的分割点
-set statusline+=%=\ 
-set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
+if !has('nvim') || g:nvim_compatibility_with_vim == 1
+	set statusline=%1*%F%m%r%h%w\ 
+	let git_branch = system("git rev-parse --abbrev-ref HEAD")
+	exe "set statusline +=" . git_branch
+	if exists("g:plugs") && has_key(g:plugs, 'coc.nvim')
+		function CocStatusLine()
+			return exists(':CocInfo') ? "\ \|\ %{coc#status()}%{get(b:,'coc_current_function','')}" : ""
+		endfunction
+		set statusline+=%{%CocStatusLine()%}
+	endif
+	" 左对齐和右对齐的分割点
+	set statusline+=%=\ 
+	set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
+endif
+

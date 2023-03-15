@@ -1,10 +1,10 @@
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "文件搜索
-nnoremap <silent> <leader>ff :Leaderf file<CR>
+nnoremap <silent> <leader>ff :Leaderf file --auto-preview<CR>
 
 "历史打开过的文件
-nnoremap <silent> <leader>fh :Leaderf mru<CR>
+nnoremap <silent> <leader>fh :Leaderf mru --auto-preview<CR>
 
 "Buffer
 nnoremap <silent> <leader>b :Leaderf buffer --nameOnly --auto-preview<CR>
@@ -25,6 +25,7 @@ endif
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_ShowDevIcons = 0
+let g:Lf_DisableStl = 0
 let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]
 
 " 查找时忽略以下目录和文件

@@ -12,4 +12,5 @@ n latest
 apt install -y ripgrep fzf fd-find tree bat clangd
 
 # ripgrep-all（master分支）
+# See: https://github.com/phiresky/ripgrep-all/issues/113
 # apt install ripgrep pandoc poppler-utils ffmpeg
