@@ -44,6 +44,10 @@ batcat --version
 c++: clangd  
 go: gopls（可以通过vim-go下载后，配置环境变量）  
 
+### 格式化工具
+
+[dprint](https://dprint.dev/): 格式化TOML、Markdown
+
 ## WSL2
 
 ```

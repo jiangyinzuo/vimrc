@@ -67,6 +67,7 @@ if !exists('g:vscode')
 
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+		Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 		" completion(use ultisnips)
 		Plug 'hrsh7th/cmp-nvim-lsp'
