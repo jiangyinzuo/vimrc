@@ -63,7 +63,9 @@ endif
 
 " 显示空白字符
 " https://codepoints.net/U+23B5
-set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
+if has('nvim') || v:version >= 801
+	set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
+end
 set list
 
 set guifont=Monospace\ Regular\ 20
