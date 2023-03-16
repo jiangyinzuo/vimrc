@@ -4,6 +4,8 @@
 
 ===============================================================================
 
+*Vim自带插入补全*	Insert mode completion			|ins-completion|
+
 *Neovim和vim使用同样的插件*	.config/nvim/init.vim中`let g:nvim_compatibility_with_vim = 1`
 *fold*
 
@@ -85,6 +87,11 @@ Install on Ubuntu: >
   sudo apt install universal-ctags
   # sudo apt insatll exuberant-ctags
 <
+
+*ctags*
+
+*tag跳转*	CTRL-]
+ctags生成python tag `ctags --language-force=python hello.py`
 
 *format*
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.

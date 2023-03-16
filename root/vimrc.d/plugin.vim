@@ -18,6 +18,11 @@ call plug#begin('~/.vim/plugged')
 " Test framework
 Plug 'junegunn/vader.vim'
 
+" Test wrapper
+Plug 'vim-test/vim-test'
+let test#strategy = "asyncrun_background_term"
+let test#python#pytest#executable = 'python3 -m pytest'
+
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 

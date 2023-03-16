@@ -6,5 +6,6 @@ let g:asyncrun_rootmarks = ['.git', '.root']
 let g:asynctasks_term_pos = 'tab'
 let g:asynctasks_term_reuse = 1
 
-" See rff() in bashrc
+" 复制pathline用于gF文件跳转
+" See rffv() in fzf/fzf.bash
 command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#get_root('%')) + 1:] . ':' . line(".")
