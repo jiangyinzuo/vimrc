@@ -12,7 +12,7 @@ class OpenAIApp:
     def __init__(self):
         # Setting the API key to use the OpenAI API
         # openai.api_key = os.getenv("OPENAI_API_KEY")
-        with open('/home/jiangyinzuo/openai_token.txt') as f:
+        with open(f'{os.getenv("HOME")}/openai_token.txt') as f:
             openai.api_key = f.readline().strip()
         self.messages = []
 

@@ -282,7 +282,7 @@ nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\
 
 set makeprg=make
 
-command -nargs=0 Chat AsyncRun -mode=term -pos=curwin /home/jiangyinzuo/vimrc.d/openai_app.py chat
+command -nargs=0 Chat AsyncRun -mode=term -pos=curwin $HOME/vimrc.d/openai_app.py chat
 
 function EchoGitBlame()
 	let line_number = line(".")
