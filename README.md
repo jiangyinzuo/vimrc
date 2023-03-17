@@ -40,13 +40,24 @@ cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快�
 sudo apt install bat
 batcat --version
 ```
-### LSP
+
+### 基于tag符号的索引/补全
+
+see .vim/doc/mydoc.txt
+
+### 基于LSP的索引/补全
 c++: clangd  
 go: gopls（可以通过vim-go下载后，配置环境变量）  
+
+### 基于AI的补全
+
+Github Copilot  
+[tabnine](tabnine.com)(vscode, jetbrains)
 
 ### 格式化工具
 
 [dprint](https://dprint.dev/): 格式化TOML、Markdown
+
 
 ## WSL2
 
@@ -66,5 +77,8 @@ sudo apt install wslu
 《智能计算系统》课程实验，Ubuntu16.04 vim7.4 python2.7 docker容器，容器内有许多课程独有的基于深度学习处理器（DLP）的依赖，必须用它的docker容器开发环境。不方便编译安装vim8。SSH比较卡。
 
 **(neo)vim**
-优点：在跳板机环境、临时服务器环境（无插件配置）下比较方便
-缺点：在低版本操作系统中编译安装高版本(neo)vim和插件比较麻烦，不用sshfs时，查看渲染后的pdf/网页/markdown比较麻烦，ssh网速慢的时候卡顿严重
+优点：在跳板机环境、临时服务器环境（无插件配置）下比较方便  
+缺点：在低版本操作系统中编译安装高版本(neo)vim和插件比较麻烦，不用sshfs时，查看渲染后的pdf/网页/markdown比较麻烦，ssh网速慢的时候卡顿严重，某些创业公司的新应用可能优先提供vscode官方插件，不提供vim插件。
+
+Jetbrains Fleet
+

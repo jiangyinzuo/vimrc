@@ -1,4 +1,5 @@
 *cd当前文件所在目录*					:cd %:h
+*文件查看*						:Telescope file_browser
 *搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
 *显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
 *搜索当前buffer的LSP-symbol-outline(vim)*		:CocList outline 

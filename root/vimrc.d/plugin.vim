@@ -23,6 +23,14 @@ Plug 'vim-test/vim-test'
 let test#strategy = "asyncrun_background_term"
 let test#python#pytest#executable = 'python3 -m pytest'
 
+if has('nvim') || v:version >= 900
+	" Github Coplit Support
+	" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
+	Plug 'github/copilot.vim'
+	imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
+	let g:copilot_no_tab_map = v:true
+endif
+
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 

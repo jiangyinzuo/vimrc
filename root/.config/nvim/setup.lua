@@ -31,7 +31,7 @@ telescope.setup({
 			mappings = {
 				["i"] = {
 					["<A-c>"] = fb_actions.create,
-					["<A-e>"] = fb_actions.create_from_prompt,
+					["<A-e>"] = fb_actions.create_from_prompt, -- 创建文件（夹）
 					["<A-r>"] = fb_actions.rename,
 					["<A-m>"] = fb_actions.move,
 					["<A-y>"] = fb_actions.copy,
@@ -250,3 +250,4 @@ require('lualine').setup {
 	inactive_winbar = {},
 	extensions = {}
 }
+
