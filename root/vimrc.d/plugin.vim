@@ -27,8 +27,9 @@ if has('nvim') || v:version >= 900
 	" Github Coplit Support
 	" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
 	Plug 'github/copilot.vim'
-	imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
-	let g:copilot_no_tab_map = v:true
+	" use <C-x> to auto complete github copilot
+" 	imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
+" 	let g:copilot_no_tab_map = v:true
 endif
 
 " Plug 'LunarWatcher/auto-pairs'
@@ -62,7 +63,7 @@ if !exists('g:vscode')
 		Plug 'williamboman/mason.nvim'
 		Plug 'neovim/nvim-lspconfig'
 		" Plug 'b0o/schemastore.nvim'  " JSON schema
-		" Plug 'jose-elias-alvarez/null-ls.nvim'
+		Plug 'jose-elias-alvarez/null-ls.nvim'
 		Plug 'simrat39/rust-tools.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
 		Plug 'simrat39/symbols-outline.nvim'

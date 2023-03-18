@@ -2,9 +2,13 @@
 
 if has('ide')
   " mappings and options that exist only in IdeaVim
-  " set multiple-cursors
   set sneak
-
+  set incsearch
+  " see :actionlist
+  nmap <leader>fh <Action>(RecentFiles)
+  nmap <leader>fmt <Action>(ReformatCode)
+  nmap <leader>rg <Action>(FindInPath)
+  nmap <leader>ff <Action>(GotoFile)
   if &ide =~? 'intellij idea'
     if &ide =~? 'community'
       " some mappings and options for IntelliJ IDEA Community Edition
