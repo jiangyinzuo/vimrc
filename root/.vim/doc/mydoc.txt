@@ -4,6 +4,9 @@
 
 ===============================================================================
 
+*往下/上翻1页*		CTRL-F CTRL-B
+*往下/上翻半页*		CTRL-D CTRL-U
+
 *Vim自带插入补全*	Insert mode completion			|ins-completion|
 
 *Neovim和vim使用同样的插件*	.config/nvim/init.vim中`let g:nvim_compatibility_with_vim = 1`

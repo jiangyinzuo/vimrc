@@ -9,7 +9,8 @@ if has('ide')
   nmap <leader>fmt <Action>(ReformatCode)
   nmap <leader>rg <Action>(FindInPath)
   nmap <leader>ff <Action>(GotoFile)
-  if &ide =~? 'intellij idea'
+  imap <c-f> <Action>(Find)
+	if &ide =~? 'intellij idea'
     if &ide =~? 'community'
       " some mappings and options for IntelliJ IDEA Community Edition
     elseif &ide =~? 'ultimate'
