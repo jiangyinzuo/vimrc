@@ -65,6 +65,8 @@ endif
 " https://codepoints.net/U+23B5
 if has('nvim') || v:version >= 801
 	set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
+else
+	set listchars=eol:⏎,tab:␉─,trail:␠,nbsp:⎵,extends:»,precedes:«
 end
 set list
 
