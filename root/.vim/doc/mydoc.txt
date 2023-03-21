@@ -229,6 +229,7 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 
 *bash-fzf*
 
+*fzf快捷键*
 *fzf跳转* 	fzfcd ALT-C
 *fzf补全*	CTRL-T：递归搜索当前文件夹下文件
 		CTRL-R：历史命令

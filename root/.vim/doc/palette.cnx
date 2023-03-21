@@ -10,6 +10,7 @@
 *FZF-ls*						:LS
 *FZF-选择git-commits*					:Commits
 *FZF-选择nmaps*						:Maps
+*FZF搜索项目文件*					:ProjectFiles
 *vim-查看map*						:map
 *vim-查看tmap*						:tmap
 *FZF-查看helptags*					:Helptags

@@ -22,7 +22,7 @@ if v:version >= 802
 	let g:Lf_PopupPreviewPosition = 'right'
 endif
 
-let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WorkingDirectoryMode = 'a'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_ShowDevIcons = 0
 let g:Lf_DisableStl = 0
