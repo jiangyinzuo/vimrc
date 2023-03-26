@@ -22,7 +22,7 @@ Plug 'junegunn/vader.vim'
 Plug 'vim-test/vim-test'
 let test#strategy = "asyncrun_background_term"
 let test#python#pytest#executable = 'python3 -m pytest'
-let test#rust#cargo#options = '-- --exact --nocapture'
+let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
 if has('nvim') || v:version >= 900
 	" Github Coplit Support

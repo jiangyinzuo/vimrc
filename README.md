@@ -22,6 +22,12 @@ docker build -t myvim:1 .
 ./init.sh
 ```
 
+## Test
+
+```
+./run_test.sh
+```
+
 ## 其它命令行工具
 
 Ubuntu22.04下均可通过apt安装  
