@@ -42,6 +42,9 @@ https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/
 git终端: lazygit  
 Linux文本处理: awk, sed, cut  
 cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
+pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
+文件管理器tui：ranger  
+
 ```
 sudo apt install bat
 batcat --version
@@ -88,3 +91,4 @@ sudo apt install wslu
 
 Jetbrains Fleet
 
+cursor.so
