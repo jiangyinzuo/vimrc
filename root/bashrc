@@ -10,16 +10,17 @@ alias start='cmd.exe /C start ""'
 mklinkd() {
 	if [ $# -eq 2 ]; then
 		target=$2
-		target=${str/\/mnt\/d/D:}
-		target=${str//\//\\}
+		target=${target/\/mnt\/d/D:}
+		target=${target//\//\\}
 		echo 'create link: ' $1 ' target: ' $target
 		cmd.exe /c mklink /d $1 $target
 	elif [ $# -eq 1 ]; then
 		# mklinkd /mnt/d/doc2/cs/aisys
 		target=$1
-		link=${target##*/}
-		target=${str/\/mnt\/d/D:}
-		target=${str//\//\\}
+		link=${target##*/} # link = "aisys"
+		target=${target/\/mnt\/d/D:}
+		echo $target
+		target=${target//\//\\}
 		echo 'create link: ' $link ' target: ' $target
 		cmd.exe /c mklink /d $link $target
 	fi
