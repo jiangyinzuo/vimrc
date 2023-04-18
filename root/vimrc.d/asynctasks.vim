@@ -9,3 +9,5 @@ let g:asynctasks_term_reuse = 1
 " 复制pathline用于gF文件跳转
 " See rffv() in fzf/fzf.bash
 command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#get_root('%')) + 1:] . ':' . line(".")
+
+command! -nargs=0 Cd let project_root = asyncrun#get_root('%') | exe 'cd ' . project_root | pwd

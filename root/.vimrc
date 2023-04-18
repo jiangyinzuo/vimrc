@@ -35,6 +35,8 @@ set nobackup       "no backup files
 set nowritebackup  "only in case you don't want a backup file while editing
 set noswapfile     "no swap files
 
+" 会话不保存options
+set sessionoptions-=options
 """"""""""""""""""""""""""""""
 "indent and tab
 """"""""""""""""""""""""""""""

@@ -57,7 +57,23 @@ function s:exec_command_palette(line)
 endfunction
 
 command! -bang -nargs=0 Palette
-			\ call fzf#run(fzf#wrap('palettle', {'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
+			\ call fzf#run(fzf#wrap('palette', {'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
+
+function s:paste_word(word)
+	echo a:word
+	exe "normal! a" . a:word
+endfunction
+
+" Markdown等文本编辑添加链接：
+" 1) fd > path.txt  预处理得到项目所有文件路径
+" 2）:Path模糊查找文件路径
+command! -bang -nargs=0 Path
+			\ call fzf#run(fzf#wrap('path', {'source': 'cat ' .. asyncrun#get_root('%') .. '/path.txt', 'sink': function("s:paste_word")}, <bang>0))
+
+" hashtag排除包含各类字符
+" rg -e "#[^_\d()（）{}#\s'/\\[\]:：;?%][^()（）{}#\s'/\\[\]:：;?%]{1,40}" -N -I -o | sort | uniq > hashtag.txt
+command! -bang -nargs=0 Hashtag
+			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. asyncrun#get_root('%') .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
 
 " See: github.com/junegunn/fzf.vim/issues/1037
 "" HelpRg command -- like helpgrep but with FZF and ripgrep

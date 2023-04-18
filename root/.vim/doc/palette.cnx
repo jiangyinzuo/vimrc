@@ -1,4 +1,5 @@
 *cd当前文件所在目录*					:cd %:h
+*cd到项目根目录*					:Cd
 *文件查看*						:Telescope file_browser
 *搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
 *显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
@@ -11,6 +12,8 @@
 *FZF-选择git-commits*					:Commits
 *FZF-选择nmaps*						:Maps
 *FZF搜索项目文件*					:ProjectFiles
+*FZF搜索hashtag并插入到当前光标位置*			:Hashtag
+*FZF搜索文件路径并插入到当前光标位置*			:Path
 *vim-查看map*						:map
 *vim-查看tmap*						:tmap
 *FZF-查看helptags*					:Helptags

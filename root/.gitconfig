@@ -10,3 +10,16 @@
 	tool = vimdiff
 [mergetool]
 	prompt = false
+# use utf-8
+# https://m.php.cn/tool/git/506129.html
+# git config --global i18n.commitencoding utf-8
+# git config --global i18n.logoutputencoding utf-8
+# git config --global core.quotepath false
+# git config --global gui.encoding utf-8
+# git config --global utf8.auto false
+[i18n]
+	logoutputencoding = utf-8
+[gui]
+	encoding = utf-8
+[utf8]
+	auto = false

@@ -4,6 +4,9 @@
 
 ===============================================================================
 
+*保存会话session*	:mks foo.vim
+*加载会话session*	vim -S foo.vim
+
 *往下/上翻1页*		CTRL-F CTRL-B
 *往下/上翻半页*		CTRL-D CTRL-U
 
@@ -108,6 +111,12 @@ output to quickfix list: >
 
 -------------------------------------------------------------------------------
 *markdown*
+
+Markdown等文本编辑添加链接：
+1) fd > path.txt  预处理得到项目所有文件路径
+2）:Path模糊查找文件路径并插入到当前光标位置
+
+查找Hashtag并插入到当前光标位置		:Hashtag
 
 *marp* Markdown Presentation Ecosystem
 

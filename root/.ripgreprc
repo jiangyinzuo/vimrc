@@ -45,5 +45,7 @@
 --glob=!*.mp3
 --glob=!*.aac
 --glob=!*.orig
+--glob=!*.html
+--glob=!*.htm
 
 --smart-case
