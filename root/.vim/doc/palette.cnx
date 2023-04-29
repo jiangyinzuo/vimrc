@@ -31,7 +31,11 @@
 *关闭其它所有标签页(tab)*				:tabonly
 *clang-format当前文件*					:%!clang-format
 *跳转到第一行*						:normal gg
+*跳转到之前的位置*					:normal ``
+*高亮当前word，跳转到下一个word*			:normal *
+*高亮当前word，跳转到上一个word*			:normal #
 *+1* 							:exe "normal \<c-a>"
 *开启自动保存(vim)*					:call timer#startAutoSave()
 *关闭自动保存(vim)*					:call timer#stopAutoSave()
 *neovim打开dap调试界面*					:DapContinue
+*git-blame*						:GitBlame

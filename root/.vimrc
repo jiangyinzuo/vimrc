@@ -290,11 +290,11 @@ command -nargs=0 Chat AsyncRun -mode=term -pos=curwin $HOME/vimrc.d/openai_app.p
 
 function EchoGitBlame()
 	let line_number = line(".")
-	echo system('git blame -L ' . line_number . ',' . line_number . ' -- ' . expand('%'))
+	echo system('git blame -n -L ' . line_number . ',' . line_number . ' -- ' . expand('%'))
 endfunction
 
 " command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
-command -nargs=0 GitBlame call EchoGitBlame()
+command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
 if &insertmode == 0
 	" save

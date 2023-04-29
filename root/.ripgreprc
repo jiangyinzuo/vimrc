@@ -47,5 +47,6 @@
 --glob=!*.orig
 --glob=!*.html
 --glob=!*.htm
+--glob=!*.webp
 
 --smart-case

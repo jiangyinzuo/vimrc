@@ -29,10 +29,10 @@ let g:Lf_GtagsAutoGenerate = 0
 " 查找时忽略以下目录和文件
 let g:Lf_WildIgnore = {
   \ 'dir': ['.git', '__pycache__', '.DS_Store', '.svn', '.cache', 'deps', 'build'],
-  \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png',
+  \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png', '*.webp',
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
-  \ '*.zip', '*.bin', '*.pptx', '*.xlsx', '*.docx', '*.pdf', '*.tmp',
+  \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.tmp',
   \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',
-  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html']
+  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm']
   \}
 
