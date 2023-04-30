@@ -1,8 +1,13 @@
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "文件搜索
-nnoremap <silent> <leader>ff :Leaderf file <CR>
+let g:Lf_ShortcutF = '<leader>ff'
 
+function Leaderf_current_dir()
+	let l:c = expand("%:h")
+	exe "Leaderf file " . l:c
+endfunction
+nnoremap <silent> <leader>fc :call Leaderf_current_dir()<CR>
 "历史打开过的文件
 nnoremap <silent> <leader>fh :Leaderf mru <CR>
 
@@ -15,7 +20,7 @@ tnoremap <silent> <leader>b <C-W>:Leaderf buffer --nameOnly <CR>
 nnoremap <silent> <Leader>rg :Leaderf rg --nameOnly <CR>
 
 let g:Lf_WorkingDirectoryMode = 'a'
-let g:Lf_RootMarkers = ['.git', '.root']
+let g:Lf_RootMarkers = ['.git', '.root', '.idea']
 let g:Lf_ShowDevIcons = 0
 let g:Lf_DisableStl = 0
 let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]

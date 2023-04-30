@@ -44,7 +44,7 @@ Linux文本处理: awk, sed, cut
 cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
 pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
 文件管理器tui：ranger  
-
+json: jq
 ```
 sudo apt install bat
 batcat --version
