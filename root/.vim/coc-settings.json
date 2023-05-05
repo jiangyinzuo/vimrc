@@ -3,7 +3,7 @@
 	"clangd.enabled": true,
 	"clangd.arguments": [
 		"--clang-tidy",
-		"--compile-commands-dir=_build/debug",
+		"--compile-commands-dir=build/debug",
 		"--pretty",
 		"--cross-file-rename",
 		"--inlay-hints=true",
