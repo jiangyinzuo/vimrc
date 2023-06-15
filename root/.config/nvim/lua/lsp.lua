@@ -30,6 +30,7 @@ cmp.setup({
 		-- { name = 'snippy' }, -- For snippy users.
 	}, {
 		{ name = 'buffer' },
+		{ name = 'path' }
 	})
 })
 
@@ -323,9 +324,9 @@ require('lspconfig').pyright.setup {
 local null_ls = require("null-ls")
 
 null_ls.setup({
-    sources = {
-			null_ls.builtins.formatting.autopep8,
-		},
+	sources = {
+		null_ls.builtins.formatting.autopep8,
+	},
 })
 
 cmp.setup {

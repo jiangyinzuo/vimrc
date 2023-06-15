@@ -28,10 +28,8 @@ let g:coc_initial_global_extensions = ['coc-ultisnips', 'coc-json']
 let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
-" Make <CR> auto-select the first completion item and notify coc.nvim t:
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " GoTo code navigation.
 nmap <silent> <leader>gd <Plug>(coc-definition)

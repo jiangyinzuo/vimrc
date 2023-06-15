@@ -29,8 +29,8 @@ if has('nvim') || v:version >= 900
 	" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
 	Plug 'github/copilot.vim'
 	" use <C-x> to auto complete github copilot
-" 	imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
-" 	let g:copilot_no_tab_map = v:true
+	" imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
+	" let g:copilot_no_tab_map = v:true
 endif
 
 " Plug 'LunarWatcher/auto-pairs'
@@ -50,6 +50,7 @@ map T <Plug>Sneak_T
  
 Plug 'markonm/traces.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'SirVer/ultisnips'
 
 if !exists('g:vscode')
 	if has('nvim') && !g:nvim_compatibility_with_vim
@@ -112,13 +113,6 @@ if !exists('g:vscode')
 	source ~/vimrc.d/markdown.vim
 	source ~/vimrc.d/latex.vim
 	source ~/vimrc.d/asynctasks.vim
-	
-	Plug 'SirVer/ultisnips'
-	let g:UltiSnipsExpandTrigger="<tab>"
-	let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
-	let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-
-	Plug 'honza/vim-snippets'
 end
 
 " Initialize plugin system

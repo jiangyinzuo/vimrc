@@ -7,7 +7,9 @@ function Leaderf_current_dir()
 	let l:c = expand("%:h")
 	exe "Leaderf file " . l:c
 endfunction
+" 当前文件所在目录下搜索文件
 nnoremap <silent> <leader>fc :call Leaderf_current_dir()<CR>
+
 "历史打开过的文件
 nnoremap <silent> <leader>fh :Leaderf mru <CR>
 
@@ -17,7 +19,7 @@ nnoremap <silent> <leader>sb :10sp<CR>:Leaderf buffer --nameOnly <CR>
 tnoremap <silent> <leader>b <C-W>:Leaderf buffer --nameOnly <CR>
 
 "Based on ripgrep
-nnoremap <silent> <Leader>rg :Leaderf rg --nameOnly <CR>
+nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy <CR>
 
 let g:Lf_WorkingDirectoryMode = 'a'
 let g:Lf_RootMarkers = ['.git', '.root', '.idea']
