@@ -46,9 +46,19 @@ command! ProjectFiles execute 'Files' asyncrun#get_root('%')
 " On :LS!, <bang> evaluates to '!', and '!0' becomes 1
 " The query history for this command will be stored as 'ls' inside g:fzf_history_dir.
 " The name is ignored if g:fzf_history_dir is not defined.
-let g:fzf_history_dir = '~/.cache/fzf_history_dir'
 command! -bang -complete=dir -nargs=? LS
-		\ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
+		\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+
+command! -bang -complete=dir -nargs=? Directories
+		\ call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': <q-args>, 'sink': 'e'}, <bang>0))
+
+function CdDirectory(dirname)
+	exe "normal! :e " . a:dirname . "\<CR>"
+	exe "normal! :cd " . a:dirname . "\<CR>"
+endfunction
+
+command! -bang -complete=dir -nargs=? Cd
+		\ call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': <q-args>, 'sink': function("CdDirectory")}, <bang>0))
 
 function s:exec_command_palette(line)
 	let l:cmd = filter(split(a:line, '\t'), 'v:val != ""')
@@ -57,7 +67,7 @@ function s:exec_command_palette(line)
 endfunction
 
 command! -bang -nargs=0 Palette
-			\ call fzf#run(fzf#wrap('palette', {'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
+			\ call fzf#run(fzf#wrap({'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
 
 function s:paste_word(word)
 	echo a:word
@@ -108,3 +118,4 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang Fd call fzf#vim#files('fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .cache --exclude .vscode --exclude .idea --exclude .DS_Store --exclude .gitignore --exclude .gitmodules --exclude .gitattributes --exclude .gitkeep --exclude .gitconfig --exclude .gitmessage --exclude .gitignore_global --exclude .gitconfig.local --exclude .gitconfig.local.example --exclude .gitconfig.local.template --exclude .git ', 1, fzf#vim#with_preview(), <bang>0)

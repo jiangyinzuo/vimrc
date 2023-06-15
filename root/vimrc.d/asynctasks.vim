@@ -10,4 +10,4 @@ let g:asynctasks_term_reuse = 1
 " See rffv() in fzf/fzf.bash
 command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#get_root('%')) + 1:] . ':' . line(".")
 
-command! -nargs=0 Cd let project_root = asyncrun#get_root('%') | exe 'cd ' . project_root | pwd
+command! -nargs=0 Cdroot let project_root = asyncrun#get_root('%') | exe 'cd ' . project_root | pwd

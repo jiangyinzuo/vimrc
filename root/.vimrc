@@ -246,7 +246,7 @@ function FindFiles(filename)
   set errorformat=%f:%l:%m
   call ShowQuickfixListIfNotEmpty()
 endfunction
-command! -nargs=1 Fd call FindFiles(<q-args>)
+command! -nargs=1 Find call FindFiles(<q-args>)
 
 function Ripgrep(args)
 	cexpr system('rg --vimgrep ' . a:args)

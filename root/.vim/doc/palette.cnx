@@ -4,6 +4,7 @@
 *搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
 *显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
 *搜索当前buffer的LSP-symbol-outline(vim)*		:CocList outline 
+*查看coc outline*					:CocOutline
 *Coc搜索当前插件*					:CocList extensions
 *FZF-Vim命令*						:Commands
 *Vim命令*						:command
@@ -32,6 +33,7 @@
 *clang-format当前文件*					:%!clang-format
 *跳转到第一行*						:normal gg
 *跳转到之前的位置*					:normal ``
+*跳转到函数头*						:normal [[
 *高亮当前word，跳转到下一个word*			:normal *
 *高亮当前word，跳转到上一个word*			:normal #
 *+1* 							:exe "normal \<c-a>"
