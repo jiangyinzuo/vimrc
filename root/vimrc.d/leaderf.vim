@@ -22,7 +22,7 @@ tnoremap <silent> <leader>b <C-W>:Leaderf buffer --nameOnly <CR>
 nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy <CR>
 
 let g:Lf_WorkingDirectoryMode = 'a'
-let g:Lf_RootMarkers = ['.git', '.root', '.idea']
+let g:Lf_RootMarkers = g:RootMarks
 let g:Lf_ShowDevIcons = 0
 let g:Lf_DisableStl = 0
 let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]

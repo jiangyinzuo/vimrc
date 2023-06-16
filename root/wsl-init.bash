@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export DOC2=/mnt/d/doc2
+export CODE_HOME=~
 
 # echo 'hello, jiangyinzuo ~'
 # echo ''

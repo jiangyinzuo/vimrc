@@ -54,6 +54,8 @@ augroup indent4
 		autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
 
+let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo']
+
 let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
 if exists("g:vscode")
 	let g:loaded_netrw = 1

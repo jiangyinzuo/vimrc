@@ -12,3 +12,7 @@ ln -s ~/vimrc/root/.config/nvim ~/.config/nvim
 ln -s ~/vimrc/root/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 ln -s ~/vimrc/root/.config/lazygit ~/.config/lazygit
+
+echo "Environment variables used:"
+echo DOC2="$DOC2"
+echo CODE_HOME="$CODE_HOME"

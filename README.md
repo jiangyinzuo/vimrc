@@ -18,6 +18,7 @@ docker build -t myvim:1 .
 
 ## 初始化
 
+需要设置的不能为空的环境变量: `$DOC2` `$CODE_HOME`
 ```sh
 ./init.sh
 ```

@@ -44,7 +44,7 @@ function GetCodeLinkDict()
 		let l:file = l:dest[1]
 		
 		if has_key(t:code_link_dict, l:file)
-			add(t:code_link_dict[l:file], l:line)
+			call add(t:code_link_dict[l:file], l:line)
 		else
 			let t:code_link_dict[l:file] = [l:line]
 		endif
@@ -52,13 +52,15 @@ function GetCodeLinkDict()
 endfunction
 
 function GetAllCodeLinks()
-	call GetCodeLinkDict()
-	call SignCodeLinks()
-	augroup codenote
-		autocmd!
-		autocmd BufEnter * call SignCodeLinks()
-		autocmd BufWritePost *.md call GetCodeLinkDict()
-	augroup END
+	if exists('t:coderepo_dir') && t:coderepo_dir != "" && exists('t:noterepo_dir') && t:noterepo_dir != ""
+		call GetCodeLinkDict()
+		call SignCodeLinks()
+		augroup codenote
+			autocmd!
+			autocmd BufWinEnter * call SignCodeLinks()
+			autocmd BufWritePost *.md call GetCodeLinkDict()
+		augroup END
+	endif
 endfunction
 
 command -nargs=0 RefreshCodeLinks :call GetAllCodeLinks()
@@ -90,31 +92,67 @@ function YankCodeLinkVisual()
 endfunction
 vnoremap <silent> cy :call YankCodeLinkVisual()<CR><C-W>w
 
-function s:edit_and_lcd(filename)
+function s:save_repo_dir()
+	echom "s:save_repo_dir(): " . t:coderepo_dir . " " . t:noterepo_dir
+	call system("echo " . t:coderepo_dir . " > " . t:noterepo_dir . "/.noterepo")
+	call system("echo " . t:noterepo_dir . " > " . t:coderepo_dir . "/.coderepo")
+endfunction
+
+function s:open_note_repo(filename)
 	execute "vsp " . a:filename
-	execute "lcd " . expand("%:h")
-	
 	call s:set_noterepo_dir()
+	execute "lcd " . t:noterepo_dir
+	
 	call GetAllCodeLinks()
+	call s:save_repo_dir()
 endfunction
 
-command -nargs=1 -complete=dir OpenNoteRepo :call s:set_coderepo_dir() | set ff=unix | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:edit_and_lcd")}, <bang>0))<CR>
+function OpenNoteRepo()
+	call s:set_coderepo_dir()
+	if !exists('t:noterepo_dir') || t:noterepo_dir == ""
+		if $DOC2 == ''
+			echom "$DOC2 is empty"
+		endif
+		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
+	else
+		call s:open_note_repo(t:noterepo_dir)
+	endif
+endfunction
 
-function s:lcd_and_set_root(filename)
+command -nargs=0 OpenNoteRepo :silent! call OpenNoteRepo()<CR>
+
+function s:open_code_repo(filename)
 	execute "vsp " . a:filename
-	execute "lcd " . expand("%:h")
-	let t:coderepo_dir = asyncrun#get_root('%')
-	let w:repo_type = "code"
+	call s:set_coderepo_dir()
+	execute "lcd " . t:coderepo_dir
+
 	call GetAllCodeLinks()
+	call s:save_repo_dir()
 endfunction
 
-command -nargs=1 -complete=dir OpenCodeRepo :call s:set_noterepo_dir() | set ff=unix | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:lcd_and_set_root")}, <bang>0))<CR>
+function OpenCodeRepo()
+	call s:set_noterepo_dir()
+	if !exists('t:coderepo_dir') || t:coderepo_dir == ""
+		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
+		if $CODE_HOME == ''
+			echom "$DOC2 is empty"
+		endif
+	else
+		call s:open_code_repo(t:coderepo_dir)
+	endif
+endfunction
+
+command -nargs=0 OpenCodeRepo :silent! call OpenCodeRepo()<CR>
 
 function GoToCodeLink()
 	let l:dest = split(getline("."))
 	let l:line = l:dest[0]
 	let l:file = l:dest[1]
-	wincmd w
+	if winnr('$') == 1
+		call OpenCodeRepo()
+	else
+		wincmd w
+	endif
 	exe "edit " . l:line . " " . t:coderepo_dir . "/" . l:file
 endfunction
 
@@ -124,7 +162,11 @@ function GoToNoteLink()
 	let l:pattern = "+" . l:line . " " . l:file
 	" 将 / 转义为 \/
 	let l:pattern = substitute(l:pattern, "/", "\\\\/", "g")
-	wincmd w
+	if winnr('$') == 1
+		call OpenNoteRepo()
+	else
+		wincmd w
+	endif
 	exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**" 
 endfunction
 
@@ -140,3 +182,29 @@ endfunction
 
 nnoremap <silent> <leader><C-]> :call GoToCodeNoteLink()<CR>
 
+function LoadNote()
+	let l:root = asyncrun#get_root('%')
+	if !empty(glob(l:root . '/.noterepo'))
+		let t:noterepo_dir = l:root
+		" let t:coderepo_dir = trim(system("cat " . l:root . "/.noterepo"))
+		let t:coderepo_dir = readfile(l:root . "/.noterepo", '', 1)[0]
+		let w:repo_type = "note"
+	endif
+endfunction
+
+function LoadCode()
+	let l:root = asyncrun#get_root('%')
+	if !empty(glob(l:root . '/.coderepo'))
+		let t:coderepo_dir = l:root
+		" let t:noterepo_dir = trim(system("cat " . l:root . "/.coderepo"))
+		let t:noterepo_dir = readfile(l:root . "/.coderepo", '', 1)[0]
+		let w:repo_type = "code"
+	endif
+endfunction
+
+augroup codenote_load
+	autocmd!
+	autocmd BufWinEnter *.md call LoadNote()
+	autocmd BufWinEnter * call LoadCode()
+	autocmd BufEnter * call GetAllCodeLinks()
+augroup END
