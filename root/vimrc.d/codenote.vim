@@ -86,7 +86,7 @@ function s:edit_and_lcd(filename)
 	call GetAllCodeLinks()
 endfunction
 
-command -nargs=1 -complete=dir OpenNoteRepo :call s:set_coderepo_dir() | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:edit_and_lcd")}, <bang>0))<CR>
+command -nargs=1 -complete=dir OpenNoteRepo :call s:set_coderepo_dir() | set ff=unix | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:edit_and_lcd")}, <bang>0))<CR>
 
 function s:lcd_and_set_root(filename)
 	execute "vsp " . a:filename
@@ -96,7 +96,7 @@ function s:lcd_and_set_root(filename)
 	call GetAllCodeLinks()
 endfunction
 
-command -nargs=1 -complete=dir OpenCodeRepo :call s:set_noterepo_dir() | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:lcd_and_set_root")}, <bang>0))<CR>
+command -nargs=1 -complete=dir OpenCodeRepo :call s:set_noterepo_dir() | set ff=unix | call fzf#run(fzf#wrap({'source': 'fd -i', 'dir': <q-args>, 'sink': function("s:lcd_and_set_root")}, <bang>0))<CR>
 
 function GoToCodeLink()
 	let l:dest = split(getline("."))
