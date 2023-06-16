@@ -63,6 +63,11 @@ endfunction
 
 command -nargs=0 RefreshCodeLinks :call GetAllCodeLinks()
 
+function s:yank_to_register(line, file, content)
+	" yank markdown snippet to register
+	let @" = "+" . a:line . " " . a:file . "\n```" . &filetype . "\n" . a:content . "\n```\n"
+endfunction
+
 " See also: root/vimrc.d/asynctasks.vim
 function YankCodeLink()
 	call s:set_coderepo_dir()
@@ -70,13 +75,20 @@ function YankCodeLink()
 	let l:file = expand("%:p")[len(t:coderepo_dir) + 1:]
 	let l:line = line(".")
 	let l:content = getline(".")
-	" yank markdown snippet to register
-	let @" = "+" . l:line . " " . l:file . "\n```" . &filetype . "\n" . l:content . "\n```\n"
-	echom "t:coderepo_dir:" . t:coderepo_dir . "    yanked: " . l:file . " +" . l:line
-	wincmd w
+	call s:yank_to_register(l:line, l:file, l:content)
 endfunction
 
-nnoremap <silent> cy :call YankCodeLink()<CR>
+nnoremap <silent> cy :call YankCodeLink()<CR><C-W>w
+
+function YankCodeLinkVisual()
+	call s:set_coderepo_dir()
+	
+	let l:file = expand("%:p")[len(t:coderepo_dir) + 1:]
+  let [l:line_start, l:column_start] = getpos("'<")[1:2]
+	let l:content = GetVisualSelection()
+	call s:yank_to_register(l:line_start, l:file, l:content)
+endfunction
+vnoremap <silent> cy :call YankCodeLinkVisual()<CR><C-W>w
 
 function s:edit_and_lcd(filename)
 	execute "vsp " . a:filename
