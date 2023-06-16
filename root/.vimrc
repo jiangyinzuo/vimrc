@@ -45,14 +45,71 @@ set smarttab
 set autoindent " 跟随上一行的缩进方式
 set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
+augroup cpp
+	autocmd!
+	autocmd FileType c,cpp setlocal equalprg=clang-format
+augroup end
+
 augroup indent2
-		autocmd!
-		autocmd FileType cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd!
+	autocmd FileType c,cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
-augroup indent4
-		autocmd!
-		autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+augroup python
+	autocmd!
+	autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
+
+" https://github.com/timakro/vim-yadi/blob/main/plugin/yadi.vim
+function s:DetectIndent()
+	let tabbed = 0
+	let spaced = 0
+	let indents = {}
+	let lastwidth = 0
+	" get the last 300 lines
+	let l:first_line = max([0, line('$')-300])
+	for line in getline(l:first_line, line('$'))
+		if line[0] == "\t"
+			let tabbed += 1
+		else
+			" The position of the first non-space character is the
+			" indentation width.
+			let width = match(line, "[^ ]")
+			if width != -1
+				if width > 0
+					let spaced += 1
+				endif
+				let indent = width - lastwidth
+				if indent >= 2 " Minimum indentation is 2 spaces
+					let indents[indent] = get(indents, indent, 0) + 1
+				endif
+				let lastwidth = width
+			endif
+		endif
+	endfor
+
+	let total = 0
+	let max = 0
+	let winner = -1
+	for [indent, n] in items(indents)
+		let total += n
+		if n > max
+			let max = n
+			let winner = indent
+		endif
+	endfor
+
+	if tabbed > spaced*4 " Over 80% tabs
+		setlocal noexpandtab shiftwidth=0 softtabstop=0
+	elseif spaced > tabbed*4 && max*5 > total*3
+		" Detected over 80% spaces and the most common indentation level makes
+		" up over 60% of all indentations in the file.
+		setlocal expandtab
+		let &shiftwidth=winner
+		let &softtabstop=winner
+	endif
+endfunction
+
+autocmd BufEnter * call s:DetectIndent()
 
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo']
 
@@ -79,9 +136,9 @@ set guifont=Monospace\ Regular\ 20
 set mouse=a
 
 if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number " 合并git状态与行号
+	set signcolumn=number " 合并git状态与行号
 elseif v:version >= 801
-  set signcolumn=yes " 同时显示git状态和行号
+	set signcolumn=yes " 同时显示git状态和行号
 endif
 
 if v:version >= 801
@@ -103,7 +160,7 @@ endif
 """"""""""""""""""""""""""""""
 
 if has("patch-8.1.0360")
-		set diffopt+=internal,algorithm:patience
+	set diffopt+=internal,algorithm:patience
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
@@ -132,12 +189,12 @@ let g:netrw_browsex_viewer="start"
 
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
-  autocmd!
-  autocmd FileType c,cpp,java,scala 	                   let b:comment_leader = '// '
-  autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
-  autocmd FileType tex                                   let b:comment_leader = '% '
-  autocmd FileType mail                                  let b:comment_leader = '> '
-  autocmd FileType vim                                   let b:comment_leader = '" '
+	autocmd!
+	autocmd FileType c,cpp,java,scala 	                   let b:comment_leader = '// '
+	autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
+	autocmd FileType tex                                   let b:comment_leader = '% '
+	autocmd FileType mail                                  let b:comment_leader = '> '
+	autocmd FileType vim                                   let b:comment_leader = '" '
 	autocmd FileType lua                                   let b:comment_leader = '-- '
 augroup end
 
@@ -149,17 +206,17 @@ noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 function GetVisualSelection()
-	  " https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
-    " Why is this not a built-in Vim script function?!
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-    let lines[0] = lines[0][column_start - 1:]
-    return join(lines, "\n")
+	" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+	" Why is this not a built-in Vim script function?!
+	let [line_start, column_start] = getpos("'<")[1:2]
+	let [line_end, column_end] = getpos("'>")[1:2]
+	let lines = getline(line_start, line_end)
+	if len(lines) == 0
+		return ''
+	endif
+	let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+	let lines[0] = lines[0][column_start - 1:]
+	return join(lines, "\n")
 endfunction
 
 function ShowQuickfixListIfNotEmpty()
@@ -186,7 +243,7 @@ function VimGrepFindWord(word)
 	endif
 	" <pattern>: 匹配整个单词
 	silent exe 'silent! vimgrep' '/\<'.a:word.'\>/' extention
-  call ShowQuickfixListIfNotEmpty()
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 
 nnoremap <silent> <leader>fw :call VimGrepFindWord(expand("<cword>"))<CR>
@@ -198,20 +255,20 @@ function VimGrepFindType(word)
 	" <pattern>: 匹配整个单词
 	if &filetype == 'c'	
 		silent exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.c' '**/*.h'
-	  silent exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.c' '**/*.h'
+		silent exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.c' '**/*.h'
 	elseif &filetype == 'cpp'
-	  silent! exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-	  silent! exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-	  silent! exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+		silent! exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+		silent! exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
+		silent! exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
 	elseif &filetype == 'python'
-	  silent exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.py'
+		silent exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.py'
 	elseif &filetype == 'go'
-	  silent exe 'silent! vimgrepadd' '/\<type '.a:word.'\>/' '**/*.go'
+		silent exe 'silent! vimgrepadd' '/\<type '.a:word.'\>/' '**/*.go'
 	else
 		echo 'unsupport filetype: '.&filetype
 		return
 	endif
-  call ShowQuickfixListIfNotEmpty()
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 
 nnoremap <silent> <leader>fy :call VimGrepFindType(expand("<cword>"))<CR>
@@ -230,7 +287,7 @@ function VimGrepFindDefinition(word)
 		echo 'unsupport filetype: '.&filetype
 		return
 	endif
-  call ShowQuickfixListIfNotEmpty()
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 
 nnoremap <silent> <leader>fd :call VimGrepFindDefinition(expand("<cword>"))<CR>
@@ -246,14 +303,14 @@ command! -nargs=1 Vimfd call VimGrepFindDefinition(<q-args>)
 " :next 可以打开多个文件
 function FindFiles(filename)
 	cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
-  set errorformat=%f:%l:%m
-  call ShowQuickfixListIfNotEmpty()
+	set errorformat=%f:%l:%m
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 command! -nargs=1 Find call FindFiles(<q-args>)
 
 function Ripgrep(args)
 	cexpr system('rg --vimgrep ' . a:args)
-  call ShowQuickfixListIfNotEmpty()
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 " fzf.vim defines :Rg
 command! -nargs=1 Myrg call Ripgrep(<q-args>)
@@ -273,7 +330,7 @@ endif
 
 function CExprSystem(args)
 	cexpr system(a:args)
-  call ShowQuickfixListIfNotEmpty()
+	call ShowQuickfixListIfNotEmpty()
 endfunction
 command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 
@@ -323,10 +380,10 @@ let s:tags_use_gtags = 0
 if has("cscope") && s:tags_use_cscope
 
 	""""""""""""" Standard cscope/vim boilerplate
-	
+
 	" reset cscope:
 	" :cs reset
-	
+
 	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 	set cscopetag
 
@@ -337,7 +394,7 @@ if has("cscope") && s:tags_use_cscope
 	" add any cscope database in current directory
 	if filereadable("cscope.out")
 		cs add cscope.out  
-		" else add the database pointed to by environment variable 
+	" else add the database pointed to by environment variable 
 	elseif $CSCOPE_DB != ""
 		cs add $CSCOPE_DB
 	endif
@@ -380,7 +437,7 @@ endif
 
 " Load plugins
 if s:has_vimrcd
-  source ~/vimrc.d/plugin.vim
+	source ~/vimrc.d/plugin.vim
 endif
 
 function UpdateCocExtensions(ext)
