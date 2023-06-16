@@ -180,7 +180,9 @@ function GoToCodeNoteLink()
 	endif
 endfunction
 
-nnoremap <silent> <leader><C-]> :call GoToCodeNoteLink()<CR>
+" 1) goto code/note link
+" 2) put the cursor to center of screen
+nnoremap <silent> <leader><C-]> :call GoToCodeNoteLink()<CR>z.
 
 function LoadNote()
 	let l:root = asyncrun#get_root('%')
