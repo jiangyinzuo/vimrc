@@ -113,7 +113,7 @@ if !exists('g:vscode')
 	source ~/vimrc.d/markdown.vim
 	source ~/vimrc.d/latex.vim
 	source ~/vimrc.d/asynctasks.vim
-	source ~/vimrc.d/coderepo.vim
+	source ~/vimrc.d/codenote.vim
 end
 
 " Initialize plugin system
