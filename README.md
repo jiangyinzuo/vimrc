@@ -93,3 +93,5 @@ sudo apt install wslu
 Jetbrains Fleet
 
 cursor.so
+
+[distant](https://github.com/chipsenkbeil/distant)

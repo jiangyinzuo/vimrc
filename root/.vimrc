@@ -99,17 +99,19 @@ function s:DetectIndent()
 	endfor
 
 	if tabbed > spaced*4 " Over 80% tabs
+		" echo "Detected indent: tab"
 		setlocal noexpandtab shiftwidth=0 softtabstop=0
 	elseif spaced > tabbed*4 && max*5 > total*3
 		" Detected over 80% spaces and the most common indentation level makes
 		" up over 60% of all indentations in the file.
+		" echo "Detected indent: " . winner . " spaces"
 		setlocal expandtab
 		let &shiftwidth=winner
 		let &softtabstop=winner
 	endif
 endfunction
 
-autocmd BufEnter * call s:DetectIndent()
+autocmd FileType * call s:DetectIndent()
 
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo']
 

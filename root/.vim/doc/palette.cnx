@@ -43,3 +43,4 @@
 *git-blame*						:GitBlame
 *打开CodeRepo*						:OpenCodeRepo
 *打开NoteRepo*						:OpenNoteRepo
+*Leaderf通过rg搜索所有c文件*				:Leaderf rg -g *.c
