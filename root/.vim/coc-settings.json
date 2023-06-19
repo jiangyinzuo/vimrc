@@ -10,6 +10,7 @@
 		"--background-index",
 		"--suggest-missing-includes=true"
 	],
+	"python.pythonPath": "/root/anaconda3/bin/python3",
 	"languageserver": {
 		"golang": {
 			"command": "gopls",

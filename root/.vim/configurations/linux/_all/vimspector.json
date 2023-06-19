@@ -1,4 +1,5 @@
 {
+  "$schema": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json#",
   "configurations": {
     "Launch": {
       "adapter": "vscode-cpptools",
@@ -7,6 +8,7 @@
         "request": "launch",
         "program": "${fileBasenameNoExtension}",
         "cwd": "${workspaceRoot}",
+        "args": ["*${CommandLineArgs}"], 
 				"console": "integratedTerminal",
 				"externalConsole": false,
         "MIMode": "gdb"

@@ -94,6 +94,15 @@ if !exists('g:vscode')
 		source ~/vimrc.d/leaderf.vim
 		Plug 'puremourning/vimspector'
 		let g:vimspector_enable_mappings='HUMAN'
+	
+		" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+		" There are two locations for debug configurations for a project:
+		" 
+		" g:vimspector_configurations vim variable (dict)
+		" <vimspector home>/configurations/<OS>/<filetype>/*.json
+		" .vimspector.json in the project source
+		"
+		" json配置位于.vim/configurationsw目录下
 		let g:vimspector_base_dir = $HOME . '/.vim'
 	end
 
@@ -111,6 +120,7 @@ if !exists('g:vscode')
 	source ~/vimrc.d/cpp.vim
 	" source ~/vimrc.d/go.vim
 	source ~/vimrc.d/markdown.vim
+	source ~/vimrc.d/jupyter.vim
 	source ~/vimrc.d/latex.vim
 	source ~/vimrc.d/asynctasks.vim
 	source ~/vimrc.d/codenote.vim
