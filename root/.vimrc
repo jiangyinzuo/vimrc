@@ -1,3 +1,7 @@
+if has('vim_starting')
+  set viminfofile=$HOME/.vim/.viminfo
+endif
+
 set nocp "no Vi-compatible
 set history=500 " Sets how many lines of history VIM has to remember
 
@@ -24,7 +28,7 @@ set path=.,, " 当前目录和当前文件所在目录
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 set timeoutlen=3000 " key map 超时时间
 
-" set autowrite " 自动保存
+set autowrite " 自动保存
 set cursorline " 高亮当前行
 
 set hlsearch " Highlight search results
@@ -56,7 +60,7 @@ augroup indent2
 augroup end
 augroup indent4
 	autocmd!
-	autocmd FileType python,go,rust setlocal tabstop=4 shiftwidth=4 softtabstop=4
+	autocmd FileType python,go,rust,java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
 
 " https://github.com/timakro/vim-yadi/blob/main/plugin/yadi.vim

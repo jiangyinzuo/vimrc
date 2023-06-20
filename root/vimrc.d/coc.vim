@@ -2,9 +2,7 @@
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 augroup load_coc
     autocmd!
-    autocmd BufReadPost * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
-    autocmd BufNewFile * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
-    autocmd InsertEnter * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd BufWinEnter * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
 	" Highlight the symbol and its references when holding the cursor.
 augroup END
 

@@ -17,15 +17,8 @@
 		"$HOME/.cargo/**",
 		"$HOME/.rustup/**"
 	],
-	"languageserver": {
-		"golang": {
-			"command": "gopls",
-			"rootPatterns": [
-				"go.mod"
-			],
-			"filetypes": [
-				"go"
-			]
-		}
-	}
+	"go.enable": true,
+	"go.goplsPath": "/usr/bin/gopls",
+	"java.enabled": true,
+	"sh.enable": true
 }

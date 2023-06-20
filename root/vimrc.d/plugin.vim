@@ -118,7 +118,8 @@ if !exists('g:vscode')
 	" executable() is slow
 	source ~/vimrc.d/fzf.vim
 	source ~/vimrc.d/cpp.vim
-	source ~/vimrc.d/go.vim
+	source ~/vimrc.d/golang.vim
+	source ~/vimrc.d/java.vim
 	source ~/vimrc.d/markdown.vim
 	source ~/vimrc.d/jupyter.vim
 	source ~/vimrc.d/latex.vim
