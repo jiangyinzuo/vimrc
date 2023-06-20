@@ -54,9 +54,9 @@ augroup indent2
 	autocmd!
 	autocmd FileType c,cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
-augroup python
+augroup indent4
 	autocmd!
-	autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+	autocmd FileType python,go,rust setlocal tabstop=4 shiftwidth=4 softtabstop=4
 augroup end
 
 " https://github.com/timakro/vim-yadi/blob/main/plugin/yadi.vim

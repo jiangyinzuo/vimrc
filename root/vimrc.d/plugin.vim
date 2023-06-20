@@ -93,7 +93,7 @@ if !exists('g:vscode')
 		source ~/vimrc.d/coc.vim
 		source ~/vimrc.d/leaderf.vim
 		Plug 'puremourning/vimspector'
-		let g:vimspector_enable_mappings='HUMAN'
+		let g:vimspector_enable_mappings='VISUAL_STUDIO'
 	
 		" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
 		" There are two locations for debug configurations for a project:
@@ -118,7 +118,7 @@ if !exists('g:vscode')
 	" executable() is slow
 	source ~/vimrc.d/fzf.vim
 	source ~/vimrc.d/cpp.vim
-	" source ~/vimrc.d/go.vim
+	source ~/vimrc.d/go.vim
 	source ~/vimrc.d/markdown.vim
 	source ~/vimrc.d/jupyter.vim
 	source ~/vimrc.d/latex.vim

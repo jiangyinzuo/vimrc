@@ -3,11 +3,13 @@ let g:codenote_window_mode = "tab" " split or tab
 function s:set_coderepo_dir()
 	let g:coderepo_dir = asyncrun#get_root('%')
 	let w:repo_type = "code"
+	execute "lcd " . g:coderepo_dir
 endfunction
 
 function s:set_noterepo_dir()
 	let g:noterepo_dir = asyncrun#get_root('%')
 	let w:repo_type = "note"
+	execute "lcd " . g:noterepo_dir
 endfunction
 
 sign define code_note_link text=🗅 texthl=Search
@@ -67,9 +69,29 @@ endfunction
 
 command -nargs=0 RefreshCodeLinks :call GetAllCodeLinks()
 
+function s:goto_code_buffer()
+	if g:codenote_window_mode == 'tab'
+		tabnext 2
+	else
+		wincmd w
+	endif
+endfunction
+
+function s:goto_note_buffer()
+	if g:codenote_window_mode == 'tab'
+		tabfirst
+	else
+		wincmd w
+	endif
+endfunction
+
 function s:yank_to_register(line, file, content)
 	" yank markdown snippet to register
-	let @" = "+" . a:line . " " . a:file . "\n```" . &filetype . "\n" . a:content . "\n```\n"
+	if &filetype == 'markdown'
+		let @" = "+" . a:line . " " . a:file . "\n" . a:content . "\n"
+	else
+		let @" = "+" . a:line . " " . a:file . "\n```" . &filetype . "\n" . a:content . "\n```\n"
+	endif
 endfunction
 
 " See also: root/vimrc.d/asynctasks.vim
@@ -80,6 +102,7 @@ function YankCodeLink()
 	let l:line = line(".")
 	let l:content = getline(".")
 	call s:yank_to_register(l:line, l:file, l:content)
+	call s:goto_note_buffer()
 endfunction
 
 nnoremap <silent> cy :call YankCodeLink()<CR><C-W>w
@@ -91,6 +114,7 @@ function YankCodeLinkVisual()
   let [l:line_start, l:column_start] = getpos("'<")[1:2]
 	let l:content = GetVisualSelection()
 	call s:yank_to_register(l:line_start, l:file, l:content)
+	call s:goto_note_buffer()
 endfunction
 vnoremap <silent> cy :call YankCodeLinkVisual()<CR><C-W>w
 
@@ -108,16 +132,9 @@ function s:open_file(filename)
 	endif
 endfunction
 
-function s:goto_file()
-	if g:codenote_window_mode == 'tab'
-		tabn
-	else
-		wincmd w
-	endif
-endfunction
-
 function s:open_note_repo(filename)
 	call s:open_file(a:filename)
+	tabmove 0
 	call s:set_noterepo_dir()
 	execute "lcd " . g:noterepo_dir
 	
@@ -141,6 +158,7 @@ command -nargs=0 OpenNoteRepo :silent! call OpenNoteRepo()<CR>
 
 function s:open_code_repo(filename)
 	call s:open_file(a:filename)
+	tabmove 1
 	call s:set_coderepo_dir()
 	execute "lcd " . g:coderepo_dir
 
@@ -173,7 +191,7 @@ function GoToCodeLink()
 	if s:only_has_one_repo()
 		call OpenCodeRepo()
 	else
-		call s:goto_file()
+		call s:goto_code_buffer()
 	endif
 	exe "edit " . l:line . " " . g:coderepo_dir . "/" . l:file
 endfunction
@@ -187,7 +205,7 @@ function GoToNoteLink()
 	if s:only_has_one_repo()
 		call OpenNoteRepo()
 	else
-		call s:goto_file()
+		call s:goto_note_buffer()
 	endif
 	exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**" 
 endfunction
@@ -213,6 +231,7 @@ function LoadNote()
 		" let g:coderepo_dir = trim(system("cat " . l:root . "/.noterepo"))
 		let g:coderepo_dir = readfile(l:root . "/.noterepo", '', 1)[0]
 		let w:repo_type = "note"
+		execute "lcd " . g:noterepo_dir
 	endif
 endfunction
 
@@ -223,6 +242,7 @@ function LoadCode()
 		" let g:noterepo_dir = trim(system("cat " . l:root . "/.coderepo"))
 		let g:noterepo_dir = readfile(l:root . "/.coderepo", '', 1)[0]
 		let w:repo_type = "code"
+		execute "lcd " . g:coderepo_dir
 	endif
 endfunction
 

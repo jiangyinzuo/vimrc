@@ -24,6 +24,8 @@ augroup END
 "
 " clangd:
 " 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
+"
+" 其它编程语言: coc-pyright coc-rust-analyzer
 let g:coc_initial_global_extensions = ['coc-ultisnips', 'coc-json']
 let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}

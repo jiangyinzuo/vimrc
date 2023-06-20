@@ -3,11 +3,12 @@ Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 
 let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
 
 if (has('unix') && exists('$WSLENV'))
 	" TODO: get root by ascynrun#get_root
 	let g:basepath='D:/doc2'
-	let g:wsl_basepath = '/mnt/d/doc2'
+	let g:wsl_basepath = $DOC2
 
 	" xdg-open <uri>
 	" cmd.exe /C start "" 需要使用cmd.exe /c mklink创建软链接

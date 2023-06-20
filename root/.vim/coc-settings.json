@@ -11,6 +11,12 @@
 		"--suggest-missing-includes=true"
 	],
 	"python.pythonPath": "/root/anaconda3/bin/python3",
+	"rust-analyzer.enable": true,
+	"workspace.ignoredFolders": [
+		"$HOME",
+		"$HOME/.cargo/**",
+		"$HOME/.rustup/**"
+	],
 	"languageserver": {
 		"golang": {
 			"command": "gopls",
