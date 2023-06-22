@@ -702,7 +702,7 @@ call LoadProjectVimrcPaths()
 augroup load_project
 	autocmd!
 	" 当Vim启动时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
-	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient() | call LoadTemplate()
+	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient() | if !filereadable(expand('%')) | call LoadTemplate()
 	" 当打开新的缓冲区时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
 	autocmd TabEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
 	" 当Vim退出时，调用SaveProjectVimrcPaths函数保存.project_vimrc路径
