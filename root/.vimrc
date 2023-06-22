@@ -120,7 +120,8 @@ if file_readable('.editorconfig') == 0
 	autocmd FileType * call s:DetectIndent()
 endif
 
-let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.project_vimrc']
+let g:project_vimrc = '.project.vim'
+let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc]
 
 let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
 if exists("g:vscode")
@@ -166,7 +167,7 @@ if v:version >= 801
 				\ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
 endif
 
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 
 if has("patch-8.1.0360")
 	set diffopt+=internal,algorithm:patience
@@ -182,7 +183,7 @@ if has('nvim') || v:version >= 801
 	let g:termdebug_wide = 1
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
 "  open explorer :Ex :Sex :Vex
 " close explorer :Rex
 "
@@ -376,7 +377,7 @@ function CExprSystem(args)
 endfunction
 command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Example:
 " :e+22 ~/.vimrc
@@ -407,16 +408,16 @@ if &insertmode == 0
 	inoremap <c-S> <esc>:w<CR>i
 end
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    TAGS                                      "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                                     TAGS                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 递归向上层寻找tags文件
 " set tags=tags;/
 
 " Reference: https://cscope.sourceforge.net/cscope_maps.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CSCOPE settings for vim           
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let s:tags_use_cscope = 1
 let s:tags_use_gtags = 0
@@ -533,7 +534,78 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" template
+let g:user_name = 'Yinzuo Jiang'
 
+function JavaTemplate()
+	let l:filename = expand('%:t')
+	let l:classname = substitute(l:filename, '\.java$', '', '')
+	" first charactor to upper case
+	" let l:classname = substitute(l:classname, '\(^\|_\)\(\w\)', '\u\2', 'g')
+	" TODO: get package name
+	" let l:package = ''
+	
+	let l:template = 'public class ' . l:classname . ' {'
+	" 如果buffer为空
+	if line('$') == 1 && getline(1) == ''
+		execute 'normal! i' . l:template
+	else
+		execute 'normal! Go' . l:template
+	endif
+	normal! Go}
+endfunction
+
+function! CCopyRightTemplate()
+	let l:line_count = line('$')
+	" replace template variables
+	let l:year = strftime("%Y")
+	execute ":1," . l:line_count . "s/\${__template_year__}/" . l:year . "/g"
+	execute ":1," . l:line_count . "s/\${__template_fullname__}/" . g:user_name ."/g"
+endfunction
+
+function! HTemplateHeaderGuard()
+	call CCopyRightTemplate()	
+	let l:header_guard_prefix = exists('t:header_guard_prefix') ? t:header_guard_prefix : ''
+	let l:header_guard_suffix = exists('t:header_guard_suffix') ? t:header_guard_suffix : ''
+	let l:filename = expand('%:t')
+	let l:filename = substitute(l:filename, '\.', '_', 'g')
+	let l:header_guard = l:header_guard_prefix . toupper(l:filename) . l:header_guard_suffix
+	
+	" 如果buffer为空
+	if line('$') == 1 && getline(1) == ''
+		execute 'normal! i#ifndef ' . l:header_guard
+	else
+		execute 'normal! Go#ifndef ' . l:header_guard
+	endif
+	execute 'normal! Go#define ' . l:header_guard
+	normal! Go
+	execute 'normal! Go#endif /* ' . l:header_guard . ' */'
+endfunction
+
+function! LoadTemplate()
+	let l:extension = expand('%:e')
+	let l:set_autocmd = 1
+	" 当创建一个新的文件时，插入模板内容
+	if filereadable('.template.' . l:extension)
+		let l:filename = '.template.' . l:extension
+	else
+		let l:filename = expand('~/.vim/template/template.' . l:extension)
+		if !filereadable(l:filename)
+			let l:set_autocmd = 0
+		endif
+	endif
+	if l:set_autocmd
+		execute '0r ' . l:filename
+	endif
+
+	" 调用对应的函数插入模板内容
+	if has_key(t:template_dict, l:extension)
+		call t:template_dict[l:extension]()
+	endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 加载保存在~/.project_vimrc_paths文件中的.project_vimrc路径
 function! LoadProjectVimrcPaths()
 	" 设置.project_vimrc路径文件的路径
@@ -557,16 +629,25 @@ function! SaveProjectVimrcPaths()
 	" 判断g:project_vimrc_paths字典是否存在，如果存在，则将其写入到文件中
 	if exists('g:project_vimrc_paths')
 		let my_json_str = json_encode(g:project_vimrc_paths)
-		call writefile([my_json_str], expand('~/.project_vimrc_paths'), 'S')
+		call writefile([my_json_str], expand('~/.project_paths.vim'), 'S')
 	endif
 endfunction
 
+let g:load_project_accept_user_input = 0
 " 加载对应的.project_vimrc文件
 function! LoadProjectConfigEfficient()
 	" 判断g:project_vimrc_paths字典是否存在，如果不存在，则调用LoadProjectVimrcPaths函数加载.project_vimrc路径
 	if !exists('g:project_vimrc_paths')
 		call LoadProjectVimrcPaths()
 	endif
+
+	" 初始化tab variables(约定一个tab对应一个项目)
+	let t:template_dict = {
+		\ 'java': function('JavaTemplate'),
+		\ 'h': function('HTemplateHeaderGuard'),
+		\ 'c': function('CCopyRightTemplate'),
+		\ 'cpp': function('CCopyRightTemplate'),
+		\ }
 
 	" 获取当前的项目根目录
 	let l:project_root = getcwd()
@@ -578,18 +659,18 @@ function! LoadProjectConfigEfficient()
 	else
 		" 在当前目录和父目录中查找.project_vimrc文件
 		for l:dir in [getcwd(), fnamemodify(getcwd(), ':h')]
-			let l:possible_vimrc = l:dir . '/.project_vimrc'
+			let l:possible_vimrc = l:dir . '/' . g:project_vimrc
 			if filereadable(l:possible_vimrc)
 				let l:project_vimrc = l:possible_vimrc
 				break
 			endif
 		endfor
 		" 如果在目录中没有找到.project_vimrc文件，则提示用户输入路径
-		if l:project_vimrc == ''
-			let l:project_dir = input('Enter directory path for .project_vimrc (leave empty to skip): ')
+		if l:project_vimrc == '' && g:load_project_accept_user_input
+			let l:project_dir = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
 			if l:project_dir != '' && isdirectory(l:project_dir) && filewritable(l:project_dir)
 				" 在用户输入的路径下创建或打开.project_vimrc文件
-				let l:project_vimrc = l:project_dir . '/.project_vimrc'
+				let l:project_vimrc = l:project_dir . '/' . g:project_vimrc
 				" 将用户输入的路径添加到g:project_vimrc_paths字典中，并保存到文件中
 				let g:project_vimrc_paths[l:project_root] = l:project_vimrc
 				call SaveProjectVimrcPaths()
@@ -607,15 +688,25 @@ function! LoadProjectConfigEfficient()
 		endif
 		" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
 		execute 'tcd' fnamemodify(l:project_vimrc, ':p:h')
+		echom 'load ' . l:project_vimrc
 		execute 'source' l:project_vimrc
 	endif
+	
+	augroup load_template
+		autocmd!
+		autocmd BufNewFile * call LoadTemplate()
+	augroup END
 endfunction
 
 call LoadProjectVimrcPaths()
-" 当Vim启动时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
-autocmd VimEnter *.c,*.cpp,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
-" 当打开新的缓冲区时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
-autocmd TabEnter *.c,*.cpp,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
-" 当Vim退出时，调用SaveProjectVimrcPaths函数保存.project_vimrc路径
-autocmd VimLeave * call SaveProjectVimrcPaths()
+augroup load_project
+	autocmd!
+	" 当Vim启动时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
+	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient() | call LoadTemplate()
+	" 当打开新的缓冲区时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
+	autocmd TabEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
+	" 当Vim退出时，调用SaveProjectVimrcPaths函数保存.project_vimrc路径
+	autocmd VimLeave * call SaveProjectVimrcPaths()
+augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
