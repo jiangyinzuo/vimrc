@@ -69,6 +69,7 @@ endfunction
 
 command -nargs=0 RefreshCodeLinks :call GetAllCodeLinks()
 
+" 第一个tab作为note repo window，第二个tab作为code repo window
 function s:goto_code_buffer()
 	if g:codenote_window_mode == 'tab'
 		tabnext 2
@@ -84,39 +85,6 @@ function s:goto_note_buffer()
 		wincmd w
 	endif
 endfunction
-
-function s:yank_to_register(line, file, content)
-	" yank markdown snippet to register
-	if &filetype == 'markdown'
-		let @" = "+" . a:line . " " . a:file . "\n" . a:content . "\n"
-	else
-		let @" = "+" . a:line . " " . a:file . "\n```" . &filetype . "\n" . a:content . "\n```\n"
-	endif
-endfunction
-
-" See also: root/vimrc.d/asynctasks.vim
-function YankCodeLink()
-	call s:set_coderepo_dir()
-	
-	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
-	let l:line = line(".")
-	let l:content = getline(".")
-	call s:yank_to_register(l:line, l:file, l:content)
-	call s:goto_note_buffer()
-endfunction
-
-nnoremap <silent> cy :call YankCodeLink()<CR><C-W>w
-
-function YankCodeLinkVisual()
-	call s:set_coderepo_dir()
-	
-	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
-  let [l:line_start, l:column_start] = getpos("'<")[1:2]
-	let l:content = GetVisualSelection()
-	call s:yank_to_register(l:line_start, l:file, l:content)
-	call s:goto_note_buffer()
-endfunction
-vnoremap <silent> cy :call YankCodeLinkVisual()<CR><C-W>w
 
 function s:save_repo_dir()
 	echom "s:save_repo_dir(): " . g:coderepo_dir . " " . g:noterepo_dir
@@ -143,6 +111,10 @@ function s:open_note_repo(filename)
 endfunction
 
 function OpenNoteRepo()
+	if exists("w:repo_type") && w:repo_type == "note"
+		echoerr "Already in note repo"
+		return
+	endif
 	call s:set_coderepo_dir()
 	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
 		if $DOC2 == ''
@@ -167,6 +139,10 @@ function s:open_code_repo(filename)
 endfunction
 
 function OpenCodeRepo()
+	if exists("w:repo_type") && w:repo_type == "code"
+		echoerr "Already in code repo"
+		return
+	endif
 	call s:set_noterepo_dir()
 	if !exists('g:coderepo_dir') || g:coderepo_dir == ""
 		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
@@ -183,6 +159,69 @@ command -nargs=0 OpenCodeRepo :silent! call OpenCodeRepo()<CR>
 function s:only_has_one_repo()
 	return g:codenote_window_mode == 'split' && winnr('$') == 1 || g:codenote_window_mode == 'tab' && tabpagenr('$') == 1
 endfunction
+
+function s:yank_registers(file, line, content, need_beginline, need_endline, append)
+	if a:need_beginline && &filetype != 'markdown'
+		let l:beginline = "```" . &filetype . "\n"
+	else
+		let l:beginline = ""
+	endif
+	if a:need_endline && &filetype != 'markdown'
+		let l:endline = "```\n"
+	else
+		let l:endline = ""
+	endif
+	if a:append
+		let @" .= "+" . a:line . " " . a:file . "\n" . l:beginline . a:content . "\n" . l:endline
+		echo "append to @"
+	else
+		let @" = "+" . a:line . " " . a:file . "\n" . l:beginline . a:content . "\n" . l:endline
+	endif
+endfunction
+
+" See also: root/vimrc.d/asynctasks.vim
+function YankCodeLink(need_beginline, need_endline, append, goto_buf)
+	if exists("w:repo_type") && w:repo_type == "code"
+		if s:only_has_one_repo()
+			call s:open_note_repo(g:noterepo_dir)
+		endif
+		let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
+		let l:line = line(".")
+		let l:content = getline(".")
+		call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
+		if a:goto_buf
+			call s:goto_note_buffer()
+		endif
+	endif
+endfunction
+
+nnoremap <silent> cr :call YankCodeLink(0, 0, 0, 1)<CR>
+nnoremap <silent> cy :call YankCodeLink(1, 1, 0, 1)<CR>
+nnoremap <silent> cb :call YankCodeLink(1, 0, 0, 0)<CR>
+nnoremap <silent> ca :call YankCodeLink(0, 0, 1, 0)<CR>
+nnoremap <silent> ce :call YankCodeLink(0, 1, 1, 1)<CR>
+
+function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf)
+	if exists("w:repo_type") && w:repo_type == "code"
+		if s:only_has_one_repo()
+			call s:open_note_repo(g:noterepo_dir)
+		endif
+		let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
+		let [l:line, l:column_start] = getpos("'<")[1:2]
+		let l:content = GetVisualSelection()
+		call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
+		if a:goto_buf
+			call s:goto_note_buffer()
+		endif
+	endif
+endfunction
+
+vnoremap <silent> cr :call YankCodeLinkVisual(0, 0, 0, 1)<CR>
+vnoremap <silent> cy :call YankCodeLinkVisual(1, 1, 0, 1)<CR>
+vnoremap <silent> cb :call YankCodeLinkVisual(1, 0, 0, 0)<CR>
+vnoremap <silent> ca :call YankCodeLinkVisual(0, 0, 1, 0)<CR>
+vnoremap <silent> ce :call YankCodeLinkVisual(0, 1, 1, 1)<CR>
+
 
 function GoToCodeLink()
 	let l:dest = split(getline("."))
@@ -252,3 +291,5 @@ augroup codenote_load
 	autocmd BufWinEnter * call LoadCode()
 	autocmd BufEnter * call GetAllCodeLinks()
 augroup END
+
+command -nargs=0 Rglink :Rg ^\+[0-9]+ .+$

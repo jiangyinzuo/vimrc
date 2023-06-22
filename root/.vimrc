@@ -1,5 +1,5 @@
-if has('vim_starting')
-  set viminfofile=$HOME/.vim/.viminfo
+if has('vim_starting') && ! has('nvim') 
+	set viminfofile=$HOME/.vim/.viminfo
 endif
 
 set nocp "no Vi-compatible
@@ -51,6 +51,7 @@ set smartindent " 以 { 或cinword变量开始的行（if、while...），换行
 
 augroup cpp
 	autocmd!
+	" alternative: GNU indent
 	autocmd FileType c,cpp setlocal equalprg=clang-format
 augroup end
 
@@ -115,9 +116,11 @@ function s:DetectIndent()
 	endif
 endfunction
 
-autocmd FileType * call s:DetectIndent()
+if file_readable('.editorconfig') == 0
+	autocmd FileType * call s:DetectIndent()
+endif
 
-let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo']
+let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.project_vimrc']
 
 let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
 if exists("g:vscode")
@@ -196,10 +199,10 @@ let g:netrw_browsex_viewer="start"
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
 	autocmd!
-	autocmd FileType c,cpp,java,scala 	                   let b:comment_leader = '// '
+	autocmd FileType c,cpp,java,scala,rust                 let b:comment_leader = '// '
 	autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
 	autocmd FileType tex                                   let b:comment_leader = '% '
-	autocmd FileType mail                                  let b:comment_leader = '> '
+	autocmd FileType mail,markdown                         let b:comment_leader = '> '
 	autocmd FileType vim                                   let b:comment_leader = '" '
 	autocmd FileType lua                                   let b:comment_leader = '-- '
 augroup end
@@ -210,6 +213,43 @@ augroup end
 " :nohlsearch stops it from highlighting the sed search
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+augroup jump_to_symbol
+	autocmd!
+	" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
+	" #gpt4-answer
+	" jump to the previous function
+	" 向后（b表示backward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
+	autocmd FileType c,cpp nnoremap <silent> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+	" jump to the next function
+	" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
+	autocmd FileType c,cpp nnoremap <silent> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
+	" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
+	" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
+	" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
+
+	" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
+	" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
+	autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
+	autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
+	" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
+	" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
+	autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
+	autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
+	autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
+	autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
+	autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
+	autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
+
+	autocmd FileType c,cpp nnoremap <silent> <buffer> [t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
+	autocmd FileType c,cpp nnoremap <silent> <buffer> ]t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
+	autocmd FileType go nnoremap <silent> <buffer> [t :call search('\<type\>', "bW")<CR>
+	autocmd FileType go nnoremap <silent> <buffer> ]t :call search('\<type\>', "wW")<CR>
+	autocmd FileType rust nnoremap <silent> <buffer> [t :call search('\<struct\>\|\<enum\>\|\<type\>', "bW")<CR>
+	autocmd FileType rust nnoremap <silent> <buffer> ]t :call search('\<struct\>\|\<enum\>\|\<type\>', "wW")<CR>
+	autocmd FileType python nnoremap <silent> <buffer> [t :call search('\<class\>', "bW")<CR>
+	autocmd FileType python nnoremap <silent> <buffer> ]t :call search('\<class\>', "wW")<CR>
+augroup END
 
 function GetVisualSelection()
 	" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
@@ -240,12 +280,8 @@ endfunction
 function VimGrepFindWord(word)
 	if &filetype == 'c' || &filetype == 'cpp'
 		let extention = '**/*.c **/*.cpp **/*.cc **/*.h'
-	elseif &filetype == 'python'
-		let extention = '**/*.py'
-	elseif &filetype == 'go'
-		let extention = '**/*.go'
 	else
-		let extention = '**'
+		let extention = '**/*.' . expand('%:e')
 	endif
 	" <pattern>: 匹配整个单词
 	silent exe 'silent! vimgrep' '/\<'.a:word.'\>/' extention
@@ -278,7 +314,7 @@ function VimGrepFindType(word)
 endfunction
 
 nnoremap <silent> <leader>fy :call VimGrepFindType(expand("<cword>"))<CR>
-vnoremap <silent> <leader>fd :call VimGrepFindType(GetVisualSelection())<CR>
+vnoremap <silent> <leader>fy :call VimGrepFindType(GetVisualSelection())<CR>
 command! -nargs=1 Vimfy call VimGrepFindType(<q-args>)
 
 function VimGrepFindDefinition(word)
@@ -346,8 +382,12 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 " :e+22 ~/.vimrc
 command! -nargs=0 VimExeLine exe getline(".")
 
+set foldmethod=syntax
+" 默认打开所有折叠，将foldlevelstart设置为较大的值
+"" set foldlevel=-1 " 默认关闭所有折叠
+set foldlevelstart=99
 " https://www.zhihu.com/question/30782510/answer/70078216
-nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
+nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
 " 打开所有折叠: zR
 
 set makeprg=make
@@ -378,7 +418,7 @@ end
 " CSCOPE settings for vim           
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let s:tags_use_cscope = 0
+let s:tags_use_cscope = 1
 let s:tags_use_gtags = 0
 
 " This tests to see if vim was configured with the '--enable-cscope' option
@@ -492,4 +532,90 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline+=%=\ 
 	set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
 endif
+
+
+" 加载保存在~/.project_vimrc_paths文件中的.project_vimrc路径
+function! LoadProjectVimrcPaths()
+	" 设置.project_vimrc路径文件的路径
+	let l:project_vimrc_paths_file = expand('~/.project_vimrc_paths')
+
+	let g:project_vimrc_paths = {}
+	" 判断路径文件是否存在，如果存在，则读取并解析文件中的数据
+	if filereadable(l:project_vimrc_paths_file)
+		for l:line in readfile(l:project_vimrc_paths_file)
+			" 使用eval函数解析每一行的数据，将其转换为字典
+			let l:dict = eval(l:line)
+
+			" 将解析出的数据添加到g:project_vimrc_paths字典中
+			call extend(g:project_vimrc_paths, l:dict)
+		endfor
+	endif
+endfunction
+
+" 保存.project_vimrc路径到~/.project_vimrc_paths文件中
+function! SaveProjectVimrcPaths()
+	" 判断g:project_vimrc_paths字典是否存在，如果存在，则将其写入到文件中
+	if exists('g:project_vimrc_paths')
+		let my_json_str = json_encode(g:project_vimrc_paths)
+		call writefile([my_json_str], expand('~/.project_vimrc_paths'), 'S')
+	endif
+endfunction
+
+" 加载对应的.project_vimrc文件
+function! LoadProjectConfigEfficient()
+	" 判断g:project_vimrc_paths字典是否存在，如果不存在，则调用LoadProjectVimrcPaths函数加载.project_vimrc路径
+	if !exists('g:project_vimrc_paths')
+		call LoadProjectVimrcPaths()
+	endif
+
+	" 获取当前的项目根目录
+	let l:project_root = getcwd()
+	let l:project_vimrc = ''
+
+	" 在g:project_vimrc_paths字典中查找当前项目根目录对应的.project_vimrc路径
+	if has_key(g:project_vimrc_paths, l:project_root)
+		let l:project_vimrc = g:project_vimrc_paths[l:project_root]
+	else
+		" 在当前目录和父目录中查找.project_vimrc文件
+		for l:dir in [getcwd(), fnamemodify(getcwd(), ':h')]
+			let l:possible_vimrc = l:dir . '/.project_vimrc'
+			if filereadable(l:possible_vimrc)
+				let l:project_vimrc = l:possible_vimrc
+				break
+			endif
+		endfor
+		" 如果在目录中没有找到.project_vimrc文件，则提示用户输入路径
+		if l:project_vimrc == ''
+			let l:project_dir = input('Enter directory path for .project_vimrc (leave empty to skip): ')
+			if l:project_dir != '' && isdirectory(l:project_dir) && filewritable(l:project_dir)
+				" 在用户输入的路径下创建或打开.project_vimrc文件
+				let l:project_vimrc = l:project_dir . '/.project_vimrc'
+				" 将用户输入的路径添加到g:project_vimrc_paths字典中，并保存到文件中
+				let g:project_vimrc_paths[l:project_root] = l:project_vimrc
+				call SaveProjectVimrcPaths()
+			else
+				let l:project_vimrc = ''
+			endif
+		endif
+	endif
+
+	" 如果找到了.project_vimrc文件，则将其加载
+	if l:project_vimrc != ''
+		" 如果.project_vimrc文件不存在，那么创建它
+		if !filereadable(l:project_vimrc)
+			call writefile([], l:project_vimrc)
+		endif
+		" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
+		execute 'tcd' fnamemodify(l:project_vimrc, ':p:h')
+		execute 'source' l:project_vimrc
+	endif
+endfunction
+
+call LoadProjectVimrcPaths()
+" 当Vim启动时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
+autocmd VimEnter *.c,*.cpp,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
+" 当打开新的缓冲区时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
+autocmd TabEnter *.c,*.cpp,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
+" 当Vim退出时，调用SaveProjectVimrcPaths函数保存.project_vimrc路径
+autocmd VimLeave * call SaveProjectVimrcPaths()
 

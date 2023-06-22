@@ -270,3 +270,6 @@ CTRL-G CTRL-S for Stashes
 CTRL-G CTRL-E for Each ref (git for-each-ref)
 
 -------------------------------------------------------------------------------
+
+https://stackoverflow.com/questions/39973214/how-to-display-the-hex-value-in-the-watch-panel-of-vs-code
+*vimspector以十六进制方式查看expression*	<expr>,h

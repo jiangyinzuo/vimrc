@@ -45,3 +45,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 if [[ `uname -a` == *WSL* ]]; then
 	. ~/vimrc/root/wsl-init.bash
 fi
+
+git-rm-remote-file() {
+	(set -x; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all)
+}

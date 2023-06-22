@@ -20,5 +20,6 @@
 	"go.enable": true,
 	"go.goplsPath": "/usr/bin/gopls",
 	"java.enabled": true,
-	"sh.enable": true
+	"sh.enable": true,
+	"marksman.enable": true
 }

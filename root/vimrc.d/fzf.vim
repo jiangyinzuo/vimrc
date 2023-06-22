@@ -83,7 +83,7 @@ command! -bang -nargs=0 Path
 " hashtag排除包含各类字符
 " rg -e "#[^_\d()（）{}#\s'/\\[\]:：;?%][^()（）{}#\s'/\\[\]:：;?%]{1,40}" -N -I -o | sort | uniq > hashtag.txt
 command! -bang -nargs=0 Hashtag
-			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. asyncrun#get_root('%') .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
+			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. $DOC2 .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
 
 " See: github.com/junegunn/fzf.vim/issues/1037
 "" HelpRg command -- like helpgrep but with FZF and ripgrep

@@ -51,6 +51,10 @@ map T <Plug>Sneak_T
 Plug 'markonm/traces.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'SirVer/ultisnips'
+Plug 'editorconfig/editorconfig-vim'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+au FileType gitcommit let b:EditorConfig_disable = 1
+
 
 if !exists('g:vscode')
 	if has('nvim') && !g:nvim_compatibility_with_vim
@@ -104,9 +108,21 @@ if !exists('g:vscode')
 		"
 		" json配置位于.vim/configurationsw目录下
 		let g:vimspector_base_dir = $HOME . '/.vim'
+		let g:vimspector_sign_priority = {
+			\    'vimspectorBP':          20,
+			\    'vimspectorBPCond':      20,
+			\    'vimspectorBPLog':       20,
+			\    'vimspectorBPDisabled':  20,
+			\    'vimspectorNonActivePC': 20,
+			\    'vimspectorPC':          999,
+			\    'vimspectorPCBP':        999,
+			\ }
 	end
 
 	Plug 'airblade/vim-gitgutter'
+	let g:gitgutter_sign_priority = 10
+	" FZF :Commits依赖vim-fugitive
+	Plug 'tpope/vim-fugitive'
 	" Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 	" vnoremap <leader>c :OSCYank<CR>

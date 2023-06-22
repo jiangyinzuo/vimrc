@@ -4,6 +4,8 @@ Requirements: vim 8.2.4919(full features), vim 7.4(.vimrc)
 
 Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim` 
 安装Neovim：` sudo apt install neovim python3-pynvim`  
+`pip3 install neovim`  
+
 Neovim WSL使用系统clipboard：https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
 **Vim编译选项**  
