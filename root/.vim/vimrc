@@ -31,6 +31,7 @@ set timeoutlen=3000 " key map 超时时间
 
 set autowrite " 自动保存
 set cursorline " 高亮当前行
+set background=dark
 
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
@@ -53,7 +54,7 @@ set smartindent " 以 { 或cinword变量开始的行（if、while...），换行
 augroup cpp
 	autocmd!
 	" autocmd FileType c,cpp setlocal equalprg=indent
-	" autocmd FileType c,cpp setlocal equalprg=uncrustify -c .uncrustify.cfg
+	" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 	autocmd FileType c,cpp setlocal equalprg=clang-format
 augroup end
 
@@ -172,7 +173,7 @@ endif
 """""""""""""""""""""""""""""""
 
 if has("patch-8.1.0360")
-	set diffopt+=internal,algorithm:patience
+	set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
@@ -641,10 +642,10 @@ function! LoadProjectConfigEachTab()
 
 	" 如果在目录中没有找到g:project_vimrc文件，则提示用户输入路径
 	if l:project_vimrc == '' && g:load_project_accept_user_input
-		let l:project_dir = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
-		if l:project_dir != '' && isdirectory(l:project_dir) && filewritable(l:project_dir)
+		let l:project_root = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
+		if l:project_root != '' && isdirectory(l:project_root) && filewritable(l:project_root)
 			" 在用户输入的路径下创建或打开.project_vimrc文件
-			let l:project_vimrc = l:project_dir . '/' . g:project_vimrc
+			let l:project_vimrc = l:project_root . '/' . g:project_vimrc
 		else
 			let l:project_vimrc = ''
 		endif
@@ -657,10 +658,10 @@ function! LoadProjectConfigEachTab()
 			call writefile([], l:project_vimrc)
 		endif
 		echom 'source ' . l:project_vimrc
-		execute 'source' l:project_vimrc
+		execute 'source ' l:project_vimrc
 		if t:autocd_project_root
 			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
-			execute 'tcd' fnamemodify(l:project_vimrc, ':p:h')
+			execute 'tcd ' . l:project_root 
 		endif
 	endif
 	

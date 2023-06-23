@@ -1,0 +1,148 @@
+*vim-git-help*
+
+==============================================================================
+Git 修改历史提交的文件                                 *git-modify-history-file*
+
+如果你想修改历史提交中的某个文件，你可以使用以下步骤：
+
+1. 使用 'git log' 查看提交历史，找到你想要修改的提交的哈希值。
+
+2. 执行 'git rebase -i <commit_hash>^' 进入交互式 rebase 模式。
+   ('commit_hash' 是你在第一步找到的哈希值。'^' 符号表示父提交)
+
+3. 在你想要修改的提交前面，将 'pick' 改为 'edit'。
+
+4. 保存并关闭编辑器，然后使用 'git checkout -- <filename>' 来恢复你想要修改
+   的文件到这次提交的状态。
+
+5. 对文件进行你需要的修改。
+
+6. 提交这个修改，你可以使用 'git add <filename>' 添加修改，然后用
+   'git commit --amend' 修改这个提交。
+
+7. 运行 'git rebase --continue' 完成 rebase 操作。
+
+-------------------------------------------------------------------------------
+git commit --amend                                      *git-commit-amend*
+
+'git commit --amend' 是一个 Git 命令，用于修改最近一次提交。这个命令会将暂存区中
+的文件添加到最近一次的提交中，并允许你修改提交信息。
+
+如果你提交后忘记了包含一些修改的文件，你可以简单地将它们添加到暂存区，然后运行
+'git commit --amend'。如果你的最新提交信息有误（例如拼写错误或描述不清），你可以
+使用 'git commit --amend' 来更改它。
+
+如果你不小心使用 'git commit --amend' 命令，并想撤销对最近一次提交的修改，你可以
+使用 'git reset --hard ORIG_HEAD' 命令。这会撤销 'git commit --amend' 对最近一次
+提交的所有修改，并将这些修改留在工作区。
+
+-------------------------------------------------------------------------------
+git reset                                             *git-reset*
+
+'git reset --soft <commit_hash>' 是一个 Git 命令，用于将 HEAD 指针移动到指定的提交，
+并将该提交后的所有提交放回暂存区。'<commit_hash>' 是你想要回滚到的提交的哈希值。
+
+如果你不小心使用了 'git reset HEAD~3' 并希望恢复，你可以使用 'git reflog' 查找到你
+想要恢复的提交的哈希值，然后使用 'git reset --hard <commit_hash>' 来恢复。
+
+-------------------------------------------------------------------------------
+git checkout                                        *git-checkout*
+
+'git checkout <commit_hash> -- <filename>' 是一个 Git 命令，用于将特定文件回滚到
+某次提交的状态。'<commit_hash>' 是你想要回滚到的提交的哈希值，'<filename>' 是你想要
+回滚的文件。
+
+这个命令可以用来回滚部分文件，例如你可以使用 'git checkout HEAD~1 -- README.md' 来
+将 'README.md' 文件回滚到上一次提交的状态。
+
+如果你想要暂时跳转到某一次历史提交，你可以使用 'git checkout <commit_hash>'。然后，
+当你想要回到原来的状态时，你可以使用 'git checkout <branch_name>'，'<branch_name>'
+是你之前所在的分支的名称。
+
+*撤销某一个文件的修改*			git checkout -- 文件名
+git checkout 可以checkout部分文件到某一次提交/分支。可以用于回滚部分文件。
+
+*git-checkout历史文件*			git checkout v0.2.2 -- markdown.vim
+
+-------------------------------------------------------------------------------
+git rebase --edit-timestamp            *git-rebase-edit-timestamp*
+
+'git rebase --edit-timestamp' 是一个选项，可以在 'git rebase' 命令中使用。这个选项
+会允许你在 rebase 过程中编辑每次提交的时间戳。
+
+你可以使用 'git rebase -i --root' 来进入交互式 rebase 模式，并编辑每次提交的时间戳。
+
+在你想要修改的提交前面，将 'pick' 改为 'edit'，然后保存并退出编辑器。然后，执行
+'git commit --amend --date="<date>"' 来修改提交日期，'<date>' 是你想要设置的日期和
+时间。最后，执行 'git rebase --continue' 来完成 rebase 操作。
+
+-------------------------------------------------------------------------------
+
+*git提交把作者改成自己*				git commit --amend --reset-author --no-edit
+*ssh生成key*					1) ssh-keygen -t rsa -C '邮件地址@youremail.com'	2) cat ~/.ssh/id_rsa.pub
+*git回退版本*					git reset --soft 需要回退的commit hash
+*git先暂存自己的修改，再pull别人的提交*		1) git stash 	2) git pull 	3) git pop
+*git复制某一分支*				git remote set-url
+*git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
+*git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
+
+-------------------------------------------------------------------------------
+
+*git-diff/merge*
+
+*git-difftool*					git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD
+
+*git-mergetool*
+
+tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
+
+clean-LOCAL-BASE-REMOTE-files			git clean -i
+
+-------------------------------------------------------------------------------
+
+*Git在单体仓库中pull部分文件*
+
+*monorepo*
+
+以clone [etcd/raft](https://github.com/etcd-io/etcd/tree/main/raft)为例
+
+1) *partial-clone* >
+  git clone --no-checkout https://hub.fastgit.org/etcd-io/etcd.git etcd_raft3 --depth=1 --filter=blob:none or git clone --no-checkout https://hub.fastgit.org/etcd-io/etcd.git etcd_raft3 --depth=1 --filter=tree:0
+<
+
+blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
+
+2) *sparse-checkout* >
+  cd etcd_raft3 git sparse-checkout init git sparse-checkout set '!/*/' '/raft/' git checkout main
+<
+
+当git版本>=2.32.0时，可以添加在`git sparse-checkout init`中添加`--sparse-index`选项进一步减小git文件大小，见 [https://git-scm.com/docs/git-sparse-checkout/2.32.0](https://git-scm.com/docs/git-sparse-checkout/2.32.0)
+
+最后只有raft目录在项目文件夹中。 `git sparse-checkout list` 可以查看当前sparse-checkout的规则。
+
+其它参考资料： [https://github.blog/tag/monorepo/](https://github.blog/tag/monorepo/) [https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/](https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/) [https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)
+
+-------------------------------------------------------------------------------
+
+*藏匿当前正在修改，但尚未commit的工作区。适合临时保存、切换工作区（比如临时hotfix）*		git stash
+
+-------------------------------------------------------------------------------
+vim mergetool                                       *vim-mergetool*
+
+当你使用 Vim 作为 Git 的 mergetool 时，你可以使用一些 Vim 插件来美化三路合并的高亮
+文本页面。
+
+比如，你可以使用 'vim-mergetool' 插件，它提供了一个集成的三路合并界面，以及一些高
+亮和配色方案来提升可读性。
+
+你可以在 Vim 中使用以下命令来安装 'vim-mergetool' 插件：
+  :Plug 'samoshkin/vim-mergetool'
+
+然后，你需要在你的 '.gitconfig' 文件中设置 Vim 作为默认的 mergetool：
+  [merge]
+    tool = vimdiff
+
+然后，当你运行 'git mergetool' 命令时，Git 会使用 Vim 来解决合并冲突。
+
+==============================================================================
+

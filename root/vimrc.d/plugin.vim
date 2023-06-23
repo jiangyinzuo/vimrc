@@ -48,13 +48,14 @@ map T <Plug>Sneak_T
  
 Plug 'markonm/traces.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'SirVer/ultisnips'
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
-
 if !exists('g:vscode')
+	Plug 'SirVer/ultisnips'
+	" Plug 'samoshkin/vim-mergetool'
+
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -91,7 +92,10 @@ if !exists('g:vscode')
 
 		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 	else
+" 		Plug 'dracula/vim', { 'as': 'dracula' }
 		Plug 'tomasiser/vim-code-dark'
+" 		Plug 'morhetz/gruvbox'
+
 		source ~/vimrc.d/coc.vim
 		source ~/vimrc.d/leaderf.vim
 		Plug 'puremourning/vimspector'
@@ -139,13 +143,16 @@ if !exists('g:vscode')
 	source ~/vimrc.d/latex.vim
 	source ~/vimrc.d/asynctasks.vim
 	source ~/vimrc.d/codenote.vim
-end
+endif
 
 " Initialize plugin system
 call plug#end()
 
 if !has("nvim") || g:nvim_compatibility_with_vim
+	if (has("termguicolors"))
+    set termguicolors
+  endif
 	colorscheme codedark
-	hi SpecialKey ctermfg=darkgray guifg=gray70
+" 	hi SpecialKey ctermfg=darkgray guifg=gray70
 else
-end
+endif

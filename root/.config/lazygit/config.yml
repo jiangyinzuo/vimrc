@@ -1,2 +1,7 @@
 os:
-  editCommand: 'nvim'
+  editCommand: 'vim'
+gui:
+  editor:
+    program: vim
+    args: []
+

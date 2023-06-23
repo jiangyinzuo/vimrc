@@ -2,6 +2,8 @@
 
 set -o vi
 
+export EDITOR=vim
+
 . ~/vimrc/root/z.sh
 
 alias start='cmd.exe /C start ""'

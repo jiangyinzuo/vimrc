@@ -1,4 +1,5 @@
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
+" See: https://github.com/preservim/vim-markdown/pull/633
 Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 
 let g:vim_markdown_no_default_key_mappings = 1
