@@ -1,10 +1,5 @@
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
-augroup load_coc
-    autocmd!
-    autocmd BufWinEnter * call plug#load('coc.nvim') | autocmd! load_coc | autocmd CursorHold * silent call CocActionAsync('highlight')
-	" Highlight the symbol and its references when holding the cursor.
-augroup END
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
 " 其它可选coc插件(有更好的vim插件可用)：
@@ -29,6 +24,20 @@ let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
 
+function! s:show_documentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+augroup coc_action
+  autocmd!
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " GoTo code navigation.
@@ -42,14 +51,6 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)

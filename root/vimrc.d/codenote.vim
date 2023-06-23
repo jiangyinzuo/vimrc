@@ -264,6 +264,7 @@ endfunction
 nnoremap <silent> <leader><C-]> :call GoToCodeNoteLink()<CR>z.
 
 function LoadNote()
+	echom "load note"
 	let l:root = asyncrun#get_root('%')
 	if !empty(glob(l:root . '/.noterepo'))
 		let g:noterepo_dir = l:root
@@ -275,6 +276,7 @@ function LoadNote()
 endfunction
 
 function LoadCode()
+	echom "load code"
 	let l:root = asyncrun#get_root('%')
 	if !empty(glob(l:root . '/.coderepo'))
 		let g:coderepo_dir = l:root
@@ -284,12 +286,5 @@ function LoadCode()
 		execute "lcd " . g:coderepo_dir
 	endif
 endfunction
-
-augroup codenote_load
-	autocmd!
-	autocmd BufWinEnter *.md call LoadNote()
-	autocmd BufWinEnter * call LoadCode()
-	autocmd BufEnter * call GetAllCodeLinks()
-augroup END
 
 command -nargs=0 Rglink :Rg ^\+[0-9]+ .+$

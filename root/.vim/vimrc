@@ -1,8 +1,9 @@
+set nocp "no Vi-compatible
+set noexrc " 不读取当前文件夹的.vimrc
 if has('vim_starting') && ! has('nvim') 
 	set viminfofile=$HOME/.vim/.viminfo
 endif
 
-set nocp "no Vi-compatible
 set history=500 " Sets how many lines of history VIM has to remember
 
 " Enable filetype plugins
@@ -20,7 +21,7 @@ set number "显示行号
 set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
-set cmdheight=1 " cmd行高1
+set cmdheight=2 " cmd行高2, 减少hit-enter
 set wildmenu " command自动补全时显示菜单
 set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
@@ -51,7 +52,8 @@ set smartindent " 以 { 或cinword变量开始的行（if、while...），换行
 
 augroup cpp
 	autocmd!
-	" alternative: GNU indent
+	" autocmd FileType c,cpp setlocal equalprg=indent
+	" autocmd FileType c,cpp setlocal equalprg=uncrustify -c .uncrustify.cfg
 	autocmd FileType c,cpp setlocal equalprg=clang-format
 augroup end
 
@@ -606,77 +608,45 @@ function! LoadTemplate()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 加载保存在~/.project_vimrc_paths文件中的.project_vimrc路径
-function! LoadProjectVimrcPaths()
-	" 设置.project_vimrc路径文件的路径
-	let l:project_vimrc_paths_file = expand('~/.project_vimrc_paths')
-
-	let g:project_vimrc_paths = {}
-	" 判断路径文件是否存在，如果存在，则读取并解析文件中的数据
-	if filereadable(l:project_vimrc_paths_file)
-		for l:line in readfile(l:project_vimrc_paths_file)
-			" 使用eval函数解析每一行的数据，将其转换为字典
-			let l:dict = eval(l:line)
-
-			" 将解析出的数据添加到g:project_vimrc_paths字典中
-			call extend(g:project_vimrc_paths, l:dict)
-		endfor
-	endif
-endfunction
-
-" 保存.project_vimrc路径到~/.project_vimrc_paths文件中
-function! SaveProjectVimrcPaths()
-	" 判断g:project_vimrc_paths字典是否存在，如果存在，则将其写入到文件中
-	if exists('g:project_vimrc_paths')
-		let my_json_str = json_encode(g:project_vimrc_paths)
-		call writefile([my_json_str], expand('~/.project_paths.vim'), 'S')
-	endif
-endfunction
 
 let g:load_project_accept_user_input = 0
 " 加载对应的.project_vimrc文件
-function! LoadProjectConfigEfficient()
-	" 判断g:project_vimrc_paths字典是否存在，如果不存在，则调用LoadProjectVimrcPaths函数加载.project_vimrc路径
-	if !exists('g:project_vimrc_paths')
-		call LoadProjectVimrcPaths()
-	endif
+function! LoadProjectConfigEachTab()
 
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 初始化tab variables(约定一个tab对应一个项目)
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	let t:template_dict = {
 		\ 'java': function('JavaTemplate'),
 		\ 'h': function('HTemplateHeaderGuard'),
 		\ 'c': function('CCopyRightTemplate'),
 		\ 'cpp': function('CCopyRightTemplate'),
 		\ }
-
+	let t:autoload_codenote = 1
+	let t:autocd_project_root = 1
+	
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 获取当前的项目根目录
-	let l:project_root = getcwd()
+	if s:has_vimrcd
+		let l:project_root = asyncrun#get_root('%')
+	else
+		let l:project_root = getcwd()
+	endif
 	let l:project_vimrc = ''
 
-	" 在g:project_vimrc_paths字典中查找当前项目根目录对应的.project_vimrc路径
-	if has_key(g:project_vimrc_paths, l:project_root)
-		let l:project_vimrc = g:project_vimrc_paths[l:project_root]
-	else
-		" 在当前目录和父目录中查找.project_vimrc文件
-		for l:dir in [getcwd(), fnamemodify(getcwd(), ':h')]
-			let l:possible_vimrc = l:dir . '/' . g:project_vimrc
-			if filereadable(l:possible_vimrc)
-				let l:project_vimrc = l:possible_vimrc
-				break
-			endif
-		endfor
-		" 如果在目录中没有找到.project_vimrc文件，则提示用户输入路径
-		if l:project_vimrc == '' && g:load_project_accept_user_input
-			let l:project_dir = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
-			if l:project_dir != '' && isdirectory(l:project_dir) && filewritable(l:project_dir)
-				" 在用户输入的路径下创建或打开.project_vimrc文件
-				let l:project_vimrc = l:project_dir . '/' . g:project_vimrc
-				" 将用户输入的路径添加到g:project_vimrc_paths字典中，并保存到文件中
-				let g:project_vimrc_paths[l:project_root] = l:project_vimrc
-				call SaveProjectVimrcPaths()
-			else
-				let l:project_vimrc = ''
-			endif
+	let l:possible_vimrc = l:project_root . '/' . g:project_vimrc
+	if filereadable(l:possible_vimrc)
+		let l:project_vimrc = l:possible_vimrc
+	endif
+
+	" 如果在目录中没有找到g:project_vimrc文件，则提示用户输入路径
+	if l:project_vimrc == '' && g:load_project_accept_user_input
+		let l:project_dir = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
+		if l:project_dir != '' && isdirectory(l:project_dir) && filewritable(l:project_dir)
+			" 在用户输入的路径下创建或打开.project_vimrc文件
+			let l:project_vimrc = l:project_dir . '/' . g:project_vimrc
+		else
+			let l:project_vimrc = ''
 		endif
 	endif
 
@@ -686,27 +656,55 @@ function! LoadProjectConfigEfficient()
 		if !filereadable(l:project_vimrc)
 			call writefile([], l:project_vimrc)
 		endif
-		" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
-		execute 'tcd' fnamemodify(l:project_vimrc, ':p:h')
-		echom 'load ' . l:project_vimrc
+		echom 'source ' . l:project_vimrc
 		execute 'source' l:project_vimrc
+		if t:autocd_project_root
+			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
+			execute 'tcd' fnamemodify(l:project_vimrc, ':p:h')
+		endif
 	endif
 	
 	augroup load_template
 		autocmd!
 		autocmd BufNewFile * call LoadTemplate()
 	augroup END
+	
+	augroup codenote_load
+		autocmd!
+		if t:autoload_codenote
+			autocmd BufWinEnter *.md call LoadNote()
+			autocmd BufWinEnter *.c,*.cpp,*.py,*.rs,*.java,*.go call LoadCode()
+		endif
+		autocmd BufEnter * call GetAllCodeLinks()
+	augroup END
 endfunction
 
-call LoadProjectVimrcPaths()
-augroup load_project
+function VimEnterAfterLoadProjectConfig()
+	" 如果当前缓冲区没有打开任何文件，则调用LoadTemplate函数加载模板
+	if !filereadable(expand('%'))
+		call LoadTemplate()
+	endif
+	if t:autoload_codenote
+		call LoadCode()
+	endif
+endfunction
+
+function VimEnterMd()
+	if !filereadable(expand('%'))
+	endif
+	if t:autoload_codenote
+		call LoadNote()
+	endif
+endfunction
+
+augroup load_my_project
 	autocmd!
-	" 当Vim启动时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
-	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient() | if !filereadable(expand('%')) | call LoadTemplate()
-	" 当打开新的缓冲区时，调用LoadProjectConfigEfficient函数加载对应的.project_vimrc文件
-	autocmd TabEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEfficient()
-	" 当Vim退出时，调用SaveProjectVimrcPaths函数保存.project_vimrc路径
-	autocmd VimLeave * call SaveProjectVimrcPaths()
+ 	" 当Vim启动时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
+	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md ++once call LoadProjectConfigEachTab()
+	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs ++once call VimEnterAfterLoadProjectConfig()
+	autocmd VimEnter *.md ++once call VimEnterMd()
+ 	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
+ 	autocmd TabNew *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEachTab()
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
