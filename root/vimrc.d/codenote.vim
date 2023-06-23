@@ -263,8 +263,7 @@ endfunction
 " 2) put the cursor to center of screen
 nnoremap <silent> <leader><C-]> :call GoToCodeNoteLink()<CR>z.
 
-function LoadNote()
-	echom "load note"
+function LoadCodeNote()
 	let l:root = asyncrun#get_root('%')
 	if !empty(glob(l:root . '/.noterepo'))
 		let g:noterepo_dir = l:root
@@ -272,13 +271,7 @@ function LoadNote()
 		let g:coderepo_dir = readfile(l:root . "/.noterepo", '', 1)[0]
 		let w:repo_type = "note"
 		execute "lcd " . g:noterepo_dir
-	endif
-endfunction
-
-function LoadCode()
-	echom "load code"
-	let l:root = asyncrun#get_root('%')
-	if !empty(glob(l:root . '/.coderepo'))
+	elseif !empty(glob(l:root . '/.coderepo'))
 		let g:coderepo_dir = l:root
 		" let g:noterepo_dir = trim(system("cat " . l:root . "/.coderepo"))
 		let g:noterepo_dir = readfile(l:root . "/.coderepo", '', 1)[0]
