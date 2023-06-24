@@ -1,15 +1,13 @@
-let g:codenote_window_mode = "tab" " split or tab
-
 function s:set_coderepo_dir()
 	let g:coderepo_dir = asyncrun#get_root('%')
-	let w:repo_type = "code"
-	execute "lcd " . g:coderepo_dir
+	let t:repo_type = "code"
+	execute "tcd " . g:coderepo_dir
 endfunction
 
 function s:set_noterepo_dir()
 	let g:noterepo_dir = asyncrun#get_root('%')
-	let w:repo_type = "note"
-	execute "lcd " . g:noterepo_dir
+	let t:repo_type = "note"
+	execute "tcd " . g:noterepo_dir
 endfunction
 
 sign define code_note_link text=🗅 texthl=Search
@@ -71,19 +69,11 @@ command -nargs=0 RefreshCodeLinks :call GetAllCodeLinks()
 
 " 第一个tab作为note repo window，第二个tab作为code repo window
 function s:goto_code_buffer()
-	if g:codenote_window_mode == 'tab'
-		tabnext 2
-	else
-		wincmd w
-	endif
+	tabnext 2
 endfunction
 
 function s:goto_note_buffer()
-	if g:codenote_window_mode == 'tab'
-		tabfirst
-	else
-		wincmd w
-	endif
+	tabfirst
 endfunction
 
 function s:save_repo_dir()
@@ -93,25 +83,21 @@ function s:save_repo_dir()
 endfunction
 
 function s:open_file(filename)
-	if g:codenote_window_mode == "tab"
-		execute "tabnew " . a:filename
-	else
-		execute "vsp " . a:filename
-	endif
+	execute "tabnew " . a:filename
 endfunction
 
 function s:open_note_repo(filename)
 	call s:open_file(a:filename)
 	tabmove 0
 	call s:set_noterepo_dir()
-	execute "lcd " . g:noterepo_dir
+	execute "tcd " . g:noterepo_dir
 	
 	call GetAllCodeLinks()
 	call s:save_repo_dir()
 endfunction
 
 function OpenNoteRepo()
-	if exists("w:repo_type") && w:repo_type == "note"
+	if exists("t:repo_type") && t:repo_type == "note"
 		echoerr "Already in note repo"
 		return
 	endif
@@ -132,14 +118,14 @@ function s:open_code_repo(filename)
 	call s:open_file(a:filename)
 	tabmove 1
 	call s:set_coderepo_dir()
-	execute "lcd " . g:coderepo_dir
+	execute "tcd " . g:coderepo_dir
 
 	call GetAllCodeLinks()
 	call s:save_repo_dir()
 endfunction
 
 function OpenCodeRepo()
-	if exists("w:repo_type") && w:repo_type == "code"
+	if exists("t:repo_type") && t:repo_type == "code"
 		echoerr "Already in code repo"
 		return
 	endif
@@ -157,7 +143,7 @@ endfunction
 command -nargs=0 OpenCodeRepo :silent! call OpenCodeRepo()<CR>
 
 function s:only_has_one_repo()
-	return g:codenote_window_mode == 'split' && winnr('$') == 1 || g:codenote_window_mode == 'tab' && tabpagenr('$') == 1
+	return tabpagenr('$') == 1
 endfunction
 
 function s:yank_registers(file, line, content, need_beginline, need_endline, append)
@@ -181,7 +167,7 @@ endfunction
 
 " See also: root/vimrc.d/asynctasks.vim
 function YankCodeLink(need_beginline, need_endline, append, goto_buf)
-	if exists("w:repo_type") && w:repo_type == "code"
+	if exists("t:repo_type") && t:repo_type == "code"
 		if s:only_has_one_repo()
 			call s:open_note_repo(g:noterepo_dir)
 		endif
@@ -202,7 +188,7 @@ nnoremap <silent> ca :call YankCodeLink(0, 0, 1, 0)<CR>
 nnoremap <silent> ce :call YankCodeLink(0, 1, 1, 1)<CR>
 
 function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf)
-	if exists("w:repo_type") && w:repo_type == "code"
+	if exists("t:repo_type") && t:repo_type == "code"
 		if s:only_has_one_repo()
 			call s:open_note_repo(g:noterepo_dir)
 		endif
@@ -246,16 +232,16 @@ function GoToNoteLink()
 	else
 		call s:goto_note_buffer()
 	endif
-	exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**" 
+	exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**/*.md" 
 endfunction
 
 function GoToCodeNoteLink()
-	if w:repo_type == "note"
+	if t:repo_type == "note"
 		call GoToCodeLink()
-	elseif w:repo_type == "code"
+	elseif t:repo_type == "code"
 		call GoToNoteLink()
 	else
-		echoerr "w:repo_type is not set"
+		echoerr "t:repo_type is not set"
 	endif
 endfunction
 
@@ -269,14 +255,14 @@ function LoadCodeNote()
 		let g:noterepo_dir = l:root
 		" let g:coderepo_dir = trim(system("cat " . l:root . "/.noterepo"))
 		let g:coderepo_dir = readfile(l:root . "/.noterepo", '', 1)[0]
-		let w:repo_type = "note"
-		execute "lcd " . g:noterepo_dir
+		let t:repo_type = "note"
+		execute "tcd " . g:noterepo_dir
 	elseif !empty(glob(l:root . '/.coderepo'))
 		let g:coderepo_dir = l:root
 		" let g:noterepo_dir = trim(system("cat " . l:root . "/.coderepo"))
 		let g:noterepo_dir = readfile(l:root . "/.coderepo", '', 1)[0]
-		let w:repo_type = "code"
-		execute "lcd " . g:coderepo_dir
+		let t:repo_type = "code"
+		execute "tcd " . g:coderepo_dir
 	endif
 endfunction
 

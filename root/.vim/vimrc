@@ -22,6 +22,7 @@ set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{�
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=2 " cmd行高2, 减少hit-enter
+set colorcolumn=80,120
 set wildmenu " command自动补全时显示菜单
 set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
@@ -720,10 +721,21 @@ function! SerializeValue(Value)
     endif
 endfunction
 
+" TODO: 维护一个需要保存的g:variables变量列表
+let g:save_variables = ['g:code_link_dict']
+
 function! SaveTabVariables(filename)
     let l:currentTab = tabpagenr()
     let l:numTabs = tabpagenr('$')
-		
+	
+		for g_var in g:save_variables
+			if exists(g_var)
+				let Value = eval(g_var)
+				let escaped_value = SerializeValue(Value)
+				let escaped_varname = escape(g_var, ' ')
+				echo 'let ' . escaped_varname . ' = ' . escaped_value . ''
+			endif
+		endfor
 		echo 'tabfirst'
 		for i in range(1, l:numTabs)
         execute 'tabnext' i
