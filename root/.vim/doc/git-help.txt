@@ -1,6 +1,11 @@
 *vim-git-help*
 
 ==============================================================================
+Git 开发规范
+https://github.com/universal-ctags/ctags/pull/3747
+https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
+
+==============================================================================
 Git 修改历史提交的文件                                 *git-modify-history-file*
 
 如果你想修改历史提交中的某个文件，你可以使用以下步骤：

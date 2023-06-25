@@ -42,7 +42,7 @@ Ubuntu22.04下均可通过apt安装
 https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/  
 
 下载: wget -> axel  
-git终端: lazygit  
+git终端: lazygit, tig  
 Linux文本处理: awk, sed, cut  
 cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
 pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
