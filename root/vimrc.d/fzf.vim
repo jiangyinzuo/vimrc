@@ -1,6 +1,10 @@
 " Reference: https://github.com/junegunn/fzf/blob/master/README-VIM.md
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
+
 Plug 'junegunn/fzf.vim'
 
 " This is the default option:
@@ -8,8 +12,7 @@ Plug 'junegunn/fzf.vim'
 "   - CTRL-/ will toggle preview window.
 " - Note that this array is passed as arguments to fzf#vim#with_preview function.
 " - To learn more about preview window options, see `--preview-window` section of `man fzf`.
-let g:fzf_preview_window = ['up,70%', 'ctrl-/']
-
+let g:fzf_preview_window = ['up,40%,', 'ctrl-/']
 
 " An action can be a reference to a function that processes selected lines
 function! s:build_quickfix_list(lines)

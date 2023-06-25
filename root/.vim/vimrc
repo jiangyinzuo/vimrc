@@ -148,6 +148,7 @@ set list
 
 set guifont=Monospace\ Regular\ 20
 set mouse=a
+set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 
 if has("nvim-0.5.0") || has("patch-8.1.1564")
 	set signcolumn=number " 合并git状态与行号
@@ -702,8 +703,8 @@ endfunction
 augroup load_my_project
 	autocmd!
  	" 当Vim启动时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
-	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md ++once call LoadProjectConfigEachTab()
-	autocmd VimEnter *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md ++once call VimEnterAfterLoadProjectConfig()
+	autocmd VimEnter * ++once call LoadProjectConfigEachTab()
+	autocmd VimEnter * ++once call VimEnterAfterLoadProjectConfig()
  	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
  	autocmd TabNew *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEachTab()
 augroup END

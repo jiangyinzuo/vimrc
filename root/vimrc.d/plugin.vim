@@ -54,6 +54,10 @@ au FileType gitcommit let b:EditorConfig_disable = 1
 
 if !exists('g:vscode')
 	Plug 'SirVer/ultisnips'
+	
+	" Plug 'preservim/tagbar'
+	" See: https://github.com/liuchengxu/vista.vim/issues/462
+	Plug 'liuchengxu/vista.vim'
 	" Plug 'samoshkin/vim-mergetool'
 
 	if has('nvim') && !g:nvim_compatibility_with_vim
@@ -67,7 +71,8 @@ if !exists('g:vscode')
 
 		Plug 'williamboman/mason.nvim'
 		Plug 'neovim/nvim-lspconfig'
-		" Plug 'b0o/schemastore.nvim'  " JSON schema
+		" JSON schema
+		" Plug 'b0o/schemastore.nvim'  
 		Plug 'jose-elias-alvarez/null-ls.nvim'
 		Plug 'simrat39/rust-tools.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
