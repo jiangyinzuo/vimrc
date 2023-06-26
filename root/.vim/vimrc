@@ -120,14 +120,14 @@ function s:DetectIndent()
 	endif
 endfunction
 
-if file_readable('.editorconfig') == 0
-	autocmd FileType * call s:DetectIndent()
-endif
-
 let g:project_vimrc = '.project.vim'
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc]
 
 let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
+if !s:has_vimrcd || !file_readable('.editorconfig')
+	autocmd FileType * call s:DetectIndent()
+endif
+
 if exists("g:vscode")
 	let g:loaded_netrw = 1
 	let g:loaded_netrwPlugin = 1
@@ -206,7 +206,7 @@ let g:netrw_browsex_viewer="start"
 augroup commenting_blocks_of_code
 	autocmd!
 	autocmd FileType c,cpp,java,scala,rust                 let b:comment_leader = '// '
-	autocmd FileType sh,ruby,python,conf,fstab,gitconfig   let b:comment_leader = '# '
+	autocmd FileType sh,ruby,python,conf,fstab,gitconfig,config   let b:comment_leader = '# '
 	autocmd FileType tex                                   let b:comment_leader = '% '
 	autocmd FileType mail,markdown                         let b:comment_leader = '> '
 	autocmd FileType vim                                   let b:comment_leader = '" '
@@ -625,20 +625,7 @@ endfunction
 let g:load_project_accept_user_input = 0
 " 加载对应的.project_vimrc文件
 function! LoadProjectConfigEachTab()
-
-  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	" 初始化tab variables(约定一个tab对应一个项目)
-  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	let t:template_dict = {
-		\ 'java': function('JavaTemplate'),
-		\ 'h': function('HTemplateHeaderGuard'),
-		\ 'c': function('CCopyRightTemplate'),
-		\ 'cpp': function('CCopyRightTemplate'),
-		\ }
-	let t:autoload_codenote = 1
-	let t:autocd_project_root = 1
-	
-  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  
 	" 获取当前的项目根目录
 	if s:has_vimrcd
 		let l:project_root = asyncrun#get_root('%')
@@ -663,9 +650,23 @@ function! LoadProjectConfigEachTab()
 		endif
 	endif
 
-	" 如果找到了.project_vimrc文件，则将其加载
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" 初始化tab variables(约定一个tab对应一个项目)
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	let t:template_dict = {
+		\ 'java': function('JavaTemplate'),
+		\ 'h': function('HTemplateHeaderGuard'),
+		\ 'c': function('CCopyRightTemplate'),
+		\ 'cpp': function('CCopyRightTemplate'),
+		\ }
+	let t:autoload_codenote = 1
+	let t:autocd_project_root = 1
+	
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" 如果找到了project_vimrc文件，则将其加载
+	
 	if l:project_vimrc != ''
-		" 如果.project_vimrc文件不存在，那么创建它
+		" 如果project_vimrc文件不存在，那么创建它
 		if !filereadable(l:project_vimrc)
 			call writefile([], l:project_vimrc)
 		endif
@@ -674,6 +675,9 @@ function! LoadProjectConfigEachTab()
 			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
 			execute 'tcd ' . l:project_root 
 		endif
+		echom "load project " . l:project_root . "'s " . g:project_vimrc . " success"
+	else
+		echom "no " . g:project_vimrc . " found"
 	endif
 	
 	augroup load_template
@@ -700,13 +704,20 @@ function VimEnterAfterLoadProjectConfig()
 	endif
 endfunction
 
+function TabNewLoadProjectConfig()
+	augroup tab_load_my_project
+		autocmd!
+		autocmd BufRead * ++once call LoadProjectConfigEachTab()
+	augroup END
+endfunction
+
 augroup load_my_project
 	autocmd!
  	" 当Vim启动时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
 	autocmd VimEnter * ++once call LoadProjectConfigEachTab()
 	autocmd VimEnter * ++once call VimEnterAfterLoadProjectConfig()
  	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
- 	autocmd TabNew *.c,*.cpp,*.h,*.go,*.java,*.py,*.rs,*.md call LoadProjectConfigEachTab()
+ 	autocmd TabNew * call TabNewLoadProjectConfig()
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
