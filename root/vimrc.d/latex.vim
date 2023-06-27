@@ -9,12 +9,11 @@ let g:tex_flavor='latex'
 
 " alternative pdf viewer: 
 " sudo apt install zathura evince mupdf
-" let g:vimtex_view_method='zathura'
 
 if (has('unix') && exists('$WSLENV'))
-	let g:vimtex_view_general_viewer = $HOME.'/.vim/sumatrapdf.bash'
+	let g:vimtex_view_general_viewer = $HOME.'/.vim/sumatrapdf.zsh'
 	let g:vimtex_view_general_options
-				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\""
+				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"D:/no_terminal.exe  \\\"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\\\"\""
 	function SumatrapdfSendToVim(args)
 		"24 d:\hello\world.tex -> ['24', 'd', '\hello\world.tex']
 		let l:arglist = split(a:args, '[: ]') 
