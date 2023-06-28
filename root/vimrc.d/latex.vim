@@ -1,8 +1,8 @@
 " usage: vim hello.tex world.tex --servername TEX
 " Requirement: inverse-search fearure requires +clientserver"
 "
-" sudo apt install texlive-latex-extra texlive-science latexmk xdotool
-" :CocInstall coc-vimtex
+" sudo apt install texlive-latex-extra texlive-science latexmk xdotool texlive-publishers
+" :CocInstall coc-vimtex coc-texlab
 
 Plug 'lervag/vimtex', {'for': 'tex'}
 let g:tex_flavor='latex'
