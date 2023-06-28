@@ -55,7 +55,7 @@ let g:Lf_WorkingDirectoryMode = 'a'
 let g:Lf_RootMarkers = g:RootMarks
 let g:Lf_ShowDevIcons = 0
 let g:Lf_DisableStl = 0
-let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html"]
+let g:Lf_RgConfig = ["--glob=!deps/* --glob=!build/* --glob=!*.html --glob=!tags"]
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
@@ -70,6 +70,6 @@ let g:Lf_WildIgnore = {
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
   \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.tmp',
   \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',
-  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm']
+  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm', '**/tags']
   \}
 

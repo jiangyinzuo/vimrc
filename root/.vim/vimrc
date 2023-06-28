@@ -600,6 +600,12 @@ function! HTemplateHeaderGuard()
 	execute 'normal! Go#endif /* ' . l:header_guard . ' */'
 endfunction
 
+let g:template_dict = {
+	\ 'java': function('JavaTemplate'),
+	\ 'h': function('HTemplateHeaderGuard'),
+	\ 'c': function('CCopyRightTemplate'),
+	\ 'cpp': function('CCopyRightTemplate'),
+	\ }
 function! LoadTemplate()
 	let l:extension = expand('%:e')
 	let l:set_autocmd = 1
@@ -617,8 +623,10 @@ function! LoadTemplate()
 	endif
 
 	" 调用对应的函数插入模板内容
-	if has_key(t:template_dict, l:extension)
+	if exists('t:template_dict') && has_key(t:template_dict, l:extension)
 		call t:template_dict[l:extension]()
+	elseif has_key(g:template_dict, l:extension)
+		call g:template_dict[l:extension]()
 	endif
 endfunction
 
@@ -655,12 +663,6 @@ function! LoadProjectConfigEachTab()
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 初始化tab variables(约定一个tab对应一个项目)
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	let t:template_dict = {
-		\ 'java': function('JavaTemplate'),
-		\ 'h': function('HTemplateHeaderGuard'),
-		\ 'c': function('CCopyRightTemplate'),
-		\ 'cpp': function('CCopyRightTemplate'),
-		\ }
 	let t:autoload_codenote = 1
 	let t:autocd_project_root = 1
 	
