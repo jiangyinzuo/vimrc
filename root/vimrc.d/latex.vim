@@ -10,7 +10,7 @@ let g:tex_flavor='latex'
 " alternative pdf viewer: 
 " sudo apt install zathura evince mupdf
 
-if (has('unix') && exists('$WSLENV'))
+if (has('unix') && exists('$WSLENV') && !has('clientserver'))
 	let g:vimtex_view_general_viewer = $HOME.'/.vim/sumatrapdf.zsh'
 	let g:vimtex_view_general_options
 				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"D:/no_terminal.exe  \\\"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\\\"\""
