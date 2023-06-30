@@ -75,3 +75,58 @@ if (has('unix') && exists('$WSLENV'))
 	endfunction
 	command! -nargs=0 MdOpenInVim call MdOpenInVim()
 endif
+
+function! NumberHeadings()
+	let last_level = 0
+	let l:empty = [0, 0, 0, 0, 0, 0]
+  let l:count = [0, 0, 0, 0, 0, 0]
+	execute "normal! gg"
+	let l:last_line = line("$")
+  for i in range(1, l:last_line)
+    let line_text = getline(".")
+    let line_level = len(matchstr(line_text, '^#\+\s')) - 1
+    if line_level > 0
+			if line_level == 1
+				let l:count = [l:count[0] + 1] + l:empty[1 : 5]
+			else
+      	let l:count = l:count[0 : line_level - 2] + [l:count[line_level - 1] + 1] + l:empty[line_level + 1 : 5]
+			endif
+			" 1.
+			" 1.1.
+			" 1.1.1.
+"       let number_text = join(l:count[0 : line_level - 1], '.') . '.'
+" 			let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\(\d\+\.\)*\d\+\. \)\?', '\1', '')
+			" 1
+			" 1.1
+			" 1.1.1
+      let number_text = join(l:count[0 : line_level - 1], '.')
+      let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\s\+', '\1', '')
+
+      call setline('.', matchstr(line_text, '^\s*#\+') . ' ' . number_text . matchstr(line_text, '^\s*#\+\zs.*'))
+    endif
+    execute "normal! j"
+	endfor
+endfunction
+
+command! NumberHeadings :call NumberHeadings()
+
+function! RemoveNumberHeadings()
+    execute "normal! gg"
+    let l:last_line = line("$")
+    for i in range(1, l:last_line)
+        let line_text = getline(".")
+				" 1.
+				" 1.1.
+				" 1.1.1.
+        " let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\. ', '\1', '')
+				" 1
+				" 1.1
+				" 1.1.1
+				let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+ ', '\1', '')
+        call setline('.', line_text)
+        execute "normal! j"
+    endfor
+endfunction
+
+command! RemoveNumberHeadings :call RemoveNumberHeadings()
+
