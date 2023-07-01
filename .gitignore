@@ -5,4 +5,5 @@ root/.vim/doc/tags-cn
 root/.vim/coc
 root/.vim/gadgets
 root/.vim/.viminfo
+root/.vim/sessions
 __pycache__

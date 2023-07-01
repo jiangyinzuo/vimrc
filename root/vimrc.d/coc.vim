@@ -58,6 +58,8 @@ nmap <leader>fmt <Plug>(coc-format)
 
 " Add `:Fold` command to fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
+" Add `:OR` command for organize imports of the current buffer
+command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
