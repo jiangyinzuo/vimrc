@@ -19,7 +19,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
 "
 " coc-marksman: 需要在根目录放一份.marksman.toml
-let g:coc_initial_global_extensions = ['coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-dictionary', '@yaegassy/coc-marksman']
+let g:coc_initial_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-dictionary', '@yaegassy/coc-marksman']
 let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
@@ -55,3 +55,18 @@ nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>fmt <Plug>(coc-format)
+
+" Add `:Fold` command to fold current buffer
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
+
+" https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+nmap <silent> <C-d> <Plug>(coc-cursors-word)
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+
+" Mappings for CoCList
+" Do default action for next item
+"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item
+"nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+

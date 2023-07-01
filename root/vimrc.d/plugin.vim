@@ -47,7 +47,8 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
  
 Plug 'markonm/traces.vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
