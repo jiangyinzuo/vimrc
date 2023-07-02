@@ -1,3 +1,4 @@
+let g:mapleader=' '
 set nocp "no Vi-compatible
 set noexrc " 不读取当前文件夹的.vimrc
 if has('vim_starting') && ! has('nvim') 
