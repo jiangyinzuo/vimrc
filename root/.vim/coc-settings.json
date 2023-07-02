@@ -24,6 +24,8 @@
 	"go.enable": true,
 	"go.goplsPath": "/usr/bin/gopls",
 	"java.enabled": true,
+	"json.enable": true,
+	"json.schemaDownload.enable": true,
 	"sh.enable": true,
 	"marksman.enable": true
 }
