@@ -37,8 +37,8 @@ source ~/vimrc/root/vimdf
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
 
-alias rgpipe='~/vimrc/root/rgpipe'
-RGPIPE='~/vimrc/root/rgpipe'
+export PATH=$PATH:~/vimrc/root/scripts
+RGPIPE='rgpipe'
 alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
 	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ${RGPIPE}"
 
