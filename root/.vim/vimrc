@@ -125,7 +125,7 @@ endfunction
 let g:project_vimrc = '.project.vim'
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc]
 
-let s:has_vimrcd = isdirectory(expand('~/vimrc.d'))
+let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')
 	autocmd FileType * call s:DetectIndent()
 endif
@@ -134,7 +134,7 @@ if exists("g:vscode")
 	let g:loaded_netrw = 1
 	let g:loaded_netrwPlugin = 1
 	if s:has_vimrcd
-		source ~/vimrc.d/plugin.vim
+		source ~/.vim/vimrc.d/plugin.vim
 	endif
 	finish	
 endif
@@ -402,7 +402,7 @@ nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\
 
 set makeprg=make
 
-command -nargs=0 Chat AsyncRun -mode=term -pos=curwin $HOME/vimrc.d/openai_app.py chat
+command -nargs=0 Chat AsyncRun -mode=term -pos=curwin $VIMRC_ROOT/scripts/openai_app.py chat
 
 function EchoGitBlame()
 	let line_number = line(".")
@@ -478,10 +478,10 @@ if has("cscope") && s:tags_use_cscope
 	if s:tags_use_gtags && s:has_vimrcd
 		" use gtags-cscope
 		set csprg=gtags-cscope
-		source ~/vimrc.d/gtags-cscope.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+		source ~/.vim/vimrc.d/gtags-cscope.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
 	endif
 elseif s:tags_use_gtags && s:has_vimrcd
-	source ~/vimrc.d/gtags.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+	source ~/.vim/vimrc.d/gtags.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
 	nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
 endif
 
@@ -493,7 +493,7 @@ endif
 
 " Load plugins
 if s:has_vimrcd
-	source ~/vimrc.d/plugin.vim
+	source ~/.vim/vimrc.d/plugin.vim
 endif
 
 function UpdateCocExtensions(ext)

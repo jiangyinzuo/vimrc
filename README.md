@@ -14,24 +14,16 @@ Neovim WSL使用系统clipboard：https://github.com/neovim/neovim/wiki/FAQ#how-
 **Vim编译选项**  
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
 
-`:CocInstall`后，连同nodejs打包给docker容器用
-```
-tar -cvf myvim.tar node root
-docker build -t myvim:1 .
-```
-手动复制.vim下plugged(vim插件)、coc(coc插件)和gadgets(dap调试)文件夹  
-
 ## 初始化
+
+```bash
+export VIMRC_ROOT="/root/vimrc/root"
+source $VIMRC_ROOT/bashrc
+```
 
 需要设置的不能为空的环境变量: `$DOC2` `$CODE_HOME`
 ```sh
-./init.sh
-```
-
-## Test
-
-```
-./run_test.sh
+./make-link.sh
 ```
 
 ## 其它命令行工具

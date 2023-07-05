@@ -14,7 +14,7 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 " Test framework
-Plug 'junegunn/vader.vim'
+" Plug 'junegunn/vader.vim'
 
 " Test wrapper
 Plug 'vim-test/vim-test'
@@ -102,8 +102,8 @@ if !exists('g:vscode')
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
-		source ~/vimrc.d/coc.vim
-		source ~/vimrc.d/leaderf.vim
+		source ~/.vim/vimrc.d/coc.vim
+		source ~/.vim/vimrc.d/leaderf.vim
 		Plug 'puremourning/vimspector'
 		let g:vimspector_enable_mappings='VISUAL_STUDIO'
 	
@@ -140,15 +140,16 @@ if !exists('g:vscode')
 	let g:floaterm_height = 0.8
 	
 	" executable() is slow
-	source ~/vimrc.d/fzf.vim
-	source ~/vimrc.d/cpp.vim
-	source ~/vimrc.d/golang.vim
-	source ~/vimrc.d/java.vim
-	source ~/vimrc.d/markdown.vim
-	source ~/vimrc.d/jupyter.vim
-	source ~/vimrc.d/latex.vim
-	source ~/vimrc.d/asynctasks.vim
-	source ~/vimrc.d/codenote.vim
+	source ~/.vim/vimrc.d/fzf.vim
+	source ~/.vim/vimrc.d/cpp.vim
+	source ~/.vim/vimrc.d/golang.vim
+	source ~/.vim/vimrc.d/java.vim
+	source ~/.vim/vimrc.d/markdown.vim
+	source ~/.vim/vimrc.d/jupyter.vim
+	Plug 'whonore/Coqtail'
+	source ~/.vim/vimrc.d/latex.vim
+	source ~/.vim/vimrc.d/asynctasks.vim
+	source ~/.vim/vimrc.d/codenote.vim
 endif
 
 " Initialize plugin system
