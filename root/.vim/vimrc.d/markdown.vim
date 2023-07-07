@@ -77,6 +77,7 @@ if (has('unix') && exists('$WSLENV'))
 endif
 
 function! NumberHeadings()
+	let l:heading_start_level = 2 " 从2级标题开始编号
 	let last_level = 0
 	let l:empty = [0, 0, 0, 0, 0, 0]
   let l:count = [0, 0, 0, 0, 0, 0]
@@ -84,7 +85,7 @@ function! NumberHeadings()
 	let l:last_line = line("$")
   for i in range(1, l:last_line)
     let line_text = getline(".")
-    let line_level = len(matchstr(line_text, '^#\+\s')) - 1
+    let line_level = len(matchstr(line_text, '^#\+\s')) - l:heading_start_level
     if line_level > 0
 			if line_level == 1
 				let l:count = [l:count[0] + 1] + l:empty[1 : 5]
