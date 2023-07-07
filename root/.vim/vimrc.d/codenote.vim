@@ -105,8 +105,9 @@ function OpenNoteRepo()
 	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
 		if $DOC2 == ''
 			echom "$DOC2 is empty"
+			return
 		endif
-		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
+		call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
 	else
 		call s:open_note_repo(g:noterepo_dir)
 	endif

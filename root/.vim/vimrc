@@ -150,7 +150,7 @@ set list
 
 set guifont=Monospace\ Regular\ 20
 set mouse=a
-if ! has('nvim') 
+if ! has('nvim') && has('unix') && exists('$WSLENV') 
 	set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 endif
 
