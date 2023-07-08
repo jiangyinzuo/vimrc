@@ -51,3 +51,23 @@ fi
 git-rm-remote-file() {
 	(set -x; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all)
 }
+
+# 将第一个参数的文件名替换为后续多个参数用'-'连接的字符串
+# 例如: rename a.txt b c d
+# 将a.txt重命名为b-c-d.txt
+rename() {
+	if [ $# -lt 2 ]; then
+		echo "usage: rename oldname newname"
+		return
+	fi
+	oldname=$1
+	newname=$2
+	shift 2
+	for i in $@; do
+		newname=$newname-$i
+	done
+	ext=${oldname##*.}
+	newname=$newname.$ext
+	echo "rename $oldname to $newname"
+	mv $oldname $newname
+}
