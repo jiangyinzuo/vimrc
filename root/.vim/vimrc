@@ -1,9 +1,9 @@
 let g:mapleader='\'
 set nocp "no Vi-compatible
 set noexrc " 不读取当前文件夹的.vimrc
-if has('vim_starting') && ! has('nvim') 
-	set viminfofile=$HOME/.vim/.viminfo
-endif
+" if exists('&viminfofile') && ! has('nvim') 
+" 	set viminfofile=$HOME/.vim/.viminfo
+" endif
 
 set history=500 " Sets how many lines of history VIM has to remember
 
@@ -128,6 +128,7 @@ let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')
 	autocmd FileType * call s:DetectIndent()
+	hi ColorColumn ctermbg=black guibg=black
 endif
 
 if exists("g:vscode")
