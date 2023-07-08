@@ -57,8 +57,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
 if !exists('g:vscode')
-	Plug 'SirVer/ultisnips'
-	
+	if has('nvim') || v:version >= 800
+		Plug 'SirVer/ultisnips'
+	endif
+
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
@@ -128,8 +130,10 @@ if !exists('g:vscode')
 				\    'vimspectorPC':          999,
 				\    'vimspectorPCBP':        999,
 				\ }
-			endif
-		source ~/.vim/vimrc.d/leaderf.vim
+		endif
+		if v:version >= 800
+			source ~/.vim/vimrc.d/leaderf.vim
+		endif
 	endif
 
 	Plug 'airblade/vim-gitgutter'
@@ -147,13 +151,12 @@ if !exists('g:vscode')
 		let g:floaterm_height = 0.8
 	endif	
 
-	" executable() is slow
-	source ~/.vim/vimrc.d/fzf.vim
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
 	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 820
+		source ~/.vim/vimrc.d/fzf.vim
 		source ~/.vim/vimrc.d/jupyter.vim
 	endif
 	Plug 'whonore/Coqtail'
