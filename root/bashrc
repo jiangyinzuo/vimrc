@@ -4,7 +4,7 @@ set -o vi
 
 export EDITOR=vim
 
-. ~/vimrc/root/z.sh
+. $VIMRC_ROOT/z.sh
 
 alias start='cmd.exe /C start ""'
 
@@ -31,13 +31,13 @@ mklinkd() {
 alias vimt='vim --servername TEX'
 alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 
-source ~/vimrc/root/fzf/fzf.bash
-source ~/vimrc/root/vimdf
+source $VIMRC_ROOT/fzf/fzf.bash
+source $VIMRC_ROOT/vimdf
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
 
-export PATH=$PATH:~/vimrc/root/scripts
+export PATH=$PATH:$VIMRC_ROOT/scripts
 RGPIPE='rgpipe'
 alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
 	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ${RGPIPE}"
@@ -45,7 +45,7 @@ alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 if [[ `uname -a` == *WSL* ]]; then
-	. ~/vimrc/root/wsl-init.bash
+	. $VIMRC_ROOT/wsl-init.bash
 fi
 
 git-rm-remote-file() {
