@@ -9,15 +9,15 @@
 alias fzfcd='cd "$(find * -type d | fzf)"'
 
 # Reference: https://github.com/junegunn/fzf/tree/master/shell
-source ~/vimrc/root/fzf/key-bindings.bash
-source ~/vimrc/root/fzf/completion.bash
+source $VIMRC_ROOT/fzf/key-bindings.bash
+source $VIMRC_ROOT/fzf/completion.bash
 
 # Reference: https://github.com/lincheney/fzf-tab-completion
-source ~/vimrc/root/fzf/fzf-bash-completion.sh
+source $VIMRC_ROOT/fzf/fzf-bash-completion.sh
 bind -x '"\C-f": fzf_bash_completion'
 
 # Reference: https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
-source ~/vimrc/root/fzf/fzf-git.sh
+source $VIMRC_ROOT/fzf/fzf-git.sh
 
 # Reference: https://github.com/junegunn/fzf#fzf-tmux-script
 export FZF_TMUX=1
@@ -101,12 +101,12 @@ rffv() {
 # https://github.com/ColonelBuendia/rgpipe
 rgi-fzf() {
 	RG_PREFIX="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
-	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ~/vimrc/root/rgpipe --files-with-matches $@"
+	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre $VIMRC_ROOT/rgpipe --files-with-matches $@"
 	local file
 	file="$(
 			RIPGREP_CONFIG_PATH='' \
 			FZF_DEFAULT_COMMAND="$RG_PREFIX . " \
-			fzf --sort --preview="[[ ! -z {} ]] && rg -iz --pretty --pre ~/vimrc/root/rgpipe {q} {} | head -n 100" \
+			fzf --sort --preview="[[ ! -z {} ]] && rg -iz --pretty --pre $VIMRC_ROOT/rgpipe {q} {} | head -n 100" \
 				--phony -q "" \
 				--bind "change:reload:$RG_PREFIX {q}" \
 				--preview-window="70%:wrap"
