@@ -137,9 +137,10 @@ if !exists('g:vscode')
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	" Plug 'MattesGroeger/vim-bookmarks'
-	Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-	" vnoremap <leader>c :OSCYank<CR>
-
+	if has('nvim') || v:version >= 820
+		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+		" vnoremap <leader>c :OSCYank<CR>
+	endif
 	if has('terminal')
 		Plug 'voldikss/vim-floaterm'
 		let g:floaterm_width = 0.8
@@ -152,7 +153,9 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
 	source ~/.vim/vimrc.d/markdown.vim
-	source ~/.vim/vimrc.d/jupyter.vim
+	if has('nvim') || v:version >= 820
+		source ~/.vim/vimrc.d/jupyter.vim
+	endif
 	Plug 'whonore/Coqtail'
 	source ~/.vim/vimrc.d/latex.vim
 	source ~/.vim/vimrc.d/asynctasks.vim
@@ -164,11 +167,13 @@ call plug#end()
 
 if !has("nvim") || g:nvim_compatibility_with_vim
 	if (has("termguicolors"))
-    set termguicolors
-  endif
+		set termguicolors
+	endif
 	colorscheme codedark
 " 	hi SpecialKey ctermfg=darkgray guifg=gray70
 else
 endif
 
-source 	~/.vim/vimrc.d/project.vim
+if has('nvim') || v:version >= 820
+	source 	~/.vim/vimrc.d/project.vim
+endif
