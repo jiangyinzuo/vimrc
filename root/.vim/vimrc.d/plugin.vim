@@ -46,7 +46,10 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
  
-Plug 'markonm/traces.vim'
+if has('nvim') || v:version >= 810
+	Plug 'markonm/traces.vim'
+endif
+
 " use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
 " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'editorconfig/editorconfig-vim'
@@ -102,30 +105,32 @@ if !exists('g:vscode')
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
-		source ~/.vim/vimrc.d/coc.vim
+		if v:version >= 820
+			source ~/.vim/vimrc.d/coc.vim
+			Plug 'puremourning/vimspector'
+			let g:vimspector_enable_mappings='VISUAL_STUDIO'
+		
+			" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+			" There are two locations for debug configurations for a project:
+			" 
+			" g:vimspector_configurations vim variable (dict)
+			" <vimspector home>/configurations/<OS>/<filetype>/*.json
+			" .vimspector.json in the project source
+			"
+			" json配置位于.vim/configurationsw目录下
+			let g:vimspector_base_dir = $HOME . '/.vim'
+			let g:vimspector_sign_priority = {
+				\    'vimspectorBP':          20,
+				\    'vimspectorBPCond':      20,
+				\    'vimspectorBPLog':       20,
+				\    'vimspectorBPDisabled':  20,
+				\    'vimspectorNonActivePC': 20,
+				\    'vimspectorPC':          999,
+				\    'vimspectorPCBP':        999,
+				\ }
+			endif
 		source ~/.vim/vimrc.d/leaderf.vim
-		Plug 'puremourning/vimspector'
-		let g:vimspector_enable_mappings='VISUAL_STUDIO'
-	
-		" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-		" There are two locations for debug configurations for a project:
-		" 
-		" g:vimspector_configurations vim variable (dict)
-		" <vimspector home>/configurations/<OS>/<filetype>/*.json
-		" .vimspector.json in the project source
-		"
-		" json配置位于.vim/configurationsw目录下
-		let g:vimspector_base_dir = $HOME . '/.vim'
-		let g:vimspector_sign_priority = {
-			\    'vimspectorBP':          20,
-			\    'vimspectorBPCond':      20,
-			\    'vimspectorBPLog':       20,
-			\    'vimspectorBPDisabled':  20,
-			\    'vimspectorNonActivePC': 20,
-			\    'vimspectorPC':          999,
-			\    'vimspectorPCBP':        999,
-			\ }
-	end
+	endif
 
 	Plug 'airblade/vim-gitgutter'
 	let g:gitgutter_sign_priority = 10
@@ -134,11 +139,13 @@ if !exists('g:vscode')
 	" Plug 'MattesGroeger/vim-bookmarks'
 	Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 	" vnoremap <leader>c :OSCYank<CR>
-	
-	Plug 'voldikss/vim-floaterm'
-	let g:floaterm_width = 0.8
-	let g:floaterm_height = 0.8
-	
+
+	if has('terminal')
+		Plug 'voldikss/vim-floaterm'
+		let g:floaterm_width = 0.8
+		let g:floaterm_height = 0.8
+	endif	
+
 	" executable() is slow
 	source ~/.vim/vimrc.d/fzf.vim
 	source ~/.vim/vimrc.d/cpp.vim
@@ -163,3 +170,5 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 " 	hi SpecialKey ctermfg=darkgray guifg=gray70
 else
 endif
+
+source 	~/.vim/vimrc.d/project.vim
