@@ -9,10 +9,10 @@ ln -s $VIMRC_ROOT/.vim ~/.vim
 ln -s $VIMRC_ROOT/.ripgreprc ~/.ripgreprc
 
 # nvim
-ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
-ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
+# ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
+# ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
-ln -s $VIMRC_ROOT/.config/lazygit ~/.config/lazygit
+# ln -s $VIMRC_ROOT/.config/lazygit ~/.config/lazygit
 
 echo "Environment variables used:"
 echo DOC2="$DOC2"
