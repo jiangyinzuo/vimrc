@@ -173,7 +173,8 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 		set termguicolors
 	endif
 	colorscheme codedark
-" 	hi SpecialKey ctermfg=darkgray guifg=gray70
+	" tab颜色
+	hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
 else
 endif
 
