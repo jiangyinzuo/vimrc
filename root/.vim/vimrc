@@ -211,7 +211,7 @@ let g:netrw_browsex_viewer="start"
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
 	autocmd!
-	autocmd FileType c,cpp,java,scala,rust                 let b:comment_leader = '// '
+	autocmd FileType c,cpp,java,scala,rust,go                 let b:comment_leader = '// '
 	autocmd FileType sh,ruby,python,conf,fstab,gitconfig,config   let b:comment_leader = '# '
 	autocmd FileType tex                                   let b:comment_leader = '% '
 	autocmd FileType mail,markdown                         let b:comment_leader = '> '
