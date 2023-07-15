@@ -138,16 +138,12 @@ if exists("g:vscode")
 	if s:has_vimrcd
 		source ~/.vim/vimrc.d/plugin.vim
 	endif
-	finish	
+	finish
 endif
 
 " 显示空白字符
 " https://codepoints.net/U+23B5
-if has('nvim') || v:version >= 801
-	set listchars=eol:⏎,tab:␉─▷,trail:␠,nbsp:⎵,extends:»,precedes:«
-else
-	set listchars=eol:⏎,tab:␉─,trail:␠,nbsp:⎵,extends:»,precedes:«
-end
+set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 set list
 
 set guifont=Monospace\ Regular\ 20
