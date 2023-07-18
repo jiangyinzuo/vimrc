@@ -1,11 +1,11 @@
-function s:set_coderepo_dir()
-	let g:coderepo_dir = asyncrun#get_root('%')
+function s:set_coderepo_dir(repo_dir)
+	let g:coderepo_dir = a:repo_dir
 	let t:repo_type = "code"
 	execute "tcd " . g:coderepo_dir
 endfunction
 
-function s:set_noterepo_dir()
-	let g:noterepo_dir = asyncrun#get_root('%')
+function s:set_noterepo_dir(repo_dir)
+	let g:noterepo_dir = a:repo_dir
 	let t:repo_type = "note"
 	execute "tcd " . g:noterepo_dir
 endfunction
@@ -77,7 +77,9 @@ function s:goto_note_buffer()
 endfunction
 
 function s:save_repo_dir()
-	echom "s:save_repo_dir(): " . g:coderepo_dir . " " . g:noterepo_dir
+	call assert_true(exists('g:coderepo_dir') && g:coderepo_dir != "")
+	call assert_true(exists('g:noterepo_dir') && g:noterepo_dir != "")
+	echom "s:save_repo_dir() g:coderepo_dir: " . g:coderepo_dir . " g:noterepo_dir: " . g:noterepo_dir
 	call system("echo " . g:coderepo_dir . " > " . g:noterepo_dir . "/.noterepo")
 	call system("echo " . g:noterepo_dir . " > " . g:coderepo_dir . "/.coderepo")
 endfunction
@@ -89,7 +91,7 @@ endfunction
 function s:open_note_repo(filename)
 	call s:open_file(a:filename)
 	tabmove 0
-	call s:set_noterepo_dir()
+	call s:set_noterepo_dir(expand('%:p:h'))
 	execute "tcd " . g:noterepo_dir
 	
 	call GetAllCodeLinks()
@@ -101,7 +103,8 @@ function OpenNoteRepo()
 		echoerr "Already in note repo"
 		return
 	endif
-	call s:set_coderepo_dir()
+	let l:root = asyncrun#get_root('%')
+	call s:set_coderepo_dir(l:root)
 	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
 		if $DOC2 == ''
 			echom "$DOC2 is empty"
@@ -118,7 +121,8 @@ command -nargs=0 OpenNoteRepo :silent! call OpenNoteRepo()<CR>
 function s:open_code_repo(filename)
 	call s:open_file(a:filename)
 	tabmove 1
-	call s:set_coderepo_dir()
+	let l:root = asyncrun#get_root('%')
+	call s:set_coderepo_dir(l:root)
 	execute "tcd " . g:coderepo_dir
 
 	call GetAllCodeLinks()
@@ -130,7 +134,7 @@ function OpenCodeRepo()
 		echoerr "Already in code repo"
 		return
 	endif
-	call s:set_noterepo_dir()
+	call s:set_noterepo_dir(expand('%:p:h'))
 	if !exists('g:coderepo_dir') || g:coderepo_dir == ""
 		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
 		if $CODE_HOME == ''
