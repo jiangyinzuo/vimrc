@@ -59,6 +59,7 @@ au FileType gitcommit let b:EditorConfig_disable = 1
 if !exists('g:vscode')
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
+		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 	endif
 
 	Plug 'preservim/tagbar'
