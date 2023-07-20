@@ -214,3 +214,30 @@ CTRL-G CTRL-E for Each ref (git for-each-ref)
 
 https://stackoverflow.com/questions/39973214/how-to-display-the-hex-value-in-the-watch-panel-of-vs-code
 *vimspector以十六进制方式查看expression*	<expr>,h
+
+-------------------------------------------------------------------------------
+*debug*
+
+vimspector中调试多线程C++程序。
+
+直接执行gdb命令: -exec command
+
+For the C++ (GDB/LLDB) debugging environment, you can execute GDB, LLDB and LLDB-MI commands directly through the debug console with the -exec command, but be careful, executing commands directly in the debug console is untested and might crash VS Code in some cases.
+
+*gdb*
+
+step -> step in
+next -> step over
+finish -> step out
+continue -> continue
+
+gdb多线程调试：
+一旦中断，所有线程都会被暂停。
+set scheduler-locking on 只有当前线程可以执行
+set scheduler-locking off 所有线程都可以执行，默认值
+set scheduler-locking step 使用step/next这些单步命令时，只有当前线程可以执行；使用finish/continue命令时，所有线程都可以执行
+thread <ID> 切换到ID线程
+info threads 查看所有线程
+thread apply all <command> 对所有线程执行command
+thread apply <ID> <command> 对ID线程执行command
+
