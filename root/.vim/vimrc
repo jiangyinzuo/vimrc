@@ -426,7 +426,7 @@ end
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let s:tags_use_cscope = 1
-let s:tags_use_gtags = 0
+let s:tags_use_gtags = 1
 
 " This tests to see if vim was configured with the '--enable-cscope' option
 " when it was compiled.  If it wasn't, time to recompile vim... 
