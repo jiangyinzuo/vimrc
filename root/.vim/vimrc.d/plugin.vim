@@ -172,7 +172,7 @@ endif
 call plug#end()
 
 if !has("nvim") || g:nvim_compatibility_with_vim
-	if (has("termguicolors") && exists('$WSLENV'))
+	if (has("termguicolors") && exists('$WSLENV') && !exists("$TMUX"))
 		set termguicolors
 	endif
 	colorscheme codedark
