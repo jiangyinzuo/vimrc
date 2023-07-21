@@ -132,7 +132,7 @@ function! LoadProjectConfigEachTab()
 		endif
 		execute 'source ' l:project_vimrc
 		if t:autocd_project_root
-			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载.project_vimrc文件
+			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载project_vimrc文件
 			execute 'tcd ' . l:project_root 
 		endif
 		echom "load project " . l:project_root . "'s " . g:project_vimrc . " success"
@@ -180,6 +180,8 @@ augroup load_my_project
  	autocmd TabNew * call TabNewLoadProjectConfig()
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MkSession
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists("*json_encode")
 

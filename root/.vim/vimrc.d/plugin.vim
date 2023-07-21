@@ -152,6 +152,8 @@ if !exists('g:vscode')
 		let g:floaterm_height = 0.8
 	endif	
 
+	source ~/.vim/vimrc.d/tags.vim
+	" source ~/.vim/vimrc.d/tags_noplug.vim
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
