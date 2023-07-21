@@ -54,11 +54,12 @@ set smarttab
 set autoindent " 跟随上一行的缩进方式
 set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
-augroup cpp
+augroup equalprg_filetype
 	autocmd!
 	" autocmd FileType c,cpp setlocal equalprg=indent
 	" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 	autocmd FileType c,cpp setlocal equalprg=clang-format
+	autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ %
 augroup end
 
 augroup indent2
@@ -148,7 +149,7 @@ set list
 
 set guifont=Monospace\ Regular\ 20
 set mouse=a
-if ! has('nvim') && has('unix') && exists('$WSLENV') 
+if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))
 	set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 endif
 
