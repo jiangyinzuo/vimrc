@@ -215,7 +215,20 @@ vnoremap <silent> ce :call YankCodeLinkVisual(0, 1, 1, 1)<CR>
 
 
 function GoToCodeLink()
-	let l:dest = split(getline("."))
+	let l:cur = line('.')
+	let l:cur_line = getline(l:cur)
+
+	while l:cur >= 0 && l:cur_line !~# '^+[0-9]\+\s'
+		let l:cur -= 1
+		let l:cur_line = getline(l:cur)
+	endwhile
+
+	if l:cur < 0
+		echoerr "No code link found"
+		return
+	endif
+
+	let l:dest = split(l:cur_line)
 	let l:line = l:dest[0]
 	let l:file = l:dest[1]
 	if s:only_has_one_repo()
