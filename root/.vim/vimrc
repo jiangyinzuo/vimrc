@@ -391,7 +391,10 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 " :e+22 ~/.vimrc
 command! -nargs=0 VimExeLine exe getline(".")
 
-set foldmethod=syntax
+set foldmethod=marker
+set foldmarker={,}
+autocmd FileType python set foldmethod=indent
+
 " 默认打开所有折叠，将foldlevelstart设置为较大的值
 "" set foldlevel=-1 " 默认关闭所有折叠
 set foldlevelstart=99
