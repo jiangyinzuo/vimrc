@@ -47,6 +47,7 @@ json: jq
 sudo apt install bat
 batcat --version
 ```
+补全父目录 -> bd  
 
 ### 基于tag符号的索引/补全
 
