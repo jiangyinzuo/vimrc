@@ -26,6 +26,6 @@
 	"java.enabled": true,
 	"json.enable": true,
 	"json.schemaDownload.enable": true,
-	"sh.enable": true,
-	"marksman.enable": true
+	"sh.enable": false,
+	"marksman.enable": false
 }

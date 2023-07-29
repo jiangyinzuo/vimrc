@@ -241,3 +241,6 @@ info threads 查看所有线程
 thread apply all <command> 对所有线程执行command
 thread apply <ID> <command> 对ID线程执行command
 
+gdb查看栈: bt 数字
+gdb切换某个栈: f[rame] 数字
+
