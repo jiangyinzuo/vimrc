@@ -34,7 +34,6 @@ set timeoutlen=3000 " key map 超时时间
 
 set autowrite " 自动保存
 set cursorline " 高亮当前行
-set background=dark
 
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果

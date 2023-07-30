@@ -40,13 +40,14 @@ https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/
 git终端: lazygit, tig  
 Linux文本处理: awk, sed, cut  
 cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
-pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
-文件管理器tui：ranger  
-json: jq
 ```
 sudo apt install bat
 batcat --version
 ```
+pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
+文件管理器tui：ranger  
+json: jq  
+tldr: 命令行帮助  
 补全父目录 -> bd  
 
 ### 基于tag符号的索引/补全

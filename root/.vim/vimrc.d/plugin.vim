@@ -104,7 +104,9 @@ if !exists('g:vscode')
 
 		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 	else
-" 		Plug 'dracula/vim', { 'as': 'dracula' }
+		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
+		Plug 'dracula/vim', { 'as': 'dracula' }
+		Plug 'lifepillar/vim-solarized8'
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
@@ -172,12 +174,16 @@ endif
 call plug#end()
 
 if !has("nvim") || g:nvim_compatibility_with_vim
-	if (has("termguicolors") && !exists('$WSLENV') && !exists("$TMUX"))
+	if has("termguicolors")
 		set termguicolors
 	endif
-	colorscheme codedark
+	colorscheme solarized8
+	set background=light
 	" tab颜色
-	hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
+	hi clear SpecialKey
+	hi link SpecialKey NonText
+	"hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
+	
 else
 endif
 
