@@ -8,7 +8,12 @@ function s:yank_gdb() range
 	" 通过正则表达式匹配 /path/to/file.ext:linenumber 格式的行
 	let result_lines = filter(temp_text, 'v:val =~# "[A-Za-z0-9\\-./]\\+:[0-9]\\+"')
 	" 将结果复制到匿名寄存器中
-	let @" = join(result_lines, "\n")
+	let l:content = join(result_lines, "\n")
+	if exists("g:coderepo_dir")
+		let l:pattern = substitute(g:coderepo_dir . '/', "/", "\\\\/", "g")
+		let l:content = substitute(l:content, l:pattern, "", "g")
+	endif
+	let @" = l:content
 endfunction
 
 command! -range -nargs=0 YankGDB <line1>,<line2>call s:yank_gdb()

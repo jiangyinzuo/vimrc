@@ -2,6 +2,14 @@
 " plus 表示使用 +line_number path/to/filename.ext 格式
 let g:codenote_filepath_style = "colon"
 
+" sed -i 's/^+\(.*\) \(.*\)$/\2:\1/' *.md
+function! ConvertFormat(line)
+	" 使用 substitute() 函数来交换 +linenumber 和 path/to/filename
+	let converted = substitute(a:line, '+\(\d\+\) \(.*\)', '\2:\1', '')
+	return converted
+endfunction
+"
+			
 function s:set_coderepo_dir(repo_dir)
 	let g:coderepo_dir = a:repo_dir
 	let t:repo_type = "code"
@@ -170,7 +178,7 @@ if g:codenote_filepath_style == 'colon'
 	endfunction
 	command -nargs=0 Rglink :Rg [\w\d\-./]+:[0-9]+
 	"command -nargs=0 Rglink :call RipgrepFzf('rg --column -o --no-heading --color=always --smart-case -- %s || true', '[\w\d\-./]+:[0-9]+', <bang>0)
-	let s:codelink_regex = '\v[A-Za-z0-9\-./]\+:[0-9]\+'
+	let s:codelink_regex = '[A-Za-z0-9\-./]\+:[0-9]\+'
 else
 	function! s:filepath(file, line)
 		return  "+" . a:line . " " . a:file
@@ -258,13 +266,15 @@ function GoToCodeLink()
 		return
 	endif
 
-	let l:dest = split(l:cur_line)
 	if l:cur_line[0] == '+'
+		let l:dest = split(l:cur_line)
 		let l:line = l:dest[0]
 		let l:file = l:dest[1]
 	else
+		let l:dest = split(l:cur_line, ":")
 		let l:line = '+' . l:dest[1]
 		let l:file = l:dest[0]
+		echo l:line l:file
 	endif
 
 	if s:only_has_one_repo()
