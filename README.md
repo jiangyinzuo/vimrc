@@ -11,8 +11,11 @@ update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
 
 Neovim WSL使用系统clipboard：https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
-**Vim编译选项**  
-./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes
+**Vim编译选项**
+```sh
+apt install libgtk-3-dev libxt-dev
+./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
+```
 
 ## 初始化
 
