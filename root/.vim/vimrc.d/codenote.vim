@@ -1,3 +1,7 @@
+" colon 表示使用 path/to/filename.ext:line_number 格式
+" plus 表示使用 +line_number path/to/filename.ext 格式
+let g:codenote_filepath_style = "colon"
+
 function s:set_coderepo_dir(repo_dir)
 	let g:coderepo_dir = a:repo_dir
 	let t:repo_type = "code"
@@ -36,15 +40,24 @@ function GetCodeLinkDict()
 		echoerr "g:noterepo_dir is not set"
 		return
 	endif
-	let g:code_links = system("rg -INo '^\\+[0-9]+ .*$' " . g:noterepo_dir)
+
+	" 支持/path/to/filename.ext:line_number 和 
+	" +line_number path/to/filename.ext两种格式
+	let g:code_links = system("rg -INo '([\\w\\d\\-./]+:[0-9]+)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
 	let g:code_links = split(g:code_links, "\n")
 
 	let g:code_link_dict = {}
 	for code_link in g:code_links
-		let l:dest = split(code_link)
-		let l:line = l:dest[0][1:]
-		let l:file = l:dest[1]
-		
+		if code_link[0] == "+"
+			let l:dest = split(code_link)
+			let l:line = l:dest[0][1:]
+			let l:file = l:dest[1]
+		else
+			let l:dest = split(code_link, ":")
+			let l:line = l:dest[1]
+			let l:file = l:dest[0]
+		endif	
+
 		if has_key(g:code_link_dict, l:file)
 			call add(g:code_link_dict[l:file], l:line)
 		else
@@ -151,6 +164,22 @@ function s:only_has_one_repo()
 	return tabpagenr('$') == 1
 endfunction
 
+if g:codenote_filepath_style == 'colon'
+	function! s:filepath(file, line)
+		return a:file . ":" . a:line
+	endfunction
+	command -nargs=0 Rglink :Rg [\w\d\-./]+:[0-9]+
+	"command -nargs=0 Rglink :call RipgrepFzf('rg --column -o --no-heading --color=always --smart-case -- %s || true', '[\w\d\-./]+:[0-9]+', <bang>0)
+	let s:codelink_regex = '\v[A-Za-z0-9\-./]\+:[0-9]\+'
+else
+	function! s:filepath(file, line)
+		return  "+" . a:line . " " . a:file
+	endfunction
+	command -nargs=0 Rglink :Rg ^+[0-9]+ .+
+	"command -nargs=0 Rglink :call RipgrepFzf('rg --column -o --no-heading --color=always --smart-case -- %s || true', '^\+[0-9]+ .+$', <bang>0)
+	let s:codelink_regex = '^+[0-9]\+\s'
+endif
+
 function s:yank_registers(file, line, content, need_beginline, need_endline, append)
 	if a:need_beginline && &filetype != 'markdown'
 		let l:beginline = "```" . &filetype . "\n"
@@ -162,11 +191,12 @@ function s:yank_registers(file, line, content, need_beginline, need_endline, app
 	else
 		let l:endline = ""
 	endif
+	let l:filepath = s:filepath(a:file, a:line)
 	if a:append
-		let @" .= "+" . a:line . " " . a:file . "\n" . l:beginline . a:content . "\n" . l:endline
+		let @" .= l:filepath . "\n" . l:beginline . a:content . "\n" . l:endline
 		echo "append to @"
 	else
-		let @" = "+" . a:line . " " . a:file . "\n" . l:beginline . a:content . "\n" . l:endline
+		let @" = l:filepath . "\n" . l:beginline . a:content . "\n" . l:endline
 	endif
 endfunction
 
@@ -218,7 +248,7 @@ function GoToCodeLink()
 	let l:cur = line('.')
 	let l:cur_line = getline(l:cur)
 
-	while l:cur >= 0 && l:cur_line !~# '^+[0-9]\+\s'
+	while l:cur >= 0 && l:cur_line !~# s:codelink_regex
 		let l:cur -= 1
 		let l:cur_line = getline(l:cur)
 	endwhile
@@ -229,8 +259,14 @@ function GoToCodeLink()
 	endif
 
 	let l:dest = split(l:cur_line)
-	let l:line = l:dest[0]
-	let l:file = l:dest[1]
+	if l:cur_line[0] == '+'
+		let l:line = l:dest[0]
+		let l:file = l:dest[1]
+	else
+		let l:line = '+' . l:dest[1]
+		let l:file = l:dest[0]
+	endif
+
 	if s:only_has_one_repo()
 		call OpenCodeRepo()
 	else
@@ -242,7 +278,7 @@ endfunction
 function GoToNoteLink()
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
 	let l:line = line(".")
-	let l:pattern = "+" . l:line . " " . l:file
+	let l:pattern = s:filepath(l:file, l:line)
 	" 将 / 转义为 \/
 	let l:pattern = substitute(l:pattern, "/", "\\\\/", "g")
 	if s:only_has_one_repo()
@@ -284,4 +320,3 @@ function LoadCodeNote()
 	endif
 endfunction
 
-command -nargs=0 Rglink :Rg ^\+[0-9]+ .+$

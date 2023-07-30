@@ -167,6 +167,8 @@ if !exists('g:vscode')
 	Plug 'whonore/Coqtail'
 	source ~/.vim/vimrc.d/latex.vim
 	source ~/.vim/vimrc.d/asynctasks.vim
+	source ~/.vim/vimrc.d/yank.vim
+	" codenote.vim depends on fzf.vim
 	source ~/.vim/vimrc.d/codenote.vim
 endif
 
@@ -185,6 +187,7 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 	colorscheme solarized8
 	" tab颜色
 	hi clear SpecialKey
+	hi NonText cterm=None term=None gui=None
 	hi link SpecialKey NonText
 	"hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
 	
