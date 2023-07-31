@@ -18,3 +18,7 @@ endfunction
 
 command! -range -nargs=0 YankGDB <line1>,<line2>call s:yank_gdb()
 
+if exists("$WSLENV")
+	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
+	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
+endif

@@ -10,6 +10,7 @@
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 "  rg -oIN Go[a-zA-Z]+ commands.vim
 Plug 'fatih/vim-go', { 'on': ['GoRename', 'GoGuruScope',  'GoPointsTo',  'GoWhicherrs',  'GoCallees',  'GoDescribe',  'GoCallstack', 'GoFreevars',  'GoChannelPeers',  'GoImplements',  'GoReferrers',  'GoSameIds',  'GoSameIdsClear',  'GoSameIdsToggle',  'GoSameIdsAutoToggle',  'GoCallers',  'GoAddTags',  'GoRemoveTags',  'GoModFmt',  'GoFiles',  'GoDeps',  'GoInfo',  'GoAutoTypeInfoToggle',  'GoBuild',  'GoBuildTags',  'GoGenerate',  'GoRun',  'GoInstall',  'GoTest',  'GoTestCompile',  'GoTestFile',  'GoTestFunc',  'GoCoverage',  'GoCoverageClear',  'GoCoverageToggle',  'GoCoverageBrowser',  'GoCoverageOverlay',  'GoPlay',  'GoDef',  'GoDefType',  'GoDefPop',  'GoDefStack',  'GoDefStackClear',  'GoDoc',  'GoDocBrowser',  'GoFmt',  'GoFmtAutoSaveToggle',  'GoImports',  'GoAsmFmtAutoSaveToggle',  'GoDrop',  'GoImport',  'GoImportAs',  'GoMetaLinter',  'Gometa',  'GoMetaLinterAutoSaveToggle',  'GoLint',  'Golint',  'GoVet',  'GoErrCheck',  'GoAlternate',  'GoDecls',  'GoDeclsDir',  'GoImpl',  'GoTemplateAutoCreateToggle',  'GoKeyify',  'GoFillStruct',  'GoDebugStart',  'GoDebugStart',  'GoDebugTest',  'GoDebugTestFunc',  'GoDebugAttach',  'GoDebugConnect',  'GoDebugBreakpoint',  'GoReportGitHubIssue',  'GoIfErr',  'GoAddWorkspace',  'GoLSPDebugBrowser',  'GoDiagnostics',  'GoModReload',  'GoToggleTermCloseOnExit',  'GoExtract']}
+Plug 'sebdah/vim-delve'
 
 " 禁用vim-go的lsp功能，使用coc.nvim的lsp
 let g:go_gopls_enabled = 0
