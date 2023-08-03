@@ -1,5 +1,12 @@
 {
 	"$schema": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json#",
+	"inputs": [
+		{
+			"id": "binaryName",
+			"type": "promptString",
+			"description": "Enter the binary name to debug."
+		}
+	],
 	"configurations": {
 		"run": {
 			"adapter": "delve",
@@ -20,6 +27,21 @@
 					"uncaught": "",
 					"userUnhandled": ""
 				}
+			}
+		},
+		"launch-binary": {
+			"adapter": "delve",
+			"default": true,
+			"configuration": {
+				"request": "launch",
+				"program": "${workspaceRoot}/bin/${input:binaryName}",
+				"cwd": "${workspaceRoot}",
+				"args": [
+					"*${CommandLineArgs}"
+				],
+				"mode": "exec",
+				"console": "integratedTerminal",
+				"stopOnEntry": true
 			}
 		}
 	}
