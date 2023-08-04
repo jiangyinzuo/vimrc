@@ -7,3 +7,4 @@ root/.vim/gadgets
 root/.vim/.viminfo
 root/.vim/sessions
 __pycache__
+*.tar
