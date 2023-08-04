@@ -106,7 +106,9 @@ if !exists('g:vscode')
 	else
 		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 		Plug 'dracula/vim', { 'as': 'dracula' }
-		Plug 'lifepillar/vim-solarized8'
+		if v:version >= 800
+			Plug 'lifepillar/vim-solarized8'
+		endif
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
@@ -179,12 +181,18 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 	if has("termguicolors")
 		set termguicolors
 	endif
-	let g:solarized_diffmode = "normal"
+	
 	let g:nord_uniform_diff_background = 1
 	let g:dracula_high_contrast_diff = 1
 
 	set background=dark
-	colorscheme solarized8
+	if v:version >= 800
+		let g:solarized_diffmode = "normal"
+		colorscheme solarized8
+	else
+		" let g:solarized_termcolors = 256
+		colorscheme solarized
+	endif
 	" tab颜色
 	hi clear SpecialKey
 	hi NonText cterm=None term=None gui=None
