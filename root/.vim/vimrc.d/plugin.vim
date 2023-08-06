@@ -69,6 +69,7 @@ if !exists('g:vscode')
 
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+		Plug 'ishan9299/nvim-solarized-lua'
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 		Plug 'nvim-lualine/lualine.nvim'
