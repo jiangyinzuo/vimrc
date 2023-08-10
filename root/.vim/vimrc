@@ -33,6 +33,7 @@ set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删�
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=2 " cmd行高2, 减少hit-enter
 set colorcolumn=80,120
+autocmd FileType org setlocal colorcolumn=
 set wildmenu " command自动补全时显示菜单
 set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
