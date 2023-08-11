@@ -36,5 +36,5 @@ require("tokyonight").setup({
 
 vim.cmd [[
 	set termguicolors
-	colorscheme solarized
+	colorscheme solarized8
 ]]

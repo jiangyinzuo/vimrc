@@ -60,6 +60,7 @@ if !exists('g:vscode')
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
+		Plug 'lifepillar/vim-solarized8'
 	endif
 
 	Plug 'preservim/tagbar'
@@ -70,7 +71,6 @@ if !exists('g:vscode')
 	Plug 'axvr/org.vim'
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-		Plug 'ishan9299/nvim-solarized-lua'
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 		Plug 'nvim-lualine/lualine.nvim'
@@ -108,9 +108,6 @@ if !exists('g:vscode')
 	else
 		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 		Plug 'dracula/vim', { 'as': 'dracula' }
-		if v:version >= 800
-			Plug 'lifepillar/vim-solarized8'
-		endif
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
