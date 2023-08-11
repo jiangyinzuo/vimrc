@@ -52,6 +52,7 @@ pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)
 json: jq  
 tldr: 命令行帮助  
 补全父目录 -> bd  
+终端查看图片: timg  
 
 ### 基于tag符号的索引/补全
 
@@ -99,3 +100,7 @@ Jetbrains Fleet
 cursor.so
 
 [distant](https://github.com/chipsenkbeil/distant)
+
+## 终端模拟器
+wezterm
+
