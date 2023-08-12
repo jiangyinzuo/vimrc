@@ -69,6 +69,8 @@ if !exists('g:vscode')
 	" Plug 'samoshkin/vim-mergetool'
 
 	Plug 'axvr/org.vim'
+	Plug 'rust-lang/rust.vim'
+	
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
