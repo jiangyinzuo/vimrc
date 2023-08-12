@@ -7,6 +7,8 @@ fi
 
 ln -s $VIMRC_ROOT/.vim ~/.vim
 ln -s $VIMRC_ROOT/.ripgreprc ~/.ripgreprc
+ln -s $VIMRC_ROOT/.globalrc ~/.globalrc
+ln -s $VIMRC_ROOT/.tmux.conf ~/.tmux.conf
 
 # nvim
 # ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
