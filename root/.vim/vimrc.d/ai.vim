@@ -1,5 +1,5 @@
 if has('python3')
-	Plug 'madox2/vim-ai'
+	Plug 'madox2/vim-ai', { 'do': 'sed -i \"s/api.openai.com/api.aiproxy.io/g\" py/chat.py py/complete.py ' }
 	let g:vim_ai_chat = {
 	\  "options": {
 	\    "model": "gpt-4",

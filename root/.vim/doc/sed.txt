@@ -1,0 +1,2 @@
+*sed-command*
+fd --extension py | xargs sed -i "s/api.openai.com/api.aiproxy.io/g"
