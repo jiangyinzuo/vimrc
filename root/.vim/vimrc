@@ -13,13 +13,6 @@ filetype plugin on
 
 syntax on "语法高亮显示
 
-" true color support
-" https://github.com/lifepillar/vim-solarized8#troubleshooting
-if v:version >= 801
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 set encoding=utf-8
 set fileencoding=utf-8
 " vim自动探测fileencodeing的顺序列表
@@ -33,7 +26,7 @@ set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删�
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=2 " cmd行高2, 减少hit-enter
 set colorcolumn=80,120
-autocmd FileType org setlocal colorcolumn=
+autocmd FileType org,markdown,txt setlocal colorcolumn=
 set wildmenu " command自动补全时显示菜单
 set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
@@ -472,7 +465,7 @@ endif
 " Load plugins
 if s:has_vimrcd
 	source ~/.vim/vimrc.d/plugin.vim
-	command -nargs=0 Chat AsyncRun -mode=term -pos=curwin $VIMRC_ROOT/scripts/openai_app.py chat
+	command -nargs=0 MyChat AsyncRun -mode=term -pos=curwin $VIMRC_ROOT/scripts/openai_app.py chat
 	
 	function UpdateCocExtensions(ext)
 		if exists('g:coc_global_extensions')

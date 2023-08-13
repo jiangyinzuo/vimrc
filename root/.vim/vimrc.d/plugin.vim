@@ -57,6 +57,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
 if !exists('g:vscode')
+
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
@@ -157,6 +158,7 @@ if !exists('g:vscode')
 		let g:floaterm_height = 0.8
 	endif	
 
+	source ~/.vim/vimrc.d/ai.vim
 	source ~/.vim/vimrc.d/tags.vim
 	" source ~/.vim/vimrc.d/tags_noplug.vim
 	source ~/.vim/vimrc.d/cpp.vim
@@ -188,6 +190,10 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 
 	set background=dark
 	if v:version >= 800
+		" true color support
+		" https://github.com/lifepillar/vim-solarized8#troubleshooting
+		let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+		let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 		let g:solarized_diffmode = "normal"
 		colorscheme solarized8
 	else
