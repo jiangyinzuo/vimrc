@@ -53,6 +53,11 @@ json: jq
 tldr: 命令行帮助  
 补全父目录 -> bd  
 终端查看图片: timg  
+[翻译](https://github.com/afc163/fanyi#error-spawn-festival-enoent)  
+```
+sudo apt-get install festival festvox-kallpc16k
+npm i -g fanyi
+```
 
 ### 基于tag符号的索引/补全
 

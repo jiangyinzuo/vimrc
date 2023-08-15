@@ -22,15 +22,6 @@ let test#strategy = "asyncrun_background_term"
 let test#python#pytest#executable = 'python3 -m pytest'
 let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
-if has('nvim') || v:version >= 900
-	" Github Coplit Support
-	" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
-	Plug 'github/copilot.vim'
-	" use <C-x> to auto complete github copilot
-	" imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
-	" let g:copilot_no_tab_map = v:true
-endif
-
 " Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 
@@ -62,6 +53,7 @@ if !exists('g:vscode')
 		Plug 'SirVer/ultisnips'
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 		Plug 'lifepillar/vim-solarized8'
+		Plug 'voldikss/vim-translator'
 	endif
 
 	Plug 'preservim/tagbar'
