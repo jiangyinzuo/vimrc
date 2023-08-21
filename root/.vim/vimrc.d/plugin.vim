@@ -156,6 +156,12 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
+	Plug 'lambdalisue/doctest.vim'
+	augroup doctest
+	  autocmd! *
+	  autocmd QuickFixCmdPost lDoctest nested lwindow
+	augroup END
+
 	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 820
 		source ~/.vim/vimrc.d/fzf.vim

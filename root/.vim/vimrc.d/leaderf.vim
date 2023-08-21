@@ -1,3 +1,4 @@
+" Alternative plugin: vim-clap
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " popup mode
