@@ -26,3 +26,8 @@ Install on Ubuntu: >
 *tag跳转*	CTRL-]
 ctags生成python tag `ctags --language-force=python hello.py`
 
+*global*
+搜索符号和定义: >
+  global -s -rx println!
+  global -d -rx Foo
+<

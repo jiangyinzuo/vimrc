@@ -4,13 +4,13 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 " popup mode
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
-let g:Lf_WindowHeight = 0.95
-let g:Lf_PopupWidth = &columns * 2 / 5
-let g:Lf_PreviewPopupWidth = &columns * 3 / 5
-let g:Lf_PopupHeight = 0.95
-let g:Lf_PopupPreviewPosition = 'right'
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-let g:Lf_PopupPosition = [1, 1]
+" let g:Lf_WindowHeight = 0.9
+" let g:Lf_PopupWidth = 0.9
+"let g:Lf_PreviewPopupWidth = &columns * 5 / 10
+"let g:Lf_PopupHeight = 0.8
+let g:Lf_PopupPreviewPosition = 'top'
+" let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+" let g:Lf_PopupPosition = [1, 1]
 
 "文件搜索
 let g:Lf_ShortcutF = '<leader>ff'
@@ -69,7 +69,7 @@ let g:Lf_GtagsAutoGenerate = 0
 " 查找时忽略以下目录和文件
 let g:Lf_WildIgnore = {
   \ 'dir': ['.git', '__pycache__', '.DS_Store', '.svn', '.cache', 'deps', 'build'],
-  \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png', '*.webp',
+  \ 'file': ['tags', 'GTAGS', 'GRTAGS', 'GPATH', '*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png', '*.webp',
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
   \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.tmp',
   \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',

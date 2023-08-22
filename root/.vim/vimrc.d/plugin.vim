@@ -145,11 +145,8 @@ if !exists('g:vscode')
 		" vnoremap <leader>c :OSCYank<CR>
 	endif
 	if has('terminal')
-		Plug 'voldikss/vim-floaterm'
-		let g:floaterm_width = 0.8
-		let g:floaterm_height = 0.8
-	endif	
-
+		source ~/.vim/vimrc.d/floaterm.vim
+	endif
 	source ~/.vim/vimrc.d/ai.vim
 	source ~/.vim/vimrc.d/tags.vim
 	" source ~/.vim/vimrc.d/tags_noplug.vim
