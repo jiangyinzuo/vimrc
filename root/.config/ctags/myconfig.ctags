@@ -1,2 +1,6 @@
- --extras=+q
- --fields-Markdown=+{hashtag}
+--fields=+niazSR
+--extras=+qrs
+--exclude=target
+--fields-Markdown=+{hashtag}
+--c++-kinds=+pxl
+--c-kinds=+pxl

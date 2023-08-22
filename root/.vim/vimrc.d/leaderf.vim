@@ -24,6 +24,8 @@ nnoremap <silent> <leader>fc :call Leaderf_current_dir()<CR>
 
 "历史打开过的文件
 nnoremap <silent> <leader>fh :Leaderf mru <CR>
+" 打开quickfix list（可以和gtags配合使用）
+nnoremap <silent> <leader>fq :Leaderf quickfix <CR>
 
 nnoremap <silent> <leader>fb :Leaderf buffer --nameOnly <CR>
 tnoremap <silent> <leader>fb :Leaderf buffer --nameOnly <CR>

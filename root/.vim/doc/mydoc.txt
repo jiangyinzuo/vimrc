@@ -84,28 +84,6 @@ recording a macro: >
 mark: `ma`
 jump: `'a`
 
-*tags*
-See .vimrc
-Comparison with ctags, gtags and cscope:
-  https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
-
-gtags(global) > cscope > ctags
-
-Universal Ctags: a maintained implementation of ctags
-Exuberant Ctags: unmaintained
-
-Install on Ubuntu: >
-  sudo apt install global
-  sudo apt install cscpoe
-  sudo apt install universal-ctags
-  # sudo apt insatll exuberant-ctags
-<
-
-*ctags*
-
-*tag跳转*	CTRL-]
-ctags生成python tag `ctags --language-force=python hello.py`
-
 *format*
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`

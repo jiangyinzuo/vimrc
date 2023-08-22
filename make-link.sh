@@ -9,6 +9,8 @@ ln -s $VIMRC_ROOT/.vim ~/.vim
 ln -s $VIMRC_ROOT/.ripgreprc ~/.ripgreprc
 ln -s $VIMRC_ROOT/.globalrc ~/.globalrc
 ln -s $VIMRC_ROOT/.tmux.conf ~/.tmux.conf
+ln -s $VIMRC_ROOT/.config/ctags ~/.config/ctags
+ln -s $VIMRC_ROOT/.config/lazygit ~/.config/lazygit
 
 # nvim
 # ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim

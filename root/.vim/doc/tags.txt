@@ -1,0 +1,28 @@
+*tag-system*
+
+Vim 8 中 C/C++ 符号索引：GTags 篇 - 韦易笑的文章 - 知乎
+https://zhuanlan.zhihu.com/p/36279445
+
+安装依赖：
+pip install pygments
+
+Comparison with ctags, gtags and cscope:
+  https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
+
+gtags(global) > cscope > ctags
+
+Universal Ctags: a maintained implementation of ctags
+Exuberant Ctags: unmaintained
+
+Install on Ubuntu: >
+  sudo apt install global
+  sudo apt install cscpoe
+  sudo apt install universal-ctags
+  # sudo apt insatll exuberant-ctags
+<
+
+*ctags*
+
+*tag跳转*	CTRL-]
+ctags生成python tag `ctags --language-force=python hello.py`
+
