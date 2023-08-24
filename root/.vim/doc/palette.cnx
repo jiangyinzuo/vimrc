@@ -13,13 +13,11 @@
 *FZF-选择git-commits*					:Commits
 *FZF-选择nmaps*						:Maps
 *FZF搜索项目文件*					:ProjectFiles
-*FZF搜索hashtag并插入到当前光标位置*			:Hashtag
-*FZF搜索文件路径并插入到当前光标位置*			:Path
 *vim-查看map*						:map
 *vim-查看tmap*						:tmap
 *FZF-查看helptags*					:Helptags
 *vim-helpgrep*						:helpgrep
-*在新标签页(tab)中创建终端*				:tab-ter
+*在新标签页(tab)中创建终端*				:tab ter
 *执行系统命令并输出到quickfix-list*			:CExprsys
 *执行复制到默认寄存器中的命令(:h-:@)*			:@"
 *Save-with-sudo*					:w !sudo tee %

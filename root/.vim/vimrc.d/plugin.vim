@@ -161,7 +161,7 @@ if !exists('g:vscode')
 
 	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 820
-		source ~/.vim/vimrc.d/fzf.vim
+		source ~/.vim/vimrc.d/fzf/fzf.vim
 		source ~/.vim/vimrc.d/jupyter.vim
 	endif
 	Plug 'whonore/Coqtail'

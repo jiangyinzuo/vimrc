@@ -34,12 +34,6 @@ let g:fzf_action = {
 			\ 'ctrl-v': 'vsplit' }
 
 
-command! -bang -nargs=* Rgdoc
-			\ call fzf#vim#grep(
-			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' ~/.vim/doc/*', 1,
-			\ fzf#vim#with_preview(), <bang>0)
-
-
 function! s:find_git_root()
 	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
@@ -53,8 +47,22 @@ command! ProjectFiles execute 'Files' asyncrun#get_root('%')
 command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
-command! -bang -complete=dir -nargs=? Directories
+""""""""""""""""" Fd 类""""""""""""""""
+command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
+command! -bang -nargs=0 Directories
 			\ call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': <q-args>, 'sink': 'e'}, <bang>0))
+command! -nargs=0 DirectoriesPaste call fzf#run({'source': 'fd -i -t d', 'sink': function("s:paste_word")})
+
+" Markdown等文本编辑添加链接：
+" 1) fd > path.txt  预处理得到项目所有文件路径
+" 2）:PathPaste模糊查找文件路径
+"
+" [[palette]]FZF搜索文件路径并插入到当前光标位置			:Path
+command! -bang -nargs=0 PathPaste
+			\ call fzf#run(fzf#wrap('path', {'source': 'cat ' .. asyncrun#get_root('%') .. '/path.txt', 'sink': function("s:paste_word")}, <bang>0))
+
+" 在线查找path
+command! -bang -nargs=0 PathLivePaste call fzf#run({'sink': function("s:paste_word")})
 
 function CdDirectory(dirname)
 	exe "normal! :e " . a:dirname . "\<CR>"
@@ -64,28 +72,16 @@ endfunction
 command! -bang -complete=dir -nargs=? Cd
 			\ call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': <q-args>, 'sink': function("CdDirectory")}, <bang>0))
 
-function s:exec_command_palette(line)
-	let l:cmd = filter(split(a:line, '\t'), 'v:val != ""')
-	" 把l:cmd放到Command Line且不执行
-	call feedkeys(l:cmd[1])
-endfunction
-
-command! -bang -nargs=0 Palette
-			\ call fzf#run(fzf#wrap({'source': 'cat ~/.vim/doc/palette.cnx', 'sink': function("s:exec_command_palette")}, <bang>0))
+"""""""""""""""""""""""""""""""""""""
 
 function s:paste_word(word)
 	echo a:word
 	exe "normal! a" . a:word
 endfunction
 
-" Markdown等文本编辑添加链接：
-" 1) fd > path.txt  预处理得到项目所有文件路径
-" 2）:Path模糊查找文件路径
-command! -bang -nargs=0 Path
-			\ call fzf#run(fzf#wrap('path', {'source': 'cat ' .. asyncrun#get_root('%') .. '/path.txt', 'sink': function("s:paste_word")}, <bang>0))
-
 " hashtag排除包含各类字符
 " rg -e "#[^_\d()（）{}#\s'/\\[\]:：;?%][^()（）{}#\s'/\\[\]:：;?%]{1,40}" -N -I -o | sort | uniq > hashtag.txt
+" [[palette]]FZF搜索hashtag并paste					:Hashtag
 command! -bang -nargs=0 Hashtag
 			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. $DOC2 .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
 
@@ -100,6 +96,12 @@ function ListDocs(A, L, P)
 	endfor
 	return result
 endfunction
+
+""""""""""""""""""" Rg 类""""""""""""""""
+command! -bang -nargs=* Rgdoc
+			\ call fzf#vim#grep(
+			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' ~/.vim/doc/*', 1,
+			\ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 			\ if <q-args> == "" |
@@ -120,9 +122,9 @@ function! RipgrepFzf(command_fmt, query, fullscreen)
 	call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 command! -nargs=* -bang RG call RipgrepFzf('rg --column --line-number --no-heading --color=always --smart-case -- %s || true', <q-args>, <bang>0)
+"""""""""""""""""""""""""""""""""""""""
 
-command! -nargs=* -bang Fd call fzf#vim#files('fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .cache --exclude .vscode --exclude .idea --exclude .DS_Store --exclude .gitignore --exclude .gitmodules --exclude .gitattributes --exclude .gitkeep --exclude .gitconfig --exclude .gitmessage --exclude .gitignore_global --exclude .gitconfig.local --exclude .gitconfig.local.example --exclude .gitconfig.local.template --exclude .git ', 1, fzf#vim#with_preview(), <bang>0)
-
+""""""""""""" Ctags 类""""""""""""""""""
 " 作者：成隽
 " 链接：https://www.zhihu.com/question/26248191/answer/2680677733
 " 来源：知乎
@@ -198,3 +200,6 @@ function GlobalC(fullscreen)
 endfunction
 " Global 输出所有tag
 command -nargs=0 -bang GlobalC call GlobalC(<bang>0)
+
+"""""""""""""""""""""""""""""""""""""
+source ~/.vim/vimrc.d/fzf/palette.vim
