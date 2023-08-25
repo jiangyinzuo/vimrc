@@ -124,9 +124,7 @@ function! LoadProjectConfigEachTab()
 	
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 如果找到了project_vimrc文件，则将其加载
-	
 	if l:project_vimrc != ''
-		" 如果project_vimrc文件不存在，那么创建它
 		if !filereadable(l:project_vimrc)
 			call writefile([], l:project_vimrc)
 		endif

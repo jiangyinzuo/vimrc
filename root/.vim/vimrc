@@ -125,7 +125,7 @@ function s:DetectIndent()
 endfunction
 
 let g:project_vimrc = '.project.vim'
-let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc]
+let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc, 'tags', 'GTAGS']
 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')
@@ -145,7 +145,8 @@ endif
 
 " 显示空白字符
 " https://codepoints.net/U+23B5
-set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
+" set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
+set listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 set list
 
 set guifont=Monospace\ Regular\ 20
@@ -508,7 +509,7 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 		function CocStatusLine()
 			return exists(':CocInfo') ? "\ \|\ %{coc#status()}%{get(b:,'coc_current_function','')}" : ""
 		endfunction
-		set statusline+=%{%CocStatusLine()%}%{gutentags#statusline()}
+		set statusline+=%{%CocStatusLine()%}
 	endif
 	" 左对齐和右对齐的分割点
 	set statusline+=%=\ 

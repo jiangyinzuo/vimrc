@@ -42,5 +42,6 @@
 *打开CodeRepo*						:OpenCodeRepo
 *打开NoteRepo*						:OpenNoteRepo
 *Leaderf通过rg搜索所有c文件*				:Leaderf rg -g *.c
-*生成ctags和gtags*					:GutentagsUpdate
-*FZF查询ctags(自定义命令)*				:Mytags
+*生成ctags*						:!ctags -R
+*生成gtags*						:!global
+*增量更新gtags*						:!global -u

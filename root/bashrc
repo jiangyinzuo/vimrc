@@ -62,6 +62,8 @@ alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore
 	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ${RGPIPE}"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+# pygments支持更多语言
+export GTAGSLABEL=native-pygments
 
 if [[ `uname -a` == *WSL* ]]; then
 	. $VIMRC_ROOT/wsl-init.bash

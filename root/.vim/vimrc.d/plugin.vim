@@ -149,7 +149,6 @@ if !exists('g:vscode')
 	endif
 	source ~/.vim/vimrc.d/ai.vim
 	source ~/.vim/vimrc.d/tags.vim
-	" source ~/.vim/vimrc.d/tags_noplug.vim
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
