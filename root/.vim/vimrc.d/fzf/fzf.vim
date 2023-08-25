@@ -165,10 +165,17 @@ function s:global_sink(line)
 	call GoToFile(l:lines[2], l:lines[1])
 endfunction
 
-function s:global(cmd, fullscreen)
+function s:global(cmd)
+	let l:source = systemlist(a:cmd)
+	if len(l:source) == 1
+		" 只有一行结果时，直接跳转
+		call s:global_sink(l:source[0])
+		return
+	endif
+	" 有多行结果时，使用fzf选择
 	try
 		return fzf#run(fzf#wrap({
-					\ 'source': a:cmd,
+					\ 'source': l:source,
 					\ 'sink': function('s:global_sink'),
 					\ 'options': [ '--prompt', 'Global> ', '--color', 'hl:148,hl+:190' ],
 					\ }))
@@ -177,29 +184,36 @@ function s:global(cmd, fullscreen)
 	endtry
 endfunction
 
-function! GlobalSym(query, fullscreen)
+function! s:global_sym(query)
 	let l:cmd = 'global -s -rx ' . a:query
-	call s:global(l:cmd, a:fullscreen)
+	call s:global(l:cmd)
 endfunction
 
-function! GlobalDef(query, fullscreen)
+function! s:global_def(query)
 	let l:cmd = 'global -d -rx ' . a:query
-	call s:global(l:cmd, a:fullscreen)
+	call s:global(l:cmd)
 endfunction
 
-" Global 查找符号
-command -nargs=1 -bang GlobalSym call GlobalSym(<q-args>, <bang>0)
-" Global 查找定义
-command -nargs=1 -bang GlobalDef call GlobalDef(<q-args>, <bang>0)
-
-function GlobalC(fullscreen)
+function GlobalSym()
 	return fzf#run(fzf#wrap({
 				\ 'source': 'global -c',
+				\ 'sink': function('s:global_sym'),
 				\ 'options': [ '--prompt', 'Global -c> ', '--color', 'hl:148,hl+:190' ],
 				\ }))	
 endfunction
-" Global 输出所有tag
-command -nargs=0 -bang GlobalC call GlobalC(<bang>0)
+
+function GlobalDef()
+	return fzf#run(fzf#wrap({
+				\ 'source': 'global -d',
+				\ 'sink': function('s:global_def'),
+				\ 'options': [ '--prompt', 'Global -d> ', '--color', 'hl:148,hl+:190' ],
+				\ }))
+endfunction
+
+" [[palette]]Global 查找符号						:GlobalSym
+command -nargs=0 GlobalSym call GlobalSym()
+" [[palette]]Global 查找定义						:GlobalDef
+command -nargs=0 GlobalDef call GlobalDef()
 
 """""""""""""""""""""""""""""""""""""
 source ~/.vim/vimrc.d/fzf/palette.vim

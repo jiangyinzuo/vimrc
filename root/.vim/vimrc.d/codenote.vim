@@ -22,7 +22,7 @@ function s:set_noterepo_dir(repo_dir)
 	execute "tcd " . g:noterepo_dir
 endfunction
 
-sign define code_note_link text=🗅 texthl=Search
+sign define code_note_link text=📓 texthl=Search
 
 function SignCodeLinks()
 	if !exists('g:code_link_dict') || !exists('g:coderepo_dir') || !exists('g:noterepo_dir')
@@ -230,7 +230,7 @@ nnoremap <silent> cb :call YankCodeLink(1, 0, 0, 0)<CR>
 nnoremap <silent> ca :call YankCodeLink(0, 0, 1, 0)<CR>
 nnoremap <silent> ce :call YankCodeLink(0, 1, 1, 1)<CR>
 
-function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf)
+function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) range
 	if exists("t:repo_type") && t:repo_type == "code"
 		if s:only_has_one_repo()
 			call s:open_note_repo(g:noterepo_dir)

@@ -43,7 +43,4 @@
 *打开NoteRepo*						:OpenNoteRepo
 *Leaderf通过rg搜索所有c文件*				:Leaderf rg -g *.c
 *生成ctags和gtags*					:GutentagsUpdate
-*global查询符号*					:GlobalSym
-*global查询引用*					:GlobalRef
-*global查看所有tags*					:GlobalC
 *FZF查询ctags(自定义命令)*				:Mytags

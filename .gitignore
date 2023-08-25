@@ -6,6 +6,7 @@ root/.vim/coc
 root/.vim/gadgets
 root/.vim/.viminfo
 root/.vim/sessions
+root/.vim/view
 __pycache__
 *.tar
 tags
