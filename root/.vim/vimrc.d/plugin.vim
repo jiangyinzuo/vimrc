@@ -218,3 +218,4 @@ if has('nvim') || v:version >= 820
 	source 	~/.vim/vimrc.d/project.vim
 endif
 source ~/.vim/vimrc.d/marks.vim
+source ~/.vim/vimrc.d/statusline.vim
