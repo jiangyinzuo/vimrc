@@ -538,9 +538,15 @@ function! s:Gozilla()
 endfunction
 "
 " Auto update of tag files using incremental update facility.
-"
 function! s:GtagsAutoUpdate()
-    let l:result = system(s:GlobalCommand() . " -u --single-update=\"" . expand("%") . "\"")
+    if filereadable('GTAGS') == 0
+        return
+    endif
+    let l:file = expand("%")
+    if l:file == ''
+        return
+    endif
+    let l:result = AsyncRunOrSystem(s:GlobalCommand() . " -u --single-update=\"" . l:file . "\"")
 endfunction
 
 "
@@ -565,8 +571,9 @@ function! GtagsCandidateCore(lead, line, pos)
             let l:pattern = a:lead . '*'
         endif
         return glob(l:pattern)
-    else 
-        return system(s:GlobalCommand() . ' ' . '-c' . s:option . ' ' . a:lead)
+    else
+        let l:cmd = s:GlobalCommand() . ' ' . '-c' . s:option . ' ' . a:lead
+        call AsyncRunOrSystem(l:cmd)
     endif
 endfunction
 

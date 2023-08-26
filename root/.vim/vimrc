@@ -510,14 +510,15 @@ endif
 " 链接：https://zhuanlan.zhihu.com/p/532430825
 set laststatus=2
 if !has('nvim') || g:nvim_compatibility_with_vim == 1
-	set statusline=%1*%F%m%r%h%w\ 
+	set statusline=%1*%F%m%r%h%w
 	let git_branch = system("git rev-parse --abbrev-ref HEAD 2> /dev/null")
 	exe "set statusline +=" . git_branch
 	if exists("g:plugs") && has_key(g:plugs, 'coc.nvim')
 		function CocStatusLine()
-			return exists(':CocInfo') ? "\ \|\ %{coc#status()}%{get(b:,'coc_current_function','')}" : ""
+			return exists(':CocInfo') ? "\|\ %{coc#status()}%{get(b:,'coc_current_function','')}" : ""
 		endfunction
-		set statusline+=%{%CocStatusLine()%}
+		set statusline+=\ %{%CocStatusLine()%}
+		set statusline+=%{%g:asyncrun_status%}
 	endif
 	" 左对齐和右对齐的分割点
 	set statusline+=%=\ 

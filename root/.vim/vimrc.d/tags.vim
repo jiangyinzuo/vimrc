@@ -82,31 +82,18 @@ if has("cscope")
 				endif
 			endif
 		endfunction
-		function s:update_gtags()
-			let l:project_root = asyncrun#current_root()
-			if l:project_root != $HOME && l:project_root != ''
-				let l:gtags_db = l:project_root . '/GTAGS'
-				if filereadable(l:gtags_db)
-					execute 'lcd ' . l:project_root
-					" 保存当前工作目录
-					let l:cwd = getcwd()
-					" 增量更新gtags db
-					silent! !global -u
-					" 恢复当前工作目录
-					execute 'lcd ' . l:cwd
-				endif
-			endif
-		endfunction
+		
 		augroup GlobalCscope
 			autocmd!
 			" 自动加载gtags db
 			autocmd VimEnter * call s:gtags_cscope_add()
-			autocmd BufWritePost * call s:update_gtags()
 		augroup END
+		
 		" 不使用global官方gtags-cscope vimscript
 		" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
 		" source ~/.vim/vimrc.d/gtags-cscope.vim
 	endif
-	source ~/.vim/vimrc.d/gtags.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+	let g:Gtags_Auto_Update = 1
+	source ~/.vim/vimrc.d/gtags_asyncrun.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
 	" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
 endif
