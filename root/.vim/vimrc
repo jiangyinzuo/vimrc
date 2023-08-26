@@ -511,11 +511,14 @@ endif
 set laststatus=2
 if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline=%1*%F%m%r%h%w\ \|\ 
-	if exists("g:plugs")
-		set statusline+=%{%LeftStatusLine()%}
+	if exists("g:plugs") && v:version >= 810
+		set statusline+=%{LeftStatusLine()}
 	endif
 	" 左对齐和右对齐的分割点
-	set statusline+=%=%{%RightStatusLine()%}
+	set statusline+=%=
+	if exists("g:plugs") && v:version >= 810
+		set statusline+=%{RightStatusLine()}
+	endif
 	set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
 endif
 
