@@ -22,9 +22,6 @@ let test#strategy = "asyncrun_background_term"
 let test#python#pytest#executable = 'python3 -m pytest'
 let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
-Plug 'LunarWatcher/auto-pairs'
-" let g:AutoPairsMapBS = 1
-
 " similar Plugin: Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
@@ -38,6 +35,8 @@ nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
  
 if has('nvim') || v:version >= 810
+	Plug 'LunarWatcher/auto-pairs'
+	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
 endif
 
@@ -178,10 +177,6 @@ endif
 " Initialize plugin system
 call plug#end()
 
-let g:AutoPairs = autopairs#AutoPairsDefine([
-		\ {"open": "<", "close": ">", "filetype": ["html"]}
-		\ ]) " This is a filetype-specific mapping
-
 if !has("nvim") || g:nvim_compatibility_with_vim
 	if has("termguicolors")
 		set termguicolors
@@ -199,7 +194,9 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 		let g:solarized_diffmode = "normal"
 		colorscheme solarized8
 	else
-		" let g:solarized_termcolors = 256
+		if $COLORTERM != "truecolor"
+			let g:solarized_termcolors = 256
+		endif
 		colorscheme solarized
 	endif
 	" tab颜色
@@ -210,8 +207,14 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 else
 endif
 
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+if has('nvim') || v:version >= 810
+	let g:AutoPairs = autopairs#AutoPairsDefine([
+			\ {"open": "<", "close": ">", "filetype": ["html"]}
+			\ ]) " This is a filetype-specific mapping
+endif
+
 if has('nvim') || v:version >= 820
+	hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 	source 	~/.vim/vimrc.d/project.vim
 endif
 source ~/.vim/vimrc.d/marks.vim

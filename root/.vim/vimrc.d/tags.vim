@@ -14,7 +14,12 @@ if has("cscope")
 	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 	set cscopetag
 	" 使用quickfix窗口显示搜索结果
-	set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-,a-
+	if v:version >= 800
+		set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-,a-
+	else
+		set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-
+	endif
+
 	" show msg when any other cscope db added
 	set cscopeverbose
 	" 先搜索cscope数据库，如果没有再搜索tags
