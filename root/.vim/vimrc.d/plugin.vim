@@ -210,6 +210,7 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 else
 endif
 
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 if has('nvim') || v:version >= 820
 	source 	~/.vim/vimrc.d/project.vim
 endif
