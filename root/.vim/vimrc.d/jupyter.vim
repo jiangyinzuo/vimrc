@@ -1,3 +1,5 @@
+let g:jupyter_ascending_default_mappings = 0
+
 " See: https://github.com/untitled-ai/jupyter_ascending.vim
 Plug 'untitled-ai/jupyter_ascending.vim'
 
@@ -16,3 +18,4 @@ function JupyterCreateNotebook()
 endfunction
 
 command -nargs=0 JupyterCreatePairNotebook :call JupyterCreateNotebook()
+

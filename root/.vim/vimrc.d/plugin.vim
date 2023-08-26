@@ -22,7 +22,7 @@ let test#strategy = "asyncrun_background_term"
 let test#python#pytest#executable = 'python3 -m pytest'
 let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
-" Plug 'LunarWatcher/auto-pairs'
+Plug 'LunarWatcher/auto-pairs'
 " let g:AutoPairsMapBS = 1
 
 " similar Plugin: Plug 'easymotion/vim-easymotion'
@@ -30,12 +30,12 @@ Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 " default s: delete [count] charaters and start insert
-map s <Plug>Sneak_s
-map S <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
  
 if has('nvim') || v:version >= 810
 	Plug 'markonm/traces.vim'
@@ -56,6 +56,10 @@ if !exists('g:vscode')
 		Plug 'voldikss/vim-translator'
 	endif
 
+	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
+	" 创建surround类文本对象
+	Plug 'tpope/vim-surround'
+	
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
@@ -174,6 +178,10 @@ endif
 " Initialize plugin system
 call plug#end()
 
+let g:AutoPairs = autopairs#AutoPairsDefine([
+		\ {"open": "<", "close": ">", "filetype": ["html"]}
+		\ ]) " This is a filetype-specific mapping
+
 if !has("nvim") || g:nvim_compatibility_with_vim
 	if has("termguicolors")
 		set termguicolors
@@ -199,10 +207,10 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 	hi NonText cterm=None term=None gui=None
 	hi link SpecialKey NonText
 	"hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
-	
 else
 endif
 
 if has('nvim') || v:version >= 820
 	source 	~/.vim/vimrc.d/project.vim
 endif
+source ~/.vim/vimrc.d/marks.vim

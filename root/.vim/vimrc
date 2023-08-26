@@ -3,6 +3,14 @@ set nocp "no Vi-compatible
 set noexrc " 不读取当前文件夹的.vimrc
 if exists('&viminfofile') && ! has('nvim') 
 	set viminfofile=$HOME/.vim/.viminfo
+	" 保留50个marks
+	" 每个寄存器保存50行内容
+	" 保存50行搜索历史
+	" 保存50行命令历史
+	" 禁止hlsearch
+	" 禁止保存超过10kb的寄存器内容
+	" 保存0-9，A-Zmark
+	set viminfo='50,<50,/50,:50,h,s10,f100
 endif
 
 set history=500 " Sets how many lines of history VIM has to remember

@@ -7,7 +7,7 @@
 " 递归向上层寻找tags文件
 " set tags=tags;/
 
-" gtags-cscope | gtags | cscope
+" gtags-cscope | cscope
 let s:tags = 'gtags-cscope'
 
 if has("cscope")
@@ -102,7 +102,6 @@ if has("cscope")
 		" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
 		" source ~/.vim/vimrc.d/gtags-cscope.vim
 	endif
-elseif s:tags == 'gtags'
 	source ~/.vim/vimrc.d/gtags.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
-	nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+	" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
 endif
