@@ -215,8 +215,11 @@ endif
 let g:netrw_browse_split = 0 " open the file using netrw buffer
 let g:netrw_liststyle = 3 " tree style listing
 let g:netrw_preview = 0 " preview window horizontally
-let g:netrw_browsex_viewer="start"
-
+if exists('$WSLENV')
+	let g:netrw_browsex_viewer="start"
+endif
+let g:netrw_hide = 1 " show not-hidden files
+let g:netrw_keepdir=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commenting blocks of code.
