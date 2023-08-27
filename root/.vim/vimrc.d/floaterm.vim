@@ -13,4 +13,5 @@ augroup FloatermShortcuts
   autocmd FileType floaterm tnoremap <buffer> <F10> <C-\><C-n>:FloatermPrev<CR>
   autocmd FileType floaterm tnoremap <buffer> <F11> <C-\><C-n>:FloatermNext<CR>
 augroup END
-"
+
+command Vifm :FloatermNew --opener=e vifm

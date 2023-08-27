@@ -1,0 +1,10 @@
+*file-explorer*
+
+Netrw
+
+coc-explorer
+返回父目录 <BS>
+
+vifm
+
+ranger

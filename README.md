@@ -48,7 +48,13 @@ sudo apt install bat
 batcat --version
 ```
 pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
-文件管理器tui：ranger  
+
+文件管理器:
+- Netrw
+- coc-explorer
+- ranger
+- vifm
+
 json: jq  
 tldr: 命令行帮助  
 补全父目录 -> bd  

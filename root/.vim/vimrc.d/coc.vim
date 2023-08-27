@@ -21,7 +21,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " coc-marksman: 需要在根目录放一份.marksman.toml
 "
 " coc-codegeex: Aminer的代码片段生成器，暂时不可用
-let g:coc_initial_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman']
+let g:coc_initial_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = g:coc_initial_global_extensions
 let g:coc_filetype_map = {'tex': 'latex'}
 let g:coc_data_home = '~/.vim/coc'
