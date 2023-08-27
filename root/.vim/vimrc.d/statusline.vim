@@ -24,7 +24,7 @@ function LeftStatusLine()
 	let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
 	
 	let l:coc_current_function = get(b:, 'coc_current_function', '')
-	let l:result .= l:coc_current_function == '' ? '' : ('󰊕 ' . l:coc_current_function . ' ')
+	let l:result .= l:coc_current_function == '' ? '' : (' ' . l:coc_current_function . ' ')
 
 	let l:cocstat = coc#status()
 	let l:result .= l:cocstat == '' ? '' : (l:cocstat . ' ')

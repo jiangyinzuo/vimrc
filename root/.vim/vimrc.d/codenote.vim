@@ -51,7 +51,8 @@ function GetCodeLinkDict()
 
 	" 支持/path/to/filename.ext:line_number 和 
 	" +line_number path/to/filename.ext两种格式
-	let g:code_links = system("rg -INo '([\\w\\d\\-./]+:[0-9]+)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
+	" --max-columns=0 防止rg显示 [ ... xxx more matches ]
+	let g:code_links = system("rg -INo --max-columns=0 '([\\w\\d\\-./]+:[0-9]+)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
 	let g:code_links = split(g:code_links, "\n")
 
 	let g:code_link_dict = {}
