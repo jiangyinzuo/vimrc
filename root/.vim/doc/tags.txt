@@ -1,4 +1,4 @@
-*tag-system*
+*tagsystem*
 
 Vim 8 中 C/C++ 符号索引：GTags 篇 - 韦易笑的文章 - 知乎
 https://zhuanlan.zhihu.com/p/36279445
@@ -26,7 +26,7 @@ Install on Ubuntu: >
 *tag跳转*	CTRL-]
 ctags生成python tag `ctags --language-force=python hello.py`
 
-*global*
+*global* *gtags*
 搜索符号和定义: >
   global -s -rx println!
   global -d -rx Foo

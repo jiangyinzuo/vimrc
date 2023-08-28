@@ -2,6 +2,39 @@
 
 :vim /func main/ **/*.txt
 grep 'func main' -r --exclude tags .
+
 find . -name 'scheduler*'
+
+|tagsystem|
+
+---
+|ctags|
+
+创建tags
 ctags -R .
 
+:ta main
+CTRL-]
+
+其它 :h tags
+
+---
+|gtags|
+
+:set csprg=gtags-cscope
+
+创建gtags数据库
+gtags
+
+vim连接数据库
+:cs add GTAGS
+
+使用其它前端解析(注意.globalrc配置文件, 可以从/etc/gtags.conf, /etc/gtags/gtags.conf复制)
+pip install pygments
+GTAGSLABEL=pygments gtags
+GTAGSLABEL=native-pygments gtags
+
+查找文件
+:cs f f hello
+查找符号
+:cs f s main
