@@ -33,7 +33,7 @@ tnoremap <silent> <leader>fb :Leaderf buffer --nameOnly <CR>
 nnoremap <silent> <leader>fsb :10sp<CR>:Leaderf buffer --nameOnly <CR>
 
 "Based on ripgrep
-nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy --popup-width 0.99 <CR>
+nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy  <CR>
 " search visually selected text literally
 
 " #gpt4-answer

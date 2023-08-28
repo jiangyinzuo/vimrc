@@ -113,15 +113,6 @@ command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 			\			'rg --column --line-number --no-heading --color=always --smart-case  -g "' . <q-args> . '" "" '. join(g:helppaths), 1,
 			\			{}, <bang>0) |
 			\ end
-
-function! RipgrepFzf(command_fmt, query, fullscreen)
-	let initial_command = printf(a:command_fmt, shellescape(a:query))
-	let reload_command = printf(a:command_fmt, '{q}')
-	let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-	let spec = fzf#vim#with_preview(spec, 'right', 'ctrl-/')
-	call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
-endfunction
-command! -nargs=* -bang RG call RipgrepFzf('rg --column --line-number --no-heading --color=always --smart-case -- %s || true', <q-args>, <bang>0)
 """""""""""""""""""""""""""""""""""""""
 
 source ~/.vim/vimrc.d/fzf/palette.vim
