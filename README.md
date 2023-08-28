@@ -66,29 +66,34 @@ sudo apt-get install festival festvox-kallpc16k
 npm i -g fanyi
 ```
 
+格式化工具:  
+[dprint](https://dprint.dev/): 格式化TOML、Markdown
+
+## 索引查找
+
+### 基于文本匹配的查找
+ripgrep, grep,  [any-jump.vim](https://github.com/pechorin/any-jump.vim)  
+
 ### 基于tag符号的索引/补全
 
-see .vim/doc/mydoc.txt
+see root/.vim/doc/tags.txt
 
 ### 基于LSP的索引/补全
+
+coc.vim  
 c++: clangd  
 go: gopls（可以通过vim-go下载后，配置环境变量）  
+...
 
 ### 基于AI的补全
 
 Github Copilot  
-[tabnine](tabnine.com)(vscode, jetbrains)
-
-### 格式化工具
-
-[dprint](https://dprint.dev/): 格式化TOML、Markdown
-
+[tabnine](tabnine.com)(vscode, jetbrains)  
+codegeex  
 
 ## WSL2
 
-```
-sudo apt install wslu
-```
+See setup-wsl.sh
 
 ## 远程开发环境对比
 

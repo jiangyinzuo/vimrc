@@ -144,6 +144,7 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-fugitive'
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 820
+		Plug 'pechorin/any-jump.vim'
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
 	endif

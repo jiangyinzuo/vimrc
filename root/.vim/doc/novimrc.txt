@@ -5,6 +5,10 @@ grep 'func main' -r --exclude tags .
 
 find . -name 'scheduler*'
 
+其它
+tldr find
+tldr grep
+
 |tagsystem|
 
 ---
@@ -38,3 +42,7 @@ GTAGSLABEL=native-pygments gtags
 :cs f f hello
 查找符号
 :cs f s main
+
+---
+补全
+See: complete.md
