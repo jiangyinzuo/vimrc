@@ -12,7 +12,7 @@ set -v
 # npm i -g vscode-langservers-extracted
 
 # apt install -y golang clangd
-apt install -y vim-gtk3 ripgrep fzf fd-find tree bat nodejs npm git sqlformat bd
+apt install -y vim-gtk3 ripgrep fzf fd-find tree bat nodejs npm git sqlformat bd vifm
 # ripgrep-all（master分支）
 # See: https://github.com/phiresky/ripgrep-all/issues/113
 # apt install ripgrep pandoc poppler-utils ffmpeg
