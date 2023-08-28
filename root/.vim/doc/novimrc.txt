@@ -1,0 +1,7 @@
+*novimrc* *noconfig*
+
+:vim /func main/ **/*.txt
+grep 'func main' -r --exclude tags .
+find . -name 'scheduler*'
+ctags -R .
+

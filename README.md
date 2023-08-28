@@ -31,6 +31,7 @@ source $VIMRC_ROOT/bashrc
 
 ## 其它命令行工具
 
+整个文件系统下搜索文件：locate，但是太慢，需要提前updatedb
 Ubuntu22.04下均可通过apt安装  
 
 目录树: tree  
