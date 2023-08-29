@@ -1,1 +1,0 @@
-call UpdateCocExtensions('coc-vimtex')
