@@ -21,7 +21,7 @@ apt install libgtk-3-dev libxt-dev
 
 需要设置的不能为空的环境变量: `$DOC2` `$CODE_HOME`
 ```sh
-./setup-link.sh
+./setup.sh
 ```
 默认配置: See `vimrc`  
 
@@ -70,7 +70,9 @@ npm i -g fanyi
 ## 索引查找
 
 ### 基于文本匹配的查找
-ripgrep, grep,  [any-jump.vim](https://github.com/pechorin/any-jump.vim)  
+ripgrep, grep  
+[any-jump.vim](https://github.com/pechorin/any-jump.vim)在不同的位置:AnyJump同一个word，结果会不一样。
+在注释处:AnyJump可能只会找到注释；在cpp类的方法实现处:AnyJump才会跳到类的定义。
 
 ### 基于tag符号的索引/补全
 

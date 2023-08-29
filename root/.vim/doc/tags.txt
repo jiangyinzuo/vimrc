@@ -1,10 +1,13 @@
 *tagsystem*
 
+See also: |novimrc|
+
 Vim 8 中 C/C++ 符号索引：GTags 篇 - 韦易笑的文章 - 知乎
 https://zhuanlan.zhihu.com/p/36279445
 
-安装依赖：
+使用pygments，解析更多语言:
 pip install pygments
+export GTAGSLABEL=native-pygments
 
 Comparison with ctags, gtags and cscope:
   https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
