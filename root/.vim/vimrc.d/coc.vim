@@ -1,7 +1,3 @@
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'antoinemadec/coc-fzf'
-
 " coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
 " 其它可选coc插件(有更好的vim插件可用)：
 " coc-lists(buffer, grep, lines, mru, quickfix, tags, files等列表源 => fzf.vim和leaderf

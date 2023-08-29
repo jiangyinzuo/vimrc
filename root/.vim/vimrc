@@ -11,7 +11,7 @@ let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
 
 let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
-let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 0)
+let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
 let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 " All Coc Extensions: let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
@@ -19,7 +19,7 @@ let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 " gtags-cscope | cscope
 let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 let g:mapleader = get(g:, 'mapleader', '\')
-"""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set noexrc " 不读取当前文件夹的.vimrc
 if exists('&viminfofile') && !has('nvim') 
@@ -54,8 +54,6 @@ set matchtime=1 " showmatch的时间0.1s
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=2 " cmd行高2, 减少hit-enter
-set colorcolumn=80,120
-autocmd FileType org,markdown,txt setlocal colorcolumn=
 set wildmenu " command自动补全时显示菜单
 set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
@@ -163,6 +161,7 @@ if !s:has_vimrcd || !file_readable('.editorconfig')
 	hi ColorColumn ctermbg=black guibg=black
 endif
 
+let g:no_plug = 0
 if exists("g:vscode")
 	let g:loaded_netrw = 1
 	let g:loaded_netrwPlugin = 1
@@ -499,6 +498,9 @@ endif
 if s:has_vimrcd
 	source ~/.vim/vimrc.d/plugin.vim
 endif
+if !s:has_vimrcd || g:no_plug == 1
+	colorscheme default
+endif
 
 if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 	" https://zhuanlan.zhihu.com/p/106309525
@@ -534,7 +536,7 @@ function LeftStatusLine()
 	let l:gitbranch = GetGitBranch()
 	let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
 
-	if g:vimrc_use_coc && exists('g:plugs')
+	if g:vimrc_use_coc && exists('g:plugs') && g:no_plug == 0
 		let l:coc_current_function = get(b:, 'coc_current_function', '')
 		let l:result .= l:coc_current_function == '' ? '' : (' ' . l:coc_current_function . ' ')
 		let l:cocstat = coc#status()
@@ -544,17 +546,19 @@ function LeftStatusLine()
 	return l:result
 endfunction
 
-function RightStatusLine()
-	let l:result = ''
-	if g:asyncrun_status == 'running'
-		let l:result .= ' '
-	elseif g:asyncrun_status == 'success'
-		let l:result .= '󰄴 '
-	elseif g:asyncrun_status == 'failure'
-		let l:result .= ' '
-	endif
-	return l:result
-endfunction
+if g:no_plug == 0
+	function RightStatusLine()
+		let l:result = ''
+		if g:asyncrun_status == 'running'
+			let l:result .= ' '
+		elseif g:asyncrun_status == 'success'
+			let l:result .= '󰄴 '
+		elseif g:asyncrun_status == 'failure'
+			let l:result .= ' '
+		endif
+		return l:result
+	endfunction
+endif
 
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息
@@ -582,7 +586,7 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	endif
 	" 左对齐和右对齐的分割点
 	set statusline+=%=
-	if exists("g:plugs") && v:version >= 810
+	if exists("g:plugs") && v:version >= 810 && g:no_plug == 0
 		set statusline+=%{RightStatusLine()}
 	endif
 	set statusline+=%2*\ %Y\ %3*%{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}\ %4*[%l,%v]\ %5*%p%%\ \|\ %6*%LL\ 
@@ -773,7 +777,7 @@ if has("cscope")
 
 	elseif g:tag_system == 'gtags-cscope'
     set csprg=gtags-cscope
-		if s:has_vimrcd && exists('g:plugs')
+		if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
 			function s:gtags_cscope_add()
 				let l:project_root = asyncrun#current_root()
 				if l:project_root != $HOME && l:project_root != ''
@@ -795,7 +799,7 @@ if has("cscope")
 			" source ~/.vim/vimrc.d/gtags-cscope.vim
 		endif
 	endif
-	if s:has_vimrcd && exists('g:plugs')
+	if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
 		let g:Gtags_Auto_Update = 1
 		source ~/.vim/vimrc.d/gtags_asyncrun.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
 		" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>

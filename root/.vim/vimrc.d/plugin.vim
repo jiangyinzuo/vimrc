@@ -111,7 +111,9 @@ if !exists('g:vscode')
 
 		if v:version >= 820
 			if g:vimrc_use_coc
-				source ~/.vim/vimrc.d/coc.vim
+				" Use release branch (recommend)
+				Plug 'neoclide/coc.nvim', {'branch': 'release'}
+				Plug 'antoinemadec/coc-fzf'
 			endif
 			if g:vimrc_use_vimspector
 				Plug 'puremourning/vimspector'
@@ -181,6 +183,20 @@ endif
 " Initialize plugin system
 call plug#end()
 
+if glob(g:vim_plug_dir) == ""
+	let g:no_plug = 1
+	finish
+endif
+
+" 默认主题不显示colorcolumn
+set colorcolumn=80,120
+autocmd FileType org,markdown,txt setlocal colorcolumn=
+
+if v:version >= 820
+	if g:vimrc_use_coc
+		source ~/.vim/vimrc.d/coc.vim
+	endif
+endif
 if !has("nvim") || g:nvim_compatibility_with_vim
 	if has("termguicolors") && g:vimrc_use_true_color
 		set termguicolors
