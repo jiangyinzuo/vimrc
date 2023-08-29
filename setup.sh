@@ -9,7 +9,7 @@ if [ -z "$VIMRC_ROOT" ]; then
   # 如果不存在，则追加到 .bashrc
 	echo_green "Add source ~/vimrc/root/bashrc to .bashrc:"
   echo "source ~/vimrc/root/bashrc" >> ~/.bashrc
-	source ~/vimrc/root/bashrc
+	. ~/vimrc/root/bashrc
 fi
 
 _make_soft_link() {

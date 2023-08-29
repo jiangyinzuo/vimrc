@@ -21,7 +21,8 @@ apt install libgtk-3-dev libxt-dev
 
 需要设置的不能为空的环境变量: `$DOC2` `$CODE_HOME`
 ```sh
-./setup.sh
+# 在当前进程执行，让export环境变量直接生效
+. setup.sh
 ```
 默认配置: See `vimrc`  
 
