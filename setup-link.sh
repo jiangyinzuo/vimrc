@@ -26,6 +26,7 @@ _make_soft_link() {
 for f in .vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit .config/vifm ; do
 	_make_soft_link $VIMRC_ROOT/$f ~/$f
 done
+mkdir -p ~/gadgets
 _make_soft_link ~/gadgets ~/.vim/gadgets
 
 echo "Environment variables used:"
