@@ -1,7 +1,28 @@
-let g:mapleader='\'
 set nocp "no Vi-compatible
+
+"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
+
+if filereadable(expand('~/.vim/config.vim'))
+	source ~/.vim/config.vim
+endif
+" tmux2.2以上才支持true color
+let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 0)
+let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
+
+let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
+
+let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 0)
+let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
+" All Coc Extensions: let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
+let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
+
+" gtags-cscope | cscope
+let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
+let g:mapleader = get(g:, 'mapleader', '\')
+"""""""""""""""""""
+
 set noexrc " 不读取当前文件夹的.vimrc
-if exists('&viminfofile') && ! has('nvim') 
+if exists('&viminfofile') && !has('nvim') 
 	set viminfofile=$HOME/.vim/.viminfo
 	" 保留50个marks
 	" 每个寄存器保存50行内容
@@ -477,13 +498,6 @@ endif
 " Load plugins
 if s:has_vimrcd
 	source ~/.vim/vimrc.d/plugin.vim
-	command -nargs=0 MyChat AsyncRun -mode=term -pos=curwin $VIMRC_ROOT/scripts/openai_app.py chat
-	
-	function UpdateCocExtensions(ext)
-		if exists('g:coc_global_extensions')
-			let g:coc_global_extensions = g:coc_initial_global_extensions + [a:ext]
-		endif
-	endfunction
 endif
 
 if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
@@ -492,6 +506,55 @@ if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
 endif
+
+""""""""""""""""""""" StatusLine """"""""""""""""""
+
+let s:cached_branch = ''
+let s:last_update_time = 0
+
+function GetGitBranchCB(channel, message)
+	let s:cached_branch = a:message
+	let s:last_update_time = localtime()
+endfunction
+
+function GetGitBranch()
+	let l:current_time = localtime()
+	if l:current_time - s:last_update_time < 5
+		return s:cached_branch
+	endif
+
+	let l:cmd = ['git', 'rev-parse', '--abbrev-ref', 'HEAD']
+	call job_start(l:cmd, {'out_cb': 'GetGitBranchCB'})
+	return s:cached_branch
+endfunction
+
+function LeftStatusLine()
+	let l:result = ''
+	
+	let l:gitbranch = GetGitBranch()
+	let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
+
+	if g:vimrc_use_coc && exists('g:plugs')
+		let l:coc_current_function = get(b:, 'coc_current_function', '')
+		let l:result .= l:coc_current_function == '' ? '' : (' ' . l:coc_current_function . ' ')
+		let l:cocstat = coc#status()
+		let l:result .= l:cocstat == '' ? '' : (l:cocstat . ' ')
+	endif
+
+	return l:result
+endfunction
+
+function RightStatusLine()
+	let l:result = ''
+	if g:asyncrun_status == 'running'
+		let l:result .= ' '
+	elseif g:asyncrun_status == 'success'
+		let l:result .= '󰄴 '
+	elseif g:asyncrun_status == 'failure'
+		let l:result .= ' '
+	endif
+	return l:result
+endfunction
 
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息
@@ -562,4 +625,180 @@ function! GoToFile(file,lineNum)
 
   call feedkeys("zz","n")
 endfunction
+
+""""""""""""""""""" Marks """"""""""""""""""""""
+sign define marka text='a texthl=Todo
+sign define markb text='b texthl=Todo
+sign define markc text='c texthl=Todo
+sign define markd text='d texthl=Todo
+sign define marke text='e texthl=Todo
+sign define markf text='f texthl=Todo
+sign define markg text='g texthl=Todo
+sign define markh text='h texthl=Todo
+sign define marki text='i texthl=Todo
+sign define markj text='j texthl=Todo
+sign define markk text='k texthl=Todo
+sign define markl text='l texthl=Todo
+sign define markm text='m texthl=Todo
+sign define markn text='n texthl=Todo
+sign define marko text='o texthl=Todo
+sign define markp text='p texthl=Todo
+sign define markq text='q texthl=Todo
+sign define markr text='r texthl=Todo
+sign define marks text='s texthl=Todo
+sign define markt text='t texthl=Todo
+sign define marku text='u texthl=Todo
+sign define markv text='v texthl=Todo
+sign define markw text='w texthl=Todo
+sign define markx text='x texthl=Todo
+sign define marky text='y texthl=Todo
+sign define markz text='z texthl=Todo
+
+" A-Z mark目前不支持在初始化阶段添加sign
+sign define markA text='A texthl=Todo
+sign define markB text='B texthl=Todo
+sign define markC text='C texthl=Todo
+sign define markD text='D texthl=Todo
+sign define markE text='E texthl=Todo
+sign define markF text='F texthl=Todo
+sign define markG text='G texthl=Todo
+sign define markH text='H texthl=Todo
+sign define markI text='I texthl=Todo
+sign define markJ text='J texthl=Todo
+sign define markK text='K texthl=Todo
+sign define markL text='L texthl=Todo
+sign define markM text='M texthl=Todo
+sign define markN text='N texthl=Todo
+sign define markO text='O texthl=Todo
+sign define markP text='P texthl=Todo
+sign define markQ text='Q texthl=Todo
+sign define markR text='R texthl=Todo
+sign define markS text='S texthl=Todo
+sign define markT text='T texthl=Todo
+sign define markU text='U texthl=Todo
+sign define markV text='V texthl=Todo
+sign define markW text='W texthl=Todo
+sign define markX text='X texthl=Todo
+sign define markY text='Y texthl=Todo
+sign define markZ text='Z texthl=Todo
+
+function SignMark(mark)
+  call sign_unplace(a:mark, {'buffer': bufnr()})
+  call sign_place(0, a:mark, a:mark, bufnr(), {'lnum': line('.'), 'priority': 20})
+endfunction
+
+" 为小写字母 a 到 z 创建映射
+for mark in range(char2nr('a'), char2nr('z'))
+  let sign_name = 'mark' . nr2char(mark)
+  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call SignMark("' . sign_name . '")<CR>'
+endfor
+
+" 为大写字母 A 到 Z 创建映射
+for mark in range(char2nr('A'), char2nr('Z'))
+  let sign_name = 'mark' . nr2char(mark)
+  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call SignMark("' . sign_name . '")<CR>'
+endfor
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+""""""""""""""""""" tag system """"""""""""""""""""""""""
+" 当前使用.globalrc配置文件
+" let $GTAGSCONF = '/root/gtags.conf'
+
+" 不使用 ludovicchabant/vim-gutentags 插件的原因:
+" 该插件会设置$GTAGSROOT 和 $GTAGSDBPATH 环境变量，导致gtags不能按预期工作
+
+" 递归向上层寻找tags文件
+" set tags=tags;/
+
+if has("cscope")
+	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+	set cscopetag
+	" 使用quickfix窗口显示搜索结果
+	if v:version >= 800
+		set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-,a-
+	else
+		set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-
+	endif
+
+	" show msg when any other cscope db added
+	set cscopeverbose
+	" 先搜索cscope数据库，如果没有再搜索tags
+	set csto=0
+	" This tests to see if vim was configured with the '--enable-cscope' option
+	" when it was compiled.  If it wasn't, time to recompile vim... 
+	
+	""""""""""""" My cscope/vim key mappings
+	"
+	" The following maps all invoke one of the following cscope search types:
+	"
+	"   's'   symbol: find all references to the token under cursor
+	"   'g'   global: find global definition(s) of the token under cursor
+	"   'c'   calls:  find all calls to the function name under cursor
+	"   't'   text:   find all instances of the text under cursor
+	"   'e'   egrep:  egrep search for the word under cursor
+	"   'f'   file:   open the filename under cursor
+	"   'i'   includes: find files that include the filename under cursor
+	"   'd'   called: find functions that function under cursor calls
+	"   'a'   assigned: find places where this symbol is assigned a value
+
+	" <C-R>= ... <CR> 用于计算表达式（如2+2， expand("<cword>")等），并将结果插入到命令行中
+	nnoremap <leader>cs :cs find s <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>cg :cs find g <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>cc :cs find c <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>ct :cs find t <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>ce :cs find e <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>cf :cs find f <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>ci :cs find i <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>cd :cs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <leader>ca :cs find a <C-R>=expand("<cword>")<CR><CR>
+
+	" 分裂窗口显示搜索结果
+	" nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+	" nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+
+	if g:tag_system == 'cscope'
+		" Reference: https://cscope.sourceforge.net/cscope_maps.vim
+		""""""""""""" Standard cscope/vim boilerplate
+
+		" reset cscope:
+		" :cs reset
+
+		" add any cscope database in current directory
+		if filereadable("cscope.out")
+			cs add cscope.out
+		" else add the database pointed to by environment variable
+		elseif $CSCOPE_DB != ""
+			cs add $CSCOPE_DB
+		endif
+
+	elseif g:tag_system == 'gtags-cscope'
+    set csprg=gtags-cscope
+		if s:has_vimrcd && exists('g:plugs')
+			function s:gtags_cscope_add()
+				let l:project_root = asyncrun#current_root()
+				if l:project_root != $HOME && l:project_root != ''
+					let l:gtags_db = l:project_root . '/GTAGS'
+					if filereadable(l:gtags_db) && cscope_connection(2, l:gtags_db) == 0
+						execute 'cs add ' . l:gtags_db
+					endif
+				endif
+			endfunction
+			
+			augroup GlobalCscope
+				autocmd!
+				" 自动加载gtags db
+				autocmd VimEnter * call s:gtags_cscope_add()
+			augroup END
+			
+			" 不使用global官方gtags-cscope vimscript
+			" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+			" source ~/.vim/vimrc.d/gtags-cscope.vim
+		endif
+	endif
+	if s:has_vimrcd && exists('g:plugs')
+		let g:Gtags_Auto_Update = 1
+		source ~/.vim/vimrc.d/gtags_asyncrun.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+		" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+	endif
+endif
 

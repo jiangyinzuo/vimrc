@@ -1,6 +1,6 @@
 # Vimrc
 
-Requirements: vim 8.2.4919(full features), vim 7.4(.vimrc)  
+Requirements: vim 8.2.4919(most of features), vim 7.4(minimal)  
 
 Ubuntu22.04下安装`sudo apt install vim-gtk3`，可以尝试设置`sudo update-alternatives --config vim`  
 ```
@@ -17,17 +17,15 @@ apt install libgtk-3-dev libxt-dev
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
 ```
 
-## 初始化
-
-```bash
-export VIMRC_ROOT="/root/vimrc/root"
-source $VIMRC_ROOT/bashrc
-```
+## 安装
 
 需要设置的不能为空的环境变量: `$DOC2` `$CODE_HOME`
 ```sh
-./make-link.sh
+./setup-link.sh
 ```
+默认配置: See `vimrc`  
+
+打包coc/plugged/gadgets: See `make-tar`
 
 ## 其它命令行工具
 

@@ -11,7 +11,7 @@ endfunction
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:vim_plug_dir)
 
 " Test framework
 " Plug 'junegunn/vader.vim'
@@ -110,28 +110,32 @@ if !exists('g:vscode')
 " 		Plug 'morhetz/gruvbox'
 
 		if v:version >= 820
-			source ~/.vim/vimrc.d/coc.vim
-			Plug 'puremourning/vimspector'
-			let g:vimspector_enable_mappings='VISUAL_STUDIO'
-		
-			" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-			" There are two locations for debug configurations for a project:
-			" 
-			" g:vimspector_configurations vim variable (dict)
-			" <vimspector home>/configurations/<OS>/<filetype>/*.json
-			" .vimspector.json in the project source
-			"
-			" json配置位于.vim/configurationsw目录下
-			let g:vimspector_base_dir = $HOME . '/.vim'
-			let g:vimspector_sign_priority = {
-				\    'vimspectorBP':          20,
-				\    'vimspectorBPCond':      20,
-				\    'vimspectorBPLog':       20,
-				\    'vimspectorBPDisabled':  20,
-				\    'vimspectorNonActivePC': 20,
-				\    'vimspectorPC':          999,
-				\    'vimspectorPCBP':        999,
-				\ }
+			if g:vimrc_use_coc
+				source ~/.vim/vimrc.d/coc.vim
+			endif
+			if g:vimrc_use_vimspector
+				Plug 'puremourning/vimspector'
+				let g:vimspector_enable_mappings='VISUAL_STUDIO'
+			
+				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+				" There are two locations for debug configurations for a project:
+				" 
+				" g:vimspector_configurations vim variable (dict)
+				" <vimspector home>/configurations/<OS>/<filetype>/*.json
+				" .vimspector.json in the project source
+				"
+				" json配置位于.vim/configurationsw目录下
+				let g:vimspector_base_dir = $HOME . '/.vim'
+				let g:vimspector_sign_priority = {
+					\    'vimspectorBP':          20,
+					\    'vimspectorBPCond':      20,
+					\    'vimspectorBPLog':       20,
+					\    'vimspectorBPDisabled':  20,
+					\    'vimspectorNonActivePC': 20,
+					\    'vimspectorPC':          999,
+					\    'vimspectorPCBP':        999,
+					\ }
+			endif
 		endif
 		if v:version >= 800
 			source ~/.vim/vimrc.d/leaderf.vim
@@ -152,7 +156,6 @@ if !exists('g:vscode')
 		source ~/.vim/vimrc.d/floaterm.vim
 	endif
 	source ~/.vim/vimrc.d/ai.vim
-	source ~/.vim/vimrc.d/tags.vim
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
@@ -179,7 +182,7 @@ endif
 call plug#end()
 
 if !has("nvim") || g:nvim_compatibility_with_vim
-	if has("termguicolors")
+	if has("termguicolors") && g:vimrc_use_true_color
 		set termguicolors
 	endif
 	
@@ -218,5 +221,3 @@ if has('nvim') || v:version >= 820
 	hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 	source 	~/.vim/vimrc.d/project.vim
 endif
-source ~/.vim/vimrc.d/marks.vim
-source ~/.vim/vimrc.d/statusline.vim

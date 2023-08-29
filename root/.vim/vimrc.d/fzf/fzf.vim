@@ -6,7 +6,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
 
 Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf'
 
 " This is the default option:
 "   - Preview window on the right with 50% width
