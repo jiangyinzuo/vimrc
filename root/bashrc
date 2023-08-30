@@ -49,6 +49,7 @@ mklink() {
 }
 
 alias vimt='vim --servername TEX'
+alias vims='vim -S session.vim'
 alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 
 source $VIMRC_ROOT/fzf/fzf.bash
