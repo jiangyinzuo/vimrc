@@ -58,7 +58,11 @@ if !exists('g:vscode')
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
 	" 创建surround类文本对象
 	Plug 'tpope/vim-surround'
-	
+	" 针对某些编程语言，快速分开/合并语句
+	Plug 'AndrewRadev/splitjoin.vim'
+	" 改进查找替换
+	Plug 'tpope/vim-abolish'
+
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
