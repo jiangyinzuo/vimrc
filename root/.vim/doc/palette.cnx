@@ -4,15 +4,14 @@
 *搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
 *显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
 *搜索当前buffer的LSP-symbol-outline(vim)*		:CocList outline 
-*查看coc symbol outline*				:CocOutline
+*查看coc-symbol-outline*				:CocOutline
+*Vista查看outline*					:Vista coc
 *Coc搜索当前插件*					:CocList extensions
 *FZF-Vim命令*						:Commands
 *Vim命令*						:command
 *FZF-搜索所有buffers*					:Buffers
-*FZF-ls*						:LS
 *FZF-选择git-commits*					:Commits
-*FZF-选择nmaps*						:Maps
-*FZF搜索项目文件*					:ProjectFiles
+*FZF-选择maps*						:Maps
 *vim-查看map*						:map
 *vim-查看tmap*						:tmap
 *FZF-查看helptags*					:Helptags
@@ -38,9 +37,6 @@
 *开启自动保存(vim)*					:call timer#startAutoSave()
 *关闭自动保存(vim)*					:call timer#stopAutoSave()
 *neovim打开dap调试界面*					:DapContinue
-*git-blame*						:GitBlame
-*打开CodeRepo*						:OpenCodeRepo
-*打开NoteRepo*						:OpenNoteRepo
 *Leaderf通过rg搜索所有c文件*				:Leaderf rg -g *.c <word>
 *Leaderf通过rg全字匹配*					:Leaderf rg -w 'func main'
 *Leaderf通过rg大小写敏感*				:Leaderf rg -s <word>

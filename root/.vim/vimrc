@@ -481,6 +481,7 @@ function EchoGitBlame()
 endfunction
 
 " command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
+" [[palette]]git-blame						:GitBlame
 command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
 if &insertmode == 0

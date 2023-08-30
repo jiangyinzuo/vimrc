@@ -37,12 +37,14 @@ function! s:find_git_root()
 	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
-command! ProjectFiles execute 'Files' asyncrun#get_root('%')
+" [[palette]]FZF搜索当前项目目录下的文件并打开			:Files
+command! ProjectFiles execute 'Files' asyncrun#current_root('%')
 
 " See https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzf-inside-terminal-buffer
 " On :LS!, <bang> evaluates to '!', and '!0' becomes 1
 " The query history for this command will be stored as 'ls' inside g:fzf_history_dir.
 " The name is ignored if g:fzf_history_dir is not defined.
+" [[palette]]fzf ls							:LS
 command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 

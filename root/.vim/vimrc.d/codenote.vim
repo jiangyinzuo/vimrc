@@ -138,6 +138,7 @@ function OpenNoteRepo()
 	endif
 endfunction
 
+" [[palette]]打开NoteRepo						:OpenNoteRepo
 command -nargs=0 OpenNoteRepo :silent! call OpenNoteRepo()<CR>
 
 function s:open_code_repo(filename)
@@ -167,6 +168,7 @@ function OpenCodeRepo()
 	endif
 endfunction
 
+" [[palette]]打开CodeRepo						:OpenCodeRepo
 command -nargs=0 OpenCodeRepo :silent! call OpenCodeRepo()<CR>
 
 function s:only_has_one_repo()
