@@ -84,6 +84,9 @@ xmap <leader>fmt <Plug>(coc-format-selected)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server
+" xmap 是用于Visual模式（不包括Select模式）的映射。
+" omap 用于Operator-pending模式的映射。这种映射在你输入一个操作符（如 d 删除，y 复制，c 改变等）后，但在你完成整个操作（比如指定一个移动命令或文本对象）之前，生效。
+" daf  删除当前函数文本对象
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)

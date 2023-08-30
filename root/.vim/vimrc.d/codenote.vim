@@ -212,24 +212,45 @@ endfunction
 " See also: root/vimrc.d/asynctasks.vim
 function YankCodeLink(need_beginline, need_endline, append, goto_buf)
 	if exists("t:repo_type") && t:repo_type == "code"
-		if s:only_has_one_repo()
-			call s:open_note_repo(g:noterepo_dir)
-		endif
 		let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
 		let l:line = line(".")
 		let l:content = getline(".")
 		call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
 		if a:goto_buf
+			if s:only_has_one_repo()
+				call s:open_note_repo(g:noterepo_dir)
+			endif
 			call s:goto_note_buffer()
 		endif
 	endif
 endfunction
 
+" need_beginline, need_endline, append, goto_buf
 nnoremap <silent> cr :call YankCodeLink(0, 0, 0, 1)<CR>
 nnoremap <silent> cy :call YankCodeLink(1, 1, 0, 1)<CR>
 nnoremap <silent> cb :call YankCodeLink(1, 0, 0, 0)<CR>
 nnoremap <silent> ca :call YankCodeLink(0, 0, 1, 0)<CR>
 nnoremap <silent> ce :call YankCodeLink(0, 1, 1, 1)<CR>
+
+function YankCodeWithFunctionHeader()
+	if exists("t:repo_type") && t:repo_type == "code"
+		let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
+		let l:body_line = line(".")
+		let l:body_content = getline(".")
+		normal [f
+		let l:header_line = line(".")
+		let l:header_content = getline(".")
+		
+		call s:yank_registers(l:file, l:header_line, l:header_content, 1, 0, 0)
+		call s:yank_registers(l:file, l:body_line, l:body_content, 0, 1, 1)
+		
+		if s:only_has_one_repo()
+			call s:open_note_repo(g:noterepo_dir)
+		endif
+		call s:goto_note_buffer()
+	endif
+endfunction
+nnoremap <silent> cf :call YankCodeWithFunctionHeader()<CR>
 
 function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) range
 	if exists("t:repo_type") && t:repo_type == "code"

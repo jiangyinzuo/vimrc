@@ -18,7 +18,7 @@ let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 " gtags-cscope | cscope
 let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
-let g:mapleader = get(g:, 'mapleader', '\')
+let g:mapleader = get(g:, 'mapleader', ' ')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set noexrc " 不读取当前文件夹的.vimrc
