@@ -1,6 +1,7 @@
 " 复制pathline用于gF文件跳转
 " See rffv() in fzf/fzf.bash
-command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#get_root('%')) + 1:] . ':' . line(".")
+" [[palette]]复制当前文件:行的pathline				:YankPathLine
+command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#current_root()) + 1:] . ':' . line(".")
 
 function s:yank_gdb() range
 	" 复制选中的内容到临时变量

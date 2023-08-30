@@ -84,6 +84,7 @@ see root/.vim/doc/tags.txt
 coc.vim  
 c++: clangd  
 go: gopls（可以通过vim-go下载后，配置环境变量）  
+ocaml: ocaml-lsp(不直接通过`opam user-setup install`使用merlin)  
 ...
 
 ### 基于AI的补全

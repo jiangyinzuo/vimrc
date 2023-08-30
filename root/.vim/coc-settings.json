@@ -1,4 +1,11 @@
 {
+	"languageserver": {
+		"ocaml-lsp": {
+			"command": "opam",
+			"args": ["config", "exec", "--", "ocamllsp"],
+			"filetypes": ["ocaml", "reason"]
+		}
+	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
 	"outline.keepWindow": false,
 	"clangd.enabled": true,
