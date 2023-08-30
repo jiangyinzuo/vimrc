@@ -249,17 +249,15 @@ endfunction
 nnoremap <silent> cf :call YankCodeWithFunctionHeader()<CR>
 
 function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) range
-	if exists("t:repo_type") && t:repo_type == "code"
-		if s:only_has_one_repo()
-			call s:open_note_repo(g:noterepo_dir)
-		endif
-		let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
-		let [l:line, l:column_start] = getpos("'<")[1:2]
-		let l:content = GetVisualSelection()
-		call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
-		if a:goto_buf
-			call s:goto_note_buffer()
-		endif
+	if s:only_has_one_repo()
+		call s:open_note_repo(g:noterepo_dir)
+	endif
+	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
+	let [l:line, l:column_start] = getpos("'<")[1:2]
+	let l:content = GetVisualSelection()
+	call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
+	if a:goto_buf
+		call s:goto_note_buffer()
 	endif
 endfunction
 
