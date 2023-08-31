@@ -64,6 +64,7 @@ if !exists('g:vscode')
 	Plug 'AndrewRadev/splitjoin.vim'
 	" 改进查找替换
 	Plug 'tpope/vim-abolish'
+	Plug 'romainl/vim-qf'
 
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
