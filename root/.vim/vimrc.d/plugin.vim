@@ -34,7 +34,7 @@ nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
  
-if has('nvim') || v:version >= 810
+if has('nvim') || v:version >= 801
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
@@ -116,7 +116,7 @@ if !exists('g:vscode')
 		Plug 'tomasiser/vim-code-dark'
 " 		Plug 'morhetz/gruvbox'
 
-		if v:version >= 820
+		if v:version >= 802
 			if g:vimrc_use_coc
 				" Use release branch (recommend)
 				Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -156,7 +156,7 @@ if !exists('g:vscode')
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	" Plug 'MattesGroeger/vim-bookmarks'
-	if has('nvim') || v:version >= 820
+	if has('nvim') || v:version >= 802
 		Plug 'pechorin/any-jump.vim'
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
@@ -175,7 +175,7 @@ if !exists('g:vscode')
 	augroup END
 
 	source ~/.vim/vimrc.d/markdown.vim
-	if has('nvim') || v:version >= 820
+	if has('nvim') || v:version >= 802
 		source ~/.vim/vimrc.d/fzf/fzf.vim
 		source ~/.vim/vimrc.d/jupyter.vim
 	endif
@@ -199,7 +199,7 @@ endif
 set colorcolumn=80,120
 autocmd FileType org,markdown,txt setlocal colorcolumn=
 
-if v:version >= 820
+if v:version >= 802
 	if g:vimrc_use_coc
 		source ~/.vim/vimrc.d/coc.vim
 	endif
@@ -234,13 +234,13 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 else
 endif
 
-if has('nvim') || v:version >= 810
+if has('nvim') || v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([
 			\ {"open": "<", "close": ">", "filetype": ["html"]}
 			\ ]) " This is a filetype-specific mapping
 endif
 
-if has('nvim') || v:version >= 820
+if has('nvim') || v:version >= 802
 	hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 	source 	~/.vim/vimrc.d/project.vim
 endif

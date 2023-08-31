@@ -592,7 +592,7 @@ endif
 set laststatus=2
 if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline=%1*%F%m%r%h%w\ \|\ 
-	let show_status = exists("g:plugs") && v:version >= 810 && g:no_plug == 0
+	let show_status = exists("g:plugs") && v:version >= 801 && g:no_plug == 0
 	if show_status
 		set statusline+=%{LeftStatusLine()}
 	endif
