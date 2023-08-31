@@ -119,3 +119,4 @@ command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 source ~/.vim/vimrc.d/fzf/palette.vim
 source ~/.vim/vimrc.d/fzf/quickfix.vim
 source ~/.vim/vimrc.d/fzf/tags.vim
+source ~/.vim/vimrc.d/fzf/tabs.vim
