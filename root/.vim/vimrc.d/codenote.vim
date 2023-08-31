@@ -226,11 +226,11 @@ function YankCodeLink(need_beginline, need_endline, append, goto_buf)
 endfunction
 
 " need_beginline, need_endline, append, goto_buf
-nnoremap <silent> cr :call YankCodeLink(0, 0, 0, 1)<CR>
-nnoremap <silent> cy :call YankCodeLink(1, 1, 0, 1)<CR>
-nnoremap <silent> cb :call YankCodeLink(1, 0, 0, 0)<CR>
-nnoremap <silent> ca :call YankCodeLink(0, 0, 1, 0)<CR>
-nnoremap <silent> ce :call YankCodeLink(0, 1, 1, 1)<CR>
+nnoremap <silent> <leader>nr :call YankCodeLink(0, 0, 0, 1)<CR>
+nnoremap <silent> <leader>ny :call YankCodeLink(1, 1, 0, 1)<CR>
+nnoremap <silent> <leader>nb :call YankCodeLink(1, 0, 0, 0)<CR>
+nnoremap <silent> <leader>na :call YankCodeLink(0, 0, 1, 0)<CR>
+nnoremap <silent> <leader>ne :call YankCodeLink(0, 1, 1, 1)<CR>
 
 function YankCodeWithFunctionHeader()
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
@@ -248,27 +248,44 @@ function YankCodeWithFunctionHeader()
 	endif
 	call s:goto_note_buffer()
 endfunction
-nnoremap <silent> cf :call YankCodeWithFunctionHeader()<CR>
+nnoremap <silent> <leader>nf :call YankCodeWithFunctionHeader()<CR>
 
 function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) range
-	if s:only_has_one_repo()
-		call s:open_note_repo(g:noterepo_dir)
-	endif
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
 	let [l:line, l:column_start] = getpos("'<")[1:2]
 	let l:content = GetVisualSelection()
 	call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
 	if a:goto_buf
+		if s:only_has_one_repo()
+			call s:open_note_repo(g:noterepo_dir)
+		endif
 		call s:goto_note_buffer()
 	endif
 endfunction
 
-vnoremap <silent> cr :call YankCodeLinkVisual(0, 0, 0, 1)<CR>
-vnoremap <silent> cy :call YankCodeLinkVisual(1, 1, 0, 1)<CR>
-vnoremap <silent> cb :call YankCodeLinkVisual(1, 0, 0, 0)<CR>
-vnoremap <silent> ca :call YankCodeLinkVisual(0, 0, 1, 0)<CR>
-vnoremap <silent> ce :call YankCodeLinkVisual(0, 1, 1, 1)<CR>
+function YankCodeWithFunctionHeaderVisual() range
+	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
+	let [l:body_line, l:column_start] = getpos("'<")[1:2]
+	let l:body_content = GetVisualSelection()
+	normal [f
+	let l:header_line = line(".")
+	let l:header_content = getline(".")
+	
+	call s:yank_registers(l:file, l:header_line, l:header_content, 1, 0, 0)
+	call s:yank_registers(l:file, l:body_line, l:body_content, 0, 1, 1)
+	
+	if s:only_has_one_repo()
+		call s:open_note_repo(g:noterepo_dir)
+	endif
+	call s:goto_note_buffer()
+endfunction
 
+vnoremap <silent> <leader>nf :call YankCodeWithFunctionHeaderVisual()<CR>
+vnoremap <silent> <leader>nr :call YankCodeLinkVisual(0, 0, 0, 1)<CR>
+vnoremap <silent> <leader>ny :call YankCodeLinkVisual(1, 1, 0, 1)<CR>
+vnoremap <silent> <leader>nb :call YankCodeLinkVisual(1, 0, 0, 0)<CR>
+vnoremap <silent> <leader>na :call YankCodeLinkVisual(0, 0, 1, 0)<CR>
+vnoremap <silent> <leader>ne :call YankCodeLinkVisual(0, 1, 1, 1)<CR>
 
 function GoToCodeLink()
 	let l:cur = line('.')

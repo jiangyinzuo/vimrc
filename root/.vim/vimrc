@@ -414,8 +414,8 @@ function! ToggleQuickfix()
   endif
 endfunction
 
-nnoremap <silent> cn :cn<CR>
-nnoremap <silent> cp :cp<CR>
+nnoremap <silent> <leader>cn :cn<CR>
+nnoremap <silent> <leader>cp :cp<CR>
 
 vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 nnoremap <silent> <leader>t :term ++rows=9<CR>
