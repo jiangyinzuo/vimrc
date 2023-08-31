@@ -1,0 +1,85 @@
+#!/bin/bash
+# https://superuser.com/questions/455944/vimdiff-and-git-all-at-once
+
+nofile=0
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		-h)
+			echo "Usage:"
+			echo "  vimdf [-n] <commit1> <commit2> <dir>"
+			echo ""
+			echo "Options:"
+			echo "  -n, --nofile       Set 'setlocal buftype=nofile' for the current working tree."
+			echo ""
+			echo "Arguments:"
+			echo "  <commit1>          The starting commit for the diff (can be an empty string)."
+			echo "  <commit2>          The ending commit for the diff (can be an empty string)."
+			echo "  <dir>              The directory to apply the diff (can be an empty string)."
+			echo ""
+			echo "Description:"
+			echo "  This script runs the 'git diff <commit1> <commit2> --name-only <dir>' command and opens the results in Vim."
+			echo ""
+			echo "Examples:"
+			echo "  To diff between the current working tree and HEAD:"
+			echo "    $ vimdf"
+			echo "  To diff between the current working tree and HEAD~2:"
+			echo "    $ vimdf HEAD~2"
+			echo "  To diff between HEAD~1 and HEAD:"
+			echo "    $ vimdf HEAD~1 HEAD"
+			echo "  To diff between the current working tree and HEAD in the 'src' directory:"
+			echo "    $ vimdf '' '' src"
+			echo ""
+			echo "Vim Tips:"
+			echo "  Use ':diffoff' to turn off diff mode."
+			echo "  Use ':diffthis' to re-enable diff mode."
+			exit 1
+			;;
+		-n|--nofile)
+			nofile=1
+			shift
+			;;
+		*)
+			break
+			;;
+	esac
+done
+
+commit1=$1
+commit2=$2
+dir=$3
+
+_add_command() {
+	cmd+="$EXE ':tabnew $f'"
+	if [[ $nofile == 1 ]] ; then
+		cmd+="$EXE ':setlocal buftype=nofile'"
+	fi
+	cmd+="$EXE ':0 | filetype detect'"
+	# $f may not exist in history commit
+	cmd+="$EXE ':vnew | f <$1>/${f} | setlocal buftype=nofile | 0read ! git show $1:$f || true' "
+	cmd+="$EXE ':0 | filetype detect'"
+}
+
+files=`git diff ${commit1} ${commit2} --name-only ${dir}`
+
+cmd="set nosplitright | set nobackup | set noswapfile"
+
+EXE="| silent! exe"
+
+for f in $files; do
+	if [[ -z "$commit2" && -z "$commit1" ]]; then
+		_add_command HEAD
+	elif [[ -z "$commit2" ]]; then
+		_add_command $commit1
+	elif [[ -z "$commit1" ]]; then
+		_add_command $commit2
+	else
+		cmd+="$EXE ':tabnew | f <$commit2>/${f} | setlocal buftype=nofile | 0read ! git show $commit2:$f || true'"
+		cmd+="$EXE ':0 | filetype detect'"
+		cmd+="$EXE ':vnew   | f <$commit1>/${f} | setlocal buftype=nofile | 0read ! git show $commit1:$f || true'"
+		cmd+="$EXE ':0 | filetype detect'"
+	fi
+	cmd+="$EXE ':windo diffth'"
+done
+cmd+="$EXE 'bd 1 | tabfirst'"
+
+vim -c "$cmd"

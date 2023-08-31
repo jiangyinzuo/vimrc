@@ -53,7 +53,6 @@ alias vims='vim -S session.vim'
 alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 
 source $VIMRC_ROOT/fzf/fzf.bash
-source $VIMRC_ROOT/vimdf
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all

@@ -158,7 +158,7 @@ CTRL-SHIFT-V  paste
 
 *vimt* tex
 *vimhelp* help
-*vimdf* diff
+*vimdf* diff, see vimdf -h
 
 -------------------------------------------------------------------------------
 
