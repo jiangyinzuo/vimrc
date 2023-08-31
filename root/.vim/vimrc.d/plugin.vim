@@ -58,6 +58,8 @@ if !exists('g:vscode')
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
 	" 创建surround类文本对象
 	Plug 'tpope/vim-surround'
+	" Vim sugar for the UNIX shell commands that need it the most
+	Plug 'tpope/vim-eunuch'
 	" 针对某些编程语言，快速分开/合并语句, 改进原生的gJ
 	Plug 'AndrewRadev/splitjoin.vim'
 	" 改进查找替换

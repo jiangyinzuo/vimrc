@@ -257,8 +257,8 @@ augroup end
 " A sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
 " As for the silent thingies they just suppress output from commands. 
 " :nohlsearch stops it from highlighting the sed search
-noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>mc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>mu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 augroup jump_to_symbol
 	autocmd!
@@ -405,10 +405,17 @@ command! -nargs=1 Myrg call Ripgrep(<q-args>)
 
 """""""""""""""""""""""""""""""""""""" quickfix window
 
-nnoremap <silent> co :copen<CR>
+noremap ]q :call ToggleQuickfix()<CR>
+function! ToggleQuickfix()
+  if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
+    copen
+  else
+    cclose
+  endif
+endfunction
+
 nnoremap <silent> cn :cn<CR>
 nnoremap <silent> cp :cp<CR>
-nnoremap <silent> ccl :ccl<CR>
 
 vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 nnoremap <silent> <leader>t :term ++rows=9<CR>
@@ -420,6 +427,7 @@ function CExprSystem(args)
 	cexpr system(a:args)
 	call ShowQuickfixListIfNotEmpty()
 endfunction
+" [[palette]]执行系统命令并输出到quickfix list			:CExprsys
 command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""

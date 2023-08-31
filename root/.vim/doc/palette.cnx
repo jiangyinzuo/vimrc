@@ -17,7 +17,6 @@
 *FZF-查看helptags*					:Helptags
 *vim-helpgrep*						:helpgrep
 *在新标签页(tab)中创建终端*				:tab ter
-*执行系统命令并输出到quickfix-list*			:CExprsys
 *执行复制到默认寄存器中的命令(:h-:@)*			:@"
 *Save-with-sudo*					:w !sudo tee %
 *当前行作为vim-command执行*				:exe getline('.')
