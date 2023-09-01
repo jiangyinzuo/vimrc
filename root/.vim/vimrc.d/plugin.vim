@@ -40,8 +40,19 @@ if has('nvim') || v:version >= 801
 	Plug 'markonm/traces.vim'
 endif
 
-" use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
-" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" do not use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+let g:VM_mouse_mappings             = 1
+let g:VM_theme                      = 'iceblue'
+let g:VM_highlight_matches          = 'underline'
+
+let g:VM_maps = {}
+let g:VM_maps["Undo"]      = 'u'
+let g:VM_maps["Redo"]      = 'U'
+" Vim9 has a bug when maps to Esc
+" https://github.com/mg979/vim-visual-multi/issues/220
+let g:VM_maps["Exit"] = '<C-c>'
+
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
@@ -53,6 +64,7 @@ if !exists('g:vscode')
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
+		Plug 'romainl/vim-qf'
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
@@ -64,7 +76,6 @@ if !exists('g:vscode')
 	Plug 'AndrewRadev/splitjoin.vim'
 	" 改进查找替换
 	Plug 'tpope/vim-abolish'
-	Plug 'romainl/vim-qf'
 
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
@@ -225,6 +236,7 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 			let g:solarized_termcolors = 256
 		endif
 		colorscheme solarized
+		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
 	endif
 	" tab颜色
 	hi clear SpecialKey

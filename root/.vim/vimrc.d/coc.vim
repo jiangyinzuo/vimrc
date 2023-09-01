@@ -119,9 +119,10 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-nmap <silent> <C-d> <Plug>(coc-cursors-word)
-xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" do not use coc Multiple cursor support, use vim-visual-multi instead
+" nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" nmap <silent> <C-d> <Plug>(coc-cursors-word)
+" xmap <silent> <C-d> <Plug>(coc-cursors-range)
 
 " Mappings for CoCList
 " Show all diagnostics

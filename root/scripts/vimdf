@@ -1,6 +1,11 @@
 #!/bin/bash
 # https://superuser.com/questions/455944/vimdiff-and-git-all-at-once
 
+if [[ ! -d .git ]]; then
+	echo "No .git directory found"
+	exit 1
+fi
+
 nofile=0
 while [[ $# -gt 0 ]]; do
 	case $1 in
