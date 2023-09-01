@@ -39,7 +39,7 @@ if has('nvim') || v:version >= 801
 	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
 
-	" do not use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
 	let g:VM_mouse_mappings             = 1
 	let g:VM_theme                      = 'iceblue'
@@ -68,6 +68,7 @@ if !exists('g:vscode')
 
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
+		" modify some snippets
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
