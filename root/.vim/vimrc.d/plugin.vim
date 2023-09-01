@@ -38,6 +38,26 @@ if has('nvim') || v:version >= 801
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
+
+	" do not use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
+	let g:VM_mouse_mappings             = 1
+	let g:VM_theme                      = 'iceblue'
+	let g:VM_highlight_matches          = 'underline'
+ 
+	let g:VM_maps = {}
+	let g:VM_maps['I CtrlF'] = ''
+	let g:VM_maps['I Return'] = ''
+	" Vim9 has a bug when maps to Esc
+	" https://github.com/mg979/vim-visual-multi/issues/220
+	let g:VM_maps['Exit'] = '<C-c>'
+	let g:VM_maps['Add Cursor Down'] = '<C-j>'
+	let g:VM_maps['Add Cursor Up'] = '<C-k>'
+	let g:VM_maps['Add Cursor At Pos'] = '<C-h>'
+	let g:VM_maps['Motion j'] = '<Down>'
+	let g:VM_maps['Motion k'] = '<Up>'
+	let g:VM_maps['Motion l'] = '<Right>'
+	let g:VM_maps['Motion h'] = '<Left>'
 endif
 
 Plug 'editorconfig/editorconfig-vim'
