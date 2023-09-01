@@ -119,8 +119,14 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
-" do not use coc Multiple cursor support, use vim-visual-multi instead
-" nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" vim-visual-multi is too complex!!!
+" SpecialKey在coc多光标模式下不会高亮，如有需要，可以在执行多光标前执行
+" :setnolist
+" 在多光标操作结束后再执行
+" :setlist
+nmap <silent> <C-c> :<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
+nmap <silent> <C-j> j:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
+nmap <silent> <C-k> k:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
 " nmap <silent> <C-d> <Plug>(coc-cursors-word)
 " xmap <silent> <C-d> <Plug>(coc-cursors-range)
 

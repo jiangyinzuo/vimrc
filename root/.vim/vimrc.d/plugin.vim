@@ -40,19 +40,6 @@ if has('nvim') || v:version >= 801
 	Plug 'markonm/traces.vim'
 endif
 
-" do not use coc.nvim: https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-let g:VM_mouse_mappings             = 1
-let g:VM_theme                      = 'iceblue'
-let g:VM_highlight_matches          = 'underline'
-
-let g:VM_maps = {}
-let g:VM_maps["Undo"]      = 'u'
-let g:VM_maps["Redo"]      = 'U'
-" Vim9 has a bug when maps to Esc
-" https://github.com/mg979/vim-visual-multi/issues/220
-let g:VM_maps["Exit"] = '<C-c>'
-
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
@@ -253,6 +240,6 @@ if has('nvim') || v:version >= 801
 endif
 
 if has('nvim') || v:version >= 802
-	hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+	hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
 	source 	~/.vim/vimrc.d/project.vim
 endif

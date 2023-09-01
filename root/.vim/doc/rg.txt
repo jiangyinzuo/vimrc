@@ -1,0 +1,5 @@
+*rg-help*
+
+rg不显示[... 0 more matches]
+将max-column设置为0即可
+rg -M=0  coc-cursors-position
