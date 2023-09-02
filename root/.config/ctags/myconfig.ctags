@@ -1,6 +1,13 @@
 --fields=+niazSR
 --extras=+qrs
 --exclude=target
---fields-Markdown=+{hashtag}
+--exclude=build
+--exclude=dist
+--exclude=doc
+--exclude=docs
+--exclude=contribs
+--exclude=extension
+--exclude=third_party
+#--fields-Markdown=+{hashtag}
 --c++-kinds=+pxl
 --c-kinds=+pxl

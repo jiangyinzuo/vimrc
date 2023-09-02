@@ -7,6 +7,7 @@
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+	"coc.preferences.useQuickfixForLocations": true,
 	"outline.keepWindow": false,
 	"clangd.enabled": true,
 	"clangd.arguments": [

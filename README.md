@@ -74,6 +74,7 @@ npm i -g fanyi
 ripgrep, grep  
 [any-jump.vim](https://github.com/pechorin/any-jump.vim)在不同的位置:AnyJump同一个word，结果会不一样。
 在注释处:AnyJump可能只会找到注释；在cpp类的方法实现处:AnyJump才会跳到类的定义。
+cpp需要rg with PCRE2 support
 
 ### 基于tag符号的索引/补全
 
@@ -96,6 +97,7 @@ codegeex
 ## WSL2
 
 See setup-wsl.sh
+打开网页：xdg-open index.html
 
 ## 远程开发环境对比
 

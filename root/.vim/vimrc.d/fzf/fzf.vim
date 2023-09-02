@@ -15,19 +15,19 @@ Plug 'junegunn/fzf.vim'
 let g:fzf_preview_window = ['up,40%,', 'ctrl-/']
 
 " An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
+function! FzfActionBuildQf(lines)
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
 	copen
 	cc
 endfunction
 
-function s:append_current_line(lines)
+function FzfActionAppendLine(lines)
 	call append('.', a:lines)
 endfunction
 
 let g:fzf_action = {
-			\ 'ctrl-a': function('s:append_current_line'),
-			\ 'ctrl-q': function('s:build_quickfix_list'),
+			\ 'ctrl-a': function('FzfActionAppendLine'),
+			\ 'ctrl-q': function('FzfActionBuildQf'),
 			\ 'ctrl-t': 'tab split',
 			\ 'ctrl-x': 'split',
 			\ 'ctrl-v': 'vsplit' }

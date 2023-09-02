@@ -73,6 +73,7 @@ if !exists('g:vscode')
 		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
+    let g:qf_auto_open_quickfix = 0
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
@@ -140,6 +141,10 @@ if !exists('g:vscode')
 				" Use release branch (recommend)
 				Plug 'neoclide/coc.nvim', {'branch': 'release'}
 				Plug 'antoinemadec/coc-fzf'
+				" fix bug 'Auto jump to the first line after exit from the floating
+				" window of CocFzfLocation'
+				" https://github.com/antoinemadec/coc-fzf/issues/113
+				let g:coc_fzf_location_delay = 20
 			endif
 			if g:vimrc_use_vimspector
 				Plug 'puremourning/vimspector'

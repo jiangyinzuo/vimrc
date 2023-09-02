@@ -175,20 +175,26 @@ function s:only_has_one_repo()
 	return tabpagenr('$') == 1
 endfunction
 
+" Supported formats:
+" 1) /path/to/file:123
+" 2) +123 /path/to/file
+" 3) src/execution/operator/aggregate/physical_hash_aggregate.cpp|478 col 7-32|
+"
+" 3) 源自coc.nvim在quickfix list中的显示格式
+let s:codelink_regex = '[A-Za-z0-9\-./]\+\([:|][0-9]\+\)\|\(^\+[0-9]\+\s\)'
+
 if g:codenote_filepath_style == 'colon'
 	function! s:filepath(file, line)
 		return a:file . ":" . a:line
 	endfunction
 	command -nargs=0 Rglink :Rg [\w\d\-./]+:[0-9]+
 	"command -nargs=0 Rglink :call RipgrepFzf('rg --column -o --no-heading --color=always --smart-case -- %s || true', '[\w\d\-./]+:[0-9]+', <bang>0)
-	let s:codelink_regex = '[A-Za-z0-9\-./]\+:[0-9]\+'
 else
 	function! s:filepath(file, line)
 		return  "+" . a:line . " " . a:file
 	endfunction
 	command -nargs=0 Rglink :Rg ^+[0-9]+ .+
 	"command -nargs=0 Rglink :call RipgrepFzf('rg --column -o --no-heading --color=always --smart-case -- %s || true', '^\+[0-9]+ .+$', <bang>0)
-	let s:codelink_regex = '^+[0-9]\+\s'
 endif
 
 function s:yank_registers(file, line, content, need_beginline, need_endline, append)
@@ -306,8 +312,9 @@ function GoToCodeLink()
 		let l:line = l:dest[0]
 		let l:file = l:dest[1]
 	else
-		let l:dest = split(l:cur_line, ":")
-		let l:line = '+' . l:dest[1]
+		" 支持类似 src/execution/operator/aggregate/physical_hash_aggregate.cpp|478 col 7-32| 的格式
+		let l:dest = split(l:cur_line, "[:|]")
+		let l:line = '+' . split(l:dest[1])[0]
 		let l:file = l:dest[0]
 		echo l:line l:file
 	endif
@@ -331,7 +338,7 @@ function GoToNoteLink()
 	else
 		call s:goto_note_buffer()
 	endif
-	exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**/*.md" 
+	silent! exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**/*.md" 
 endfunction
 
 function GoToCodeNoteLink()
