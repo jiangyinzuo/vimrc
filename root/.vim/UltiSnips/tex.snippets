@@ -1,0 +1,14 @@
+snippet temp1 "temp1"  b
+%编译 xelatex main.tex
+\documentclass{ctexart} % apt install texlive-lang-chinese
+%\setCJKmainfont{WenQuanYi Micro Hei Mono} % 选择你系统中安装的一个中文字体 fc-list :lang=zh
+\usepackage{amsmath,amsfonts,amssymb}
+
+\begin{document}
+$0
+\[
+\text{CPU利用率(\%)} = \left( \frac{{\text{当前 utime + stime} - \text{一分钟前的 utime + stime}}}{{\text{当前系统 uptime} - \text{一分钟前的系统 uptime}} \times \text{每秒钟的jiffies数}} \right) \times 100
+\]
+\end{document}
+endsnippet
+

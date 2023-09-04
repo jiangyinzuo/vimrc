@@ -363,7 +363,7 @@ nnoremap <silent> <leader>fy :call VimGrepFindType(expand("<cword>"))<CR>
 vnoremap <silent> <leader>fy :call VimGrepFindType(GetVisualSelection())<CR>
 command! -nargs=1 Vimfy call VimGrepFindType(<q-args>)
 
-function VimGrepFindDefinition(word)
+function VimGrepFindDefinitionFunction(word)
 	call setqflist([])
 	if &filetype == 'cpp' || &filetype == 'c'
 		silent! exe 'silent! vimgrepadd' '/\<'.a:word.'(\(\w\|,\|\s\|\r\|\n\)\{-})\(\s\|\r\|\n\)\{-}{/' '**/*.cpp' '**/*.cc' '**/*.h'
@@ -378,9 +378,9 @@ function VimGrepFindDefinition(word)
 	call ShowQuickfixListIfNotEmpty()
 endfunction
 
-nnoremap <silent> <leader>fd :call VimGrepFindDefinition(expand("<cword>"))<CR>
-vnoremap <silent> <leader>fd :call VimGrepFindDefinition(GetVisualSelection())<CR>
-command! -nargs=1 Vimfd call VimGrepFindDefinition(<q-args>)
+nnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(expand("<cword>"))<CR>
+vnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(GetVisualSelection())<CR>
+command! -nargs=1 Vimfdf call VimGrepFindDefinitionFunction(<q-args>)
 
 " Reference: vim.fandom.com/wiki/Searching_for_files
 " find files and populate the quickfix list
@@ -472,7 +472,7 @@ function! CppFoldExpr(lnum)
 endfunction
 
 autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
-autocmd FileType python,vim,lua setlocal foldmethod=indent
+autocmd FileType python,vim,lua,go,markdown setlocal foldmethod=indent
 
 " 默认打开所有折叠，将foldlevelstart设置为较大的值
 "" set foldlevel=-1 " 默认关闭所有折叠
