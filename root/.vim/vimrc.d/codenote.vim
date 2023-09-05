@@ -1,6 +1,7 @@
 " colon 表示使用 path/to/filename.ext:line_number 格式
 " plus 表示使用 +line_number path/to/filename.ext 格式
 let g:codenote_filepath_style = "colon"
+let s:fd = 'fd'
 
 " sed -i 's/^+\(.*\) \(.*\)$/\2:\1/' *.md
 function! ConvertFormat(line)
@@ -132,7 +133,7 @@ function OpenNoteRepo()
 			echom "$DOC2 is empty"
 			return
 		endif
-		call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
+		call fzf#run(fzf#wrap({'source': s:fd . ' -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
 	else
 		call s:open_note_repo(g:noterepo_dir)
 	endif
@@ -159,7 +160,7 @@ function OpenCodeRepo()
 	endif
 	call s:set_noterepo_dir(expand('%:p:h'))
 	if !exists('g:coderepo_dir') || g:coderepo_dir == ""
-		call fzf#run(fzf#wrap({'source': 'fd -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
+		call fzf#run(fzf#wrap({'source': s:fd . ' -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
 		if $CODE_HOME == ''
 			echom "$DOC2 is empty"
 		endif
