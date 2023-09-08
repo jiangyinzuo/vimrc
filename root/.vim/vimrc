@@ -152,7 +152,7 @@ function s:DetectIndent()
 endfunction
 
 let g:project_vimrc = '.project.vim'
-let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', g:project_vimrc, 'tags', 'GTAGS']
+let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.ocamlformat', g:project_vimrc, 'tags', 'GTAGS']
 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')

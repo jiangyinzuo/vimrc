@@ -237,3 +237,18 @@ endfunction
 command MkSession call MkSession(asyncrun#current_root() . '/session.vim')
 endif
 
+""""""""""""""""" Copy project_dot_file """"""""""""""""""""""
+let s:project_file_dir = $HOME . "/vimrc/root/project_dot_files/files"
+function! ProjectFiles(ArgLead, CmdLine, CursorPos)
+	let files = readdir(s:project_file_dir, { n -> n =~ '^' . a:ArgLead })
+	return map(files, 'fnamemodify(v:val, ":t")')
+endfunction
+
+function! CopyProjFileFunc(filename)
+	let src_path = s:project_file_dir. a:filename
+	let dest_path = asyncrun#current_root() . "/" . a:filename
+	call system("cp " . src_path . " " . dest_path)
+endfunction
+
+" [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
+command! -nargs=1 -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<q-args>)

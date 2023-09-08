@@ -12,7 +12,7 @@ function s:yank_def(lineNumber, className)
 	let @" = l:current_line
 endfunction
 
-" 当前cursor位于cpp头文件方法上，复制cpp头文件中方法定义，自动添加类名
+" [[palette]]生成cpp类方法的函数定义，放在默认寄存器			:YDef
 function YDef(...)
 	let l:current_line_number = line('.')
 
