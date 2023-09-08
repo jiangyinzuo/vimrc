@@ -114,6 +114,10 @@ command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 			\			'rg --column --line-number --no-heading --color=always --smart-case  -g "' . <q-args> . '" "" '. join(g:helppaths), 1,
 			\			{}, <bang>0) |
 			\ end
+
+command! WikiLink call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]+\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
+" 为了同时匹配相对路径和绝对路径，只通过%:t保留文件名，去文件路径
+command! WikiLinkCur call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]*". expand("%:t") ."[^$\\#]*\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
 """""""""""""""""""""""""""""""""""""""
 
 source ~/.vim/vimrc.d/fzf/palette.vim
