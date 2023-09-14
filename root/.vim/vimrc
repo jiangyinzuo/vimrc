@@ -87,7 +87,7 @@ augroup equalprg_filetype
 	" autocmd FileType c,cpp setlocal equalprg=indent
 	" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 	autocmd FileType c,cpp setlocal equalprg=clang-format
-	autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ %
+	autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 augroup end
 
 augroup indent2
@@ -176,7 +176,7 @@ endif
 " set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 set listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 set list
-
+set nowrap " 不折行
 set guifont=Monospace\ Regular\ 20
 set mouse=a
 if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))

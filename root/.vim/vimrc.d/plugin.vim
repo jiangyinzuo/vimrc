@@ -221,7 +221,7 @@ endif
 
 " 默认主题不显示colorcolumn
 set colorcolumn=80,120
-autocmd FileType org,markdown,txt setlocal colorcolumn=
+autocmd FileType org,markdown,text setlocal colorcolumn=
 
 if v:version >= 802
 	if g:vimrc_use_coc
