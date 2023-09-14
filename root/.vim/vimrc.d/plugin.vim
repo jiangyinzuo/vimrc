@@ -33,7 +33,7 @@ nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
- 
+
 if has('nvim') || v:version >= 801
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
@@ -93,7 +93,9 @@ if !exists('g:vscode')
 
 	Plug 'axvr/org.vim'
 	Plug 'rust-lang/rust.vim'
-	
+	Plug 'kaarmu/typst.vim'
+	let g:typst_pdf_viewer = 'SumatraPDF.exe'
+
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

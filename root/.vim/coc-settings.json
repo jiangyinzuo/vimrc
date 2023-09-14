@@ -4,6 +4,12 @@
 			"command": "opam",
 			"args": ["config", "exec", "--", "ocamllsp"],
 			"filetypes": ["ocaml", "reason"]
+		},
+		"typst": {
+			"command": "typst-lsp",
+			"filetypes": [
+				"typst"
+			]
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
