@@ -6,6 +6,7 @@ let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
 
 if (has('unix') && exists('$WSLENV'))
 	" TODO: get root by ascynrun#get_root
@@ -32,7 +33,7 @@ if (has('unix') && exists('$WSLENV'))
 		let l:job = job_start('x-www-browser "' . l:uri . '"')
 	endfunction
 	command! -nargs=0 MdPreview call MdPreview()
-	
+
 	function MdStart()
 		let l:uri = getline('.')
 		let l:root = asyncrun#get_root(l:uri)
@@ -49,7 +50,7 @@ if (has('unix') && exists('$WSLENV'))
 		endif
 	endfunction
 	command! -nargs=0 MdStart call MdStart()
-	
+
 	function MdOpenInBrowser()
 		let l:uri = matchstr(getline('.'), '(\zs.\{-}\ze)')
 		if len(l:uri) != 0
@@ -80,53 +81,53 @@ function! NumberHeadings()
 	let l:heading_start_level = 2 " 从2级标题开始编号
 	let last_level = 0
 	let l:empty = [0, 0, 0, 0, 0, 0]
-  let l:count = [0, 0, 0, 0, 0, 0]
+	let l:count = [0, 0, 0, 0, 0, 0]
 	execute "normal! gg"
 	let l:last_line = line("$")
-  for i in range(1, l:last_line)
-    let line_text = getline(".")
-    let line_level = len(matchstr(line_text, '^#\+\s')) - l:heading_start_level
-    if line_level > 0
+	for i in range(1, l:last_line)
+		let line_text = getline(".")
+		let line_level = len(matchstr(line_text, '^#\+\s')) - l:heading_start_level
+		if line_level > 0
 			if line_level == 1
 				let l:count = [l:count[0] + 1] + l:empty[1 : 5]
 			else
-      	let l:count = l:count[0 : line_level - 2] + [l:count[line_level - 1] + 1] + l:empty[line_level + 1 : 5]
+				let l:count = l:count[0 : line_level - 2] + [l:count[line_level - 1] + 1] + l:empty[line_level + 1 : 5]
 			endif
 			" 1.
 			" 1.1.
 			" 1.1.1.
-"       let number_text = join(l:count[0 : line_level - 1], '.') . '.'
-" 			let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\(\d\+\.\)*\d\+\. \)\?', '\1', '')
+			"       let number_text = join(l:count[0 : line_level - 1], '.') . '.'
+			" 			let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\(\d\+\.\)*\d\+\. \)\?', '\1', '')
 			" 1
 			" 1.1
 			" 1.1.1
-      let number_text = join(l:count[0 : line_level - 1], '.')
-      let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\s\+', '\1', '')
+			let number_text = join(l:count[0 : line_level - 1], '.')
+			let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\s\+', '\1', '')
 
-      call setline('.', matchstr(line_text, '^\s*#\+') . ' ' . number_text . matchstr(line_text, '^\s*#\+\zs.*'))
-    endif
-    execute "normal! j"
+			call setline('.', matchstr(line_text, '^\s*#\+') . ' ' . number_text . matchstr(line_text, '^\s*#\+\zs.*'))
+		endif
+		execute "normal! j"
 	endfor
 endfunction
 
 command! NumberHeadings :call NumberHeadings()
 
 function! RemoveNumberHeadings()
-    execute "normal! gg"
-    let l:last_line = line("$")
-    for i in range(1, l:last_line)
-        let line_text = getline(".")
-				" 1.
-				" 1.1.
-				" 1.1.1.
-        " let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\. ', '\1', '')
-				" 1
-				" 1.1
-				" 1.1.1
-				let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+ ', '\1', '')
-        call setline('.', line_text)
-        execute "normal! j"
-    endfor
+	execute "normal! gg"
+	let l:last_line = line("$")
+	for i in range(1, l:last_line)
+		let line_text = getline(".")
+		" 1.
+		" 1.1.
+		" 1.1.1.
+		" let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+\. ', '\1', '')
+		" 1
+		" 1.1
+		" 1.1.1
+		let line_text = substitute(line_text, '^\(\s*#\+\s*\)\(\d\+\.\)*\d\+ ', '\1', '')
+		call setline('.', line_text)
+		execute "normal! j"
+	endfor
 endfunction
 
 command! RemoveNumberHeadings :call RemoveNumberHeadings()
