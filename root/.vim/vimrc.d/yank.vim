@@ -1,7 +1,19 @@
+function YankPathLine()
+	let current_root = asyncrun#current_root()
+	let @" = expand('%:p')[len(current_root) + 1:] . ':' . line(".")
+endfunction
+function YankPathLineAndContent() range
+	let current_root = asyncrun#current_root()
+	let @" = expand('%:p')[len(current_root) + 1:] . ':' . a:firstline
+	let @" .= "\n" . join(getline(a:firstline, a:lastline), "\n")
+endfunction
+
 " 复制pathline用于gF文件跳转
 " See rffv() in fzf/fzf.bash
 " [[palette]]复制当前文件:行的pathline				:YankPathLine
-command! -nargs=0 YankPathLine let @" = expand('%:p')[len(asyncrun#current_root()) + 1:] . ':' . line(".")
+command! -nargs=0 YankPathLine call YankPathLine()
+" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
+command! -nargs=0 -range YankPathLineAndContent '<,'>call YankPathLineAndContent()
 
 function s:yank_gdb() range
 	" 复制选中的内容到临时变量

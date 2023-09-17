@@ -43,3 +43,4 @@
 *生成ctags*						:!ctags -R
 *生成gtags*						:!global
 *增量更新gtags*						:!global -u
+*tab分隔的表格转md-table*				:!tab2table.py
