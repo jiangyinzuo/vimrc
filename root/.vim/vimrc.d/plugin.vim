@@ -208,6 +208,7 @@ if !exists('g:vscode')
 	Plug 'whonore/Coqtail'
 	source ~/.vim/vimrc.d/latex.vim
 	source ~/.vim/vimrc.d/asynctasks.vim
+	source ~/.vim/vimrc.d/duckdb.vim
 	source ~/.vim/vimrc.d/yank.vim
 	" codenote.vim depends on fzf.vim
 	source ~/.vim/vimrc.d/codenote.vim
