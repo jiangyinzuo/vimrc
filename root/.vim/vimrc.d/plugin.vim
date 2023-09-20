@@ -68,6 +68,10 @@ if !exists('g:vscode')
 
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
+		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
+		" 这样的补全，使用F12
+		let g:UltiSnipsExpandTrigger="<f12>"
+		
 		" modify some snippets
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 		Plug 'lifepillar/vim-solarized8'
@@ -94,6 +98,7 @@ if !exists('g:vscode')
 	Plug 'axvr/org.vim'
 	Plug 'rust-lang/rust.vim'
 	Plug 'kaarmu/typst.vim'
+	" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 	if has('nvim') && !g:nvim_compatibility_with_vim

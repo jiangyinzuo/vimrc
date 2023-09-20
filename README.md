@@ -25,7 +25,7 @@ apt install libgtk-3-dev libxt-dev
 . setup.sh
 ```
 默认配置: See `vimrc`  
-
+修改vimrc配置文件: `.vim/config.vim`  
 打包coc/plugged/gadgets: See `make-tar`
 
 ## 其它命令行工具

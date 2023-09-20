@@ -29,7 +29,15 @@ if (has('unix') && exists('$WSLENV'))
 	"
 	function MdPreview()
 		let l:uri = expand("%:p")
-		let l:uri = substitute(l:uri, '/mnt/d', 'D:', '')
+
+		if l:uri =~ '^/mnt/d/'
+			let l:uri = substitute(l:uri, '/mnt/d', 'D:', '')
+		elseif l:uri =~ '^/mnt/c/'
+			let l:uri = substitute(l:uri, '/mnt/c', 'C:', '')
+		else
+			let l:uri = 'file://wsl.localhost/Ubuntu-22.04' . l:uri
+		endif
+	
 		let l:job = job_start('x-www-browser "' . l:uri . '"')
 	endfunction
 	command! -nargs=0 MdPreview call MdPreview()

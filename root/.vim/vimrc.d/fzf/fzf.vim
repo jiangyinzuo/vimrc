@@ -49,6 +49,7 @@ command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 """"""""""""""""" Z """"""""""""""""""""
+" https://gist.github.com/jiangyinzuo/d9c985999f76864ac192edfdacdadcce
 function Z(query, sink)
 	let l:cmd = "awk -f " . $VIMRC_ROOT . "/z.awk regex=" . a:query . " ~/.z "
 	call fzf#run(fzf#wrap({'source': l:cmd, 'sink': a:sink, 'options': ['--query', a:query, '--prompt', 'Z ' . a:sink . '>', '--color', 'hl:148,hl+:190']}))
@@ -59,6 +60,8 @@ command! -bang -nargs=? Z call Z(<q-args>, 'cd')
 command! -bang -nargs=? TZ call Z(<q-args>, 'tcd')
 " [[palette]]FZF搜索z并lcd到目录					:LZ
 command! -bang -nargs=? LZ call Z(<q-args>, 'lcd')
+" [[palette]]FZF搜索z并Ex到目录					:Zex
+command! -bang -nargs=? Zex call Z(<q-args>, 'Ex')
 
 """"""""""""""""" Fd 类""""""""""""""""
 command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
