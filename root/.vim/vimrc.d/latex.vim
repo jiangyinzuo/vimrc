@@ -38,10 +38,14 @@ if has('unix') && exists('$WSLENV') && has('clientserver')
 	command! -nargs=1 SumatraPDF call SumatrapdfSendToVim(<q-args>)
 endif
 
-let g:vimtex_quickfix_mode=1
+" The quickfix window is never opened/closed automatically.
+let g:vimtex_quickfix_mode = 0
+let g:vimtex_view_automatic = 0
+let g:vimtex_toc_todo_labels = { 'TODO': 'TODO: ', 'FIXME': 'FIXME: ', 'ISSUE': 'ISSUE: ', 'NOTE': 'NOTE: '}
 
+let g:vimtex_compiler_method = 'latexmk'
 " use custom Makefile instead of latexmk by default
-let g:vimtex_compiler_method = 'generic'
-let g:vimtex_compiler_generic = {
-			\ 'command': 'make',
-			\}
+" let g:vimtex_compiler_method = 'generic'
+" let g:vimtex_compiler_generic = {
+" 			\ 'command': 'make',
+" 			\}

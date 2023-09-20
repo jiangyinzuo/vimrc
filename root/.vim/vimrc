@@ -190,7 +190,7 @@ elseif v:version >= 801
 endif
 
 if v:version >= 801
-	set conceallevel=1
+	set conceallevel=2
 	
 	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 	" Set to auto read when a file is changed from the outside
