@@ -48,6 +48,18 @@ command! ProjectFiles execute 'Files' asyncrun#current_root('%')
 command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
+""""""""""""""""" Z """"""""""""""""""""
+function Z(query, sink)
+	let l:cmd = "awk -f " . $VIMRC_ROOT . "/z.awk regex=" . a:query . " ~/.z "
+	call fzf#run(fzf#wrap({'source': l:cmd, 'sink': a:sink, 'options': ['--query', a:query, '--prompt', 'Z ' . a:sink . '>', '--color', 'hl:148,hl+:190']}))
+endfunction
+" [[palette]]FZF搜索z并cd到目录					:Z
+command! -bang -nargs=? Z call Z(<q-args>, 'cd')
+" [[palette]]FZF搜索z并tcd到目录					:TZ
+command! -bang -nargs=? TZ call Z(<q-args>, 'tcd')
+" [[palette]]FZF搜索z并lcd到目录					:LZ
+command! -bang -nargs=? LZ call Z(<q-args>, 'lcd')
+
 """"""""""""""""" Fd 类""""""""""""""""
 command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
 command! -bang -nargs=0 Directories

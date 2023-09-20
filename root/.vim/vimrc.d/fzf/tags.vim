@@ -16,22 +16,22 @@ function CTags(query, fullscreen)
 	" 输出不以!开头的行
 	" ^! 是正则表达式，表示以!开头的行
 	" !/^!/ 是否定模式，用于匹配不以!开头的行
-	let l:cmd = "awk -f " . $VIMRC_ROOT . "/process_ctags.awk " . tags . ' ' . a:query
+	let l:cmd = "awk -f " . $VIMRC_ROOT . "/process_ctags.awk regex=" . a:query . " " . tags
 
 	try
 		return fzf#run(fzf#wrap({
 					\ 'source': l:cmd,
 					\ 'sink': function('s:tag_sink'),
-					\ 'options': [ '--prompt', 'CTags> ', '--color', 'hl:148,hl+:190' ],
+					\ 'options': ['--query', a:query, '--prompt', 'CTags> ', '--color', 'hl:148,hl+:190' ],
 					\ }))
 	catch
 		echom v:exception
 	endtry
 endfunction
 
-" 可以输入0-n个正则表达式, 满足所有正则的行才会显示
+" 可以输入0-1个正则表达式, 满足正则的行才会显示
 " [[palette]]FZF查询ctags						:CTags
-command! -nargs=* -bang CTags call CTags(<q-args>, <bang>0)
+command! -nargs=? -bang CTags call CTags(<q-args>, <bang>0)
 
 " Example:
 " a                   5 hello.py         a = 3

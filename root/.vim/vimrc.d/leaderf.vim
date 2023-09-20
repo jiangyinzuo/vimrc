@@ -14,6 +14,7 @@ let g:Lf_PopupPreviewPosition = 'top'
 
 "文件搜索
 let g:Lf_ShortcutF = '<leader>ff'
+let g:Lf_WorkingDirectoryMode = 'c'
 
 function Leaderf_current_dir()
 	let l:c = expand("%:h")
@@ -21,6 +22,8 @@ function Leaderf_current_dir()
 endfunction
 " 当前文件所在目录下搜索文件
 nnoremap <silent> <leader>fc :call Leaderf_current_dir()<CR>
+" 当前文件所在项目根目录下搜索文件
+nnoremap <silent> <leader>fp :Leaderf file <C-R>=asyncrun#current_root()<CR><CR>
 
 "历史打开过的文件
 nnoremap <silent> <leader>fh :Leaderf mru <CR>
@@ -54,7 +57,6 @@ nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy  <CR>
 " 这些例子应该可以帮助你理解 `<C-R>=` 的作用和用法。记住，你可以使用任何有效的 Vimscript 表达式，包括函数调用、变量、算术和字符串操作等等。
 xnoremap <silent> <leader>rg :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 
-let g:Lf_WorkingDirectoryMode = 'a'
 let g:Lf_RootMarkers = g:RootMarks
 let g:Lf_ShowDevIcons = 0
 let g:Lf_DisableStl = 0
