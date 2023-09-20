@@ -130,3 +130,10 @@ rga-fzf() {
 	echo "opening $file" &&
 	start "$file"
 }
+
+fz() {
+	local d=$(awk -f $VIMRC_ROOT/z.awk regex=$1 ~/.z | fzf --query "$1")
+	if [ -n "$d" ]; then
+		cd $d
+	fi
+}
