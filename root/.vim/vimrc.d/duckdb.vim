@@ -1,9 +1,10 @@
 let g:duckdb_exe = 'duckdb'
 function DuckDBExec(cmd)
-	let current_file = expand('%')
-	let cmd = g:duckdb_exe . ' -c ".output ' . current_file . '" -c "' . a:cmd . '"'
-	call asyncrun#run('!', {'silent': 1}, cmd)
+	let cmd = g:duckdb_exe . ' -c "' . a:cmd . '"'
+	call asyncrun#run('!', {'silent': 1, 'raw': 1, 'mode': 'terminal'}, cmd)
 endfunction
 
+" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
 command -nargs=1 DuckDBExec call DuckDBExec(<q-args>)
+" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
 command -nargs=1 -complete=file DuckDBExecFile call DuckDBExec('.read ' . <q-args>)

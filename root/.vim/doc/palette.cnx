@@ -19,6 +19,7 @@
 *在新标签页(tab)中创建终端*				:tab ter
 *执行复制到默认寄存器中的命令(:h-:@)*			:@"
 *Save-with-sudo*					:w !sudo tee %
+*另存为*						:w foo.txt
 *当前行作为vim-command执行*				:exe getline('.')
 *关闭preview窗口*					:pc
 *查看当前文件名*					:f
