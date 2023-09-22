@@ -33,7 +33,7 @@ def main():
     while True:
         try:
             line = input()
-            lines.append(line.split())
+            lines.append(line.split('\t'))
         except EOFError:
             break
     tab_format(lines)

@@ -252,7 +252,7 @@ augroup commenting_blocks_of_code
 	autocmd FileType tex                                   let b:comment_leader = '% '
 	autocmd FileType mail,markdown                         let b:comment_leader = '> '
 	autocmd FileType vim                                   let b:comment_leader = '" '
-	autocmd FileType lua                                   let b:comment_leader = '-- '
+	autocmd FileType lua,sql                                   let b:comment_leader = '-- '
 augroup end
 
 " https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim

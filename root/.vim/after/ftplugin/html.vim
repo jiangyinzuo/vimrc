@@ -1,5 +1,5 @@
 " https://www.zhihu.com/question/547708456/answer/2645630850
-function HtmlPrettify()
+function! HtmlPrettify()
 	if &filetype != 'html'
 		echo 'not a html file'
 		return

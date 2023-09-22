@@ -1,8 +1,8 @@
 """""""""""""""""""""""""" Plugin Config """""""""""""""""""""""""""""
 
 function Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+	let opts = get(a:000, 0, {})
+	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
 " run
@@ -44,7 +44,7 @@ if has('nvim') || v:version >= 801
 	let g:VM_mouse_mappings             = 1
 	let g:VM_theme                      = 'iceblue'
 	let g:VM_highlight_matches          = 'underline'
- 
+
 	let g:VM_maps = {}
 	let g:VM_maps['I CtrlF'] = ''
 	let g:VM_maps['I Return'] = ''
@@ -71,13 +71,13 @@ if !exists('g:vscode')
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
 		" 这样的补全，使用F12
 		let g:UltiSnipsExpandTrigger="<f12>"
-		
+
 		" modify some snippets
 		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
 		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
-    let g:qf_auto_open_quickfix = 0
+		let g:qf_auto_open_quickfix = 0
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
@@ -122,7 +122,7 @@ if !exists('g:vscode')
 		Plug 'rcarriga/nvim-dap-ui'
 		Plug 'theHamsta/nvim-dap-virtual-text'
 		Plug 'folke/neodev.nvim'
-		
+
 		Plug 'SmiteshP/nvim-navic'
 
 		Plug 'nvim-lua/plenary.nvim'
@@ -141,7 +141,7 @@ if !exists('g:vscode')
 		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 		Plug 'dracula/vim', { 'as': 'dracula' }
 		Plug 'tomasiser/vim-code-dark'
-" 		Plug 'morhetz/gruvbox'
+		" 		Plug 'morhetz/gruvbox'
 
 		if v:version >= 802
 			if g:vimrc_use_coc
@@ -156,7 +156,7 @@ if !exists('g:vscode')
 			if g:vimrc_use_vimspector
 				Plug 'puremourning/vimspector'
 				let g:vimspector_enable_mappings='VISUAL_STUDIO'
-			
+
 				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
 				" There are two locations for debug configurations for a project:
 				" 
@@ -167,14 +167,14 @@ if !exists('g:vscode')
 				" json配置位于.vim/configurationsw目录下
 				let g:vimspector_base_dir = $HOME . '/.vim'
 				let g:vimspector_sign_priority = {
-					\    'vimspectorBP':          20,
-					\    'vimspectorBPCond':      20,
-					\    'vimspectorBPLog':       20,
-					\    'vimspectorBPDisabled':  20,
-					\    'vimspectorNonActivePC': 20,
-					\    'vimspectorPC':          999,
-					\    'vimspectorPCBP':        999,
-					\ }
+							\    'vimspectorBP':          20,
+							\    'vimspectorBPCond':      20,
+							\    'vimspectorBPLog':       20,
+							\    'vimspectorBPDisabled':  20,
+							\    'vimspectorNonActivePC': 20,
+							\    'vimspectorPC':          999,
+							\    'vimspectorPCBP':        999,
+							\ }
 			endif
 		endif
 		if v:version >= 800
@@ -201,9 +201,23 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/java.vim
 	Plug 'lambdalisue/doctest.vim'
 	augroup doctest
-	  autocmd! *
-	  autocmd QuickFixCmdPost lDoctest nested lwindow
+		autocmd! *
+			autocmd QuickFixCmdPost lDoctest nested lwindow
 	augroup END
+
+	" paste img in markdown/latex style
+	Plug 'jiangyinzuo/img-paste.vim'
+	let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
+	function! g:LatexPasteImage(relpath)
+		execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
+		let ipos = getcurpos()
+		execute "normal! a" . "mage}"
+		call setpos('.', ipos)
+		execute "normal! ve\<C-g>"
+	endfunction
+	" autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
+	autocmd FileType tex let g:PasteImageFunction = 'g:LatexPasteImage'
+	autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
 	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 802
@@ -240,7 +254,7 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 	if has("termguicolors") && g:vimrc_use_true_color
 		set termguicolors
 	endif
-	
+
 	let g:nord_uniform_diff_background = 1
 	let g:dracula_high_contrast_diff = 1
 
@@ -269,8 +283,8 @@ endif
 
 if has('nvim') || v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([
-			\ {"open": "<", "close": ">", "filetype": ["html"]}
-			\ ]) " This is a filetype-specific mapping
+				\ {"open": "<", "close": ">", "filetype": ["html"]}
+				\ ]) " This is a filetype-specific mapping
 endif
 
 if has('nvim') || v:version >= 802
