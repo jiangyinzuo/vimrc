@@ -89,6 +89,8 @@ if !exists('g:vscode')
 	Plug 'AndrewRadev/splitjoin.vim'
 	" 改进查找替换
 	Plug 'tpope/vim-abolish'
+	Plug 'arthurxavierx/vim-caser'
+	let g:caser_prefix = 'gs'
 
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
@@ -186,6 +188,11 @@ if !exists('g:vscode')
 	let g:gitgutter_sign_priority = 10
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
+	if has('vim9script')
+		Plug 'Eliot00/git-lens.vim'
+		let g:GIT_LENS_ENABLED = 0
+	endif
+
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 802
 		Plug 'pechorin/any-jump.vim'
