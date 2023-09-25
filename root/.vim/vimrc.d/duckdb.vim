@@ -1,7 +1,7 @@
 let g:duckdb_exe = 'duckdb'
 function DuckDBExec(cmd)
 	let cmd = g:duckdb_exe . ' -c "' . a:cmd . '"'
-	call asyncrun#run('!', {'silent': 1, 'raw': 1, 'mode': 'terminal'}, cmd)
+	call asyncrun#run('!', {'save': 1, 'silent': 1, 'raw': 1, 'mode': 'terminal'}, cmd)
 endfunction
 
 " [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
