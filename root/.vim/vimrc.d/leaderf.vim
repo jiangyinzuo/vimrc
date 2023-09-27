@@ -1,6 +1,10 @@
 " Alternative plugin: vim-clap
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
+" https://github.com/Yggdroot/LeaderF/wiki/Extensions
+Plug 'skywind3000/Leaderf-snippet'
+Plug 'voldikss/LeaderF-emoji'
+
 " popup mode
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
