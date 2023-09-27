@@ -36,7 +36,7 @@ Ubuntu22.04下均可通过apt安装
 目录树: tree  
 查找: find -> fd  
 模糊查找: fzf  
-内容搜索: grep -> ripgrep  
+内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快  
 https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/  
 
 下载: wget -> axel  

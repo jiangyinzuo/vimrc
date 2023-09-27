@@ -63,7 +63,7 @@ set timeoutlen=3000 " key map 超时时间
 
 set autowrite " 自动保存
 set cursorline " 高亮当前行
-
+set scrolloff=7 " 光标离底部或顶部保持7行
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
 set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
