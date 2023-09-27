@@ -189,6 +189,7 @@ if !exists('g:vscode')
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	if has('vim9script')
+		Plug 'Clavelito/indent-awk.vim'
 		Plug 'Eliot00/git-lens.vim'
 		let g:GIT_LENS_ENABLED = 0
 	endif
