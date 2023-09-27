@@ -82,6 +82,11 @@ set smarttab
 set autoindent " 跟随上一行的缩进方式
 set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
+""" default indent
+" markdown在被默认vim runtime file设置为tabstop=4
+" :verbose set tabstop? shiftwidth? softtabstop?
+set tabstop=4 shiftwidth=4 softtabstop=4
+
 augroup equalprg_filetype
 	autocmd!
 	" autocmd FileType c,cpp setlocal equalprg=indent
@@ -92,11 +97,7 @@ augroup end
 
 augroup indent2
 	autocmd!
-	autocmd FileType c,cpp,vim,tex,markdown,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
-augroup end
-augroup indent4
-	autocmd!
-	autocmd FileType python,go,rust,java setlocal tabstop=4 shiftwidth=4 softtabstop=4
+	autocmd FileType c,cpp,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 
 " https://github.com/timakro/vim-yadi/blob/main/plugin/yadi.vim
@@ -157,6 +158,8 @@ let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')
 	autocmd FileType * call s:DetectIndent()
+endif
+if !s:has_vimrcd
 	colorscheme desert
 	hi ColorColumn ctermbg=black guibg=black
 endif

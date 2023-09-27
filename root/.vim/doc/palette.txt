@@ -45,3 +45,4 @@
 *生成gtags*						:!global
 *增量更新gtags*						:!global -u
 *tab分隔的表格转md-table*				:'<,'>!tab2table.py
+*查看某个option是在什么位置设置的*			:verbose set <option>?
