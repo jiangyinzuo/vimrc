@@ -42,7 +42,7 @@ endif
 let g:vimtex_quickfix_mode = 0
 let g:vimtex_view_automatic = 0
 let g:vimtex_toc_todo_labels = { 'TODO': 'TODO: ', 'FIXME': 'FIXME: ', 'ISSUE': 'ISSUE: ', 'NOTE': 'NOTE: '}
-
+let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_method = 'latexmk'
 " use custom Makefile instead of latexmk by default
 " let g:vimtex_compiler_method = 'generic'
