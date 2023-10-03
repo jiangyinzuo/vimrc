@@ -54,6 +54,10 @@ pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)
 - coc-explorer
 - ranger
 - vifm
+- nnn
+- lf
+- [fzf-filemanager](https://github.com/sc0ttj/fzf-filemanager/blob/main/filemanager)
+- fm脚本
 
 json: jq  
 tldr: 命令行帮助  

@@ -6,6 +6,7 @@ export VIMRC_ROOT=$HOME/vimrc/root
 export EDITOR=vim
 
 . $VIMRC_ROOT/z.sh
+. $VIMRC_ROOT/fm
 
 alias start='cmd.exe /C start ""'
 
