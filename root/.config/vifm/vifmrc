@@ -166,15 +166,8 @@ command! reload :write | restart full
 " program.
 
 " Pdf
-filextype {*.pdf},<application/pdf> zathura %c %i &, apvlv %c, xpdf %c
+filextype {*.pdf},<application/pdf> SumatraPDF.exe %c &
 fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
-
-" PostScript
-filextype {*.ps,*.eps,*.ps.gz},<application/postscript>
-        \ {View in zathura}
-        \ zathura %f,
-        \ {View in gv}
-        \ gv %c %i &,
 
 " Djvu
 filextype {*.djvu},<image/vnd.djvu>
@@ -240,6 +233,14 @@ fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
         \ vifm-sixel draw %pw %ph %c %pd
         \ %pc
         \ vifm-sixel clear
+
+" PostScript
+filextype {*.eps},<application/postscript>
+        \ {View in evince}
+        \ xdg-open %f &
+
+fileviewer {*.eps},<image/*>
+        \ timg -g50x30 %f
 
 " OpenRaster
 filextype *.ora

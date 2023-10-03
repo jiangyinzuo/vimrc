@@ -58,7 +58,9 @@ pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)
 json: jq  
 tldr: 命令行帮助  
 补全父目录 -> bd  
-终端查看图片: timg  
+终端查看图片:
+- timg
+- cmd.exe /c wezterm imgcat
 [翻译](https://github.com/afc163/fanyi#error-spawn-festival-enoent)  
 ```
 sudo apt-get install festival festvox-kallpc16k
