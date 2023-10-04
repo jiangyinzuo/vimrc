@@ -7,13 +7,14 @@ fm() {
 		echo "<F12> execute externally"
 		echo "<c-f> list current dir; <c-r> list all sub dirs; <c-z> load .z source list" 
 		echo PWD: $current_dir
+		# 不直接传preview.sh, 使用绝对路径。直接传preview.sh性能很差
 		local selected=`{ fd -d 1 -I; echo '..'; } | fzf \
 			--height=93% \
 			--bind 'f12:execute-silent(fm_execute.sh {})' \
 			--bind 'ctrl-f:reload(fd -d 1 -I && echo ..)' \
 			--bind 'ctrl-r:reload(fd -I)' \
 			--bind 'ctrl-z:reload(awk -f $VIMRC_ROOT/z.awk ~/.z)' \
-			--preview 'preview.sh {}' \
+			--preview "$VIMRC_ROOT/scripts/preview.sh {}" \
 			`
 		if [ -z $selected ]; then
 			return 0

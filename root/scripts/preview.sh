@@ -6,7 +6,7 @@ case `file --mime-type -b $1` in
 	application/pdf)
 		pdftotext $1 - ;;
 	text/*)
-		bat --color=always $1 ;;
+		bat -p --color=always $1 ;;
 	application/postscript)
 		timg -g 60x80 $1 ;;
 esac

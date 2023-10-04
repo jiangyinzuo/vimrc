@@ -48,6 +48,7 @@ sudo apt install bat
 batcat --version
 ```
 pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
+pdf转text: pdftotext  
 
 文件管理器:
 - Netrw
@@ -64,6 +65,7 @@ tldr: 命令行帮助
 补全父目录 -> bd  
 终端查看图片:
 - timg
+    - echo "set terminal png; plot sin(x);" | gnuplot | timg -pi -
 - cmd.exe /c wezterm imgcat
 [翻译](https://github.com/afc163/fanyi#error-spawn-festival-enoent)  
 ```
