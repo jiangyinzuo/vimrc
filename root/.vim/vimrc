@@ -477,7 +477,7 @@ function! CppFoldExpr(lnum)
 endfunction
 
 autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
-autocmd FileType python,vim,lua,go,markdown,sh setlocal foldmethod=indent
+autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 
 " 默认打开所有折叠，将foldlevelstart设置为较大的值
 "" set foldlevel=-1 " 默认关闭所有折叠

@@ -89,7 +89,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:load_project_accept_user_input = 0
-" 加载对应的.project_vimrc文件
+" 加载对应的.project.vim文件
 function! LoadProjectConfigEachTab()
   
 	" 获取当前的项目根目录
