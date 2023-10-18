@@ -98,6 +98,7 @@ if !exists('g:vscode')
 	Plug 'liuchengxu/vista.vim'
 	" Plug 'samoshkin/vim-mergetool'
 
+	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim'
 	Plug 'rust-lang/rust.vim'
 	Plug 'kaarmu/typst.vim'

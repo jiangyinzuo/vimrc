@@ -1,4 +1,3 @@
-Plug 'godlygeek/tabular', { 'for': 'markdown' }
 " See: https://github.com/preservim/vim-markdown/pull/633
 Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
 
