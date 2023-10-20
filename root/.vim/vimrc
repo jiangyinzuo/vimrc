@@ -75,6 +75,10 @@ set noswapfile     "no swap files
 
 " 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 set sessionoptions-=options
+
+" 选中想格式化的段落后，可以用gq格式化
+" 设置textwidth，可以让文本格式化时自动换行
+autocmd Filetype tex setlocal textwidth=80
 """"""""""""""""""""""""""""""
 "indent and tab
 """"""""""""""""""""""""""""""
@@ -422,11 +426,11 @@ endfunction
 nnoremap <silent> <leader>cn :cn<CR>
 nnoremap <silent> <leader>cp :cp<CR>
 
-vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
-nnoremap <silent> <leader>t :term ++rows=9<CR>
-if exists(':tnoremap')
-	tnoremap <silent> <leader>t <C-W>:hide<CR>
-endif
+" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
+" nnoremap <silent> <leader>t :term ++rows=9<CR>
+" if exists(':tnoremap')
+" 	tnoremap <silent> <leader>t <C-W>:hide<CR>
+" endif
 
 function CExprSystem(args)
 	cexpr system(a:args)

@@ -1,7 +1,7 @@
 *awk内置变量*
 
 https://www.runoob.com/linux/linux-comm-awk.html
-`
+
 FILENAME 当前文件名
 FS 字段分隔符（默认空格）
 NF 一行的字段数目
