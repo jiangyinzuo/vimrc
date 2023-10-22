@@ -252,6 +252,8 @@ let g:netrw_keepdir=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commenting blocks of code.
+" 也可以选中多行后，用:norm i# 在所有行前面添加#,
+" :norm x删除所有行的第一个字母
 augroup commenting_blocks_of_code
 	autocmd!
 	autocmd FileType c,cpp,java,scala,rust,go                 let b:comment_leader = '// '
