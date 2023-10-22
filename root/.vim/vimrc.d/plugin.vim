@@ -97,7 +97,7 @@ if !exists('g:vscode')
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
-	" Plug 'samoshkin/vim-mergetool'
+	Plug 'samoshkin/vim-mergetool'
 
 	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim'
