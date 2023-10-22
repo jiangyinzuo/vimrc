@@ -1,4 +1,4 @@
-function! FzfTabs()
+function! fzf#tabs#FzfTabs()
   let tab_list = []
   let tcount = tabpagenr('$')
 
@@ -16,16 +16,13 @@ function! FzfTabs()
   " Use fzf#run to select the tab
   call fzf#run({
         \ 'source': tab_list,
-        \ 'sink': function('SwitchToTab'),
+        \ 'sink': function('s:SwitchToTab'),
         \ 'options': '--prompt="Select Tab> " --preview-window=up:1'
         \ })
 endfunction
 
-function! SwitchToTab(tab)
+function! s:SwitchToTab(tab)
   let match = matchlist(a:tab, 'Tab \(\d\+\):')
   let tabnr = match[1]
   execute 'tabn ' . tabnr
 endfunction
-
-command! -nargs=0 Tabs :call FzfTabs()
-

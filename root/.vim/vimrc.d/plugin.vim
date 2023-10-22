@@ -232,16 +232,24 @@ if !exists('g:vscode')
 
 	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 802
-		source ~/.vim/vimrc.d/fzf/fzf.vim
+		source ~/.vim/vimrc.d/fzf.vim
 		source ~/.vim/vimrc.d/jupyter.vim
 	endif
 	Plug 'whonore/Coqtail'
 	source ~/.vim/vimrc.d/latex.vim
 	source ~/.vim/vimrc.d/asynctasks.vim
-	source ~/.vim/vimrc.d/duckdb.vim
 	source ~/.vim/vimrc.d/yank.vim
 	" codenote.vim depends on fzf.vim
 	source ~/.vim/vimrc.d/codenote.vim
+
+	""" DuckDB
+	let g:duckdb_exe = 'duckdb -markdown'
+	" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
+	command -nargs=1 DuckDBExec call duckdb#DuckDBExec(<q-args>)
+	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
+	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
+	"""
+
 endif
 
 " Initialize plugin system

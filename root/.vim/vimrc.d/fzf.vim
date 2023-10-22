@@ -38,7 +38,16 @@ function! s:find_git_root()
 endfunction
 
 " [[palette]]FZF搜索当前项目目录下的文件并打开			:Files
-command! ProjectFiles execute 'Files' asyncrun#current_root('%')
+command! ProjectFiles execute 'Files' asyncrun#current_root()
+
+command! -nargs=0 GitUnmergedRaw call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': 'e'}))
+command! -nargs=0 GitUnmerged call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf#vim#mergetool_start')}))
+command! -nargs=0 GitUntracked call fzf#run(fzf#wrap({'source': 'git ls-files --others --exclude-standard', 'sink': 'e'}))
+command! -nargs=0 GitStaged call fzf#run(fzf#wrap({'source': 'git diff --name-only --cached', 'sink': 'e'}))
+command! -nargs=0 GitModified call fzf#run(fzf#wrap({'source': 'git ls-files -m', 'sink': 'e'}))
+command! -nargs=0 GitDeleted call fzf#run(fzf#wrap({'source': 'git ls-files -d', 'sink': 'e'}))
+command! -nargs=0 GitRenamed call fzf#run(fzf#wrap({'source': 'git ls-files -t', 'sink': 'e'}))
+command! -nargs=0 GitUnstaged call fzf#run(fzf#wrap({'source': 'git ls-files -o --exclude-standard', 'sink': 'e'}))
 
 " See https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzf-inside-terminal-buffer
 " On :LS!, <bang> evaluates to '!', and '!0' becomes 1
@@ -75,7 +84,7 @@ command! -nargs=0 DirectoriesPaste call fzf#run({'source': 'fd -i -t d', 'sink':
 "
 " [[palette]]FZF搜索文件路径并插入到当前光标位置			:Path
 command! -bang -nargs=0 PathPaste
-			\ call fzf#run(fzf#wrap('path', {'source': 'cat ' .. asyncrun#get_root('%') .. '/path.txt', 'sink': function("s:paste_word")}, <bang>0))
+			\ call fzf#run(fzf#wrap('path', {'source': 'cat ' .. asyncrun#current_root() .. '/path.txt', 'sink': function("s:paste_word")}, <bang>0))
 
 " 在线查找path
 command! -bang -nargs=0 PathLivePaste call fzf#run({'sink': function("s:paste_word")})
@@ -135,7 +144,17 @@ command! WikiLink call fzf#vim#grep("rg --column --line-number --no-heading '\\[
 command! WikiLinkCur call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]*". expand("%:t") ."[^$\\#]*\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
 """""""""""""""""""""""""""""""""""""""
 
-source ~/.vim/vimrc.d/fzf/palette.vim
-source ~/.vim/vimrc.d/fzf/quickfix.vim
-source ~/.vim/vimrc.d/fzf/tags.vim
-source ~/.vim/vimrc.d/fzf/tabs.vim
+" palette在vimscript注释中的格式如下，记得用tab键分隔
+" [[palette]]命令面板						:Palette
+command! -nargs=0 Palette call fzf#palette#Palette()
+command! -nargs=0 Quickfix call fzf#quickfix#Quickfix()
+command! -nargs=0 Tabs call fzf#tabs#FzfTabs()
+
+" 可以输入0-1个正则表达式, 满足正则的行才会显示
+" [[palette]]FZF查询ctags						:CTags
+command! -nargs=? -bang CTags call fzf#tags#CTags(<q-args>, <bang>0)
+
+" [[palette]]Global 查找符号						:GlobalSym
+command -nargs=0 GlobalSym call fzf#tags#GlobalSym()
+" [[palette]]Global 查找定义						:GlobalDef
+command -nargs=0 GlobalDef call fzf#tags#GlobalDef()

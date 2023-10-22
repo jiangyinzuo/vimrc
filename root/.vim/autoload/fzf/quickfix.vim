@@ -15,7 +15,7 @@ function! s:QuickfixListFormat()
   return formatted_list
 endfunction
 
-function! Quickfix()
+function! fzf#quickfix#Quickfix()
   call fzf#run(fzf#wrap({
   \ 'source': s:QuickfixListFormat(),
   \ 'sink':   function('s:open_quickfix_item'),
@@ -29,6 +29,4 @@ function! s:open_quickfix_item(line)
   execute item.bufnr . 'buffer'
   call cursor(item.lnum, item.col)
 endfunction
-
-command! Quickfix call Quickfix()
 

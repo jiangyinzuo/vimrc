@@ -95,22 +95,31 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 
 *git-diff/merge*
 
-*git-difftool*					git difftool HEAD mydoc.txt` or `git difftool -- mydoc.txt HEAD
+*git-difftool*					git difftool HEAD mydoc.txt or git difftool -- mydoc.txt HEAD
 
 *git-mergetool*
 
 git列举所有unmerged文件			git diff --name-only --diff-filter=U --relative
-
+git撤销某个提交的merged文件		git restore -m foo.txt
 tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 插件:     https://github.com/samoshkin/vim-mergetool
 
-直接git mergetool开启merge
-或者打开需要merge的文件后，
-:MergetoolStart/:MergetoolToggle 开始merge
-:MergetoolStop/:MergetoolToggle  结束merge(保存或撤销)
+批量merge多个文件的流程
+
+方案1: 直接git mergetool开启merge
+方案2: 
+1) :Git mergetool , 在quickfix list加载所有unmerged file
+可以用:SaveList 和 :LoadList 保存/加载quickfix list(在quickfix buffer下命令生效)
+2) 打开需要merge的文件后，>
+  :MergetoolStart/:MergetoolToggle 开始merge
+  :MergetoolStop/:MergetoolToggle  结束merge(保存或撤销)
+<
+
 用:qa!退出vim会直接判断为merge成功
 
 :MergetoolDiffExchangeLeft       把右边的buffer应用到左边的MERGED文件
+:GitUnmergedRaw FZF打开unmerged文件，直接编辑
+:GitUnmerged    FZF打开unmerged文件，然后:MergetoolStart
 
 clean-LOCAL-BASE-REMOTE-files			git clean -i
 

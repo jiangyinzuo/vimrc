@@ -8,7 +8,7 @@ function s:tag_sink(line)
 	call GoToFile(l:lines[0], l:lines[1])
 endfunction
 
-function CTags(query, fullscreen)
+function fzf#tags#CTags(query, fullscreen)
 	let tags = join(map(tagfiles(), 'fzf#shellescape(fnamemodify(v:val, ":p"))'))
 	" TODO: 处理多tag文件
 	echom tags
@@ -28,10 +28,6 @@ function CTags(query, fullscreen)
 		echom v:exception
 	endtry
 endfunction
-
-" 可以输入0-1个正则表达式, 满足正则的行才会显示
-" [[palette]]FZF查询ctags						:CTags
-command! -nargs=? -bang CTags call CTags(<q-args>, <bang>0)
 
 " Example:
 " a                   5 hello.py         a = 3
@@ -69,7 +65,7 @@ function! s:global_def(query)
 	call s:global(l:cmd)
 endfunction
 
-function GlobalSym()
+function fzf#tags#GlobalSym()
 	let l:cmd = 'GTAGSDBPATHGTAGSROOT=' . getcwd() . ' global -c'
 	return fzf#run(fzf#wrap({
 				\ 'source': l:cmd,
@@ -78,7 +74,7 @@ function GlobalSym()
 				\ }))	
 endfunction
 
-function GlobalDef()
+function fzf#tags#GlobalDef()
 	let l:cmd = 'GTAGSROOT=' . getcwd() . ' global -c'
 	let l:source = systemlist(l:cmd)
 	return fzf#run(fzf#wrap({
@@ -88,9 +84,3 @@ function GlobalDef()
 				\ }))
 endfunction
 
-" [[palette]]Global 查找符号						:GlobalSym
-command -nargs=0 GlobalSym call GlobalSym()
-" [[palette]]Global 查找定义						:GlobalDef
-command -nargs=0 GlobalDef call GlobalDef()
-
-"""""""""""""""""""""""""""""""""""""
