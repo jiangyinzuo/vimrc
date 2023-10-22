@@ -35,6 +35,7 @@ nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 
 if has('nvim') || v:version >= 801
+	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1

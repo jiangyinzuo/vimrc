@@ -88,13 +88,12 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:load_project_accept_user_input = 0
 " 加载对应的.project.vim文件
 function! LoadProjectConfigEachTab()
   
 	" 获取当前的项目根目录
 	if v:version >= 800
-		let l:project_root = asyncrun#get_root('%')
+		let l:project_root = asyncrun#current_root()
 	else
 		let l:project_root = getcwd()
 	endif
@@ -103,17 +102,6 @@ function! LoadProjectConfigEachTab()
 	let l:possible_vimrc = l:project_root . '/' . g:project_vimrc
 	if filereadable(l:possible_vimrc)
 		let l:project_vimrc = l:possible_vimrc
-	endif
-
-	" 如果在目录中没有找到g:project_vimrc文件，则提示用户输入路径
-	if l:project_vimrc == '' && g:load_project_accept_user_input
-		let l:project_root = input('Enter directory path for ' . g:project_vimrc .' (leave empty to skip): ')
-		if l:project_root != '' && isdirectory(l:project_root) && filewritable(l:project_root)
-			" 在用户输入的路径下创建或打开.project_vimrc文件
-			let l:project_vimrc = l:project_root . '/' . g:project_vimrc
-		else
-			let l:project_vimrc = ''
-		endif
 	endif
 
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
