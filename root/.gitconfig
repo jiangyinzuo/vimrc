@@ -1,15 +1,41 @@
-#[url "https://github.moeyy.xyz/https://github.com/"]
-#       insteadOf = https://github.com/
+#[url "https://gitclone.com/github.com/"]
+#	insteadOf = https://github.com/
+[user]
+	email = jiangyinzuo@foxmail.com
+	name = jiangyinzuo
 [core]
 	editor = vim
+	quotepath = false
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
 [merge]
-	tool = vimdiff
+	# tool = vimdiff
+	tool = vim_mergetool
+	conflictstyle = diff3
 [mergetool]
+	keepBackup = false
+[mergetool "vim_mergetool"]
+	cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+	# When trustExitCode = true, checks exit code of merge tool process.
+	# When trustExitCode = false, checks if MERGED file was modified.
+	trustExitCode = true
 	prompt = false
+
+[includeIf "gitdir:/mnt/d/doc2/group-meeting/"]
+	path = ~/.gitconfig-ict
+[includeIf "gitdir:/mnt/d/wkspace/blade-project/"]
+	path = ~/.gitconfig-ict
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[safe]
+	directory = *
+
 # use utf-8
 # https://m.php.cn/tool/git/506129.html
 # git config --global i18n.commitencoding utf-8

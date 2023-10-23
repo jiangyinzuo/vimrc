@@ -1,5 +1,10 @@
 #/bin/bash
 
+soft_link_files=(
+	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
+	.config/vifm .gitconfig .gitconfig-ict
+)
+
 echo_green() {
   echo -e "\033[32m$1\033[0m"
 }
@@ -29,7 +34,7 @@ echo_green "Setup soft links:"
 # nvim
 # ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
 # ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
-for f in .vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit .config/vifm ; do
+for f in ${soft_link_files[@]} ; do
 	_make_soft_link $VIMRC_ROOT/$f ~/$f
 done
 mkdir -p ~/gadgets
