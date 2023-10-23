@@ -41,7 +41,7 @@ endfunction
 command! ProjectFiles execute 'Files' asyncrun#current_root()
 
 command! -nargs=0 GitUnmergedRaw call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': 'e'}))
-command! -nargs=0 GitUnmerged call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf#vim#mergetool_start')}))
+command! -nargs=0 GitUnmerged call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf_custom#fzf#mergetool_start')}))
 command! -nargs=0 GitUntracked call fzf#run(fzf#wrap({'source': 'git ls-files --others --exclude-standard', 'sink': 'e'}))
 command! -nargs=0 GitStaged call fzf#run(fzf#wrap({'source': 'git diff --name-only --cached', 'sink': 'e'}))
 command! -nargs=0 GitModified call fzf#run(fzf#wrap({'source': 'git ls-files -m', 'sink': 'e'}))
@@ -146,15 +146,15 @@ command! WikiLinkCur call fzf#vim#grep("rg --column --line-number --no-heading '
 
 " palette在vimscript注释中的格式如下，记得用tab键分隔
 " [[palette]]命令面板						:Palette
-command! -nargs=0 Palette call fzf#palette#Palette()
-command! -nargs=0 Quickfix call fzf#quickfix#Quickfix()
-command! -nargs=0 Tabs call fzf#tabs#FzfTabs()
+command! -nargs=0 Palette call fzf_custom#palette#Palette()
+command! -nargs=0 Quickfix call fzf_custom#quickfix#Quickfix()
+command! -nargs=0 Tabs call fzf_custom#tabs#FzfTabs()
 
 " 可以输入0-1个正则表达式, 满足正则的行才会显示
 " [[palette]]FZF查询ctags						:CTags
-command! -nargs=? -bang CTags call fzf#tags#CTags(<q-args>, <bang>0)
+command! -nargs=? -bang CTags call fzf_custom#tags#CTags(<q-args>, <bang>0)
 
 " [[palette]]Global 查找符号						:GlobalSym
-command -nargs=0 GlobalSym call fzf#tags#GlobalSym()
+command -nargs=0 GlobalSym call fzf_custom#tags#GlobalSym()
 " [[palette]]Global 查找定义						:GlobalDef
-command -nargs=0 GlobalDef call fzf#tags#GlobalDef()
+command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
