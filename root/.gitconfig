@@ -49,3 +49,31 @@
 	encoding = utf-8
 [utf8]
 	auto = false
+
+[alias]
+# https://how-to.dev/how-to-display-git-branches-as-a-tree-in-cli
+# Config command: git config --global alias.tree "log --oneline --graph --decorate --all"
+#
+# --oneline = show each commit as a single line
+# --graph = show ASCII graph of branch and merge history
+# --decorate = show branch and tag names on graph
+# --all = show all commits (by default only shows commits reachable from HEAD)
+# --pretty=format: = use custom format
+#
+# https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date/1441062#1441062
+# %h = abbreviated commit hash
+# %an = author name
+# %ad = author date (format respects --date= option)
+# %d = ref names, like the --decorate option of git-log(1)
+# %s = subject
+# %C(auto,yellow) = yellow text
+# %C(auto,green) = green text
+# %C(auto,blue) = blue text
+# %C(reset) = reset color
+# %x09 = tab
+# --date=short = show date in short format
+#
+# Usage:
+# 	git tree    # all commits
+# 	git tree -2 # last 2 commits
+	tree = log --oneline --graph --decorate --all --pretty=format:'%C(auto,yellow)%h %C(auto,green)%an %C(auto,blue)%x09%ad %C(reset)%s%C(auto)%d' --date=format-local:'%Y-%m-%d %H:%M:%S'
