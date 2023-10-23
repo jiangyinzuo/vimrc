@@ -44,8 +44,10 @@ git commit --amend                                      *git-commit-amend*
 -------------------------------------------------------------------------------
 git reset                                             *git-reset*
 
-'git reset --soft <commit_hash>' 是一个 Git 命令，用于将 HEAD 指针移动到指定的提交，
+'git reset --soft <commit_hash>' 用于将 HEAD 指针移动到指定的提交，
 并将该提交后的所有提交放回暂存区。'<commit_hash>' 是你想要回滚到的提交的哈希值。
+
+'git reset <commit_hash>' : 将所有提交放回unstaged area.
 
 如果你不小心使用了 'git reset HEAD~3' 并希望恢复，你可以使用 'git reflog' 查找到你
 想要恢复的提交的哈希值，然后使用 'git reset --hard <commit_hash>' 来恢复。

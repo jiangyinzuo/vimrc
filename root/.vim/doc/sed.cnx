@@ -1,2 +1,7 @@
 *sed-command*
+
 fd --extension py | xargs sed -i "s/api.openai.com/api.aiproxy.io/g"
+
+sed全字替换 >
+  sed -i "s/\braft\b/Raft/g" *.tex
+<
