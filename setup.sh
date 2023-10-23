@@ -9,6 +9,10 @@ echo_green() {
   echo -e "\033[32m$1\033[0m"
 }
 
+echo_yellow() {
+	echo -e "\033[33m$1\033[0m"
+}
+
 # 检查 $VIMRC_ROOT 是否存在
 if [ -z "$VIMRC_ROOT" ]; then
   # 如果不存在，则追加到 .bashrc
@@ -46,4 +50,7 @@ echo CODE_HOME="$CODE_HOME"
 
 echo_green "Add the following to your .bashrc if you want to use pygments for gtags:"
 echo "export GTAGSLABEL=native-pygments"
+
+echo_yellow "NOTE: Change name and email in .gitconfig if needed."
+
 echo_green "Done!"
