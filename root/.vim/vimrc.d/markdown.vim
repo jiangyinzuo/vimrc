@@ -1,3 +1,6 @@
+" support more features(mermaid, flowchart, ...)
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
+
 " See: https://github.com/preservim/vim-markdown/pull/633
 Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
 

@@ -104,26 +104,6 @@ Markdown等文本编辑添加链接：
 
 查找Hashtag并插入到当前光标位置		:Hashtag
 
-*marp* Markdown Presentation Ecosystem
-
-See: https://github.com/marp-team/marp-cli
-
-watch mode >
-  npx @marp-team/marp-cli@latest note.md -w --html
-<
-
-md -> html >
-  :AsyncRun npx @marp-team/marp-cli@latest note.md
-<
-
-md enable inlining html >
-  :AsyncRun npx @marp-team/marp-cli@latest note.md --html
-<
-
-md -> pptx >
-   npx @marp-team/marp-cli@latest llvm-udo.md --pptx --allow-local-files --html
-<
-
 -------------------------------------------------------------------------------
 *lsp* *coc.nvim*
 TODO: LSP formatter, LSP linter
