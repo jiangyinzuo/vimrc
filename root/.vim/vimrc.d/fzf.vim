@@ -135,7 +135,7 @@ command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 			\			{}, <bang>0) |
 			\ else |
 			\		call fzf#vim#grep(
-			\			'rg --column --line-number --no-heading --color=always --smart-case  -g "' . <q-args> . '" "" '. join(g:helppaths), 1,
+			\			'rg --column --line-number --no-heading --color=always --smart-case -g "*.txt" -g "*.cnx" "' . <q-args> . '" '. join(g:helppaths), 1,
 			\			{}, <bang>0) |
 			\ end
 
