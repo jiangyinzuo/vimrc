@@ -83,6 +83,9 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 'git commit --amend --date="<date>"' 来修改提交日期，'<date>' 是你想要设置的日期和
 时间。最后，执行 'git rebase --continue' 来完成 rebase 操作。
 
+
+`git rebase -i --root` 修改第一次commit
+
 -------------------------------------------------------------------------------
 
 *git提交把作者改成自己*				git commit --amend --reset-author --no-edit
