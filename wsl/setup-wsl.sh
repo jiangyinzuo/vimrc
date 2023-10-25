@@ -1,3 +1,5 @@
+DIR="$(dirname "$0")"
+
 apt install wslu -y
 xdg-settings set default-web-browser wslview.desktop
 
@@ -21,3 +23,5 @@ EOF
 xdg-mime default start.desktop application/vnd.openxmlformats-officedocument.presentationml.presentation
 # SVG让Windows的默认程序打开
 xdg-mime default start.desktop image/svg+xml
+
+cp $DIR/convert-pptx.ps1 /mnt/d/convert-pptx.ps1

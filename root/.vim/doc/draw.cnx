@@ -2,7 +2,14 @@
 
 ===============================================================================
 
-- draw.io(在Windows宿主机中安装，wsl2中使用)
-- Microsoft PowerPoint
+*drawio*
+在Windows宿主机中安装，wsl2中使用
 
 See: $DOC2/academic/draw.md
+
+*ppt*
+
+WSL2中可以使用`ppt2pdf.sh` 将Microsoft PowerPoint自动转为PDF。
+自动化脚本难以直接转svg，可以用`pdf2svg`工具转换，也可以在PowerPoint中全选所有对
+象， 右击“另存为图片”转换。但这两种转换方式均无法用drawio重新编辑。
+

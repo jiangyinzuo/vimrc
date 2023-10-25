@@ -7,6 +7,47 @@ export CODE_HOME=~
 # echo 'Database and CLI is Way of Life!' # https://wayoflifeapp.com/
 # echo ''
 
+alias start='cmd.exe /C start ""'
+
+# cmd.exe /c mklink /d parameter_server  "D:\doc2\cs\aisys\parameter_server"
+mklinkd() {
+	if [ $# -eq 2 ]; then
+		target=$2
+		target=${target/\/mnt\/d/D:}
+		target=${target//\//\\}
+		echo 'create link: ' $1 ' target: ' $target
+		cmd.exe /c mklink /d $1 $target
+	elif [ $# -eq 1 ]; then
+		# mklinkd /mnt/d/doc2/cs/aisys
+		target=$1
+		link=${target##*/} # link = "aisys"
+		target=${target/\/mnt\/d/D:}
+		echo $target
+		target=${target//\//\\}
+		echo 'create link: ' $link ' target: ' $target
+		cmd.exe /c mklink /d $link $target
+	fi
+}
+
+mklink() {
+	if [ $# -eq 2 ]; then
+		target=$2
+		target=${target/\/mnt\/d/D:}
+		target=${target//\//\\}
+		echo 'create link: ' $1 ' target: ' $target
+		cmd.exe /c mklink $1 $target
+	elif [ $# -eq 1 ]; then
+		# mklinkd /mnt/d/doc2/cs/aisys
+		target=$1
+		link=${target##*/} # link = "aisys"
+		target=${target/\/mnt\/d/D:}
+		echo $target
+		target=${target//\//\\}
+		echo 'create link: ' $link ' target: ' $target
+		cmd.exe /c mklink $link $target
+	fi
+}
+
 alias daily='vim $DOC2/daily'
 
 ######################### Clash Proxy ########################
