@@ -16,3 +16,8 @@ MimeType=application/pdf;application/x-pdf;application/x-gzpdf;application/x-bzp
 Categories=Viewer;Graphics;
 Keywords=Viewer;Graphics;
 EOF
+
+# PPTX让Windows的默认程序打开
+xdg-mime default start.desktop application/vnd.openxmlformats-officedocument.presentationml.presentation
+# SVG让Windows的默认程序打开
+xdg-mime default start.desktop image/svg+xml

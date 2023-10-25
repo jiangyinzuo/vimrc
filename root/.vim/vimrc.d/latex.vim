@@ -51,3 +51,10 @@ let g:vimtex_compiler_method = 'latexmk'
 " let g:vimtex_compiler_generic = {
 " 			\ 'command': 'make',
 " 			\}
+
+augroup latex_commands
+	" 清除可能已存在的与 'latex_commands' 相关的自动命令
+  autocmd!
+  autocmd FileType tex command! -nargs=0 OpenPPTX call latex#OpenPPTX()
+augroup end
+
