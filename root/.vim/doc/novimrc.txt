@@ -1,0 +1,57 @@
+*novimrc* *noconfig* *零配置*
+
+查找文本
+:vim /func main/ **/*.txt
+
+使用grep
+`grep 'func main' -r --exclude tags .`
+`grep 'func main' ~/hello.go` 查找~/hello.go文件中的func main
+`grep -i` 忽略大小写
+`grep -w` 全字匹配
+
+查找文件
+`find . -name 'scheduler*.py'`
+`find -type f`  查找文件
+`find -type d`  查找目录
+
+其它
+`tldr find`
+`tldr grep`
+
+|tagsystem|
+
+-------------------------------------------------------------------------------
+|ctags|
+
+创建tags
+ctags -R .
+
+:ta main
+CTRL-]
+
+其它 :h tags
+
+-------------------------------------------------------------------------------
+|gtags|
+
+:set csprg=gtags-cscope
+
+创建gtags数据库
+gtags
+
+vim连接数据库
+:cs add GTAGS
+
+使用其它前端解析(注意.globalrc配置文件, 可以从/etc/gtags.conf, /etc/gtags/gtags.conf复制)
+pip install pygments
+GTAGSLABEL=pygments gtags
+GTAGSLABEL=native-pygments gtags
+
+查找文件
+:cs f f hello
+查找符号
+:cs f s main
+
+---
+补全
+See: complete.md
