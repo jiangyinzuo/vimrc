@@ -5,7 +5,7 @@ new_arg=()                 # ceate arguments array
 declare -i idxMntOccur=0
 
 for arg ($@) {
-  echo $arg >> log
+  # echo $arg >> log
   if [[ "$arg" == /mnt* ]] {
     # convert to windows style path
     idxMntOccur=idxMntOccur+1

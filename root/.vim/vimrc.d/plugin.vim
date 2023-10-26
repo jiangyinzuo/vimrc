@@ -262,6 +262,7 @@ endif
 
 " 默认主题不显示colorcolumn
 set colorcolumn=80,120
+" markdown会conceal一些字符，导致colorcolumn显示混乱
 autocmd FileType org,markdown,text setlocal colorcolumn=
 
 if v:version >= 802

@@ -77,7 +77,7 @@ set sessionoptions-=options
 
 " 选中想格式化的段落后，可以用gq格式化
 " 设置textwidth，可以让文本格式化时自动换行
-autocmd Filetype tex setlocal textwidth=80
+autocmd Filetype tex,markdown setlocal textwidth=80
 """"""""""""""""""""""""""""""
 "indent and tab
 """"""""""""""""""""""""""""""
@@ -244,7 +244,7 @@ let g:netrw_browse_split = 0 " open the file using netrw buffer
 let g:netrw_liststyle = 3 " tree style listing
 let g:netrw_preview = 0 " preview window horizontally
 if exists('$WSLENV')
-	let g:netrw_browsex_viewer="start"
+	let g:netrw_browsex_viewer="-"
 endif
 let g:netrw_hide = 1 " show not-hidden files
 let g:netrw_keepdir=0

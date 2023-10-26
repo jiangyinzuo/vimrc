@@ -1,4 +1,4 @@
-function! fzf#tabs#FzfTabs()
+function! fzf_custom#tabs#FzfTabs()
   let tab_list = []
   let tcount = tabpagenr('$')
 

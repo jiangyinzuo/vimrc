@@ -1,5 +1,6 @@
 DIR="$(dirname "$0")"
 
+# 会自动添加wslview.desktop
 apt install wslu -y
 xdg-settings set default-web-browser wslview.desktop
 
