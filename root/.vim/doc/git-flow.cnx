@@ -1,6 +1,7 @@
 *git-flow*
 *git-branch-model*
 
+|git|
 See: $DOC2/cs/tools-open-source/git-github/git-branch-model
 
 多人协作时，需要将本地master单分支开发模式切换为master-dev-feature... 多分支开发模式。

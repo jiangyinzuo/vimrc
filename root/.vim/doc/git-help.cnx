@@ -1,9 +1,17 @@
 *vim-git-help*
+*git-help*
+*git*
 
 ==============================================================================
 Git 开发规范
 https://github.com/universal-ctags/ctags/pull/3747
 https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
+
+|git-flow|
+
+See also:
+$DOC2/cs/system/software_engineering/version-control-and-release-model
+$DOC2/cs/tools-open-source/git-github
 
 ==============================================================================
 Git 修改历史提交的文件                                 *git-modify-history-file*
