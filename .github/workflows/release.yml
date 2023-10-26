@@ -1,27 +1,33 @@
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-
-name: Release
+  workflow_dispatch:
+    branches: main
 
 jobs:
   release:
-    name: SemVer release
+    name: Perform release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{secrets.GITHUB_TOKEN}}
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git config --global user.email github-actions@github.com
-          git config --global user.name github-actions
+
+      - name: Cocogitto release
+        id: release
+        uses: cocogitto/cocogitto-action@v3.5
+        with:
+          release: true
+          git-user: 'Cog Bot'
+          git-user-email: 'mycoolproject@org.org'
+          check-latest-tag-only: true
+
+      - name: Generate Changelog
+        run: cog changelog --at ${{ steps.release.outputs.version }} -t full_hash > GITHUB_CHANGELOG.md
 
       - name: Upload github release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: CHANGELOG.md
+          body_path: GITHUB_CHANGELOG.md
+          tag_name: ${{ steps.release.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
