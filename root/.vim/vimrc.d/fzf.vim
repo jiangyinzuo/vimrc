@@ -159,5 +159,5 @@ command -nargs=0 GlobalSym call fzf_custom#tags#GlobalSym()
 " [[palette]]Global 查找定义						:GlobalDef
 command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
 
-command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/fsrs-cli.py -l', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
-command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/fsrs-cli.py ' . expand('%'))
+command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/sr -l', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
+command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/sr ' . expand('%:p'))
