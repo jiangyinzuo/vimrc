@@ -181,6 +181,10 @@ endif
 " https://codepoints.net/U+23B5
 " set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 set listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
+autocmd FileType man setlocal nolist
+" Enable :Man command
+runtime ftplugin/man.vim
+
 set list
 set nowrap " 不折行
 set guifont=Monospace\ Regular\ 20
