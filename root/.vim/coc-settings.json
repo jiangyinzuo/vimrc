@@ -31,6 +31,8 @@
 	"pyright.enable": true,
 	"pyright.testing.provider": "unittest",
 	"rust-analyzer.enable": true,
+	"rust-analyzer.cargo.autoreload": true,
+	"rust-analyzer.procMacro.enable": true,
 	"workspace.ignoredFolders": [
 		"$HOME",
 		"$HOME/.cargo/**",

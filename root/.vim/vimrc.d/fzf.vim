@@ -158,3 +158,6 @@ command! -nargs=? -bang CTags call fzf_custom#tags#CTags(<q-args>, <bang>0)
 command -nargs=0 GlobalSym call fzf_custom#tags#GlobalSym()
 " [[palette]]Global 查找定义						:GlobalDef
 command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
+
+command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/fsrs-cli.py -l', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
+command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/fsrs-cli.py ' . expand('%'))
