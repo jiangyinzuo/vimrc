@@ -23,3 +23,5 @@ lrwxrwxrwx 1 root root 31 Jan 22  2023 x-www-browser -> /etc/alternatives/x-www-
 lrwxrwxrwx 1 root root 63 Feb 10  2023 x-www-browser -> '/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'*
 ```
 
+## 其它工具(尚未用到)
+https://gitlab.com/4U6U57/wsl-open
