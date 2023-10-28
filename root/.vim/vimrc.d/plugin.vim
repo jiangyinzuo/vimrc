@@ -271,7 +271,7 @@ if v:version >= 802
 	endif
 endif
 if !has("nvim") || g:nvim_compatibility_with_vim
-	if has("termguicolors") && g:vimrc_use_true_color
+	if has("termguicolors") && $COLORTERM == 'truecolor' && g:vimrc_use_true_color
 		set termguicolors
 	endif
 

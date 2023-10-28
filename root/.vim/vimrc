@@ -6,7 +6,7 @@ if filereadable(expand('~/.vim/config.vim'))
 	source ~/.vim/config.vim
 endif
 " tmux2.2以上才支持true color
-let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 0)
+let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
 
 let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
