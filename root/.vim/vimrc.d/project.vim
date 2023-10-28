@@ -1,3 +1,5 @@
+" Tips: use genproj script to generate project files
+
 " template
 let g:user_name = 'Yinzuo Jiang'
 
@@ -108,7 +110,7 @@ function! LoadProjectConfigEachTab()
 	" 初始化tab variables(约定一个tab对应一个项目)
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	let t:autoload_codenote = 1
-	let t:autocd_project_root = 1
+	let t:autocd_project_root = 0
 	
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 如果找到了project_vimrc文件，则将其加载

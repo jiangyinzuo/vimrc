@@ -1,6 +1,18 @@
+#!/bin/bash
+
+if [[ -f .project.vim ]]; then
+	echo "project.vim already exists, overwrite? [y/n]"
+	read -r ans
+	if [[ $ans != "y" ]]; then
+		exit 0
+	fi
+fi
+
+cat > .project.vim << EOF
 let t:header_guard_prefix = '_PROJECT_'
 let t:header_guard_suffix = '_'
 let t:autoload_codenote = 0
+" 不会自动tcd到项目根目录
 let t:autocd_project_root = 0
 
 let g:Lf_WildIgnore['dir']->extend(['contrib'])
@@ -8,3 +20,4 @@ let g:Lf_WildIgnore['dir']->extend(['contrib'])
 " 自动保存/加载折叠
 autocmd BufWinLeave *.go mkview
 autocmd BufWinEnter *.go silent loadview
+EOF
