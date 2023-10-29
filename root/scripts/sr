@@ -5,7 +5,7 @@ import argparse
 import pickle
 import os
 
-DB_NAME = f'{os.path.expanduser("~")}/fsrs.db'
+DB_NAME = f'{os.getenv("DOC2")}/fsrs.db'
 
 def list_cards():
     if not os.path.exists(DB_NAME):
@@ -58,6 +58,7 @@ def update_card(file):
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
+    arg_parser.description = 'DB path: $DOC2/fsrs.db'
     arg_parser.add_argument('-d', '--delete', action='store_true',
                             help='Delete the card from the database')
     arg_parser.add_argument('file', type=str, metavar='FILE',

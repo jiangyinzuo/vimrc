@@ -3,6 +3,7 @@
 DB=$DOC2/daily/daily.sqlite3
 
 usage() {
+	echo "DB: $DB"
 	echo "Usage:"
 	echo "       $0 -h" 
 	echo "       $0 getup|sleep [time]"
@@ -35,7 +36,7 @@ while [[ $# -gt 0 ]]; do
 			if [[ $1 == "getup" ]]; then
 				d="strftime('%Y-%m-%d', 'now', 'localtime')"
 			else
-				d="strftime('%Y:%m:%d', datetime('now', 'localtime', '-1 days'))"
+				d="strftime('%Y-%m-%d', datetime('now', 'localtime', '-1 days'))"
 			fi
 			if [[ $# == 2 ]]; then
 				if [[ $2 =~ ^[0-9]{2}:[0-9]{2}$ ]]; then
