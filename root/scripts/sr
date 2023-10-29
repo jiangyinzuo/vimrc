@@ -17,6 +17,22 @@ def list_cards():
             print(file, card.scheduled_days, sep='\t')
 
 
+def delete_card(file):
+    if not os.path.exists(DB_NAME):
+        print('Database is empty.')
+        return
+    with open(DB_NAME, 'rb') as f:
+        db = pickle.load(f)
+    with open(DB_NAME, 'wb+') as f:
+        try:
+            del db[file]
+            pickle.dump(db, f)
+        except KeyError:
+            print(f'No such file in database: {file}')
+        else:
+            print(f'Deleted {file} from database.')
+
+
 def _update_card(card: Card) -> Card:
     f = FSRS()
     scheduled_cards = f.repeat(card, datetime.datetime.now())
@@ -24,6 +40,7 @@ def _update_card(card: Card) -> Card:
 
 
 def update_card(file):
+    file = os.path.abspath(file)
     if not os.path.exists(DB_NAME):
         db = {}
     else:
@@ -41,15 +58,15 @@ def update_card(file):
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('-l', '--list', action='store_true',
-                            help='List approaching their dues')
+    arg_parser.add_argument('-d', '--delete', action='store_true',
+                            help='Delete the card from the database')
     arg_parser.add_argument('file', type=str, metavar='FILE',
                             nargs='?', help='The file to be schedule')
     args = arg_parser.parse_args()
-
-    if args.list:
-        list_cards()
-    elif args.file:
-        update_card(args.file)
+    if args.file:
+        if args.delete:
+            delete_card(args.file)
+        else:
+            update_card(args.file)
     else:
-        arg_parser.print_help()
+        list_cards()

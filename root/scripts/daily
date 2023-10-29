@@ -4,7 +4,7 @@ DB=$DOC2/daily/daily.sqlite3
 
 usage() {
 	echo "Usage:"
-	echo "       $0 q"
+	echo "       $0 -h" 
 	echo "       $0 getup|sleep [time]"
 	echo "       $0 done comment..."
 	echo "       $0 todo comment..."
@@ -12,21 +12,24 @@ usage() {
 	exit 1
 }
 
+if [[ $# -eq 0 ]]; then
+	sqlite3 -echo $DB "
+		select 'getup';
+		select * from getup order by date desc limit 7;
+		select 'sleep';
+		select * from sleep order by date desc limit 7;
+		select 'done';
+		select * from done where date >= date('now', 'localtime', '-7 days') order by date desc;
+		select 'todo';
+		select * from todo;
+	"
+	exit 0
+fi
+
 while [[ $# -gt 0 ]]; do
 	case $1 in
-		q)
-			shift
-			sqlite3 -echo $DB "
-				select 'getup';
-				select * from getup order by date desc limit 7;
-				select 'sleep';
-				select * from sleep order by date desc limit 7;
-				select 'done';
-				select * from done where date >= date('now', 'localtime', '-7 days') order by date desc;
-				select 'todo';
-				select * from todo;
-			"
-			exit 0
+		-h)
+			usage
 			;;
 		getup|sleep)
 			if [[ $1 == "getup" ]]; then

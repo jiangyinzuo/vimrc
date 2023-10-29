@@ -6,7 +6,7 @@ _daily_completion() {
 
     case "$prev" in
         daily)
-            COMPREPLY=( $(compgen -W "q getup sleep done todo" -- "$cur") )
+            COMPREPLY=( $(compgen -W "-h getup sleep done todo" -- "$cur") )
             return 0
             ;;
         todo)
