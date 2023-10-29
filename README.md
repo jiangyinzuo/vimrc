@@ -33,6 +33,9 @@ apt install libgtk-3-dev libxt-dev
 整个文件系统下搜索文件：locate，但是太慢，需要提前updatedb
 Ubuntu22.04下均可通过apt安装  
 
+命令行补全目录: .local/share/bash-completion/completions
+
+邮件: himalaya, 但其vim插件存在bug  
 目录树: tree  
 查找: find -> fd  
 模糊查找: fzf  
