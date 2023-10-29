@@ -1,0 +1,22 @@
+#!/bin/bash
+
+_daily_completion() {
+    local cur prev words cword
+    _init_completion || return
+
+    case "$prev" in
+        daily)
+            COMPREPLY=( $(compgen -W "q getup sleep done todo" -- "$cur") )
+            return 0
+            ;;
+        todo)
+            COMPREPLY=( $(compgen -W "-d" -- "$cur") )
+            return 0
+            ;;
+        *)
+            ;;
+    esac
+}
+
+complete -F _daily_completion daily
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo_green() {
+	echo -e "\033[32m$1\033[0m"
+}
+echo_green '$ forget'
+echo
+echo_green '$ daily -q'
+$VIMRC_ROOT/scripts/daily q
+echo
+echo_green '$ sr -l'
+$VIMRC_ROOT/scripts/sr -l

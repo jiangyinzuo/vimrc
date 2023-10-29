@@ -13,7 +13,8 @@ def list_cards():
     with open(DB_NAME, 'rb') as f:
         db = pickle.load(f)
     for (file, card) in db.items():
-        print(file, card.scheduled_days, sep='\t')
+        if card.scheduled_days <= 6:
+            print(file, card.scheduled_days, sep='\t')
 
 
 def _update_card(card: Card) -> Card:
@@ -41,9 +42,9 @@ def update_card(file):
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-l', '--list', action='store_true',
-                            help='List all the files in the current directory')
+                            help='List approaching their dues')
     arg_parser.add_argument('file', type=str, metavar='FILE',
-                            nargs='?', help='The file to be read')
+                            nargs='?', help='The file to be schedule')
     args = arg_parser.parse_args()
 
     if args.list:

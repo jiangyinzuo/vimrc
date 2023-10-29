@@ -3,6 +3,7 @@
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
 	.config/vifm .gitconfig .gitconfig-ict .config/himalaya
+	.local/share/bash-completion/completions/daily
 )
 
 echo_green() {
@@ -38,9 +39,11 @@ echo_green "Setup soft links:"
 # nvim
 # ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
 # ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
+mkdir -p ~/.local/share/bash-completion/completions
 for f in ${soft_link_files[@]} ; do
 	_make_soft_link $VIMRC_ROOT/$f ~/$f
 done
+
 mkdir -p ~/gadgets
 _make_soft_link ~/gadgets ~/.vim/gadgets
 
