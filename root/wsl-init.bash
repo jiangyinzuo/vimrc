@@ -2,7 +2,7 @@
 
 export DOC2=/mnt/d/doc2
 export CODE_HOME=~
-# echo 'hello, jiangyinzuo ~'
+echo -e "forget?? run \033[32mforget\033[0m"
 # echo ''
 # echo 'Database and CLI is Way of Life!' # https://wayoflifeapp.com/
 # echo ''
