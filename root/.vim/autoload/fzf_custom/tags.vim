@@ -8,7 +8,7 @@ function s:tag_sink(line)
 	call GoToFile(l:lines[0], l:lines[1])
 endfunction
 
-function fzf#tags#CTags(query, fullscreen)
+function fzf_custom#tags#CTags(query, fullscreen)
 	let tags = join(map(tagfiles(), 'fzf#shellescape(fnamemodify(v:val, ":p"))'))
 	" TODO: 处理多tag文件
 	echom tags
@@ -65,7 +65,7 @@ function! s:global_def(query)
 	call s:global(l:cmd)
 endfunction
 
-function fzf#tags#GlobalSym()
+function fzf_custom#tags#GlobalSym()
 	let l:cmd = 'GTAGSDBPATHGTAGSROOT=' . getcwd() . ' global -c'
 	return fzf#run(fzf#wrap({
 				\ 'source': l:cmd,
@@ -74,7 +74,7 @@ function fzf#tags#GlobalSym()
 				\ }))	
 endfunction
 
-function fzf#tags#GlobalDef()
+function fzf_custom#tags#GlobalDef()
 	let l:cmd = 'GTAGSROOT=' . getcwd() . ' global -c'
 	let l:source = systemlist(l:cmd)
 	return fzf#run(fzf#wrap({

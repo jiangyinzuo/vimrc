@@ -55,6 +55,7 @@ let g:vimtex_compiler_method = 'latexmk'
 augroup latex_commands
 	" 清除可能已存在的与 'latex_commands' 相关的自动命令
   autocmd!
+	" [[palette]]打开当前tex文件中PDF对应的pptx文件			:OpenPPTX
   autocmd FileType tex command! -nargs=0 OpenPPTX call latex#OpenPPTX()
 augroup end
 

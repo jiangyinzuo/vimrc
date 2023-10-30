@@ -4,7 +4,7 @@ function s:exec_command_palette(line)
 	call feedkeys(l:cmd[1])
 endfunction
 
-function fzf#palette#Palette()
+function fzf_custom#palette#Palette()
 	call fzf#run(fzf#wrap({'source': "$VIMRC_ROOT/palette.sh", 'sink': function("s:exec_command_palette")}))
 endfunction
 
