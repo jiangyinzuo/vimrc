@@ -13,8 +13,8 @@ def list_cards():
     with open(DB_NAME, 'rb') as f:
         db = pickle.load(f)
     for (file, card) in db.items():
-        if card.scheduled_days <= 6:
-            print(file, card.scheduled_days, sep='\t')
+        if card.due.date() - datetime.timedelta(days=6) <= datetime.datetime.now().date():
+            print(file, card.due.date())
 
 
 def delete_card(file):

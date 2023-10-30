@@ -6,6 +6,7 @@ usage() {
 	echo "DB: $DB"
 	echo "Usage:"
 	echo "       $0 -h" 
+	echo "       $0 db"
 	echo "       $0 getup|sleep [time]"
 	echo "       $0 done comment..."
 	echo "       $0 todo comment..."
@@ -32,6 +33,10 @@ while [[ $# -gt 0 ]]; do
 		-h)
 			usage
 			;;
+		db)
+			sqlite3 $DB
+			exit $?
+			;;
 		getup|sleep)
 			if [[ $1 == "getup" ]]; then
 				d="strftime('%Y-%m-%d', 'now', 'localtime')"
@@ -55,6 +60,14 @@ while [[ $# -gt 0 ]]; do
 			shift
 			if [[ $# -eq 0 ]]; then
 				usage
+			fi
+			if [[ $# == 1 && $1 =~ ^[0-9]+$ ]]; then
+				# move todo to done
+				sqlite3 -echo $DB "
+				insert into done select date('now', 'localtime'), comment from todo where id = $1;
+				delete from todo where id = $1;
+				"
+				exit 0
 			fi
 			sqlite3 -echo $DB "insert into done values(strftime('%Y-%m-%d', 'now', 'localtime'), '$*');"
 			exit 0
