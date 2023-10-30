@@ -34,6 +34,7 @@
 *高亮当前word，跳转到下一个word*			*
 *高亮当前word，跳转到上一个word*			#
 *+1* 							:exe "normal \<c-a>"
+*-1*							:exe "normal \<c-x>"
 *开启自动保存(vim)*					:call timer#startAutoSave()
 *关闭自动保存(vim)*					:call timer#stopAutoSave()
 *neovim打开dap调试界面*					:DapContinue

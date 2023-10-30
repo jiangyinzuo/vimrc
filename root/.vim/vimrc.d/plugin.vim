@@ -210,6 +210,10 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
+	Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+	let g:pydocstring_doq_path = 'doq'
+	let g:pydocstring_formatter = 'numpy'
+
 	Plug 'lambdalisue/doctest.vim'
 	augroup doctest
 		autocmd! *
