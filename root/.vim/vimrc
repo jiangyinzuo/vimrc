@@ -186,7 +186,7 @@ autocmd FileType man setlocal nolist
 runtime ftplugin/man.vim
 
 set list
-set nowrap " 不折行
+" set nowrap " 不折行
 set guifont=Monospace\ Regular\ 20
 set mouse=a
 if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))

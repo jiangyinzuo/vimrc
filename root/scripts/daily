@@ -15,7 +15,7 @@ usage() {
 }
 
 if [[ $# -eq 0 ]]; then
-	sqlite3 -echo $DB "
+	sqlite3 $DB "
 		select 'getup';
 		select * from getup order by date desc limit 7;
 		select 'sleep';
