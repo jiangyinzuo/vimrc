@@ -7,29 +7,36 @@ import os
 
 DB_NAME = f'{os.getenv("DOC2")}/fsrs.db'
 
-def list_cards():
+
+def _load_db():
     if not os.path.exists(DB_NAME):
-        return
+        return {}
     with open(DB_NAME, 'rb') as f:
-        db = pickle.load(f)
+        try:
+            db = pickle.load(f)
+        except EOFError:
+            return {}
+    return db
+
+
+def list_cards():
+    db = _load_db()
     for (file, card) in db.items():
         if card.due.date() - datetime.timedelta(days=6) <= datetime.datetime.now().date():
-            print(file, card.due.date())
+            print(file, f'\033[36m{card.due.date()}\033[0m')
 
 
 def delete_card(file):
-    if not os.path.exists(DB_NAME):
-        print('Database is empty.')
-        return
-    with open(DB_NAME, 'rb') as f:
-        db = pickle.load(f)
+    db = _load_db()
+
     with open(DB_NAME, 'wb+') as f:
+        file = os.path.abspath(file)
         try:
             del db[file]
-            pickle.dump(db, f)
         except KeyError:
             print(f'No such file in database: {file}')
         else:
+            pickle.dump(db, f)
             print(f'Deleted {file} from database.')
 
 
@@ -40,12 +47,12 @@ def _update_card(card: Card) -> Card:
 
 
 def update_card(file):
+    if not os.path.exists(file):
+        print(f'No such file: {file}')
+        return
+
     file = os.path.abspath(file)
-    if not os.path.exists(DB_NAME):
-        db = {}
-    else:
-        with open(DB_NAME, 'rb') as f:
-            db = pickle.load(f)
+    db = _load_db()
     with open(DB_NAME, 'wb+') as f:
         try:
             c = db[file]
