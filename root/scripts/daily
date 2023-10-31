@@ -7,10 +7,10 @@ usage() {
 	echo "Usage:"
 	echo "       $0 -h" 
 	echo "       $0 db"
-	echo "       $0 getup|sleep [time]"
-	echo "       $0 done comment..."
-	echo "       $0 todo comment..."
-	echo "       $0 todo -d id"
+	echo "       $0 sleep <sleep time> <getup time>"
+	echo "       $0 done <comment...>"
+	echo "       $0 todo <comment...>"
+	echo "       $0 todo -d <id>"
 	exit 1
 }
 
@@ -37,24 +37,21 @@ while [[ $# -gt 0 ]]; do
 			sqlite3 $DB
 			exit $?
 			;;
-		getup|sleep)
-			if [[ $1 == "getup" ]]; then
-				d="strftime('%Y-%m-%d', 'now', 'localtime')"
-			else
-				d="strftime('%Y-%m-%d', datetime('now', 'localtime', '-1 days'))"
-			fi
-			if [[ $# == 2 ]]; then
-				if [[ $2 =~ ^[0-9]{2}:[0-9]{2}$ ]]; then
-					sqlite3 -echo $DB "insert into $1 values($d, '$2');"
+		sleep)
+			if [[ $# == 3 ]]; then
+				time_re='^[0-9]{2}:[0-9]{2}$'
+				if [[ $2 =~ $time_re && $3 =~ $time_re ]]; then
+					sqlite3 -echo $DB "
+					insert into sleep values(strftime('%Y-%m-%d', datetime('now', 'localtime', '-1 days')), '$2');
+					insert into getup values(strftime('%Y-%m-%d', 'now', 'localtime'), '$3');
+					"
 					exit 0
 				else
-					echo "Invalid time format: $2"
+					echo "Invalid time format: $2 $3"
 					exit 1
 				fi
-			elif [[ $# == 1 ]]; then
-				sqlite3 -echo $DB "insert into $1 values($d, strftime('%H:%M', 'now', 'localtime'));"
 			fi
-			exit 0
+			usage
 			;;
 		done)
 			shift

@@ -282,7 +282,11 @@ if !has("nvim") || g:nvim_compatibility_with_vim
 	let g:nord_uniform_diff_background = 1
 	let g:dracula_high_contrast_diff = 1
 
-	set background=dark
+	if g:vimrc_dark == 1
+		set background=dark
+	else
+		set background=light
+	endif
 	if v:version >= 800
 		" true color support
 		" https://github.com/lifepillar/vim-solarized8#troubleshooting

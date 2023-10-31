@@ -47,6 +47,8 @@ https://vim.fandom.com/wiki/Folding
 /replace/: 替换模式
 See: https://vi.stackexchange.com/questions/7194/how-to-substitute-the-first-occurrence-across-the-whole-file
 
+substitute的flag见 |:s_flags|
+
 *macro*
 Each register is identified by a letter a to z or number 0-9 or ".
 recording a macro: >

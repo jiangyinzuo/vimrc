@@ -12,11 +12,14 @@ end
 
 -- This is where you actually apply your config choices
 
--- For example, changing the color scheme:
-config.color_scheme = 'Solarized Dark (Gogh)'
+-- config.color_scheme = 'Solarized Light (Gogh)'
+config.color_scheme = 'Solarized (light) (terminal.sexy)'
+-- config.color_scheme = 'Solarized Dark (Gogh)'
+config.color_scheme = 'Solarized (dark) (terminal.sexy)'
+
 config.font_size = 14.0
-config.initial_rows = 24
-config.initial_cols = 80
+config.initial_rows = 27
+config.initial_cols = 90
 
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   config.default_prog = { 'wsl.exe', '--cd', '~' }
@@ -30,20 +33,6 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
       args = { "powershell.exe", "-NoLogo" }
     }
   }
-elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-  config.font = wezterm.font_with_fallback({
-    -- <built-in>, BuiltIn
-    "JetBrains Mono",
-
-    -- /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf, FontConfig
-    -- Assumed to have Emoji Presentation
-    -- Pixel sizes: [128]
-    "Noto Color Emoji",
-
-    -- <built-in>, BuiltIn
-    "Symbols Nerd Font Mono",
-    "Noto Sans Mono CJK TC",
-  })
 end
 
 -- and finally, return the configuration to wezterm
