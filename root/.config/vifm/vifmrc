@@ -336,6 +336,8 @@ fileviewer {*.docx},
           \<application/
            \vnd.openxmlformats-officedocument.wordprocessingml.document>
          \ docx2txt.pl %f -
+fileviewer {*.pptx}
+         \ extract-pptx.py %f
 
 " TuDu files
 filetype *.tudu tudu -f %c
