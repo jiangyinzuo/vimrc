@@ -270,12 +270,10 @@ augroup commenting_blocks_of_code
 	autocmd FileType lua,sql                                   let b:comment_leader = '-- '
 augroup end
 
+" Do not use maps in
 " https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-" A sed (s/what/towhat/where) command changing ^ (start of line) to the correctly set comment character based on the type of file you have opened 
-" As for the silent thingies they just suppress output from commands. 
-" :nohlsearch stops it from highlighting the sed search
-noremap <silent> <leader>mc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>mu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>mc :norm ^i<C-R>=escape(b:comment_leader,'\/')<CR><CR>
+noremap <silent> <leader>mu :norm ^<C-R>=len(escape(b:comment_leader,'\/'))<CR>x<CR>
 
 augroup jump_to_symbol
 	autocmd!
