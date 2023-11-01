@@ -22,6 +22,8 @@ let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 let g:mapleader = get(g:, 'mapleader', ' ')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=4 sw=4 et: */ 的配置
+set modeline
 set noexrc " 不读取当前文件夹的.vimrc
 if exists('&viminfofile') && !has('nvim') 
 	set viminfofile=$HOME/.vim/.viminfo

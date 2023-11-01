@@ -28,56 +28,6 @@ apt install libgtk-3-dev libxt-dev
 修改vimrc配置文件: `.vim/config.vim`  
 打包coc/plugged/gadgets: See `make-tar`
 
-## 其它命令行工具
-
-整个文件系统下搜索文件：locate，但是太慢，需要提前updatedb
-Ubuntu22.04下均可通过apt安装  
-
-命令行补全目录: .local/share/bash-completion/completions
-
-邮件: himalaya, 但其vim插件存在bug  
-目录树: tree  
-查找: find -> fd  
-模糊查找: fzf  
-内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快  
-https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/  
-
-下载: wget -> axel  
-git终端: lazygit, tig  
-Linux文本处理: awk, sed, cut  
-cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
-```
-sudo apt install bat
-batcat --version
-```
-pdf导出注释: [pdfannots](https://github.com/0xabu/pdfannots)  
-pdf转text: pdftotext  
-
-文件管理器:
-- Netrw
-- coc-explorer
-- ranger
-- vifm
-- nnn
-- lf
-- [fzf-filemanager](https://github.com/sc0ttj/fzf-filemanager/blob/main/filemanager)
-- fm脚本
-
-json: jq  
-tldr: 命令行帮助  
-补全父目录 -> bd  
-终端查看图片:
-- timg
-    - echo "set terminal png; plot sin(x);" | gnuplot | timg -pi -
-- cmd.exe /c wezterm imgcat
-[翻译](https://github.com/afc163/fanyi#error-spawn-festival-enoent)  
-```
-sudo apt-get install festival festvox-kallpc16k
-npm i -g fanyi
-```
-
-格式化工具:  
-[dprint](https://dprint.dev/): 格式化TOML、Markdown
 
 ## 索引查找
 
@@ -107,7 +57,7 @@ codegeex
 
 ## WSL2
 
-See setup-wsl.sh
+See `wsl`
 打开网页：xdg-open index.html
 
 ## 远程开发环境对比

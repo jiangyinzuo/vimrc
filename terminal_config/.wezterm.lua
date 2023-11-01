@@ -14,8 +14,8 @@ end
 
 -- config.color_scheme = 'Solarized Light (Gogh)'
 -- config.color_scheme = 'Solarized (light) (terminal.sexy)'
-config.color_scheme = 'Solarized Dark (Gogh)'
--- config.color_scheme = 'Solarized (dark) (terminal.sexy)'
+-- config.color_scheme = 'Solarized Dark (Gogh)'
+config.color_scheme = 'Solarized (dark) (terminal.sexy)'
 
 config.font_size = 14.0
 config.initial_rows = 27
