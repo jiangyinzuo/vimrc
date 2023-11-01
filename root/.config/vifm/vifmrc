@@ -229,11 +229,6 @@ filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
         \ {View in shotwell}
         \ shotwell,
 
-fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
-        \ vifm-sixel draw %pw %ph %c %pd
-        \ %pc
-        \ vifm-sixel clear
-
 " PostScript
 filextype {*.eps},<application/postscript>
         \ {View in evince}
