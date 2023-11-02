@@ -9,3 +9,11 @@ endfun
 fun NFH_pdf(filename)
 	call asyncrun#run('', {'silent': 1}, 'xdg-open ' . a:filename)
 endfun
+
+fun NFH_jpg(filename)
+	call asyncrun#run('', {'silent': 1}, 'xdg-open ' . a:filename)
+endfun
+
+fun NFH_png(filename)
+	call asyncrun#run('', {'silent': 1}, 'xdg-open ' . a:filename)
+endfun

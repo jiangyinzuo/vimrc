@@ -262,12 +262,12 @@ let g:netrw_keepdir=0
 " :norm x删除所有行的第一个字母
 augroup commenting_blocks_of_code
 	autocmd!
-	autocmd FileType c,cpp,java,scala,rust,go                 let b:comment_leader = '// '
-	autocmd FileType sh,ruby,python,conf,fstab,gitconfig,config,yaml  let b:comment_leader = '# '
-	autocmd FileType tex                                   let b:comment_leader = '% '
-	autocmd FileType mail,markdown                         let b:comment_leader = '> '
-	autocmd FileType vim                                   let b:comment_leader = '" '
-	autocmd FileType lua,sql                                   let b:comment_leader = '-- '
+	autocmd FileType c,cpp,java,scala,rust,go let b:comment_leader = '// '
+	autocmd FileType sh,ruby,python,conf,fstab,gitconfig,config,yaml let b:comment_leader = '# '
+	autocmd FileType tex let b:comment_leader = '% '
+	autocmd FileType mail,markdown let b:comment_leader = '> '
+	autocmd FileType vim,vifm let b:comment_leader = '" '
+	autocmd FileType lua,sql let b:comment_leader = '-- '
 augroup end
 
 " Do not use maps in

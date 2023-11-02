@@ -313,6 +313,7 @@ if has('nvim') || v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([
 				\ {"open": "<", "close": ">", "filetype": ["html"]}
 				\ ]) " This is a filetype-specific mapping
+	let g:AutoPairsLanguagePairs['vifm'] = g:AutoPairsLanguagePairs['vim']
 endif
 
 if has('nvim') || v:version >= 802
