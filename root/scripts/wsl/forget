@@ -6,7 +6,7 @@ echo_green() {
 echo_green '$ forget'
 echo
 echo_green '$ daily'
-$VIMRC_ROOT/scripts/daily
+$VIMRC_ROOT/scripts/wsl/daily
 echo
 echo_green '$ sr'
-$VIMRC_ROOT/scripts/sr
+$VIMRC_ROOT/scripts/wsl/sr

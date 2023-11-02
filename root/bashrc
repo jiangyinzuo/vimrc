@@ -27,6 +27,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # export GTAGSLABEL=native-pygments
 
 if [[ `uname -a` == *WSL* ]]; then
+	export PATH=$PATH:$VIMRC_ROOT/scripts/wsl
 	. $VIMRC_ROOT/wsl-init.bash
 fi
 

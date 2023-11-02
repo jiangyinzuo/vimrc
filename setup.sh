@@ -3,8 +3,13 @@
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
 	.config/vifm .gitconfig .gitconfig-ict .config/himalaya
-	.local/share/bash-completion/completions/daily
 )
+
+if [[ `uname -a` == *WSL* ]]; then
+	soft_link_files+=(
+		.local/share/bash-completion/completions/daily
+	)
+fi
 
 echo_green() {
   echo -e "\033[32m$1\033[0m"
