@@ -2,6 +2,11 @@
 
 Windows矢量图画图软件: draw.io
 
+打开网页：xdg-open index.html
+
+Neovim uses system clipboard in WSL
+https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+
 ## 设置Windows浏览器为WSL2浏览器
 
 如何让Windows下的浏览器成为wsl2的默认浏览器 - 顾源源童鞋的文章 - 知乎
