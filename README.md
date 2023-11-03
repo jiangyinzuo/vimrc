@@ -1,18 +1,29 @@
 # Vimrc
 
-Requirements: vim 8.2.4919(most of features), vim 7.4(minimal)  
+## Vim Requirements
+
+**Vim (recommended)**
+
+vim 9 (full features)  
+vim 8.2.4919 (most of features)  
+vim 7.4 (minimal)  
+
+**Neovim (unstable)**
+
+neovim 0.8.2+  
 
 ## How to Intall
 
 ### Ubuntu
-vim:  
+
+Vim  
 ```bash
 sudo apt install vim-gtk3
 sudo update-alternatives --config vim
 update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
 ```
 
-Neovim  
+[Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)  
 ```bash
 sudo apt install neovim python3-pynvim
 pip3 install neovim
