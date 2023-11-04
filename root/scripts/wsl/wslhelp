@@ -1,0 +1,18 @@
+#!/bin/bash
+
+case $1 in
+	dblp)
+		echo 'Download the bibtex file from dblp'
+		echo 'See: https://github.com/jiangyinzuo/dblp-api/tree/dev'
+		;;
+	genproj)
+		echo 'Generate .project.vim'
+		;;
+	*)
+		echo 'Usage: forget help [command]'
+		echo 'Commands:'
+		echo '  dblp'
+		echo '  genproj'
+		;;
+esac
+

@@ -7,6 +7,12 @@ Windows矢量图画图软件: draw.io
 Neovim uses system clipboard in WSL
 https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
+## 命令行帮助
+
+每日事项: `forget`
+
+WSL命令行帮助菜单: `wslhelp`
+
 ## 设置Windows浏览器为WSL2浏览器
 
 如何让Windows下的浏览器成为wsl2的默认浏览器 - 顾源源童鞋的文章 - 知乎

@@ -3,10 +3,20 @@
 echo_green() {
 	echo -e "\033[32m$1\033[0m"
 }
-echo_green '$ forget'
-echo
-echo_green '$ daily'
-$VIMRC_ROOT/scripts/wsl/daily
-echo
-echo_green '$ sr'
-$VIMRC_ROOT/scripts/wsl/sr
+
+echo_blue() {
+	echo -e "\033[34m$1\033[0m"
+}
+
+_daily() {
+	echo_blue 'NOTE: type "wslhelp" to see more help'
+	echo_green '$ forget'
+	echo
+	echo_green '$ daily'
+	$VIMRC_ROOT/scripts/wsl/daily
+	echo
+	echo_green '$ sr'
+	$VIMRC_ROOT/scripts/wsl/sr
+}
+
+_daily
