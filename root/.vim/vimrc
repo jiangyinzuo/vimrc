@@ -106,70 +106,19 @@ augroup indent2
 	autocmd FileType c,cpp,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup end
 
-" https://github.com/timakro/vim-yadi/blob/main/plugin/yadi.vim
-function s:DetectIndent()
-	let tabbed = 0
-	let spaced = 0
-	let indents = {}
-	let lastwidth = 0
-	" get the last 300 lines
-	let l:first_line = max([0, line('$')-300])
-	for line in getline(l:first_line, line('$'))
-		if line[0] == "\t"
-			let tabbed += 1
-		else
-			" The position of the first non-space character is the
-			" indentation width.
-			let width = match(line, "[^ ]")
-			if width != -1
-				if width > 0
-					let spaced += 1
-				endif
-				let indent = width - lastwidth
-				if indent >= 2 " Minimum indentation is 2 spaces
-					let indents[indent] = get(indents, indent, 0) + 1
-				endif
-				let lastwidth = width
-			endif
-		endif
-	endfor
-
-	let total = 0
-	let max = 0
-	let winner = -1
-	for [indent, n] in items(indents)
-		let total += n
-		if n > max
-			let max = n
-			let winner = indent
-		endif
-	endfor
-
-	if tabbed > spaced*4 " Over 80% tabs
-		" echo "Detected indent: tab"
-		setlocal noexpandtab shiftwidth=0 softtabstop=0
-	elseif spaced > tabbed*4 && max*5 > total*3
-		" Detected over 80% spaces and the most common indentation level makes
-		" up over 60% of all indentations in the file.
-		" echo "Detected indent: " . winner . " spaces"
-		setlocal expandtab
-		let &shiftwidth=winner
-		let &softtabstop=winner
-	endif
-endfunction
-
 let g:project_vimrc = '.project.vim'
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.ocamlformat', g:project_vimrc, 'tags', 'GTAGS']
 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd || !file_readable('.editorconfig')
-	autocmd FileType * call s:DetectIndent()
+	autocmd FileType * call detect_indent#DetectIndent()
 endif
 if !s:has_vimrcd
 	colorscheme desert
 	hi ColorColumn ctermbg=black guibg=black
 endif
 
+" plugin.vim 可能会改变g:no_plug的值
 let g:no_plug = 0
 if exists("g:vscode")
 	let g:loaded_netrw = 1
@@ -498,19 +447,12 @@ nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\
 
 set makeprg=make
 
-function EchoGitBlame()
-	let line_number = line(".")
-	echo system('git blame -n -L ' . line_number . ',' . line_number . ' -- ' . expand('%'))
-endfunction
-
 " command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 " [[palette]]git-blame						:GitBlame
 command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
-if &insertmode == 0
-	" save
-	inoremap <c-S> <esc>:w<CR>i
-end
+" save
+inoremap <c-S> <esc>:w<CR>i
 
 " neovim 会报错
 if isdirectory(expand('~/.vim/doc')) && !has('nvim')
@@ -518,7 +460,7 @@ if isdirectory(expand('~/.vim/doc')) && !has('nvim')
 	helptags ~/.vim/doc
 endif
 
-" Load plugins
+" Load plugins, 可能改变g:no_plug的值
 if s:has_vimrcd
 	source ~/.vim/vimrc.d/plugin.vim
 endif
@@ -534,57 +476,6 @@ if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
 endif
 
 """"""""""""""""""""" StatusLine """"""""""""""""""
-
-let s:cached_branch = ''
-let s:last_update_time = 0
-
-function GetGitBranchCB(channel, message)
-	let s:cached_branch = a:message
-	let s:last_update_time = localtime()
-endfunction
-
-function GetGitBranch()
-	let l:current_time = localtime()
-	if l:current_time - s:last_update_time < 5
-		return s:cached_branch
-	endif
-
-	let l:cmd = ['git', 'rev-parse', '--abbrev-ref', 'HEAD']
-	call job_start(l:cmd, {'out_cb': 'GetGitBranchCB'})
-	return s:cached_branch
-endfunction
-
-function LeftStatusLine()
-	let l:result = ''
-	if &diff == 0
-		let l:gitbranch = GetGitBranch()
-		let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
-
-		if g:vimrc_use_coc
-			let l:coc_current_function = get(b:, 'coc_current_function', '')
-			let l:result .= l:coc_current_function == '' ? '' : (' ' . l:coc_current_function . ' ')
-			let l:cocstat = coc#status()
-			let l:result .= l:cocstat == '' ? '' : (l:cocstat . ' ')
-		endif
-	endif
-	return l:result
-endfunction
-
-if g:no_plug == 0
-	function RightStatusLine()
-		let l:result = ''
-		if &diff == 0
-			if g:asyncrun_status == 'running'
-				let l:result .= ' '
-			elseif g:asyncrun_status == 'success'
-				let l:result .= '󰄴 '
-			elseif g:asyncrun_status == 'failure'
-				let l:result .= ' '
-			endif
-		endif
-		return l:result
-	endfunction
-endif
 
 " 设置状态行-----------------------------------
 " 设置状态行显示常用信息
@@ -609,12 +500,12 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline=%1*%F%m%r%h%w\ \|\ 
 	let show_status = exists("g:plugs") && v:version >= 801 && g:no_plug == 0
 	if show_status
-		set statusline+=%{LeftStatusLine()}
+		set statusline+=%{statusline#LeftStatusLine()}
 	endif
 	" 左对齐和右对齐的分割点
 	set statusline+=%=
 	if show_status
-		set statusline+=%2*%{RightStatusLine()}\ 
+		set statusline+=%2*%{statusline#RightStatusLine()}\ 
 	endif
 	set statusline+=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
 endif
@@ -623,111 +514,21 @@ endif
 let g:LargeFile = 1024 * 1024 * 10
 augroup LargeFile
   au!
-  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call largefile#LargeFile() | endif
 augroup END
 
-function! LargeFile()
-	" no syntax highlighting etc
-	set eventignore+=FileType
-	" save memory when other file is viewed
-	setlocal bufhidden=unload
-	" is read-only (write with :w new_filename)
-	setlocal buftype=nowrite
-	" no undo possible
-	setlocal undolevels=-1
-	" display message
-	autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see vimrc for details)."
-endfunction
-
-" https://www.zhihu.com/question/26248191/answer/2680677733
-function! GoToFile(file,lineNum)
-  let bufName = bufname(a:file)
-  if bufName == ""
-    execute 'edit +'.a:lineNum a:file
-  else
-    let bufNum = bufnr(bufName)
-    execut 'b '.bufNum
-    call feedkeys(a:lineNum."G","n")
-  endif
-
-  if foldclosed('.') != -1
-   call feedkeys("zo","n")
-  end
-
-  call feedkeys("zz","n")
-endfunction
-
 """"""""""""""""""" Marks """"""""""""""""""""""
-sign define marka text='a texthl=Todo
-sign define markb text='b texthl=Todo
-sign define markc text='c texthl=Todo
-sign define markd text='d texthl=Todo
-sign define marke text='e texthl=Todo
-sign define markf text='f texthl=Todo
-sign define markg text='g texthl=Todo
-sign define markh text='h texthl=Todo
-sign define marki text='i texthl=Todo
-sign define markj text='j texthl=Todo
-sign define markk text='k texthl=Todo
-sign define markl text='l texthl=Todo
-sign define markm text='m texthl=Todo
-sign define markn text='n texthl=Todo
-sign define marko text='o texthl=Todo
-sign define markp text='p texthl=Todo
-sign define markq text='q texthl=Todo
-sign define markr text='r texthl=Todo
-sign define marks text='s texthl=Todo
-sign define markt text='t texthl=Todo
-sign define marku text='u texthl=Todo
-sign define markv text='v texthl=Todo
-sign define markw text='w texthl=Todo
-sign define markx text='x texthl=Todo
-sign define marky text='y texthl=Todo
-sign define markz text='z texthl=Todo
-
-" A-Z mark目前不支持在初始化阶段添加sign
-sign define markA text='A texthl=Todo
-sign define markB text='B texthl=Todo
-sign define markC text='C texthl=Todo
-sign define markD text='D texthl=Todo
-sign define markE text='E texthl=Todo
-sign define markF text='F texthl=Todo
-sign define markG text='G texthl=Todo
-sign define markH text='H texthl=Todo
-sign define markI text='I texthl=Todo
-sign define markJ text='J texthl=Todo
-sign define markK text='K texthl=Todo
-sign define markL text='L texthl=Todo
-sign define markM text='M texthl=Todo
-sign define markN text='N texthl=Todo
-sign define markO text='O texthl=Todo
-sign define markP text='P texthl=Todo
-sign define markQ text='Q texthl=Todo
-sign define markR text='R texthl=Todo
-sign define markS text='S texthl=Todo
-sign define markT text='T texthl=Todo
-sign define markU text='U texthl=Todo
-sign define markV text='V texthl=Todo
-sign define markW text='W texthl=Todo
-sign define markX text='X texthl=Todo
-sign define markY text='Y texthl=Todo
-sign define markZ text='Z texthl=Todo
-
-function SignMark(mark)
-  call sign_unplace(a:mark, {'buffer': bufnr()})
-  call sign_place(0, a:mark, a:mark, bufnr(), {'lnum': line('.'), 'priority': 20})
-endfunction
 
 " 为小写字母 a 到 z 创建映射
 for mark in range(char2nr('a'), char2nr('z'))
   let sign_name = 'mark' . nr2char(mark)
-  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call SignMark("' . sign_name . '")<CR>'
+  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
 endfor
 
 " 为大写字母 A 到 Z 创建映射
 for mark in range(char2nr('A'), char2nr('Z'))
   let sign_name = 'mark' . nr2char(mark)
-  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call SignMark("' . sign_name . '")<CR>'
+  execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
 endfor
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "

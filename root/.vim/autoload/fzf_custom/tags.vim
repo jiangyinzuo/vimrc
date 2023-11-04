@@ -5,7 +5,7 @@
 function s:tag_sink(line)
 	let l:lines = split(a:line)[1]
 	let l:lines = split(l:lines, ':')
-	call GoToFile(l:lines[0], l:lines[1])
+	call common#GoToFile(l:lines[0], l:lines[1])
 endfunction
 
 function fzf_custom#tags#CTags(query, fullscreen)
@@ -33,7 +33,7 @@ endfunction
 " a                   5 hello.py         a = 3
 function s:global_sink(line)
 	let l:lines = split(a:line)
-	call GoToFile(l:lines[2], l:lines[1])
+	call common#GoToFile(l:lines[2], l:lines[1])
 endfunction
 
 function s:global(cmd)

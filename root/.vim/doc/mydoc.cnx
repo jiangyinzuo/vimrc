@@ -37,7 +37,11 @@ https://vim.fandom.com/wiki/Folding
 
 *goto-file* gf gF CTRL-Vgf CTRL-VgF
 *increment-number* CTRL-A
+
+*计算器* *calculator*
+https://vimtricks.com/p/vim-calculator/
 *paste-in-(search-)command-mode* CTRL-R"
+
 *next-in-search-mode* *查找模式下的n和N* CTRL-G CTRL-T
 *put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
 *select-history-command* `q:`
@@ -51,7 +55,7 @@ See: https://vi.stackexchange.com/questions/7194/how-to-substitute-the-first-occ
 
 substitute的flag见 |:s_flags|
 
-*macro*
+*macro* |q| |recording|
 Each register is identified by a letter a to z or number 0-9 or ".
 recording a macro: >
   qd	start recording to register d
@@ -82,9 +86,6 @@ recording a macro: >
   set path+=**
   :find <file>
 <
-
-`:Fd` see .vimrc
-
 *marks*
 mark: `ma`
 jump: `'a`
