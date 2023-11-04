@@ -9,6 +9,9 @@ echo -e "forget?? run \033[32mforget\033[0m"
 
 alias start='cmd.exe /C start ""'
 
+# experimental feature, See: https://github.com/jiangyinzuo/dblp-api dev branch
+alias dblp="python3 ~/dblp-api/main.py"
+
 # cmd.exe /c mklink /d parameter_server  "D:\doc2\cs\aisys\parameter_server"
 mklinkd() {
 	if [ $# -eq 2 ]; then
