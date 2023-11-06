@@ -9,6 +9,16 @@ Ubuntu22.04下均可通过apt安装
     rename 's/opt-/hot-/g' *
 <
 
+计算器: *bc*
+>
+    echo "1.1+2.2" | bc
+    echo "scale=2; 1.23456/2" | bc
+<
+或者直接`bc`进入交互模式
+但很多时候不如 >
+    python3 -c "print(1+1)"
+    echo "print(1+1)" | python3
+>
 邮件: himalaya, 但其vim插件存在bug
 目录树: tree
 查找: find -> fd
