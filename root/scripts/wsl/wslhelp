@@ -16,6 +16,13 @@ case $1 in
 		echo 'mklink: make a symbolic link to a file'
 		echo 'mklinkd: make a symbolic link to a directory'
 		;;
+	z)
+		echo 'cd to the most recently used directory matching the pattern'
+		echo 'See: https://github.com/rupa/z'
+		;;
+	zt)
+		echo '根据最近cd时间排序目录，并通过fzf cd目录, 依赖z'
+		;;
 	*)
 		echo 'Usage: wslhelp [command/scripts]'
 		echo

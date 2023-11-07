@@ -34,3 +34,10 @@ fi
 git-rm-remote-file() {
 	(set -x; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all)
 }
+
+zt() {
+	local d=$(z -t | fzf +s --tac | awk '{print $2}')
+	if [[ -n $d ]]; then
+		cd $d
+	fi
+}

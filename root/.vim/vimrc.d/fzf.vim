@@ -58,19 +58,22 @@ command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 """"""""""""""""" Z """"""""""""""""""""
-" https://gist.github.com/jiangyinzuo/d9c985999f76864ac192edfdacdadcce
-function Z(query, sink)
-	let l:cmd = "awk -f " . $VIMRC_ROOT . "/z.awk regex=" . a:query . " ~/.z "
-	call fzf#run(fzf#wrap({'source': l:cmd, 'sink': a:sink, 'options': ['--query', a:query, '--prompt', 'Z ' . a:sink . '>', '--color', 'hl:148,hl+:190']}))
-endfunction
 " [[palette]]FZF搜索z并cd到目录					:Z
-command! -bang -nargs=? Z call Z(<q-args>, 'cd')
+command! -bang -nargs=? Z call z#Z(<q-args>, 'cd')
 " [[palette]]FZF搜索z并tcd到目录					:TZ
-command! -bang -nargs=? TZ call Z(<q-args>, 'tcd')
+command! -bang -nargs=? TZ call z#Z(<q-args>, 'tcd')
 " [[palette]]FZF搜索z并lcd到目录					:LZ
-command! -bang -nargs=? LZ call Z(<q-args>, 'lcd')
+command! -bang -nargs=? LZ call z#Z(<q-args>, 'lcd')
 " [[palette]]FZF搜索z并Ex到目录					:Zex
-command! -bang -nargs=? Zex call Z(<q-args>, 'Ex')
+command! -bang -nargs=? Zex call z#Z(<q-args>, 'Ex')
+" [[palette]]FZF根据时间搜索z并cd到目录				:Zt
+command! -bang -nargs=? Zt call z#Zt(<q-args>, 'cd')
+" [[palette]]FZF根据时间搜索z并tcd到目录				:TZt
+command! -bang -nargs=? TZt call z#Zt(<q-args>, 'tcd')
+" [[palette]]FZF根据时间搜索z并lcd到目录				:LZt
+command! -bang -nargs=? LZt call z#Zt(<q-args>, 'lcd')
+" [[palette]]FZF根据时间搜索z并Ex到目录				:Zext
+command! -bang -nargs=? Zext call z#Zt(<q-args>, 'Ex')
 
 """"""""""""""""" Fd 类""""""""""""""""
 command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
