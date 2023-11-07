@@ -2,7 +2,7 @@
 
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
-	.config/vifm .gitconfig .gitconfig-ict .config/himalaya
+	.config/vifm .gitconfig .gitconfig-ict .config/himalaya .config/clangd
 )
 
 if [[ `uname -a` == *WSL* ]]; then

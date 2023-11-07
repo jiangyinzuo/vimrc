@@ -8,11 +8,20 @@ case $1 in
 	genproj)
 		echo 'Generate .project.vim'
 		;;
+	start)
+		echo 'alias of cmd.exe /C start ""'
+		echo 'Open a file or a directory in Windows'
+		;;
+	mklink|mklinkd)
+		echo 'mklink: make a symbolic link to a file'
+		echo 'mklinkd: make a symbolic link to a directory'
+		;;
 	*)
-		echo 'Usage: forget help [command]'
-		echo 'Commands:'
-		echo '  dblp'
-		echo '  genproj'
+		echo 'Usage: wslhelp [command/scripts]'
+		echo
+		echo 'Commands are sourced in bashrc'
+		echo "Scripts are stored at $VIMRC_ROOT/scripts/"
+		echo "See also: $BASH_SOURCE"
 		;;
 esac
 

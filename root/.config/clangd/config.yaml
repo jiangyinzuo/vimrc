@@ -1,0 +1,20 @@
+CompileFlags:
+  Add: [-Wall]
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+  ClangTidy:
+    Add:
+      - modernize*
+      - clang-analyzer-*
+      - llvm-*
+      - google-*
+      - cppcoreguidelines-*
+      # - readability-*
+    Remove: modernize-use-trailing-return-type
+
+InlayHints:
+  Parameters: true
+  DeducedTypes: true
+

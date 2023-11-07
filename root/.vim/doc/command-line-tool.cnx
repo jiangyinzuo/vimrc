@@ -1,5 +1,10 @@
 *command-line-tool*
 
+vim/less读取另一个程序的标准输出 >
+    ls | vim -
+    ls | less
+<
+
 整个文件系统下搜索文件：locate，但是太慢，需要提前updatedb
 Ubuntu22.04下均可通过apt安装  
 

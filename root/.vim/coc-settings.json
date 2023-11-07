@@ -23,7 +23,8 @@
 		"--cross-file-rename",
 		"--inlay-hints=true",
 		"--background-index",
-		"--suggest-missing-includes=true"
+		"--suggest-missing-includes=true",
+		"--header-insertion=iwyu"
 	],
 	"python.pythonPath": "/bin/python3",
 	"python.linting.mypyEnabled": false,
