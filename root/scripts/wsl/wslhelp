@@ -23,6 +23,10 @@ case $1 in
 	zt)
 		echo '根据最近cd时间排序目录，并通过fzf cd目录, 依赖z'
 		;;
+	bd)
+		echo 'cd到某个父目录。bd是一个bash function，依赖真正的bd'
+		echo 'See: https://github.com/vigneshwaranr/bd'
+		;;
 	*)
 		echo 'Usage: wslhelp [command/scripts]'
 		echo
