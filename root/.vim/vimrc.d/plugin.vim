@@ -202,6 +202,11 @@ if !exists('g:vscode')
 		Plug 'pechorin/any-jump.vim'
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
+	
+		" require +job
+		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+		let g:pydocstring_doq_path = 'doq'
+		let g:pydocstring_formatter = 'numpy'
 	endif
 	if has('terminal')
 		source ~/.vim/vimrc.d/floaterm.vim
@@ -210,9 +215,6 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/cpp.vim
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
-	Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-	let g:pydocstring_doq_path = 'doq'
-	let g:pydocstring_formatter = 'numpy'
 
 	Plug 'lambdalisue/doctest.vim'
 	augroup doctest
