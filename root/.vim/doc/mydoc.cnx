@@ -90,16 +90,6 @@ recording a macro: >
 mark: `ma`
 jump: `'a`
 
-*format*
-*clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
-No need of `Plug 'rhysd/vim-clang-format'`
-
-*lint*
-*clang-tidy* 
-output to quickfix list: >
-  :CExprsys clang-tidy hello.cpp
-<
-
 -------------------------------------------------------------------------------
 *markdown*
 
@@ -110,9 +100,30 @@ Markdown等文本编辑添加链接：
 查找Hashtag并插入到当前光标位置		:Hashtag
 
 -------------------------------------------------------------------------------
-*lsp* *coc.nvim*
-TODO: LSP formatter, LSP linter
+*lsp* *formatter* *linter*  *coc.nvim*
 
+cpp ~
+
+*clangd*
+用户全局配置文件: `~/.config/clangd/config.yaml`
+
+项目目录 compile_flags.txt
+
+*clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
+No need of `Plug 'rhysd/vim-clang-format'`
+
+*clang-tidy* 
+output to quickfix list: >
+  :CExprsys clang-tidy hello.cpp
+<
+
+Go ~
+*gopls*
+可以通过vim-go下载后，配置环境变量
+
+OCaml ~
+*ocaml-lsp*
+ocaml: ocaml-lsp(不直接通过`opam user-setup install`使用merlin)  
 
 -------------------------------------------------------------------------------
 *fzf.vim*
@@ -232,13 +243,7 @@ cpp需要rg with PCRE2 support
 
 2. 基于tag符号的索引/补全 |tags.cnx|
 
-3. 基于LSP的索引/补全
-
-coc.vim  
-c++: clangd  
-go: gopls（可以通过vim-go下载后，配置环境变量）  
-ocaml: ocaml-lsp(不直接通过`opam user-setup install`使用merlin)  
-...
+3. 基于LSP的索引/补全 |lsp|
 
 4. 基于AI的补全
 
