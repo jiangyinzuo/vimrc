@@ -1,21 +1,15 @@
-function YankPathLine()
+function yank#YankPathLine()
 	let current_root = asyncrun#current_root()
 	let @" = expand('%:p')[len(current_root) + 1:] . ':' . line(".")
 endfunction
-function YankPathLineAndContent() range
+
+function yank#YankPathLineAndContent() range
 	let current_root = asyncrun#current_root()
 	let @" = expand('%:p')[len(current_root) + 1:] . ':' . a:firstline
 	let @" .= "\n" . join(getline(a:firstline, a:lastline), "\n")
 endfunction
 
-" 复制pathline用于gF文件跳转
-" See rffv() in fzf/fzf.bash
-" [[palette]]复制当前文件:行的pathline				:YankPathLine
-command! -nargs=0 YankPathLine call YankPathLine()
-" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
-command! -nargs=0 -range YankPathLineAndContent '<,'>call YankPathLineAndContent()
-
-function s:yank_gdb() range
+function yank#YankGDB() range
 	" 复制选中的内容到临时变量
 	let temp_text = getline(a:firstline, a:lastline)
 	" 通过正则表达式匹配 /path/to/file.ext:linenumber 格式的行
@@ -29,9 +23,3 @@ function s:yank_gdb() range
 	let @" = l:content
 endfunction
 
-command! -range -nargs=0 YankGDB <line1>,<line2>call s:yank_gdb()
-
-if exists("$WSLENV")
-	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
-	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
-endif

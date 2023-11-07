@@ -242,9 +242,24 @@ if !exists('g:vscode')
 	Plug 'whonore/Coqtail'
 	source ~/.vim/vimrc.d/latex.vim
 	source ~/.vim/vimrc.d/asynctasks.vim
-	source ~/.vim/vimrc.d/yank.vim
+
 	" codenote.vim depends on fzf.vim
 	source ~/.vim/vimrc.d/codenote.vim
+
+	"""""""" Yank """"""""""
+	" 复制pathline用于gF文件跳转
+	" See rffv() in fzf/fzf.bash
+	" [[palette]]复制当前文件:行的pathline				:YankPathLine
+	command! -nargs=0 YankPathLine call yank#YankPathLine()
+	" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
+	command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
+	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
+	""""""""""""""""""""""""
+
+if exists("$WSLENV")
+	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
+	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
+endif
 
 	""" DuckDB
 	let g:duckdb_exe = 'duckdb -markdown'
