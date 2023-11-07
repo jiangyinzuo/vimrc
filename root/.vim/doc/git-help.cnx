@@ -1,3 +1,5 @@
+vim:ft=help
+
 *vim-git-help*
 *git-help*
 *git*
@@ -104,6 +106,13 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 *git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
 *git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
 
+*git-filter-repo*
+
+https://github.com/newren/git-filter-repo#how-do-i-install-it
+>
+    apt install git-filter-repo
+<
+
 -------------------------------------------------------------------------------
 
 *git-diff/merge*
@@ -167,6 +176,10 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 -------------------------------------------------------------------------------
 
 git gc, git 减小.git目录大小                        *git-gc*
+
+>
+    git gc --prune=now --aggressive
+<
 
 -------------------------------------------------------------------------------
 vim mergetool                                       *vim-mergetool*
