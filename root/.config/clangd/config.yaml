@@ -2,7 +2,9 @@ CompileFlags:
   Add: [-Wall]
 
 Diagnostics:
+  # Still invalid for system header
   UnusedIncludes: Strict
+  # Valid for system header
   MissingIncludes: Strict
   ClangTidy:
     Add:
@@ -11,7 +13,9 @@ Diagnostics:
       - llvm-*
       - google-*
       - cppcoreguidelines-*
+      # Warning for short variables like `a`
       # - readability-*
+    # auto foo() -> int;
     Remove: modernize-use-trailing-return-type
 
 InlayHints:
