@@ -35,5 +35,21 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   }
 end
 
+config.font = wezterm.font_with_fallback {
+  -- <built-in>, BuiltIn
+  "JetBrains Mono",
+
+  -- <built-in>, BuiltIn
+  -- Assumed to have Emoji Presentation
+  -- Pixel sizes: [128]
+  "Noto Color Emoji",
+
+  -- <built-in>, BuiltIn
+  "Symbols Nerd Font Mono",
+
+  -- https://fonts.google.com/noto/specimen/Noto+Sans+Math
+  "Noto Sans Math",
+}
+
 -- and finally, return the configuration to wezterm
 return config
