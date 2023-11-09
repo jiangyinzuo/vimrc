@@ -80,6 +80,12 @@ if !exists('g:vscode')
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
 		let g:qf_auto_open_quickfix = 0
+
+		Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+		" 默认csv带有header
+		let g:rbql_with_headers = 1
+		" 禁用rainbow_csv的高亮
+		" let g:rcsv_colorlinks = ['NONE', 'NONE']
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突

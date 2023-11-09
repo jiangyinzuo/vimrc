@@ -20,12 +20,8 @@ let g:Lf_PopupPreviewPosition = 'top'
 let g:Lf_ShortcutF = '<leader>ff'
 let g:Lf_WorkingDirectoryMode = 'c'
 
-function Leaderf_current_dir()
-	let l:c = expand("%:h")
-	exe "Leaderf file " . l:c
-endfunction
 " 当前文件所在目录下搜索文件
-nnoremap <silent> <leader>fc :call Leaderf_current_dir()<CR>
+nnoremap <silent> <leader>fc :Leaderf file <C-R>=expand("%:h")<CR><CR>
 " 当前文件所在项目根目录下搜索文件
 nnoremap <silent> <leader>fp :Leaderf file <C-R>=asyncrun#current_root()<CR><CR>
 
@@ -79,6 +75,6 @@ let g:Lf_WildIgnore = {
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
   \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.tmp',
   \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',
-  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm', '**/tags']
+  \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm', '**/tags', '*.out', '*.pcm']
   \}
 
