@@ -84,6 +84,7 @@ if !exists('g:vscode')
 		Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 		" 默认csv带有header
 		let g:rbql_with_headers = 1
+		let g:rainbow_comment_prefix = '#'
 		" 禁用rainbow_csv的高亮
 		" let g:rcsv_colorlinks = ['NONE', 'NONE']
 	endif
