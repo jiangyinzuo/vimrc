@@ -51,3 +51,4 @@
 *加载quickfixlist*					:LoadList foo
 *保存quickfixlist*					:SaveList foo
 *git加载所有unmerged文件到quickfixlist*			:Git mergetool
+*统计当前buffer某个文本的个数*				:%s/<word>//gn

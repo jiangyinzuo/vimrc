@@ -1,5 +1,21 @@
 *command-line-tool*
 
+*tldr* 命令行帮助
+
+https://explainshell.com/
+
+*shellcheck*
+
+https://github.com/koalaman/shellcheck#from-your-terminal
+
+命令行运行shellcheck
+>
+    shellcheck myscript.sh
+<
+shellcheck也可以集成到CI中
+
+-------------------------------------------------------------------------------
+
 vim/less读取另一个程序的标准输出 >
     ls | vim -
     ls | less
@@ -55,7 +71,6 @@ pdf转text: pdftotext
 - fm脚本
 
 json: jq
-tldr: 命令行帮助
 补全父目录 -> bd
 终端查看图片:
 - timg

@@ -32,15 +32,19 @@ https://vim.fandom.com/wiki/Folding
 *auto-completion* https://zhuanlan.zhihu.com/p/106309524
 *重复执行上一个命令* @:
 
-*命令（command）模式下cursor移动到开头*	CTRL-B
-*命令（command）模式下cursor移动到结尾*	CTRL-E
-
-*goto-file* gf gF CTRL-Vgf CTRL-VgF
-*increment-number* CTRL-A
-
 *计算器* *calculator*
 https://vimtricks.com/p/vim-calculator/
-*paste-in-(search-)command-mode* CTRL-R"
+
+|command-mode|
+*命令command模式下粘贴* CTRL-R"
+*命令command模式下cursor移动到开头*	CTRL-B
+*命令command模式下cursor移动到结尾*	CTRL-E
+*命令command模式下复制命令*	CTRL-F 打开包含命令的窗口，之后选中复制
+
+*goto-file* gf gF CTRL-Vgf CTRL-VgF
+*跳转到上一次文本变更的位置*  |g;| |:changes|
+
+*increment-number* CTRL-A
 
 *next-in-search-mode* *查找模式下的n和N* CTRL-G CTRL-T
 *put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
