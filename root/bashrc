@@ -5,39 +5,39 @@ set -o vi
 export VIMRC_ROOT=$HOME/vimrc/root
 export EDITOR=vim
 
-. $VIMRC_ROOT/z.sh
-. $VIMRC_ROOT/fm
+. "$VIMRC_ROOT"/z.sh
+. "$VIMRC_ROOT"/fm
 
 alias vimt='vim --servername TEX'
 alias vims='vim -S session.vim'
 alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 
 bd() {
-	local d=$(/usr/bin/bd $*)
+	local d;
+	d=$(/usr/bin/bd "$@")
 	if [[ -d $d ]]; then
-		cd $d
+		cd "$d"
 	fi
 	# 加双引号能保留换行符
 	echo "$d"
 }
 
-source $VIMRC_ROOT/fzf/fzf.bash
+source "$VIMRC_ROOT"/fzf/fzf.bash
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
 
-export PATH=$PATH:$VIMRC_ROOT/scripts
-RGPIPE='rgpipe'
+export PATH=$PATH:"$VIMRC_ROOT"/scripts
 alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
-	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre ${RGPIPE}"
+	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre rgpipe"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # pygments支持更多语言
 # export GTAGSLABEL=native-pygments
 
-if [[ `uname -a` == *WSL* ]]; then
+if [[ $(uname -a) == *WSL* ]]; then
 	export PATH=$PATH:$VIMRC_ROOT/scripts/wsl
-	. $VIMRC_ROOT/wsl-init.bash
+	. "$VIMRC_ROOT"/wsl-init.bash
 fi
 
 git-rm-remote-file() {
@@ -45,8 +45,9 @@ git-rm-remote-file() {
 }
 
 zt() {
-	local d=$(z -t | fzf +s --tac | awk '{print $2}')
+	local d;
+	d=$(z -t | fzf +s --tac | awk '{print $2}')
 	if [[ -n $d ]]; then
-		cd $d
+		cd "$d"
 	fi
 }

@@ -1,11 +1,11 @@
-#/bin/bash
+#!/bin/bash
 
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
 	.config/vifm .gitconfig .gitconfig-ict .config/himalaya .config/clangd
 )
 
-if [[ `uname -a` == *WSL* ]]; then
+if [[ $(uname -a) == *WSL* ]]; then
 	soft_link_files+=(
 		.local/share/bash-completion/completions/daily
 	)
@@ -23,7 +23,7 @@ echo_yellow() {
 if [ -z "$VIMRC_ROOT" ]; then
   # 如果不存在，则追加到 .bashrc
 	echo_green "Add source ~/vimrc/root/bashrc to .bashrc:"
-  echo "source ~/vimrc/root/bashrc" >> ~/.bashrc
+	echo "source ~/vimrc/root/bashrc" >> ~/.bashrc
 	. ~/vimrc/root/bashrc
 fi
 
@@ -31,12 +31,11 @@ _make_soft_link() {
 	local src=$1
 	local target=$2
 	if ! [[ -e $target ]]; then
-		ln -s $src $target
-		if [ $? -eq 0 ]; then
+		if ln -s "$src" "$target"; then
 			echo "ln -s $src $target success"
 		fi
 	else
-		echo "File $target exists, skip."	
+		echo "File $target exists, skip."
 	fi
 }
 
@@ -45,8 +44,8 @@ echo_green "Setup soft links:"
 # ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
 # ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 mkdir -p ~/.local/share/bash-completion/completions
-for f in ${soft_link_files[@]} ; do
-	_make_soft_link $VIMRC_ROOT/$f ~/$f
+for f in "${soft_link_files[@]}" ; do
+	_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 done
 
 mkdir -p ~/gadgets

@@ -14,7 +14,7 @@ let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
 let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
 let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-" All Coc Extensions: let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-sh', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
+" All Coc Extensions: let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 " gtags-cscope | cscope

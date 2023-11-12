@@ -39,7 +39,7 @@ apt install libgtk-3-dev libxt-dev
 ## Setup Environment Variables and Soft Links
 
 ```sh
-./setup.sh
+./install/setup.sh
 ```
 
 Environment variables to setup:  `$DOC2` `$CODE_HOME`

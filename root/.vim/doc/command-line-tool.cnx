@@ -1,3 +1,5 @@
+vim:ft=help
+
 *command-line-tool*
 
 *tldr* 命令行帮助
@@ -40,7 +42,7 @@ Ubuntu22.04下均可通过apt安装
     python3 -c "print(1+1)"
     echo "print(1+1)" | python3
 >
-邮件: himalaya, 但其vim插件存在bug
+邮件: *himalaya* , 但其vim插件存在bug
 目录树: tree
 查找: find -> fd
 模糊查找: |fzf|
@@ -58,7 +60,7 @@ cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快�
 <
 
 pdf导出注释: pdfannots https://github.com/0xabu/pdfannots
-pdf转text: pdftotext  
+pdf转text: pdftotext
 
 文件管理器:
 - Netrw
@@ -84,6 +86,7 @@ json: jq
 	npm i -g fanyi
 <
 
-格式化工具:
+格式化工具
 
-vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
+|clang-format|
+

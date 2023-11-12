@@ -10,6 +10,12 @@
 			"filetypes": [
 				"typst"
 			]
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": ["~"]
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
@@ -44,6 +50,5 @@
 	"java.enabled": true,
 	"json.enable": true,
 	"json.schemaDownload.enable": true,
-	"sh.enable": false,
 	"marksman.enable": false
 }
