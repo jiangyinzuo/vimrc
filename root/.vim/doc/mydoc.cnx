@@ -6,6 +6,8 @@ vim:ft=help
 
 ===============================================================================
 
+ISSUE: helpfile开启ft=help后，在快速插入---------------------时存在性能问题
+
 *vim-helpfiles-cheetsheet* https://devhints.io/vim-help
 
 *netrw*
