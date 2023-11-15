@@ -111,3 +111,16 @@ json: jq
 
 |clang-format|
 
+-------------------------------------------------------------------------------
+
+*github-copilot-cli*
+
+https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
+
+Usage:
+  copilot [command]
+
+Examples:
+
+$ gh copilot suggest "Install git"
+$ gh copilot explain "traceroute github.com"
