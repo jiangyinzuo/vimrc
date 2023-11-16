@@ -221,8 +221,10 @@ augroup end
 
 " Do not use maps in
 " https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-noremap <silent> <leader>mc :norm ^i<C-R>=escape(b:comment_leader,'\/')<CR><CR>
-noremap <silent> <leader>mu :norm ^<C-R>=len(escape(b:comment_leader,'\/'))<CR>x<CR>
+nnoremap <silent> <leader>mc :norm ^i<C-R>=b:comment_leader<CR><CR>
+vnoremap <silent> <leader>mc :norm 0i<C-R>=b:comment_leader<CR><CR>
+nnoremap <silent> <leader>mu :norm ^<C-R>=len(b:comment_leader)<CR>x<CR>
+vnoremap <silent> <leader>mu :norm 0<C-R>=len(b:comment_leader)<CR>x<CR>
 
 augroup jump_to_symbol
 	autocmd!
