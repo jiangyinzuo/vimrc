@@ -26,9 +26,15 @@ Ubuntu22.04下均可通过apt安装
 
 命令行补全目录: .local/share/bash-completion/completions
 
-批量重命名 >
+批量重命名: rename。rename有两个版本，
+一种版本支持's/foo/bar/g'替换模式 (Ubuntu 23.10)，
+另一种版本不支持。
+>
     rename 's/opt-/hot-/g' *
 <
+<
+    rename .ext .bak *.ext
+>
 
 计算器: *bc*
 >
@@ -124,3 +130,7 @@ Examples:
 
 $ gh copilot suggest "Install git"
 $ gh copilot explain "traceroute github.com"
+
+-------------------------------------------------------------------------------
+
+对话框 dialog

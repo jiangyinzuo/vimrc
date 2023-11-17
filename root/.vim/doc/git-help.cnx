@@ -37,6 +37,18 @@ Git 修改历史提交的文件                                 *git-modify-hist
 
 7. 运行 'git rebase --continue' 完成 rebase 操作。
 
+https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
+
+*git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
+
+*git-filter-repo*
+
+https://github.com/newren/git-filter-repo#how-do-i-install-it
+>
+    apt install git-filter-repo
+<
+https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
+
 -------------------------------------------------------------------------------
 git commit --amend                                      *git-commit-amend*
 
@@ -103,14 +115,6 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 *git先暂存自己的修改，再pull别人的提交*		1) git stash 	2) git pull 	3) git pop
 *git复制某一分支*				git remote set-url
 *git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
-*git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
-
-*git-filter-repo*
-
-https://github.com/newren/git-filter-repo#how-do-i-install-it
->
-    apt install git-filter-repo
-<
 
 -------------------------------------------------------------------------------
 
