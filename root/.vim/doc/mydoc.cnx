@@ -87,6 +87,26 @@ recording a macro: >
 <
 
 -------------------------------------------------------------------------------
+Undo System ~
+
+|undo-redo|
+
+1. *undo-system*
+
+https://irian.to/blogs/learn-how-to-use-vim-undo-to-time-travel/
+|undo-tree| |undo-branches| |undotree()|
+
+undo: |u| |g-|
+redo: |CTRL-R|  |g+|
+
+|g-|和|u|的区别：|g-|优先回退到undotree的上一个兄弟节点，|u|直接回退到undotree
+的父节点
+
+See: https://vi.stackexchange.com/questions/11537/difference-between-g-and-u
+
+2. |persistent-undo|
+3. *time-travel*
+-------------------------------------------------------------------------------
 
 *find-files* (vim will be blocked if directory is too large) >
   set path+=**

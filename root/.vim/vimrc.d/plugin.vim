@@ -40,6 +40,7 @@ if has('nvim') || v:version >= 801
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
+	Plug 'mbbill/undotree'
 
 	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
