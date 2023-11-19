@@ -140,10 +140,6 @@ runtime ftplugin/man.vim
 set list
 " set nowrap " 不折行
 set guifont=Monospace\ Regular\ 20
-set mouse=a
-if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))
-	set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
-endif
 
 if has("nvim-0.5.0") || has("patch-8.1.1564")
 	set signcolumn=number " 合并git状态与行号
@@ -348,19 +344,21 @@ nnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(expand("<cword
 vnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(GetVisualSelection())<CR>
 command! -nargs=1 Vimfdf call VimGrepFindDefinitionFunction(<q-args>)
 
-" Reference: vim.fandom.com/wiki/Searching_for_files
-" find files and populate the quickfix list
-" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
-" :new 开新的window
-" :edit 在当前buffer
-" :open 无法使用通配符，不能使用wildmode
-" :next 可以打开多个文件
-function FindFiles(filename)
-	cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
-	set errorformat=%f:%l:%m
-	call ShowQuickfixListIfNotEmpty()
-endfunction
-command! -nargs=1 FindFiles call FindFiles(<q-args>)
+if v:version >= 740 || &readonly == 0
+	" Reference: vim.fandom.com/wiki/Searching_for_files
+	" find files and populate the quickfix list
+	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
+	" :new 开新的window
+	" :edit 在当前buffer
+	" :open 无法使用通配符，不能使用wildmode
+	" :next 可以打开多个文件
+	function FindFiles(filename)
+		cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
+		set errorformat=%f:%l:%m
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
+	command! -nargs=1 FindFiles call FindFiles(<q-args>)
+endif
 
 function Ripgrep(args)
 	cexpr system('rg --vimgrep ' . a:args)
@@ -393,8 +391,8 @@ function CExprSystem(args)
 	cexpr system(a:args)
 	call ShowQuickfixListIfNotEmpty()
 endfunction
-" [[palette]]执行系统命令并输出到quickfix list			:CExprsys
-command! -nargs=1 CExprsys call CExprSystem(<q-args>)
+" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
+command! -nargs=1 SystemToQf call CExprSystem(<q-args>)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -402,50 +400,58 @@ command! -nargs=1 CExprsys call CExprSystem(<q-args>)
 " :e+22 ~/.vimrc
 command! -nargs=0 VimExeLine exe getline(".")
 
-set foldmethod=marker
-set foldmarker={,}
+if v:version >= 740 || &readonly == 0
+	set mouse=a
+	if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))
+		set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
+	endif
 
-function! CppFoldExpr(lnum)
-	let line = getline(a:lnum)
-	if !exists('b:cpp_fold_level')
-		let b:cpp_fold_level = 0
+	set foldmethod=marker
+	set foldmarker={,}
+
+	" 默认打开所有折叠，将foldlevelstart设置为较大的值
+	"" set foldlevel=-1 " 默认关闭所有折叠
+	set foldlevelstart=99
+	" https://www.zhihu.com/question/30782510/answer/70078216
+	nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
+	" 打开所有折叠: zR
+
+	function! CppFoldExpr(lnum)
+		let line = getline(a:lnum)
+		if !exists('b:cpp_fold_level')
+			let b:cpp_fold_level = 0
+			let b:last_primitive = ''
+		endif
+
+		let open_braces = len(split(line, '{', 1)) - 1
+		let close_braces = len(split(line, '}', 1)) - 1
+		
+		if b:last_primitive == 'if'
+			let b:cpp_fold_level += 1
+		elseif b:last_primitive == 'end'
+			let b:cpp_fold_level -= 1
+		endif
 		let b:last_primitive = ''
-	endif
+		
+		if line =~ '^\s*#\s*\(ifdef\|ifndef\|if\)' || open_braces > close_braces
+			let b:cpp_fold_level += 1
+			let b:last_primitive = 'if'
+			return b:cpp_fold_level
+		elseif line =~ '^\s*#\s*\(else\|elif\)' || (open_braces == close_braces && open_braces > 0)
+			return b:cpp_fold_level - 1
+		elseif line =~ '^\s*#\s*endif' || close_braces > open_braces
+			let b:last_primitive = 'end'
+			let b:cpp_fold_level -= 1
+			return b:cpp_fold_level
+		endif
 
-	let open_braces = len(split(line, '{', 1)) - 1
-	let close_braces = len(split(line, '}', 1)) - 1
-	
-	if b:last_primitive == 'if'
-		let b:cpp_fold_level += 1
-	elseif b:last_primitive == 'end'
-		let b:cpp_fold_level -= 1
-	endif
-	let b:last_primitive = ''
-	
-	if line =~ '^\s*#\s*\(ifdef\|ifndef\|if\)' || open_braces > close_braces
-		let b:cpp_fold_level += 1
-		let b:last_primitive = 'if'
 		return b:cpp_fold_level
-	elseif line =~ '^\s*#\s*\(else\|elif\)' || (open_braces == close_braces && open_braces > 0)
-		return b:cpp_fold_level - 1
-	elseif line =~ '^\s*#\s*endif' || close_braces > open_braces
-		let b:last_primitive = 'end'
-		let b:cpp_fold_level -= 1
-		return b:cpp_fold_level
-	endif
+	endfunction
 
-	return b:cpp_fold_level
-endfunction
+	autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
+	autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 
-autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
-autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
-
-" 默认打开所有折叠，将foldlevelstart设置为较大的值
-"" set foldlevel=-1 " 默认关闭所有折叠
-set foldlevelstart=99
-" https://www.zhihu.com/question/30782510/answer/70078216
-nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
-" 打开所有折叠: zR
+endif
 
 set makeprg=make
 
