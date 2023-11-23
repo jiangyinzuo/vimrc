@@ -155,6 +155,8 @@ clean-LOCAL-BASE-REMOTE-files			git clean -i
 git 删除untracked file
 首先`git clean -n`，查看哪些文件会被删除
 然后`git clean -f`
+git 回滚untracked 修改
+`git restore <file name>`
 
 -------------------------------------------------------------------------------
 
