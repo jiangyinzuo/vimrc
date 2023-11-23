@@ -149,6 +149,14 @@ tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 clean-LOCAL-BASE-REMOTE-files			git clean -i
 
 -------------------------------------------------------------------------------
+*git-clean*
+*git-untracked-file*
+
+git 删除untracked file
+首先`git clean -n`，查看哪些文件会被删除
+然后`git clean -f`
+
+-------------------------------------------------------------------------------
 
 *Git在单体仓库中pull部分文件*
 

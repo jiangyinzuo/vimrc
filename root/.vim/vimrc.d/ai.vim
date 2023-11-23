@@ -2,13 +2,13 @@ if has('nvim') || v:version >= 900
 	" copilot.vim在打开文件后，第一次快速进入插入模式时，存在卡顿的问题
 	" Github Coplit Support
 	" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
-	Plug 'github/copilot.vim', { 'on': 'Copilot' }
+	Plug 'github/copilot.vim'
 	" use <C-x> to auto complete github copilot
 	" imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
 	" let g:copilot_no_tab_map = v:true
 	
 	" Load the plugin on InsertEnter
-	autocmd InsertEnter * ++once call plug#load('copilot.vim')
+	" autocmd InsertEnter * ++once call plug#load('copilot.vim')
 endif
 
 if has('python3')
