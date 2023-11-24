@@ -40,7 +40,6 @@ if has('nvim') || v:version >= 801
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
 	Plug 'markonm/traces.vim'
-	Plug 'mbbill/undotree'
 
 	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
@@ -68,7 +67,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
 if !exists('g:vscode')
-
+	Plug 'mbbill/undotree'
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
@@ -343,5 +342,5 @@ endif
 
 if has('nvim') || v:version >= 802
 	hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
-	source 	~/.vim/vimrc.d/project.vim
+	source ~/.vim/vimrc.d/project.vim
 endif

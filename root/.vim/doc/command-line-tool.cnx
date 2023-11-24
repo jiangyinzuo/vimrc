@@ -50,7 +50,12 @@ Ubuntu22.04下均可通过apt安装
 >
 邮件: *himalaya* , 但其vim插件存在bug
 目录树: tree
-查找: find -> fd
+
+查找: find -> fd                             *find-fd*
+fd默认会ignore .gitignore下的文件，要取消.gitignore可以添加`-I`flag >
+	fd -I data_v2.csv
+<
+
 模糊查找: |fzf|
 内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快
 

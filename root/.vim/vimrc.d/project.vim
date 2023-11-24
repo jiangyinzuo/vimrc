@@ -161,11 +161,11 @@ endfunction
 
 augroup load_my_project
 	autocmd!
- 	" 当Vim启动时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
+	" 当Vim启动时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
 	autocmd VimEnter * ++once call LoadProjectConfigEachTab()
 	autocmd VimEnter * ++once call VimEnterAfterLoadProjectConfig()
- 	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
- 	autocmd TabNew * call TabNewLoadProjectConfig()
+	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
+	autocmd TabNew * call TabNewLoadProjectConfig()
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
