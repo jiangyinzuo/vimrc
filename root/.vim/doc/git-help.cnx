@@ -120,6 +120,10 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 
 *git-diff/merge*
 
+将当前文件和它倒数第3次提交历史版本diff |:Gdiffsplit|  >
+	:Gdiffsplit HEAD~3:%
+<
+
 *git-difftool*					git difftool HEAD mydoc.txt or git difftool -- mydoc.txt HEAD
 
 *git-mergetool*
@@ -133,7 +137,7 @@ tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 
 方案1: 直接git mergetool开启merge
 方案2: 
-1) :Git mergetool , 在quickfix list加载所有unmerged file
+1) `:Git mergetool` , 在quickfix list加载所有unmerged file
 可以用:SaveList 和 :LoadList 保存/加载quickfix list(在quickfix buffer下命令生效)
 2) 打开需要merge的文件后，>
   :MergetoolStart/:MergetoolToggle 开始merge
