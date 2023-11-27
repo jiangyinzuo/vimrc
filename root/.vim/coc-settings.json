@@ -50,5 +50,24 @@
 	"java.enabled": true,
 	"json.enable": true,
 	"json.schemaDownload.enable": true,
-	"marksman.enable": false
+	"marksman.enable": false,
+	"coc.source.around.shortcut": "around",
+	"coc.source.buffer.shortcut": "buffer",
+	"coc.source.dictionary.enable": false,
+	"coc.source.dictionary.filetypes": ["markdown", "text", "latex"],
+	"coc.source.dictionary.shortcut": "dict",
+	"coc.source.word.enable": true,
+	"coc.source.word.filetypes": ["markdown", "text", "latex"],
+	"coc.source.word.shortcut": "word",
+	"coc.source.emoji.enable": true,
+	"coc.source.tag.enable": true,
+	"coc.source.tag.shortcut": "tag",
+	"coc.source.ultisnips.shortcut": "snip",
+	"coc.source.vimtex.enable": true,
+	"suggest.formatItems": [
+		"abbr",
+		"menu",
+		"kind",
+		"shortcut"
+	]
 }

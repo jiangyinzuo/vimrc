@@ -14,7 +14,10 @@ let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
 let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
 let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-" All Coc Extensions: let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', '@yaegassy/coc-marksman', 'coc-explorer']
+
+" See Also: https://github.com/neoclide/coc-sources
+" All Coc Extensions:
+" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 " gtags-cscope | cscope
@@ -70,6 +73,8 @@ set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
 set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
+
+set dictionary+=/usr/share/dict/american-english
 
 set nobackup       "no backup files
 set nowritebackup  "only in case you don't want a backup file while editing
