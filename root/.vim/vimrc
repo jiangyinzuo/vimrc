@@ -91,7 +91,8 @@ autocmd Filetype tex,markdown setlocal textwidth=80
 """"""""""""""""""""""""""""""
 set smarttab
 set autoindent " 跟随上一行的缩进方式
-set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
+" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
+" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 
 """ default indent
 " markdown在被默认vim runtime file设置为tabstop=4

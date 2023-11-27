@@ -50,6 +50,13 @@ https://github.com/newren/git-filter-repo#how-do-i-install-it
 https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
 
 -------------------------------------------------------------------------------
+*git-fetch*
+
+git只fetch某个远程仓库的某一个分支 >
+	git fetch origin master
+<
+
+-------------------------------------------------------------------------------
 git commit --amend                                      *git-commit-amend*
 
 'git commit --amend' 是一个 Git 命令，用于修改最近一次提交。这个命令会将暂存区中
