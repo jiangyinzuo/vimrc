@@ -1,1 +1,6 @@
 defaultIndent: '  '
+lookForAlignDelims:
+  tabular:
+    alignRowsWithoutMaxDelims: 0
+  tabularx:
+    alignRowsWithoutMaxDelims: 0
