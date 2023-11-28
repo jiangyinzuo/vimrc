@@ -52,6 +52,7 @@
 	"json.enable": true,
 	"json.schemaDownload.enable": true,
 	"marksman.enable": false,
+	"texlab.latexFormatter": "latexindent",
 	"coc.source.around.shortcut": "around",
 	"coc.source.buffer.shortcut": "buffer",
 	"coc.source.dictionary.enable": false,

@@ -19,6 +19,7 @@
 "
 " coc-codegeex: Aminer的代码片段生成器，暂时不可用
 let g:coc_filetype_map = {'tex': 'latex'}
+autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
