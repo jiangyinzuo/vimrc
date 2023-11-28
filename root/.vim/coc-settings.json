@@ -12,6 +12,7 @@
 			]
 		},
 		"bash": {
+			"enable": false,
 			"command": "bash-language-server",
 			"args": ["start"],
 			"filetypes": ["sh"],
