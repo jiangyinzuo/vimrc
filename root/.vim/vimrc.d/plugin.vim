@@ -62,12 +62,29 @@ if has('nvim') || v:version >= 801
 	let g:VM_maps['Motion h'] = '<Left>'
 endif
 
-Plug 'editorconfig/editorconfig-vim'
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-au FileType gitcommit let b:EditorConfig_disable = 1
-
 if !exists('g:vscode')
 	Plug 'mbbill/undotree'
+
+	" Replace ~/.vim/autoload/detect_indent.vim and editorconfig-vim
+	" Since: v0.12.0
+	"
+	" Plug 'editorconfig/editorconfig-vim'
+	" let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+	" au FileType gitcommit let b:EditorConfig_disable = 1
+	Plug 'tpope/vim-sleuth'
+
+	" Commenting blocks of code.
+	" 可以选中多行后，用:norm i# 在所有行前面添加#
+	" :norm 0i 在所有行前面添加
+	" :norm ^i 在所有行前面添加(不包括空格)
+	" :norm 0x删除所有行的第一个字母
+	" :norm ^x删除所有行的第一个字母(不包括空格)
+	"
+	" Replace custom commands for commenting.
+	" Since: v0.12.0
+	" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+	Plug 'tpope/vim-commentary'
+
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
@@ -198,6 +215,8 @@ if !exists('g:vscode')
 	let g:gitgutter_sign_priority = 10
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
+	" A git commit browser.
+	Plug 'junegunn/gv.vim'
 	if has('vim9script')
 		Plug 'Clavelito/indent-awk.vim'
 		Plug 'Eliot00/git-lens.vim'

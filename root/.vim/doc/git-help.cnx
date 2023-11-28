@@ -70,6 +70,10 @@ git commit --amend                                      *git-commit-amend*
 使用 'git reset --hard ORIG_HEAD' 命令。这会撤销 'git commit --amend' 对最近一次
 提交的所有修改，并将这些修改留在工作区。
 
+amend同时修改日期 >
+	git commit --amend --date=now
+<
+
 -------------------------------------------------------------------------------
 git reset                                             *git-reset*
 

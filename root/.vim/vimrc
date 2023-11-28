@@ -107,18 +107,14 @@ augroup equalprg_filetype
 	autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 augroup end
 
-augroup indent2
-	autocmd!
-	autocmd FileType c,cpp,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
-augroup end
+autocmd FileType c,cpp,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" tex使用空格缩进
+autocmd FileType tex setlocal expandtab
 
 let g:project_vimrc = '.project.vim'
 let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.ocamlformat', g:project_vimrc, 'tags', 'GTAGS']
 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
-if !s:has_vimrcd || !file_readable('.editorconfig')
-	autocmd FileType * call detect_indent#DetectIndent()
-endif
 if !s:has_vimrcd
 	colorscheme desert
 	hi ColorColumn ctermbg=black guibg=black
@@ -207,26 +203,6 @@ endif
 let g:netrw_hide = 1 " show not-hidden files
 let g:netrw_keepdir=0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Commenting blocks of code.
-" 也可以选中多行后，用:norm i# 在所有行前面添加#,
-" :norm x删除所有行的第一个字母
-augroup commenting_blocks_of_code
-	autocmd!
-	autocmd FileType c,cpp,java,scala,rust,go let b:comment_leader = '// '
-	autocmd FileType sh,ruby,python,conf,fstab,gitconfig,config,yaml let b:comment_leader = '# '
-	autocmd FileType tex let b:comment_leader = '% '
-	autocmd FileType mail,markdown let b:comment_leader = '> '
-	autocmd FileType vim,vifm let b:comment_leader = '" '
-	autocmd FileType lua,sql let b:comment_leader = '-- '
-augroup end
-
-" Do not use maps in
-" https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-nnoremap <silent> <leader>mc :norm ^i<C-R>=b:comment_leader<CR><CR>
-vnoremap <silent> <leader>mc :norm 0i<C-R>=b:comment_leader<CR><CR>
-nnoremap <silent> <leader>mu :norm ^<C-R>=len(b:comment_leader)<CR>x<CR>
-vnoremap <silent> <leader>mu :norm 0<C-R>=len(b:comment_leader)<CR>x<CR>
 
 augroup jump_to_symbol
 	autocmd!
