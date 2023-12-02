@@ -17,7 +17,7 @@ let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 
 " See Also: https://github.com/neoclide/coc-sources
 " All Coc Extensions:
-" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
+" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 " gtags-cscope | cscope

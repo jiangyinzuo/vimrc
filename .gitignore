@@ -11,6 +11,7 @@ root/.vim/view
 root/.vim/config.vim
 __pycache__
 *.tar
+*.tmp
 tags
 GPATH
 GTAGS

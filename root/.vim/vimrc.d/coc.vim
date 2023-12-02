@@ -7,9 +7,6 @@
 " Reference: https://github.com/neoclide
 "
 " 语法类插件（不好用）：
-" coc-ltex依赖ltex-ls LSP
-" 手动安装ltex-ls：前往https://github.com/valentjn/ltex-ls/releases下载并解压缩，解压后的目录位置类似
-" ~/.vim/coc/extensions/node_modules/coc-ltex/lib/ltex-ls-15.2.0
 " coc-grammarly
 "
 " clangd:
@@ -18,6 +15,8 @@
 " coc-marksman: 需要在根目录放一份.marksman.toml
 "
 " coc-codegeex: Aminer的代码片段生成器，暂时不可用
+"
+" coc-ltex: latex语法检查
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 
