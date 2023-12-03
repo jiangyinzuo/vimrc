@@ -6,6 +6,7 @@ chore = { changelog_title = "Chore", omit_from_changelog = true }
 ci = { changelog_title = "CI", omit_from_changelog = true }
 docs = { changelog_title = "Docs", omit_from_changelog = true }
 coc = { changelog_title = "Coc.nvim", omit_from_changelog = true }
+dotfile = { changelog_title = "Dotfile", omit_from_changelog = true }
 
 [changelog]
 path = "CHANGELOG.md"
