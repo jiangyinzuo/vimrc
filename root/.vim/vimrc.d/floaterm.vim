@@ -4,6 +4,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'voldikss/LeaderF-floaterm'
 Plug 'voldikss/fzf-floaterm'
 
+let g:floaterm_opener = 'vsplit'
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 let g:floaterm_keymap_toggle = '<F12>'
