@@ -131,7 +131,7 @@ if !exists('g:vscode')
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 	if has('nvim') && !g:nvim_compatibility_with_vim
-		Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+		" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 		Plug 'nvim-lualine/lualine.nvim'
@@ -143,7 +143,7 @@ if !exists('g:vscode')
 		Plug 'neovim/nvim-lspconfig'
 		" JSON schema
 		" Plug 'b0o/schemastore.nvim'  
-		Plug 'jose-elias-alvarez/null-ls.nvim'
+		" Plug 'jose-elias-alvarez/null-ls.nvim'
 		Plug 'simrat39/rust-tools.nvim'
 		Plug 'p00f/clangd_extensions.nvim'
 		Plug 'simrat39/symbols-outline.nvim'
@@ -317,40 +317,40 @@ if v:version >= 802
 		source ~/.vim/vimrc.d/coc.vim
 	endif
 endif
-if !has("nvim") || g:nvim_compatibility_with_vim
-	if has("termguicolors") && $COLORTERM == 'truecolor' && g:vimrc_use_true_color
-		set termguicolors
-	endif
 
-	let g:nord_uniform_diff_background = 1
-	let g:dracula_high_contrast_diff = 1
-
-	if g:vimrc_dark == 1
-		set background=dark
-	else
-		set background=light
-	endif
-	if v:version >= 800
-		" true color support
-		" https://github.com/lifepillar/vim-solarized8#troubleshooting
-		let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-		let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-		let g:solarized_diffmode = "normal"
-		colorscheme solarized8
-	else
-		if $COLORTERM != "truecolor"
-			let g:solarized_termcolors = 256
-		endif
-		colorscheme solarized
-		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
-	endif
-	" tab颜色
-	hi clear SpecialKey
-	hi NonText cterm=None term=None gui=None
-	hi link SpecialKey NonText
-	"hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
-else
+"""""""""""""""""" begin colorscheme
+if has("termguicolors") && $COLORTERM == 'truecolor' && g:vimrc_use_true_color
+	set termguicolors
 endif
+
+let g:nord_uniform_diff_background = 1
+let g:dracula_high_contrast_diff = 1
+
+if g:vimrc_dark == 1
+	set background=dark
+else
+	set background=light
+endif
+if v:version >= 800 || has('nvim')
+	" true color support
+	" https://github.com/lifepillar/vim-solarized8#troubleshooting
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	let g:solarized_diffmode = "normal"
+	colorscheme solarized8
+else
+	if $COLORTERM != "truecolor"
+		let g:solarized_termcolors = 256
+	endif
+	colorscheme solarized
+	hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
+endif
+" tab颜色
+hi clear SpecialKey
+hi NonText cterm=None term=None gui=None
+hi link SpecialKey NonText
+"hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
+"""""""""""""""""" end colorscheme
 
 if has('nvim') || v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([

@@ -126,16 +126,6 @@ require('lsp-progress').setup({
 		return table.concat(builder, " ")
 	end,
 	-- Format client message.
-	--
-	-- By default it looks like:
-	-- `[null-ls] ⣷ formatting isort (100%) - done, formatting black (50%)`.
-	--
-	-- @param client_name     Client name.
-	-- @param spinner         Spinner icon.
-	-- @param series_messages Series messages array.
-	-- @return                A nil|string|table value. The returned value will
-	--                        be passed to function `format` as one of the
-	--                        `client_messages` array, or ignored if return nil.
 	client_format = function(client_name, spinner, series_messages)
 		return #series_messages > 0
 				and ("[" .. client_name .. "] " .. spinner .. " " .. table.concat(
@@ -145,13 +135,6 @@ require('lsp-progress').setup({
 				or nil
 	end,
 	-- Format (final) message.
-	--
-	-- By default it looks like:
-	-- ` LSP [null-ls] ⣷ formatting isort (100%) - done, formatting black (50%)`
-	--
-	-- @param client_messages Client messages array.
-	-- @return                A nil|string|table value. The returned value will be
-	--                        returned from `progress` API.
 	format = function(client_messages)
 		local sign = " LSP" -- nf-fa-gear \uf013
 		return #client_messages > 0
@@ -169,8 +152,6 @@ require('lsp-progress').setup({
 	-- For *NIX: `~/.local/share/nvim/lsp-progress.log`.
 	file_log_name = "lsp-progress.log",
 })
-
-require('colorscheme')
 
 require('lualine').setup {
 	options = {
