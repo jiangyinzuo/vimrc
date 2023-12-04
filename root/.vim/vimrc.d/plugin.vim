@@ -65,6 +65,13 @@ endif
 if !exists('g:vscode')
 	Plug 'mbbill/undotree'
 
+	Plug 'szw/vim-maximizer'
+	let g:maximizer_set_default_mapping = 0
+	let g:maximizer_set_mapping_with_bang = 0
+	nnoremap <silent><C-w>m :MaximizerToggle<CR>
+	vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
+	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
+
 	" Replace ~/.vim/autoload/detect_indent.vim and editorconfig-vim
 	" Since: v0.12.0
 	"
