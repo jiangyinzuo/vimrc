@@ -2,6 +2,7 @@
 " See *popup-terminal*
 Plug 'voldikss/vim-floaterm'
 Plug 'voldikss/LeaderF-floaterm'
+Plug 'voldikss/fzf-floaterm'
 
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
@@ -17,3 +18,4 @@ augroup FloatermShortcuts
 augroup END
 
 command Vifm :FloatermNew --opener=e vifm
+command! NNN FloatermNew nnn

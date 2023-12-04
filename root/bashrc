@@ -51,3 +51,6 @@ zt() {
 		cd "$d"
 	fi
 }
+
+export NNN_PLUG='z:autojump'
+export NNN_OPTS='e'

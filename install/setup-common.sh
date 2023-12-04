@@ -3,6 +3,7 @@
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
 	.config/vifm .gitconfig .gitconfig-ict .config/himalaya .config/clangd
+	.config/nnn/plugins
 )
 
 echo_green() {

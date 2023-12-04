@@ -39,6 +39,7 @@ if has('nvim') || v:version >= 801
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
 	" let g:AutoPairsMapBS = 1
+	let g:AutoPairsMapSpace = 0
 	Plug 'markonm/traces.vim'
 
 	" fix conflict with autopairs
