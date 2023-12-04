@@ -33,7 +33,7 @@
 		"--suggest-missing-includes=true",
 		"--header-insertion=iwyu"
 	],
-	"ltex.enabled": true,
+	"ltex.enabled": ["latex"],
 	"python.pythonPath": "/bin/python3",
 	"python.linting.mypyEnabled": false,
 	"python.linting.pylintEnabled": true,
