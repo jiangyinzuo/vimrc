@@ -37,6 +37,15 @@ Git 修改历史提交的文件                                 *git-modify-hist
 
 7. 运行 'git rebase --continue' 完成 rebase 操作。
 
+*git将某一个commit拆分为2个*
+>
+  git rebase -i abc123^ # ^指abc123前一个commit
+  git reset HEAD^       # 将该commit回退一个更改，但保留更改内容
+  git add ...
+  git commit ...
+  git rebase --continue
+<
+
 https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
 
 *git从历史提交中永久删除文件*			git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch root/.vim/doc/tags-cn' --prune-empty --tag-name-filter cat -- --all
@@ -45,7 +54,7 @@ https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
 
 https://github.com/newren/git-filter-repo#how-do-i-install-it
 >
-    apt install git-filter-repo
+  apt install git-filter-repo
 <
 https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
 
@@ -53,7 +62,7 @@ https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/r
 *git-fetch*
 
 git只fetch某个远程仓库的某一个分支 >
-	git fetch origin master
+  git fetch origin master
 <
 
 -------------------------------------------------------------------------------
@@ -71,7 +80,7 @@ git commit --amend                                      *git-commit-amend*
 提交的所有修改，并将这些修改留在工作区。
 
 amend同时修改日期 >
-	git commit --amend --date=now
+  git commit --amend --date=now
 <
 
 -------------------------------------------------------------------------------
@@ -132,7 +141,7 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 *git-diff/merge*
 
 将当前文件和它倒数第3次提交历史版本diff |:Gdiffsplit|  >
-	:Gdiffsplit HEAD~3:%
+  :Gdiffsplit HEAD~3:%
 <
 
 *git-difftool*					git difftool HEAD mydoc.txt or git difftool -- mydoc.txt HEAD
@@ -150,7 +159,7 @@ tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 方案2: 
 1) `:Git mergetool` , 在quickfix list加载所有unmerged file
 可以用:SaveList 和 :LoadList 保存/加载quickfix list(在quickfix buffer下命令生效)
-2) 打开需要merge的文件后，>
+2) 打开需要merge的文件后， >
   :MergetoolStart/:MergetoolToggle 开始merge
   :MergetoolStop/:MergetoolToggle  结束merge(保存或撤销)
 <
@@ -204,9 +213,8 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 -------------------------------------------------------------------------------
 
 git gc, git 减小.git目录大小                        *git-gc*
-
 >
-    git gc --prune=now --aggressive
+  git gc --prune=now --aggressive
 <
 
 -------------------------------------------------------------------------------
@@ -223,7 +231,7 @@ vim mergetool                                       *vim-mergetool*
 
 然后，你需要在你的 '.gitconfig' 文件中设置 Vim 作为默认的 mergetool：
   [merge]
-    tool = vimdiff
+  tool = vimdiff
 
 然后，当你运行 'git mergetool' 命令时，Git 会使用 Vim 来解决合并冲突。
 

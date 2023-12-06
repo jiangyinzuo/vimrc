@@ -1,4 +1,4 @@
-*novimrc* *noconfig* *零配置*
+*code-search*
 
 查找文本
 :vim /func main/ **/*.txt
@@ -8,6 +8,9 @@
 `grep 'func main' ~/hello.go` 查找~/hello.go文件中的func main
 `grep -i` 忽略大小写
 `grep -w` 全字匹配
+
+使用ripgrep
+可以添加.rgignore文件, 用于忽略文件
 
 查找文件
 `find . -name 'scheduler*.py'`
@@ -54,6 +57,11 @@ GTAGSLABEL=native-pygments gtags
 
 也可以用`:cstag <ident>`命令查找符号
 
----
+-------------------------------------------------------------------------------
+|coc.nvim|
+
+cmake可以在不执行编译的情况下生成compile_commands.json文件
+
+-------------------------------------------------------------------------------
 补全
 See: complete.md
