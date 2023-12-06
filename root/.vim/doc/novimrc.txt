@@ -52,6 +52,8 @@ GTAGSLABEL=native-pygments gtags
 查找符号
 :cs f s main
 
+也可以用`:cstag <ident>`命令查找符号
+
 ---
 补全
 See: complete.md

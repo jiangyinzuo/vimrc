@@ -14,6 +14,7 @@ let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
 let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
 let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
+let g:clang_version_suffix = get(g:, 'clang_version_suffix', '-17')
 
 " See Also: https://github.com/neoclide/coc-sources
 " All Coc Extensions:
@@ -103,7 +104,9 @@ augroup equalprg_filetype
 	autocmd!
 	" autocmd FileType c,cpp setlocal equalprg=indent
 	" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
-	autocmd FileType c,cpp setlocal equalprg=clang-format
+
+	" alternative: https://github.com/rhysd/vim-clang-format
+	exe 'autocmd FileType c,cpp setlocal equalprg=clang-format' . g:clang_version_suffix . '\ -style=file'
 	autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 augroup end
 

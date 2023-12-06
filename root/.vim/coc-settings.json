@@ -1,5 +1,15 @@
 {
 	"languageserver": {
+		"cmake": {
+			"command": "cmake-language-server",
+			"filetypes": ["cmake"],
+			"rootPatterns": [
+				"build/"
+			],
+			"initializationOptions": {
+				"buildDirectory": "build"
+			}
+		},
 		"ocaml-lsp": {
 			"command": "opam",
 			"args": ["config", "exec", "--", "ocamllsp"],

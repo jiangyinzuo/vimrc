@@ -1,6 +1,7 @@
 *command-line-tool*
 
 *tldr* 命令行帮助
+*thefuck* 基于规则自动修正上一个命令的错误(too slow)
 
 https://explainshell.com/
 

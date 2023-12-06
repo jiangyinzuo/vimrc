@@ -19,6 +19,7 @@
 " coc-ltex: latex语法检查
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
+autocmd FileType c,cpp ++once call coc#config('clangd.path', '/usr/bin/clangd' . g:clang_version_suffix)
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
