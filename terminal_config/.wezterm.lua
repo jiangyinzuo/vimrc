@@ -47,6 +47,13 @@ config.font = wezterm.font_with_fallback {
   -- <built-in>, BuiltIn
   "Symbols Nerd Font Mono",
 
+  "Microsoft YaHei",
+  -- https://fonts.google.com/noto/specimen/Noto+Sans+SC?noto.query=SC
+  -- "Noto Sans SC",
+
+  -- https://fonts.google.com/noto/use#faq
+  -- https://github.com/notofonts/noto-cjk/tree/main/Sans/Mono
+  "Noto Sans Mono CJK SC",
   -- https://fonts.google.com/noto/specimen/Noto+Sans+Math
   "Noto Sans Math",
 }
