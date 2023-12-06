@@ -30,3 +30,5 @@ function YDef(...)
 	call s:yank_def(l:current_line_number, className)
 endfunction
 command -nargs=? YDef call YDef(<f-args>)
+
+set commentstring=//%s
