@@ -327,7 +327,7 @@ if v:version >= 802
 endif
 
 """""""""""""""""" begin colorscheme
-if has("termguicolors") && $COLORTERM == 'truecolor' && g:vimrc_use_true_color
+if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
 	set termguicolors
 endif
 

@@ -9,8 +9,7 @@ function! ConvertFormat(line)
 	let converted = substitute(a:line, '+\(\d\+\) \(.*\)', '\2:\1', '')
 	return converted
 endfunction
-"
-			
+
 function s:set_coderepo_dir(repo_dir)
 	let g:coderepo_dir = a:repo_dir
 	let t:repo_type = "code"
@@ -232,18 +231,11 @@ function YankCodeLink(need_beginline, need_endline, append, goto_buf)
 	endif
 endfunction
 
-" need_beginline, need_endline, append, goto_buf
-nnoremap <silent> <leader>nr :call YankCodeLink(0, 0, 0, 1)<CR>
-nnoremap <silent> <leader>ny :call YankCodeLink(1, 1, 0, 1)<CR>
-nnoremap <silent> <leader>nb :call YankCodeLink(1, 0, 0, 0)<CR>
-nnoremap <silent> <leader>na :call YankCodeLink(0, 0, 1, 0)<CR>
-nnoremap <silent> <leader>ne :call YankCodeLink(0, 1, 1, 1)<CR>
-
-function YankCodeWithFunctionHeader()
+function YankCodeWithFunctionHeader(shortcut)
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
 	let l:body_line = line(".")
 	let l:body_content = getline(".")
-	normal [f
+	exe "normal " . a:shortcut
 	let l:header_line = line(".")
 	let l:header_content = getline(".")
 	
@@ -255,7 +247,15 @@ function YankCodeWithFunctionHeader()
 	endif
 	call s:goto_note_buffer()
 endfunction
-nnoremap <silent> <leader>nf :call YankCodeWithFunctionHeader()<CR>
+
+" need_beginline, need_endline, append, goto_buf
+nnoremap <silent> <leader>nr :call YankCodeLink(0, 0, 0, 1)<CR>
+nnoremap <silent> <leader>ny :call YankCodeLink(1, 1, 0, 1)<CR>
+nnoremap <silent> <leader>nb :call YankCodeLink(1, 0, 0, 0)<CR>
+nnoremap <silent> <leader>na :call YankCodeLink(0, 0, 1, 0)<CR>
+nnoremap <silent> <leader>ne :call YankCodeLink(0, 1, 1, 1)<CR>
+nnoremap <silent> <leader>nf :call YankCodeWithFunctionHeader('[f')<CR>
+nnoremap <silent> <leader>nm :call YankCodeWithFunctionHeader('[m')<CR>
 
 function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) range
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
@@ -270,11 +270,11 @@ function YankCodeLinkVisual(need_beginline, need_endline, append, goto_buf) rang
 	endif
 endfunction
 
-function YankCodeWithFunctionHeaderVisual() range
+function YankCodeWithFunctionHeaderVisual(shortcut) range
 	let l:file = expand("%:p")[len(g:coderepo_dir) + 1:]
 	let [l:body_line, l:column_start] = getpos("'<")[1:2]
 	let l:body_content = GetVisualSelection()
-	normal [f
+	exe "normal " . a:shortcut
 	let l:header_line = line(".")
 	let l:header_content = getline(".")
 	
@@ -287,7 +287,8 @@ function YankCodeWithFunctionHeaderVisual() range
 	call s:goto_note_buffer()
 endfunction
 
-vnoremap <silent> <leader>nf :call YankCodeWithFunctionHeaderVisual()<CR>
+vnoremap <silent> <leader>nf :call YankCodeWithFunctionHeaderVisual('[f')<CR>
+vnoremap <silent> <leader>nm :call YankCodeWithFunctionHeaderVisual('[m')<CR>
 vnoremap <silent> <leader>nr :call YankCodeLinkVisual(0, 0, 0, 1)<CR>
 vnoremap <silent> <leader>ny :call YankCodeLinkVisual(1, 1, 0, 1)<CR>
 vnoremap <silent> <leader>nb :call YankCodeLinkVisual(1, 0, 0, 0)<CR>
