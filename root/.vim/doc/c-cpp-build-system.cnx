@@ -4,3 +4,19 @@
 := 立即赋值
 
 *cmake*
+
+*c++20-module*
+
+Error:
+target contains C++ module sources which are not supported by the generator
+
+Solution:
+默认的make换为Ninja
+
+Error:
+CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS-NOTFOUND: not found
+
+Solution:
+手动添加CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS
+set(CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS clang-scan-deps-17)
+

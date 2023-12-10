@@ -10,12 +10,15 @@
 `grep -w` 全字匹配
 
 使用ripgrep
-可以添加.rgignore文件, 用于忽略文件
+可以添加.rgignore/.ignore文件, 用于忽略文件
 
 查找文件
 `find . -name 'scheduler*.py'`
 `find -type f`  查找文件
 `find -type d`  查找目录
+
+使用fd
+可以添加.ignore文件, 用于忽略文件
 
 其它
 `tldr find`
