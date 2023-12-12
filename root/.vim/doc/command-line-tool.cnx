@@ -52,13 +52,18 @@ Ubuntu22.04下均可通过apt安装
 邮件: *himalaya* , 但其vim插件存在bug
 目录树: tree
 
-查找: find -> fd                             *find-fd*
+查找: find -> fd                             *find-fd* *fd-find* *fd*
 fd默认会ignore .gitignore下的文件，要取消.gitignore可以添加`-I`flag >
 	fd -I data_v2.csv
 <
 
+Ubuntu18.04暂时不方便安装fd，除非通过rust cargo？
+
 模糊查找: |fzf|
+
 内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快
+
+ubuntu18.04使用|snap|安装
 
 rg 搜索特定文件扩展名 >
 	rg Insert -t vim
