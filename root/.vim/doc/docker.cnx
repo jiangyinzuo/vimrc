@@ -1,0 +1,47 @@
+*docker*
+
+Ubuntu 18.04安装 docker
+https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
+
+>
+	# 添加docker GPG key
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+	# 添加docker源
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	
+	sudo apt-get update
+	sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+	# Nvidia docker
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+	sudo apt-get update
+	sudo apt-get install nvidia-container-toolkit
+
+	sudo systemctl restart docker
+
+	# 执行docker不加sudo
+	sudo groupadd docker
+	sudo gpasswd -a ${USER} docker
+	sudo service docker restart
+<
+
+
+*docker设置http代理*
+
+https://www.lfhacks.com/tech/pull-docker-images-behind-proxy/
+https://docs.docker.com/config/daemon/systemd/#httphttps-proxy
+
+如果在`docker pull ubuntu`期间报错
+>
+	Error response from daemon: manifest for hub-mirror.c.163.com/ubuntu:latest not found: manifest unknown: manifest unknown
+<
+
+说明proxy不支持https
+modify your HTTPS_PROXY=https://****:port with HTTPS_PROXY=http://****:port instead.
+
+Ref:
+https://copyprogramming.com/howto/error-response-from-daemon-get-http-s-registry-1-docker-io-v2-proxyconnect-tcp-tls-first-record-does-not-look-like-a-tls-handshake
