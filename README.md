@@ -1,6 +1,8 @@
 # Vimrc
 
-## Vim Requirements
+## Requirements
+
+### Vim or Neovim
 
 **Vim (recommended)**
 
@@ -8,20 +10,23 @@ vim 9 (full features)
 vim 8.2.4919 (most of features)  
 vim 7.4 (minimal)  
 
-**Neovim (unstable)**
-
-neovim 0.8.2+  
-
-## How to Intall
-
-### Ubuntu
-
-Vim  
 ```bash
 sudo apt install vim-gtk3
 sudo update-alternatives --config vim
 update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
 ```
+
+Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
+
+**Build Vim from Source**
+```sh
+apt install libgtk-3-dev libxt-dev
+./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
+```
+
+**Neovim (unstable)**
+
+neovim 0.8.2+  
 
 [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)  
 ```bash
@@ -29,12 +34,11 @@ sudo apt install neovim python3-pynvim
 pip3 install neovim
 ```
 
-### Build Vim from Source
+### Node.js (coc.nvim)
 
-```sh
-apt install libgtk-3-dev libxt-dev
-./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
-```
+- Ubuntu18.04: https://github.com/nodesource/distributions#debian-and-ubuntu-based-distributions
+- https://github.com/tj/n
+- https://github.com/nvm-sh/nvm
 
 ## Setup Environment Variables and Soft Links
 
