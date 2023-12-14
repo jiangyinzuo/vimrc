@@ -32,6 +32,27 @@ https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 
 *docker设置http代理*
 
+Docker pull命令由systemd控制。所以要在`/etc/systemd/system/docker.service.d/http-proxy.conf`
+文件中添加
+>
+	[Service]
+	Environment="HTTP_PROXY=http://proxy.example.com:3128"
+	Environment="HTTPS_PROXY=https://proxy.example.com:3129"
+	Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
+<
+然后重启Docker
+>
+	sudo systemctl daemon-reload
+	sudo systemctl restart docker
+<
+
+验证配置
+>
+	sudo systemctl show --property=Environment docker
+	Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp
+<
+
+See:
 https://www.lfhacks.com/tech/pull-docker-images-behind-proxy/
 https://docs.docker.com/config/daemon/systemd/#httphttps-proxy
 
