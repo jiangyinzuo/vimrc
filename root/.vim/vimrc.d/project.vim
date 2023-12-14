@@ -1,4 +1,22 @@
+""""""""""""""""" Copy project_dot_file """"""""""""""""""""""
 " Tips: use genproj script to generate project files
+
+let s:project_file_dir = $HOME . "/vimrc/root/project_dot_files/files"
+function! ProjectFiles(ArgLead, CmdLine, CursorPos)
+	let files = readdir(s:project_file_dir, { n -> n =~ '^' . a:ArgLead })
+	return map(files, 'fnamemodify(v:val, ":t")')
+endfunction
+
+function! CopyProjFileFunc(filename)
+	let src_path = s:project_file_dir. a:filename
+	let dest_path = asyncrun#current_root() . "/" . a:filename
+	call system("cp " . src_path . " " . dest_path)
+endfunction
+
+" [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
+command! -nargs=1 -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<q-args>)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 加载对应的.project.vim文件
 function! LoadProjectConfigEachTab()
@@ -56,7 +74,7 @@ endfunction
 function TabNewLoadProjectConfig()
 	augroup tab_load_my_project
 		autocmd!
-		autocmd BufRead * ++once call LoadProjectConfigEachTab()
+		autocmd BufRead * ++once call project#LoadProjectConfigEachTab()
 	augroup END
 endfunction
 
@@ -77,18 +95,3 @@ if exists("*json_encode")
 	command MkSession call mksession#MkSession(asyncrun#current_root() . '/session.vim')
 endif
 
-""""""""""""""""" Copy project_dot_file """"""""""""""""""""""
-let s:project_file_dir = $HOME . "/vimrc/root/project_dot_files/files"
-function! ProjectFiles(ArgLead, CmdLine, CursorPos)
-	let files = readdir(s:project_file_dir, { n -> n =~ '^' . a:ArgLead })
-	return map(files, 'fnamemodify(v:val, ":t")')
-endfunction
-
-function! CopyProjFileFunc(filename)
-	let src_path = s:project_file_dir. a:filename
-	let dest_path = asyncrun#current_root() . "/" . a:filename
-	call system("cp " . src_path . " " . dest_path)
-endfunction
-
-" [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
-command! -nargs=1 -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<q-args>)
