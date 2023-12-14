@@ -65,6 +65,8 @@ endif
 
 if !exists('g:vscode')
 	Plug 'mbbill/undotree'
+	Plug 'aperezdc/vim-template'
+	let g:templates_no_builtin_templates = 1
 
 	Plug 'szw/vim-maximizer'
 	let g:maximizer_set_default_mapping = 0
