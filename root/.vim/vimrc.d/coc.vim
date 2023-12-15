@@ -20,23 +20,26 @@
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 
-function s:setup_coc_clangd()
-  if str2nr(g:clang_version_suffix[1:]) >= 16
-    call coc#config('clangd.arguments',[
-          \               "--clang-tidy",
-          \               "--compile-commands-dir=build",
-          \               "--pretty",
-          \               "--cross-file-rename",
-          \               "--inlay-hints=true",
-          \               "--background-index",
-          \               "--suggest-missing-includes=true",
-          \               "--header-insertion=iwyu"
-          \       ],
-          \ )
+function s:setup_coc_clangd(clangd_args)
+  let l:clang_version = str2nr(g:clang_version_suffix[1:])
+  if l:clang_version >= 16
+    call coc#config('clangd.arguments', a:clangd_args)
   endif
   call coc#config('clangd.path', '/usr/bin/clangd' . g:clang_version_suffix)
 endfunction
-autocmd FileType c,cpp ++once call s:setup_coc_clangd()
+
+let s:clangd_args = [
+      \               "--clang-tidy",
+      \               "--compile-commands-dir=build",
+      \               "--pretty",
+      \               "--cross-file-rename",
+      \               "--inlay-hints=true",
+      \               "--background-index",
+      \               "--suggest-missing-includes=true",
+      \               "--header-insertion=iwyu",
+      \       ]
+
+autocmd FileType c,cpp,cuda ++once call s:setup_coc_clangd(s:clangd_args)
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')

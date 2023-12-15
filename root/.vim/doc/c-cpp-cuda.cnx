@@ -1,0 +1,45 @@
+*Makefile*
+
+= 延迟赋值，使用到变量的时候才确定变量的值
+:= 立即赋值
+
+*cmake*
+
+*c++20-module*
+
+Error:
+target contains C++ module sources which are not supported by the generator
+
+Solution:
+默认的make换为Ninja
+
+Error:
+CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS-NOTFOUND: not found
+
+Solution:
+手动添加CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS
+set(CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS clang-scan-deps-17)
+
+apt安装最新 *gnu-toolchain*
+https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
+
+安装最新 *llvm-toolchain*
+https://apt.llvm.org/
+
+在Ubuntu 18.04中，可以添加apt源
+>
+	deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
+	deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
+	# Needs 'sudo add-apt-repository ppa:ubuntu-toolchain-r/test' for libstdc++ with C++20 support
+	# 16
+	deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-16 main
+	deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-16 main
+	# 17
+	deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-17 main
+	deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-17 main
+<
+
+添加gpg key
+>
+	wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+<

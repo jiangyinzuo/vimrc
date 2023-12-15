@@ -1,0 +1,8 @@
+If:
+  PathMatch: .*\.cuh?
+CompileFlags:
+  Compiler: clang++-15
+  Remove:
+    - "-ccbin*"
+    - -forward-unknown-to-host-compiler
+    - --generate-code=*

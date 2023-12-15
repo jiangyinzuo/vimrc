@@ -7,14 +7,22 @@ function! ProjectFiles(ArgLead, CmdLine, CursorPos)
 	return map(files, 'fnamemodify(v:val, ":t")')
 endfunction
 
-function! CopyProjFileFunc(filename)
-	let src_path = s:project_file_dir. a:filename
-	let dest_path = asyncrun#current_root() . "/" . a:filename
+function! CopyProjFileFunc(...)
+	if a:0 > 2
+		echoerr "args must less than 2"
+		return
+	endif
+	let src_path = s:project_file_dir . '/' . a:1
+	if a:0 == 1
+		let dest_path = asyncrun#current_root() . "/" . a:1
+	else
+		let dest_path = asyncrun#current_root() . "/" . a:2
+	endif
 	call system("cp " . src_path . " " . dest_path)
 endfunction
 
 " [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
-command! -nargs=1 -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<q-args>)
+command! -nargs=+ -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<f-args>)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
