@@ -183,7 +183,7 @@ set t_ut=
 hi debugPC term=reverse ctermbg=4 guibg=darkblue
 
 if has('nvim') || v:version >= 801
-	autocmd Filetype c,cpp,rust packadd termdebug
+	autocmd Filetype c,cpp,rust,cuda packadd termdebug
 	let g:termdebug_wide = 1
 	" 设置一个较大的宽度，防止termdebug gdb窗口折行
 	autocmd Filetype termdebug setlocal termwinsize=0*10000
