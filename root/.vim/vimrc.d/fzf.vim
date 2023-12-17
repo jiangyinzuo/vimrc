@@ -113,40 +113,25 @@ endfunction
 command! -bang -nargs=0 Hashtag
 			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. $DOC2 .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
 
-" See: github.com/junegunn/fzf.vim/issues/1037
-" HelpRg command -- like helpgrep but with FZF and ripgrep
-let g:helppaths = uniq(sort(split(globpath(&runtimepath, 'doc/', 1), '\n')))
-
-function ListDocs(A, L, P)
-	let result = ''
-	for helppath in g:helppaths
-		let result = result . system("ls " . helppath . " | grep ^" . a:A)
-	endfor
-	return result
-endfunction
-
 """"""""""""""""""" Rg 类""""""""""""""""
 command! -bang -nargs=* Rgdoc
 			\ call fzf#vim#grep(
 			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' ~/.vim/doc/*', 1,
 			\ fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=? -complete=custom,ListDocs HelpRg
-			\ if <q-args> == "" |
-			\		call fzf#vim#grep(
-			\			'rg --column --line-number --no-heading --color=always --smart-case -g "*.txt" -g "*.cnx" "" '. join(g:helppaths), 1,
-			\			{}, <bang>0) |
-			\ else |
-			\		call fzf#vim#grep(
-			\			'rg --column --line-number --no-heading --color=always --smart-case -g "*.txt" -g "*.cnx" "' . <q-args> . '" '. join(g:helppaths), 1,
-			\			{}, <bang>0) |
-			\ end
-
-autocmd FileType help nnoremap <buffer> <silent> <leader>gr :HelpRg <C-R>=expand('<cword>')<CR><CR>
+command! -bang -nargs=? -complete=custom,fzf_custom#rg#ListDocs HelpRg call fzf_custom#rg#HelpRg(<q-args>, <bang>0)
+command! -bang -nargs=0 HelpRgCword call fzf_custom#rg#HelpRg(expand('<cword>'), <bang>0)
+autocmd FileType help nnoremap <buffer> <silent> <leader>gr :HelpRgCword<CR>
 
 command! WikiLink call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]+\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
 " 为了同时匹配相对路径和绝对路径，只通过%:t保留文件名，去文件路径
 command! WikiLinkCur call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]*". expand("%:t") ."[^$\\#]*\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* GitGrep
+	\ call fzf#vim#grep(
+	\   'git grep --line-number -- '.fzf#shellescape(<q-args>),
+	\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
 """""""""""""""""""""""""""""""""""""""
 
 " palette在vimscript注释中的格式如下，记得用tab键分隔
