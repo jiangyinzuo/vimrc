@@ -1,0 +1,14 @@
+*python-env*
+
+*mamba*
+
+See:
+https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html#mamba-org-releases
+
+>
+	curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+	./bin/micromamba shell init -s bash -p ~/micromamba
+
+	micromamba activate  # this activates the base environment
+	micromamba install python=3.6 jupyter -c conda-forge
+<
