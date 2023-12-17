@@ -74,6 +74,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
+" See Also: :HelpRg mapping in root/.vim/vimrc.d/fzf.vim
 nmap <silent> <leader>gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.

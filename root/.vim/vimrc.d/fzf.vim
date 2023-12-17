@@ -142,6 +142,8 @@ command! -bang -nargs=? -complete=custom,ListDocs HelpRg
 			\			{}, <bang>0) |
 			\ end
 
+autocmd FileType help nnoremap <buffer> <silent> <leader>gr :HelpRg <C-R>=expand('<cword>')<CR><CR>
+
 command! WikiLink call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]+\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)
 " 为了同时匹配相对路径和绝对路径，只通过%:t保留文件名，去文件路径
 command! WikiLinkCur call fzf#vim#grep("rg --column --line-number --no-heading '\\[\\[[^$\\#]*". expand("%:t") ."[^$\\#]*\\]\\]' " . $DOC2, 0, fzf#vim#with_preview(), <bang>0)

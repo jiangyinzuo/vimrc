@@ -1,4 +1,4 @@
-*docker*
+*docker* |nvidia-docker|
 
 Ubuntu 18.04安装 docker
 https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
@@ -66,3 +66,14 @@ modify your HTTPS_PROXY=https://****:port with HTTPS_PROXY=http://****:port inst
 
 Ref:
 https://copyprogramming.com/howto/error-response-from-daemon-get-http-s-registry-1-docker-io-v2-proxyconnect-tcp-tls-first-record-does-not-look-like-a-tls-handshake
+
+-------------------------------------------------------------------------------
+
+*nvidia-docker*
+
+https://hub.docker.com/r/nvidia/cuda
+
+nvidia-docker使用nvidia-smi，需要容器能访问GPU
+>
+	docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
+<
