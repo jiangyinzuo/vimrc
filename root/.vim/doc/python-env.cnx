@@ -12,3 +12,7 @@ https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 	micromamba activate  # this activates the base environment
 	micromamba install python=3.6 jupyter -c conda-forge
 <
+
+升/降级python
+micromamba install python=3.11
+
