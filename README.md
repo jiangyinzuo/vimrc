@@ -26,7 +26,7 @@ apt install libgtk-3-dev libxt-dev
 
 **Neovim (unstable)**
 
-neovim 0.8.2+  
+neovim 0.8.2+ (need glibc 2.28, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28)
 
 [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)  
 ```bash
