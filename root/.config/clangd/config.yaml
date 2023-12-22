@@ -16,7 +16,9 @@ Diagnostics:
       # Warning for short variables like `a`
       # - readability-*
     # auto foo() -> int;
-    Remove: modernize-use-trailing-return-type
+    Remove:
+      - cppcoreguidelines-pro-type-vararg
+      - modernize-use-trailing-return-type
 
 InlayHints:
   Parameters: true
