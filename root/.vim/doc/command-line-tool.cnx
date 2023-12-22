@@ -74,6 +74,20 @@ https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/
 下载: wget -> axel  
 git终端: lazygit, tig  
 Linux文本处理: awk, sed, cut
+
+*rsync*
+
+本地目录同步到远程目录
+>
+	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
+<
+远程同步到本地
+>
+	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
+<
+-a 表示归档模式（保留权限等），-v 表示详细输出，-z 表示压缩数据
+--delete: 同步被删除的文件
+
 -------------------------------------------------------------------------------
 *awk内置变量*
 *awk-help*
