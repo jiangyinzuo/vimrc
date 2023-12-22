@@ -75,6 +75,7 @@ if !exists('g:vscode')
 	vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
 	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
+	Plug 'preservim/vimux'
 	" Replace ~/.vim/autoload/detect_indent.vim and editorconfig-vim
 	" Since: v0.12.0
 	"
