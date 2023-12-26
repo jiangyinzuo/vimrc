@@ -15,7 +15,7 @@ case $direction in
 		rsync-git . $1:~/vimrc
 		;;
 	"from")
-		rsync-git $1:~/vimrc .
+		rsync-git $1:~/vimrc ~
 		;;
 	*)
 		_help
