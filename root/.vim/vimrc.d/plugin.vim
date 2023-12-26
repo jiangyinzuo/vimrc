@@ -374,3 +374,5 @@ if has('nvim') || v:version >= 802
 	hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
 	source ~/.vim/vimrc.d/project.vim
 endif
+hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
+hi debugBreakpoint term=reverse ctermbg=red guibg=red
