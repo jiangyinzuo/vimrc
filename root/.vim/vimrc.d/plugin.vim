@@ -261,6 +261,7 @@ if !exists('g:vscode')
 
 	" paste img in markdown/latex style
 	Plug 'jiangyinzuo/img-paste.vim'
+	let g:mdip_imgdir = '.'
 	let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
 	function! g:LatexPasteImage(relpath)
 		execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
