@@ -27,6 +27,10 @@
 			"args": ["start"],
 			"filetypes": ["sh"],
 			"ignoredRootPaths": ["~"]
+		},
+		"mlir": {
+			"command": "mlir-lsp-server",
+			"filetypes": ["mlir"]
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
