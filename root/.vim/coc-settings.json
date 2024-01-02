@@ -60,7 +60,7 @@
 	"texlab.latexFormatter": "latexindent",
 	"coc.source.around.shortcut": "around",
 	"coc.source.buffer.shortcut": "buffer",
-	"coc.source.dictionary.enable": false,
+	"coc.source.dictionary.enable": true,
 	"coc.source.dictionary.filetypes": ["markdown", "text", "latex"],
 	"coc.source.dictionary.shortcut": "dict",
 	"coc.source.word.enable": true,
