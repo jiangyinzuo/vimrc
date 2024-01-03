@@ -171,4 +171,6 @@ nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
 
 autocmd filetype coc-explorer nmap <F1> :h coc-explorer<CR>
+autocmd filetype coc-explorer nmap gx :call coc_custom#NetrwGxHandler()<CR>
 nnoremap <silent><nowait> <leader>e :<C-u>CocCommand explorer<CR>
+

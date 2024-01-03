@@ -11,7 +11,7 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_math = 1
 
 if (has('unix') && exists('$WSLENV'))
-	command! -nargs=0 MdPreview call markdown_wsl#MdPreview()
+	command! -nargs=0 MdPreview call wsl#MdPreview()
 endif
 
 command! NumberHeadings call markdown#NumberHeadings()
