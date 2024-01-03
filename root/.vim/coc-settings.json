@@ -76,5 +76,8 @@
 		"menu",
 		"kind",
 		"shortcut"
-	]
+	],
+	"explorer.git.enable": false,
+	"explorer.file.showHiddenFiles": true,
+	"explorer.icon.enableNerdfont": true
 }
