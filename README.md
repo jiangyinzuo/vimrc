@@ -22,7 +22,11 @@ Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 ```sh
 apt install libgtk-3-dev libxt-dev
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
+make -j4
+make install
 ```
+
+See also: `install/build_vim_from_source.sh`
 
 **Neovim (unstable)**
 
