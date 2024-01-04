@@ -12,12 +12,12 @@ command -nargs=0 OpenCodeRepo :silent! call codenote#OpenCodeRepo()<CR>
 
 function GetAllCodeLinks()
 	if exists('g:coderepo_dir') && g:coderepo_dir != "" && exists('g:noterepo_dir') && g:noterepo_dir != ""
-		call s:GetCodeLinkDict()
-		call s:SignCodeLinks()
+		call codenote#GetCodeLinkDict()
+		call codenote#SignCodeLinks()
 		augroup codenote
 			autocmd!
-			autocmd BufWinEnter * call s:SignCodeLinks()
-			autocmd BufWritePost *.md call s:GetCodeLinkDict()
+			autocmd BufWinEnter * call codenote#SignCodeLinks()
+			autocmd BufWritePost *.md call codenote#GetCodeLinkDict()
 		augroup END
 	endif
 endfunction

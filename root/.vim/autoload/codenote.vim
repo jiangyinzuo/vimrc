@@ -19,7 +19,7 @@ function s:set_noterepo_dir(repo_dir)
 	execute "tcd " . g:noterepo_dir
 endfunction
 
-function s:SignCodeLinks()
+function codenote#SignCodeLinks()
 	if !exists('g:code_link_dict') || !exists('g:coderepo_dir') || !exists('g:noterepo_dir')
 		return
 	endif
@@ -38,7 +38,7 @@ function s:SignCodeLinks()
 	endif
 endfunction
 
-function s:GetCodeLinkDict()
+function codenote#GetCodeLinkDict()
 	if !exists("g:noterepo_dir")
 		echoerr "g:noterepo_dir is not set"
 		return

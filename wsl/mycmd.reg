@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\mycmd]
+"URL Protocol"=""
+@=""
+
+[HKEY_CLASSES_ROOT\mycmd\shell\open\command]
+@="D:\\url_scheme.exe \"%1\""
+

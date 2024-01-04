@@ -7,6 +7,16 @@ Windows矢量图画图软件: draw.io
 Neovim uses system clipboard in WSL
 https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
+## 编译C程序, 为URL Scheme添加注册表
+
+```
+gcc -o no_terminal.exe execute_command.c sumarapdf_no_terminal.c -mwindows
+gcc -o url_scheme.exe execute_command.c url_scheme.c -mwindows
+```
+之后将exe文件移动到`D:/`下
+
+双击`mycmd.reg`, 添加mycmd:// URL Scheme
+
 ## 命令行帮助
 
 每日事项: `forget`

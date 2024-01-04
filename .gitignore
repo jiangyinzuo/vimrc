@@ -11,6 +11,7 @@ root/.vim/spell
 root/.vim/view
 root/.vim/config.vim
 __pycache__
+*.exe
 *.tar
 *.tmp
 tags
