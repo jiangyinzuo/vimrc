@@ -392,7 +392,7 @@ command! -nargs=0 VimExeLine exe getline(".")
 
 if v:version >= 740 || &readonly == 0
 	set mouse=a
-	if ! has('nvim') && has('unix') && (exists('$WSLENV') || exists('$TMUX'))
+	if !has('nvim') && has('unix') && exists('$TMUX')
 		set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 	endif
 
