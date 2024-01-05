@@ -1,0 +1,50 @@
+#!/usr/bin/python3
+from icalendar import Calendar
+import sys
+
+def parse_ical(part):
+    """Parse iCalendar data and return human-readable details."""
+    cal = Calendar.from_ical(part)
+    for component in cal.walk():
+        if component.name == "VEVENT":
+            summary = component.get('summary')
+            start = component.get('dtstart').dt.strftime('%Y-%m-%d %H:%M:%S')
+            end = component.get('dtend').dt.strftime('%Y-%m-%d %H:%M:%S')
+            location = component.get('location')
+            organizer = component.get('organizer')
+            description = component.get('description')
+
+            return f"Event: {summary}\nStart: {start}\nEnd: {end}\nLocation: {location}\nOrganizer: {organizer}\nDescription: {description}"
+    return "No event details found."
+
+def process_email(email_content):
+    """Process email content to extract and convert iCalendar data."""
+    lines = email_content.split('\n')
+    ical_data = False
+    ical_part = ''
+    output = []
+
+    for line in lines:
+        if line.startswith('<#part type=text/calendar>'):
+            ical_data = True
+            continue
+        elif line.startswith('<#/part>'):
+            ical_data = False
+            output.append(parse_ical(ical_part))
+            ical_part = ''
+            continue
+
+        if ical_data:
+            ical_part += line + '\n'
+        else:
+            output.append(line)
+
+    return '\n'.join(output)
+
+if __name__ == '__main__':
+    # 从标准输入读取邮件内容
+    email_content = sys.stdin.read()
+
+    # 处理邮件
+    processed_email = process_email(email_content)
+    print(processed_email)

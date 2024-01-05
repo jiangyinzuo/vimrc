@@ -1,3 +1,29 @@
+[ucas]
+backend = "imap"
+email = "jiangyinzuo22@mails.ucas.ac.cn"
+default = true
+display-name = "Yinzuo Jiang"
+imap-host = "mail.cstnet.cn"
+imap-port = 993
+imap-ssl = true
+imap-login = "jiangyinzuo22@mails.ucas.ac.cn"
+imap-auth = "passwd"
+sender = "smtp"
+smtp-host = "mail.cstnet.cn"
+smtp-port = 465
+smtp-ssl = true
+smtp-login = "jiangyinzuo22@mails.ucas.ac.cn"
+smtp-auth = "passwd"
+
+[ucas.imap-passwd]
+cmd = "pass show ucas-imap-passwd"
+
+[ucas.smtp-passwd]
+cmd = "pass show ucas-smtp-passwd"
+
+[ucas.pgp]
+backend = "none"
+
 [foxmail]
 backend = "imap"
 email = "jiangyinzuo@foxmail.com"
@@ -14,6 +40,12 @@ smtp-port = 465
 smtp-ssl = true
 smtp-login = "jiangyinzuo@foxmail.com"
 smtp-auth = "passwd"
+
+[foxmail.imap-passwd]
+cmd = "pass show foxmail-imap-passwd"
+
+[foxmail.smtp-passwd]
+cmd = "pass show foxmail-smtp-passwd"
 
 [foxmail.pgp]
 backend = "none"
@@ -35,25 +67,11 @@ smtp-ssl = true
 smtp-login = "jiangyinzuo22s@ict.ac.cn"
 smtp-auth = "passwd"
 
+[ict.imap-passwd]
+cmd = "pass show ict-imap-passwd"
+
+[ict.smtp-passwd]
+cmd = "pass show ict-smtp-passwd"
+
 [ict.pgp]
-backend = "none"
-
-[ucas]
-backend = "imap"
-email = "jiangyinzuo22@mails.ucas.ac.cn"
-default = true
-display-name = "Yinzuo Jiang"
-imap-host = "mail.cstnet.cn"
-imap-port = 993
-imap-ssl = true
-imap-login = "jiangyinzuo22@mails.ucas.ac.cn"
-imap-auth = "passwd"
-sender = "smtp"
-smtp-host = "mail.cstnet.cn"
-smtp-port = 465
-smtp-ssl = true
-smtp-login = "jiangyinzuo22@mails.ucas.ac.cn"
-smtp-auth = "passwd"
-
-[ucas.pgp]
 backend = "none"
