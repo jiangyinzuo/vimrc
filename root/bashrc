@@ -1,44 +1,25 @@
 #!/bin/bash
 
 set -o vi
-
-export VIMRC_ROOT=$HOME/vimrc/root
 export EDITOR=vim
 
-. "$VIMRC_ROOT"/z.sh
-. "$VIMRC_ROOT"/fm
+export BASH_ENV=$HOME/vimrc/root/bashrc_noi
+source $HOME/vimrc/root/bashrc_noi
 
 alias vimt='vim --servername TEX'
 alias vims='vim -S session.vim'
 alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
-
-bd() {
-	local d;
-	d=$(/usr/bin/bd "$@")
-	if [[ -d $d ]]; then
-		cd "$d"
-	fi
-	# 加双引号能保留换行符
-	echo "$d"
-}
 
 source "$VIMRC_ROOT"/fzf/fzf.bash
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
 
-export PATH=$PATH:"$VIMRC_ROOT"/scripts
 alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore --pre-glob \
 	'*.{pdf,xl[tas][bxm],xl[wsrta],do[ct],do[ct][xm],p[po]t[xm],p[op]t,html,htm,xhtm,xhtml,epub,chm,od[stp]}' --pre rgpipe"
 
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # pygments支持更多语言
 # export GTAGSLABEL=native-pygments
-
-if [[ $(uname -a) == *WSL* ]]; then
-	export PATH=$PATH:$VIMRC_ROOT/scripts/wsl
-	. "$VIMRC_ROOT"/wsl-init.bash
-fi
 
 git-rm-remote-file() {
 	(set -x; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all)
@@ -54,3 +35,7 @@ zt() {
 
 export NNN_PLUG='z:autojump'
 export NNN_OPTS='e'
+
+if [[ $(uname -a) == *WSL* ]]; then
+	. "$VIMRC_ROOT"/wsl-init.bash
+fi

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# 非交互模式默认不启动别名
+shopt -s expand_aliases
+
+export VIMRC_ROOT=$HOME/vimrc/root
+
+. "$VIMRC_ROOT"/z.sh
+. "$VIMRC_ROOT"/fm
+
+bd() {
+	local d;
+	d=$(/usr/bin/bd "$@")
+	if [[ -d $d ]]; then
+		cd "$d"
+	fi
+	# 加双引号能保留换行符
+	echo "$d"
+}
+
+export PATH=$PATH:"$VIMRC_ROOT"/scripts
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+if [[ $(uname -a) == *WSL* ]]; then
+	export PATH=$PATH:$VIMRC_ROOT/scripts/wsl
+	. "$VIMRC_ROOT"/wsl-init-noi.bash
+fi
