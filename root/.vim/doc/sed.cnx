@@ -1,6 +1,17 @@
 *sed-command*
 
+-i 直接修改文件内容
+
 fd --extension py | xargs sed -i "s/api.openai.com/api.aiproxy.io/g"
+
+或者
+
+find . -type f -name "*.md" -exec sed -i 's/old-text/new-text/g' {} +
+
+其中 -exec 对找到的每个文件执行后续命令
+{} 表示find命令找到的文件名
++ 表示会将多个文件名作为参数一次性传给sed命令
+
 
 sed全字替换 >
   sed -i "s/\braft\b/Raft/g" *.tex

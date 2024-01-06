@@ -79,7 +79,11 @@ if !exists('g:vscode')
 	" Replace ~/.vim/autoload/detect_indent.vim and editorconfig-vim
 	" Since: v0.12.0
 	"
-	" Plug 'editorconfig/editorconfig-vim'
+	" if v:version >= 901
+	"   packadd! editorconfig
+	" else
+	"   Plug 'editorconfig/editorconfig-vim'
+	" endif
 	" let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 	" au FileType gitcommit let b:EditorConfig_disable = 1
 	Plug 'tpope/vim-sleuth'
