@@ -8,7 +8,10 @@ let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_rows = 4
 let g:asynctasks_term_focus = 1
 
-command! -nargs=0 Cdroot let project_root = asyncrun#get_root('%') | exe 'cd ' . project_root | pwd
+command! -nargs=0 Cdroot let project_root = asyncrun#current_root() | exe 'cd ' . project_root | pwd
+command! -nargs=0 Tcdroot let project_root = asyncrun#current_root() | exe 'tcd ' . project_root | pwd
+command! -nargs=0 CdrootSourceProject let project_root = asyncrun#get_root('%:p:h') | exe 'cd ' . project_root | exe 'source ' . g:project_vimrc | pwd
+command! -nargs=0 TcdrootSourceProject let project_root = asyncrun#get_root('%:p:h') | exe 'tcd ' . project_root | exe 'source ' . g:project_vimrc | pwd
 
 function AsyncRunOrSystem(cmd)
 	if g:asyncrun_support == 1

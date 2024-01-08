@@ -82,7 +82,7 @@ endfunction
 function TabNewLoadProjectConfig()
 	augroup tab_load_my_project
 		autocmd!
-		autocmd BufRead * ++once call project#LoadProjectConfigEachTab()
+		autocmd BufRead * ++once call LoadProjectConfigEachTab()
 	augroup END
 endfunction
 
