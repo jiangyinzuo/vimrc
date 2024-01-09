@@ -1,0 +1,4 @@
+*clean-disk*
+
+cargo install cargo-cache
+cargo-clean -a

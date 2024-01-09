@@ -72,7 +72,9 @@ recording a macro: >
 <
 
 *terminal-window-executes-shortcuts* CTRL-W{shortcuts}
-*yank-terminal* CTRL-WN
+
+进入 |Terminal-Normal| 模式
+|Terminal-mode| CTRL-WN
 
 *split-window-with-height-10-and-open-buffer-1* `:10sp #1`
 

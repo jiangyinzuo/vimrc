@@ -214,7 +214,8 @@ let g:netrw_keepdir=0
 let g:gx_filepath_prefix = { 'default' : '' }
 
 " see netrw-v
-" 新的窗口出现在当前窗口的左边
+" 新的窗口出现在当前窗口的右边
+set splitright
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

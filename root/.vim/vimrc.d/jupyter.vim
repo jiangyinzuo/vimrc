@@ -12,4 +12,5 @@ command -nargs=0 JupyterOpenPairNotebook :call jupyter#JupyterOpenNotebook()
 let g:jupyter_ascending_python_executable = 'python3'
 
 " 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
+" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
 let g:jupyter_ascending_auto_write = v:true
