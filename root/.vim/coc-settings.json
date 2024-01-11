@@ -79,5 +79,6 @@
 	],
 	"explorer.git.enable": false,
 	"explorer.file.showHiddenFiles": true,
-	"explorer.icon.enableNerdfont": true
+	"explorer.icon.enableNerdfont": true,
+	"session.saveOnVimLeave": true
 }

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo_green() {
+	echo -e "\033[32m$1\033[0m"
+}
+
+echo_blue() {
+	echo -e "\033[34m$1\033[0m"
+}
+
+forget_daily() {
+	echo_blue 'NOTE: type "wslhelp" to see more help'
+	echo_green '$ forget'
+	echo
+	echo_green '$ daily'
+	$VIMRC_ROOT/scripts/wsl/daily
+	echo
+	echo_green '$ sr'
+	$VIMRC_ROOT/scripts/wsl/sr
+}
+
+if [ $# -eq 0 ]; then
+	echo_blue "forget alias? run:"
+	echo "alias"
+	echo_blue "forget functions? run:"
+	# do not output function start with "_"
+	echo "declare -F | grep -oP '(?<=declare -f )[a-zA-Z]+\w+'"
+	echo_blue "other commands:"
+	# output all functions in this file begin with "forget_"
+	declare -F | grep -oP '(?<=declare -f )forget_\w+' | sed 's/forget_/forget /'
+	exit 0
+else
+	forget_$1
+fi

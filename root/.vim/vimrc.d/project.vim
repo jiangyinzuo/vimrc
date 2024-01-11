@@ -94,12 +94,3 @@ augroup load_my_project
 	" 当打开新的缓冲区时，调用LoadProjectConfigEachTab函数加载对应的.project_vimrc文件
 	autocmd TabNew * call TabNewLoadProjectConfig()
 augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MkSession
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists("*json_encode")
-	" [[palette]]创建session文件						:MkSession
-	command MkSession call mksession#MkSession(asyncrun#current_root() . '/session.vim')
-endif
-

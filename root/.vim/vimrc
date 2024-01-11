@@ -88,7 +88,7 @@ set nowritebackup  "only in case you don't want a backup file while editing
 set noswapfile     "no swap files
 
 " 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
-set sessionoptions-=options
+set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
 
 " 选中想格式化的段落后，可以用gq格式化
 " 设置textwidth，可以让文本格式化时自动换行

@@ -146,6 +146,9 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 
 *git-difftool*					git difftool HEAD mydoc.txt or git difftool -- mydoc.txt HEAD
 
+|vimdiff|
+vimdf 脚本
+
 *git-mergetool*
 
 git列举所有unmerged文件			git diff --name-only --diff-filter=U --relative
@@ -153,19 +156,71 @@ git撤销某个提交的merged文件		git restore -m foo.txt
 tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 插件:     https://github.com/samoshkin/vim-mergetool
 
-批量merge多个文件的流程
+批量merge多个文件的流程 ~
 
-方案1: 直接git mergetool开启merge
-方案2: 
-1) `:Git mergetool` , 在quickfix list加载所有unmerged file
+通用vim命令 `:Git mergetool` , 在quickfix list加载所有unmerged file
 可以用:SaveList 和 :LoadList 保存/加载quickfix list(在quickfix buffer下命令生效)
-2) 打开需要merge的文件后， >
+
+方案0: 直接修改unmerged文件 ~
+
+例子来源于上面的tutorial
+>
+  root@DESKTOP-TI1H94P:~/galaxyZoo# git merge astrophy_objects
+  Auto-merging astrophy_obj.txt
+  CONFLICT (content): Merge conflict in astrophy_obj.txt
+  Auto-merging foo.txt
+  CONFLICT (add/add): Merge conflict in foo.txt
+  Automatic merge failed; fix conflicts and then commit the result.
+  root@DESKTOP-TI1H94P:~/galaxyZoo# git status
+  On branch master
+  You have unmerged paths.
+    (fix conflicts and run "git commit")
+    (use "git merge --abort" to abort the merge)
+
+  Unmerged paths:
+    (use "git add <file>..." to mark resolution)
+	  both modified:   astrophy_obj.txt
+	  both added:      foo.txt
+
+  no changes added to commit (use "git add" and/or "git commit -a")
+  root@DESKTOP-TI1H94P:~/galaxyZoo# cat foo.txt
+  <<<<<<< HEAD
+  abc
+  ||||||| dbbf6d7
+  =======
+  def
+  >>>>>>> astrophy_objects
+<
+
+方案1: 直接git mergetool开启merge ~
+
+方案2: 基于vim-mergetool~
+
+需要在.gitconfig中添加 >
+  [merge]
+    conflictStyle = diff3
+  [merge]
+    # tool = vimdiff
+    tool = vim_mergetool
+    conflictstyle = diff3
+  [mergetool]
+    keepBackup = false
+  [mergetool "vim_mergetool"]
+    cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+    # When trustExitCode = true, checks exit code of merge tool process.
+    # When trustExitCode = false, checks if MERGED file was modified.
+    trustExitCode = true
+    prompt = false
+<
+
+1) 利用上面的`:Git mergetool`或其它方式，打开需要merge的文件后， >
   :MergetoolStart/:MergetoolToggle 开始merge
   :MergetoolStop/:MergetoolToggle  结束merge(保存或撤销)
 <
 
 用:qa!退出vim会直接判断为merge成功
 
+其它命令
 :MergetoolDiffExchangeLeft       把右边的buffer应用到左边的MERGED文件
 :GitUnmergedRaw FZF打开unmerged文件，直接编辑
 :GitUnmerged    FZF打开unmerged文件，然后:MergetoolStart
@@ -216,24 +271,6 @@ git gc, git 减小.git目录大小                        *git-gc*
 >
   git gc --prune=now --aggressive
 <
-
--------------------------------------------------------------------------------
-vim mergetool                                       *vim-mergetool*
-
-当你使用 Vim 作为 Git 的 mergetool 时，你可以使用一些 Vim 插件来美化三路合并的高亮
-文本页面。
-
-比如，你可以使用 'vim-mergetool' 插件，它提供了一个集成的三路合并界面，以及一些高
-亮和配色方案来提升可读性。
-
-你可以在 Vim 中使用以下命令来安装 'vim-mergetool' 插件：
-  :Plug 'samoshkin/vim-mergetool'
-
-然后，你需要在你的 '.gitconfig' 文件中设置 Vim 作为默认的 mergetool：
-  [merge]
-  tool = vimdiff
-
-然后，当你运行 'git mergetool' 命令时，Git 会使用 Vim 来解决合并冲突。
 
 ==============================================================================
 

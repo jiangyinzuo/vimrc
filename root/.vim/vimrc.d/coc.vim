@@ -140,6 +140,11 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer
 command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
+" Use coc-lists instead of custom mksession.vim
+" https://github.com/neoclide/coc-lists
+command! -nargs=0 Mksession :CocCommand session.save
+command! -nargs=0 Loadsession :CocCommand session.load
+
 " https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
 " vim-visual-multi is too complex!!!
 " SpecialKey在coc多光标模式下不会高亮，如有需要，可以在执行多光标前执行
