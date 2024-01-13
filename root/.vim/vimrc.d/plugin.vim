@@ -76,17 +76,18 @@ if !exists('g:vscode')
 	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
 	Plug 'preservim/vimux'
-	" Replace ~/.vim/autoload/detect_indent.vim and editorconfig-vim
+	
+	" Remove ~/.vim/autoload/detect_indent.vim
 	" Since: v0.12.0
-	"
-	" if v:version >= 901
-	"   packadd! editorconfig
-	" else
-	"   Plug 'editorconfig/editorconfig-vim'
-	" endif
-	" let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-	" au FileType gitcommit let b:EditorConfig_disable = 1
-	Plug 'tpope/vim-sleuth'
+	if v:version >= 901
+	  packadd! editorconfig
+	else
+	  Plug 'editorconfig/editorconfig-vim'
+	endif
+	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+	au FileType gitcommit let b:EditorConfig_disable = 1
+	" vim-sleuth does not behave as expected.
+	" Plug 'tpope/vim-sleuth'
 
 	" Commenting blocks of code.
 	" 可以选中多行后，用:norm i# 在所有行前面添加#

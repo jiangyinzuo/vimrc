@@ -2,6 +2,8 @@
 
 set -v
 
+# 版本号小于18.04
+
 # apt install -y npm
 # npm install -g n
 # n latest
@@ -11,6 +13,11 @@ set -v
 # neovim json lsp
 # npm i -g vscode-langservers-extracted
 
+# ripgrep:
+# any-jump.vim cpp需要PCRE2 feature
+# Ubuntu18.04 需要前往https://github.com/BurntSushi/ripgrep/releases
+# 下载.deb文件(ripgrep_14.1.0-1_amd64.deb 可以用)
+#
 # apt install -y golang clangd
 # Leaderf needs python3-dev and python3-distutils
 # wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary

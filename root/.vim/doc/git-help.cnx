@@ -56,6 +56,13 @@ https://github.com/newren/git-filter-repo#how-do-i-install-it
 >
   apt install git-filter-repo
 <
+
+删除历史中的所有.onnx文件，--invert-paths表示除了指定的文件外，保留所有其他文件
+>
+	git filter-repo --path-glob '*.onnx' --invert-paths
+<
+该操作可能导致remote消失，需要重新git remote add
+
 https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
 
 -------------------------------------------------------------------------------

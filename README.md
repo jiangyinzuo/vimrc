@@ -21,7 +21,7 @@ Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 **Build Vim from Source**
 ```sh
 apt install libgtk-3-dev libxt-dev
-./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
+./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --with-python3-config-dir --enable-gui --with-x
 make -j4
 make install
 ```

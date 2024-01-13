@@ -45,7 +45,7 @@ _install_vim() {
 	
 	tar -xf $vimtar_file
 	pushd vim-${vim_version}
-	./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --enable-gui --with-x
+	./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --with-python3-config-dir --enable-gui --with-x
 	make -j4
 	sudo make install
 	popd

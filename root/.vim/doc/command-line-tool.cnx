@@ -61,16 +61,22 @@ Ubuntu18.04暂时不方便安装fd，除非通过rust cargo？
 
 模糊查找: |fzf|
 
+-------------------------------------------------------------------------------
+*ripgrep*
 内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快
 
-ubuntu18.04使用|snap|安装
+ubuntu18.04安装方式:
+方式1: 使用|snap|安装ripgrep, 但没有PCRE2 feature ( |any-jump.vim| cpp要用到)
+方式2: 
+前往 https://github.com/BurntSushi/ripgrep/releases 下载最新deb文件
+sudo dpkg -i ripgrep_x.x.x_amd64.deb
 
 rg 搜索特定文件扩展名 >
 	rg Insert -t vim
 <
 
 https://jdhao.github.io/2020/02/16/ripgrep_cheat_sheet/  
-
+-------------------------------------------------------------------------------
 下载: wget -> axel  
 git终端: lazygit, tig  
 Linux文本处理: awk, sed, cut
