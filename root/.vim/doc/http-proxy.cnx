@@ -1,0 +1,45 @@
+*http-proxy*
+
+WSL启动http proxy server ~
+
+apt install squid
+/etc/squid/squid.conf配置文件中，找到 >
+	http_access deny all
+<
+改为
+	http_access allow all
+<
+
+运行squid:
+
+squid --foreground
+或者
+sudo systemctl start squid
+
+Warning: remote port forwarding failed for listen port 3128 ~
+>
+	netstat -tulnp | grep 3128
+<
+找到占用端口的进程（可能是之前的ssh异常退出），然后kill
+
+查看日志
+sudo tail -f /var/log/squid/access.log
+sudo tail -f /var/log/squid/cache.log
+
+bash环境变量 ~
+
+export http_proxy=http://localhost:3128
+export https_proxy=http://localhost:3128
+
+apt源 ~
+
+/etc/apt/apt.conf.d/proxy.conf
+
+>
+	# modified by jiangyinzuo 2023/12/12
+	Acquire::http::Proxy "http://localhost:3128";
+	Acquire::https::Proxy "http://localhost:3128";
+<
+
+|docker设置http代理|
+

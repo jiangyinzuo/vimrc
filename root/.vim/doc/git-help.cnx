@@ -114,7 +114,7 @@ git checkout 可以checkout部分文件到某一次提交/分支。可以用于�
 *git-checkout历史文件*			git checkout v0.2.2 -- markdown.vim
 
 -------------------------------------------------------------------------------
-git rebase --edit-timestamp            *git-rebase-edit-timestamp*
+git rebase --edit-timestamp            *git-rebase*
 
 'git rebase --edit-timestamp' 是一个选项，可以在 'git rebase' 命令中使用。这个选项
 会允许你在 rebase 过程中编辑每次提交的时间戳。
@@ -126,6 +126,7 @@ git rebase --edit-timestamp            *git-rebase-edit-timestamp*
 时间。最后，执行 'git rebase --continue' 来完成 rebase 操作。
 
 
+*git-initial-commit*
 `git rebase -i --root` 修改第一次commit
 
 -------------------------------------------------------------------------------

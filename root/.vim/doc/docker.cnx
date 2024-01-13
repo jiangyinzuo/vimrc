@@ -29,8 +29,12 @@ https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 	sudo service docker restart
 <
 
-
+-------------------------------------------------------------------------------
 *docker设置http代理*
+
+https://yeasy.gitbook.io/docker_practice/advanced_network/http_https_proxy
+
+Docker pull ~
 
 Docker pull命令由systemd控制。所以要在`/etc/systemd/system/docker.service.d/http-proxy.conf`
 文件中添加
@@ -67,6 +71,16 @@ modify your HTTPS_PROXY=https://****:port with HTTPS_PROXY=http://****:port inst
 Ref:
 https://copyprogramming.com/howto/error-response-from-daemon-get-http-s-registry-1-docker-io-v2-proxyconnect-tcp-tls-first-record-does-not-look-like-a-tls-handshake
 
+Docker build 过程中 apt-get update ~
+
+添加build arg，但proxy不能是localhost，必须写成宿主机内网IP(10.208.130.1)
+似乎不需要添加/etc/apt/apt.conf.d/proxy.conf
+>
+	docker build \
+	--build-arg "HTTP_PROXY=http://proxy.example.com:8080/" \
+	--build-arg "HTTPS_PROXY=http://proxy.example.com:8080/" \
+	--network host # 可能需要
+<
 -------------------------------------------------------------------------------
 
 *nvidia-docker*
