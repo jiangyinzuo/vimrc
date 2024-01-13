@@ -462,7 +462,7 @@ inoremap <c-S> <esc>:w<CR>i
 
 " neovim 会报错
 if isdirectory(expand('~/.vim/doc')) && !has('nvim')
-	set helplang=cn
+	" set helplang=cn
 	helptags ~/.vim/doc
 endif
 

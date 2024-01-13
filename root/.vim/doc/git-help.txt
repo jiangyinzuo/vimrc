@@ -101,6 +101,11 @@ git reset                                             *git-reset*
 如果你不小心使用了 'git reset HEAD~3' 并希望恢复，你可以使用 'git reflog' 查找到你
 想要恢复的提交的哈希值，然后使用 'git reset --hard <commit_hash>' 来恢复。
 
+*git强行将当前分支和main分支同步*  *git-reset-hard*
+>
+	git reset --hard main
+<
+
 -------------------------------------------------------------------------------
 git checkout                                        *git-checkout*
 
@@ -280,5 +285,125 @@ git gc, git 减小.git目录大小                        *git-gc*
   git gc --prune=now --aggressive
 <
 
-==============================================================================
+-------------------------------------------------------------------------------
+*git-flow*
+*git-branch-model*
+
+|git|
+See: $DOC2/cs/tools-open-source/git-github/git-branch-model
+
+多人协作时，需要将本地master单分支开发模式切换为master-dev-feature... 多分支开发模式。
+切换步骤如下:
+
+在master分支中 >
+  git branch dev
+<
+
+之后把master分支强行reset为远程master分支 >
+  git reset --hard origin/master
+<
+
+创建新的dev分支，然后切换到dev分支中 >
+  git checkout dev
+<
+
+在dev分支中，重新整理提交记录 >
+  git reset <commit_hash>
+<
+
+*git-add-patch*
+*git细粒度提交*
+如果需要细粒度地提交，可以使用`git add -p <file>`。
+git add -p会把文件的修改分成若干个更改块(hunks)，每个片段都可以选择是否提交。
+
+如果需要临时切换到master分支，同时保留dev分支的修改，可以使用`git stash`。
+*git-stash* 之后切回dev分支，使用`git stash pop`恢复修改。
+
+可以在dev分支用`git merge master`，随时同主分支同步。
+
+-------------------------------------------------------------------------------
+*git-worktree* 多分支同时开发
+
+好处:
+1. 依赖隔离：`node_modules`被写入.gitignore中，假如多分支依赖的`node_modules`
+不同，`git stash`不会改变`node_modules`
+
+列举worktree >
+	git worktree list
+<
+
+面对本地服务器+远程无法访问github的服务器同时修改提交的场景: 不可行 ~
+
+git-worktree的.git是一个文件，里面记载了git本地仓库的绝对路径。
+>
+	gitdir: /root/vimrc/.git/worktrees/vimrc-kiwi
+<
+因此如果本地服务器和远程服务器的仓库目录不同，那么git worktree就会失效。
+
+
+在gpudb-project-ictdb中，
+git worktree add -b kiwi-dev ../gpudb-project-ictdb-kiwi-dev
+之后本地都在gpudb-project-ictdb文件夹下开发，远程在gpudb-project-ictdb-kiwi-dev
+文件夹下开发，rsync仅在gpudb-project-ictdb-kiwi-dev下拉取/推送文件
+
+-------------------------------------------------------------------------------
+*git把ssh远程服务器作为remote-repository*
+
+NOTE: v0.16.0 后，不再使用 ~/vimrc/tools/rsync-vimrc.sh 同步git仓库。可以直接
+用git同步。
+
+*git-bare-repo*
+
+远程服务器创建裸仓库(推荐做法) ~
+>
+	git init --bare /home/jiangyinzuo/vimrc.git
+<
+
+裸仓库没有工作目录，它们主要用于存储 Git 数据（如提交历史、分支、标签等），而不用于直接编辑文件。
+如果需要检出远程服务器，在`/home/jiangyinzuo/vimrc.git`目录下，创建worktree
+>
+	git worktree add ../vimrc machine/kiwi
+<
+
+远程服务器创建非裸仓库，直接在非裸仓库checkout machine/kiwi branch(不推荐) ~
+>
+	git init /home/jiangyinzuo/vimrc
+<
+
+此时，本地服务器不能推送远程服务器当前检出的分支:
+>
+	remote: error: refusing to update checked out branch: refs/heads/machine/kiwi
+	remote: error: By default, updating the current branch in a non-bare repository
+	remote: is denied, because it will make the index and work tree inconsistent
+	remote: with what you pushed, and will require 'git reset --hard' to match
+	remote: the work tree to HEAD.
+	remote:
+	remote: You can set the 'receive.denyCurrentBranch' configuration variable
+	remote: to 'ignore' or 'warn' in the remote repository to allow pushing into
+	remote: its current branch; however, this is not recommended unless you
+	remote: arranged to update its work tree to match what you pushed in some
+	remote: other way.
+	remote:
+	remote: To squelch this message and still keep the default behaviour, set
+	remote: 'receive.denyCurrentBranch' configuration variable to 'refuse'.
+	To ssh://kiwi-nfd:/home/jiangyinzuo/vimrc
+	 ! [remote rejected] machine/kiwi -> machine/kiwi (branch is currently checked out)
+	error: failed to push some refs to 'ssh://kiwi-nfd:/home/jiangyinzuo/vimrc'
+<
+
+本地仓库添加远程仓库URL, 并推送 ~
+>
+	git remote add kiwi ssh://jiangyinzuo@kiwi:/home/jiangyinzuo/vimrc
+	git push kiwi machine/kiwi
+<
+本地仓库也可以添加worktree vimrc-kiwi，然后在vimrc-kiwi worktree中
+>
+	git worktree add ../vimrc-kiwi machine/kiwi
+	git push --set-upstream kiwi machine/kiwi
+<
+-------------------------------------------------------------------------------
+*获得当前git仓库根目录*
+
+git rev-parse --show-toplevel
+===============================================================================
 

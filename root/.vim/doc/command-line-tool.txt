@@ -96,6 +96,17 @@ Linux文本处理: awk, sed, cut
 -a 表示归档模式（保留权限等），-v 表示详细输出，-z 表示压缩数据
 --delete: 同步被删除的文件
 
+例子:
+>
+	rsync -avz --delete --filter='dir-merge,- .gitignore' --exclude-from="$script_parent_dir/rsync-exclude-list.txt" "$host":gpudb-project-ictdb "$script_parent_dir/.."
+<
+
+--filter='dir-merge,- .gitignore' 表示无视.gitignore中的文件
+--exclude-from="$script_parent_dir/rsync-exclude-list.txt" 表示无视
+$script_parent_dir/rsync-exclude-list.txt中的文件, 文件格式应该同.gitignore
+
+See: $VIMRC_ROOT/scripts/rsync-git
+
 -------------------------------------------------------------------------------
 *awk内置变量*
 *awk-help*

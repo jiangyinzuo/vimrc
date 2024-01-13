@@ -1,3 +1,4 @@
+*smile*							:smile
 *cd当前文件所在目录*					:cd %:h
 *cd到项目根目录*					:Cd
 *文件查看*						:Telescope file_browser
@@ -24,7 +25,6 @@
 *关闭preview窗口*					:pc
 *查看当前文件名*					:f
 *intro*							:intro
-*smile*							:smile
 *关闭其它所有windows*					:only
 *关闭其它所有标签页(tab)*				:tabonly
 *clang-format当前文件*					:%!clang-format
@@ -51,5 +51,5 @@
 *加载quickfixlist*					:LoadList foo
 *保存quickfixlist*					:SaveList foo
 *git加载所有unmerged文件到quickfixlist*			:Git mergetool
-*将当前文件和其它版本对比*						:Gdiffsplit HEAD~3:%
+*将当前文件和其它版本对比*					:Gdiffsplit HEAD~3:%
 *统计当前buffer某个文本的个数*				:%s/<word>//gn
