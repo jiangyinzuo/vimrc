@@ -20,9 +20,12 @@ if current_version <= 18.04:
     ripgrep:
     请前往 https://github.com/BurntSushi/ripgrep/releases 下载对应版本的 ripgrep deb package (14.1.0可用)
     运行 sudo dpkg -i <package_name>.deb 安装 ripgrep
+    fd:
+    请前往 https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-musl_9.0.0_amd64.deb 下载对应musl版本的 fd deb package, musl代表不依赖 glibc (9.0.0可用)
+    运行 sudo dpkg -i <package_name>.deb 安装 fd
     """)
 else:
     print("""
     ripgrep:
-    sudo apt-get install ripgrep
+    sudo apt-get install ripgrep fd-find
     """)

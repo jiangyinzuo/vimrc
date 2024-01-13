@@ -57,7 +57,9 @@ fd默认会ignore .gitignore下的文件，要取消.gitignore可以添加`-I`fl
 	fd -I data_v2.csv
 <
 
-Ubuntu18.04暂时不方便安装fd，除非通过rust cargo？
+Ubuntu18.04可以直接下载deb文件安装
+https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-musl_9.0.0_amd64.deb
+sudo dpkg -i fd-musl_x.x.x_amd64.deb
 
 模糊查找: |fzf|
 

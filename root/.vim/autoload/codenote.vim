@@ -32,7 +32,7 @@ function codenote#SignCodeLinks()
 		let l:current_file = l:current_file[len(g:coderepo_dir) + 1:]
 		if has_key(g:code_link_dict, l:current_file)
 			for l:line in g:code_link_dict[l:current_file]
-				execute "sign place " . l:line . " line=" . l:line . " group=code_note_link" . " name=code_note_link file=" . l:current_file 
+				execute "sign place " . l:line . " line=" . l:line . " group=code_note_link priority=2000 name=code_note_link file=" . l:current_file
 			endfor
 		endif
 	endif
@@ -47,7 +47,7 @@ function codenote#GetCodeLinkDict()
 	" 支持/path/to/filename.ext:line_number 和 
 	" +line_number path/to/filename.ext两种格式
 	" --max-columns=0 防止rg显示 [ ... xxx more matches ]
-	let g:code_links = system("rg -INo --max-columns=0 '([\\w\\d\\-./]+:[0-9]+)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
+	let g:code_links = system("rg -INo --max-columns=0 '(^[\\w\\d\\-./]+:[0-9]+$)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
 	let g:code_links = split(g:code_links, "\n")
 
 	let g:code_link_dict = {}
@@ -111,10 +111,12 @@ function codenote#OpenNoteRepo()
 	call s:set_coderepo_dir(l:root)
 	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
 		if $DOC2 == ''
-			echom "$DOC2 is empty"
-			return
+			let s:candidate= getcwd()
+			let s:candidate = input("Please input note repo dir: ", s:candidate, "dir")
+			call s:open_note_repo(s:candidate)
+		else
+			call fzf#run(fzf#wrap({'source': s:fd . ' -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
 		endif
-		call fzf#run(fzf#wrap({'source': s:fd . ' -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
 	else
 		call s:open_note_repo(g:noterepo_dir)
 	endif

@@ -5,10 +5,10 @@ let g:codenote_filepath_style = "colon"
 sign define code_note_link text=📓 texthl=Search
 
 " [[palette]]打开NoteRepo						:OpenNoteRepo
-command -nargs=0 OpenNoteRepo :silent! call codenote#OpenNoteRepo()<CR>
+command -nargs=0 OpenNoteRepo :call codenote#OpenNoteRepo()
 
 " [[palette]]打开CodeRepo						:OpenCodeRepo
-command -nargs=0 OpenCodeRepo :silent! call codenote#OpenCodeRepo()<CR>
+command -nargs=0 OpenCodeRepo :call codenote#OpenCodeRepo()
 
 function GetAllCodeLinks()
 	if exists('g:coderepo_dir') && g:coderepo_dir != "" && exists('g:noterepo_dir') && g:noterepo_dir != ""
