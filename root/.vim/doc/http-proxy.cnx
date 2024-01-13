@@ -18,7 +18,7 @@ sudo systemctl start squid
 
 Warning: remote port forwarding failed for listen port 3128 ~
 >
-	netstat -tulnp | grep 3128
+	sudo netstat -tulnp | grep 3128
 <
 找到占用端口的进程（可能是之前的ssh异常退出），然后kill
 

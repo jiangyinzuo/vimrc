@@ -35,6 +35,7 @@ git add -p会把文件的修改分成若干个更改块(hunks)，每个片段都
 
 -------------------------------------------------------------------------------
 *git-worktree* 多分支同时开发
+
 好处:
 1. 依赖隔离：`node_modules`被写入.gitignore中，假如多分支依赖的`node_modules`
 不同，`git stash`不会改变`node_modules`
@@ -42,3 +43,11 @@ git add -p会把文件的修改分成若干个更改块(hunks)，每个片段都
 列举worktree >
 	git worktree list
 <
+
+应用场景: 本地服务器+远程无法访问github的服务器同时修改提交 ~
+
+在gpudb-project-ictdb中，
+git worktree add -b kiwi-dev ../gpudb-project-ictdb-kiwi-dev
+之后本地都在gpudb-project-ictdb文件夹下开发，远程在gpudb-project-ictdb-kiwi-dev
+文件夹下开发，rsync仅在gpudb-project-ictdb-kiwi-dev下拉取/推送文件
+
