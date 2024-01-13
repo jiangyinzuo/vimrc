@@ -27,3 +27,6 @@ apt-get install -y vim-gtk3 ripgrep fzf fd-find tree bat nodejs npm git sqlforma
 # ripgrep-all（master分支）
 # See: https://github.com/phiresky/ripgrep-all/issues/113
 # apt install ripgrep pandoc poppler-utils ffmpeg
+
+# checkrepo.py needs GitPython
+pip3 install GitPython
