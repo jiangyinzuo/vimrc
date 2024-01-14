@@ -101,11 +101,6 @@ git reset                                             *git-reset*
 如果你不小心使用了 'git reset HEAD~3' 并希望恢复，你可以使用 'git reflog' 查找到你
 想要恢复的提交的哈希值，然后使用 'git reset --hard <commit_hash>' 来恢复。
 
-*git强行将当前分支和main分支同步*  *git-reset-hard*
->
-	git reset --hard main
-<
-
 -------------------------------------------------------------------------------
 git checkout                                        *git-checkout*
 
@@ -352,25 +347,21 @@ git worktree add -b kiwi-dev ../gpudb-project-ictdb-kiwi-dev
 NOTE: v0.16.0 后，不再使用 ~/vimrc/tools/rsync-vimrc.sh 同步git仓库。可以直接
 用git同步。
 
-*git-bare-repo*
 
-远程服务器创建裸仓库(推荐做法) ~
->
-	git init --bare /home/jiangyinzuo/vimrc.git
-<
+两个服务器互相将对方的仓库设为远程仓库
 
-裸仓库没有工作目录，它们主要用于存储 Git 数据（如提交历史、分支、标签等），而不用于直接编辑文件。
-如果需要检出远程服务器，在`/home/jiangyinzuo/vimrc.git`目录下，创建worktree
->
-	git worktree add ../vimrc machine/kiwi
-<
 
-远程服务器创建非裸仓库，直接在非裸仓库checkout machine/kiwi branch(不推荐) ~
+远程服务器创建非裸仓库，直接在非裸仓库checkout machine/kiwi branch ~
+
+用例:
+远程服务器kiwi连不了外网，本地机器将远程服务器kiwi的`/home/jiangyinzuo/vimrc`
+作为远程仓库。本地服务器仅在main分支修改、push main分支，pull
+machine/kiwi分支。kiwi仅修改kiwi分支。
 >
 	git init /home/jiangyinzuo/vimrc
 <
 
-此时，本地服务器不能推送远程服务器当前检出的分支:
+本地服务器不能推送远程服务器当前检出的分支，会报'receive.denyCurrentBranch'。
 >
 	remote: error: refusing to update checked out branch: refs/heads/machine/kiwi
 	remote: error: By default, updating the current branch in a non-bare repository
@@ -391,19 +382,77 @@ NOTE: v0.16.0 后，不再使用 ~/vimrc/tools/rsync-vimrc.sh 同步git仓库。
 	error: failed to push some refs to 'ssh://kiwi-nfd:/home/jiangyinzuo/vimrc'
 <
 
+因此，kiwi不要检出main分支，保持检出machine/kiwi分支。
+本地可以为machine/kiwi 分支添加worktree，方便频繁pull kiwi上的
+machine/kiwi分支。
+
+*git-bare-repo*
+远程服务器创建裸仓库 ~
+>
+如果远程服务器仅作为存储，不需要checkout 提交，那么只需要在远程服务器创建裸仓库:
+>
+	git init --bare /home/jiangyinzuo/vimrc
+<
+
+裸仓库没有工作目录，它们主要用于存储 Git 数据（如提交历史、分支、标签等），而不用于直接编辑文件。
+如果需要检出远程服务器，
+方法1: 可以在`/home/jiangyinzuo/vimrc.git`目录下，创建worktree
+>
+	git worktree add ../vimrc machine/kiwi
+<
+方法1同样会receive.denyCurrentBranch，因为worktree也算检出分支。
+
+方法2: 直接在`vimrc`目录`git init`
+，将`/home/jiangyinzuo/vimrc.git`添加为remote URL
+
 本地仓库添加远程仓库URL, 并推送 ~
 >
 	git remote add kiwi ssh://jiangyinzuo@kiwi:/home/jiangyinzuo/vimrc
 	git push kiwi machine/kiwi
 <
-本地仓库也可以添加worktree vimrc-kiwi，然后在vimrc-kiwi worktree中
+-------------------------------------------------------------------------------
+*git-protocol* *git协议*
+
+服务器上的 Git - 协议 ~
+https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%8D%8F%E8%AE%AE
+
+git支持4种协议(local, ssh, http, git)
+
+local协议指文件拷贝，可以是file://开头，也可以是文件路径。
+
+git协议: git://github.com/User/Repository.git
+ssh协议: git@github.com:User/Repository.git
+
+git URL末尾的.git后缀在解析匹配时，有时候会自动添加/忽略后缀。
+一般加上.git后缀表示强调这是个git repository。
+
+利用local协议时无法`git clone`或者`git submodule update`。这是因为存在
+CVE-2022-39253安全漏洞
+https://github.blog/2022-10-18-git-security-vulnerabilities-announced/
+可以通过
 >
-	git worktree add ../vimrc-kiwi machine/kiwi
-	git push --set-upstream kiwi machine/kiwi
+	git config --global protocol.file.allow always
 <
+绕过安全限制。
+
 -------------------------------------------------------------------------------
 *获得当前git仓库根目录*
 
 git rev-parse --show-toplevel
+-------------------------------------------------------------------------------
+*git-branch*
+
+*git-设置主分支*
+
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint:   git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint:   git branch -m <name>
 ===============================================================================
 
