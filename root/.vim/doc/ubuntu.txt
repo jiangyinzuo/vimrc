@@ -1,10 +1,27 @@
 *ubuntu*
 
+===============================================================================
 *ubuntu查看版本号*
 cat /etc/os-release
 
--------------------------------------------------------------------------------
+===============================================================================
 *apt*
+
+apt update失败，ModuleNotFoundError: No module named 'apt_pkg'
+和python3升级有关
+
+>
+	sudo apt install python3-apt
+	# Ubuntu18.04 默认python为3.6版本
+	update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+	update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
+	# 使用此命令切换python3指定的版本
+	update-alternatives --config python3
+<
+————————————————
+版权声明：本文为CSDN博主「-Lanausee-」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/StillOnMyWay/article/details/114492675
+-------------------------------------------------------------------------------
 
 apt配置代理服务器 在`/etc/apt/apt.conf` 或者 `/etc/apt/apt.conf.d/proxy.conf`中添加
 >
@@ -34,6 +51,7 @@ http://keyserver.ubuntu.com 查询
   wget -O - http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x4AB0F789CBA31744CC7DA76A8CF63AD3F06FC659 | sudo apt-key add -
 <
 
+===============================================================================
 *snap* 设置http proxy
 >
    sudo snap set system proxy.http="http://localhost:3128"

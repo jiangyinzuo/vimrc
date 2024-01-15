@@ -34,11 +34,17 @@ _install_vim() {
 		exit 0
 	fi
 	_uninstall_current_version
+	
+	local vimtar_file=v${vim_version}.tar.gz
 	# clean vim source code files
-	rm -rf v*
+	rm -rf vim*
+	for old_vimter_file in v*.tar.gz; do
+		if [[ $old_vimter_file != $vimtar_file ]]; then
+			rm $old_vimter_file
+		fi
+	done
 
 	# download vim source code
-	local vimtar_file=v${vim_version}.tar.gz
 	if [ ! -f $vimtar_file ]; then
 		wget https://github.com/vim/vim/archive/refs/tags/${vimtar_file}
 	fi

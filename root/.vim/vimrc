@@ -460,6 +460,8 @@ inoremap <c-S> <esc>:w<CR>i
 
 " neovim 会报错
 if isdirectory(expand('~/.vim/doc')) && !has('nvim')
+	" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报
+	" mixed encoding的错误
 	" set helplang=cn
 	helptags ~/.vim/doc
 endif
