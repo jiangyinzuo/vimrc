@@ -101,6 +101,11 @@ if !exists('g:vscode')
 	" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
 	Plug 'tpope/vim-commentary'
 
+	" enhanced ga(show not only ascii code, but also unicode code, emoji,
+	" digraphs, etc.)
+	" See Also: :h :ascii
+	Plug 'tpope/vim-characterize'
+
 	if has('nvim') || v:version >= 800
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
