@@ -4,7 +4,10 @@ vim:ft=help
 *git-help*
 *git*
 
-==============================================================================
+===============================================================================
+*git添加ppa*
+https://launchpad.net/~git-core/+archive/ubuntu/ppa
+-------------------------------------------------------------------------------
 Git 开发规范
 https://github.com/universal-ctags/ctags/pull/3747
 https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
@@ -15,7 +18,7 @@ See also:
 $DOC2/cs/system/software_engineering/version-control-and-release-model
 $DOC2/cs/tools-open-source/git-github
 
-==============================================================================
+-------------------------------------------------------------------------------
 Git 修改历史提交的文件                                 *git-modify-history-file*
 
 如果你想修改历史提交中的某个文件，你可以使用以下步骤：
@@ -267,14 +270,49 @@ blob代表文件，tree代表文件夹。后者文件大小似乎略小一点。
 
 最后只有raft目录在项目文件夹中。 `git sparse-checkout list` 可以查看当前sparse-checkout的规则。
 
+*git-shallow-clone*
+
+https://marvinsblog.net/toolstory/git/#tips
+
+shallow repository如果不能push，可以git fetch --depth=20
+拉取更长的历史，以找到公共祖先
+https://stackoverflow.com/questions/11375070/pushing-to-github-after-a-shallow-clone
+
+*git-partial-clone*
+
 其它参考资料： [https://github.blog/tag/monorepo/](https://github.blog/tag/monorepo/) [https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/](https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/) [https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)
+-------------------------------------------------------------------------------
+*git-submodule*
+
+*git-submodule-add*
+
+git submodule add --depth=1  ../onnxruntime.git onnxruntime
+git submodule add 不能直接添加裸仓库(github可能存储了裸仓库，但会返回非裸仓库)
+
+手动添加git submodule ~
+git submodule add 会自动clone仓库。自动clone失败的时候，可以尝试手动
+git clone ../onnxruntime.git
+git submodule add ../onnxruntime.git onnxruntime
+
+手动添加的.git目录是实际的目录，自动添加的.git是一个文件，记录了 |gitdir| 。
+
+*git-submodule-deinit*
+git submodule deinit 节省git仓库空间
 
 -------------------------------------------------------------------------------
 
 *藏匿当前正在修改，但尚未commit的工作区。适合临时保存、切换工作区（比如临时hotfix）*		git stash
 
 -------------------------------------------------------------------------------
+*detached-git-directory* *git目录* *gitdir*
 
+.git目录可以不在当前仓库中: .git可以是一个文件，里面包含类似下面的记录
+>
+	gitdir: /root/vimrc/.git/worktrees/vimrc-kiwi
+<
+类似软链接，表示gitdir的实际位置。
+
+-------------------------------------------------------------------------------
 git gc, git 减小.git目录大小                        *git-gc*
 >
   git gc --prune=now --aggressive

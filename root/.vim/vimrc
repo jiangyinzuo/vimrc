@@ -210,8 +210,6 @@ if exists('$WSLENV')
 endif
 let g:netrw_hide = 1 " show not-hidden files
 let g:netrw_keepdir=0
-" 可以在.project.vim中自定义文件路径前缀，让gx命令可以打开相对路径的文件
-let g:gx_filepath_prefix = { 'default' : '' }
 
 " see netrw-v
 " 新的窗口出现在当前窗口的右边
