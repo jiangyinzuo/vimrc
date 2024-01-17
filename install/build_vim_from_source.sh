@@ -40,7 +40,7 @@ _install_vim() {
 	rm -rf vim*
 	for old_vimter_file in v*.tar.gz; do
 		if [[ $old_vimter_file != $vimtar_file ]]; then
-			rm $old_vimter_file
+			rm -f $old_vimter_file
 		fi
 	done
 
