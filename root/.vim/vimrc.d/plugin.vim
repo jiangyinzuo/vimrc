@@ -191,8 +191,12 @@ if !exists('g:vscode')
 		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 		Plug 'dracula/vim', { 'as': 'dracula' }
 		Plug 'tomasiser/vim-code-dark'
-		" 		Plug 'morhetz/gruvbox'
+		" Plug 'morhetz/gruvbox'
 
+		if v:version >= 900
+			" Alternative: https://github.com/gelguy/wilder.nvim
+			Plug 'girishji/autosuggest.vim'
+		endif
 		if v:version >= 802
 			if g:vimrc_use_coc
 				" Use release branch (recommend)
