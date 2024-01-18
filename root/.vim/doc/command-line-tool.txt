@@ -103,6 +103,12 @@ Linux文本处理: awk, sed, cut
 -a 表示归档模式（保留权限等），-v 表示详细输出，-z 表示压缩数据
 --delete: 同步被删除的文件
 
+WARNING: 慎重使用--delete，因为它会删除本地目录中的文件
+>
+	# 这个命令会删除整个home目录！！！
+	rsync -avz --delete site/ kiwi:~
+<
+
 例子:
 >
 	rsync -avz --delete --filter='dir-merge,- .gitignore' --exclude-from="$script_parent_dir/rsync-exclude-list.txt" "$host":gpudb-project-ictdb "$script_parent_dir/.."

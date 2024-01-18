@@ -22,3 +22,6 @@ function AsyncRunOrSystem(cmd)
 endfunction
 
 command -nargs=0 MyChat AsyncRun -mode=term -pos=curwin $VIMRC_ROOT/scripts/openai_app.py chat
+
+command -nargs=0 BuildFileDebug :AsyncTask file-build-debug
+command -nargs=0 RunFile        :AsyncTask file-run
