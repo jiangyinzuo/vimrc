@@ -47,6 +47,7 @@ setup() {
 	# ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
 	# ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 	mkdir -p ~/.local/share/bash-completion/completions
+	mkdir -p ~/.config/nnn
 	for f in "${soft_link_files[@]}" ; do
 		_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 	done
