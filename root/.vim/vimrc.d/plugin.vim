@@ -267,6 +267,7 @@ if !exists('g:vscode')
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
 
+	Plug 'alepez/vim-gtest'
 	Plug 'lambdalisue/doctest.vim'
 	augroup doctest
 		autocmd! *

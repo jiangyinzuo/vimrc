@@ -20,26 +20,7 @@
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 
-function s:setup_coc_clangd(clangd_args)
-  let l:clang_version = str2nr(g:clang_version_suffix[1:])
-  if l:clang_version >= 16
-    call coc#config('clangd.arguments', a:clangd_args)
-  endif
-  call coc#config('clangd.path', '/usr/bin/clangd' . g:clang_version_suffix)
-endfunction
-
-let s:clangd_args = [
-      \               "--clang-tidy",
-      \               "--compile-commands-dir=build",
-      \               "--pretty",
-      \               "--cross-file-rename",
-      \               "--inlay-hints=true",
-      \               "--background-index",
-      \               "--suggest-missing-includes=true",
-      \               "--header-insertion=iwyu",
-      \       ]
-
-autocmd FileType c,cpp,cuda ++once call s:setup_coc_clangd(s:clangd_args)
+autocmd FileType c,cpp,cuda ++once call coc_clang#setup_coc_clangd()
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
@@ -67,8 +48,9 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>da <Plug>(coc-diagnostic-info)
+nmap <silent> [da <Plug>(coc-diagnostic-prev)
+nmap <silent> ]da <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> <leader>gd <Plug>(coc-definition)
@@ -159,7 +141,7 @@ nmap <silent> <C-k> k:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), '
 
 " Mappings for CoCList
 " Show all diagnostics
-nnoremap <silent><nowait> <leader>da  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent><nowait> <leader>da  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent><nowait> <leader>ext  :<C-u>CocList extensions<cr>
 " Show commands
