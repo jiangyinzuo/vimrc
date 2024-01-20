@@ -1,6 +1,6 @@
-*python-env*
+*python-virtual-environment*
 
-*mamba*
+*mamba* *micromamba*
 
 See:
 https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html#mamba-org-releases

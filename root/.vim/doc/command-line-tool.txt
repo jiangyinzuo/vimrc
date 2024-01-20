@@ -106,7 +106,8 @@ Linux文本处理: awk, sed, cut
 WARNING: 慎重使用--delete，因为它会删除本地目录中的文件
 >
 	# 这个命令会删除整个home目录！！！
-	rsync -avz --delete site/ kiwi:~
+	# 先用--dry-run检查一下
+	rsync -avz --delete --dry-run site/ kiwi:~
 <
 
 例子:
@@ -191,6 +192,8 @@ $ gh copilot suggest "Install git"
 $ gh copilot explain "traceroute github.com"
 
 -------------------------------------------------------------------------------
+
+统计代码行数 cloc $(git ls-files)
 
 对话框 dialog
 
