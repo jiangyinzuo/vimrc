@@ -31,4 +31,4 @@ function YDef(...)
 endfunction
 command -nargs=? YDef call YDef(<f-args>)
 
-set commentstring=//%s
+setlocal commentstring=//%s

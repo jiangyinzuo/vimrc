@@ -17,11 +17,14 @@ Diagnostics:
       # - readability-*
     # auto foo() -> int;
     Remove:
-      - cppcoreguidelines-pro-type-vararg
+      - cppcoreguidelines-avoid-c-arrays
       - cppcoreguidelines-avoid-magic-numbers
+      - cppcoreguidelines-pro-bounds-array-to-pointer-decay
+      - cppcoreguidelines-pro-bounds-pointer-arithmetic
+      - cppcoreguidelines-pro-type-vararg
+      - modernize-avoid-c-arrays
       - modernize-use-trailing-return-type
 
 InlayHints:
-  Parameters: true
   DeducedTypes: true
 
