@@ -167,6 +167,8 @@ git撤销某个提交的merged文件		git restore -m foo.txt
 tutorial: https://gist.github.com/karenyyng/f19ff75c60f18b4b8149
 插件:     https://github.com/samoshkin/vim-mergetool
 
+NOTE: merge之后可以多按几次`]c`或`[c`, 防止有diff漏下
+
 批量merge多个文件的流程 ~
 
 通用vim命令 `:Git mergetool` , 在quickfix list加载所有unmerged file

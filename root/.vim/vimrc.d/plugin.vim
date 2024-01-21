@@ -67,7 +67,9 @@ if !exists('g:vscode')
 	Plug 'mbbill/undotree'
 	Plug 'aperezdc/vim-template'
 	let g:templates_no_builtin_templates = 1
-
+	" set this configuration before loading the plugin
+	let g:templates_no_autocmd = 0
+	
 	Plug 'szw/vim-maximizer'
 	let g:maximizer_set_default_mapping = 0
 	let g:maximizer_set_mapping_with_bang = 0
@@ -238,6 +240,9 @@ if !exists('g:vscode')
 
 	Plug 'airblade/vim-gitgutter'
 	let g:gitgutter_sign_priority = 10
+	if !empty($USE_VIM_MERGETOOL)
+		autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
+	endif
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	" A git commit browser.
@@ -311,10 +316,10 @@ if !exists('g:vscode')
 	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
 	""""""""""""""""""""""""
 
-if exists("$WSLENV")
-	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
-	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
-endif
+	" if exists("$WSLENV")
+	" 	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
+	" 	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
+	" endif
 
 	""" DuckDB
 	let g:duckdb_exe = 'duckdb -markdown'
