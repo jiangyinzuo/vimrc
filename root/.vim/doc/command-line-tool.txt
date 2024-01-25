@@ -194,6 +194,12 @@ $ gh copilot explain "traceroute github.com"
 -------------------------------------------------------------------------------
 
 统计代码行数 cloc $(git ls-files)
-
+显示当前用户登录状态 finger
 对话框 dialog
 
+*pptx*
+
+ppt2md:
+pip install ppt2md
+
+extract-pptx.py
