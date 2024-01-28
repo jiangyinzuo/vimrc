@@ -1,6 +1,10 @@
 function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
 	" 读取和解析 Makefile
-	let l:lines = readfile('Makefile')
+	try
+		let l:lines = readfile('Makefile')
+	catch /.*/
+		return []
+	endtry
 	let l:targets = []
 
 	for line in l:lines

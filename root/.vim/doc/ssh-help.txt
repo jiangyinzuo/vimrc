@@ -68,3 +68,26 @@ ssh -NR 3128:localhost:3128 kiwi
 
 ~/.vim/doc/port3128.md
 -------------------------------------------------------------------------------
+*ssh-x11转发远程使用GUI程序*
+
+https://blog.csdn.net/weixin_44966641/article/details/120365459
+
+服务器端/etc/ssh/sshd_config ~
+>
+	X11Forwarding yes
+	X11DisplayOffset 10
+	X11UseLocalhost yes
+<
+
+sudo systemctl restart sshd.service
+
+Linux客户端/etc/ssh/ssh_config ~
+>
+	ForwardAgent yes
+	ForwardX11 yes
+	ForwardX11Trusted yes
+<
+
+ssh -X jiangyinzuo@kiwi
+
+-------------------------------------------------------------------------------

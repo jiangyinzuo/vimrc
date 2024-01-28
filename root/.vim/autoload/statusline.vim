@@ -19,7 +19,7 @@ endfunction
 
 function statusline#LeftStatusLine()
 	let l:result = ''
-	if &diff == 0
+	if &diff == 0 && winwidth(0) > 50
 		let l:gitbranch = s:GetGitBranch()
 		let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
 
@@ -35,7 +35,7 @@ endfunction
 
 function statusline#RightStatusLine()
 	let l:result = ''
-	if &diff == 0
+	if &diff == 0 && winwidth(0) > 50
 		if g:asyncrun_status == 'running'
 			let l:result .= ' '
 		elseif g:asyncrun_status == 'success'
