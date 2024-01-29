@@ -1,0 +1,8 @@
+vim:ft=help
+
+*project-vim*
+
+Configurations ~
+
+*t:autoload_codenote*
+*t:autocd_project_root*

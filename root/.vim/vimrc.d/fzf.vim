@@ -76,7 +76,8 @@ command! -bang -nargs=? LZt call z#Zt(<q-args>, 'lcd')
 command! -bang -nargs=? Zext call z#Zt(<q-args>, 'Ex')
 
 """"""""""""""""" Fd 类""""""""""""""""
-command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
+command! -nargs=* -bang Fd call fzf#run({'source': 'fd ' . <q-args>, 'sink': 'e'})
+command! -nargs=* -bang FdPaste call fzf#run({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word")})
 command! -bang -nargs=0 Directories
 			\ call fzf#run(fzf#wrap({'source': 'fd -i -t d', 'dir': <q-args>, 'sink': 'e'}, <bang>0))
 command! -nargs=0 DirectoriesPaste call fzf#run({'source': 'fd -i -t d', 'sink': function("s:paste_word")})

@@ -1,28 +1,7 @@
 """"""""""""""""" Copy project_dot_file """"""""""""""""""""""
 " Tips: use genproj script to generate project files
-
-let s:project_file_dir = $HOME . "/vimrc/root/project_dot_files/files"
-function! ProjectFiles(ArgLead, CmdLine, CursorPos)
-	let files = readdir(s:project_file_dir, { n -> n =~ '^' . a:ArgLead })
-	return map(files, 'fnamemodify(v:val, ":t")')
-endfunction
-
-function! CopyProjFileFunc(...)
-	if a:0 > 2
-		echoerr "args must less than 2"
-		return
-	endif
-	let src_path = s:project_file_dir . '/' . a:1
-	if a:0 == 1
-		let dest_path = asyncrun#current_root() . "/" . a:1
-	else
-		let dest_path = asyncrun#current_root() . "/" . a:2
-	endif
-	call system("cp " . src_path . " " . dest_path)
-endfunction
-
 " [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
-command! -nargs=+ -complete=customlist,ProjectFiles -bar CopyProjFile call CopyProjFileFunc(<f-args>)
+command! -nargs=+ -complete=customlist,project#ProjectFiles -bar CopyProjFile call project#CopyProjFileFunc(<f-args>)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -43,38 +22,27 @@ function! LoadProjectConfigEachTab()
 	endif
 
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	" 初始化tab variables(约定一个tab对应一个项目)
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	let t:autoload_codenote = 1
-	let t:autocd_project_root = 0
-
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 如果找到了project_vimrc文件，则将其加载
 	if l:project_vimrc != ''
-		if !filereadable(l:project_vimrc)
-			call writefile([], l:project_vimrc)
-		endif
 		execute 'source ' l:project_vimrc
-		if t:autocd_project_root
+		if get(t:, 'autocd_project_root', 0)
 			" 使用tcd命令切换到.project_vimrc文件所在的目录，然后使用source命令加载project_vimrc文件
 			execute 'tcd ' . l:project_root 
 		endif
-	" echom "load project " . l:project_root . "'s " . g:project_vimrc . " success"
-	else
-		" echom "no " . g:project_vimrc . " found"
 	endif
 
+	" Global project config: after sourcing project_vimrc
 	augroup codenote_load
 		autocmd!
-		if t:autoload_codenote
-			autocmd BufWinEnter *.c,*.cpp,*.py,*.rs,*.java,*.go,*.md call LoadCodeNote()
+		if get(t:, 'autoload_codenote', 1)
+			autocmd BufWinEnter * call LoadCodeNote()
 		endif
 		autocmd BufEnter * call GetAllCodeLinks()
 	augroup END
 endfunction
 
 function VimEnterAfterLoadProjectConfig()
-	if t:autoload_codenote
+	if get(t:, 'autoload_codenote', 1)
 		call LoadCodeNote()
 	endif
 endfunction

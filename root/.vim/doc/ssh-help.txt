@@ -69,6 +69,7 @@ ssh -NR 3128:localhost:3128 kiwi
 ~/.vim/doc/port3128.md
 -------------------------------------------------------------------------------
 *ssh-x11转发远程使用GUI程序*
+*x11转发共享clipboard*
 
 https://blog.csdn.net/weixin_44966641/article/details/120365459
 
@@ -90,4 +91,11 @@ Linux客户端/etc/ssh/ssh_config ~
 
 ssh -X jiangyinzuo@kiwi
 
+NOTE: 服务器端vim初始化X11 clipboard，共享剪贴板，大概需要756ms，影响性能。
+>
+	865.595  756.019: setup clipboard
+<
 -------------------------------------------------------------------------------
+*sftp-server*
+
+~/.vim/doc/sftp-server.md
