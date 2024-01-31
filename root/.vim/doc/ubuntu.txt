@@ -57,3 +57,15 @@ http://keyserver.ubuntu.com 查询
    sudo snap set system proxy.http="http://localhost:3128"
    sudo snap set system proxy.https="http://localhost:3128"
 <
+
+===============================================================================
+*ubuntu升级*
+
+>
+	do-release-upgrade
+<
+
+Your python3 install is corrupted
+>
+	sudo ln -fs /usr/bin/python3.6 /usr/bin/python3
+<

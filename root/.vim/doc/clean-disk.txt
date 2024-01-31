@@ -2,3 +2,23 @@
 
 cargo install cargo-cache
 cargo-clean -a
+
+寻找当前文件夹下最大的10个文件目录
+>
+	du -Sh . | sort -rh | head -n10
+<
+
+
+*WSL2设置自动清理磁盘空间*
+>
+	wsl --manage Ubuntu-22.04 --set-sparse true
+<
+https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#automatic-disk-space-clean-up-set-sparse-vhd
+
+如果不是sparese disk，可以手动使用diskpart清理
+https://stackoverflow.com/questions/70946140/docker-desktop-wsl-ext4-vhdx-too-large
+>
+	diskpart
+	select vdisk file="D:\wsl2\ext4.vhdx"
+	compact vdisk
+<
