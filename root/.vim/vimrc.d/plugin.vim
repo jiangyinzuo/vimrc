@@ -397,3 +397,9 @@ if has('nvim') || v:version >= 802
 endif
 hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
 hi debugBreakpoint term=reverse ctermbg=red guibg=red
+
+if v:version >= 900
+	" any-jump.vim and autosuggest.vim conflict with search.vim
+	" https://github.com/pechorin/any-jump.vim/issues/106
+	runtime! autoload/search.vim
+endif
