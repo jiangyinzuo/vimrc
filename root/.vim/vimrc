@@ -20,6 +20,8 @@ let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 " let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
+let g:ai_complete = get(g:, 'ai_complete', 'copilot')
+
 " gtags-cscope | cscope
 let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 let g:mapleader = get(g:, 'mapleader', ' ')
@@ -70,7 +72,15 @@ set wildmode=list:full " command自动补全时显示整个列表
 set wildignore=.git,build
 set path=.,, " 当前目录和当前文件所在目录
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
+
+" https://www.skywind.me/blog/archives/2021
 set timeoutlen=3000 " key map 超时时间
+set ttimeout
+if $TMUX != ''
+	set ttimeoutlen=30
+elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+	set ttimeoutlen=80
+endif
 
 set autowrite " 自动保存
 set scrolloff=7 " 光标离底部或顶部保持7行
@@ -507,7 +517,11 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	" 左对齐和右对齐的分割点
 	set statusline+=%=
 	if show_status
-		set statusline+=%2*%{statusline#RightStatusLine()}\ 
+		if g:ai_complete == 'codeium'
+			set statusline+=%2*%{codeium#GetStatusString()}\ %{statusline#RightStatusLine()}\ 
+		else
+			set statusline+=%2*%{statusline#RightStatusLine()}\ 
+		endif
 	endif
 	set statusline+=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
 endif
