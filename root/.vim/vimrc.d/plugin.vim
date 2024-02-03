@@ -334,23 +334,16 @@ endif
 " Initialize plugin system
 call plug#end()
 
-if glob(g:vim_plug_dir) == ""
-	let g:no_plug = 1
+if g:no_plug
 	finish
 endif
 
-" 默认主题不显示colorcolumn
-set colorcolumn=80,120
-" markdown会conceal一些字符，导致colorcolumn显示混乱
-autocmd FileType org,markdown,text setlocal colorcolumn=
-
-if v:version >= 802
-	if g:vimrc_use_coc
-		source ~/.vim/vimrc.d/coc.vim
-	endif
-endif
-
 """""""""""""""""" begin colorscheme
+if g:vimrc_dark == 1
+	set background=dark
+else
+	set background=light
+endif
 if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
 	set termguicolors
 endif
@@ -358,12 +351,7 @@ endif
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
 
-if g:vimrc_dark == 1
-	set background=dark
-else
-	set background=light
-endif
-if v:version >= 800 || has('nvim')
+if (v:version >= 800 || has('nvim'))
 	" true color support
 	" https://github.com/lifepillar/vim-solarized8#troubleshooting
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -382,7 +370,20 @@ hi clear SpecialKey
 hi NonText cterm=None term=None gui=None
 hi link SpecialKey NonText
 "hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
+hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
+hi debugBreakpoint term=reverse ctermbg=red guibg=red
 """""""""""""""""" end colorscheme
+
+" 默认主题不显示colorcolumn
+set colorcolumn=80,120
+" markdown会conceal一些字符，导致colorcolumn显示混乱
+autocmd FileType org,markdown,text setlocal colorcolumn=
+
+if v:version >= 802
+	if g:vimrc_use_coc
+		source ~/.vim/vimrc.d/coc.vim
+	endif
+endif
 
 if has('nvim') || v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([
@@ -395,8 +396,6 @@ if has('nvim') || v:version >= 802
 	hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
 	source ~/.vim/vimrc.d/project.vim
 endif
-hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
-hi debugBreakpoint term=reverse ctermbg=red guibg=red
 
 if v:version >= 900
 	" any-jump.vim and autosuggest.vim conflict with search.vim

@@ -38,10 +38,12 @@ if has('nvim') || v:version >= 900
 		execute "set <M-n>=\en"
 		execute "set <M-p>=\ep"
 		execute "set <M-x>=\ex"
-		imap <script><silent><nowait><expr> <Tab> codeium#Accept()
-		imap <M-p> <Plug>(codeium-previous)
-		imap <M-n> <Plug>(codeium-next)
-		imap <M-x> <Plug>(codeium-dismiss)
+		if g:no_plug == 0
+			imap <script><silent><nowait><expr> <Tab> codeium#Accept()
+			imap <M-p> <Plug>(codeium-previous)
+			imap <M-n> <Plug>(codeium-next)
+			imap <M-x> <Plug>(codeium-dismiss)
+		endif
 	endif
 endif
 

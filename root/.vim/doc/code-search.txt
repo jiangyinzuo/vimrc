@@ -1,7 +1,9 @@
-*code-search*
+*code-search* *novimrc* *noplugged*
 
 查找文本
 :vim /func main/ **/*.txt
+:grep def foo.py
+:grep 'def foo' foo.py
 
 使用grep
 `grep 'func main' -r --exclude tags .`
@@ -11,8 +13,17 @@
 
 使用ripgrep
 可以添加.rgignore/.ignore文件, 用于忽略文件
+设置|grepprg|为rg
+>
+	set grepprg=rg\ --vimgrep
+<
 
 查找文件
+>
+	:find **/*.py
+<
+按Tab键自动补全
+
 `find . -name 'scheduler*.py'`
 `find -type f`  查找文件
 `find -type d`  查找目录

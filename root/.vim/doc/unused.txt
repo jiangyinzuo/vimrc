@@ -14,9 +14,7 @@
 *preservim/nerdtree* file system explorer, see >
   git show v0.2.1:root/vimrc.d/nerdtree.vim
 <
-*tpope/vim-fugitive* a git wrapper
 
-*skywind3000/asyncrun.vim* *skywind3000/asynctask.vim*
 Async run command. Async task system, replaces `:RunCode` script. >
   " RunCode
   autocmd FileType c :command! -nargs=0 RunCode :!cc % -o %:r && ./%:r

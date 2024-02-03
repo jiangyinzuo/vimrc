@@ -68,8 +68,8 @@ set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删�
 set hidden " 未保存文本就可以隐藏buffer
 set cmdheight=2 " cmd行高2, 减少hit-enter
 set wildmenu " command自动补全时显示菜单
-set wildmode=list:full " command自动补全时显示整个列表
-set wildignore=.git,build
+set wildoptions=pum " 显示popup window
+set wildignore=.git/*,build/*,.cache/*
 set path=.,, " 当前目录和当前文件所在目录
 set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 
@@ -131,12 +131,11 @@ let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', 
 
 let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
 if !s:has_vimrcd
-	colorscheme desert
 	hi ColorColumn ctermbg=black guibg=black
 endif
 
 " plugin.vim 可能会改变g:no_plug的值
-let g:no_plug = 0
+let g:no_plug = (glob(g:vim_plug_dir) == "")
 if exists("g:vscode")
 	let g:loaded_netrw = 1
 	let g:loaded_netrwPlugin = 1
@@ -244,8 +243,8 @@ augroup jump_to_symbol
 	autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
 	" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
 	" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
-	autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
-	autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
+	" autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
+	" autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
 	autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
 	autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
 	autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
@@ -257,8 +256,8 @@ augroup jump_to_symbol
 	autocmd FileType go nnoremap <silent> <buffer> ]t :call search('\<type\>', "wW")<CR>
 	autocmd FileType rust nnoremap <silent> <buffer> [t :call search('\<struct\>\|\<enum\>\|\<type\>', "bW")<CR>
 	autocmd FileType rust nnoremap <silent> <buffer> ]t :call search('\<struct\>\|\<enum\>\|\<type\>', "wW")<CR>
-	autocmd FileType python nnoremap <silent> <buffer> [t :call search('\<class\>', "bW")<CR>
-	autocmd FileType python nnoremap <silent> <buffer> ]t :call search('\<class\>', "wW")<CR>
+	" autocmd FileType python nnoremap <silent> <buffer> [t :call search('\<class\>', "bW")<CR>
+	" autocmd FileType python nnoremap <silent> <buffer> ]t :call search('\<class\>', "wW")<CR>
 augroup END
 
 function GetVisualSelection()
@@ -275,111 +274,22 @@ function GetVisualSelection()
 	return join(lines, "\n")
 endfunction
 
-function ShowQuickfixListIfNotEmpty()
-	let length = len(getqflist())
-	if length > 1
-		copen
-	elseif length == 1
-		copen
-		ccl
-	elseif length == 0
-		echo 'empty quickfix list'
-	endif
-endfunction
+nnoremap <silent> <leader>vw :call noplug#FindWord(expand("<cword>"))<CR>
+vnoremap <silent> <leader>vw :call noplug#FindWord(GetVisualSelection())<CR>
+command! -nargs=1 VimWord call noplug#FindWord(<q-args>)
 
-function VimGrepFindWord(word)
-	if &filetype == 'c' || &filetype == 'cpp'
-		let extention = '**/*.c **/*.cpp **/*.cc **/*.h'
-	else
-		let extention = '**/*.' . expand('%:e')
-	endif
-	" <pattern>: 匹配整个单词
-	silent exe 'silent! vimgrep' '/\<'.a:word.'\>/' extention
-	call ShowQuickfixListIfNotEmpty()
-endfunction
+nnoremap <silent> <leader>vy :call noplug#FindType(expand("<cword>"))<CR>
+vnoremap <silent> <leader>vy :call noplug#FindType(GetVisualSelection())<CR>
+command! -nargs=1 VimType call noplug#FindType(<q-args>)
 
-nnoremap <silent> <leader>fw :call VimGrepFindWord(expand("<cword>"))<CR>
-vnoremap <silent> <leader>fw :call VimGrepFindWord(GetVisualSelection())<CR>
-command! -nargs=1 Vimfw call VimGrepFindWord(<q-args>)
+nnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(expand("<cword>"))<CR>
+vnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(GetVisualSelection())<CR>
+command! -nargs=1 VimDef call noplug#FindDefinitionFunction(<q-args>)
 
-function VimGrepFindType(word)
-	call setqflist([])
-	" <pattern>: 匹配整个单词
-	if &filetype == 'c'	
-		silent exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.c' '**/*.h'
-		silent exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.c' '**/*.h'
-	elseif &filetype == 'cpp'
-		silent! exe 'silent! vimgrepadd' '/\<struct '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-		silent! exe 'silent! vimgrepadd' '/\<union '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-		silent! exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.cpp' '**/*.cc' '**/*.h'
-	elseif &filetype == 'python'
-		silent exe 'silent! vimgrepadd' '/\<class '.a:word.'\>/' '**/*.py'
-	elseif &filetype == 'go'
-		silent exe 'silent! vimgrepadd' '/\<type '.a:word.'\>/' '**/*.go'
-	else
-		echo 'unsupport filetype: '.&filetype
-		return
-	endif
-	call ShowQuickfixListIfNotEmpty()
-endfunction
+command! -nargs=1 SystemFindFiles call noplug#FindFiles(<q-args>)
+command! -nargs=1 SystemRg call noplug#Ripgrep(<q-args>)
 
-nnoremap <silent> <leader>fy :call VimGrepFindType(expand("<cword>"))<CR>
-vnoremap <silent> <leader>fy :call VimGrepFindType(GetVisualSelection())<CR>
-command! -nargs=1 Vimfy call VimGrepFindType(<q-args>)
-
-function VimGrepFindDefinitionFunction(word)
-	call setqflist([])
-	if &filetype == 'cpp' || &filetype == 'c'
-		silent! exe 'silent! vimgrepadd' '/\<'.a:word.'(\(\w\|,\|\s\|\r\|\n\)\{-})\(\s\|\r\|\n\)\{-}{/' '**/*.cpp' '**/*.cc' '**/*.h'
-	elseif &filetype == 'python'
-		silent! exe 'silent! vimgrepadd' '/\<def '.a:word.'(/' '**/*.py'
-	elseif &filetype == 'go'
-		silent! exe 'silent! vimgrepadd' '/\<func '.a:word.'(/' '**/*.go'
-	else
-		echo 'unsupport filetype: '.&filetype
-		return
-	endif
-	call ShowQuickfixListIfNotEmpty()
-endfunction
-
-nnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(expand("<cword>"))<CR>
-vnoremap <silent> <leader>fdf :call VimGrepFindDefinitionFunction(GetVisualSelection())<CR>
-command! -nargs=1 Vimfdf call VimGrepFindDefinitionFunction(<q-args>)
-
-if v:version >= 740 || &readonly == 0
-	" Reference: vim.fandom.com/wiki/Searching_for_files
-	" find files and populate the quickfix list
-	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
-	" :new 开新的window
-	" :edit 在当前buffer
-	" :open 无法使用通配符，不能使用wildmode
-	" :next 可以打开多个文件
-	function FindFiles(filename)
-		cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
-		set errorformat=%f:%l:%m
-		call ShowQuickfixListIfNotEmpty()
-	endfunction
-	command! -nargs=1 FindFiles call FindFiles(<q-args>)
-endif
-
-function Ripgrep(args)
-	cexpr system('rg --vimgrep ' . a:args)
-	call ShowQuickfixListIfNotEmpty()
-endfunction
-" fzf.vim defines :Rg
-command! -nargs=1 Myrg call Ripgrep(<q-args>)
-
-"""""""""""""""""""""""""""""""""""""" quickfix window
-
-noremap ]q :call ToggleQuickfix()<CR>
-function! ToggleQuickfix()
-  if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-    copen
-  else
-    cclose
-  endif
-endfunction
-
+noremap ]q :call noplug#ToggleQuickfix()<CR>
 nnoremap <silent> <leader>cn :cn<CR>
 nnoremap <silent> <leader>cp :cp<CR>
 
@@ -389,13 +299,8 @@ nnoremap <silent> <leader>cp :cp<CR>
 " 	tnoremap <silent> <leader>t <C-W>:hide<CR>
 " endif
 
-function CExprSystem(args)
-	cexpr system(a:args)
-	call ShowQuickfixListIfNotEmpty()
-endfunction
 " [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
-command! -nargs=1 SystemToQf call CExprSystem(<q-args>)
-
+command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Example:
@@ -418,39 +323,9 @@ if v:version >= 740 || &readonly == 0
 	nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
 	" 打开所有折叠: zR
 
-	function! CppFoldExpr(lnum)
-		let line = getline(a:lnum)
-		if !exists('b:cpp_fold_level')
-			let b:cpp_fold_level = 0
-			let b:last_primitive = ''
-		endif
-
-		let open_braces = len(split(line, '{', 1)) - 1
-		let close_braces = len(split(line, '}', 1)) - 1
-		
-		if b:last_primitive == 'if'
-			let b:cpp_fold_level += 1
-		elseif b:last_primitive == 'end'
-			let b:cpp_fold_level -= 1
-		endif
-		let b:last_primitive = ''
-		
-		if line =~ '^\s*#\s*\(ifdef\|ifndef\|if\)' || open_braces > close_braces
-			let b:cpp_fold_level += 1
-			let b:last_primitive = 'if'
-			return b:cpp_fold_level
-		elseif line =~ '^\s*#\s*\(else\|elif\)' || (open_braces == close_braces && open_braces > 0)
-			return b:cpp_fold_level - 1
-		elseif line =~ '^\s*#\s*endif' || close_braces > open_braces
-			let b:last_primitive = 'end'
-			let b:cpp_fold_level -= 1
-			return b:cpp_fold_level
-		endif
-
-		return b:cpp_fold_level
-	endfunction
-
-	autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
+	if s:has_vimrcd
+		autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=cppfoldexpr#CppFoldExpr(v:lnum)
+	endif
 	autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 
 endif
@@ -475,9 +350,6 @@ endif
 " Load plugins, 可能改变g:no_plug的值
 if s:has_vimrcd
 	source ~/.vim/vimrc.d/plugin.vim
-endif
-if !s:has_vimrcd || g:no_plug == 1
-	colorscheme default
 endif
 
 if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
@@ -620,22 +492,12 @@ if has("cscope")
 		endif
 
 	elseif g:tag_system == 'gtags-cscope'
-    set csprg=gtags-cscope
+		set csprg=gtags-cscope
 		if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
-			function s:gtags_cscope_add()
-				let l:project_root = asyncrun#current_root()
-				if l:project_root != $HOME && l:project_root != ''
-					let l:gtags_db = l:project_root . '/GTAGS'
-					if filereadable(l:gtags_db) && cscope_connection(2, l:gtags_db) == 0
-						execute 'cs add ' . l:gtags_db
-					endif
-				endif
-			endfunction
-			
 			augroup GlobalCscope
 				autocmd!
 				" 自动加载gtags db
-				autocmd VimEnter * call s:gtags_cscope_add()
+				autocmd VimEnter * call tagsystem#GtagsCscopeAdd()
 			augroup END
 			
 			" 不使用global官方gtags-cscope vimscript
