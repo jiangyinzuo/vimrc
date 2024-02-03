@@ -518,7 +518,7 @@ if !has('nvim') || g:nvim_compatibility_with_vim == 1
 	set statusline+=%=
 	if show_status
 		if g:ai_complete == 'codeium'
-			set statusline+=%2*%{codeium#GetStatusString()}\ %{statusline#RightStatusLine()}\ 
+			set statusline+=%2*%{winwidth(0)>60?codeium#GetStatusString():''}\ %{statusline#RightStatusLine()}\ 
 		else
 			set statusline+=%2*%{statusline#RightStatusLine()}\ 
 		endif
