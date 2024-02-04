@@ -1,6 +1,6 @@
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
-	set nocp "no Vi-compatible
+	set nocp " no Vi-compatible
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
 	if filereadable(expand('~/.vim/config.vim'))
@@ -349,22 +349,19 @@ if has('autocmd') " vim-tiny does not have autocmd
 		helptags ~/.vim/doc
 	endif
 
-	" Load plugins, 可能改变g:no_plug的值
 	if s:has_vimrcd
 		source ~/.vim/vimrc.d/plugin.vim
 	endif
 
-	if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
+	if g:no_plug
 		" https://zhuanlan.zhihu.com/p/106309525
-		if has("autocmd") && exists("+omnifunc")
+		if exists("+omnifunc")
 			autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 		endif
+		autocmd FileType c,cpp,cuda setlocal completefunc=noplug#MyCppCompleteFunc
 	endif
 
-	""""""""""""""""""""" StatusLine """"""""""""""""""
-
-	" 设置状态行-----------------------------------
-	" 设置状态行显示常用信息
+	""""""""""""""""" StatusLine """"""""""""""""""
 	" %F 完整文件路径名
 	" %m 当前缓冲被修改标记
 	" %m 当前缓冲只读标记
@@ -380,7 +377,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" %{...} 评估表达式的值，并用值代替
 	" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
 	" %{&ff} 显示文件类型
-	" 链接：https://zhuanlan.zhihu.com/p/532430825
+	" See: https://zhuanlan.zhihu.com/p/532430825
 	set laststatus=2
 	if !has('nvim') || g:nvim_compatibility_with_vim == 1
 		set statusline=%1*%F%m%r%h%w\ \|\ 
@@ -408,21 +405,19 @@ if has('autocmd') " vim-tiny does not have autocmd
 	augroup END
 
 	""""""""""""""""""" Marks """"""""""""""""""""""
-
 	" 为小写字母 a 到 z 创建映射
 	for mark in range(char2nr('a'), char2nr('z'))
 		let sign_name = 'mark' . nr2char(mark)
 		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
 	endfor
-
 	" 为大写字母 A 到 Z 创建映射
 	for mark in range(char2nr('A'), char2nr('Z'))
 		let sign_name = 'mark' . nr2char(mark)
 		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
 	endfor
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"
-	""""""""""""""""""" tag system """"""""""""""""""""""""""
+	""""""""""""""""""""""""""""""""""""""""""""""""
+
+	""""""""""""""""""" Tag System """""""""""""""""
 	" 当前使用.globalrc配置文件
 	" let $GTAGSCONF = '/root/gtags.conf'
 
@@ -431,7 +426,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" 递归向上层寻找tags文件
 	" set tags=tags;/
-
 	if has("cscope")
 		" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 		set cscopetag
@@ -450,7 +444,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" when it was compiled.  If it wasn't, time to recompile vim... 
 		
 		""""""""""""" My cscope/vim key mappings
-		"
 		" The following maps all invoke one of the following cscope search types:
 		"
 		"   's'   symbol: find all references to the token under cursor
@@ -477,7 +470,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 分裂窗口显示搜索结果
 		" nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
 		" nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-
 		if g:tag_system == 'cscope'
 			" Reference: https://cscope.sourceforge.net/cscope_maps.vim
 			""""""""""""" Standard cscope/vim boilerplate
@@ -485,11 +477,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" reset cscope:
 			" :cs reset
 
-			" add any cscope database in current directory
 			if filereadable("cscope.out")
+			" add any cscope database in current directory
 				cs add cscope.out
-			" else add the database pointed to by environment variable
 			elseif $CSCOPE_DB != ""
+			" else add the database pointed to by environment variable
 				cs add $CSCOPE_DB
 			endif
 
@@ -501,7 +493,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 					" 自动加载gtags db
 					autocmd VimEnter * call tagsystem#GtagsCscopeAdd()
 				augroup END
-				
 				" 不使用global官方gtags-cscope vimscript
 				" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
 				" source ~/.vim/vimrc.d/gtags-cscope.vim
