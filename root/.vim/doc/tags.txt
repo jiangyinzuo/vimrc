@@ -26,6 +26,9 @@ Install on Ubuntu: >
 
 *ctags*
 
+直接下载二进制程序
+https://github.com/universal-ctags/ctags-nightly-build/releases
+
 *tag跳转*	CTRL-]
 ctags生成python tag `ctags --language-force=python hello.py`
 

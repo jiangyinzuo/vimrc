@@ -4,7 +4,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
 	let g:mapleader = ' '
 	set modeline " 开启模式行, 读取文件开头结尾类似于 /* vim:set ts=2 sw=2 noexpandtab: */ 的配置
-	set noexrc " 不读取当前文件夹的.vimrc
+	set exrc " 读取当前文件夹的.vimrc
 	if has("patch-7.4.1649")
 		packadd! matchit
 	endif
@@ -40,7 +40,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set wildmode=list:full
 	endif
 	set wildignore=.git/*,build/*,.cache/*
-	set path=.,, " 当前目录和当前文件所在目录
 	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 
 	" https://www.skywind.me/blog/archives/2021
@@ -403,6 +402,37 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("autocmd") && exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
+
+	function! MyCppCompleteFunc(findstart, base)
+		if a:findstart
+			" 确定补全开始的位置
+			let line = getline('.')
+			let start = col('.') - 1
+			while start > 0 && line[start - 1] =~ '\S'
+				let start -= 1
+			endwhile
+			if line[start] != '<' && line[start] != '"'
+				return -3
+			endif
+			return start + 1
+		endif
+
+		if getline('.') =~# &include
+			let filetype = &filetype
+			if filetype == 'cpp' || filetype == 'cuda'
+				" r! ls -1 /usr/include/c++/13 | awk '{print " \x27"$0"\x27"}' | paste -sd,
+				let completions = ['algorithm', 'any', 'array', 'atomic', 'backward', 'barrier', 'bit', 'bits', 'bitset', 'cassert', 'ccomplex', 'cctype', 'cerrno', 'cfenv', 'cfloat', 'charconv', 'chrono', 'cinttypes', 'ciso646', 'climits', 'clocale', 'cmath', 'codecvt', 'compare', 'complex', 'complex.h', 'concepts', 'condition_variable', 'coroutine', 'csetjmp', 'csignal', 'cstdalign', 'cstdarg', 'cstdbool', 'cstddef', 'cstdint', 'cstdio', 'cstdlib', 'cstring', 'ctgmath', 'ctime', 'cuchar', 'cwchar', 'cwctype', 'cxxabi.h', 'debug', 'decimal', 'deque', 'exception', 'execution', 'expected', 'experimental', 'ext', 'fenv.h', 'filesystem', 'format', 'forward_list', 'fstream', 'functional', 'future', 'initializer_list', 'iomanip', 'ios', 'iosfwd', 'iostream', 'istream', 'iterator', 'latch', 'limits', 'list', 'locale', 'map', 'math.h', 'memory', 'memory_resource', 'mutex', 'new', 'numbers', 'numeric', 'optional', 'ostream', 'parallel', 'pstl', 'queue', 'random', 'ranges', 'ratio', 'regex', 'scoped_allocator', 'semaphore', 'set', 'shared_mutex', 'source_location', 'span', 'spanstream', 'sstream', 'stack', 'stacktrace', 'stdatomic.h', 'stdexcept', 'stdfloat', 'stdlib.h', 'stop_token', 'streambuf', 'string', 'string_view', 'syncstream', 'system_error', 'tgmath.h', 'thread', 'tr1', 'tr2', 'tuple', 'typeindex', 'typeinfo', 'type_traits', 'unordered_map', 'unordered_set', 'utility', 'valarray', 'variant', 'vector', 'version']
+				call filter(completions, 'v:val =~ "^" . a:base')
+			endif
+			" 使用getcompletion()获取文件类型的补全列表
+			echom a:base
+			let completions += getcompletion(a:base . '*.h*', 'file_in_path', 1)
+			let completions += getcompletion(a:base . '*/$', 'file_in_path', 1)
+			return completions
+		endif
+		return []
+	endfunction
+	autocmd FileType c,cpp,cuda setlocal completefunc=MyCppCompleteFunc
 	set laststatus=2
 
 	" file is large from 10mb
@@ -493,5 +523,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 				cs add GTAGS
 			endif
 		endif
+	endif
+
+	if filereadable(expand("~/config_single_vimrc.vim"))
+		source $HOME/config_single_vimrc.vim
 	endif
 endif
