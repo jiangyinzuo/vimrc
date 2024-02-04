@@ -52,10 +52,12 @@ pip3 install neovim
 
 Environment variables to setup:  `$DOC2` `$CODE_HOME`
 
-## Vim Configurations
+## Vimrc
 
-Default configurations: see header of `.vim/vimrc`  
-Custom vim configuration file: `.vim/config.vim`  
+- Full vimrc file: `.vim/vimrc`
+    - Default configurations: see header of `.vim/vimrc`
+    - Custom vim configuration file: `.vim/config.vim`
+- Single vimrc file: `.vimrc`
 
 ## Install Plugins
 

@@ -1,42 +1,14 @@
+" Single .vimrc file. The complete vimrc is `root/.vim/vimrc`.
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
-	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
-
-	if filereadable(expand('~/.vim/config.vim'))
-		source ~/.vim/config.vim
-	endif
-	" tmux2.2以上才支持true color
-	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
-	let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
-	let g:vimrc_dark = get(g:, 'vimrc_dark', 1)
-
-	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
-
-	let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
-	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-
-	" See Also: https://github.com/neoclide/coc-sources
-	" All Coc Extensions:
-	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
-	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
-
-	let g:ai_complete = get(g:, 'ai_complete', 'copilot')
-
-	" gtags-cscope | cscope
-	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
-	let g:mapleader = get(g:, 'mapleader', ' ')
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-	" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置
-	set modeline
+	let g:mapleader = ' '
+	set modeline " 开启模式行, 读取文件开头结尾类似于 /* vim:set ts=2 sw=2 noexpandtab: */ 的配置
 	set noexrc " 不读取当前文件夹的.vimrc
-
 	if has("patch-7.4.1649")
 		packadd! matchit
 	endif
-
-	if exists('&viminfofile') && !has('nvim') 
+	if exists('&viminfofile') && !has('nvim')
 		set viminfofile=$HOME/.vim/.viminfo
 		" 保留50个marks
 		" 每个寄存器保存50行内容
@@ -47,18 +19,13 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 保存0-9，A-Zmark
 		set viminfo='50,<50,/50,:50,h,s10,f100
 	endif
-
 	set history=500 " Sets how many lines of history VIM has to remember
-
 	filetype indent on
 	filetype plugin on
-
 	syntax on "语法高亮显示
-
 	set encoding=utf-8
 	set fileencoding=utf-8
-	" vim自动探测fileencodeing的顺序列表
-	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
+	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030 " vim自动探测fileencodeing的顺序列表
 	set termencoding=utf-8
 	set fileformats=unix,dos,mac " 文件格式
 	set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
@@ -91,20 +58,16 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set incsearch " 输入搜索内容时就显示搜索结果
 	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
-
 	set dictionary+=/usr/share/dict/american-english
-
 	set nobackup       "no backup files
 	set nowritebackup  "only in case you don't want a backup file while editing
 	set noswapfile     "no swap files
-
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
 	else
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
 	endif
-
 	" 选中想格式化的段落后，可以用gq格式化
 	" 设置textwidth，可以让文本格式化时自动换行
 	autocmd Filetype tex setlocal textwidth=80
@@ -125,7 +88,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
 		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
-
 		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 	augroup end
 
@@ -133,23 +95,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" tex使用空格缩进
 	autocmd FileType tex setlocal expandtab
 
-	let g:project_vimrc = '.project.vim'
-	let g:RootMarks = ['.git', '.root', '.noterepo', '.coderepo', '.marksman.toml', '.ocamlformat', g:project_vimrc, 'tags', 'GTAGS']
-
-	let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
-	if !s:has_vimrcd
-		hi ColorColumn ctermbg=black guibg=black
-	endif
-
-	" plugin.vim 可能会改变g:no_plug的值
-	let g:no_plug = (glob(g:vim_plug_dir) == "")
-	if exists("g:vscode")
-		let g:loaded_netrw = 1
-		let g:loaded_netrwPlugin = 1
-		if s:has_vimrcd
-			source ~/.vim/vimrc.d/plugin.vim
-		endif
-		finish
+	if v:version >= 901
+		packadd! editorconfig
 	endif
 
 	" 显示空白字符
@@ -279,22 +226,105 @@ if has('autocmd') " vim-tiny does not have autocmd
 		return join(lines, "\n")
 	endfunction
 
-	nnoremap <silent> <leader>vw :call noplug#FindWord(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vw :call noplug#FindWord(GetVisualSelection())<CR>
-	command! -nargs=1 VimWord call noplug#FindWord(<q-args>)
+	function ShowQuickfixListIfNotEmpty()
+		let length = len(getqflist())
+		if length > 1
+			copen
+		elseif length == 1
+			copen
+			ccl
+		elseif length == 0
+			echo 'empty quickfix list'
+		endif
+	endfunction
 
-	nnoremap <silent> <leader>vy :call noplug#FindType(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vy :call noplug#FindType(GetVisualSelection())<CR>
-	command! -nargs=1 VimType call noplug#FindType(<q-args>)
+	function FindWord(word)
+		if &filetype == 'c' || &filetype == 'cpp' || &filetype == 'cuda'
+			let l:extension = '**/*.c* **/*.h*'
+		else
+			let l:extension = '**/*.' . expand('%:e')
+		endif
+		" <pattern>: 匹配整个单词
+		exe 'vimgrep /\<'.a:word.'\>/ ' . l:extension
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
 
-	nnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(GetVisualSelection())<CR>
-	command! -nargs=1 VimDef call noplug#FindDefinitionFunction(<q-args>)
+	function FindType(word)
+		" <pattern>: 匹配整个单词
+		if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
+			exe 'vimgrep' '/\<\(struct\|union\|class\) '.a:word.'\>/' '**/*.c*' '**/*.h*'
+		elseif &filetype == 'python'
+			exe 'vimgrep' '/\<class '.a:word.'\>/' '**/*.py'
+		elseif &filetype == 'go'
+			exe 'vimgrep' '/\<type '.a:word.'\>/' '**/*.go'
+		else
+			echo 'unsupport filetype: '.&filetype
+			return
+		endif
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
 
-	command! -nargs=1 SystemFindFiles call noplug#FindFiles(<q-args>)
-	command! -nargs=1 SystemRg call noplug#Ripgrep(<q-args>)
+	function FindDefinitionFunction(word)
+		if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
+			exe 'vimgrep' '/\<'.a:word.'\s*(/ **/*.c* **/*.h*'
+		elseif &filetype == 'python'
+			exe 'vimgrep' '/\<def '.a:word.'(/' '**/*.py'
+		elseif &filetype == 'go'
+			exe 'vimgrep' '/\<func '.a:word.'(/' '**/*.go'
+		else
+			echo 'unsupport filetype: '.&filetype
+			return
+		endif
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
 
-	noremap ]q :call noplug#ToggleQuickfix()<CR>
+	function Ripgrep(args)
+		cexpr system('rg --vimgrep ' . a:args)
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
+
+	" Reference: vim.fandom.com/wiki/Searching_for_files
+	" find files and populate the quickfix list
+	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
+	" :new 开新的window
+	" :edit 在当前buffer
+	" :open 无法使用通配符，不能使用wildmode
+	" :next 可以打开多个文件
+	function FindFiles(filename)
+		cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
+		set errorformat=%f:%l:%m
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
+
+	function! ToggleQuickfix()
+		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
+			copen
+		else
+			cclose
+		endif
+	endfunction
+
+	function SystemToQf(args)
+		cexpr system(a:args)
+		call ShowQuickfixListIfNotEmpty()
+	endfunction
+
+	nnoremap <silent> <leader>vw :call FindWord(expand("<cword>"))<CR>
+	vnoremap <silent> <leader>vw :call FindWord(GetVisualSelection())<CR>
+	command! -nargs=1 VimWord call FindWord(<q-args>)
+
+	nnoremap <silent> <leader>vy :call FindType(expand("<cword>"))<CR>
+	vnoremap <silent> <leader>vy :call FindType(GetVisualSelection())<CR>
+	command! -nargs=1 VimType call FindType(<q-args>)
+
+	nnoremap <silent> <leader>vd :call FindDefinitionFunction(expand("<cword>"))<CR>
+	vnoremap <silent> <leader>vd :call FindDefinitionFunction(GetVisualSelection())<CR>
+	command! -nargs=1 VimDef call FindDefinitionFunction(<q-args>)
+
+	command! -nargs=1 SystemFindFiles call FindFiles(<q-args>)
+	command! -nargs=1 SystemRg call Ripgrep(<q-args>)
+
+	noremap ]q :call ToggleQuickfix()<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
 
@@ -305,7 +335,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" endif
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
-	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
+	command! -nargs=1 SystemToQf call SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 	" Example:
@@ -328,11 +358,39 @@ if has('autocmd') " vim-tiny does not have autocmd
 		nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
 		" 打开所有折叠: zR
 
-		if s:has_vimrcd
-			autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=cppfoldexpr#CppFoldExpr(v:lnum)
-		endif
-		autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
+		function! CppFoldExpr(lnum)
+			let line = getline(a:lnum)
+			if !exists('b:cpp_fold_level')
+				let b:cpp_fold_level = 0
+				let b:last_primitive = ''
+			endif
 
+			let open_braces = len(split(line, '{', 1)) - 1
+			let close_braces = len(split(line, '}', 1)) - 1
+			
+			if b:last_primitive == 'if'
+				let b:cpp_fold_level += 1
+			elseif b:last_primitive == 'end'
+				let b:cpp_fold_level -= 1
+			endif
+			let b:last_primitive = ''
+			
+			if line =~ '^\s*#\s*\(ifdef\|ifndef\|if\)' || open_braces > close_braces
+				let b:cpp_fold_level += 1
+				let b:last_primitive = 'if'
+				return b:cpp_fold_level
+			elseif line =~ '^\s*#\s*\(else\|elif\)' || (open_braces == close_braces && open_braces > 0)
+				return b:cpp_fold_level - 1
+			elseif line =~ '^\s*#\s*endif' || close_braces > open_braces
+				let b:last_primitive = 'end'
+				let b:cpp_fold_level -= 1
+				return b:cpp_fold_level
+			endif
+
+			return b:cpp_fold_level
+		endfunction
+		autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
+		autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 	endif
 
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
@@ -342,97 +400,32 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" save
 	inoremap <c-S> <esc>:w<CR>i
 
-	" neovim 会报错
-	if isdirectory(expand('~/.vim/doc')) && !has('nvim')
-		" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报
-		" mixed encoding的错误
-		" set helplang=cn
-		helptags ~/.vim/doc
+	if has("autocmd") && exists("+omnifunc")
+		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
-
-	" Load plugins, 可能改变g:no_plug的值
-	if s:has_vimrcd
-		source ~/.vim/vimrc.d/plugin.vim
-	endif
-
-	if !exists("g:plugs") || !has_key(g:plugs, 'coc.nvim')
-		" https://zhuanlan.zhihu.com/p/106309525
-		if has("autocmd") && exists("+omnifunc")
-			autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-		endif
-	endif
-
-	""""""""""""""""""""" StatusLine """"""""""""""""""
-
-	" 设置状态行-----------------------------------
-	" 设置状态行显示常用信息
-	" %F 完整文件路径名
-	" %m 当前缓冲被修改标记
-	" %m 当前缓冲只读标记
-	" %h 帮助缓冲标记
-	" %w 预览缓冲标记
-	" %Y 文件类型
-	" %b ASCII值
-	" %B 十六进制值
-	" %l 行数
-	" %v 列数
-	" %p 当前行数占总行数的的百分比
-	" %L 总行数
-	" %{...} 评估表达式的值，并用值代替
-	" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
-	" %{&ff} 显示文件类型
-	" 链接：https://zhuanlan.zhihu.com/p/532430825
 	set laststatus=2
-	if !has('nvim') || g:nvim_compatibility_with_vim == 1
-		set statusline=%1*%F%m%r%h%w\ \|\ 
-		let show_status = exists("g:plugs") && v:version >= 801 && g:no_plug == 0
-		if show_status
-			set statusline+=%{statusline#LeftStatusLine()}
-		endif
-		" 左对齐和右对齐的分割点
-		set statusline+=%=
-		if show_status
-			if g:ai_complete == 'codeium'
-				set statusline+=%2*%{winwidth(0)>60?codeium#GetStatusString():''}\ %{statusline#RightStatusLine()}\ 
-			else
-				set statusline+=%2*%{statusline#RightStatusLine()}\ 
-			endif
-		endif
-		set statusline+=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
-	endif
 
 	" file is large from 10mb
 	let g:LargeFile = 1024 * 1024 * 10
+	function! LargeFile()
+		" no syntax highlighting etc
+		set eventignore+=FileType
+		" save memory when other file is viewed
+		setlocal bufhidden=unload
+		" is read-only (write with :w new_filename)
+		setlocal buftype=nowrite
+		" no undo possible
+		setlocal undolevels=-1
+		" display message
+		autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see vimrc for details)."
+	endfunction
+
 	augroup LargeFile
 		au!
-		autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call largefile#LargeFile() | endif
+		autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
 	augroup END
 
-	""""""""""""""""""" Marks """"""""""""""""""""""
-
-	" 为小写字母 a 到 z 创建映射
-	for mark in range(char2nr('a'), char2nr('z'))
-		let sign_name = 'mark' . nr2char(mark)
-		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-	endfor
-
-	" 为大写字母 A 到 Z 创建映射
-	for mark in range(char2nr('A'), char2nr('Z'))
-		let sign_name = 'mark' . nr2char(mark)
-		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-	endfor
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"
-	""""""""""""""""""" tag system """"""""""""""""""""""""""
-	" 当前使用.globalrc配置文件
-	" let $GTAGSCONF = '/root/gtags.conf'
-
-	" 不使用 ludovicchabant/vim-gutentags 插件的原因:
-	" 该插件会设置$GTAGSROOT 和 $GTAGSDBPATH 环境变量，导致gtags不能按预期工作
-
-	" 递归向上层寻找tags文件
-	" set tags=tags;/
-
+	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 	if has("cscope")
 		" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
 		set cscopetag
@@ -496,22 +489,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 		elseif g:tag_system == 'gtags-cscope'
 			set csprg=gtags-cscope
-			if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
-				augroup GlobalCscope
-					autocmd!
-					" 自动加载gtags db
-					autocmd VimEnter * call tagsystem#GtagsCscopeAdd()
-				augroup END
-				
-				" 不使用global官方gtags-cscope vimscript
-				" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
-				" source ~/.vim/vimrc.d/gtags-cscope.vim
+			if filereadable('GTAGS')
+				cs add GTAGS
 			endif
-		endif
-		if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
-			let g:Gtags_Auto_Update = 1
-			source ~/.vim/vimrc.d/gtags_asyncrun.vim " https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
-			" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
 		endif
 	endif
 endif

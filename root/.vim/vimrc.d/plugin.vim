@@ -78,13 +78,12 @@ if !exists('g:vscode')
 	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
 	Plug 'preservim/vimux'
-	
 	" Remove ~/.vim/autoload/detect_indent.vim
 	" Since: v0.12.0
 	if v:version >= 901
-	  packadd! editorconfig
+		packadd! editorconfig
 	else
-	  Plug 'editorconfig/editorconfig-vim'
+		Plug 'editorconfig/editorconfig-vim'
 	endif
 	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 	au FileType gitcommit let b:EditorConfig_disable = 1

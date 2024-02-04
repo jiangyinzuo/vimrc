@@ -15,6 +15,11 @@ ssh <hostname> -o strictHostKeyChecking=no
 *sshpass免密码登录*
 sshpass -f password_file ssh <hostname>
 
+*scp复制文件*
+>
+	scp .vimrc grape:
+<
+
 *ssh端口转发*
 
 本地转发、远程转发和动态转发 ~
