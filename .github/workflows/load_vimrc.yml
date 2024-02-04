@@ -1,0 +1,21 @@
+name: load_vimrc
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  load_vimrc:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: single vimrc with vi
+      run: vim.tiny -E -s -u .vimrc -c "qa!"
+    - name: install vim
+      run: sudo ./install/build_vim_from_source.sh 7.4.1689
+    - name: single vimrc
+      run: vim -E -s -u .vimrc -c "qa!"
+    - name: full vimrc
+      run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"

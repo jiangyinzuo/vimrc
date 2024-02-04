@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 _uninstall_current_version() {
@@ -59,12 +60,7 @@ _install_vim() {
 	echo $vim_version > VIM_VERSION
 }
 
-# init build dir
-if [ ! -d ~/vimrc ]; then
-	echo "No vimrc dir found."
-	exit 1
-fi
-build_dir=~/vimrc/build
+build_dir=`pwd`/build
 mkdir -p $build_dir
 cd $build_dir
 touch VIM_VERSION
