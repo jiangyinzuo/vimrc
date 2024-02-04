@@ -15,6 +15,7 @@ ssh <hostname> -o strictHostKeyChecking=no
 *sshpass免密码登录*
 sshpass -f password_file ssh <hostname>
 
+*scp*
 *scp复制文件*
 >
 	scp .vimrc grape:
