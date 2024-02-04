@@ -1,4 +1,5 @@
 " Single .vimrc file. The complete vimrc is `root/.vim/vimrc`.
+" Custom vim configuration file `~/config_single_vimrc.vim`
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible

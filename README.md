@@ -56,9 +56,9 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 
 - Full vimrc file: `.vim/vimrc`
     - Default configurations: see header of `.vim/vimrc`
-    - Custom vim configuration file: `.vim/config.vim`
+    - Custom vim configuration file: `~/.vim/config.vim`
 - Single vimrc file: `.vimrc`
-
+    - Custom vim configuration file `~/config_single_vimrc.vim`
 ## Install Plugins
 
 vim-plug home: `~/plugged`  
