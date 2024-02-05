@@ -435,6 +435,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	autocmd FileType c,cpp,cuda setlocal completefunc=MyCppCompleteFunc
 	set laststatus=2
+	set statusline=%1*%F%m%r%h%w%=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
 
 	" file is large from 10mb
 	let g:LargeFile = 1024 * 1024 * 10
