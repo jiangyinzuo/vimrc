@@ -1,0 +1,20 @@
+vim:ft=help
+
+*latex*
+
+拼写检查 ~
+
+1. Vim原生|spell|
+2. linux aspell spell命令
+3. ltex拼写检查(基于languagetool) https://languagetool.org/
+>
+	:CocCommand ltex.showStatusInformation
+<
+查看字典所在位置（位于某个.vscode文件中）
+
+
+4. 其它基于languagetool的工具
+
+依赖Java 8和textidote jar包，不适用于没有Java的环境
+https://github.com/PatrBal/vim-textidote
+https://github.com/sylvainhalle/textidote

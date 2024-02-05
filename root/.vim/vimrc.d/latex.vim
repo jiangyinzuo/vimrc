@@ -59,3 +59,4 @@ augroup latex_commands
   autocmd FileType tex command! -nargs=0 OpenPPTX call latex#OpenPPTX()
 augroup end
 
+" Plug 'PatrBal/vim-textidote'
