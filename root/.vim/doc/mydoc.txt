@@ -297,6 +297,12 @@ codegeex
 方便查看渲染后的pdf/网页/markdown
 缺点：面对跳板机环境不方便
 
+VsCode 1.86 不再支持Ubuntu 18.04
+https://code.visualstudio.com/updates/v1_86
+>
+	In this milestone, we have updated the toolchains to build our desktop client. From this release onwards, VS Code desktop is only compatible with Linux distributions based on glibc 2.28 or later, and glibcxx 3.4.25 or later, such as Debian 10, RHEL 8, or Ubuntu 20.04.
+<
+
 案例：
 《智能计算系统》课程实验，Ubuntu16.04 vim7.4 python2.7
 docker容器，容器内有许多课程独有的基于深度学习处理器（DLP）的依赖，
@@ -305,7 +311,7 @@ docker容器，容器内有许多课程独有的基于深度学习处理器（DL
 4. (neo)vim
 优点：在跳板机环境、临时服务器环境（无插件配置）下比较方便
 缺点：在低版本操作系统中编译安装高版本(neo)vim和插件比较麻烦，不用sshfs时，
-查看渲染后的pdf/网页/markdown比较麻烦，ssh网速慢的时候卡顿严重，
+查看渲染后的pdf/网页/markdown比较麻烦，ssh网速慢的时候卡顿严重。
 某些创业公司的新应用可能优先提供vscode官方插件，不提供vim插件。
 
 5. Jetbrains Fleet

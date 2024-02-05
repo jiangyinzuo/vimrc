@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: single vimrc with vi
+    - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
     - name: install vim
       run: sudo ./install/build_vim_from_source.sh 7.4.1689
@@ -25,3 +25,5 @@ jobs:
       run: vim -E -s -u .vimrc -c "qa!"
     - name: full vimrc
       run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
+    - name: full vimrc with vim.tiny
+      run: vim.tiny -E -s -u .vimrc -c "qa!"
