@@ -59,10 +59,15 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
     - Custom vim configuration file: `~/.vim/config.vim`
 - Single vimrc file: `.vimrc`
     - Custom vim configuration file `~/config_single_vimrc.vim`
-## Install Plugins
+
+## Install Plugins Manually
 
 vim-plug home: `~/plugged`  
 coc home: `~/coc`  
 gadgets home: `~/gadgets`  
 
-You can manually unpack plugins to these home directories.
+You can manually (un)pack them like this:
+```
+cd ~/plugged
+tar -cf plugged.tar fzf LeaderF coc.nvim fzf.vim
+```
