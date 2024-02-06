@@ -8,7 +8,7 @@
 
 vim 9 (full features)  
 vim 8.2.4919 (most of features)  
-vim 7.4 (minimal)  
+vim 7.4.629 (minimal)  
 
 ```bash
 sudo apt install vim-gtk3
