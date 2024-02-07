@@ -197,6 +197,8 @@ if !exists('g:vscode')
 		if v:version >= 900
 			" Alternative: https://github.com/gelguy/wilder.nvim
 			Plug 'girishji/autosuggest.vim'
+			" External cmd is slow.
+			autocmd VimEnter * call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }})
 		endif
 		if v:version >= 802
 			if g:vimrc_use_coc
@@ -251,6 +253,9 @@ if !exists('g:vscode')
 		Plug 'Eliot00/git-lens.vim'
 		let g:GIT_LENS_ENABLED = 0
 	endif
+
+	Plug 'jiangyinzuo/fzf-gitdiff.vim'
+	command! -nargs=* GitDiff call fzf_gitdiff#FillFZF(<f-args>)
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 802

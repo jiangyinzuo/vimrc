@@ -327,9 +327,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 		nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
 		" 打开所有折叠: zR
 
-		if s:has_vimrcd
-			autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=cppfoldexpr#CppFoldExpr(v:lnum)
-		endif
+		autocmd FileType c,cpp,cuda setlocal foldmethod=expr foldexpr=mycpp#FoldExpr(v:lnum)
+		autocmd FileType c,cpp,cuda setlocal completefunc=mycpp#CompleteFunc
 		autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 
 	endif
@@ -337,7 +336,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
-
+	
 	" save
 	inoremap <c-S> <esc>:w<CR>i
 
@@ -440,9 +439,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set cscopeverbose
 		" 先搜索cscope数据库，如果没有再搜索tags
 		set csto=0
-		" This tests to see if vim was configured with the '--enable-cscope' option
-		" when it was compiled.  If it wasn't, time to recompile vim... 
-		
 		""""""""""""" My cscope/vim key mappings
 		" The following maps all invoke one of the following cscope search types:
 		"
@@ -473,10 +469,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 		if g:tag_system == 'cscope'
 			" Reference: https://cscope.sourceforge.net/cscope_maps.vim
 			""""""""""""" Standard cscope/vim boilerplate
-
 			" reset cscope:
 			" :cs reset
-
 			if filereadable("cscope.out")
 			" add any cscope database in current directory
 				cs add cscope.out
@@ -484,7 +478,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" else add the database pointed to by environment variable
 				cs add $CSCOPE_DB
 			endif
-
 		elseif g:tag_system == 'gtags-cscope'
 			set csprg=gtags-cscope
 			if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0

@@ -53,6 +53,7 @@ command! -nargs=0 GitUnstaged call fzf#run(fzf#wrap({'source': 'git ls-files -o 
 " On :LS!, <bang> evaluates to '!', and '!0' becomes 1
 " The query history for this command will be stored as 'ls' inside g:fzf_history_dir.
 " The name is ignored if g:fzf_history_dir is not defined.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 " [[palette]]fzf ls							:LS
 command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))

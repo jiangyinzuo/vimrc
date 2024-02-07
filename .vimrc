@@ -42,7 +42,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	set wildignore=.git/*,build/*,.cache/*
 	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
-
 	" https://www.skywind.me/blog/archives/2021
 	set timeoutlen=3000 " key map 超时时间
 	set ttimeout
@@ -51,7 +50,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
 		set ttimeoutlen=80
 	endif
-
 	set autowrite " 自动保存
 	set scrolloff=7 " 光标离底部或顶部保持7行
 	set hlsearch " Highlight search results
@@ -78,27 +76,22 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set autoindent " 跟随上一行的缩进方式
 	" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
 	" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
-
 	""" default indent
 	" markdown在被默认vim runtime file设置为tabstop=4
 	" :verbose set tabstop? shiftwidth? softtabstop?
 	set tabstop=4 shiftwidth=4 softtabstop=4
-
 	augroup equalprg_filetype
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
 		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 	augroup end
-
 	autocmd FileType c,cpp,cuda,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 	" tex使用空格缩进
 	autocmd FileType tex setlocal expandtab
-
 	if v:version >= 901
 		packadd! editorconfig
 	endif
-
 	" 显示空白字符
 	" https://codepoints.net/U+23B5
 	" set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
@@ -106,20 +99,16 @@ if has('autocmd') " vim-tiny does not have autocmd
 	autocmd FileType man setlocal nolist
 	" Enable :Man command
 	runtime ftplugin/man.vim
-
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20
-
 	if has("nvim-0.5.0") || has("patch-8.1.1564")
 		set signcolumn=number " 合并git状态与行号
 	elseif v:version >= 801
 		set signcolumn=yes " 同时显示git状态和行号
 	endif
-
 	if v:version >= 801
 		set conceallevel=2
-		
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside
 		set autoread
@@ -127,22 +116,17 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
 		autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
 		" Notification after file change
 		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
 	endif
-
 	"""""""""""""""""""""""""""""""
-
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
-
-	""""""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
+	""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=
-
 	if has('nvim') || v:version >= 801
 		autocmd Filetype c,cpp,rust,cuda packadd termdebug
 		autocmd Filetype termdebug setlocal termwinsize=0*10000
@@ -151,7 +135,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 设置一个较大的宽度，防止termdebug gdb窗口折行
 		let g:termdebug_config['wide'] = 1
 	endif
-
 	""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
 	"  open explorer :Ex :Sex :Vex
 	" close explorer :Rex
@@ -167,14 +150,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	let g:netrw_hide = 1 " show not-hidden files
 	let g:netrw_keepdir=0
-
 	" see netrw-v
 	" 新的窗口出现在当前窗口的右边
 	set splitright
 	let g:netrw_altv = 1
 	let g:netrw_winsize = 20
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 	augroup jump_to_symbol
 		autocmd!
 		" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
@@ -225,7 +206,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let lines[0] = lines[0][column_start - 1:]
 		return join(lines, "\n")
 	endfunction
-
 	function ShowQuickfixListIfNotEmpty()
 		let length = len(getqflist())
 		if length > 1
@@ -237,7 +217,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			echo 'empty quickfix list'
 		endif
 	endfunction
-
 	function FindWord(word)
 		if &filetype == 'c' || &filetype == 'cpp' || &filetype == 'cuda'
 			let l:extension = '**/*.c* **/*.h*'
@@ -248,7 +227,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		exe 'vimgrep /\<'.a:word.'\>/ ' . l:extension
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-
 	function FindType(word)
 		" <pattern>: 匹配整个单词
 		if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
@@ -263,7 +241,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-
 	function FindDefinitionFunction(word)
 		if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
 			exe 'vimgrep' '/\<'.a:word.'\s*(/ **/*.c* **/*.h*'
@@ -277,7 +254,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-
 	function Ripgrep(args)
 		cexpr system('rg --vimgrep ' . a:args)
 		call ShowQuickfixListIfNotEmpty()
@@ -295,7 +271,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set errorformat=%f:%l:%m
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-
 	function! ToggleQuickfix()
 		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
 			copen
@@ -303,7 +278,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			cclose
 		endif
 	endfunction
-
 	function SystemToQf(args)
 		cexpr system(a:args)
 		call ShowQuickfixListIfNotEmpty()
@@ -312,18 +286,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 	nnoremap <silent> <leader>vw :call FindWord(expand("<cword>"))<CR>
 	vnoremap <silent> <leader>vw :call FindWord(GetVisualSelection())<CR>
 	command! -nargs=1 VimWord call FindWord(<q-args>)
-
 	nnoremap <silent> <leader>vy :call FindType(expand("<cword>"))<CR>
 	vnoremap <silent> <leader>vy :call FindType(GetVisualSelection())<CR>
 	command! -nargs=1 VimType call FindType(<q-args>)
-
 	nnoremap <silent> <leader>vd :call FindDefinitionFunction(expand("<cword>"))<CR>
 	vnoremap <silent> <leader>vd :call FindDefinitionFunction(GetVisualSelection())<CR>
 	command! -nargs=1 VimDef call FindDefinitionFunction(<q-args>)
-
 	command! -nargs=1 SystemFindFiles call FindFiles(<q-args>)
 	command! -nargs=1 SystemRg call Ripgrep(<q-args>)
-
 	noremap ]q :call ToggleQuickfix()<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
@@ -341,7 +311,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" Example:
 	" :e+22 ~/.vimrc
 	command! -nargs=0 VimExeLine exe getline(".")
-
 	if v:version >= 740 || &readonly == 0
 		set mouse=a
 		if !has('nvim') && has('unix') && exists('$TMUX')
@@ -364,17 +333,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 				let b:cpp_fold_level = 0
 				let b:last_primitive = ''
 			endif
-
 			let open_braces = len(split(line, '{', 1)) - 1
 			let close_braces = len(split(line, '}', 1)) - 1
-			
 			if b:last_primitive == 'if'
 				let b:cpp_fold_level += 1
 			elseif b:last_primitive == 'end'
 				let b:cpp_fold_level -= 1
 			endif
 			let b:last_primitive = ''
-			
 			if line =~ '^\s*#\s*\(ifdef\|ifndef\|if\)' || open_braces > close_braces
 				let b:cpp_fold_level += 1
 				let b:last_primitive = 'if'
@@ -386,24 +352,20 @@ if has('autocmd') " vim-tiny does not have autocmd
 				let b:cpp_fold_level -= 1
 				return b:cpp_fold_level
 			endif
-
 			return b:cpp_fold_level
 		endfunction
 		autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
 		autocmd FileType python,vim,lua,go,markdown,sh,tex setlocal foldmethod=indent
 	endif
-
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
 	" save
 	inoremap <c-S> <esc>:w<CR>i
-
 	if has("autocmd") && exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
-
 	function! MyCppCompleteFunc(findstart, base)
 		if a:findstart
 			" 确定补全开始的位置
@@ -417,7 +379,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			endif
 			return start + 1
 		endif
-
 		if getline('.') =~# &include
 			let filetype = &filetype
 			if filetype == 'cpp' || filetype == 'cuda'
@@ -467,16 +428,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 		else
 			set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-
 		endif
-
 		" show msg when any other cscope db added
 		set cscopeverbose
 		" 先搜索cscope数据库，如果没有再搜索tags
 		set csto=0
-		" This tests to see if vim was configured with the '--enable-cscope' option
-		" when it was compiled.  If it wasn't, time to recompile vim... 
-		
 		""""""""""""" My cscope/vim key mappings
-		"
 		" The following maps all invoke one of the following cscope search types:
 		"
 		"   's'   symbol: find all references to the token under cursor
@@ -488,7 +444,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		"   'i'   includes: find files that include the filename under cursor
 		"   'd'   called: find functions that function under cursor calls
 		"   'a'   assigned: find places where this symbol is assigned a value
-
 		" <C-R>= ... <CR> 用于计算表达式（如2+2， expand("<cword>")等），并将结果插入到命令行中
 		nnoremap <leader>cs :cs find s <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <leader>cg :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -499,18 +454,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 		nnoremap <leader>ci :cs find i <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <leader>cd :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <leader>ca :cs find a <C-R>=expand("<cword>")<CR><CR>
-
 		" 分裂窗口显示搜索结果
 		" nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
 		" nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-
 		if g:tag_system == 'cscope'
 			" Reference: https://cscope.sourceforge.net/cscope_maps.vim
 			""""""""""""" Standard cscope/vim boilerplate
-
 			" reset cscope:
 			" :cs reset
-
 			" add any cscope database in current directory
 			if filereadable("cscope.out")
 				cs add cscope.out
@@ -518,7 +469,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			elseif $CSCOPE_DB != ""
 				cs add $CSCOPE_DB
 			endif
-
 		elseif g:tag_system == 'gtags-cscope'
 			set csprg=gtags-cscope
 			if filereadable('GTAGS')
@@ -526,7 +476,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			endif
 		endif
 	endif
-
 	if filereadable(expand("~/config_single_vimrc.vim"))
 		source $HOME/config_single_vimrc.vim
 	endif

@@ -27,4 +27,4 @@ jobs:
     - name: full vimrc
       run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
     - name: full vimrc with vim.tiny
-      run: vim.tiny -E -s -u .vimrc -c "qa!"
+      run: vim.tiny -E -s -c "qa!"
