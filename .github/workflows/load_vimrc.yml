@@ -13,7 +13,7 @@ on:
       - '**/*.txt'
 
 jobs:
-  load_vimrc:
+  load_vimrc_in_vim7_4:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -22,6 +22,20 @@ jobs:
     - name: install vim
       # CentOS 7.1 uses Vim 7.4.629
       run: sudo ./install/build_vim_from_source.sh 7.4.629
+    - name: single vimrc
+      run: vim -E -s -u .vimrc -c "qa!"
+    - name: full vimrc
+      run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
+    - name: full vimrc with vim.tiny
+      run: vim.tiny -E -s -c "qa!"
+  load_vimrc_in_latest_vim:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: single vimrc with vim.tiny
+      run: vim.tiny -E -s -u .vimrc -c "qa!"
+    - name: install vim
+      run: sudo ./install/build_vim_from_source.sh
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
     - name: full vimrc
