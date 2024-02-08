@@ -259,6 +259,9 @@ if !exists('g:vscode')
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 802
+		Plug 'skywind3000/vim-quickui'
+		let g:quickui_color_scheme = 'system'
+		let g:quickui_context = [['hello', 'echo "hello world!"']]
 		Plug 'pechorin/any-jump.vim'
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
