@@ -198,7 +198,7 @@ if !exists('g:vscode')
 			" Alternative: https://github.com/gelguy/wilder.nvim
 			Plug 'girishji/autosuggest.vim'
 			" External cmd is slow.
-			autocmd VimEnter * call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }})
+			autocmd VimEnter * if exists('g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }}) | endif
 		endif
 		if v:version >= 802
 			if g:vimrc_use_coc
