@@ -196,7 +196,12 @@ $ gh copilot explain "traceroute github.com"
 
 -------------------------------------------------------------------------------
 
-统计代码行数 cloc $(git ls-files)
+*cloc* 统计代码行数
+>
+	cloc $(git ls-files)
+	cloc .
+<
+
 显示当前用户登录状态 finger
 对话框 dialog
 
