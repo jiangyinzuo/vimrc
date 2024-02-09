@@ -37,8 +37,22 @@ function! s:find_git_root()
 	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
+" 不要让fzf.vim帮我们定义:Files, :History
+command -bang -nargs=? -complete=dir Files
+	\ call fzf#vim#files(<q-args>, {'options': ['--info=inline', '--preview', '$VIMRC_ROOT/scripts/preview.sh {}']}, <bang>0)
+function! s:history(arg, bang)
+	let bang = a:bang || a:arg[len(a:arg)-1] == '!'
+	if a:arg[0] == ':'
+		call fzf#vim#command_history(bang)
+	elseif a:arg[0] == '/'
+		call fzf#vim#search_history(bang)
+	else
+		call fzf#vim#history({'options': ['--info=inline', '--preview', '$VIMRC_ROOT/scripts/preview.sh {}']}, bang)
+	endif
+endfunction
+command -bang -nargs=* History call s:history(<q-args>, <bang>0)
 " [[palette]]FZF搜索当前项目目录下的文件并打开			:Files
-command! ProjectFiles execute 'Files' asyncrun#current_root()
+command -nargs=0 ProjectFiles execute 'Files' asyncrun#current_root()
 
 command! -nargs=0 GitUnmergedRaw call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': 'e'}))
 command! -nargs=0 GitUnmerged call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf_custom#fzf#mergetool_start')}))

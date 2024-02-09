@@ -25,6 +25,13 @@ local fb_actions = require "telescope._extensions.file_browser.actions"
 local telescope = require("telescope")
 telescope.setup({
 	extensions = {
+		 media_files = {
+			 -- filetypes whitelist
+			 -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+			 filetypes = {"png", "webp", "jpg", "jpeg"},
+			 -- find command (defaults to `fd`)
+			 find_cmd = "fd"
+		 },
 		file_browser = {
 			hijack_netrw = false,
 			depth = false,
@@ -52,6 +59,7 @@ telescope.setup({
 -- To get telescope-file-browser loaded and working with telescope,
 -- you need to call load_extension, somewhere after setup function:
 telescope.load_extension "file_browser"
+telescope.load_extension "media_files"
 
 require("mason").setup {
 	ui = {

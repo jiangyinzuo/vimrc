@@ -7,6 +7,7 @@ Plug 'voldikss/fzf-floaterm'
 let g:floaterm_opener = 'vsplit'
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
+" imap中F12被映射为UltiSnipsExpandTrigger, see plugin.vim
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_title='<F8> kill | <F9> new | <F10> prev | <F11> next | <F12> toggle ($1/$2)'
 " 在floaterm中才会生效的快捷键

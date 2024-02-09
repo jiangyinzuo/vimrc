@@ -1,5 +1,3 @@
-"""""""""""""""""""""""""" Plugin Config """""""""""""""""""""""""""""
-
 function Cond(cond, ...)
 	let opts = get(a:000, 0, {})
 	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
@@ -12,15 +10,6 @@ endfunction
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(g:vim_plug_dir)
-
-" Test framework
-" Plug 'junegunn/vader.vim'
-
-" Test wrapper
-Plug 'vim-test/vim-test'
-let test#strategy = "asyncrun_background_term"
-let test#python#pytest#executable = 'python3 -m pytest'
-let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
 " similar Plugin: Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
@@ -64,6 +53,15 @@ if has('nvim') || v:version >= 801
 endif
 
 if !exists('g:vscode')
+	" Test framework
+	" Plug 'junegunn/vader.vim'
+
+	" Test wrapper
+	Plug 'vim-test/vim-test'
+	let test#strategy = "asyncrun_background_term"
+	let test#python#pytest#executable = 'python3 -m pytest'
+	let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
+
 	Plug 'mbbill/undotree'
 	Plug 'aperezdc/vim-template'
 	let g:templates_no_builtin_templates = 1
@@ -111,6 +109,7 @@ if !exists('g:vscode')
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
 		" 这样的补全，使用F12
+		" nmap中F12被映射为打开终端, see floaterm.vim
 		let g:UltiSnipsExpandTrigger="<f12>"
 
 		" modify some snippets
@@ -153,41 +152,7 @@ if !exists('g:vscode')
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 	if has('nvim') && !g:nvim_compatibility_with_vim
-		" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-		Plug 'nvim-lualine/lualine.nvim'
-		" If you want to have icons in your statusline choose one of these
-		Plug 'kyazdani42/nvim-web-devicons'
-		Plug 'linrongbin16/lsp-progress.nvim'
-
-		Plug 'williamboman/mason.nvim'
-		Plug 'neovim/nvim-lspconfig'
-		" JSON schema
-		" Plug 'b0o/schemastore.nvim'  
-		" Plug 'jose-elias-alvarez/null-ls.nvim'
-		Plug 'simrat39/rust-tools.nvim'
-		Plug 'p00f/clangd_extensions.nvim'
-		Plug 'simrat39/symbols-outline.nvim'
-		Plug 'mfussenegger/nvim-dap'
-		Plug 'rcarriga/nvim-dap-ui'
-		Plug 'theHamsta/nvim-dap-virtual-text'
-		Plug 'folke/neodev.nvim'
-
-		Plug 'SmiteshP/nvim-navic'
-
-		Plug 'nvim-lua/plenary.nvim'
-		Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-		Plug 'nvim-telescope/telescope-file-browser.nvim'
-
-		" completion(use ultisnips)
-		Plug 'hrsh7th/cmp-nvim-lsp'
-		Plug 'hrsh7th/cmp-buffer'
-		Plug 'hrsh7th/cmp-path'
-		Plug 'hrsh7th/cmp-cmdline'
-		Plug 'hrsh7th/nvim-cmp'
-
-		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+		source ~/.vim/vimrc.d/plugin_nvim.vim
 	else
 		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 		Plug 'dracula/vim', { 'as': 'dracula' }
@@ -263,6 +228,10 @@ if !exists('g:vscode')
 		let g:quickui_color_scheme = 'system'
 		let g:quickui_context = [['hello', 'echo "hello world!"']]
 		Plug 'pechorin/any-jump.vim'
+		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
+		" See:
+		" https://github.com/vim/vim/pull/9639
+		" https://github.com/vim/vim/releases/tag/v9.1.0064
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
 	
@@ -335,8 +304,7 @@ if !exists('g:vscode')
 	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
 	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
 	"""
-
-endif
+endif " !exists('g:vscode')
 
 " Initialize plugin system
 call plug#end()

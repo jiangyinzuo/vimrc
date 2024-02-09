@@ -163,10 +163,36 @@ pdf转text: pdftotext
 
 json: jq
 补全父目录 -> bd
-终端查看图片:
-- timg
-    - echo "set terminal png; plot sin(x);" | gnuplot | timg -pi -
+
+-------------------------------------------------------------------------------
+*image* 终端查看图片
+
+- *timg*
+>
+	echo "set terminal png; plot sin(x);" | gnuplot | timg -pi -
+	timg -pi kiga.jpg
+<
 - cmd.exe /c wezterm imgcat
+
+*wezterm-ssh*
+Sixel协议: 在WSL中，需要wezterm ssh root@172.22.240.192，才能让sixel协议生效
+- img2sixel kiga.jpg
+
+wayland:
+- swayimg kiga.jpg (https://github.com/artemsen/swayimg)
+
+X11:
+- feh kiga.jpg
+- sxiv kiga.jpg
+
+uwberzug:
+- https://github.com/jstkdng/ueberzugpp
+- https://github.com/ueber-devel/ueberzug
+
+*chafa* https://hpjansson.org/chafa/
+- chafa kiga.jpg
+
+-------------------------------------------------------------------------------
 
 翻译 https://github.com/afc163/fanyi#error-spawn-festival-enoent
 
@@ -180,6 +206,13 @@ json: jq
 |clang-format|
 
 *neofetch* 查看系统信息
+*onefetch* 查看git项目信息
+https://github.com/o2sh/onefetch
+https://onefetch.dev/
+>
+	onefetch --include-hidden
+<
+
 -------------------------------------------------------------------------------
 
 *github-copilot-cli*
