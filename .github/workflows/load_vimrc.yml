@@ -42,3 +42,11 @@ jobs:
       run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
     - name: full vimrc with vim.tiny
       run: vim.tiny -E -s -c "qa!"
+    - name: vim noplugin
+      run: vim --noplugin -E -s -c "qa!"
+    - name: vim -u NONE
+      run: vim -u NONE -E -s -c "qa!"
+    - name: vim -u NORC
+      run: vim -u NORC -E -s -c "qa!"
+    - name: vim -u DEFAULTS
+      run: vim -u DEFAULTS -E -s -c "qa!"

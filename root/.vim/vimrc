@@ -141,7 +141,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 
 	" plugin.vim 可能会改变g:no_plug的值
-	let g:no_plug = (glob(g:vim_plug_dir) == "")
+	let g:no_plug = (glob(g:vim_plug_dir) == "") || &loadplugins == 0
 	if exists("g:vscode")
 		let g:loaded_netrw = 1
 		let g:loaded_netrwPlugin = 1
@@ -336,7 +336,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
-	
+
 	" save
 	inoremap <c-S> <esc>:w<CR>i
 
@@ -348,15 +348,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 		helptags ~/.vim/doc
 	endif
 
-	if s:has_vimrcd
+	if s:has_vimrcd && &loadplugins
 		source ~/.vim/vimrc.d/plugin.vim
 	endif
 
+	if exists("+omnifunc")
+		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+	endif
 	if g:no_plug
 		" https://zhuanlan.zhihu.com/p/106309525
-		if exists("+omnifunc")
-			autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-		endif
 		autocmd FileType c,cpp,cuda setlocal completefunc=noplug#MyCppCompleteFunc
 	endif
 
