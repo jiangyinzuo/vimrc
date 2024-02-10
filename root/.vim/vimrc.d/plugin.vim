@@ -220,7 +220,13 @@ if !exists('g:vscode')
 	endif
 
 	Plug 'jiangyinzuo/fzf-gitdiff.vim'
-	command! -nargs=* GitDiff call fzf_gitdiff#FillFZF(<f-args>)
+	if v:version >= 901
+		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
+		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
+	else
+		command! -nargs=* GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
+		command! -nargs=* GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
+	endif
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 802
