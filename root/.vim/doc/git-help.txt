@@ -92,19 +92,39 @@ git commit --amend                                      *git-commit-amend*
 amend同时修改日期 >
   git commit --amend --date=now
 <
+-------------------------------------------------------------------------------
+                                                     *git-reflog*
+
+git reflog用于查看所有历史git log，可以帮忙找回不慎丢失的commit。
+
+git reflog 的清理（过期）基于两个主要的配置设置：
+
+gc.reflogExpire：控制引用日志（reflog）条目的保留时间，默认为 90 天。此设置适用于除 HEAD 外的所有引用。
+
+gc.reflogExpireUnreachable：控制不可达引用日志条目的保留时间，默认为 30 天
+"不可达" 指的是那些从当前分支的最新提交无法达到的提交。
+对于 HEAD 引用，这个设置通常更加严格，因为 HEAD 更有可能被频繁地改变。
 
 -------------------------------------------------------------------------------
 git reset                                             *git-reset*
 
 |git合并commit|
 
-'git reset --soft <commit_hash>' 用于将 HEAD 指针移动到指定的提交，
-并将该提交后的所有提交放回暂存区。'<commit_hash>' 是你想要回滚到的提交的哈希值。
+git reset 用于回滚到历史commit。
+                                                 *git-reset-soft*
+'git reset --soft <commit>'
+将HEAD指针移动到<commit>，丢弃原本的commit，文件更改放到staged area。
 
-'git reset <commit_hash>' : 将所有提交放回unstaged area.
+'git reset <commit>'
+将HEAD指针移动到<commit>，丢弃原本的commit，文件更改放到unstaged area。
 
-如果你不小心使用了 'git reset HEAD~3' 并希望恢复，你可以使用 'git reflog' 查找到你
-想要恢复的提交的哈希值，然后使用 'git reset --hard <commit_hash>' 来恢复。
+                                                 *git-reset-hard*
+'git reset --hard <commit>'
+将HEAD指针移动到<commit>，丢弃原本的commit，丢弃文件更改(不可逆)。
+
+如果不小心使用了 'git reset HEAD~3' 并希望恢复:
+1. 'git reflog' 查找想要恢复的<commit>
+2. 'git reset --hard <commit>' 恢复commit。
 
 -------------------------------------------------------------------------------
 git checkout                                        *git-checkout*
