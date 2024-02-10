@@ -10,6 +10,9 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+
+#################################################
+# See: https://github.com/samoshkin/vim-mergetool
 [merge]
 	# tool = vimdiff
 	tool = vim_mergetool
@@ -22,6 +25,7 @@
 	# When trustExitCode = false, checks if MERGED file was modified.
 	trustExitCode = true
 	prompt = false
+#################################################
 
 [includeIf "gitdir:/mnt/d/doc2/group-meeting/"]
 	path = ~/.gitconfig-ict

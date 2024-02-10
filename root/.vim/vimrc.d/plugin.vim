@@ -83,7 +83,7 @@ if !exists('g:vscode')
 	else
 		Plug 'editorconfig/editorconfig-vim'
 	endif
-	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
 	au FileType gitcommit let b:EditorConfig_disable = 1
 	" vim-sleuth does not behave as expected.
 	" Plug 'tpope/vim-sleuth'
@@ -143,6 +143,8 @@ if !exists('g:vscode')
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
 	Plug 'samoshkin/vim-mergetool'
+
+	let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCallback')
 
 	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim'
@@ -220,10 +222,13 @@ if !exists('g:vscode')
 	endif
 
 	Plug 'jiangyinzuo/fzf-gitdiff.vim'
+
 	if v:version >= 901
+		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiffOpenAll call fzf_gitdiff#OpenAllDiffs(<f-args>)
 		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
 		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
 	else
+		command! -nargs=* GitDiffOpenAll call fzf_gitdiff#OpenAllDiffs(<f-args>)
 		command! -nargs=* GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
 		command! -nargs=* GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
 	endif
