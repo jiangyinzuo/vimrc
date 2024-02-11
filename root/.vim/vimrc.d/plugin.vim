@@ -221,23 +221,33 @@ if !exists('g:vscode')
 		let g:GIT_LENS_ENABLED = 0
 	endif
 
-	Plug 'jiangyinzuo/fzf-gitdiff.vim'
+	Plug 'jiangyinzuo/open-gitdiff.vim'
+	let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$']
+	let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
 
+	let command_def = 'command -nargs=* '
 	if v:version >= 901
-		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiffOpenAll call fzf_gitdiff#OpenAllDiffs(<f-args>)
-		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
-		command! -nargs=* -complete=custom,fzf_gitdiff_comp#Complete GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
-	else
-		command! -nargs=* GitDiffOpenAll call fzf_gitdiff#OpenAllDiffs(<f-args>)
-		command! -nargs=* GitDiff call fzf_gitdiff#FillFZF('tabnew', <f-args>)
-		command! -nargs=* GitDiffEdit call fzf_gitdiff#FillFZF('enew', <f-args>)
+			" open_gitdiff#comp#Complete is implemented with vim9class
+			let command_def .= '-complete=custom,open_gitdiff#comp#Complete '
 	endif
+	exe command_def . 'GitDiffAll call open_gitdiff#OpenAllDiffs(<f-args>)'
+	exe command_def . 'GitDiffThisTab call open_gitdiff#OpenDiff("tabnew", <f-args>)'
+	exe command_def . 'GitDiffThis call open_gitdiff#OpenDiff("enew", <f-args>)'
+
+	exe command_def . 'FZFGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#fzf#view"), <f-args>)'
+	exe command_def . 'FZFGitDiff call open_gitdiff#select("enew", function("open_gitdiff#fzf#view"), <f-args>)'
+
+	exe command_def . 'QuickUIGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
+	exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
+
+	exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	if has('nvim') || v:version >= 802
 		Plug 'skywind3000/vim-quickui'
 		let g:quickui_color_scheme = 'system'
 		let g:quickui_context = [['hello', 'echo "hello world!"']]
+		let g:quickui_border_style = 2
 		Plug 'pechorin/any-jump.vim'
 		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
 		" See:
@@ -255,7 +265,15 @@ if !exists('g:vscode')
 		source ~/.vim/vimrc.d/floaterm.vim
 	endif
 	source ~/.vim/vimrc.d/ai.vim
-	source ~/.vim/vimrc.d/cpp.vim
+	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp']}
+	" Enable function highlighting (affects both C and C++ files)
+	let g:cpp_function_highlight = 1
+	" Enable highlighting of C++11 attributes
+	let g:cpp_attributes_highlight = 1
+	" Highlight struct/class member variables (affects both C and C++ files)
+	let g:cpp_member_highlight = 1
+	" Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
+	let g:cpp_simple_highlight = 1
 	source ~/.vim/vimrc.d/golang.vim
 	source ~/.vim/vimrc.d/java.vim
 

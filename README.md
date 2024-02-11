@@ -64,8 +64,8 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 
 ## Install Plugins Manually
 
-vim-plug home: `~/plugged`  
-coc home: `~/coc`  
+vim-plug home: `~/plugged`, run `:PlugInstall`. `PlugInstall` can also update helptags for plugins.  
+coc home: `~/coc`, run `:CocInstall`.  
 gadgets home: `~/gadgets`  
 
 You can manually (un)pack them like this:

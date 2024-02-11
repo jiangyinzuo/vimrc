@@ -1,7 +1,8 @@
 function s:ShowQuickfixListIfNotEmpty()
 	let length = len(getqflist())
 	if length > 1
-		copen
+		let height = length > 7 ? 7 : length
+		exe 'copen ' . height
 	elseif length == 1
 		copen
 		ccl
@@ -50,27 +51,12 @@ function noplug#FindDefinitionFunction(word)
 	call s:ShowQuickfixListIfNotEmpty()
 endfunction
 
-function noplug#Ripgrep(args)
-	cexpr system('rg --vimgrep ' . a:args)
-	call s:ShowQuickfixListIfNotEmpty()
-endfunction
-
-" Reference: vim.fandom.com/wiki/Searching_for_files
-" find files and populate the quickfix list
-" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
-" :new 开新的window
-" :edit 在当前buffer
-" :open 无法使用通配符，不能使用wildmode
-" :next 可以打开多个文件
-function noplug#FindFiles(filename)
-	cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
-	set errorformat=%f:%l:%m
-	call s:ShowQuickfixListIfNotEmpty()
-endfunction
-
-function! noplug#ToggleQuickfix()
+function noplug#ToggleQuickfix()
 	if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-		copen
+		let length = len(getqflist())
+		let height = length > 7 ? 7 : length
+		let height = length < 2 ? 2 : length
+		exe 'copen ' . height
 	else
 		cclose
 	endif

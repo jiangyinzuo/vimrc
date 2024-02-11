@@ -209,7 +209,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	function ShowQuickfixListIfNotEmpty()
 		let length = len(getqflist())
 		if length > 1
-			copen
+			let height = length > 7 ? 7 : length
+			exe 'copen ' . height
 		elseif length == 1
 			copen
 			ccl
@@ -254,26 +255,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-	function Ripgrep(args)
-		cexpr system('rg --vimgrep ' . a:args)
-		call ShowQuickfixListIfNotEmpty()
-	endfunction
-
-	" Reference: vim.fandom.com/wiki/Searching_for_files
-	" find files and populate the quickfix list
-	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
-	" :new 开新的window
-	" :edit 在当前buffer
-	" :open 无法使用通配符，不能使用wildmode
-	" :next 可以打开多个文件
-	function FindFiles(filename)
-		cexpr system('find . -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/"')
-		set errorformat=%f:%l:%m
-		call ShowQuickfixListIfNotEmpty()
-	endfunction
-	function! ToggleQuickfix()
+	function ToggleQuickfix()
 		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-			copen
+			let length = len(getqflist())
+			let height = length > 7 ? 7 : length
+			let height = length < 2 ? 2 : length
+			exe 'copen ' . height
 		else
 			cclose
 		endif
@@ -292,8 +279,16 @@ if has('autocmd') " vim-tiny does not have autocmd
 	nnoremap <silent> <leader>vd :call FindDefinitionFunction(expand("<cword>"))<CR>
 	vnoremap <silent> <leader>vd :call FindDefinitionFunction(GetVisualSelection())<CR>
 	command! -nargs=1 VimDef call FindDefinitionFunction(<q-args>)
-	command! -nargs=1 SystemFindFiles call FindFiles(<q-args>)
-	command! -nargs=1 SystemRg call Ripgrep(<q-args>)
+	" Reference: vim.fandom.com/wiki/Searching_for_files
+	" find files and populate the quickfix list
+	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
+	" :new 开新的window
+	" :edit 在当前buffer
+	" :open 无法使用通配符，不能使用wildmode
+	" :next 可以打开多个文件
+	command! -nargs=1 SystemFindFiles call SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
+
+	command! -nargs=1 SystemRg call SystemToQf('rg --vimgrep ' . <q-args>)
 	noremap ]q :call ToggleQuickfix()<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
