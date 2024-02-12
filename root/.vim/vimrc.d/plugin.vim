@@ -200,6 +200,7 @@ if !exists('g:vscode')
 							\    'vimspectorPCBP':        999,
 							\ }
 			endif
+			Plug 'jiangyinzuo/term-debugger'
 		endif
 		if v:version >= 800
 			source ~/.vim/vimrc.d/leaderf.vim
