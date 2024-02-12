@@ -9,8 +9,10 @@
 <
 
 
-*ssh免yes登录* *scp免yes登录*
-ssh <hostname> -o strictHostKeyChecking=no
+*ssh免yes登录* *scp免yes登录* *ssh-strict-hostkey-checking*
+用于第一次批量登录大量服务器
+
+sudo ssh <hostname> -o strictHostKeyChecking=no
 
 *sshpass免密码登录*
 sshpass -f password_file ssh <hostname>
