@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DB=$DOC2/daily/daily.sqlite3
+DB=$DOC2/chunqiu/daily.sqlite3
 
 usage() {
 	echo "DB: $DB"
