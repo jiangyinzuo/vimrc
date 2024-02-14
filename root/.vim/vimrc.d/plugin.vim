@@ -75,7 +75,6 @@ if !exists('g:vscode')
 	vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
 	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
-	Plug 'preservim/vimux'
 	" Remove ~/.vim/autoload/detect_indent.vim
 	" Since: v0.12.0
 	if v:version >= 901
@@ -106,6 +105,7 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-characterize'
 
 	if has('nvim') || v:version >= 800
+		Plug 'preservim/vimux'
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
 		" 这样的补全，使用F12
