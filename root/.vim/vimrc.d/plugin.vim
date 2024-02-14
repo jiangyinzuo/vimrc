@@ -147,18 +147,18 @@ if !exists('g:vscode')
 	let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCallback')
 
 	Plug 'godlygeek/tabular'
-	Plug 'axvr/org.vim'
-	Plug 'rust-lang/rust.vim'
-	Plug 'kaarmu/typst.vim'
+	Plug 'axvr/org.vim', { 'for': 'org' }
+	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+	Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 	" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 	if has('nvim') && !g:nvim_compatibility_with_vim
 		source ~/.vim/vimrc.d/plugin_nvim.vim
 	else
-		Plug 'nordtheme/vim', { 'as': 'nordtheme' }
-		Plug 'dracula/vim', { 'as': 'dracula' }
-		Plug 'tomasiser/vim-code-dark'
+		" Plug 'nordtheme/vim', { 'as': 'nordtheme' }
+		" Plug 'dracula/vim', { 'as': 'dracula' }
+		" Plug 'tomasiser/vim-code-dark'
 		" Plug 'morhetz/gruvbox'
 
 		if v:version >= 900
@@ -244,27 +244,6 @@ if !exists('g:vscode')
 	exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 
 	" Plug 'MattesGroeger/vim-bookmarks'
-	if has('nvim') || v:version >= 802
-		Plug 'skywind3000/vim-quickui'
-		let g:quickui_color_scheme = 'system'
-		let g:quickui_context = [['hello', 'echo "hello world!"']]
-		let g:quickui_border_style = 2
-		Plug 'pechorin/any-jump.vim'
-		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
-		" See:
-		" https://github.com/vim/vim/pull/9639
-		" https://github.com/vim/vim/releases/tag/v9.1.0064
-		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-		" vnoremap <leader>c :OSCYank<CR>
-	
-		" require +job
-		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-		let g:pydocstring_doq_path = 'doq'
-		let g:pydocstring_formatter = 'numpy'
-	endif
-	if has('terminal')
-		source ~/.vim/vimrc.d/floaterm.vim
-	endif
 	source ~/.vim/vimrc.d/ai.vim
 	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp']}
 	" Enable function highlighting (affects both C and C++ files)
@@ -300,14 +279,31 @@ if !exists('g:vscode')
 	autocmd FileType tex let g:PasteImageFunction = 'g:LatexPasteImage'
 	autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
-	source ~/.vim/vimrc.d/markdown.vim
 	if has('nvim') || v:version >= 802
+		Plug 'skywind3000/vim-quickui'
+		let g:quickui_color_scheme = 'system'
+		let g:quickui_context = [['hello', 'echo "hello world!"']]
+		let g:quickui_border_style = 2
+		Plug 'pechorin/any-jump.vim'
+		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
+		" See:
+		" https://github.com/vim/vim/pull/9639
+		" https://github.com/vim/vim/releases/tag/v9.1.0064
+		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+		" vnoremap <leader>c :OSCYank<CR>
+	
+		" require +job
+		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+		let g:pydocstring_doq_path = 'doq'
+		let g:pydocstring_formatter = 'numpy'
+		source ~/.vim/vimrc.d/floaterm.vim
 		source ~/.vim/vimrc.d/fzf.vim
 		source ~/.vim/vimrc.d/jupyter.vim
+		source ~/.vim/vimrc.d/markdown.vim
+		source ~/.vim/vimrc.d/latex.vim
+		source ~/.vim/vimrc.d/asynctasks.vim
 	endif
-	Plug 'whonore/Coqtail'
-	source ~/.vim/vimrc.d/latex.vim
-	source ~/.vim/vimrc.d/asynctasks.vim
+	Plug 'whonore/Coqtail', { 'for': 'coq' }
 
 	" codenote.vim depends on fzf.vim
 	source ~/.vim/vimrc.d/codenote.vim

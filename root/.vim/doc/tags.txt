@@ -37,3 +37,17 @@ ctags生成python tag `ctags --language-force=python hello.py`
   global -s -rx println!
   global -d -rx Foo
 <
+
+*gtags-cscope*
+
+可以在本地.project.vim/.vimrc中添加
+>
+	augroup GlobalCscope
+		autocmd!
+		" 自动加载gtags db
+		autocmd VimEnter * call tagsystem#GtagsCscopeAdd()
+	augroup END
+	" 不使用global官方gtags-cscope vimscript
+	" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+	" source ~/.vim/vimrc.d/gtags-cscope.vim
+<

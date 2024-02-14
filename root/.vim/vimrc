@@ -487,16 +487,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			endif
 		elseif g:tag_system == 'gtags-cscope'
 			set csprg=gtags-cscope
-			if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
-				augroup GlobalCscope
-					autocmd!
-					" 自动加载gtags db
-					autocmd VimEnter * call tagsystem#GtagsCscopeAdd()
-				augroup END
-				" 不使用global官方gtags-cscope vimscript
-				" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
-				" source ~/.vim/vimrc.d/gtags-cscope.vim
-			endif
 		endif
 		if s:has_vimrcd && exists('g:plugs') && g:no_plug == 0
 			let g:Gtags_Auto_Update = 1

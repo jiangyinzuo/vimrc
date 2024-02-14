@@ -1,3 +1,4 @@
+" :h gtags-cscope
 function tagsystem#GtagsCscopeAdd()
 	let l:project_root = asyncrun#current_root()
 	if l:project_root != $HOME && l:project_root != ''
