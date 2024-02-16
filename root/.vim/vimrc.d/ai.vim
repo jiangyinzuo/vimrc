@@ -48,9 +48,11 @@ if has('nvim') || v:version >= 900
 endif
 
 if has('python3')
-	Plug 'madox2/vim-ai', { 'do': 'sed -i \"s/api.openai.com/api.aiproxy.io/g\" py/chat.py py/complete.py ' }
+	let g:openai_proxy_url = get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions')
+	Plug 'madox2/vim-ai'
 	let g:vim_ai_chat = {
 				\  "options": {
+				\    "endpoint_url": g:openai_proxy_url,
 				\    "model": "gpt-4",
 				\    "max_tokens": 1000,
 				\    "temperature": 1,
@@ -66,10 +68,10 @@ if has('python3')
 				\    "paste_mode": 1,
 				\  },
 				\}
-
 	let g:vim_ai_edit = {
 				\  "engine": "chat",
 				\  "options": {
+				\    "endpoint_url": g:openai_proxy_url,
 				\    "model": "gpt-4",
 				\    "max_tokens": 1000,
 				\    "temperature": 1,
@@ -80,18 +82,8 @@ if has('python3')
 				\    "paste_mode": 1,
 				\  },
 				\}
-
 	let g:vim_ai_complete = g:vim_ai_edit
 
-	function AIRunWithInitialPrompt(func, prompt, range, ...) range
-		let l:config = {
-					\  "options": {
-					\    "initial_prompt": ">>> system\n" . a:prompt,
-					\  },
-					\}
-		let l:prompt = a:0 ? a:1 : ''
-		call call(a:func, [a:range, l:config, l:prompt])
-	endfunction
-	command! -range -nargs=? AITranslate <line1>,<line2>call AIRunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
-	command! -range -nargs=? AIPolish <line1>,<line2>call AIRunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)
+	command! -range -nargs=? AITranslate <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
+	command! -range -nargs=? AIPolish <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)
 endif
