@@ -52,7 +52,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	filetype indent on
 	filetype plugin on
-
 	syntax on "语法高亮显示
 
 	set encoding=utf-8
@@ -187,17 +186,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 
 	"""""""""""""""""""""""""""""""
-
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
-
 	""""""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=
 
 	if has('nvim') || v:version >= 801
-		autocmd Filetype c,cpp,rust,cuda packadd termdebug
+		autocmd Filetype c,cpp,rust,cuda ++once packadd termdebug
 		autocmd Filetype termdebug setlocal termwinsize=0*10000
 		let g:termdebug_config = {}
 		let g:termdebug_config['command'] = "gdb"
@@ -388,7 +385,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set laststatus=2
 	if !has('nvim') || g:nvim_compatibility_with_vim == 1
 		set statusline=%1*%F%m%r%h%w\ \|\ 
-		let show_status = exists("g:plugs") && v:version >= 801 && g:no_plug == 0
+		let show_status = exists("g:plugs") && v:version >= 802 && g:no_plug == 0
 		if show_status
 			set statusline+=%{statusline#LeftStatusLine()}
 		endif

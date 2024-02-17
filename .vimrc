@@ -128,7 +128,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set t_Co=256
 	set t_ut=
 	if has('nvim') || v:version >= 801
-		autocmd Filetype c,cpp,rust,cuda packadd termdebug
+		autocmd Filetype c,cpp,rust,cuda ++once packadd termdebug
 		autocmd Filetype termdebug setlocal termwinsize=0*10000
 		let g:termdebug_config = {}
 		let g:termdebug_config['command'] = "gdb"
