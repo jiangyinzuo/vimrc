@@ -35,10 +35,7 @@ tnoremap <silent> <leader>fb :Leaderf buffer --nameOnly <CR>
 "Buffer
 nnoremap <silent> <leader>fsb :10sp<CR>:Leaderf buffer --nameOnly <CR>
 
-"Based on ripgrep
-nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy  <CR>
 " search visually selected text literally
-
 " #gpt4-answer
 " :<C-U>：清除命令行中的任何现有内容。
 "
@@ -55,7 +52,8 @@ nnoremap <silent> <Leader>rg :Leaderf rg --fuzzy  <CR>
 "   这个映射将 `<F5>` 键映射到一个 Vimscript 表达式，这个表达式使用 `strftime` 函数生成当前的日期和时间。当你在插入模式下按 `<F5>` 时，Vim 就会插入这个日期和时间。
 " 
 " 这些例子应该可以帮助你理解 `<C-R>=` 的作用和用法。记住，你可以使用任何有效的 Vimscript 表达式，包括函数调用、变量、算术和字符串操作等等。
-xnoremap <silent> <leader>rg :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+xnoremap <silent> <leader>rg :<C-U><C-R>=printf("Leaderf rg -F -e %s ", leaderf#Rg#visual())<CR>
+nnoremap <leader>rg :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR>
 
 let g:Lf_RootMarkers = g:RootMarks
 let g:Lf_ShowDevIcons = 0
