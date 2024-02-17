@@ -8,6 +8,7 @@ docs = { changelog_title = "Docs", omit_from_changelog = true }
 coc = { changelog_title = "Coc.nvim", omit_from_changelog = true }
 dotfile = { changelog_title = "Dotfile", omit_from_changelog = true }
 vimrc = { changelog_title = "Vimrc", omit_from_changelog = true }
+scripts = { changelog_title = "Scripts", omit_from_changelog = true }
 
 [changelog]
 path = "CHANGELOG.md"
