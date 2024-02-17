@@ -1,5 +1,7 @@
 let s:fd = 'fd'
 
+sign define code_note_link text=📓 texthl=Search
+
 " sed -i 's/^+\(.*\) \(.*\)$/\2:\1/' *.md
 function! codenote#ConvertFormat(line)
 	" 使用 substitute() 函数来交换 +linenumber 和 path/to/filename
@@ -98,7 +100,7 @@ function s:open_note_repo(filename)
 	call s:set_noterepo_dir(expand('%:p:h'))
 	execute "tcd " . g:noterepo_dir
 	
-	call GetAllCodeLinks()
+	call codenote#GetAllCodeLinks()
 	call s:save_repo_dir()
 endfunction
 
@@ -187,7 +189,7 @@ function s:open_code_repo(filename)
 	call s:set_coderepo_dir(l:root)
 	execute "tcd " . g:coderepo_dir
 
-	call GetAllCodeLinks()
+	call codenote#GetAllCodeLinks()
 	call s:save_repo_dir()
 endfunction
 
@@ -314,3 +316,30 @@ function codenote#YankCodeWithFunctionHeaderVisual(shortcut) range
 	call s:goto_note_buffer()
 endfunction
 
+function codenote#GetAllCodeLinks()
+	if exists('g:coderepo_dir') && g:coderepo_dir != "" && exists('g:noterepo_dir') && g:noterepo_dir != ""
+		call codenote#GetCodeLinkDict()
+		call codenote#SignCodeLinks()
+		augroup codenote
+			autocmd!
+			autocmd BufWinEnter * call codenote#SignCodeLinks()
+			autocmd BufWritePost *.md call codenote#GetCodeLinkDict()
+		augroup END
+	endif
+endfunction
+
+function codenote#LoadCodeNote(project_root)
+	if !empty(glob(a:project_root . '/.noterepo'))
+		let g:noterepo_dir = a:project_root
+		" let g:coderepo_dir = trim(system("cat " . a:project_root . "/.noterepo"))
+		let g:coderepo_dir = readfile(a:project_root . "/.noterepo", '', 1)[0]
+		let t:repo_type = "note"
+		execute "tcd " . g:noterepo_dir
+	elseif !empty(glob(a:project_root . '/.coderepo'))
+		let g:coderepo_dir = a:project_root
+		" let g:noterepo_dir = trim(system("cat " . a:project_root . "/.coderepo"))
+		let g:noterepo_dir = readfile(a:project_root . "/.coderepo", '', 1)[0]
+		let t:repo_type = "code"
+		execute "tcd " . g:coderepo_dir
+	endif
+endfunction

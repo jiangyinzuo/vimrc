@@ -65,8 +65,10 @@ if !exists('g:vscode')
 	Plug 'mbbill/undotree'
 	Plug 'aperezdc/vim-template'
 	let g:templates_no_builtin_templates = 1
-	" set this configuration before loading the plugin
-	let g:templates_no_autocmd = 0
+	" autocmd may slow down vim startup time for deep directory
+	let g:templates_no_autocmd = 1
+	" Do not search too many parent directories, it is slow.
+	let g:templates_search_height = 1
 	
 	Plug 'szw/vim-maximizer'
 	let g:maximizer_set_default_mapping = 0

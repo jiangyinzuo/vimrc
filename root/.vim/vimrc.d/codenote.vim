@@ -2,26 +2,11 @@
 " plus 表示使用 +line_number path/to/filename.ext 格式
 let g:codenote_filepath_style = "colon"
 
-sign define code_note_link text=📓 texthl=Search
-
 " [[palette]]打开NoteRepo						:OpenNoteRepo
 command -nargs=0 OpenNoteRepo :call codenote#OpenNoteRepo()
 
 " [[palette]]打开CodeRepo						:OpenCodeRepo
 command -nargs=0 OpenCodeRepo :call codenote#OpenCodeRepo()
-
-function GetAllCodeLinks()
-	if exists('g:coderepo_dir') && g:coderepo_dir != "" && exists('g:noterepo_dir') && g:noterepo_dir != ""
-		call codenote#GetCodeLinkDict()
-		call codenote#SignCodeLinks()
-		augroup codenote
-			autocmd!
-			autocmd BufWinEnter * call codenote#SignCodeLinks()
-			autocmd BufWritePost *.md call codenote#GetCodeLinkDict()
-		augroup END
-	endif
-endfunction
-
 command -nargs=0 RefreshCodeLinks :call codenote#GetAllCodeLinks()
 
 " need_beginline, need_endline, append, goto_buf
@@ -45,21 +30,4 @@ vnoremap <silent> <leader>ne :call codenote#YankCodeLinkVisual(0, 1, 1, 1)<CR>
 " 1) goto code/note link
 " 2) put the cursor to center of screen
 nnoremap <silent> <leader><C-]> :call codenote#GoToCodeNoteLink()<CR>z.
-
-function LoadCodeNote()
-	let l:root = asyncrun#current_root()
-	if !empty(glob(l:root . '/.noterepo'))
-		let g:noterepo_dir = l:root
-		" let g:coderepo_dir = trim(system("cat " . l:root . "/.noterepo"))
-		let g:coderepo_dir = readfile(l:root . "/.noterepo", '', 1)[0]
-		let t:repo_type = "note"
-		execute "tcd " . g:noterepo_dir
-	elseif !empty(glob(l:root . '/.coderepo'))
-		let g:coderepo_dir = l:root
-		" let g:noterepo_dir = trim(system("cat " . l:root . "/.coderepo"))
-		let g:noterepo_dir = readfile(l:root . "/.coderepo", '', 1)[0]
-		let t:repo_type = "code"
-		execute "tcd " . g:coderepo_dir
-	endif
-endfunction
 
