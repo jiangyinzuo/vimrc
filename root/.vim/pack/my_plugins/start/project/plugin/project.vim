@@ -6,7 +6,7 @@ command! -nargs=+ -complete=customlist,project#ProjectFiles -bar CopyProjFile ca
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! LoadProjectConfigEachTab()
 	" 加载对应的.project.vim文件,  require v:version >= 802
-	let l:possible_vimrc = asyncrun#current_root() . '/' . g:project_vimrc
+	let l:possible_vimrc = (exists('*asyncrun#current_root') ? asyncrun#current_root() : '.') . '/' . g:project_vimrc
 	let l:project_vimrc = ''
 	if filereadable(l:possible_vimrc)
 		let l:project_vimrc = l:possible_vimrc

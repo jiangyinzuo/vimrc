@@ -247,7 +247,7 @@ if !exists('g:vscode')
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
-	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp']}
+	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp', 'cuda']}
 	" Enable function highlighting (affects both C and C++ files)
 	let g:cpp_function_highlight = 1
 	" Enable highlighting of C++11 attributes
@@ -257,10 +257,9 @@ if !exists('g:vscode')
 	" Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 	let g:cpp_simple_highlight = 1
 	source ~/.vim/vimrc.d/golang.vim
-	source ~/.vim/vimrc.d/java.vim
 
-	Plug 'alepez/vim-gtest'
-	Plug 'lambdalisue/doctest.vim'
+	Plug 'alepez/vim-gtest', {'for': ['c', 'cpp', 'cuda']}
+	Plug 'lambdalisue/doctest.vim', {'for': 'python'}
 	augroup doctest
 		autocmd! *
 			autocmd QuickFixCmdPost lDoctest nested lwindow
@@ -306,9 +305,6 @@ if !exists('g:vscode')
 		source ~/.vim/vimrc.d/asynctasks.vim
 	endif
 	Plug 'whonore/Coqtail', { 'for': 'coq' }
-
-	" codenote.vim depends on fzf.vim
-	source ~/.vim/vimrc.d/codenote.vim
 
 	"""""""" Yank """"""""""
 	" 复制pathline用于gF文件跳转
@@ -382,10 +378,8 @@ set colorcolumn=80,120
 " markdown会conceal一些字符，导致colorcolumn显示混乱
 autocmd FileType org,markdown,text setlocal colorcolumn=
 
-if v:version >= 802
-	if g:vimrc_use_coc
-		source ~/.vim/vimrc.d/coc.vim
-	endif
+if (v:version >= 802 || has('nvim') && g:nvim_compatibility_with_vim) && g:vimrc_use_coc
+	source ~/.vim/vimrc.d/coc.vim
 endif
 
 if has('nvim') || v:version >= 801
@@ -393,11 +387,6 @@ if has('nvim') || v:version >= 801
 				\ {"open": "<", "close": ">", "filetype": ["html"]}
 				\ ]) " This is a filetype-specific mapping
 	let g:AutoPairsLanguagePairs['vifm'] = g:AutoPairsLanguagePairs['vim']
-endif
-
-if has('nvim') || v:version >= 802
-	hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
-	source ~/.vim/vimrc.d/project.vim
 endif
 
 if v:version >= 900
