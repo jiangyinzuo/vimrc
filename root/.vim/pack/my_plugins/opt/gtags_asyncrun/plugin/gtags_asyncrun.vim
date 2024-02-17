@@ -1,3 +1,7 @@
+" https://www.gnu.org/software/global/globaldoc_toc.html#Vim-editor
+let g:Gtags_Auto_Update = 1
+" nnoremap <C-]> :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+
 " File: gtags.vim
 " Author: Tama Communications Corporation
 " Version: 0.6.10
