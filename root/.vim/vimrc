@@ -18,7 +18,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" See Also: https://github.com/neoclide/coc-sources
 	" All Coc Extensions:
-	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer']
+	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-explorer', 'coc-html']
 	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 	let g:ai_complete = get(g:, 'ai_complete', 'copilot')
