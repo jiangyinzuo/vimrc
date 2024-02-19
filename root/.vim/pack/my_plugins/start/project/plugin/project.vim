@@ -1,9 +1,3 @@
-""""""""""""""""" Copy project_dot_file """"""""""""""""""""""
-" Tips: use genproj script to generate project files
-" [[palette]]复制常用项目dotfile到当前项目目录			:CopyProjFile
-command! -nargs=+ -complete=customlist,project#ProjectFiles -bar CopyProjFile call project#CopyProjFileFunc(<f-args>)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! LoadProjectConfigEachTab()
 	" 加载对应的.project.vim文件,  require v:version >= 802
 	let l:possible_vimrc = (exists('*asyncrun#current_root') ? asyncrun#current_root() : '.') . '/' . g:project_vimrc

@@ -2,10 +2,7 @@
 " plus 表示使用 +line_number path/to/filename.ext 格式
 let g:codenote_filepath_style = "colon"
 
-" [[palette]]打开NoteRepo						:OpenNoteRepo
 command -nargs=0 OpenNoteRepo :call codenote#OpenNoteRepo()
-
-" [[palette]]打开CodeRepo						:OpenCodeRepo
 command -nargs=0 OpenCodeRepo :call codenote#OpenCodeRepo()
 command -nargs=0 RefreshCodeLinks :call codenote#GetAllCodeLinks()
 
@@ -30,4 +27,3 @@ vnoremap <silent> <leader>ne :call codenote#YankCodeLinkVisual(0, 1, 1, 1)<CR>
 " 1) goto code/note link
 " 2) put the cursor to center of screen
 nnoremap <silent> <leader><C-]> :call codenote#GoToCodeNoteLink()<CR>z.
-

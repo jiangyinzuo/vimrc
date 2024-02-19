@@ -168,3 +168,7 @@ command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
 " [[palette]]间隔重复						:SpacedRepetitionList
 command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/sr', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
 command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/sr ' . expand('%:p'))
+
+" [[palette]]读取常用项目dotfile			:ReadProjectDotFile
+command! -nargs=0 ReadProjectDotFile call fzf#run(fzf#wrap({'source': "ls -A1 ~/vimrc/project_dotfiles | awk '{print \"" . $HOME . "/vimrc/project_dotfiles/\"$1}'", 'sink': 'read', 'options': ['--prompt', 'ProjectDotFile > ', '--preview', 'cat {}', '--preview-window', 'up,60%']}))
+

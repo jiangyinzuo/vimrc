@@ -156,6 +156,10 @@ OCaml ~
 *ocaml-lsp*
 ocaml: ocaml-lsp(不直接通过`opam user-setup install`使用merlin)  
 
+*ocamlformat*
+
+https://github.com/ocaml-ppx/ocamlformat
+
 -------------------------------------------------------------------------------
 *fzf.vim*
 

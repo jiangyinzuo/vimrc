@@ -173,15 +173,29 @@ git rebase --edit-timestamp            *git-rebase*
 
 *git-diff/merge*
 
+Git Diff ~
 将当前文件和它倒数第3次提交历史版本diff |:Gdiffsplit|  >
-  :Gdiffsplit HEAD~3:%
+	:Gdiffsplit HEAD~3:%
+<
+或者 |open-git-diff-vim|
+>
+	:GitDiffThis HEAD~3
 <
 
 *git-difftool*					git difftool HEAD mydoc.txt or git difftool -- mydoc.txt HEAD
 
 |vimdiff|
-vimdf 脚本
 
+|open-git-diff-vim| 插件
+
+|fugitive| 插件
+
+查看diff
+:Git diff HEAD~1
+列出diff文件到quickfix
+:Git difftool HEAD~1
+
+Git Merge ~
 *git-mergetool*
 
 git列举所有unmerged文件			git diff --name-only --diff-filter=U --relative

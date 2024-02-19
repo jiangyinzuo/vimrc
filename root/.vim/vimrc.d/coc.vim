@@ -127,6 +127,12 @@ command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'edit
 command! -nargs=0 Mksession :CocCommand session.save
 command! -nargs=0 Loadsession :CocCommand session.load
 
+" :h coc-tree
+command! -nargs=0 CocOutgoingCalls :CocCommand document.showOutgoingCalls
+command! -nargs=0 CocIncomingCalls :CocCommand document.showIncomingCalls
+command! -nargs=0 CocSubTypes :call CocAction('showSubTypes')
+command! -nargs=0 CocSuperTypes :call CocAction('showSuperTypes')
+
 " https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
 " vim-visual-multi is too complex!!!
 " SpecialKey在coc多光标模式下不会高亮，如有需要，可以在执行多光标前执行
@@ -157,6 +163,7 @@ nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
 
+autocmd filetype coctree nmap <buffer> <F1> :h coc-tree<CR>
 autocmd filetype coc-explorer nmap <buffer> <F1> :h coc-explorer<CR>
 autocmd filetype coc-explorer nmap <buffer> gx :call coc_custom#NetrwGxHandler()<CR>
 nnoremap <silent><nowait> <leader>e :<C-u>CocCommand explorer<CR>

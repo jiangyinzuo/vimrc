@@ -6,7 +6,7 @@
 # or start fzf with -e
 # Reference: https://github.com/junegunn/fzf#extended-search-mode
 
-alias fzfcd='cd "$(find * -type d | fzf)"'
+# alias fzfcd='cd "$(find * -type d | fzf)"'
 
 # Reference: https://github.com/junegunn/fzf/tree/master/shell
 source $VIMRC_ROOT/fzf/key-bindings.bash
