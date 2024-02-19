@@ -167,7 +167,7 @@ if !exists('g:vscode')
 			" Alternative: https://github.com/gelguy/wilder.nvim
 			Plug 'girishji/autosuggest.vim'
 			" External cmd is slow.
-			autocmd VimEnter * if exists('g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }}) | endif
+			autocmd VimEnter * ++once if exists('g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }}) | endif
 		endif
 		if v:version >= 802
 			if g:vimrc_use_coc
@@ -293,13 +293,22 @@ if !exists('g:vscode')
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
 	
+		source ~/.vim/vimrc.d/floaterm.vim
+		source ~/.vim/vimrc.d/fzf.vim
+
 		" require +job
 		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 		let g:pydocstring_doq_path = 'doq'
 		let g:pydocstring_formatter = 'numpy'
-		source ~/.vim/vimrc.d/floaterm.vim
-		source ~/.vim/vimrc.d/fzf.vim
-		source ~/.vim/vimrc.d/jupyter.vim
+		
+		let g:jupyter_ascending_default_mappings = 0
+		" See: https://github.com/untitled-ai/jupyter_ascending.vim
+		Plug 'untitled-ai/jupyter_ascending.vim', {'for': 'python'}
+		let g:jupyter_ascending_python_executable = 'python3'
+		" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
+		" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
+		let g:jupyter_ascending_auto_write = v:true
+
 		source ~/.vim/vimrc.d/markdown.vim
 		source ~/.vim/vimrc.d/latex.vim
 		source ~/.vim/vimrc.d/asynctasks.vim
