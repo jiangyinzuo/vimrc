@@ -1,3 +1,10 @@
+*python-env*
+
+*pip批量升级所有package*
+>
+	pip install --upgrade --break-system-packages `pip list --outdated | tail -n +3 | cut -f1 --delimiter=' '`
+<
+
 *python-virtual-environment*
 
 *mamba* *micromamba*
@@ -16,3 +23,57 @@ https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 升/降级python
 micromamba install python=3.11
 
+----------------------------------------------------------------
+*matplotlib-show报错*
+>
+	>>> plt.show()
+	<stdin>:1: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+<
+*jupyter-qtconsole报错*
+
+的解决方法均为
+>
+	pip install PyQt5
+<
+----------------------------------------------------------------
+*jupyter-qtconsole*
+
+设置初始窗口、字体大小
+>
+	## The height of the console at start time in number
+	#          of characters (will double with `vsplit` paging)
+	#  Default: 25
+	c.ConsoleWidget.console_height = 40
+
+	## The width of the console at start time in number
+	#          of characters (will double with `hsplit` paging)
+	#  Default: 81
+	c.ConsoleWidget.console_width = 75
+	
+	## The font size. If unconfigured, Qt will be entrusted
+	#          with the size of the font.
+	#  Default: 0
+	c.ConsoleWidget.font_size = 18
+<
+
+*jupyter-notebook*
+
+基于 *jupyter-ascending* https://github.com/imbue-ai/jupyter_ascending
+
+必须要求notebook version 6，暂不支持version 7
+`jupyter --version`可以查看notebook版本
+>
+	# 创建pair notebook
+	:JupyterAscendingOpenPairNotebook
+<
+
+基于 *jupyter-vim* https://github.com/jupyter-vim/jupyter-vim
+>
+	# 打开jupyter console
+	:JupyterConsole
+	# 或在命令行中打开jupyter qtconsole
+	juypter qtconsole
+
+	# 连接console或qtconsole
+	:JupyterConnect
+<

@@ -300,14 +300,29 @@ if !exists('g:vscode')
 		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 		let g:pydocstring_doq_path = 'doq'
 		let g:pydocstring_formatter = 'numpy'
-		
+
+		" vim和jupyter notebook同步
+		Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
 		let g:jupyter_ascending_default_mappings = 0
-		" See: https://github.com/untitled-ai/jupyter_ascending.vim
-		Plug 'untitled-ai/jupyter_ascending.vim', {'for': 'python'}
 		let g:jupyter_ascending_python_executable = 'python3'
 		" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
 		" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
 		let g:jupyter_ascending_auto_write = v:true
+		
+		" vim和jupyter console/qtconsole同步
+		Plug 'jupyter-vim/jupyter-vim', {'for': 'python'}
+
+		" ipynb打开时显示python
+		Plug 'goerz/jupytext.vim'
+		let g:jupytext_fmt = 'py'
+
+		Plug 'jpalardy/vim-slime'
+		let g:slime_target = "vimterminal"
+		let g:slime_no_mappings = 1
+		xmap <leader>sp <Plug>SlimeRegionSend
+		nmap <leader>sl <Plug>SlimeLineSend
+		nmap <leader>sp <Plug>SlimeParagraphSend
+		nmap <leader>sc <Plug>SlimeSendCell
 
 		source ~/.vim/vimrc.d/markdown.vim
 		source ~/.vim/vimrc.d/latex.vim
