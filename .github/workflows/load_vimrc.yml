@@ -24,10 +24,14 @@ jobs:
       run: sudo ./install/build_vim_from_source.sh 7.4.629
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
+    - name: single vimrc with view
+      run: vim -R -E -s -u .vimrc -c "qa!"
     - name: full vimrc
       run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
     - name: full vimrc with vim.tiny
       run: vim.tiny -E -s -c "qa!"
+    - name: full vimrc with view
+      run: vim -R -E -s -c "qa!"
   load_vimrc_in_latest_vim:
     runs-on: ubuntu-latest
     steps:
@@ -38,10 +42,14 @@ jobs:
       run: sudo ./install/build_vim_from_source.sh
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
+    - name: single vimrc with view
+      run: vim -R -E -s -u .vimrc -c "qa!"
     - name: full vimrc
       run: ln -s `pwd`/root/.vim ~/.vim && vim -E -s -c "qa!"
     - name: full vimrc with vim.tiny
       run: vim.tiny -E -s -c "qa!"
+    - name: full vimrc with view
+      run: vim -R -E -s -c "qa!"
     - name: vim noplugin
       run: vim --noplugin -E -s -c "qa!"
     - name: vim -u NONE
