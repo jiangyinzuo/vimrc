@@ -10,9 +10,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 	let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
 	if v:version >= 800
-		let &bg = 'dark'
+		set bg=dark
 	else
-		let &bg = 'light'
+		set bg=light
 	endif
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 

@@ -6,6 +6,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:mapleader = ' '
 	set modeline " 开启模式行, 读取文件开头结尾类似于 /* vim:set ts=2 sw=2 noexpandtab: */ 的配置
 	set exrc " 读取当前文件夹的.vimrc
+	if v:version >= 800
+		set bg=dark
+	else
+		set bg=light
+	endif
 	if has("patch-7.4.1649")
 		packadd! matchit
 	endif
