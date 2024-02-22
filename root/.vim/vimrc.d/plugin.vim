@@ -362,11 +362,6 @@ if g:no_plug
 endif
 
 """""""""""""""""" begin colorscheme
-if g:vimrc_dark == 1
-	set background=dark
-else
-	set background=light
-endif
 if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
 	set termguicolors
 endif
@@ -382,11 +377,7 @@ if (v:version >= 800 || has('nvim'))
 	let g:solarized_diffmode = "normal"
 	colorscheme solarized8
 else
-	if $COLORTERM != "truecolor"
-		let g:solarized_termcolors = 256
-	endif
-	colorscheme solarized
-	hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
+	hi ColorColumn ctermbg=0
 endif
 " tab颜色
 hi clear SpecialKey
