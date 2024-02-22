@@ -376,12 +376,13 @@ if (v:version >= 800 || has('nvim'))
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	let g:solarized_diffmode = "normal"
 	colorscheme solarized8
+	hi NonText cterm=None term=None gui=None
 else
 	hi ColorColumn ctermbg=0
+	hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
 endif
 " tab颜色
 hi clear SpecialKey
-hi NonText cterm=None term=None gui=None
 hi link SpecialKey NonText
 "hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
 hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
