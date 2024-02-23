@@ -381,6 +381,7 @@ if (v:version >= 800 || has('nvim'))
 else
 	hi ColorColumn ctermbg=0
 	hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
+	hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
 endif
 " tab颜色
 hi clear SpecialKey
