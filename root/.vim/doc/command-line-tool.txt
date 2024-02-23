@@ -245,7 +245,10 @@ pip install ppt2md
 
 extract-pptx.py
 
-*dblp爬虫* https://github.com/jiangyinzuo/dblp-api
+*dblp爬虫*
 >
 	:r !dblp <paper title>
 <
+See also:
+https://github.com/jiangyinzuo/dblp-api
+https://github.com/jiangyinzuo/vimrc/wiki/Latex

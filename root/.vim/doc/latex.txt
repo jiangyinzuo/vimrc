@@ -2,6 +2,10 @@ vim:ft=help
 
 *latex*
 
+|dblp爬虫|
+https://github.com/jiangyinzuo/vimrc/wiki/Latex
+https://github.com/jiangyinzuo/dblp-api
+
 拼写检查 ~
 
 1. Vim原生|spell|
