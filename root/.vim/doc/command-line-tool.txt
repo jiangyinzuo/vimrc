@@ -1,5 +1,8 @@
 *command-line-tool*
 
+*write-maintainable-command-line-tools*
+https://github.com/jiangyinzuo/write-maintainable-command-line-tools
+
 *tldr* 命令行帮助
 *thefuck* 基于规则自动修正上一个命令的错误(too slow)
 
