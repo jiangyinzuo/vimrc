@@ -7,7 +7,6 @@ export BASH_ENV=$HOME/vimrc/root/bashrc_noi
 source $HOME/vimrc/root/bashrc_noi
 
 alias vimt='vim --servername TEX'
-alias vimhelp='vim -c ":Lines!" ~/.vim/doc/mydoc.txt'
 alias vims='vim -c ":CocCommand session.load"'
 
 source "$VIMRC_ROOT"/fzf/fzf.bash

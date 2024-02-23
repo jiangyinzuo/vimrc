@@ -1,8 +1,13 @@
 *clean-disk*
 
+rust ~
 cargo install cargo-cache
 cargo-clean -a
 
+ocaml ~
+opam clean
+
+系统 ~
 寻找当前文件夹下最大的10个文件目录
 >
 	du -Sh . | sort -rh | head -n10
