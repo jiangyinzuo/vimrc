@@ -12,7 +12,7 @@
 		},
 		"ocaml-lsp": {
 			"command": "opam",
-			"args": ["config", "exec", "--", "ocamllsp"],
+			"args": ["exec", "--", "ocamllsp"],
 			"filetypes": ["ocaml", "reason"]
 		},
 		"typst": {
