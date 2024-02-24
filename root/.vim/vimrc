@@ -13,6 +13,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set bg=dark
 	else
 		set bg=light
+		hi ColorColumn ctermbg=0
+		hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
+		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
 	endif
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
@@ -139,19 +142,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" do not add too much root marks, it will slow down search performance
 	let g:RootMarks = ['.git', g:project_vimrc, '.root']
 
-	let s:has_vimrcd = isdirectory(expand('~/.vim/vimrc.d'))
-	if !s:has_vimrcd
-		hi ColorColumn ctermbg=black guibg=black
-	endif
-
 	" plugin.vim 可能会改变g:no_plug的值
 	let g:no_plug = (glob(g:vim_plug_dir) == "") || &loadplugins == 0
 	if exists("g:vscode")
 		let g:loaded_netrw = 1
 		let g:loaded_netrwPlugin = 1
-		if s:has_vimrcd
-			source ~/.vim/vimrc.d/plugin.vim
-		endif
+		source ~/.vim/vimrc.d/plugin.vim
 		finish
 	endif
 
@@ -350,14 +346,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	inoremap <c-S> <esc>:w<CR>i
 
 	" neovim 会报错
-	if isdirectory(expand('~/.vim/doc')) && !has('nvim')
-		" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报
-		" mixed encoding的错误
+	if !has('nvim')
+		" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报 mixed encoding的错误
 		" set helplang=cn
 		helptags ~/.vim/doc
 	endif
-
-	if s:has_vimrcd && &loadplugins
+	if &loadplugins
 		source ~/.vim/vimrc.d/plugin.vim
 	endif
 

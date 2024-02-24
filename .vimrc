@@ -10,6 +10,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set bg=dark
 	else
 		set bg=light
+		hi ColorColumn ctermbg=0
+		hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
+		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
 	endif
 	if has("patch-7.4.1649")
 		packadd! matchit
@@ -151,9 +154,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:netrw_browse_split = 0 " open the file using netrw buffer
 	let g:netrw_liststyle = 3 " tree style listing
 	let g:netrw_preview = 0 " preview window horizontally
-	if exists('$WSLENV')
-		let g:netrw_browsex_viewer="-"
-	endif
 	let g:netrw_hide = 1 " show not-hidden files
 	let g:netrw_keepdir=0
 	" see netrw-v
