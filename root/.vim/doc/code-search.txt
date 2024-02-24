@@ -1,24 +1,33 @@
 *code-search* *novimrc* *noplugged*
 
-查找文本
+打开历史文件 ~
+|:oldfiles| 查看oldfiles
+|c_#<|
+`:command #<n`用:command打开第n个历史文件, 例如
+>
+	:e #<3
+<
+打开第3个历史文件
+
+查找文本 ~
 :vim /func main/ **/*.txt
 :grep def foo.py
 :grep 'def foo' foo.py
 
-使用grep
+使用grep ~
 `grep 'func main' -r --exclude tags .`
 `grep 'func main' ~/hello.go` 查找~/hello.go文件中的func main
 `grep -i` 忽略大小写
 `grep -w` 全字匹配
 
-使用ripgrep
+使用ripgrep ~
 可以添加.rgignore/.ignore文件, 用于忽略文件
 设置|grepprg|为rg
 >
 	set grepprg=rg\ --vimgrep
 <
 
-查找文件
+查找文件 ~
 >
 	:find **/*.py
 <
@@ -31,7 +40,7 @@
 使用fd
 可以添加.ignore文件, 用于忽略文件
 
-其它
+其它 ~
 `tldr find`
 `tldr grep`
 
