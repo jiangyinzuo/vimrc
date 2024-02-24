@@ -127,6 +127,26 @@ if !exists('g:vscode')
 		let g:rainbow_comment_prefix = '#'
 		" 禁用rainbow_csv的高亮
 		" let g:rcsv_colorlinks = ['NONE', 'NONE']
+
+		Plug 'jiangyinzuo/open-gitdiff.vim'
+		let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$']
+		let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
+		let command_def = 'command -nargs=* '
+		if v:version >= 901
+				" open_gitdiff#comp#Complete is implemented with vim9class
+				let command_def .= '-complete=custom,open_gitdiff#comp#Complete '
+		endif
+		exe command_def . 'GitDiffAll call open_gitdiff#OpenAllDiffs(<f-args>)'
+		exe command_def . 'GitDiffThisTab call open_gitdiff#OpenDiff("tabnew", <f-args>)'
+		exe command_def . 'GitDiffThis call open_gitdiff#OpenDiff("enew", <f-args>)'
+
+		exe command_def . 'FZFGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#fzf#view"), <f-args>)'
+		exe command_def . 'FZFGitDiff call open_gitdiff#select("enew", function("open_gitdiff#fzf#view"), <f-args>)'
+
+		exe command_def . 'QuickUIGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
+		exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
+
+		exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
@@ -223,27 +243,6 @@ if !exists('g:vscode')
 		Plug 'Eliot00/git-lens.vim'
 		let g:GIT_LENS_ENABLED = 0
 	endif
-
-	Plug 'jiangyinzuo/open-gitdiff.vim'
-	let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$']
-	let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
-
-	let command_def = 'command -nargs=* '
-	if v:version >= 901
-			" open_gitdiff#comp#Complete is implemented with vim9class
-			let command_def .= '-complete=custom,open_gitdiff#comp#Complete '
-	endif
-	exe command_def . 'GitDiffAll call open_gitdiff#OpenAllDiffs(<f-args>)'
-	exe command_def . 'GitDiffThisTab call open_gitdiff#OpenDiff("tabnew", <f-args>)'
-	exe command_def . 'GitDiffThis call open_gitdiff#OpenDiff("enew", <f-args>)'
-
-	exe command_def . 'FZFGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#fzf#view"), <f-args>)'
-	exe command_def . 'FZFGitDiff call open_gitdiff#select("enew", function("open_gitdiff#fzf#view"), <f-args>)'
-
-	exe command_def . 'QuickUIGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
-	exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
-
-	exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 
 	" Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
