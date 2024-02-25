@@ -7,3 +7,5 @@ command! -nargs=0 JupyterAscendingOpenPairNotebook :call jupyter_ascending_custo
 command! -nargs=0 JupyterConsole :AsyncRun -mode=term -pos=right -focus=0 jupyter console
 let b:slime_cell_delimiter = '##'
 let b:slime_vimterminal_cmd = 'ipython3'
+
+command! -nargs=0 MatplotlibQt5Inline :JupyterSendCode "import matplotlib\nmatplotlib.use('Qt5Agg')\n%matplotlib inline\n%load_ext autoreload\n%autoreload 2\n"
