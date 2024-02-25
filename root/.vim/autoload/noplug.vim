@@ -1,3 +1,21 @@
+function noplug#ToggleQuickfix(list)
+	if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
+		let length = len(getqflist())
+		let height = length > 7 ? 7 : length
+		let height = length < 2 ? 2 : length
+		if a:list == 'c'
+			exe 'copen ' . height
+		else
+			exe 'lopen ' . height
+		endif
+	else
+		if a:list == 'c'
+			cclose
+		else
+			lclose
+		endif
+	endif
+endfunction
 function s:ShowQuickfixListIfNotEmpty()
 	let length = len(getqflist())
 	if length > 1

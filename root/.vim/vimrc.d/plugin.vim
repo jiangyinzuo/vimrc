@@ -153,6 +153,13 @@ if !exists('g:vscode')
 		exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
 
 		exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
+	else
+		noremap ]q :call noplug#ToggleQuickfix('c')<CR>
+		noremap ]l :call noplug#ToggleQuickfix('l')<CR>
+		nnoremap <silent> <leader>cn :cn<CR>
+		nnoremap <silent> <leader>cp :cp<CR>
+		nnoremap <silent> <leader>ln :ln<CR>
+		nnoremap <silent> <leader>lp :lp<CR>
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
