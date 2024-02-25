@@ -47,3 +47,14 @@ https://apt.llvm.org/
 *cuda*
 
 |nvidia-docker|
+
+*glibc*
+
+查看glibc版本
+>
+	ldd --version
+<
+CentOS7.1 2.18
+Ubuntu18.04 为2.27
+
+许多软件依赖2.28

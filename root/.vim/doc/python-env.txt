@@ -1,8 +1,51 @@
 *python-env*
 
 ----------------------------------------------------------------------------
+*编译安装python3.8*
+
+2024年生产环境，CentOS7.1上的python版本为3.6.8，比较阴间。
+如有必要使用高版本python，请提前设法安装。
+
+>
+	# gcc4.8.5可以编译通过
+	sudo yum install gcc openssl-devel bzip2-devel libffi-devel
+	cd /usr/src
+	sudo wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz
+	sudo tar xzf Python-3.8.2.tgz
+	cd Python-3.8.2
+	sudo ./configure --enable-optimizations
+	sudo make altinstall
+<
+使用altinstall是为了避免覆盖系统默认的python命令。
+
+make install: 安装编译Python，并且可能会创建或覆盖系统默认python链接(/usr/local/bin/python或/usr/local/bin/python3)
+make altinstall: 安装编译python，安装到/usr/local/bin/python3.8
+
+之后可以通过`whereis python3`, `whereis pip3`查看安装路径(/usr/local/bin/python3.8 /usr/local/bin/pip3.8)
+
+此时如果直接运行`/usr/local/bin/pip3.8 install numpy`，可能会报
+`pip._vendor.pep517.wrappers.BackendUnavailable`的错误
+需要通过更新pip解决
+>
+	# 不加 --user，就需要sudo权限，最好加上--user
+	/usr/local/bin/pip3.8 install -U pip --user
+<
+
+后续运行`/usr/local/bin/pip3.8 --version`显示
+>
+	WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip
+	Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.
+	To avoid this problem you can invoke Python with '-m pip' instead of running pip directly.
+<
+
+改用`python3.8 -m pip`安装scipy
+>
+	/usr/local/bin/python3.8 -m pip install scipy
+<
+----------------------------------------------------------------------------
 *uv-pip*
 *pip替代品uv* https://github.com/astral-sh/uv
+缺点: 使用前一定要创建venv
 安装 `pip install uv`
 
 使用

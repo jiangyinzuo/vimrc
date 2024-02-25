@@ -38,11 +38,9 @@ sudo apt install neovim python3-pynvim
 pip3 install neovim
 ```
 
-### Node.js (coc.nvim)
+### Node.js (coc.nvim, copilot.vim)
 
-- Ubuntu18.04: https://github.com/nodesource/distributions#debian-and-ubuntu-based-distributions
-- https://github.com/tj/n
-- https://github.com/nvm-sh/nvm
+`:h nodejs`
 
 ## Setup Environment Variables and Soft Links
 
