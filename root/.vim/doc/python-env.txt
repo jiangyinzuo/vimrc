@@ -1,5 +1,19 @@
 *python-env*
 
+----------------------------------------------------------------------------
+*uv-pip*
+*pip替代品uv* https://github.com/astral-sh/uv
+安装 `pip install uv`
+
+使用
+>
+	uv pip install flask                # Install Flask.
+	uv pip install -r requirements.txt  # Install from a requirements.txt file.
+	uv pip install -e .                 # Install the current project in editable mode.
+	uv pip install "package @ ."        # Install the current project from disk
+	uv pip install "flask[dotenv]"      # Install Flask with "dotenv" extra.
+<
+----------------------------------------------------------------------------
 *pip批量升级所有package*
 >
 	pip install --upgrade --break-system-packages `pip list --outdated | tail -n +3 | cut -f1 --delimiter=' '`
