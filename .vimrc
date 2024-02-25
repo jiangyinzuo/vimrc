@@ -261,14 +261,22 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
-	function ToggleQuickfix()
+	function ToggleQuickfix(list)
 		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
 			let length = len(getqflist())
 			let height = length > 7 ? 7 : length
 			let height = length < 2 ? 2 : length
-			exe 'copen ' . height
+			if a:list == 'c'
+				exe 'copen ' . height
+			else
+				exe 'lopen ' . height
+			endif
 		else
-			cclose
+			if a:list == 'c'
+				cclose
+			else
+				lclose
+			endif
 		endif
 	endfunction
 	function SystemToQf(args)
@@ -295,9 +303,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 SystemFindFiles call SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
 
 	command! -nargs=1 SystemRg call SystemToQf('rg --vimgrep ' . <q-args>)
-	noremap ]q :call ToggleQuickfix()<CR>
+	noremap ]q :call ToggleQuickfix('c')<CR>
+	noremap ]l :call ToggleQuickfix('l')<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
+	nnoremap <silent> <leader>ln :ln<CR>
+	nnoremap <silent> <leader>lp :lp<CR>
 
 	" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 	" nnoremap <silent> <leader>t :term ++rows=9<CR>

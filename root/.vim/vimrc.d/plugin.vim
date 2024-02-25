@@ -120,6 +120,12 @@ if !exists('g:vscode')
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
 		let g:qf_auto_open_quickfix = 0
+		nmap ]q <Plug>QfCtoggle
+		nmap ]l <Plug>QfLtoggle
+		nmap <leader>cn <Plug>QfCnext
+		nmap <leader>cp <Plug>QfCprev
+		nmap <leader>ln <Plug>QfLnext
+		nmap <leader>lp <Plug>QfLprev
 
 		Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 		" 默认csv带有header

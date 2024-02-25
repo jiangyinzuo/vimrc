@@ -51,17 +51,6 @@ function noplug#FindDefinitionFunction(word)
 	call s:ShowQuickfixListIfNotEmpty()
 endfunction
 
-function noplug#ToggleQuickfix()
-	if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-		let length = len(getqflist())
-		let height = length > 7 ? 7 : length
-		let height = length < 2 ? 2 : length
-		exe 'copen ' . height
-	else
-		cclose
-	endif
-endfunction
-
 function noplug#SystemToQf(args)
 	cexpr system(a:args)
 	call s:ShowQuickfixListIfNotEmpty()

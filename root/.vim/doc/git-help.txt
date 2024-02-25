@@ -127,6 +127,17 @@ git reset 用于回滚到历史commit。
 2. 'git reset --hard <commit>' 恢复commit。
 
 -------------------------------------------------------------------------------
+                        *git-revert* *git生成逆向提交*  *git安全地撤销提交*
+
+>
+	git revert <commit>
+<
+
+暂时不生成提交，保存到暂存区
+>
+	git revert -n <commit>
+<
+-------------------------------------------------------------------------------
 git checkout                                        *git-checkout*
 
 'git checkout <commit_hash> -- <filename>' 是一个 Git 命令，用于将特定文件回滚到

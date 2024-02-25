@@ -298,10 +298,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 SystemFindFiles call noplug#SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
 	command! -nargs=1 SystemRg call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
 
-	noremap ]q :call noplug#ToggleQuickfix()<CR>
-	nnoremap <silent> <leader>cn :cn<CR>
-	nnoremap <silent> <leader>cp :cp<CR>
-
 	" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 	" nnoremap <silent> <leader>t :term ++rows=9<CR>
 	" if exists(':tnoremap')
