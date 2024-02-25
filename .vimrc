@@ -13,6 +13,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		hi ColorColumn ctermbg=0
 		hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
 		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
+		hi Search ctermbg=143 ctermfg=0
 	endif
 	if has("patch-7.4.1649")
 		packadd! matchit
