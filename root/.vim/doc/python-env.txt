@@ -1,3 +1,5 @@
+vim:set ft=help:
+
 *python-env*
 
 ----------------------------------------------------------------------------
@@ -93,7 +95,12 @@ micromamba install python=3.11
 	pip install PyQt5
 <
 ----------------------------------------------------------------
+JUPYTER
+
 *jupyter-qtconsole*
+>
+	pip install PyQt5 qtconsole
+<
 
 设置初始窗口、字体大小
 >
@@ -113,6 +120,17 @@ micromamba install python=3.11
 	c.ConsoleWidget.font_size = 18
 <
 
+基于 *jupyter-vim* https://github.com/jupyter-vim/jupyter-vim
+>
+	# 打开jupyter console
+	:JupyterConsole
+	# 或在命令行中打开jupyter qtconsole
+	juypter qtconsole
+
+	# 连接console或qtconsole
+	:JupyterConnect
+<
+
 *jupyter-notebook*
 
 基于 *jupyter-ascending* https://github.com/imbue-ai/jupyter_ascending
@@ -124,13 +142,3 @@ micromamba install python=3.11
 	:JupyterAscendingOpenPairNotebook
 <
 
-基于 *jupyter-vim* https://github.com/jupyter-vim/jupyter-vim
->
-	# 打开jupyter console
-	:JupyterConsole
-	# 或在命令行中打开jupyter qtconsole
-	juypter qtconsole
-
-	# 连接console或qtconsole
-	:JupyterConnect
-<

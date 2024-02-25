@@ -313,7 +313,11 @@ if !exists('g:vscode')
 		let g:pydocstring_doq_path = 'doq'
 		let g:pydocstring_formatter = 'numpy'
 
-		" vim和jupyter notebook同步
+		" vim和jupyter notebook(运行在浏览器上)同步，
+		" 需要安装jupyter_ascending, 目前不支持notebook 7
+		" :h jupyter-notebook
+		" See: https://github.com/imbue-ai/jupyter_ascending
+		" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
 		Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
 		let g:jupyter_ascending_default_mappings = 0
 		let g:jupyter_ascending_python_executable = 'python3'
@@ -322,6 +326,7 @@ if !exists('g:vscode')
 		let g:jupyter_ascending_auto_write = v:true
 		
 		" vim和jupyter console/qtconsole同步
+		" :h jupyter-qtconsole
 		Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
 		let g:jupyter_mapkeys = 0
 		let g:jupyter_cell_separators = ['\s*##']
