@@ -12,9 +12,6 @@ forget_daily() {
 	echo_blue 'NOTE: type "wslhelp" to see more help'
 	echo_green '$ forget'
 	echo
-	echo_green '$ daily'
-	$VIMRC_ROOT/scripts/wsl/daily
-	echo
 	echo_green '$ sr'
 	$VIMRC_ROOT/scripts/wsl/sr
 }
