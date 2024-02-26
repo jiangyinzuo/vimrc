@@ -24,6 +24,13 @@ https://github.com/PatrBal/vim-textidote
 https://github.com/sylvainhalle/textidote
 
 ------------------------------------------------------
+*tectonic*
+Rust实现的一个tex编译引擎。
+
+需要提前预处理EPS文件
+https://github.com/tectonic-typesetting/tectonic/issues/27
+
+------------------------------------------------------
 常见编译错误
 
 >
