@@ -107,3 +107,5 @@ NOTE: 服务器端vim初始化X11 clipboard，共享剪贴板，大概需要756m
 *sftp-server*
 
 ~/.vim/doc/sftp-server.md
+
+某些特殊的sftp服务器(2024年初某厂)，居然只能sftp传文件，不能scp传文件。
