@@ -1,5 +1,6 @@
 export DOC2=/mnt/d/doc2
 export CODE_HOME=~
+export PATH="$DOC2/chunqiu:$PATH"
 alias start='cmd.exe /C start ""'
 
 # experimental feature, See: https://github.com/jiangyinzuo/dblp-api dev branch
