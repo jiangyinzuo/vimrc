@@ -77,6 +77,11 @@
 # %x09 = tab
 # --date=short = show date in short format
 #
+# Valid in the following versions:
+#	git 2.8.3 (CentOS 7.1, updated version by sudo yum install git)
+#	git 2.7.4 (Ubuntu 16.04)
+# Invalid in the following versions:
+#	git 1.8.3.1 (CentOS 7.1, default git version)
 # Usage:
 # 	git tree    # all commits
 # 	git tree -2 # last 2 commits
