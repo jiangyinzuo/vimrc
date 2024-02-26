@@ -1,3 +1,17 @@
+function! noplug#MyRead(file)
+	" 获取文件大小
+	let l:size = getfsize(a:file)
+	" 将文件大小转换为MB
+	let l:sizeMB = l:size / 1024.0 / 1024.0
+
+	" 检查文件大小是否超过20MB
+	if l:sizeMB > 20
+		echo "File size exceeds 20MB. Operation cancelled."
+	else
+		" 调用原生的:read命令读取文件
+		execute 'read ' . a:file
+	endif
+endfunction
 function noplug#ToggleQuickfix(list)
 	if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
 		let length = len(getqflist())

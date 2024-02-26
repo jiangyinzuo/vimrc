@@ -411,25 +411,39 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set laststatus=2
 	set statusline=%1*%F%m%r%h%w%=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
 
-	" file is large from 10mb
-	let g:LargeFile = 1024 * 1024 * 10
-	function! LargeFile()
-		" no syntax highlighting etc
-		set eventignore+=FileType
-		" save memory when other file is viewed
-		setlocal bufhidden=unload
-		" is read-only (write with :w new_filename)
-		setlocal buftype=nowrite
-		" no undo possible
-		setlocal undolevels=-1
-		" display message
-		autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see vimrc for details)."
-	endfunction
+	function! MyRead(file)
+		" 获取文件大小
+		let l:size = getfsize(a:file)
+		" 将文件大小转换为MB
+		let l:sizeMB = l:size / 1024.0 / 1024.0
 
-	augroup LargeFile
-		au!
-		autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-	augroup END
+		" 检查文件大小是否超过20MB
+		if l:sizeMB > 20
+			echo "File size exceeds 20MB. Operation cancelled."
+		else
+			" 调用原生的:read命令读取文件
+			execute 'read ' . a:file
+		endif
+	endfunction
+	" 定义一个自定义命令:Read，它接受一个参数（文件名），并调用上面定义的函数
+	command! -nargs=1 -complete=file Read call MyRead(<f-args>)
+
+	function! CheckFileSize()
+		" 获取当前文件的大小（单位：字节）
+		let l:filesize = getfsize(expand('%:p'))
+		" 设置大小阈值为5MB
+		let l:maxsize = 5 * 1024 * 1024
+		if l:filesize > l:maxsize
+			echom "文件超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
+			" 关闭当前缓冲区，但不退出Vim
+			" 如果你想让Vim退出，可以用：quit 或 similar
+			bdelete
+			" 推荐用户使用less打开，但不自动执行
+			" !less %
+		endif
+	endfunction
+	" 在读取文件之前检查文件大小
+	autocmd BufReadPre * call CheckFileSize()
 
 	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 	if has("cscope")
