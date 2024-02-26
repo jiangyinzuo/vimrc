@@ -22,3 +22,24 @@ https://github.com/jiangyinzuo/dblp-api
 依赖Java 8和textidote jar包，不适用于没有Java的环境
 https://github.com/PatrBal/vim-textidote
 https://github.com/sylvainhalle/textidote
+
+------------------------------------------------------
+常见编译错误
+
+>
+	! LaTeX Error: File `algorithm2e.sty' not found
+<
+
+原因:
+LaTeX 环境中缺少 algorithm2e 宏包。algorithm2e.sty文件是algorithm2e` 宏包的一部分，
+该宏包提供了一个环境来编写算法和伪代码。
+
+解决方法1:
+>
+	sudo apt-get install texlive-science
+<
+解决方法2:
+从CTAN下载 algorithm2e.sty 文件，手动放到Latex项目目录下面。
+
+有的论文模板格式或许会魔改algorithm2e.sty，这时候需要将它提供的
+algorithm2e.sty放到Latex项目目录下面。
