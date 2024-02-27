@@ -132,6 +132,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" autocmd FileType c,cpp setlocal equalprg=indent
 		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 
+		" pip3 install sqlformat
 		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 	augroup end
 

@@ -302,6 +302,7 @@ git 回滚untracked 修改
 *Git在单体仓库中pull部分文件*
 
 *monorepo*
+$DOC2/cs/system/software_engineering/tools-open-source/git-github/monorepo.md
 
 以clone [etcd/raft](https://github.com/etcd-io/etcd/tree/main/raft)为例
 
@@ -371,8 +372,13 @@ git gc, git 减小.git目录大小                        *git-gc*
 *git-flow*
 *git-branch-model*
 
-|git|
-See: $DOC2/cs/tools-open-source/git-github/git-branch-model
+*trunk-based-development*
+https://trunkbaseddevelopment.com/
+$DOC2/cs/system/software_engineering/tools-open-source/git-github/git-branch-model/note.md
+*semver*
+$DOC2/cs/system/software_engineering/version-control-and-release-model/semver.md
+|monorepo|
+$DOC2/cs/system/software_engineering/tools-open-source/git-github/monorepo.md
 
 多人协作时，需要将本地master单分支开发模式切换为master-dev-feature... 多分支开发模式。
 切换步骤如下:

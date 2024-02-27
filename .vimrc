@@ -94,6 +94,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
 		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
+		" pip3 install sqlformat
 		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 	augroup end
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
