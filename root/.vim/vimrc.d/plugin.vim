@@ -354,7 +354,7 @@ if !exists('g:vscode')
 				xnoremap <leader>sp :JupyterSendRange<CR>
 				if a:sender == 'jupyter-matplotlib'
 					func MatplotlibHandler(timer)
-						:MatplotlibQt5Inline
+						:MatplotlibQtInline
 					endfunc
 					let timer = timer_start(500, 'MatplotlibHandler')
 				endif

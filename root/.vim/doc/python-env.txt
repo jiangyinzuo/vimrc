@@ -93,6 +93,8 @@ micromamba install python=3.11
 的解决方法均为
 >
 	pip install PyQt5
+	# 或者
+	pip install PyQt6
 <
 ----------------------------------------------------------------
 JUPYTER
@@ -100,6 +102,8 @@ JUPYTER
 *jupyter-qtconsole*
 >
 	pip install PyQt5 qtconsole
+	# 或者
+	pip install PyQt6 qtconsole
 <
 
 设置初始窗口、字体大小
