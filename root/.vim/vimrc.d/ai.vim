@@ -35,6 +35,7 @@ if has('nvim') || v:version >= 900
 	elseif g:ai_complete == 'codeium'
 		Plug 'Exafunction/codeium.vim'
 		let g:codeium_disable_bindings = 1
+		command -nargs=0 CodeiumChat call codeium#Chat()
 		execute "set <M-n>=\en"
 		execute "set <M-p>=\ep"
 		execute "set <M-x>=\ex"

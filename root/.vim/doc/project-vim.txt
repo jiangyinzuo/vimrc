@@ -6,4 +6,5 @@ vim:ft=help
 	call LoadCodeNote(asyncrun#current_root())
 	call GetAllCodeLinks()
 	:Cdroot
+	let g:copilot_workspace_folders = ['~/Projects/myproject']
 <
