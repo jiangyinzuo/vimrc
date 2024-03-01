@@ -91,17 +91,15 @@ diff comm
 -------------------------------------------------------------------------------
 *基于ssh协议的文件传输工具*
 
-|rsync| |scp| *sftp* |git|
+|rsync| |scp| |sftp| |git|
 
 |netrw| 支持
 
-*rsync*
-
-本地目录同步到远程目录
+*rsync本地目录同步到远程目录*
 >
 	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
 <
-远程同步到本地
+*rsync远程同步到本地*
 >
 	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
 <

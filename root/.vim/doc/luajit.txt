@@ -1,0 +1,11 @@
+*luajit*
+
+lua not enough memory
+
+LUA jit的垃圾回收只能管理2GB内存。即使一台服务器上有N个进程，
+这N个进程之间总共也只能有2GB内存。
+
+CentOS 7 默认的luajit存在2GB内存限制。
+
+2016年，luajit官方发布了GC64模式，上限可达128TB。
+https://www.jianshu.com/p/e6912de3059f

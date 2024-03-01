@@ -17,10 +17,13 @@ sudo ssh <hostname> -o strictHostKeyChecking=no
 *sshpass免密码登录*
 sshpass -f password_file ssh <hostname>
 
-*scp*
 *scp复制文件*
 >
 	scp .vimrc grape:
+<
+*scp打开文件*
+>
+	vim scp://grape/~/.vimrc
 <
 
 *ssh端口转发*

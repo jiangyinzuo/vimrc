@@ -123,9 +123,9 @@ if !exists('g:vscode')
 		nmap ]q <Plug>QfCtoggle
 		nmap ]l <Plug>QfLtoggle
 		nmap <leader>cn <Plug>QfCnext
-		nmap <leader>cp <Plug>QfCprev
+		nmap <leader>cp <Plug>QfCprevious
 		nmap <leader>ln <Plug>QfLnext
-		nmap <leader>lp <Plug>QfLprev
+		nmap <leader>lp <Plug>QfLprevious
 
 		Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 		" 默认csv带有header

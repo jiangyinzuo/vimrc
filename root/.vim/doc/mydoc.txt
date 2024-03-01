@@ -10,7 +10,7 @@ ISSUE: helpfile开启ft=help后，在快速插入---------------------时存在�
 
 *vim-helpfiles-cheetsheet* https://devhints.io/vim-help
 
-*netrw*
+|netrw|
 选中打开/折叠文件夹	鼠标左键
 新建文件夹		d
 在当前文件夹下新建文件	%
