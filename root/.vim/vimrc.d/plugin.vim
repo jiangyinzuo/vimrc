@@ -115,7 +115,7 @@ if !exists('g:vscode')
 		let g:UltiSnipsExpandTrigger="<f12>"
 
 		" modify some snippets
-		Plug 'jiangyinzuo/vim-snippets', { 'branch': 'mysnippets' }
+		Plug 'honza/vim-snippets'
 		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
@@ -183,7 +183,6 @@ if !exists('g:vscode')
 
 	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim', { 'for': 'org' }
-	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 	Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 	" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
