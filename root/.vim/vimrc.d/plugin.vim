@@ -352,14 +352,8 @@ if !exists('g:vscode')
 				nnoremap <leader>sp :JupyterSendRange<CR>
 				xnoremap <leader>sp :JupyterSendRange<CR>
 				if a:sender == 'jupyter-matplotlib'
-					func MatplotlibHandler(timer)
-						:MatplotlibQtInline
-					endfunc
-					let timer = timer_start(500, 'MatplotlibHandler')
+					let timer = timer_start(1500, function('jupyter_custom#MatplotlibInit'))
 				endif
-				echom '<leader>sc: send cell; <leader>si: send code'
-				" 高亮绿色的cell (##分隔)
-				edit
 			endif
 		endfunction
 		function s:sender_list(ArgLead, CmdLine, CursorPos)
