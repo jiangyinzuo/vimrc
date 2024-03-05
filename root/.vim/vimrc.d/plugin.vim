@@ -444,9 +444,3 @@ if has('nvim') || v:version >= 801
 				\ ]) " This is a filetype-specific mapping
 	let g:AutoPairsLanguagePairs['vifm'] = g:AutoPairsLanguagePairs['vim']
 endif
-
-if v:version >= 900
-	" any-jump.vim and autosuggest.vim conflict with search.vim
-	" https://github.com/pechorin/any-jump.vim/issues/106
-	runtime! autoload/search.vim
-endif
