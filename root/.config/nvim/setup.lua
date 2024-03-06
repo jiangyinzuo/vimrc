@@ -181,9 +181,9 @@ require('lualine').setup {
 		}
 	},
 	sections = {
-		lualine_a = { 'mode' },
+		lualine_a = { 'filename' },
 		-- 'diff' is slow
-		lualine_b = { 'branch', 'diagnostics', 'filename' },
+		lualine_b = { 'branch', 'diagnostics' },
 		lualine_c = {
 			-- invoke `progress` to get lsp progress status.
 			require("lsp-progress").progress,
