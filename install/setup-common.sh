@@ -36,12 +36,6 @@ setup() {
 		. ~/vimrc/root/bashrc
 	fi
 
-	if [[ $(uname -a) == *WSL* ]]; then
-		soft_link_files+=(
-			.local/share/bash-completion/completions/daily
-		)
-	fi
-
 	echo_green "Setup soft links:"
 	# nvim
 	# ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
