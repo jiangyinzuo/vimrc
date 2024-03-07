@@ -120,8 +120,6 @@ if !exists('g:vscode')
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
 		let g:qf_auto_open_quickfix = 0
-		nmap ]q <Plug>QfCtoggle
-		nmap ]l <Plug>QfLtoggle
 		nmap <leader>cn <Plug>QfCnext
 		nmap <leader>cp <Plug>QfCprevious
 		nmap <leader>ln <Plug>QfLnext
@@ -135,7 +133,7 @@ if !exists('g:vscode')
 		" let g:rcsv_colorlinks = ['NONE', 'NONE']
 
 		Plug 'jiangyinzuo/open-gitdiff.vim'
-		let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$']
+		let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$', '\.eps$']
 		let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
 		let command_def = 'command -nargs=* '
 		if v:version >= 901
@@ -153,14 +151,15 @@ if !exists('g:vscode')
 		exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
 
 		exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
+		command -nargs=+ -complete=customlist,fugitive#LogComplete GitDiff2Paths call open_gitdiff#open_diff_by_path(<f-args>)
 	else
-		noremap ]q :call noplug#ToggleQuickfix('c')<CR>
-		noremap ]l :call noplug#ToggleQuickfix('l')<CR>
 		nnoremap <silent> <leader>cn :cn<CR>
 		nnoremap <silent> <leader>cp :cp<CR>
 		nnoremap <silent> <leader>ln :ln<CR>
 		nnoremap <silent> <leader>lp :lp<CR>
 	endif
+	noremap ]q :call noplug#ToggleQuickfix('c')<CR>
+	noremap ]l :call noplug#ToggleQuickfix('l')<CR>
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
 	" 创建surround类文本对象
