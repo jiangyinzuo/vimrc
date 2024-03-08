@@ -51,12 +51,13 @@ endif
 if has('python3')
 	let g:openai_proxy_url = get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions')
 	Plug 'madox2/vim-ai'
+	" temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
 	let g:vim_ai_chat = {
 				\  "options": {
 				\    "endpoint_url": g:openai_proxy_url,
 				\    "model": "gpt-4",
 				\    "max_tokens": 1000,
-				\    "temperature": 1,
+				\    "temperature": 0.7,
 				\    "request_timeout": 20,
 				\    "selection_boundary": "",
 				\    "initial_prompt": "",
@@ -75,7 +76,7 @@ if has('python3')
 				\    "endpoint_url": g:openai_proxy_url,
 				\    "model": "gpt-4",
 				\    "max_tokens": 1000,
-				\    "temperature": 1,
+				\    "temperature": 0.2,
 				\    "request_timeout": 20,
 				\    "selection_boundary": "",
 				\  },
