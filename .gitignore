@@ -9,6 +9,7 @@ root/.vim/.viminfo
 root/.vim/sessions
 root/.vim/spell
 root/.vim/view
+root/.vim/undodir
 root/.vim/config.vim
 __pycache__
 *.exe

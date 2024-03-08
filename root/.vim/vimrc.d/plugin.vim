@@ -62,7 +62,25 @@ if !exists('g:vscode')
 	let test#python#pytest#executable = 'python3 -m pytest'
 	let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
-	Plug 'mbbill/undotree'
+	" Plug 'mbbill/undotree'
+	" let g:undotree_WindowLayout = 4
+	Plug 'simnalamburt/vim-mundo'
+	" Enable persistent undo so that undo history persists across vim sessions
+	let g:mundo_help = 1
+	let g:mundo_preview_bottom = 1
+	let g:mundo_preview_height = 8
+	let g:mundo_right = 1
+	if has("persistent_undo")
+		let target_path = expand('~/.vim/undodir')
+		" create the directory and any parent directories
+		" if the location does not exist.
+		if !isdirectory(target_path)
+			call mkdir(target_path, "p", 0700)
+		endif
+		let &undodir=target_path
+		set undofile
+	endif
+
 	Plug 'aperezdc/vim-template'
 	let g:templates_no_builtin_templates = 1
 	" autocmd may slow down vim startup time for deep directory
