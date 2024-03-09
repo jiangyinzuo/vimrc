@@ -4,6 +4,7 @@
 " sudo apt install texlive-latex-extra texlive-science latexmk xdotool texlive-publishers
 " :CocInstall coc-vimtex coc-texlab
 
+" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 let g:tex_flavor='latex'
@@ -35,6 +36,22 @@ let g:vimtex_compiler_method = 'latexmk'
 " let g:vimtex_compiler_generic = {
 " 			\ 'command': 'make',
 " 			\}
+
+let g:vimtex_syntax_conceal = {
+			\ 'accents': 1,
+			\ 'ligatures': 1,
+			\ 'cites': 1,
+			\ 'fancy': 1,
+			\ 'spacing': 0,
+			\ 'greek': 1,
+			\ 'math_bounds': 1,
+			\ 'math_delimiters': 1,
+			\ 'math_fracs': 1,
+			\ 'math_super_sub': 1,
+			\ 'math_symbols': 1,
+			\ 'sections': 0,
+			\ 'styles': 1,
+			\}
 
 augroup latex_commands
 	" 清除可能已存在的与 'latex_commands' 相关的自动命令
