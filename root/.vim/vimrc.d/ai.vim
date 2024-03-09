@@ -104,9 +104,8 @@ if has('python3')
 	endfunction
 
 	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
-	" TODO: change it when PR is merged.
-	" Plug 'madox2/vim-ai'
-	Plug 'jiangyinzuo/vim-ai'
+
+	Plug 'madox2/vim-ai'
 	call AISwitchServer('aiproxy')
 	command! -range -nargs=? AITranslate <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
 	command! -range -nargs=? AIPolish <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)
