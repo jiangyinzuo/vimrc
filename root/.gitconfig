@@ -29,7 +29,7 @@
 
 [includeIf "gitdir:/mnt/d/doc2/group-meeting/"]
 	path = ~/.gitconfig-ict
-[includeIf "gitdir:/mnt/d/wkspace/blade-project/"]
+[includeIf "gitdir:/mnt/d/doc2/PROJECTS/blade/"]
 	path = ~/.gitconfig-ict
 
 [filter "lfs"]
