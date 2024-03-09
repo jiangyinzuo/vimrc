@@ -284,6 +284,7 @@ cpp需要rg with PCRE2 support
 Github Copilot  
 [tabnine](tabnine.com)(vscode, jetbrains)  
 codegeex  
+codeium  
 
 -------------------------------------------------------------------------------
 

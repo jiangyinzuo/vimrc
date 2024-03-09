@@ -1,5 +1,6 @@
 function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
-	" 读取和解析 Makefile
+	" See Also: https://github.com/jiangyinzuo/vimrc/commit/29a7f3f4686c4ea8246c2f149f698fd01d7cdba4#commitcomment-139545459
+	" read and parse Makefile
 	try
 		let l:lines = readfile('Makefile')
 	catch /.*/
@@ -10,7 +11,7 @@ function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
 	for line in l:lines
 		if line =~ '^\w.*:'
 			let target = matchstr(line, '^\w\+')
-			" 只添加与 ArgLead 匹配的目标
+			" Only add targets that match ArgLead
 			if target =~ '^' . a:ArgLead
 				call add(l:targets, target)
 			endif

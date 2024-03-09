@@ -138,6 +138,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
+	command -nargs=0 DiffthisPlain :diffthis | setf text
+	command -nargs=0 DiffoffRestoreFiletype :diffoff | edit
 	""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=
@@ -268,9 +270,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	function ToggleQuickfix(list)
 		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-			let length = len(getqflist())
-			let height = length > 7 ? 7 : length
-			let height = length < 2 ? 2 : length
+			let height = len(getqflist())
+			let height = height > 7 ? 7 : height
+			let height = height < 2 ? 2 : height
 			if a:list == 'c'
 				exe 'copen ' . height
 			else

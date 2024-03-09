@@ -1,0 +1,55 @@
+vim:set ft=help:
+
+*collaboration*
+
+Based on ssh, tmux ~
+https://hamvocke.com/blog/remote-pair-programming-with-tmux/
+https://iagoleal.com/posts/tmux-pair-programming/
+https://github.com/zolrath/wemux
+
+Shared terminal ~
+https://tmate.io/
+
+(Neo)Vim plugins ~
+https://github.com/FredKSchott/CoVim
+https://github.com/jbyuki/instant.nvim/wiki/Technical-Overview
+
+
+Microsoft Visual Studio Live Share ~
+https://visualstudio.microsoft.com/zh-hans/services/live-share/
+https://github.com/microsoft/live-share/issues/3020
+
+Jetbrains Code With Me ~
+https://www.jetbrains.com/code-with-me/
+
+Zed Collaboration ~
+https://zed.dev/docs/collaboration
+
+Other Business Solutions ~
+https://www.codetogether.com/
+https://github.com/Floobits (Inactive)
+
+Technique ~
+
+realtime-collaboration.md
+
+*operational-transformation*
+https://en.wikipedia.org/wiki/Operational_transformation
+*sharedb*
+https://github.com/share/sharedb
+
+*CRDT*
+https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type
+
+https://en.wikipedia.org/wiki/Collaborative_real-time_editor
+
+*automerge*
+https://automerge.org/
+
+*yjs*
+https://github.com/yjs/yjs
+https://github.com/y-crdt
+
+*yorkie*
+https://github.com/yorkie-team/yorkie
+https://yorkie.dev/examples/codemirror

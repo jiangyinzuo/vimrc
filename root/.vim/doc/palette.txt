@@ -53,3 +53,4 @@
 *git加载所有unmerged文件到quickfixlist*			:Git mergetool
 *将当前文件和其它版本对比*					:Gdiffsplit HEAD~3:%
 *统计当前buffer某个文本的个数*				:%s/<word>//gn
+*undo到上一次保存*					:earlier 1f

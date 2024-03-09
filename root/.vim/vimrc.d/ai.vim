@@ -49,43 +49,65 @@ if has('nvim') || v:version >= 900
 endif
 
 if has('python3')
-	let g:openai_proxy_url = get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions')
-	Plug 'madox2/vim-ai'
-	" temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
-	let g:vim_ai_chat = {
-				\  "options": {
-				\    "endpoint_url": g:openai_proxy_url,
-				\    "model": "gpt-4",
-				\    "max_tokens": 1000,
-				\    "temperature": 0.7,
-				\    "request_timeout": 20,
-				\    "selection_boundary": "",
-				\    "initial_prompt": "",
-				\  },
-				\  "ui": {
-				\    "code_syntax_enabled": 1,
-				\    "populate_options": 0,
-				\    "open_chat_command": "preset_below",
-				\    "scratch_buffer_keep_open": 0,
-				\    "paste_mode": 1,
-				\  },
-				\}
-	let g:vim_ai_edit = {
-				\  "engine": "chat",
-				\  "options": {
-				\    "endpoint_url": g:openai_proxy_url,
-				\    "model": "gpt-4",
-				\    "max_tokens": 1000,
-				\    "temperature": 0.2,
-				\    "request_timeout": 20,
-				\    "selection_boundary": "",
-				\  },
-				\  "ui": {
-				\    "paste_mode": 1,
-				\  },
-				\}
-	let g:vim_ai_complete = g:vim_ai_edit
+	function AISwitchServer(backend)
+		if a:backend == 'aiproxy'
+			let g:vim_ai_endpoint_url = get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions')
+			let g:vim_ai_token_file_path = '~/.config/openai.token'
+			let g:vim_ai_model = 'gpt-4'
+		elseif a:backend == 'kimichat'
+			let g:vim_ai_endpoint_url = 'https://api.moonshot.cn/v1/chat/completions'
+			let g:vim_ai_token_file_path = '~/.config/kimichat.token'
+			let g:vim_ai_model = 'moonshot-v1-8k'
+		else
+			echom "Unknown backend: " . a:backend
+			return
+		endif
+		" temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
+		let g:vim_ai_chat = {
+					\  "options": {
+					\    "endpoint_url": g:vim_ai_endpoint_url,
+					\    "model": g:vim_ai_model,
+					\    "max_tokens": 1000,
+					\    "temperature": 0.7,
+					\    "request_timeout": 20,
+					\    "selection_boundary": "",
+					\    "enable_auth": 1,
+					\    "initial_prompt": "",
+					\  },
+					\  "ui": {
+					\    "code_syntax_enabled": 1,
+					\    "populate_options": 0,
+					\    "open_chat_command": "preset_below",
+					\    "scratch_buffer_keep_open": 0,
+					\    "paste_mode": 1,
+					\  },
+					\}
+		let g:vim_ai_edit = {
+					\  "engine": "chat",
+					\  "options": {
+					\    "endpoint_url": g:vim_ai_endpoint_url,
+					\    "model": g:vim_ai_model,
+					\    "max_tokens": 1000,
+					\    "temperature": 0.2,
+					\    "request_timeout": 20,
+					\    "enable_auth": 1,
+					\    "selection_boundary": "",
+					\  },
+					\  "ui": {
+					\    "paste_mode": 1,
+					\  },
+					\}
+		let g:vim_ai_complete = g:vim_ai_edit
+	endfunction
+	function AISwitchServerComplete(A, L, P)
+		return ['aiproxy', 'kimichat']
+	endfunction
 
+	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
+	" TODO: change it when PR is merged.
+	" Plug 'madox2/vim-ai'
+	Plug 'jiangyinzuo/vim-ai'
+	call AISwitchServer('aiproxy')
 	command! -range -nargs=? AITranslate <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
 	command! -range -nargs=? AIPolish <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)
 endif

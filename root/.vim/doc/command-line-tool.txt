@@ -215,7 +215,10 @@ https://onefetch.dev/
 <
 
 -------------------------------------------------------------------------------
-
+*shell-gpt* *sgpt*
+>
+	pip install shell-gpt
+<
 *github-copilot-cli*
 
 https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli

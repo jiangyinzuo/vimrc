@@ -194,6 +194,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
+	command -nargs=0 DiffthisPlain :diffthis | setf text
+	command -nargs=0 DiffoffRestoreFiletype :diffoff | edit
 	""""""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=

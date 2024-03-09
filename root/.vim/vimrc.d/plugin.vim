@@ -71,7 +71,11 @@ if !exists('g:vscode')
 	let g:mundo_preview_height = 8
 	let g:mundo_right = 1
 	if has("persistent_undo")
-		let target_path = expand('~/.vim/undodir')
+		if has('nvim')
+			let target_path = expand('~/.vim/undodir/nvim')
+		else
+			let target_path = expand('~/.vim/undodir/vim')
+		endif
 		" create the directory and any parent directories
 		" if the location does not exist.
 		if !isdirectory(target_path)

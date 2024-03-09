@@ -12,7 +12,7 @@ let g:tex_conceal='abdmgs'
 " alternative pdf viewer: 
 " sudo apt install zathura evince mupdf
 
-if has('unix') && exists('$WSLENV') && has('clientserver')
+if has('unix') && exists('$WSLENV') && (has('clientserver') || has('nvim'))
 	let g:vimtex_view_general_viewer = $VIMRC_ROOT.'/scripts/sumatrapdf.zsh'
 
 	" 需要提前编译no_terminal.exe
