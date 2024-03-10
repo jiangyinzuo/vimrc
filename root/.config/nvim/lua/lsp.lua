@@ -145,37 +145,48 @@ if vim.g.enable_symbol_line == 1 then
 	vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 end
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
 	if vim.g.enable_symbol_line == 1 and client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
-
-	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-	-- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	-- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-	-- 	vim.keymap.set("n", "<space>wl", function()
-	-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	-- 	end, bufopts)
-	vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
-	vim.keymap.set("n", "<leader>fmt", function()
-		vim.lsp.buf.format { async = true }
-	end, bufopts)
 end
+
+local lspconfig = require('lspconfig')
+
+lspconfig.clangd.setup {
+	on_attach = on_attach
+}
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+		-- Mappings.
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+		vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
+		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
+		vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
+		vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
+		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+		-- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+		-- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+		-- 	vim.keymap.set("n", "<space>wl", function()
+		-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		-- 	end, bufopts)
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
+		vim.keymap.set("n", "<leader>fmt", function()
+			vim.lsp.buf.format { async = true }
+		end, bufopts)
+	end,
+})
 
 -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 require("clangd_extensions").setup {
@@ -272,7 +283,7 @@ rt.setup({
 
 require("dapconfig")
 
-require 'lspconfig'.lua_ls.setup {
+lspconfig.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
@@ -311,15 +322,13 @@ require 'lspconfig'.lua_ls.setup {
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 -- npm i -g vscode-langservers-extracted
-require 'lspconfig'.jsonls.setup {
-	capabilities = capabilities,
-	on_attach = on_attach,
-}
-
-require('lspconfig').pyright.setup {
-	capabilities = capabilities,
-	on_attach = on_attach,
-}
+local other_servers = { 'jsonls', 'pyright', 'texlab' }
+for _, lsp in ipairs(other_servers) do
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
+end
 
 cmp.setup {
 	-- ... rest of your cmp setup ...
