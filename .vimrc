@@ -417,7 +417,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	autocmd FileType c,cpp,cuda setlocal completefunc=MyCppCompleteFunc
 	set laststatus=2
-	set statusline=%1*%F%m%r%h%w%=%l/%L,%v\ %Y\ %{\"\".(\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"\"}
+	set statusline=%1*%F%m%r%h%w%=%l/%L,%v\ %Y\ %{&fenc}
 
 	function! MyRead(file)
 		" 获取文件大小
