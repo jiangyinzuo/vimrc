@@ -39,6 +39,18 @@ https://en.wikipedia.org/wiki/Operational_transformation
 https://github.com/share/sharedb
 
 *CRDT*
+https://crdt.tech/implementations
+探秘前端 CRDT 实时协作库 Yjs 工程实现 - doodlewind的文章 - 知乎
+https://zhuanlan.zhihu.com/p/452980520
+对可多人协同编辑的在线编辑器，如何设计其 undo/redo 的逻辑？ - 知乎
+https://www.zhihu.com/question/367915946
+协同编辑领域是否存在 CRDT 取代 OT 的趋势？ - 知乎
+https://www.zhihu.com/question/510215494
+8-Conflict-Free Replicated Data Type（CRDT） - Cookie.Z的文章 - 知乎
+https://zhuanlan.zhihu.com/p/580094985
+富文本 CRDT crdt-richtext 开源啦 - 陈子轩的文章 - 知乎
+https://zhuanlan.zhihu.com/p/629580388
+
 https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type
 
 https://en.wikipedia.org/wiki/Collaborative_real-time_editor

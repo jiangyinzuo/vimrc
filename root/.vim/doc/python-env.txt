@@ -83,6 +83,10 @@ https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 micromamba install python=3.11
 
 ----------------------------------------------------------------
+*pdm* 替代requirements.txt
+
+https://pdm-project.org/latest/
+----------------------------------------------------------------
 *matplotlib-show报错*
 >
 	>>> plt.show()
