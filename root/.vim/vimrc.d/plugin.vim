@@ -99,18 +99,6 @@ if !exists('g:vscode')
 	vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
 	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
-	" Remove ~/.vim/autoload/detect_indent.vim
-	" Since: v0.12.0
-	if v:version >= 901
-		packadd! editorconfig
-	else
-		Plug 'editorconfig/editorconfig-vim'
-	endif
-	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
-	au FileType gitcommit let b:EditorConfig_disable = 1
-	" vim-sleuth does not behave as expected.
-	" Plug 'tpope/vim-sleuth'
-
 	" Commenting blocks of code.
 	" 可以选中多行后，用:norm i# 在所有行前面添加#
 	" :norm 0i 在所有行前面添加
@@ -215,6 +203,18 @@ if !exists('g:vscode')
 		" Plug 'dracula/vim', { 'as': 'dracula' }
 		" Plug 'tomasiser/vim-code-dark'
 		" Plug 'morhetz/gruvbox'
+
+		" Remove ~/.vim/autoload/detect_indent.vim
+		" Since: v0.12.0
+		if v:version >= 901
+			packadd! editorconfig
+		else
+			Plug 'editorconfig/editorconfig-vim'
+		endif
+		let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
+		au FileType gitcommit let b:EditorConfig_disable = 1
+		" vim-sleuth does not behave as expected.
+		" Plug 'tpope/vim-sleuth'
 
 		if v:version >= 900
 			" Alternative: https://github.com/gelguy/wilder.nvim
