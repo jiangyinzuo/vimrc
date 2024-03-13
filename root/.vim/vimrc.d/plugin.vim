@@ -117,7 +117,7 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-characterize'
 
 	if has('nvim') || v:version >= 800
-		Plug 'brooth/far.vim'
+		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 		let g:far#source = 'rg'
 		let g:far#enable_undo = 1
 		Plug 'preservim/vimux'
@@ -224,6 +224,8 @@ if !exists('g:vscode')
 			Plug 'girishji/autosuggest.vim'
 			" External cmd is slow.
 			autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s'] }}) | endif
+
+			Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
 		endif
 		if v:version >= 802
 			if g:vimrc_use_coc

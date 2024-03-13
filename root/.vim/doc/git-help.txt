@@ -19,6 +19,18 @@ $DOC2/cs/system/software_engineering/version-control-and-release-model
 $DOC2/cs/tools-open-source/git-github
 
 -------------------------------------------------------------------------------
+*git-log*
+
+git 查看src/main.c 20-25行的修改历史
+>
+	git log -L 20,25:src/main.c
+<
+或者直接Visual mode下选中20-25行，然后`:GV`
+
+*git-blame*
+`:Git blame`也可以Visual mode选中执行。
+
+-------------------------------------------------------------------------------
 Git 修改历史提交的文件                                 *git-modify-history-file*
 
 如果你想修改历史提交中的某个文件，你可以使用以下步骤：
@@ -208,8 +220,12 @@ Git Diff ~
 
 查看diff
 :Git diff HEAD~1
+
 列出diff文件到quickfix
 :Git difftool HEAD~1
+
+查看commit 11ad9622 下的当前文件
+:Gedit 11ad9622:%
 
 Git Merge ~
 *git-mergetool*
@@ -408,6 +424,8 @@ $DOC2/cs/system/software_engineering/tools-open-source/git-github/monorepo.md
 *git细粒度提交*
 如果需要细粒度地提交，可以使用`git add -p <file>`。
 git add -p会把文件的修改分成若干个更改块(hunks)，每个片段都可以选择是否提交。
+
+或者使用`:GitGutterStageHunk`提交当前hunk。
 
 如果需要临时切换到master分支，同时保留dev分支的修改，可以使用`git stash`。
 *git-stash* 之后切回dev分支，使用`git stash pop`恢复修改。

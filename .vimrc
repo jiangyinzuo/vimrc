@@ -73,6 +73,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
+
+		" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
+		tnoremap <ScrollWheelUp> <C-\><C-n>
+		tnoremap <ScrollWheelDown> <C-\><C-n>
+		nnoremap <ScrollWheelUp> 3<C-y>
+		nnoremap <ScrollWheelDown> 3<C-e>
 	else
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
 	endif
@@ -319,9 +325,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 	" nnoremap <silent> <leader>t :term ++rows=9<CR>
-	" if exists(':tnoremap')
-	" 	tnoremap <silent> <leader>t <C-W>:hide<CR>
-	" endif
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call SystemToQf(<q-args>)

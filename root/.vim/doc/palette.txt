@@ -54,3 +54,4 @@
 *将当前文件和其它版本对比*					:Gdiffsplit HEAD~3:%
 *统计当前buffer某个文本的个数*				:%s/<word>//gn
 *undo到上一次保存*					:earlier 1f
+*垂直切分显示buffer-id为4的终端*	:vsp|b4

@@ -78,6 +78,7 @@ recording a macro: >
 
 进入 |Terminal-Normal| 模式
 |Terminal-mode| CTRL-WN
+隐藏终端 CTRL-W:hide
 
 *split-window-with-height-10-and-open-buffer-1* `:10sp #1`
 
@@ -285,6 +286,16 @@ Github Copilot
 [tabnine](tabnine.com)(vscode, jetbrains)  
 codegeex  
 codeium  
+
+fitten code
+https://github.com/FittenTech
+https://github.com/luozhiya/fittencode.nvim
+
+devin https://www.cognition-labs.com/blog
+全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
+https://36kr.com/p/2687396960595333
+
+https://www.swebench.com/
 
 -------------------------------------------------------------------------------
 
