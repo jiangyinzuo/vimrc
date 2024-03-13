@@ -117,6 +117,9 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-characterize'
 
 	if has('nvim') || v:version >= 800
+		Plug 'brooth/far.vim'
+		let g:far#source = 'rg'
+		let g:far#enable_undo = 1
 		Plug 'preservim/vimux'
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
@@ -220,7 +223,7 @@ if !exists('g:vscode')
 			" Alternative: https://github.com/gelguy/wilder.nvim
 			Plug 'girishji/autosuggest.vim'
 			" External cmd is slow.
-			autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!'] }}) | endif
+			autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s'] }}) | endif
 		endif
 		if v:version >= 802
 			if g:vimrc_use_coc

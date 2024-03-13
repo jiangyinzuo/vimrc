@@ -76,6 +76,11 @@ git只fetch某个远程仓库的某一个分支 >
 <
 
 -------------------------------------------------------------------------------
+*git-commit*
+
+往前数x个提交   <commit>~x
+没有往后数x个提交的写法，因为一个父提交可能有多个子提交，但一个子提交只有一个父提交。
+
 git commit --amend                                      *git-commit-amend*
 
 'git commit --amend' 是一个 Git 命令，用于修改最近一次提交。这个命令会将暂存区中
@@ -502,6 +507,13 @@ machine/kiwi分支。
 >
 	git remote add kiwi ssh://jiangyinzuo@kiwi:/home/jiangyinzuo/vimrc
 	git push kiwi machine/kiwi
+<
+
+-------------------------------------------------------------------------------
+*git-push*
+git push commit bada2a1 to origin's master branch
+>
+	git push origin bada2a1:master
 <
 -------------------------------------------------------------------------------
 *git-protocol* *git协议*

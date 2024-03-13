@@ -2,7 +2,9 @@
 	"languageserver": {
 		"cmake": {
 			"command": "cmake-language-server",
-			"filetypes": ["cmake"],
+			"filetypes": [
+				"cmake"
+			],
 			"rootPatterns": [
 				"build/"
 			],
@@ -12,8 +14,15 @@
 		},
 		"ocaml-lsp": {
 			"command": "opam",
-			"args": ["exec", "--", "ocamllsp"],
-			"filetypes": ["ocaml", "reason"]
+			"args": [
+				"exec",
+				"--",
+				"ocamllsp"
+			],
+			"filetypes": [
+				"ocaml",
+				"reason"
+			]
 		},
 		"typst": {
 			"command": "typst-lsp",
@@ -24,16 +33,25 @@
 		"bash": {
 			"enable": false,
 			"command": "bash-language-server",
-			"args": ["start"],
-			"filetypes": ["sh"],
-			"ignoredRootPaths": ["~"]
+			"args": [
+				"start"
+			],
+			"filetypes": [
+				"sh"
+			],
+			"ignoredRootPaths": [
+				"~"
+			]
 		},
 		"mlir": {
 			"command": "mlir-lsp-server",
-			"filetypes": ["mlir"]
+			"filetypes": [
+				"mlir"
+			]
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+	"coc.preferences.currentFunctionSymbolDebounceTime": 1000,
 	"coc.preferences.useQuickfixForLocations": true,
 	"outline.keepWindow": false,
 	"clangd.enabled": true,
@@ -62,10 +80,18 @@
 	"coc.source.around.shortcut": "around",
 	"coc.source.buffer.shortcut": "buffer",
 	"coc.source.dictionary.enable": true,
-	"coc.source.dictionary.filetypes": ["markdown", "text", "latex"],
+	"coc.source.dictionary.filetypes": [
+		"markdown",
+		"text",
+		"latex"
+	],
 	"coc.source.dictionary.shortcut": "dict",
 	"coc.source.word.enable": true,
-	"coc.source.word.filetypes": ["markdown", "text", "latex"],
+	"coc.source.word.filetypes": [
+		"markdown",
+		"text",
+		"latex"
+	],
 	"coc.source.word.shortcut": "word",
 	"coc.source.emoji.enable": true,
 	"coc.source.tag.enable": true,

@@ -7,8 +7,8 @@
 " 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 Plug 'lervag/vimtex', {'for': 'tex'}
 
-let g:tex_flavor='latex'
-let g:tex_conceal='abdmgs'
+let g:tex_flavor = 'latex'
+let g:tex_conceal = 'admgs'
 
 " alternative pdf viewer: 
 " sudo apt install zathura evince mupdf
@@ -50,7 +50,7 @@ let g:vimtex_syntax_conceal = {
 			\ 'math_super_sub': 1,
 			\ 'math_symbols': 1,
 			\ 'sections': 0,
-			\ 'styles': 1,
+			\ 'styles': 0,
 			\}
 
 augroup latex_commands
