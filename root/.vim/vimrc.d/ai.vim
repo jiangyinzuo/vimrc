@@ -33,6 +33,7 @@ if has('nvim') || v:version >= 900
 		imap <M-s> <Plug>(copilot-suggest)
 
 	elseif g:ai_complete == 'codeium'
+		" Alternative: https://github.com/Exafunction/codeium.nvim
 		Plug 'Exafunction/codeium.vim'
 		let g:codeium_disable_bindings = 1
 		command -nargs=0 CodeiumChat call codeium#Chat()

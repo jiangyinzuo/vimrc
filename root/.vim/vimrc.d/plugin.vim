@@ -129,7 +129,6 @@ if !exists('g:vscode')
 
 		" modify some snippets
 		Plug 'honza/vim-snippets'
-		Plug 'lifepillar/vim-solarized8'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
 		let g:qf_auto_open_quickfix = 0
@@ -145,6 +144,7 @@ if !exists('g:vscode')
 		" 禁用rainbow_csv的高亮
 		" let g:rcsv_colorlinks = ['NONE', 'NONE']
 
+		" Alternative: https://github.com/sindrets/diffview.nvim
 		Plug 'jiangyinzuo/open-gitdiff.vim'
 		let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$', '\.eps$']
 		let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
@@ -199,7 +199,16 @@ if !exists('g:vscode')
 	" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 	let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
-	if has('nvim') && !g:nvim_compatibility_with_vim
+	if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
+		" Use release branch (recommend)
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		Plug 'antoinemadec/coc-fzf'
+		" fix bug 'Auto jump to the first line after exit from the floating
+		" window of CocFzfLocation'
+		" https://github.com/antoinemadec/coc-fzf/issues/113
+		let g:coc_fzf_location_delay = 20
+	endif
+	if has('nvim')
 		source ~/.vim/vimrc.d/plugin_nvim.vim
 	else
 		" Plug 'nordtheme/vim', { 'as': 'nordtheme' }
@@ -219,51 +228,44 @@ if !exists('g:vscode')
 		" vim-sleuth does not behave as expected.
 		" Plug 'tpope/vim-sleuth'
 
-		if v:version >= 900
-			" Alternative: https://github.com/gelguy/wilder.nvim
-			Plug 'girishji/autosuggest.vim'
-			" External cmd is slow.
-			autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s'] }}) | endif
-
-			Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
-		endif
-		if v:version >= 802
-			if g:vimrc_use_coc
-				" Use release branch (recommend)
-				Plug 'neoclide/coc.nvim', {'branch': 'release'}
-				Plug 'antoinemadec/coc-fzf'
-				" fix bug 'Auto jump to the first line after exit from the floating
-				" window of CocFzfLocation'
-				" https://github.com/antoinemadec/coc-fzf/issues/113
-				let g:coc_fzf_location_delay = 20
-			endif
-			if g:vimrc_use_vimspector
-				Plug 'puremourning/vimspector'
-				let g:vimspector_enable_mappings='VISUAL_STUDIO'
-
-				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-				" There are two locations for debug configurations for a project:
-				" 
-				" g:vimspector_configurations vim variable (dict)
-				" <vimspector home>/configurations/<OS>/<filetype>/*.json
-				" .vimspector.json in the project source
-				"
-				" json配置位于.vim/configurationsw目录下
-				let g:vimspector_base_dir = $HOME . '/.vim'
-				let g:vimspector_sign_priority = {
-							\    'vimspectorBP':          20,
-							\    'vimspectorBPCond':      20,
-							\    'vimspectorBPLog':       20,
-							\    'vimspectorBPDisabled':  20,
-							\    'vimspectorNonActivePC': 20,
-							\    'vimspectorPC':          999,
-							\    'vimspectorPCBP':        999,
-							\ }
-			endif
-			Plug 'jiangyinzuo/term-debugger'
-		endif
 		if v:version >= 800
+			Plug 'lifepillar/vim-solarized8'
 			source ~/.vim/vimrc.d/leaderf.vim
+			if v:version >= 802
+				if v:version >= 900
+					" Alternative: https://github.com/gelguy/wilder.nvim
+					Plug 'girishji/autosuggest.vim'
+					" External cmd is slow.
+					autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s'] }}) | endif
+					if v:version >= 901
+						Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
+					endif
+				endif
+				if g:vimrc_use_vimspector
+					Plug 'puremourning/vimspector'
+					let g:vimspector_enable_mappings='VISUAL_STUDIO'
+
+					" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+					" There are two locations for debug configurations for a project:
+					" 
+					" g:vimspector_configurations vim variable (dict)
+					" <vimspector home>/configurations/<OS>/<filetype>/*.json
+					" .vimspector.json in the project source
+					"
+					" json配置位于.vim/configurationsw目录下
+					let g:vimspector_base_dir = $HOME . '/.vim'
+					let g:vimspector_sign_priority = {
+								\    'vimspectorBP':          20,
+								\    'vimspectorBPCond':      20,
+								\    'vimspectorBPLog':       20,
+								\    'vimspectorBPDisabled':  20,
+								\    'vimspectorNonActivePC': 20,
+								\    'vimspectorPC':          999,
+								\    'vimspectorPCBP':        999,
+								\ }
+				endif
+				Plug 'jiangyinzuo/term-debugger'
+			endif
 		endif
 	endif
 
@@ -431,16 +433,20 @@ endif
 
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
-
-if (v:version >= 800 || has('nvim'))
+if v:version >= 800
 	" true color support
 	" https://github.com/lifepillar/vim-solarized8#troubleshooting
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	let g:solarized_diffmode = "normal"
-	colorscheme solarized8
+	if has('nvim')
+		colorscheme solarized
+	else
+		colorscheme solarized8
+	endif
 	hi NonText cterm=None term=None gui=None
 endif
+
 " tab颜色
 hi clear SpecialKey
 hi link SpecialKey NonText
@@ -451,10 +457,12 @@ hi debugBreakpoint term=reverse ctermbg=red guibg=red
 
 " 默认主题不显示colorcolumn
 set colorcolumn=80,120
-" markdown会conceal一些字符，导致colorcolumn显示混乱
-autocmd FileType org,markdown,text setlocal colorcolumn=
+if !has('patch-9.1.176')
+	" markdown会conceal一些字符，导致colorcolumn显示混乱
+	autocmd FileType org,markdown,text setlocal colorcolumn=
+endif
 
-if (v:version >= 802 || has('nvim') && g:nvim_compatibility_with_vim) && g:vimrc_use_coc
+if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
 	source ~/.vim/vimrc.d/coc.vim
 endif
 

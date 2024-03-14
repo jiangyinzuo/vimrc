@@ -1,4 +1,5 @@
 build
+root/.config/lazygit/state.yml
 root/.vim/.netrwhist
 root/.vim/plugged
 root/.vim/doc/tags

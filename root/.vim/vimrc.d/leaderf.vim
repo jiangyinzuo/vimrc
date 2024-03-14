@@ -71,7 +71,7 @@ let g:Lf_WildIgnore = {
   \ 'dir': ['.git', '__pycache__', '.DS_Store', '.svn', '.cache', 'deps', 'build'],
   \ 'file': ['tags', 'GTAGS', 'GRTAGS', 'GPATH', '*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png', '*.webp',
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz', '*.tar',
-  \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.tmp',
+  \ '*.zip', '*.bin', '*.ppt', '*.pptx', '*.xls', '*.xlsx', '*.doc', '*.docx', '*.pdf', '*.eps', '*.tmp',
   \ '*.wmv', '*.mkv', '*.mp4', '*.rmvb', '*.ttf', '*.ttc', '*.otf',
   \ '*.mp3', '*.aac', '*.orig', '*.min.*', '*.html', '*.htm', '**/tags', '*.out', '*.pcm']
   \}

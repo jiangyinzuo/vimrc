@@ -2,11 +2,11 @@
 
 ## Requirements
 
-### Vim or Neovim
+### Vim/Neovim/VSCode Neovim
 
-**Vim (recommended)**
+#### Vim
 
-vim 9 (full features)  
+vim 9.1 (full features)  
 vim 8.2.4919 (most of features)  
 vim 7.4.629 (minimal)  
 
@@ -28,15 +28,19 @@ make install
 
 See also: `install/build_vim_from_source.sh`
 
-**Neovim (unstable)**
+#### Neovim
 
-neovim 0.9.0+ (need glibc 2.28, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28)
+neovim 0.9.5+ (need glibc 2.28, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28)
 
 [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)  
 ```bash
 sudo apt install neovim python3-pynvim
 pip3 install neovim
 ```
+
+#### VSCode Neovim
+
+TODO
 
 ### Node.js (coc.nvim, copilot.vim)
 

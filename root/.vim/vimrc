@@ -3,6 +3,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nocp " no Vi-compatible
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
+	if has('nvim')
+		set runtimepath^=~/.vim runtimepath+=~/.vim/after
+		let &packpath = &runtimepath
+	endif
 	if filereadable(expand('~/.vim/config.vim'))
 		source ~/.vim/config.vim
 	endif
@@ -21,7 +25,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
-	let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 1)
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp' , has('nvim') ? 'nvim-lsp' : 'coc.nvim')
 	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 
 	" See Also: https://github.com/neoclide/coc-sources
@@ -74,7 +78,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set hidden " 未保存文本就可以隐藏buffer
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
-	if v:version >= 802
+	if v:version >= 802 || has('nvim')
 		set wildoptions=pum " 显示popup window
 	else
 		set wildmode=list:full
@@ -105,7 +109,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set noswapfile     "no swap files
 
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
-	if v:version >= 802
+	if v:version >= 802 || has('nvim')
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
 
 		" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
@@ -180,7 +184,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set signcolumn=yes " 同时显示git状态和行号
 	endif
 
-	if v:version >= 801
+	if v:version >= 801 || has('nvim')
 		set conceallevel=2
 		
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -386,7 +390,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" %{&ff} 显示文件类型
 	" See: https://zhuanlan.zhihu.com/p/532430825
 	set laststatus=2
-	if !has('nvim') || g:nvim_compatibility_with_vim == 1
+	if !has('nvim')
 		set statusline=%1*%F%m%r%h%w
 		let show_status = exists("g:plugs") && v:version >= 802 && g:no_plug == 0
 		if show_status
@@ -534,4 +538,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set csprg=gtags-cscope
 		endif
 	endif
+
+	if has('nvim') && !exists("g:vscode")
+		runtime setup.lua
+	end
 endif

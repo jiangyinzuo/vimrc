@@ -45,7 +45,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set hidden " 未保存文本就可以隐藏buffer
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
-	if v:version >= 802
+	if v:version >= 802 || has('nvim')
 		set wildoptions=pum " 显示popup window
 	else
 		set wildmode=list:full
@@ -71,7 +71,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nowritebackup  "only in case you don't want a backup file while editing
 	set noswapfile     "no swap files
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
-	if v:version >= 802
+	if v:version >= 802 || has('nvim')
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
 
 		" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
@@ -127,7 +127,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	elseif v:version >= 801
 		set signcolumn=yes " 同时显示git状态和行号
 	endif
-	if v:version >= 801
+	if v:version >= 801 || has('nvim')
 		set conceallevel=2
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside

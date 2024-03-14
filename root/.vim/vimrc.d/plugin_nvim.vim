@@ -1,13 +1,17 @@
 " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'ishan9299/nvim-solarized-lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'linrongbin16/lsp-progress.nvim'
+
+if g:vimrc_lsp == 'nvim-lsp'
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'linrongbin16/lsp-progress.nvim'
+endif
 
 Plug 'williamboman/mason.nvim'
-Plug 'neovim/nvim-lspconfig'
 " JSON schema
 " Plug 'b0o/schemastore.nvim'
 " Replace jose-elias-alvarez/null-ls.nvim
@@ -35,3 +39,19 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary', 'on': [
+			\ 'CopilotChat',
+			\  'CopilotChatFixDiagnostic',
+			\  'CopilotChatFix',
+			\  'CopilotChatOpen',
+			\  'CopilotChatReset',
+			\  'CopilotChatOptimize',
+			\  'CopilotChatTests',
+			\  'CopilotChatExplain',
+			\  'CopilotChatDebugInfo',
+			\  'CopilotChatClose',
+			\  'CopilotChatDocs',
+			\  'CopilotChatCommit',
+			\  'CopilotChatCommitStaged',
+			\  'CopilotChatToggle']}
