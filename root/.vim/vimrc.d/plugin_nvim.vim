@@ -16,7 +16,7 @@ Plug 'williamboman/mason.nvim'
 " Plug 'b0o/schemastore.nvim'
 " Replace jose-elias-alvarez/null-ls.nvim
 " Plug 'nvimtools/none-ls.nvim'
-Plug 'simrat39/rust-tools.nvim'
+Plug 'mrcjkb/rustaceanvim', {'for': 'rust'}
 Plug 'p00f/clangd_extensions.nvim'
 Plug 'simrat39/symbols-outline.nvim'
 Plug 'mfussenegger/nvim-dap'

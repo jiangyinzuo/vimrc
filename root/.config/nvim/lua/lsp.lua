@@ -272,15 +272,6 @@ require("clangd_extensions").setup {
 	},
 }
 
-local rt = require("rust-tools")
-
-rt.setup({
-	server = {
-		capabilities = capabilities,
-		on_attach = on_attach,
-	},
-})
-
 require("dapconfig")
 
 lspconfig.lua_ls.setup {
