@@ -12,6 +12,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
+	if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
+		set termguicolors
+	endif
+
 	let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
 	if v:version >= 800
 		set bg=dark

@@ -3,7 +3,7 @@
 soft_link_files=(
 	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
 	.config/vifm .gitconfig .gitconfig-ict .config/himalaya .config/clangd
-	.config/nnn/plugins
+	.config/nnn/plugins .config/nvim
 )
 
 echo_green() {
@@ -45,6 +45,10 @@ setup() {
 	for f in "${soft_link_files[@]}" ; do
 		_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 	done
+
+	# soft links for neovim
+	_make_soft_link ~/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
+	_make_soft_link ~/.vim/vimrc ~/.config/nvim/init.vim
 
 	mkdir -p ~/gadgets
 	_make_soft_link ~/gadgets ~/.vim/gadgets

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pip3 install -U neovim
+
 build_dir=$(pwd)/build
 mkdir -p $build_dir
 cd $build_dir
@@ -7,7 +9,7 @@ cd $build_dir
 download_zip_and_build() {
 	# 下载zip文件的URL
 	ZIP_URL="https://github.com/neovim/neovim/archive/${LATEST_HASH}.zip"
-	rm neovim-${PREVIOUS_HASH_FILE}.zip
+	rm neovim-${PREVIOUS_HASH}.zip
 	# 使用wget或curl下载zip文件
 	wget $ZIP_URL -O neovim-${LATEST_HASH}.zip
 	# 或者使用curl: curl -L $ZIP_URL -o neovim-${LATEST_HASH}.zip

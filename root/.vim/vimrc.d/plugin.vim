@@ -308,10 +308,6 @@ if g:no_plug
 endif
 
 """""""""""""""""" begin colorscheme
-if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
-	set termguicolors
-endif
-
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
 if v:version >= 800
