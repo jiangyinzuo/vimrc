@@ -20,10 +20,10 @@ function M.telescope()
 	vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 	vim.keymap.set('n', '<leader>fh', builtin.oldfiles, {})
 	vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ft",
-	":Telescope file_browser<cr>",
-	{ noremap = true }
+		"n",
+		"<leader>ft",
+		":Telescope file_browser<cr>",
+		{ noremap = true }
 	)
 
 	local fb_actions = require "telescope._extensions.file_browser.actions"
@@ -138,4 +138,5 @@ function M.lualine()
 		extensions = {}
 	}
 end
+
 return M

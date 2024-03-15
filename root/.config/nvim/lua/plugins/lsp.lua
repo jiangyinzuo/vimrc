@@ -4,7 +4,7 @@ local lualine = {
 }
 
 if vim.g.vimrc_lsp == 'nvim-lsp' then
-	lualine.dependencies = { 
+	lualine.dependencies = {
 		"neovim/nvim-lspconfig",
 		"linrongbin16/lsp-progress.nvim",
 	}

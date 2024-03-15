@@ -8,6 +8,7 @@ return {
 			vim.api.nvim_command('source ~/.vim/vimrc.d/latex.vim')
 		end
 	},
+	-- https://github.com/Robitx/gp.nvim
 	{
 		'madox2/vim-ai',
 		init = function()
