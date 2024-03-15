@@ -30,9 +30,29 @@ See also: `install/build_vim_from_source.sh`
 
 #### Neovim
 
-neovim 0.9.5+ (need glibc 2.28, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28)
+neovim 0.9.5+
 
-[Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)  
+Source code and executables: https://github.com/neovim/neovim/releases
+
+##### Install from Package
+
+Supported build needs glibc 2.29, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28
+
+https://github.com/neovim/neovim/blob/nightly/INSTALL.md#install-from-package
+
+Unstable PPA (needs Ubuntu 20.04+):
+
+https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable
+
+See: https://github.com/neovim/neovim-releases
+
+##### Build from Source
+
+tested in Ubuntu 18.04
+
+See `install/build_nvim_from_source.sh`
+
+##### Python3
 ```bash
 sudo apt install neovim python3-pynvim
 pip3 install neovim
