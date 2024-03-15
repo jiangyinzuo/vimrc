@@ -70,20 +70,6 @@ if !exists('g:vscode')
 	let g:mundo_preview_bottom = 1
 	let g:mundo_preview_height = 8
 	let g:mundo_right = 1
-	if has("persistent_undo")
-		if has('nvim')
-			let target_path = expand('~/.vim/undodir/nvim')
-		else
-			let target_path = expand('~/.vim/undodir/vim')
-		endif
-		" create the directory and any parent directories
-		" if the location does not exist.
-		if !isdirectory(target_path)
-			call mkdir(target_path, "p", 0700)
-		endif
-		let &undodir=target_path
-		set undofile
-	endif
 
 	Plug 'aperezdc/vim-template'
 	let g:templates_no_builtin_templates = 1

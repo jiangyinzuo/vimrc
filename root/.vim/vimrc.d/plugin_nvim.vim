@@ -9,6 +9,11 @@ Plug 'kyazdani42/nvim-web-devicons'
 if g:vimrc_lsp == 'nvim-lsp'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'linrongbin16/lsp-progress.nvim'
+	Plug 'hedyhli/outline.nvim'
+	Plug 'p00f/clangd_extensions.nvim'
+	Plug 'mrcjkb/rustaceanvim', {'for': 'rust'}
+
+	Plug 'hrsh7th/cmp-nvim-lsp'
 endif
 
 Plug 'williamboman/mason.nvim'
@@ -16,9 +21,7 @@ Plug 'williamboman/mason.nvim'
 " Plug 'b0o/schemastore.nvim'
 " Replace jose-elias-alvarez/null-ls.nvim
 " Plug 'nvimtools/none-ls.nvim'
-Plug 'mrcjkb/rustaceanvim', {'for': 'rust'}
-Plug 'p00f/clangd_extensions.nvim'
-Plug 'simrat39/symbols-outline.nvim'
+
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
@@ -31,13 +34,11 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 
-" completion(use ultisnips)
-Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-
+" completion(use ultisnips)
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary', 'on': [

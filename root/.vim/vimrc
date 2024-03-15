@@ -25,7 +25,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
-	let g:vimrc_lsp = get(g:, 'vimrc_lsp' , has('nvim') ? 'nvim-lsp' : 'coc.nvim')
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
+	let g:vim_package_manager = get(g:, 'vim_package_manager', 'vim-plug')
 	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 
 	" See Also: https://github.com/neoclide/coc-sources
@@ -162,7 +163,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if exists("g:vscode")
 		let g:loaded_netrw = 1
 		let g:loaded_netrwPlugin = 1
-		source ~/.vim/vimrc.d/plugin.vim
+		if g:vim_package_manager == 'vim-plug'
+			source ~/.vim/vimrc.d/plugin.vim
+		elseif has('nvim') && g:vim_package_manager == 'lazy.nvim'
+			runtime lazy.lua
+		endif
 		finish
 	endif
 
@@ -200,6 +205,20 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
 	endif
 
+	if has("persistent_undo")
+		if has('nvim')
+			let target_path = expand('~/.vim/undodir/nvim')
+		else
+			let target_path = expand('~/.vim/undodir/vim')
+		endif
+		" create the directory and any parent directories
+		" if the location does not exist.
+		if !isdirectory(target_path)
+			call mkdir(target_path, "p", 0700)
+		endif
+		let &undodir=target_path
+		set undofile
+	endif
 	"""""""""""""""""""""""""""""""
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
@@ -361,7 +380,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 		helptags ~/.vim/doc
 	endif
 	if &loadplugins
-		source ~/.vim/vimrc.d/plugin.vim
+		if g:vim_package_manager == 'vim-plug'
+			source ~/.vim/vimrc.d/plugin.vim
+		elseif has('nvim') && g:vim_package_manager == 'lazy.nvim'
+			runtime lazy.lua
+		endif
 	endif
 
 	if exists("+omnifunc")
@@ -539,7 +562,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 	endif
 
-	if has('nvim') && !exists("g:vscode")
-		runtime setup.lua
+	if has('nvim') && !exists("g:vscode") && g:vim_package_manager == 'vim-plug'
+		runtime vimplug.lua
 	end
 endif
