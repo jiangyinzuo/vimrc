@@ -308,6 +308,11 @@ if g:no_plug
 endif
 
 """""""""""""""""" begin colorscheme
+" neovim 要在colorscheme前立刻设置colors，否则会导致neovim启动时屏幕暂时变成黑色
+if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
+	set termguicolors
+endif
+
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
 if v:version >= 800

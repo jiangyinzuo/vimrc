@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
 	root = vim.g.vim_plug_dir,
 	performance = {
+		reset_packpath = true,
 		rtp = {
 			paths = {
 				'~/.vim'
@@ -22,3 +23,6 @@ require("lazy").setup("plugins", {
 		}
 	}
 })
+
+-- lazy.nvim has reset packpath, so we need to add ~/.vim back
+vim.cmd[[set packpath+=~/.vim]]

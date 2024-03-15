@@ -3,7 +3,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nocp " no Vi-compatible
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
-	if has('nvim')
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
+	let g:vim_package_manager = get(g:, 'vim_package_manager', 'vim-plug')
+	if has('nvim') && g:vim_package_manager == 'vim-plug'
 		set runtimepath^=~/.vim runtimepath+=~/.vim/after
 		let &packpath = &runtimepath
 	endif
@@ -12,10 +14,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
-	if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
-		set termguicolors
-	endif
-
 	let g:vimrc_use_vimspector = get(g:, 'vimrc_use_vimspector', 0)
 	if v:version >= 800
 		set bg=dark
@@ -29,8 +27,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
-	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
-	let g:vim_package_manager = get(g:, 'vim_package_manager', 'vim-plug')
 	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 
 	" See Also: https://github.com/neoclide/coc-sources

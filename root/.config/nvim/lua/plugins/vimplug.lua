@@ -99,5 +99,6 @@ return {
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',     ft = { 'c', 'cpp', 'cuda' } },
 	{ 'ojroques/vim-oscyank', branch = 'main' },
-	{ 'whonore/Coqtail',      ft = 'coq' }
+	{ 'whonore/Coqtail',      ft = 'coq' },
+	{ dir = "~/.vim/pack/my_plugins/start/project" },
 }

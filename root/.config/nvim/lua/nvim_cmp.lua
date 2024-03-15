@@ -32,6 +32,7 @@ function M.nvim_cmp()
 				-- { name = 'snippy' }, -- For snippy users.
 			}, {
 				{ name = 'buffer' },
+				{ name = 'path' },
 			})
 		})
 	end
