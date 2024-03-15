@@ -113,7 +113,7 @@ endif
 
 " 默认主题不显示colorcolumn
 set colorcolumn=80,120
-if !has('patch-9.1.176')
+if !has('patch-9.1.176') || !has('nvim')
 	" markdown会conceal一些字符，导致colorcolumn显示混乱
 	autocmd FileType org,markdown,text setlocal colorcolumn=
 endif

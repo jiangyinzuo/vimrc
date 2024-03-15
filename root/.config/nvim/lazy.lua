@@ -13,5 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 -- https://gist.github.com/BlueDrink9/474b150c44d41b80934990c0acfb00be
 require("lazy").setup("plugins", {
-	root = vim.g.vim_plug_dir
+	root = vim.g.vim_plug_dir,
+	performance = {
+		rtp = {
+			paths = {
+				'~/.vim'
+			}
+		}
+	}
 })
