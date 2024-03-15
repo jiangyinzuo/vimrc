@@ -4,7 +4,9 @@ if has('nvim') || v:version >= 900
 		" copilot.vim在打开文件后，第一次快速进入插入模式时，存在卡顿的问题
 		" Github Coplit Support
 		" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
-		Plug 'github/copilot.vim'
+		if g:vim_package_manager == 'vim-plug'
+			Plug 'github/copilot.vim'
+		endif
 		" use <C-x> to auto complete github copilot
 		" imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
 		" let g:copilot_no_tab_map = v:true
@@ -34,7 +36,9 @@ if has('nvim') || v:version >= 900
 
 	elseif g:ai_complete == 'codeium'
 		" Alternative: https://github.com/Exafunction/codeium.nvim
-		Plug 'Exafunction/codeium.vim'
+		if g:vim_package_manager == 'vim-plug'
+			Plug 'Exafunction/codeium.vim'
+		endif
 		let g:codeium_disable_bindings = 1
 		command -nargs=0 CodeiumChat call codeium#Chat()
 		execute "set <M-n>=\en"
@@ -106,7 +110,9 @@ if has('python3')
 
 	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
 
-	Plug 'madox2/vim-ai'
+	if g:vim_package_manager == 'vim-plug'
+		Plug 'madox2/vim-ai'
+	endif
 	call AISwitchServer('aiproxy')
 	command! -range -nargs=? AITranslate <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
 	command! -range -nargs=? AIPolish <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)

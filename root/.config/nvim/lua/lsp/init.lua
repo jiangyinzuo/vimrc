@@ -78,7 +78,7 @@ local function setup_lsp(on_attach, capabilities)
 	lspconfig.clangd.setup {
 		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = {'clangd-17'},
+		cmd = { 'clangd-17' },
 	}
 	require("clangd_extensions.inlay_hints").setup_autocmd()
 	require("clangd_extensions.inlay_hints").set_inlay_hints()
@@ -129,7 +129,7 @@ local function setup_lsp(on_attach, capabilities)
 			capabilities = capabilities,
 		}
 	end
-	
+
 	vim.g.rustaceanvim = {
 		-- Plugin configuration
 		tools = {
@@ -157,40 +157,40 @@ function M.lspconfig()
 	local capabilities = require('cmp_nvim_lsp').default_capabilities()
 	-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 	-- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-		-- capabilities = capabilities,
-		-- }
-		setup_lsp(on_attach, capabilities)
+	-- capabilities = capabilities,
+	-- }
+	setup_lsp(on_attach, capabilities)
 
-		-- Use LspAttach autocommand to only map the following keys
-		-- after the language server attaches to the current buffer
-		vim.api.nvim_create_autocmd('LspAttach', {
-			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-			callback = function(ev)
-				-- Enable completion triggered by <c-x><c-o>
-				vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+	-- Use LspAttach autocommand to only map the following keys
+	-- after the language server attaches to the current buffer
+	vim.api.nvim_create_autocmd('LspAttach', {
+		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+		callback = function(ev)
+			-- Enable completion triggered by <c-x><c-o>
+			vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-				-- Mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				local bufopts = { noremap = true, silent = true, buffer = ev.buf }
-				vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
-				vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-				vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
-				vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-				-- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-				-- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-				-- 	vim.keymap.set("n", "<space>wl", function()
-					-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					-- 	end, bufopts)
-					vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
-					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-					vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
-					vim.keymap.set("n", "<leader>fmt", function()
-						vim.lsp.buf.format { async = true }
-					end, bufopts)
-				end,
-			})
-		end
+			-- Mappings.
+			-- See `:help vim.lsp.*` for documentation on any of the below functions
+			local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
+			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
+			vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
+			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
+			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+			-- 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+			-- 	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+			-- 	vim.keymap.set("n", "<space>wl", function()
+			-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			-- 	end, bufopts)
+			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
+			vim.keymap.set("n", "<leader>fmt", function()
+				vim.lsp.buf.format { async = true }
+			end, bufopts)
+		end,
+	})
+end
 
-		return M
+return M

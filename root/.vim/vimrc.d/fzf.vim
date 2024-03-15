@@ -1,11 +1,7 @@
 " Reference: https://github.com/junegunn/fzf/blob/master/README-VIM.md
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
 " - Popup window (center of the screen)
 let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
-
-Plug 'junegunn/fzf.vim'
 
 " This is the default option:
 "   - Preview window on the right with 50% width

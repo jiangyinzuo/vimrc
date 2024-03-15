@@ -4,9 +4,6 @@
 " sudo apt install texlive-latex-extra texlive-science latexmk xdotool texlive-publishers
 " :CocInstall coc-vimtex coc-texlab
 
-" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-Plug 'lervag/vimtex', {'for': 'tex'}
-
 let g:tex_flavor = 'latex'
 let g:tex_conceal = 'admgs'
 

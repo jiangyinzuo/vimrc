@@ -1,16 +1,5 @@
 local plugins_setup = require('plugins_setup')
 
-local lualine = {
-	'nvim-lualine/lualine.nvim',
-	config = plugins_setup.lualine,
-}
-if vim.g.vimrc_lsp == 'nvim-lsp' then
-	lualine.dependencies = { 
-		"neovim/nvim-lspconfig",
-		"linrongbin16/lsp-progress.nvim",
-	}
-end
-
 return {
 	{
 		"ishan9299/nvim-solarized-lua",
@@ -51,7 +40,6 @@ return {
 		"williamboman/mason.nvim",
 		config = plugins_setup.mason,
 	},
-	lualine,
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		branch = "canary",

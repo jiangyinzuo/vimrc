@@ -482,6 +482,21 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	" 在读取文件之前检查文件大小
 	autocmd BufReadPre * call CheckFileSize()
+
+	""""""""""""""""""" Yank """""""""""""""""""""""
+	" 复制pathline用于gF文件跳转
+	" See rffv() in fzf/fzf.bash
+	" [[palette]]复制当前文件:行的pathline				:YankPathLine
+	command! -nargs=0 YankPathLine call yank#YankPathLine()
+	" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
+	command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
+	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
+	"""""""""""""""""""" DuckDB """"""""""""""""""""
+	let g:duckdb_exe = 'duckdb -markdown'
+	" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
+	command -nargs=1 DuckDBExec call duckdb#DuckDBExec(<q-args>)
+	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
+	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
 	""""""""""""""""""" Marks """"""""""""""""""""""
 	" 为小写字母 a 到 z 创建映射
 	for mark in range(char2nr('a'), char2nr('z'))

@@ -13,43 +13,14 @@ call plug#begin(g:vim_plug_dir)
 
 " similar Plugin: Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
-let g:sneak#label = 1
-let g:sneak#s_next = 1
-" default s: delete [count] charaters and start insert
-nmap s <Plug>Sneak_s
-nmap S <Plug>Sneak_S
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
 
 if has('nvim') || v:version >= 801
-	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
-	" let g:AutoPairsMapBS = 1
-	let g:AutoPairsMapSpace = 0
 	Plug 'markonm/traces.vim'
 
 	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
-	let g:VM_mouse_mappings             = 1
-	let g:VM_theme                      = 'iceblue'
-	let g:VM_highlight_matches          = 'underline'
-
-	let g:VM_maps = {}
-	let g:VM_maps['I CtrlF'] = ''
-	let g:VM_maps['I Return'] = ''
-	" Vim9 has a bug when maps to Esc
-	" https://github.com/mg979/vim-visual-multi/issues/220
-	let g:VM_maps['Exit'] = '<C-c>'
-	let g:VM_maps['Add Cursor Down'] = '<C-j>'
-	let g:VM_maps['Add Cursor Up'] = '<C-k>'
-	let g:VM_maps['Add Cursor At Pos'] = '<C-h>'
-	let g:VM_maps['Motion j'] = '<Down>'
-	let g:VM_maps['Motion k'] = '<Up>'
-	let g:VM_maps['Motion l'] = '<Right>'
-	let g:VM_maps['Motion h'] = '<Left>'
 endif
 
 if !exists('g:vscode')
@@ -58,32 +29,15 @@ if !exists('g:vscode')
 
 	" Test wrapper
 	Plug 'vim-test/vim-test'
-	let test#strategy = "asyncrun_background_term"
-	let test#python#pytest#executable = 'python3 -m pytest'
-	let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
 	" Plug 'mbbill/undotree'
 	" let g:undotree_WindowLayout = 4
 	Plug 'simnalamburt/vim-mundo'
 	" Enable persistent undo so that undo history persists across vim sessions
-	let g:mundo_help = 1
-	let g:mundo_preview_bottom = 1
-	let g:mundo_preview_height = 8
-	let g:mundo_right = 1
 
 	Plug 'aperezdc/vim-template'
-	let g:templates_no_builtin_templates = 1
-	" autocmd may slow down vim startup time for deep directory
-	let g:templates_no_autocmd = 1
-	" Do not search too many parent directories, it is slow.
-	let g:templates_search_height = 1
 	
 	Plug 'szw/vim-maximizer'
-	let g:maximizer_set_default_mapping = 0
-	let g:maximizer_set_mapping_with_bang = 0
-	nnoremap <silent><C-w>m :MaximizerToggle<CR>
-	vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
-	inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
 	" Commenting blocks of code.
 	" 可以选中多行后，用:norm i# 在所有行前面添加#
@@ -104,8 +58,6 @@ if !exists('g:vscode')
 
 	if has('nvim') || v:version >= 800
 		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
-		let g:far#source = 'rg'
-		let g:far#enable_undo = 1
 		Plug 'preservim/vimux'
 		Plug 'SirVer/ultisnips'
 		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
@@ -113,52 +65,15 @@ if !exists('g:vscode')
 		" nmap中F12被映射为打开终端, see floaterm.vim
 		let g:UltiSnipsExpandTrigger="<f12>"
 
-		" modify some snippets
 		Plug 'honza/vim-snippets'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
-		let g:qf_auto_open_quickfix = 0
-		nmap <leader>cn <Plug>QfCnext
-		nmap <leader>cp <Plug>QfCprevious
-		nmap <leader>ln <Plug>QfLnext
-		nmap <leader>lp <Plug>QfLprevious
 
 		Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-		" 默认csv带有header
-		let g:rbql_with_headers = 1
-		let g:rainbow_comment_prefix = '#'
-		" 禁用rainbow_csv的高亮
-		" let g:rcsv_colorlinks = ['NONE', 'NONE']
 
 		" Alternative: https://github.com/sindrets/diffview.nvim
 		Plug 'jiangyinzuo/open-gitdiff.vim'
-		let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$', '\.eps$']
-		let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
-		let command_def = 'command -nargs=* '
-		if v:version >= 901
-				" open_gitdiff#comp#Complete is implemented with vim9class
-				let command_def .= '-complete=custom,open_gitdiff#comp#Complete '
-		endif
-		exe command_def . 'GitDiffAll call open_gitdiff#OpenAllDiffs(<f-args>)'
-		exe command_def . 'GitDiffThisTab call open_gitdiff#OpenDiff("tabnew", <f-args>)'
-		exe command_def . 'GitDiffThis call open_gitdiff#OpenDiff("enew", <f-args>)'
-
-		exe command_def . 'FZFGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#fzf#view"), <f-args>)'
-		exe command_def . 'FZFGitDiff call open_gitdiff#select("enew", function("open_gitdiff#fzf#view"), <f-args>)'
-
-		exe command_def . 'QuickUIGitDiffTab call open_gitdiff#select("tabnew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
-		exe command_def . 'QuickUIGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickui#listbox#view"), <f-args>)'
-
-		exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
-		command -nargs=+ -complete=customlist,fugitive#LogComplete GitDiff2Paths call open_gitdiff#open_diff_by_path(<f-args>)
-	else
-		nnoremap <silent> <leader>cn :cn<CR>
-		nnoremap <silent> <leader>cp :cp<CR>
-		nnoremap <silent> <leader>ln :ln<CR>
-		nnoremap <silent> <leader>lp :lp<CR>
 	endif
-	noremap ]q :call noplug#ToggleQuickfix('c')<CR>
-	noremap ]l :call noplug#ToggleQuickfix('l')<CR>
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
 	" 创建surround类文本对象
@@ -170,29 +85,19 @@ if !exists('g:vscode')
 	" 改进查找替换
 	Plug 'tpope/vim-abolish'
 	Plug 'arthurxavierx/vim-caser'
-	let g:caser_prefix = 'gs'
 
 	Plug 'preservim/tagbar'
 	" See: https://github.com/liuchengxu/vista.vim/issues/462
 	Plug 'liuchengxu/vista.vim'
 	Plug 'samoshkin/vim-mergetool'
 
-	let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCallback')
-
 	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim', { 'for': 'org' }
 	Plug 'kaarmu/typst.vim', { 'for': 'typst' }
-	" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
-	let g:typst_pdf_viewer = 'SumatraPDF.exe'
-
 	if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
 		" Use release branch (recommend)
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'antoinemadec/coc-fzf'
-		" fix bug 'Auto jump to the first line after exit from the floating
-		" window of CocFzfLocation'
-		" https://github.com/antoinemadec/coc-fzf/issues/113
-		let g:coc_fzf_location_delay = 20
 	endif
 	if has('nvim')
 		source ~/.vim/vimrc.d/plugin_nvim.vim
@@ -256,10 +161,6 @@ if !exists('g:vscode')
 	endif
 
 	Plug 'airblade/vim-gitgutter'
-	let g:gitgutter_sign_priority = 10
-	if !empty($USE_VIM_MERGETOOL)
-		autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
-	endif
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	" A git commit browser.
@@ -318,7 +219,12 @@ if !exists('g:vscode')
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 		" vnoremap <leader>c :OSCYank<CR>
 	
+		Plug 'voldikss/vim-floaterm'
+		Plug 'voldikss/LeaderF-floaterm'
+		Plug 'voldikss/fzf-floaterm'
 		source ~/.vim/vimrc.d/floaterm.vim
+		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+		Plug 'junegunn/fzf.vim'
 		source ~/.vim/vimrc.d/fzf.vim
 
 		" require +job
@@ -376,35 +282,24 @@ if !exists('g:vscode')
 		command -nargs=1 -complete=customlist,s:sender_list MapSender call s:map_sender(<f-args>)
 		MapSender slime
 		source ~/.vim/vimrc.d/markdown.vim
+		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
+		
+		Plug 'lervag/vimtex', {'for': 'tex'}
 		source ~/.vim/vimrc.d/latex.vim
+		Plug 'skywind3000/asynctasks.vim'
+		Plug 'skywind3000/asyncrun.vim'
 		source ~/.vim/vimrc.d/asynctasks.vim
 	endif
 	Plug 'whonore/Coqtail', { 'for': 'coq' }
-
-	"""""""" Yank """"""""""
-	" 复制pathline用于gF文件跳转
-	" See rffv() in fzf/fzf.bash
-	" [[palette]]复制当前文件:行的pathline				:YankPathLine
-	command! -nargs=0 YankPathLine call yank#YankPathLine()
-	" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
-	command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
-	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
-	""""""""""""""""""""""""
 
 	" if exists("$WSLENV")
 	" 	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232
 	" 	inoremap <C-v> <ESC>:silent r!pbpaste<CR>'.kJ
 	" endif
 
-	""" DuckDB
-	let g:duckdb_exe = 'duckdb -markdown'
-	" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
-	command -nargs=1 DuckDBExec call duckdb#DuckDBExec(<q-args>)
-	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
-	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
-	"""
 endif " !exists('g:vscode')
 
+source ~/.vim/vimrc.d/plugin_setup.vim
 " Initialize plugin system
 call plug#end()
 
@@ -440,13 +335,6 @@ hi link SpecialKey NonText
 hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
 hi debugBreakpoint term=reverse ctermbg=red guibg=red
 """""""""""""""""" end colorscheme
-
-" 默认主题不显示colorcolumn
-set colorcolumn=80,120
-if !has('patch-9.1.176')
-	" markdown会conceal一些字符，导致colorcolumn显示混乱
-	autocmd FileType org,markdown,text setlocal colorcolumn=
-endif
 
 if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
 	source ~/.vim/vimrc.d/coc.vim

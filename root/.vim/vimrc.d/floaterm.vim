@@ -1,8 +1,5 @@
 " The popup window always has focus, it is not possible to switch to another window.
 " See *popup-terminal*
-Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/LeaderF-floaterm'
-Plug 'voldikss/fzf-floaterm'
 
 let g:floaterm_opener = 'vsplit'
 let g:floaterm_width = 0.8

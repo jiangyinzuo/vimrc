@@ -1,3 +1,8 @@
+" fix bug 'Auto jump to the first line after exit from the floating
+" window of CocFzfLocation'
+" https://github.com/antoinemadec/coc-fzf/issues/113
+let g:coc_fzf_location_delay = 20
+
 " coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
 " 其它可选coc插件(有更好的vim插件可用)：
 " coc-lists(buffer, grep, lines, mru, quickfix, tags, files等列表源 => fzf.vim和leaderf

@@ -1,6 +1,3 @@
-Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/asyncrun.vim'
-
 let g:asyncrun_open = 4 " open quickfix window automatically at 4 lines height after command starts
 let g:asyncrun_rootmarks = g:RootMarks
 let g:asynctasks_term_pos = 'tab'
