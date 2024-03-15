@@ -4,6 +4,8 @@ function M.nvim_treesitter()
 		-- 安装 language parser
 		-- :TSInstallInfo 命令查看支持的语言
 		ensure_installed = { "cpp", "lua", "vim", "vimdoc", "python", "rust" },
+		-- Install parsers synchronously (only applied to `ensure_installed`)
+		sync_install = false,
 		-- 启用代码高亮模块
 		highlight = {
 			enable = true,
@@ -100,8 +102,10 @@ function M.lualine()
 		options = {
 			icons_enabled = true,
 			theme = 'solarized',
-			component_separators = { left = '', right = '' },
-			section_separators = { left = '', right = '' },
+			component_separators = { left = '', right = '' },
+			-- leave them blank, or lualine will kill intro.
+			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
+			section_separators = { left = '', right = '' },
 			disabled_filetypes = {
 				statusline = {},
 				winbar = {},
@@ -110,7 +114,7 @@ function M.lualine()
 			always_divide_middle = true,
 			globalstatus = false,
 			refresh = {
-				statusline = 1000,
+				statusline = 1200,
 				tabline = 1000,
 				winbar = 1000,
 			}
