@@ -109,7 +109,57 @@ let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCal
 
 " 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 let g:typst_pdf_viewer = 'SumatraPDF.exe'
+	
+let g:mdip_imgdir = '.'
+let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
+function! g:LatexPasteImage(relpath)
+	execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
+	let ipos = getcurpos()
+	execute "normal! a" . "mage}"
+	call setpos('.', ipos)
+	execute "normal! ve\<C-g>"
+endfunction
+" autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
+autocmd FileType tex let g:PasteImageFunction = 'g:LatexPasteImage'
+autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
+if has('nvim') || v:version >= 802
+	let g:quickui_color_scheme = 'system'
+	let g:quickui_context = [['hello', 'echo "hello world!"']]
+	let g:quickui_border_style = 2
+
+	let g:jupyter_mapkeys = 0
+	let g:jupyter_cell_separators = ['\s*##']
+
+	let g:jupytext_fmt = 'py'
+
+	" ocaml utop在第一次send时可能会失败，需要再send一次，或提前打开:SlimeConfig
+	let g:slime_target = "vimterminal"
+	let g:slime_no_mappings = 1
+
+	function s:map_sender(sender)
+		if a:sender == 'slime'
+			xmap <leader>sp <Plug>SlimeRegionSend
+			nmap <leader>sl <Plug>SlimeLineSend
+			nmap <leader>sp <Plug>SlimeParagraphSend
+			nmap <leader>sc <Plug>SlimeSendCell
+		elseif a:sender == 'jupyter' || a:sender == 'jupyter-matplotlib'
+			:JupyterConnect
+			nnoremap <leader>sc :JupyterSendCell<CR>
+			nnoremap <leader>si :JupyterSendCode ''<Left>
+			nnoremap <leader>sp :JupyterSendRange<CR>
+			xnoremap <leader>sp :JupyterSendRange<CR>
+			if a:sender == 'jupyter-matplotlib'
+				let timer = timer_start(1500, function('jupyter_custom#MatplotlibInit'))
+			endif
+		endif
+	endfunction
+	function s:sender_list(ArgLead, CmdLine, CursorPos)
+		return filter(['jupyter', 'jupyter-matplotlib', 'slime'], 'stridx(v:val, a:ArgLead) == 0')
+	endfunction
+	command -nargs=1 -complete=customlist,s:sender_list MapSender call s:map_sender(<f-args>)
+	MapSender slime
+endif
 let g:gitgutter_sign_priority = 10
 if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif

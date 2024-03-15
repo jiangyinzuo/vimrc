@@ -188,24 +188,9 @@ if !exists('g:vscode')
 
 	" paste img in markdown/latex style
 	Plug 'jiangyinzuo/img-paste.vim'
-	let g:mdip_imgdir = '.'
-	let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
-	function! g:LatexPasteImage(relpath)
-		execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
-		let ipos = getcurpos()
-		execute "normal! a" . "mage}"
-		call setpos('.', ipos)
-		execute "normal! ve\<C-g>"
-	endfunction
-	" autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
-	autocmd FileType tex let g:PasteImageFunction = 'g:LatexPasteImage'
-	autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
 	if has('nvim') || v:version >= 802
 		Plug 'skywind3000/vim-quickui'
-		let g:quickui_color_scheme = 'system'
-		let g:quickui_context = [['hello', 'echo "hello world!"']]
-		let g:quickui_border_style = 2
 		Plug 'pechorin/any-jump.vim'
 		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
 		" See:
@@ -242,43 +227,26 @@ if !exists('g:vscode')
 		" vim和jupyter console/qtconsole同步
 		" :h jupyter-qtconsole
 		Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
-		let g:jupyter_mapkeys = 0
-		let g:jupyter_cell_separators = ['\s*##']
-
 		" ipynb打开时显示python
 		Plug 'goerz/jupytext.vim'
-		let g:jupytext_fmt = 'py'
 
 		Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
-		" ocaml utop在第一次send时可能会失败，需要再send一次，或提前打开:SlimeConfig
-		let g:slime_target = "vimterminal"
-		let g:slime_no_mappings = 1
 
-		function s:map_sender(sender)
-			if a:sender == 'slime'
-				xmap <leader>sp <Plug>SlimeRegionSend
-				nmap <leader>sl <Plug>SlimeLineSend
-				nmap <leader>sp <Plug>SlimeParagraphSend
-				nmap <leader>sc <Plug>SlimeSendCell
-			elseif a:sender == 'jupyter' || a:sender == 'jupyter-matplotlib'
-				:JupyterConnect
-				nnoremap <leader>sc :JupyterSendCell<CR>
-				nnoremap <leader>si :JupyterSendCode ''<Left>
-				nnoremap <leader>sp :JupyterSendRange<CR>
-				xnoremap <leader>sp :JupyterSendRange<CR>
-				if a:sender == 'jupyter-matplotlib'
-					let timer = timer_start(1500, function('jupyter_custom#MatplotlibInit'))
-				endif
-			endif
-		endfunction
-		function s:sender_list(ArgLead, CmdLine, CursorPos)
-			return filter(['jupyter', 'jupyter-matplotlib', 'slime'], 'stridx(v:val, a:ArgLead) == 0')
-		endfunction
-		command -nargs=1 -complete=customlist,s:sender_list MapSender call s:map_sender(<f-args>)
-		MapSender slime
-		source ~/.vim/vimrc.d/markdown.vim
+		" support more features(mermaid, flowchart, ...)
+		Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
+
+		" See: https://github.com/preservim/vim-markdown/pull/633
+		Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
+		let g:vim_markdown_no_default_key_mappings = 1
+		let g:vim_markdown_folding_disabled = 1
+		let g:vim_markdown_toc_autofit = 1
+		let g:vim_markdown_conceal_code_blocks = 0
+		let g:vim_markdown_math = 1
+		if (has('unix') && exists('$WSLENV') && !has('nvim'))
+			command! -nargs=0 MdPreview call wsl#MdPreview()
+		endif
+
 		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-		
 		Plug 'lervag/vimtex', {'for': 'tex'}
 		source ~/.vim/vimrc.d/latex.vim
 		Plug 'skywind3000/asynctasks.vim'

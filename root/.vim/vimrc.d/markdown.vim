@@ -14,6 +14,3 @@ if (has('unix') && exists('$WSLENV'))
 	command! -nargs=0 MdPreview call wsl#MdPreview()
 endif
 
-command! NumberHeadings call markdown#NumberHeadings()
-command! RemoveNumberHeadings call markdown#RemoveNumberHeadings()
-

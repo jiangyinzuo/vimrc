@@ -21,7 +21,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		config = plugins_setup.nvm_treesitter,
+		config = plugins_setup.nvim_treesitter,
 	},
 	{
 		"nvim-telescope/telescope.nvim",

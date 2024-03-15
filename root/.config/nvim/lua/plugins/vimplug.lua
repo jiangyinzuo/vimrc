@@ -98,6 +98,21 @@ local M = {
 	'tpope/vim-fugitive',
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',     ft = { 'c', 'cpp', 'cuda' } },
+	'jiangyinzuo/img-paste.vim',
+	'skywind3000/vim-quickui',
+	'pechorin/any-jump.vim',
+	{ 'jupyter-vim/jupyter-vim', cmd = { 'JupyterConnect' } },
+	'goerz/jupytext.vim',
+	{ 'jpalardy/vim-slime', ft = { 'python', 'ocaml' } },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
 	{ 'ojroques/vim-oscyank', branch = 'main' },
 	{ 'whonore/Coqtail',      ft = 'coq' },
 	{ dir = "~/.vim/pack/my_plugins/start/project" },

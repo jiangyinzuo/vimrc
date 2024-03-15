@@ -500,6 +500,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command -nargs=1 DuckDBExec call duckdb#DuckDBExec(<q-args>)
 	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
 	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
+
+	command NumberHeadings call markdown#NumberHeadings()
+	command RemoveNumberHeadings call markdown#RemoveNumberHeadings()
+
 	""""""""""""""""""" Marks """"""""""""""""""""""
 	" 为小写字母 a 到 z 创建映射
 	for mark in range(char2nr('a'), char2nr('z'))
