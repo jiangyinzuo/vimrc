@@ -60,11 +60,6 @@ if !exists('g:vscode')
 		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 		Plug 'preservim/vimux'
 		Plug 'SirVer/ultisnips'
-		" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
-		" 这样的补全，使用F12
-		" nmap中F12被映射为打开终端, see floaterm.vim
-		let g:UltiSnipsExpandTrigger="<f12>"
-
 		Plug 'honza/vim-snippets'
 		Plug 'voldikss/vim-translator'
 		Plug 'romainl/vim-qf'
@@ -308,24 +303,21 @@ if g:no_plug
 endif
 
 """""""""""""""""" begin colorscheme
-" neovim 要在colorscheme前立刻设置colors，否则会导致neovim启动时屏幕暂时变成黑色
-if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
+" 防止neovim启动时屏幕暂时变成黑色
+if !has('nvim') && has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
 	set termguicolors
 endif
 
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
-if v:version >= 800
+" 防止neovim启动时屏幕暂时变成黑色
+if v:version >= 800 && !has('nvim')
 	" true color support
 	" https://github.com/lifepillar/vim-solarized8#troubleshooting
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	let g:solarized_diffmode = "normal"
-	if has('nvim')
-		colorscheme solarized
-	else
-		colorscheme solarized8
-	endif
+	colorscheme solarized8
 	hi NonText cterm=None term=None gui=None
 endif
 

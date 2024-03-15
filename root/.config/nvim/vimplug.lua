@@ -14,14 +14,12 @@ end
 plugins_setup.lualine()
 require('nvim_cmp').nvim_cmp()
 
--- 直接加载CopilotChat在vim-plug中太慢，会导致启动时窗口黑一段时间
-function _G.copilotChatInit()
-	require("CopilotChat").setup {
-		debug = true, -- Enable debugging
-		-- See Configuration section for rest
-	}
-end
+require("CopilotChat").setup {
+	debug = true, -- Enable debugging
+	-- See Configuration section for rest
+}
 
--- 创建命令调用该函数
--- 适用于 Neovim 0.7 及以上版本
-vim.api.nvim_create_user_command('CopilotChatInit', copilotChatInit, {})
+vim.cmd[[
+set termguicolors
+colorscheme solarized
+]]

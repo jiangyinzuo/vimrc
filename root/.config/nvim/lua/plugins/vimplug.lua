@@ -1,6 +1,6 @@
 vim.api.nvim_command('source ~/.vim/vimrc.d/plugin_setup.vim')
 
-return {
+local M = {
 	{
 		"lervag/vimtex",
 		ft = "tex",
@@ -102,3 +102,10 @@ return {
 	{ 'whonore/Coqtail',      ft = 'coq' },
 	{ dir = "~/.vim/pack/my_plugins/start/project" },
 }
+
+if vim.g.vimrc_lsp == 'coc.nvim' then
+	table.insert(M, {
+		'SirVer/ultisnips'
+	})
+end
+return M

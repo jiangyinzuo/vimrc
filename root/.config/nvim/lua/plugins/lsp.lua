@@ -45,6 +45,7 @@ else
 			init = function()
 				vim.cmd [[source ~/.vim/vimrc.d/coc.vim]]
 			end,
-		}
+		},
+		lualine,
 	}
 end

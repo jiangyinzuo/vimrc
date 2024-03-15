@@ -58,6 +58,10 @@ inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 if has('nvim') || v:version >= 800
 	let g:far#source = 'rg'
 	let g:far#enable_undo = 1
+	" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
+	" 这样的补全，使用F12
+	" nmap中F12被映射为打开终端, see floaterm.vim
+	let g:UltiSnipsExpandTrigger="<f12>"
 	
 	let g:qf_auto_open_quickfix = 0
 	nmap <leader>cn <Plug>QfCnext
