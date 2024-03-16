@@ -22,6 +22,7 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 			"linrongbin16/lsp-progress.nvim",
 			config = require("lsp.lsp_progress").lsp_progress,
 		},
+		'folke/neodev.nvim',
 		{
 			"hedyhli/outline.nvim",
 			lazy = true,
@@ -38,6 +39,9 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 		lualine,
 	}
 else
+	lualine.dependencies = {
+		"neoclide/coc.nvim",
+	}
 	return {
 		{
 			'neoclide/coc.nvim',

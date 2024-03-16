@@ -12,6 +12,12 @@
 				"buildDirectory": "build"
 			}
 		},
+		"lua": {
+			"command": "lua-lsp",
+			"filetypes": [
+				"lua"
+			]
+		},
 		"ocaml-lsp": {
 			"command": "opam",
 			"args": [

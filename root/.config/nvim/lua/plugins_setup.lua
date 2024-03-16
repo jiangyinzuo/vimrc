@@ -90,11 +90,16 @@ function M.mason()
 end
 
 function M.lualine()
-	local lualine_c = {}
+	local lualine_c
 	if vim.g.vimrc_lsp == 'nvim-lsp' then
 		lualine_c = {
 			-- invoke `progress` to get lsp progress status.
 			require("lsp-progress").progress,
+		}
+	else
+		lualine_c = {
+			-- invoke `coc#status` to get coc status.
+			'coc#status',
 		}
 	end
 

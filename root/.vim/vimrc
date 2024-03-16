@@ -428,7 +428,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 						let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
 					endif
 					if exists('*coc#status')
-						" Some functions are too long to put into statueline.
+						" Some functions are too long to put into statusline.
 						" Please directly echo b:coc_current_function.
 						let l:result .= coc#status()
 					endif

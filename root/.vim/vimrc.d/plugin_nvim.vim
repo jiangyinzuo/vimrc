@@ -16,6 +16,8 @@ if g:vimrc_lsp == 'nvim-lsp'
 	Plug 'hrsh7th/cmp-nvim-lsp'
 endif
 
+" lsp for neovim itself
+Plug 'folke/neodev.nvim'
 Plug 'williamboman/mason.nvim'
 " JSON schema
 " Plug 'b0o/schemastore.nvim'
@@ -25,7 +27,6 @@ Plug 'williamboman/mason.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
-Plug 'folke/neodev.nvim'
 
 Plug 'SmiteshP/nvim-navic'
 

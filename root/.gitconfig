@@ -8,7 +8,8 @@
 	quotepath = false
 
 [include]
-	# use delta to take place of diff
+	# use delta to take place of diff, use git --no-pager diff if delta is not installed
+	# https://github.com/dandavison/delta
 	path = ~/vimrc/root/.gitconfig-delta
 
 [diff]
