@@ -215,23 +215,6 @@ https://onefetch.dev/
 <
 
 -------------------------------------------------------------------------------
-*shell-gpt* *sgpt*
->
-	pip install shell-gpt
-<
-*github-copilot-cli*
-
-https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
-
-Usage:
-  copilot [command]
-
-Examples:
-
-$ gh copilot suggest "Install git"
-$ gh copilot explain "traceroute github.com"
-
--------------------------------------------------------------------------------
 
 *cloc* 统计代码行数
 >

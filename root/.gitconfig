@@ -6,6 +6,11 @@
 [core]
 	editor = vim
 	quotepath = false
+
+[include]
+	# use delta to take place of diff
+	path = ~/vimrc/root/.gitconfig-delta
+
 [diff]
 	tool = vimdiff
 [difftool]

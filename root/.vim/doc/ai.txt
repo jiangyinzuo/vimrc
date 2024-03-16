@@ -1,0 +1,41 @@
+vim:set ft=help:
+
+*ai.txt*
+
+Github Copilot  
+[tabnine](tabnine.com)(vscode, jetbrains)  
+codegeex  
+codeium  
+
+fitten code
+https://github.com/FittenTech
+https://github.com/luozhiya/fittencode.nvim
+
+devin https://www.cognition-labs.com/blog
+全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
+https://36kr.com/p/2687396960595333
+
+https://www.swebench.com/
+
+-------------------------------------------------------------------------------
+命令行AI工具
+
+*shell-gpt* *sgpt*
+>
+	pip install shell-gpt
+<
+*github-copilot-cli*
+
+https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
+
+Usage:
+  copilot [command]
+
+Examples:
+
+$ gh copilot suggest "Install git"
+$ gh copilot explain "traceroute github.com"
+
+*gpt-engineer*
+https://github.com/gpt-engineer-org/gpt-engineer
+-------------------------------------------------------------------------------

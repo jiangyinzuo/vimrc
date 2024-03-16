@@ -97,13 +97,13 @@ local M = {
 	'airblade/vim-gitgutter',
 	'tpope/vim-fugitive',
 	'junegunn/gv.vim',
-	{ 'alepez/vim-gtest',     ft = { 'c', 'cpp', 'cuda' } },
+	{ 'alepez/vim-gtest',        ft = { 'c', 'cpp', 'cuda' } },
 	'jiangyinzuo/img-paste.vim',
 	'skywind3000/vim-quickui',
 	'pechorin/any-jump.vim',
 	{ 'jupyter-vim/jupyter-vim', cmd = { 'JupyterConnect' } },
 	'goerz/jupytext.vim',
-	{ 'jpalardy/vim-slime', ft = { 'python', 'ocaml' } },
+	{ 'jpalardy/vim-slime',                               ft = { 'python', 'ocaml' } },
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -113,9 +113,10 @@ local M = {
 		end,
 		ft = { "markdown" },
 	},
-	{ 'ojroques/vim-oscyank', branch = 'main' },
-	{ 'whonore/Coqtail',      ft = 'coq' },
+	{ 'ojroques/vim-oscyank',                             branch = 'main' },
+	{ 'whonore/Coqtail',                                  ft = 'coq' },
 	{ dir = "~/.vim/pack/my_plugins/start/project" },
+	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 }
 
 if vim.g.vimrc_lsp == 'coc.nvim' then

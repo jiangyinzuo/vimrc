@@ -199,6 +199,16 @@ git rebase --edit-timestamp            *git-rebase*
 
 -------------------------------------------------------------------------------
 
+*difftools*
+
+https://github.com/Wilfred/difftastic
+https://github.com/dandavison/delta
+>
+	git diff HEAD~1 | delta
+	git blame -- vimrc | delta
+<
+https://github.com/so-fancy/diff-so-fancy
+
 *git-diff/merge*
 
 Git Diff ~

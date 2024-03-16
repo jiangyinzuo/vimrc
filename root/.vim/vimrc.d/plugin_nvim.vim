@@ -56,3 +56,5 @@ Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary', 'on': [
 			\  'CopilotChatCommit',
 			\  'CopilotChatCommitStaged',
 			\  'CopilotChatToggle']}
+
+Plug 'sindrets/diffview.nvim'

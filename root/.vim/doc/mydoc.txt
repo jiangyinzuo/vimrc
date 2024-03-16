@@ -282,20 +282,7 @@ cpp需要rg with PCRE2 support
 
 4. 基于AI的补全
 
-Github Copilot  
-[tabnine](tabnine.com)(vscode, jetbrains)  
-codegeex  
-codeium  
-
-fitten code
-https://github.com/FittenTech
-https://github.com/luozhiya/fittencode.nvim
-
-devin https://www.cognition-labs.com/blog
-全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
-https://36kr.com/p/2687396960595333
-
-https://www.swebench.com/
+|ai.txt|
 
 -------------------------------------------------------------------------------
 
