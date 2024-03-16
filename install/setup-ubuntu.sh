@@ -29,3 +29,6 @@ apt-get install -y libgtk-3-dev libxt-dev vim-gtk3 ripgrep fzf fd-find tree bat 
 
 # checkrepo.py needs GitPython
 pip3 install GitPython
+
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install git-delta
