@@ -294,6 +294,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	function SystemToQf(args)
 		cexpr system(a:args)
+		call setqflist([], 'r', {'title': a:args})
 		call ShowQuickfixListIfNotEmpty()
 	endfunction
 
@@ -313,9 +314,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" :edit 在当前buffer
 	" :open 无法使用通配符，不能使用wildmode
 	" :next 可以打开多个文件
-	command! -nargs=1 SystemFindFiles call SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
+	command! -nargs=1 FindFilesToQf call SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
 
-	command! -nargs=1 SystemRg call SystemToQf('rg --vimgrep ' . <q-args>)
+	command! -nargs=1 RgToQf call SystemToQf('rg --vimgrep ' . <q-args>)
 	noremap ]q :call ToggleQuickfix('c')<CR>
 	noremap ]l :call ToggleQuickfix('l')<CR>
 	nnoremap <silent> <leader>cn :cn<CR>

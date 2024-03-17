@@ -153,7 +153,7 @@ function M.lualine()
 		tabline = {},
 		winbar = winbar,
 		inactive_winbar = {},
-		extensions = {}
+		extensions = {'quickfix'}
 	}
 end
 

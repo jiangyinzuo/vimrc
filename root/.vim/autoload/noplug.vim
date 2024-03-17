@@ -85,6 +85,7 @@ endfunction
 
 function noplug#SystemToQf(args)
 	cexpr system(a:args)
+	call setqflist([], 'r', {'title': a:args})
 	call s:ShowQuickfixListIfNotEmpty()
 endfunction
 	

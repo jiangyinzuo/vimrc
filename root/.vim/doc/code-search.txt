@@ -13,6 +13,8 @@
 :vim /func main/ **/*.txt
 :grep def foo.py
 :grep 'def foo' foo.py
+全字匹配
+:grep -w def foo.py
 
 使用grep ~
 `grep 'func main' -r --exclude tags .`

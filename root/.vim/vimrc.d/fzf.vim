@@ -126,6 +126,11 @@ command! -bang -nargs=0 Hashtag
 			\ call fzf#run(fzf#wrap('hashtag', {'source': 'cat ' .. $DOC2 .. '/hashtag.txt', 'sink': function("s:paste_word")}, <bang>0))
 
 """"""""""""""""""" Rg 类""""""""""""""""
+command! -bang -nargs=* RgwithArgs
+			\ call fzf#vim#grep(
+			\   'rg --column --line-number --no-heading --color=always '. <q-args>, 1,
+			\ fzf#vim#with_preview(), <bang>0)
+
 command! -bang -nargs=* Rgdoc
 			\ call fzf#vim#grep(
 			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' ~/.vim/doc/*', 1,
