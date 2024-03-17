@@ -24,6 +24,7 @@ return {
 			"<leader>ft",
 			"<leader>rg",
 		},
+		cmd = { "Telescope" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
@@ -32,6 +33,7 @@ return {
 		},
 		config = plugins_setup.telescope,
 	},
+	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	{
 		"williamboman/mason.nvim",
 		config = plugins_setup.mason,
