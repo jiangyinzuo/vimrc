@@ -1,0 +1,13 @@
+*mongodb*
+
+Docker镜像 ~
+https://hub.docker.com/_/mongo
+
+docker pull mongo
+
+MongoDB官网上的
+docker pull mongodb/mongodb-community-server
+速度太慢
+
+创建容器 ~
+docker run --name some-mongo -v /usr3/jiangyinzuo_data/mongodata:/data/db -p 27017:27017 -d mongo

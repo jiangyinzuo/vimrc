@@ -19,5 +19,7 @@ require("CopilotChat").setup {
 	-- See Configuration section for rest
 }
 
+require("nvim-devdocs").setup{}
+
 -- load colorscheme at the end to avoid black background on startup
 plugins_setup.colorscheme()

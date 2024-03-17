@@ -30,6 +30,28 @@ https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 <
 
 -------------------------------------------------------------------------------
+*docker国内镜像*
+
+/etc/docker/daemon.json
+>
+	{
+		"registry-mirrors": [
+			"https://<阿里云镜像url>.mirror.aliyuncs.com",
+			"https://registry.docker-cn.com",
+			"https://docker.mirrors.ustc.edu.cn/"
+		]
+	}
+<
+阿里云也可以先docker login --username=xxx registry.cn-hangzhou.aliyuncs.com
+
+
+重启docker
+>
+	sudo systemctl restart docker
+	systemctl restart docker.service
+<
+验证配置`docker info`
+
 *docker设置http代理*
 
 https://yeasy.gitbook.io/docker_practice/advanced_network/http_https_proxy
@@ -44,6 +66,12 @@ Docker pull命令由systemd控制。所以要在`/etc/systemd/system/docker.serv
 	Environment="HTTPS_PROXY=https://proxy.example.com:3129"
 	Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
 <
+kiwi机器示例
+>
+	[Service]
+	Environment="HTTP_PROXY=http://localhost:3128"
+	Environment="HTTPS_PROXY=http://localhost:3128"
+<
 然后重启Docker
 >
 	sudo systemctl daemon-reload
@@ -51,6 +79,10 @@ Docker pull命令由systemd控制。所以要在`/etc/systemd/system/docker.serv
 <
 
 验证配置
+>
+	docker info
+<
+或者
 >
 	sudo systemctl show --property=Environment docker
 	Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp

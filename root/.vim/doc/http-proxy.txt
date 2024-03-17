@@ -2,6 +2,7 @@
 
 WSL启动http proxy server ~
 
+*squid*
 apt install squid
 /etc/squid/squid.conf配置文件中，找到 >
 	http_access deny all
