@@ -5,15 +5,6 @@ return {
 		"ishan9299/nvim-solarized-lua",
 		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			-- load the colorscheme here
-			vim.cmd([[
-			if $COLORTERM == ''
-				set termguicolors
-			endif
-			colorscheme solarized
-			]])
-		end,
 	},
 	{
 		'nvim-tree/nvim-web-devicons'
@@ -63,10 +54,24 @@ return {
 	},
 	{
 		"luckasRanarison/nvim-devdocs",
+		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
 			"nvim-treesitter/nvim-treesitter",
+		},
+		cmd = {
+			"DevdocsOpen",
+			"DevdocsFetch",
+			"DevdocsToggle",
+			"DevdocsUpdate",
+			"DevdocsInstall",
+			"DevdocsOpenFloat",
+			"DevdocsUninstall",
+			"DevdocsUpdateAll",
+			"DevdocsKeywordprg",
+			"DevdocsOpenCurrent",
+			"DevdocsOpenCurrentFloat",
 		},
 		opts = {}
 	}

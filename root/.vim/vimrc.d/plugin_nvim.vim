@@ -4,7 +4,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 
 if g:vimrc_lsp == 'nvim-lsp'
 	Plug 'neovim/nvim-lspconfig'
@@ -44,18 +44,31 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary', 'on': [
 			\ 'CopilotChat',
-			\  'CopilotChatFixDiagnostic',
-			\  'CopilotChatFix',
-			\  'CopilotChatOpen',
-			\  'CopilotChatReset',
-			\  'CopilotChatOptimize',
-			\  'CopilotChatTests',
-			\  'CopilotChatExplain',
-			\  'CopilotChatDebugInfo',
-			\  'CopilotChatClose',
-			\  'CopilotChatDocs',
-			\  'CopilotChatCommit',
-			\  'CopilotChatCommitStaged',
-			\  'CopilotChatToggle']}
+			\ 'CopilotChatFixDiagnostic',
+			\ 'CopilotChatFix',
+			\ 'CopilotChatOpen',
+			\ 'CopilotChatReset',
+			\ 'CopilotChatOptimize',
+			\ 'CopilotChatTests',
+			\ 'CopilotChatExplain',
+			\ 'CopilotChatDebugInfo',
+			\ 'CopilotChatClose',
+			\ 'CopilotChatDocs',
+			\ 'CopilotChatCommit',
+			\ 'CopilotChatCommitStaged',
+			\ 'CopilotChatToggle']}
 
 Plug 'sindrets/diffview.nvim'
+
+Plug 'luckasRanarison/nvim-devdocs', { 'on': [ 'DevdocsOpen',
+			\ 'DevdocsFetch',
+			\ 'DevdocsToggle',
+			\ 'DevdocsUpdate',
+			\ 'DevdocsInstall',
+			\ 'DevdocsOpenFloat',
+			\ 'DevdocsUninstall',
+			\ 'DevdocsUpdateAll',
+			\ 'DevdocsKeywordprg',
+			\ 'DevdocsOpenCurrent',
+			\ 'DevdocsOpenCurrentFloat'
+			\ ]}

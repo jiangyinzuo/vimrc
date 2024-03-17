@@ -19,7 +19,5 @@ require("CopilotChat").setup {
 	-- See Configuration section for rest
 }
 
-vim.cmd[[
-set termguicolors
-colorscheme solarized
-]]
+-- load colorscheme at the end to avoid black background on startup
+plugins_setup.colorscheme()

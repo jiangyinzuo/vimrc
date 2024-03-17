@@ -26,3 +26,6 @@ require("lazy").setup("plugins", {
 
 -- lazy.nvim has reset packpath, so we need to add ~/.vim back
 vim.cmd[[set packpath+=~/.vim]]
+
+-- load colorscheme at the end to avoid black background on startup
+require("plugins_setup").colorscheme()

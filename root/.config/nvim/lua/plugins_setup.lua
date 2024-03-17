@@ -90,8 +90,6 @@ function M.mason()
 end
 
 function M.lualine()
-	-- make winbar transparent
-	vim.cmd[[hi WinBar guibg=NONE]]
 	local lualine_c
 	local winbar
 	if vim.g.vimrc_lsp == 'nvim-lsp' then
@@ -159,4 +157,12 @@ function M.lualine()
 	}
 end
 
+function M.colorscheme()
+	-- make winbar background transparent
+	vim.cmd([[
+	set termguicolors
+	colorscheme solarized
+	hi WinBar guibg=NONE
+	]])
+end
 return M
