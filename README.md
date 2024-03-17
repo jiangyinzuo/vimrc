@@ -30,7 +30,7 @@ See also: `install/build_vim_from_source.sh`
 
 #### Neovim
 
-neovim 0.9.5+
+neovim 0.10.0+ (for inlay hint)
 
 Source code and executables: https://github.com/neovim/neovim/releases
 

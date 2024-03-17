@@ -3,7 +3,7 @@ function M.nvim_treesitter()
 	require("nvim-treesitter.configs").setup {
 		-- 安装 language parser
 		-- :TSInstallInfo 命令查看支持的语言
-		ensure_installed = { "cpp", "lua", "vim", "vimdoc", "python", "rust" },
+		ensure_installed = { "cpp", "lua", "vim", "vimdoc", "python", "rust", "html" },
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = false,
 		-- 启用代码高亮模块
@@ -90,23 +90,34 @@ function M.mason()
 end
 
 function M.lualine()
+	-- make winbar transparent
+	vim.cmd[[hi WinBar guibg=NONE]]
 	local lualine_c
+	local winbar
 	if vim.g.vimrc_lsp == 'nvim-lsp' then
 		lualine_c = {
 			-- invoke `progress` to get lsp progress status.
 			require("lsp-progress").progress,
+		}
+		winbar = {
+			lualine_c = {
+				"navic",
+				color_correction = nil,
+				navic_opts = nil
+			}
 		}
 	else
 		lualine_c = {
 			-- invoke `coc#status` to get coc status.
 			'coc#status',
 		}
+		winbar = {}
 	end
 
 	require('lualine').setup {
 		options = {
 			icons_enabled = true,
-			theme = 'solarized',
+			-- theme = 'solarized',
 			component_separators = { left = '', right = '' },
 			-- leave them blank, or lualine will kill intro.
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
@@ -121,7 +132,7 @@ function M.lualine()
 			refresh = {
 				statusline = 1200,
 				tabline = 1000,
-				winbar = 1000,
+				winbar = 1200,
 			}
 		},
 		sections = {
@@ -142,7 +153,7 @@ function M.lualine()
 			lualine_z = {}
 		},
 		tabline = {},
-		winbar = {},
+		winbar = winbar,
 		inactive_winbar = {},
 		extensions = {}
 	}
