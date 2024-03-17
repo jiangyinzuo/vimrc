@@ -17,7 +17,6 @@ Plug 'justinmk/vim-sneak'
 if has('nvim') || v:version >= 801
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
-	Plug 'markonm/traces.vim'
 
 	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
@@ -118,6 +117,8 @@ if !exists('g:vscode')
 			Plug 'lifepillar/vim-solarized8'
 			source ~/.vim/vimrc.d/leaderf.vim
 			if v:version >= 802
+				" neovim 内置了 inccommand, 无需该插件
+				Plug 'markonm/traces.vim'
 				if v:version >= 900
 					" Alternative: https://github.com/gelguy/wilder.nvim
 					Plug 'girishji/autosuggest.vim'

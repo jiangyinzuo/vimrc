@@ -137,7 +137,8 @@ function M.lspconfig()
 		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 		callback = function(ev)
 			-- Enable completion triggered by <c-x><c-o>
-			vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+			-- 让一些插件（如vimtex）自动设置omnifunc，lsp不要设置omnifunc
+			-- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 			-- Mappings.
 			-- See `:help vim.lsp.*` for documentation on any of the below functions

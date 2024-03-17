@@ -41,8 +41,9 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 " completion(use ultisnips)
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'micangl/cmp-vimtex'
 Plug 'uga-rosa/cmp-dictionary'
+Plug 'hrsh7th/cmp-omni'
+Plug 'micangl/cmp-vimtex'
 
 Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary', 'on': [
 			\ 'CopilotChat',

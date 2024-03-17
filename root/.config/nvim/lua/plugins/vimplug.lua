@@ -59,7 +59,6 @@ local M = {
 			vim.g.AutoPairsLanguagePairs['vifm'] = vim.g.AutoPairsLanguagePairs['vim']
 		end
 	},
-	'markonm/traces.vim',
 	{
 		'jiangyinzuo/vim-visual-multi',
 		branch = 'master',

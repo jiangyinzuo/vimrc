@@ -1,5 +1,18 @@
 local M = {}
 
+local function cmp_format_fn(entry, vim_item)
+	-- set a name for each source
+	vim_item.menu = ({
+		nvim_lsp = "[LSP]",
+		buffer = "[Buffer]",
+		omni = "[Omni]",
+		dictionary = "[Dict]",
+		path = "[Path]",
+		vimtex = "[Vimtex]" .. (vim_item.menu ~= nil and vim_item.menu or ""),
+	})[entry.source.name]
+	return vim_item
+end
+
 function M.nvim_cmp()
 	local cmp = require 'cmp'
 	if vim.g.vimrc_lsp == 'nvim-lsp' then
@@ -31,6 +44,12 @@ function M.nvim_cmp()
 				-- { name = 'ultisnips' }, -- For ultisnips users.
 				-- { name = 'snippy' }, -- For snippy users.
 			}, {
+				{
+					name = 'omni',
+					option = {
+						disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }
+					}
+				},
 				{ name = 'buffer' },
 				-- `cmd.setup.filetype('text', {...})` does not work.
 				{
@@ -38,20 +57,30 @@ function M.nvim_cmp()
 					keyword_length = 2,
 				},
 				{ name = 'path' },
-			})
+			}),
+			formatting = {
+				format = cmp_format_fn
+			},
 		})
 
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype({ 'tex', 'bib' }, {
 			sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
-				{ name = 'vimtex' },
-				{ name = 'luasnip' }, -- For luasnip users.
+				{ name = 'vimtex', },
 			}, {
+				{ name = 'luasnip' }, -- For luasnip users.
 				{ name = 'buffer' },
 				{ name = 'path' },
+				{
+					name = "dictionary",
+					keyword_length = 2,
+				},
 			}
-			)
+			),
+			formatting = {
+				format = cmp_format_fn
+			},
 		})
 		local dictfile = vim.api.nvim_get_option('dictionary')
 		local dict = {
