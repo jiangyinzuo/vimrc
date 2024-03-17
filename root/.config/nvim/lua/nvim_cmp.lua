@@ -32,12 +32,52 @@ function M.nvim_cmp()
 				-- { name = 'snippy' }, -- For snippy users.
 			}, {
 				{ name = 'buffer' },
+				-- `cmd.setup.filetype('text', {...})` does not work.
+				{
+					name = "dictionary",
+					keyword_length = 2,
+				},
 				{ name = 'path' },
 			})
 		})
+
+		-- Set configuration for specific filetype.
+		cmp.setup.filetype({ 'tex', 'bib' }, {
+			sources = cmp.config.sources({
+				{ name = 'nvim_lsp' },
+				{ name = 'vimtex' },
+				{ name = 'luasnip' }, -- For luasnip users.
+			}, {
+				{ name = 'buffer' },
+				{ name = 'path' },
+			}
+			)
+		})
+		local dictfile = vim.api.nvim_get_option('dictionary')
+		local dict = {
+			["*"] = {},
+			text = { dictfile },
+			tex = { dictfile },
+			markdown = { dictfile },
+		}
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "text,tex,markdown",
+			callback = function(ev)
+				require("cmp_dictionary").setup({
+					exact_length = 2,
+					paths = dict[ev.match] or dict["*"],
+					first_case_insensitive = true,
+					document = {
+						enable = true,
+						-- apt install wordnet
+						command = { "wn", "${label}", "-over" },
+					},
+				})
+			end,
+		})
 	end
 
-	-- Set configuration for specific filetype.
 	cmp.setup.filetype('gitcommit', {
 		sources = cmp.config.sources({
 			{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.

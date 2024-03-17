@@ -12,6 +12,14 @@ return {
 		},
 		config = require('nvim_cmp').nvim_cmp,
 	},
+	{
+		"micangl/cmp-vimtex",
+		ft = { "tex", "bib" },
+	},
+	{
+		'uga-rosa/cmp-dictionary',
+		ft = { "tex", "bib", "markdown", "text" },
+	},
 	-- 'SirVer/ultisnips' is slow in Neovim.
 	{
 		"L3MON4D3/LuaSnip",
