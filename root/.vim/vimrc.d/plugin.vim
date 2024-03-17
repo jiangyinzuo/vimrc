@@ -127,7 +127,7 @@ if !exists('g:vscode')
 						Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
 					endif
 				endif
-				if g:vimrc_use_vimspector
+				if g:vim_dap == 'vimspector'
 					Plug 'puremourning/vimspector'
 					let g:vimspector_enable_mappings='VISUAL_STUDIO'
 

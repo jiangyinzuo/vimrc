@@ -12,6 +12,7 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 	return {
 		{
 			"neovim/nvim-lspconfig",
+			priority = 500,
 			dependencies = {
 				'SmiteshP/nvim-navic',
 				'p00f/clangd_extensions.nvim'
@@ -22,7 +23,12 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 			"linrongbin16/lsp-progress.nvim",
 			config = require("lsp.lsp_progress").lsp_progress,
 		},
-		'folke/neodev.nvim',
+		{
+			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+			"folke/neodev.nvim",
+			opts = {},
+			priority = 501
+		},
 		{
 			"hedyhli/outline.nvim",
 			lazy = true,
