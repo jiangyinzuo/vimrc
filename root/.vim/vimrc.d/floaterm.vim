@@ -2,8 +2,9 @@
 " See *popup-terminal*
 
 let g:floaterm_opener = 'vsplit'
-let g:floaterm_width = 0.9
-let g:floaterm_height = 0.92
+let g:floaterm_width = 0.95
+let g:floaterm_height = 0.95
+let g:floaterm_position = 'right'
 let g:floaterm_rootmarkers = g:RootMarks
 " imap中F12被映射为UltiSnipsExpandTrigger, see plugin.vim
 let g:floaterm_keymap_toggle = '<F12>'
