@@ -1,5 +1,0 @@
-*leaderf-rg-example*
-
-搜索当前目录下所有.tex文件，大小写敏感 包含raft关键字
-
-:Leaderf rg -g **/*.tex -s raft

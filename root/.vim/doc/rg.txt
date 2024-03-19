@@ -3,3 +3,15 @@
 rg不显示[... 0 more matches]
 将max-column设置为0即可
 rg -M=0  coc-cursors-position
+
+rg 指定文件类型递归查找
+
+*rg递归查找markdown文件中所有出现的rosetta单词*
+rg 'rosetta' --glob '*.md'
+:RgwithArgs 'rosetta' --glob '*.md'
+
+*leaderf-rg-example*
+*leaderf搜索当前目录下所有tex文件，大小写敏感，包含raft关键字*
+:Leaderf rg -g **/*.tex -s raft
+
+

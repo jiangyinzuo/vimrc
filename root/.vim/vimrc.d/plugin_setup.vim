@@ -72,6 +72,8 @@ if has('nvim') || v:version >= 800
 	" 默认csv带有header
 	let g:rbql_with_headers = 1
 	let g:rainbow_comment_prefix = '#'
+	" 不显示行列位置，防止覆盖search mode下的shortmess提示信息
+	let g:disable_rainbow_hover = 1
 	" 禁用rainbow_csv的高亮
 	" let g:rcsv_colorlinks = ['NONE', 'NONE']
 	

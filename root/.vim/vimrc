@@ -18,6 +18,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
 	if v:version >= 800
 		set bg=dark
+		" show [x/y] instead of search hit BOTTOM, continuing at TOP
+		set shortmess-=S
 	else
 		set bg=light
 		hi ColorColumn ctermbg=0

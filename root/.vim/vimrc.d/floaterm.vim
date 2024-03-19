@@ -4,6 +4,7 @@
 let g:floaterm_opener = 'vsplit'
 let g:floaterm_width = 0.9
 let g:floaterm_height = 0.92
+let g:floaterm_rootmarkers = g:RootMarks
 " imap中F12被映射为UltiSnipsExpandTrigger, see plugin.vim
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_title='<F8> kill | <F9> new | <F10> prev | <F11> next | <F12> toggle ($1/$2)'

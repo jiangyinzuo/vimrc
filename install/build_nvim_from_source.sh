@@ -9,7 +9,9 @@ cd $build_dir
 download_zip_and_build() {
 	# 下载zip文件的URL
 	ZIP_URL="https://github.com/neovim/neovim/archive/${LATEST_HASH}.zip"
-	rm neovim-${PREVIOUS_HASH}.zip
+	if [[ $PREVIOUS_HASH != 'null' && $PREVIOUS_HASH != '']]; then
+		rm neovim-${PREVIOUS_HASH}.zip
+	fi
 	# 使用wget或curl下载zip文件
 	wget $ZIP_URL -O neovim-${LATEST_HASH}.zip
 	# 或者使用curl: curl -L $ZIP_URL -o neovim-${LATEST_HASH}.zip
@@ -31,7 +33,11 @@ LATEST_HASH=$(curl -H "Accept: application/vnd.github.v3+json" $API_URL | jq -r 
 # 检查previous_commit_hash.txt文件是否存在，如果不存在，则创建
 if [ ! -f "$PREVIOUS_HASH_FILE" ]; then
 	echo "文件不存在，创建 $PREVIOUS_HASH_FILE 并保存当前commit hash."
-	echo $LATEST_HASH >$PREVIOUS_HASH_FILE
+	if [[ $LATEST_HASH != 'null' ]] ; then
+		echo $LATEST_HASH >$PREVIOUS_HASH_FILE
+	else
+		echo "获取最新的commit hash失败。"
+	fi
 	download_zip_and_build
 	exit 0
 fi
