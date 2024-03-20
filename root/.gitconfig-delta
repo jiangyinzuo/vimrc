@@ -7,3 +7,4 @@
 [delta]
 	navigate = true
 	line-numbers = true
+	file-style = yellow

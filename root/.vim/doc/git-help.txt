@@ -543,6 +543,15 @@ git push commit bada2a1 to origin's master branch
 >
 	git push origin bada2a1:master
 <
+
+git只push一个tag
+>
+	git push origin v0.1.0
+<
+git push所有tags
+>
+	git push origin --tags
+<
 -------------------------------------------------------------------------------
 *git-protocol* *git协议*
 

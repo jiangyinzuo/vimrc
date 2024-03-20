@@ -3,6 +3,7 @@ local plugins_setup = require("plugins_setup")
 plugins_setup.nvim_treesitter()
 plugins_setup.telescope()
 plugins_setup.mason()
+plugins_setup.gitsigns()
 
 local neodev_config = {}
 if vim.g.vim_dap == 'nvim-dap' then

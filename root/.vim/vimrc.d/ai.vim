@@ -114,6 +114,7 @@ if has('python3')
 		Plug 'madox2/vim-ai'
 	endif
 	call AISwitchServer('aiproxy')
-	command! -range -nargs=? AITranslate <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIChatRun'), "中英互译：", <range>, <f-args>)
-	command! -range -nargs=? AIPolish <line1>,<line2>call ai#RunWithInitialPrompt(function('vim_ai#AIEditRun'), "英文润色：", <range>, <f-args>)
+	command! -range -nargs=? AITranslate <line1>,<line2>call vim_ai#AIChatRun(<range>, ai#CreateInitialPrompt("中英互译："), <f-args>)
+	command! -range -nargs=? AIPolish <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt("英文润色："), <f-args>)
+	command! -range -nargs=? AIRewrite <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt('I am the Vim editor, you are the code assistant that help programmers to rewrite code. Your output should only include rewritted code.'), <f-args>)
 endif

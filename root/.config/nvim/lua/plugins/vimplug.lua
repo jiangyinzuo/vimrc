@@ -8,6 +8,9 @@ local M = {
 			vim.api.nvim_command('source ~/.vim/vimrc.d/latex.vim')
 		end
 	},
+	-- Alternatives:
+	-- https://github.com/jackMort/ChatGPT.nvim
+	-- https://github.com/dpayne/CodeGPT.nvim
 	-- https://github.com/Robitx/gp.nvim
 	{
 		'madox2/vim-ai',
@@ -93,7 +96,11 @@ local M = {
 	'godlygeek/tabular',
 	{ 'axvr/org.vim',     ft = 'org' },
 	{ 'kaarmu/typst.vim', ft = 'typst' },
-	'airblade/vim-gitgutter',
+	-- take place of 'airblade/vim-gitgutter',
+	{
+		'lewis6991/gitsigns.nvim',
+		config = require('plugins_setup').gitsigns,
+	},
 	'tpope/vim-fugitive',
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',        ft = { 'c', 'cpp', 'cuda' } },

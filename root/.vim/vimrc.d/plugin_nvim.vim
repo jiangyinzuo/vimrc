@@ -24,17 +24,22 @@ Plug 'williamboman/mason.nvim'
 " Replace jose-elias-alvarez/null-ls.nvim
 " Plug 'nvimtools/none-ls.nvim'
 
+""" DAP
+Plug 'nvim-neotest/nvim-nio'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
+"""
 
 Plug 'SmiteshP/nvim-navic'
 
+""" Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+"""
 
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -76,3 +81,4 @@ Plug 'luckasRanarison/nvim-devdocs', { 'on': [ 'DevdocsOpen',
 			\ 'DevdocsOpenCurrent',
 			\ 'DevdocsOpenCurrentFloat'
 			\ ]}
+Plug 'lewis6991/gitsigns.nvim'

@@ -13,6 +13,8 @@ if has('nvim') || v:version >= 801
 	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	" let g:AutoPairsMapBS = 1
 	let g:AutoPairsMapSpace = 0
+	" 只在后面有空格或者是行尾时，才补全右括号
+	let g:AutoPairsCompleteOnlyOnSpace = 1
 	
 " Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
 	let g:VM_mouse_mappings             = 1
@@ -162,7 +164,6 @@ if has('nvim') || v:version >= 802
 	command -nargs=1 -complete=customlist,s:sender_list MapSender call s:map_sender(<f-args>)
 	MapSender slime
 endif
-let g:gitgutter_sign_priority = 10
 if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
 endif

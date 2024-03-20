@@ -7,6 +7,10 @@ cat /etc/os-release
 ===============================================================================
 *apt*
 
+配置国内镜像。位于`/etc/apt/sources.list`或者`/etc/apt/sources.list.d/ubuntu.sources`
+http://mirrors.aliyun.com/ubuntu/
+http://repo.huaweicloud.com/ubuntu/
+
 apt update失败，ModuleNotFoundError: No module named 'apt_pkg'
 和python3升级有关
 

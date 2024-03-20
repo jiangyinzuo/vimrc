@@ -1,3 +1,12 @@
+function ai#CreateInitialPrompt(prompt)
+	let l:config = {
+				\  "options": {
+				\    "initial_prompt": ">>> system\n" . a:prompt,
+				\  },
+				\}
+	return l:config
+endfunction
+
 function ai#RunWithInitialPrompt(func, prompt, range, ...) range
 	let l:config = {
 				\  "options": {

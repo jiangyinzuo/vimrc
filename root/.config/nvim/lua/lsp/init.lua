@@ -87,9 +87,25 @@ local function setup_lsp(on_attach, capabilities)
 		},
 	}
 
+	lspconfig.texlab.setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+		settings = {
+			texlab = {
+				latexFormatter = 'latexindent',
+				latexindent = {
+					['local'] = os.getenv("HOME") .. '/vimrc/root/latexindent.yaml', -- local is a reserved keyword
+					modifyLineBreaks = false,
+				},
+				bibtexFormatter = 'texlab',
+				formatterLineLength = 80,
+			},
+		}
+	}
+
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
-	local other_servers = { 'jsonls', 'pyright', 'texlab' }
+	local other_servers = { 'jsonls', 'pyright' }
 	for _, lsp in ipairs(other_servers) do
 		lspconfig[lsp].setup {
 			on_attach = on_attach,

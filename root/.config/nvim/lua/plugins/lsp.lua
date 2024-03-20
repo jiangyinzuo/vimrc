@@ -9,6 +9,7 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 		"linrongbin16/lsp-progress.nvim",
 	}
 	local lsp = require('lsp.init')
+	-- try plugins in https://nvimdev.github.io
 	return {
 		{
 			"neovim/nvim-lspconfig",

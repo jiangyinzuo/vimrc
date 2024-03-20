@@ -154,9 +154,15 @@ if !exists('g:vscode')
 				Plug 'jiangyinzuo/term-debugger'
 			endif
 		endif
+
+		Plug 'airblade/vim-gitgutter'
+		let g:gitgutter_sign_priority = 10
+		omap ih <Plug>(GitGutterTextObjectInnerPending)
+		omap ah <Plug>(GitGutterTextObjectOuterPending)
+		xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+		xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 	endif
 
-	Plug 'airblade/vim-gitgutter'
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
 	" A git commit browser.

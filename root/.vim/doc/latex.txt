@@ -23,6 +23,12 @@ https://github.com/jiangyinzuo/dblp-api
 https://github.com/PatrBal/vim-textidote
 https://github.com/sylvainhalle/textidote
 
+*texdoc命令行工具查询在线文档*
+>
+	texdoc subfigure
+<
+
+生成diff.tex的命令行工具: latexdiff。不一定好用，因为还要进一步编译成pdf
 ------------------------------------------------------
 *tectonic*
 Rust实现的一个tex编译引擎。
