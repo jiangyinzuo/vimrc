@@ -552,6 +552,11 @@ git push所有tags
 >
 	git push origin --tags
 <
+git删除远程的一个tag
+>
+	git push -d origin schedule-example@2.0.0
+<
+
 -------------------------------------------------------------------------------
 *git-protocol* *git协议*
 

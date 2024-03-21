@@ -129,6 +129,10 @@ local function setup_lsp(on_attach, capabilities)
 end
 
 function M.lspconfig()
+	-- Register the command
+	vim.api.nvim_create_user_command('InlayHintsToggle', function(_)
+		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+	end, {})
 	local navic = nvim_navic()
 	local on_attach = function(client, bufnr)
 		if client.server_capabilities.documentSymbolProvider then

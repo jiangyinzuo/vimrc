@@ -54,19 +54,16 @@ if has('nvim') || v:version >= 900
 endif
 
 if has('python3')
+	" 01ai: https://platform.lingyiwanwu.com/docs
+	let s:backend_dict = {
+				\ 'aiproxy': {'url': get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions'), 'model': 'gpt-4', 'token_file': '~/.config/openai.token'},
+				\ 'kimichat': {'url': 'https://api.moonshot.cn/v1/chat/completions', 'model': 'moonshot-v1-8k', 'token_file': '~/.config/kimichat.token'},
+				\ '01ai': {'url': 'https://api.lingyiwanwu.com/v1/chat/completions', 'model': 'yi-34b-chat-0205', 'token_file': '~/.config/01ai.token'},
+				\ }
 	function AISwitchServer(backend)
-		if a:backend == 'aiproxy'
-			let g:vim_ai_endpoint_url = get(g:, 'openai_proxy_url', 'https://api.aiproxy.io/v1/chat/completions')
-			let g:vim_ai_token_file_path = '~/.config/openai.token'
-			let g:vim_ai_model = 'gpt-4'
-		elseif a:backend == 'kimichat'
-			let g:vim_ai_endpoint_url = 'https://api.moonshot.cn/v1/chat/completions'
-			let g:vim_ai_token_file_path = '~/.config/kimichat.token'
-			let g:vim_ai_model = 'moonshot-v1-8k'
-		else
-			echom "Unknown backend: " . a:backend
-			return
-		endif
+		let g:vim_ai_endpoint_url = s:backend_dict[a:backend]['url']
+		let g:vim_ai_token_file_path = s:backend_dict[a:backend]['token_file']
+		let g:vim_ai_model = s:backend_dict[a:backend]['model']
 		" temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
 		let g:vim_ai_chat = {
 					\  "options": {
@@ -105,7 +102,7 @@ if has('python3')
 		let g:vim_ai_complete = g:vim_ai_edit
 	endfunction
 	function AISwitchServerComplete(A, L, P)
-		return ['aiproxy', 'kimichat']
+		return keys(s:backend_dict)
 	endfunction
 
 	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
@@ -113,7 +110,7 @@ if has('python3')
 	if g:vim_package_manager == 'vim-plug'
 		Plug 'madox2/vim-ai'
 	endif
-	call AISwitchServer('aiproxy')
+	call AISwitchServer(get(g:, 'ai_service', 'aiproxy'))
 	command! -range -nargs=? AITranslate <line1>,<line2>call vim_ai#AIChatRun(<range>, ai#CreateInitialPrompt("中英互译："), <f-args>)
 	command! -range -nargs=? AIPolish <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt("英文润色："), <f-args>)
 	command! -range -nargs=? AIRewrite <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt('I am the Vim editor, you are the code assistant that help programmers to rewrite code. Your output should only include rewritted code.'), <f-args>)
