@@ -70,7 +70,6 @@ local M = {
 	'simnalamburt/vim-mundo',
 	'aperezdc/vim-template',
 	'szw/vim-maximizer',
-	'tpope/vim-commentary',
 	'tpope/vim-characterize',
 	{
 		'brooth/far.vim',

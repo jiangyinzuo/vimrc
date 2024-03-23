@@ -6,6 +6,9 @@ Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'nvim-tree/nvim-web-devicons'
 
+Plug 'numToStr/Comment.nvim'
+Plug 'folke/todo-comments.nvim'
+
 if g:vimrc_lsp == 'nvim-lsp'
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'linrongbin16/lsp-progress.nvim'

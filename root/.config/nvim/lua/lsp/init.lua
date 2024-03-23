@@ -103,6 +103,18 @@ local function setup_lsp(on_attach, capabilities)
 		}
 	}
 
+	-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
+	lspconfig.ltex.setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+		settings = {
+			enabled = { "bibtex", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context" },
+			ltex = {
+				language = "en-US",
+			},
+		}
+	}
+
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
 	local other_servers = { 'jsonls', 'pyright' }
@@ -138,7 +150,7 @@ function M.lspconfig()
 		if client.server_capabilities.documentSymbolProvider then
 			navic.attach(client, bufnr)
 		end
-		if client.server_capabilities.inlayHintProvider then
+		if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(bufnr, true)
 		end
 	end
@@ -175,7 +187,7 @@ function M.lspconfig()
 			-- 	end, bufopts)
 			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set({ 'n', 'v' }, '<leader>ac', vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "<leader>fmt", function()
 				vim.lsp.buf.format { async = true }

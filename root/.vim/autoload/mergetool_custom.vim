@@ -1,5 +1,7 @@
 function mergetool_custom#MergetoolLayoutCallback(split)
-	call CocActionAsync('diagnosticToggleBuffer')
+	if exists('*CocActionAsync')
+		call CocActionAsync('diagnosticToggleBuffer')
+	endif
 	setlocal syntax=off
 	" disabling gitgutter may not work, so use setlocal signcolumn=no
 	" call gitgutter#buffer_disable()

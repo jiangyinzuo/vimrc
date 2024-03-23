@@ -34,6 +34,8 @@ require("CopilotChat").setup {
 }
 
 require("nvim-devdocs").setup{}
+require('Comment').setup()
+require("todo-comments").setup()
 
 -- load colorscheme at the end to avoid black background on startup
 plugins_setup.colorscheme()

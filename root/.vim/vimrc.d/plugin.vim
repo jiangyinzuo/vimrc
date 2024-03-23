@@ -38,18 +38,6 @@ if !exists('g:vscode')
 	
 	Plug 'szw/vim-maximizer'
 
-	" Commenting blocks of code.
-	" 可以选中多行后，用:norm i# 在所有行前面添加#
-	" :norm 0i 在所有行前面添加
-	" :norm ^i 在所有行前面添加(不包括空格)
-	" :norm 0x删除所有行的第一个字母
-	" :norm ^x删除所有行的第一个字母(不包括空格)
-	"
-	" Replace custom commands for commenting.
-	" Since: v0.12.0
-	" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-	Plug 'tpope/vim-commentary'
-
 	" enhanced ga(show not only ascii code, but also unicode code, emoji,
 	" digraphs, etc.)
 	" See Also: :h :ascii
@@ -100,6 +88,18 @@ if !exists('g:vscode')
 		" Plug 'dracula/vim', { 'as': 'dracula' }
 		" Plug 'tomasiser/vim-code-dark'
 		" Plug 'morhetz/gruvbox'
+
+		" Commenting blocks of code.
+		" 可以选中多行后，用:norm i# 在所有行前面添加#
+		" :norm 0i 在所有行前面添加
+		" :norm ^i 在所有行前面添加(不包括空格)
+		" :norm 0x删除所有行的第一个字母
+		" :norm ^x删除所有行的第一个字母(不包括空格)
+		"
+		" Replace custom commands for commenting.
+		" Since: v0.12.0
+		" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+		Plug 'tpope/vim-commentary'
 
 		" Remove ~/.vim/autoload/detect_indent.vim
 		" Since: v0.12.0

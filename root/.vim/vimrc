@@ -5,9 +5,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	let g:vim_package_manager = get(g:, 'vim_package_manager', 'vim-plug')
-	if has('nvim') && g:vim_package_manager == 'vim-plug'
-		set runtimepath^=~/.vim runtimepath+=~/.vim/after
-		let &packpath = &runtimepath
+	if has('nvim')
+		let g:nvim_enable_inlayhints = 1
+		if g:vim_package_manager == 'vim-plug'
+			set runtimepath^=~/.vim runtimepath+=~/.vim/after
+			let &packpath = &runtimepath
+		endif
+		" autopair with nvim may has bug
+		" https://github.com/neovim/neovim/issues/23666
+		let g:AutoPairsMapCR = 0
 	endif
 	if filereadable(expand('~/.vim/config.vim'))
 		source ~/.vim/config.vim
@@ -500,7 +506,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	"""""""""""""""""""" DuckDB """"""""""""""""""""
 	let g:duckdb_exe = 'duckdb -markdown'
 	" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
-	command -nargs=1 DuckDBExec call duckdb#DuckDBExec(<q-args>)
+	command -nargs=? -range DuckDBExec call duckdb#DuckDBExec(<q-args>, <line1>, <line2>)
 	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
 	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
 
