@@ -9,7 +9,7 @@ cd $build_dir
 download_zip_and_build() {
 	# 下载zip文件的URL
 	ZIP_URL="https://github.com/neovim/neovim/archive/${LATEST_HASH}.zip"
-	if [[ $PREVIOUS_HASH != 'null' && $PREVIOUS_HASH != '']]; then
+	if [[ $PREVIOUS_HASH != 'null' && $PREVIOUS_HASH != '' ]]; then
 		rm neovim-${PREVIOUS_HASH}.zip
 	fi
 	# 使用wget或curl下载zip文件

@@ -84,6 +84,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	" 选中想格式化的段落后，可以用gq格式化
 	" 设置textwidth，可以让文本格式化时自动换行
+	" 内置的format会考虑virtual text，如果需要忽略virtual
+	" text，可以使用外部命令行工具，比如
+	" set formatprg=par\ 80
+	" set formatprg=fmt\ -w81\ -g81
+	" See: https://github.com/vim/vim/issues/14276
 	autocmd Filetype tex setlocal textwidth=80
 	""""""""""""""""""""""""""""""
 	"indent and tab
