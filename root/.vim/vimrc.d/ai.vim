@@ -1,4 +1,6 @@
 if has('nvim') || v:version >= 900
+	let g:vim_ai_roles_config_file = '~/.vim/vim-ai-roles.ini'
+
 	" alternatives: https://github.com/codota/tabnine-nvim
 	if g:ai_complete == 'copilot'
 		" copilot.vim在打开文件后，第一次快速进入插入模式时，存在卡顿的问题
@@ -113,5 +115,4 @@ if has('python3')
 	call AISwitchServer(get(g:, 'ai_service', 'aiproxy'))
 	command! -range -nargs=? AITranslate <line1>,<line2>call vim_ai#AIChatRun(<range>, ai#CreateInitialPrompt("中英互译："), <f-args>)
 	command! -range -nargs=? AIPolish <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt("英文润色："), <f-args>)
-	command! -range -nargs=? AIRewrite <line1>,<line2>call vim_ai#AIEditRun(ai#CreateInitialPrompt('I am the Vim editor, you are the code assistant that help programmers to rewrite code. Your output should only include rewritted code.'), <f-args>)
 endif
