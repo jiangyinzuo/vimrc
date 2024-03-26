@@ -109,7 +109,7 @@ function codenote#OpenNoteRepo()
 		echoerr "Already in note repo"
 		return
 	endif
-	let l:root = asyncrun#get_root('%')
+	let l:root = asyncrun#current_root()
 	call s:set_coderepo_dir(l:root)
 	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
 		if $DOC2 == ''

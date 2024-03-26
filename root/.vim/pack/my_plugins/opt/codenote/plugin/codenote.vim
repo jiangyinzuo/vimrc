@@ -4,6 +4,7 @@ let g:codenote_filepath_style = "colon"
 
 command -nargs=0 OpenNoteRepo :call codenote#OpenNoteRepo()
 command -nargs=0 OpenCodeRepo :call codenote#OpenCodeRepo()
+command -nargs=0 LoadCodeNote :call codenote#LoadCodeNote(asyncrun#current_root()) | call codenote#GetAllCodeLinks()
 command -nargs=0 RefreshCodeLinks :call codenote#GetAllCodeLinks()
 
 " need_beginline, need_endline, append, goto_buf

@@ -54,6 +54,7 @@ Ubuntu22.04下均可通过apt安装
 >
 邮件: *himalaya* , 但其vim插件存在bug
 目录树: tree
+进程查看: top -> htop
 
 查找: find -> fd                             *find-fd* *fd-find* *fd*
 fd默认会ignore .gitignore下的文件，要取消.gitignore可以添加`-I`flag >
