@@ -27,6 +27,11 @@ chat
 - code rewrite
 - code generation
 
+OpenAI assistants (beta) ~
+
+Moonshot AI 传文件
+https://platform.openai.com/docs/assistants/overview
+
 -------------------------------------------------------------------------------
 命令行AI工具
 

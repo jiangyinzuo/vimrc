@@ -107,8 +107,8 @@ local function setup_lsp(on_attach, capabilities)
 	lspconfig.ltex.setup {
 		on_attach = on_attach,
 		capabilities = capabilities,
+		filetypes = { "bib", "tex", "latex" },
 		settings = {
-			enabled = { "bibtex", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context" },
 			ltex = {
 				language = "en-US",
 			},
@@ -163,6 +163,8 @@ function M.lspconfig()
 	-- }
 	setup_lsp(on_attach, capabilities)
 
+	vim.keymap.set('n', '[da', vim.diagnostic.goto_prev)
+	vim.keymap.set('n', ']da', vim.diagnostic.goto_next)
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd('LspAttach', {

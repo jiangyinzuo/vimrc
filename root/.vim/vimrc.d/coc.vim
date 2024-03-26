@@ -169,8 +169,10 @@ nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
 
 autocmd filetype coctree nmap <buffer> <F1> :h coc-tree<CR>
-autocmd filetype coc-explorer nmap <buffer> <F1> :h coc-explorer<CR>
-autocmd filetype coc-explorer nmap <buffer> gx :call coc_custom#NetrwGxHandler()<CR>
-nnoremap <silent><nowait> <leader>e :<C-u>CocCommand explorer<CR>
+
+" Use netrw instead
+" autocmd filetype coc-explorer nmap <buffer> <F1> :h coc-explorer<CR>
+" autocmd filetype coc-explorer nmap <buffer> gx :call coc_custom#NetrwGxHandler()<CR>
+" nnoremap <silent><nowait> <leader>e :<C-u>CocCommand explorer<CR>
 
 hi CocCursorRange cterm=reverse guibg=#ebdbb2 guifg=#b16286
