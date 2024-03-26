@@ -153,7 +153,36 @@ function M.lspconfig()
 		if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(bufnr, true)
 		end
+		-- 自动浮窗展示diagnostic
+		vim.api.nvim_create_autocmd("CursorHold", {
+			buffer = bufnr,
+			callback = function()
+				local opts = {
+					focusable = false,
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+					border = 'rounded',
+					source = 'always',
+					prefix = ' ',
+					scope = 'cursor',
+				}
+				vim.diagnostic.open_float(nil, opts)
+			end
+		})
 	end
+
+	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
+	vim.api.nvim_create_autocmd("CmdlineEnter", {
+		once = true,
+		callback = function()
+			vim.diagnostic.config({
+				-- virtual text is too noisy!
+				virtual_text = false,
+			})
+		end
+	})
+	vim.keymap.set('n', '<leader>da', vim.diagnostic.open_float)
+	vim.keymap.set('n', '[da', vim.diagnostic.goto_prev)
+	vim.keymap.set('n', ']da', vim.diagnostic.goto_next)
 
 	-- Set up lspconfig.
 	local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -163,8 +192,6 @@ function M.lspconfig()
 	-- }
 	setup_lsp(on_attach, capabilities)
 
-	vim.keymap.set('n', '[da', vim.diagnostic.goto_prev)
-	vim.keymap.set('n', ']da', vim.diagnostic.goto_next)
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd('LspAttach', {
@@ -194,6 +221,10 @@ function M.lspconfig()
 			vim.keymap.set("n", "<leader>fmt", function()
 				vim.lsp.buf.format { async = true }
 			end, bufopts)
+			vim.diagnostic.config({
+				-- virtual text is too noisy!
+				virtual_text = false,
+			})
 		end,
 	})
 end

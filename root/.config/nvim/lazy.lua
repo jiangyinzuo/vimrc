@@ -15,7 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
 	root = vim.g.vim_plug_dir,
 	performance = {
-		reset_packpath = true,
+		-- allow packadd <package name> in .project.vim
+		reset_packpath = false,
 		rtp = {
 			paths = {
 				'~/.vim'

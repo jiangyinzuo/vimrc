@@ -9,18 +9,6 @@ function! codenote#ConvertFormat(line)
 	return converted
 endfunction
 
-function s:set_coderepo_dir(repo_dir)
-	let g:coderepo_dir = a:repo_dir
-	let t:repo_type = "code"
-	execute "tcd " . g:coderepo_dir
-endfunction
-
-function s:set_noterepo_dir(repo_dir)
-	let g:noterepo_dir = a:repo_dir
-	let t:repo_type = "note"
-	execute "tcd " . g:noterepo_dir
-endfunction
-
 function codenote#SignCodeLinks()
 	if !exists('g:code_link_dict') || !exists('g:coderepo_dir') || !exists('g:noterepo_dir')
 		return
@@ -82,26 +70,8 @@ function s:goto_note_buffer()
 	tabfirst
 endfunction
 
-function s:save_repo_dir()
-	call assert_true(exists('g:coderepo_dir') && g:coderepo_dir != "")
-	call assert_true(exists('g:noterepo_dir') && g:noterepo_dir != "")
-	echom "s:save_repo_dir() g:coderepo_dir: " . g:coderepo_dir . " g:noterepo_dir: " . g:noterepo_dir
-	call system("echo " . g:coderepo_dir . " > " . g:noterepo_dir . "/.noterepo")
-	call system("echo " . g:noterepo_dir . " > " . g:coderepo_dir . "/.coderepo")
-endfunction
-
 function s:open_file(filename)
 	execute "tabnew " . a:filename
-endfunction
-
-function s:open_note_repo(filename)
-	call s:open_file(a:filename)
-	tabmove 0
-	call s:set_noterepo_dir(expand('%:p:h'))
-	execute "tcd " . g:noterepo_dir
-	
-	call codenote#GetAllCodeLinks()
-	call s:save_repo_dir()
 endfunction
 
 function codenote#OpenNoteRepo()
@@ -109,19 +79,11 @@ function codenote#OpenNoteRepo()
 		echoerr "Already in note repo"
 		return
 	endif
-	let l:root = asyncrun#current_root()
-	call s:set_coderepo_dir(l:root)
-	if !exists('g:noterepo_dir') || g:noterepo_dir == ""
-		if $DOC2 == ''
-			let s:candidate= getcwd()
-			let s:candidate = input("Please input note repo dir: ", s:candidate, "dir")
-			call s:open_note_repo(s:candidate)
-		else
-			call fzf#run(fzf#wrap({'source': s:fd . ' -i -t d', 'dir': $DOC2, 'sink': function("s:open_note_repo")}))
-		endif
-	else
-		call s:open_note_repo(g:noterepo_dir)
-	endif
+	call s:open_file(g:noterepo_dir)
+	tabmove 0
+	execute "tcd " . g:noterepo_dir
+	let t:repo_type = 'note'
+	call codenote#GetAllCodeLinks()
 endfunction
 
 function s:GoToCodeLink()
@@ -151,7 +113,7 @@ function s:GoToCodeLink()
 	endif
 
 	if s:only_has_one_repo()
-		call OpenCodeRepo()
+		call codenote#OpenCodeRepo()
 	else
 		call s:goto_code_buffer()
 	endif
@@ -165,7 +127,7 @@ function s:GoToNoteLink()
 	" 将 / 转义为 \/
 	let l:pattern = substitute(l:pattern, "/", "\\\\/", "g")
 	if s:only_has_one_repo()
-		call OpenNoteRepo()
+		call codenote#OpenNoteRepo()
 	else
 		call s:goto_note_buffer()
 	endif
@@ -182,31 +144,15 @@ function codenote#GoToCodeNoteLink()
 	endif
 endfunction
 
-function s:open_code_repo(filename)
-	call s:open_file(a:filename)
-	tabmove 1
-	let l:root = asyncrun#current_root()
-	call s:set_coderepo_dir(l:root)
-	execute "tcd " . g:coderepo_dir
-
-	call codenote#GetAllCodeLinks()
-	call s:save_repo_dir()
-endfunction
-
 function codenote#OpenCodeRepo()
 	if exists("t:repo_type") && t:repo_type == "code"
 		echoerr "Already in code repo"
 		return
 	endif
-	call s:set_noterepo_dir(expand('%:p:h'))
-	if !exists('g:coderepo_dir') || g:coderepo_dir == ""
-		call fzf#run(fzf#wrap({'source': s:fd . ' -i -t f', 'dir': $CODE_HOME, 'sink': function("s:open_code_repo")}))
-		if $CODE_HOME == ''
-			echom "$DOC2 is empty"
-		endif
-	else
-		call s:open_code_repo(g:coderepo_dir)
-	endif
+	call s:open_file(g:coderepo_dir)
+	tabmove 1
+	let t:repo_type = 'code'
+	call codenote#GetAllCodeLinks()
 endfunction
 
 function s:only_has_one_repo()
@@ -263,7 +209,7 @@ function codenote#YankCodeLink(need_beginline, need_endline, append, goto_buf)
 	call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
 	if a:goto_buf
 		if s:only_has_one_repo()
-			call s:open_note_repo(g:noterepo_dir)
+			call codenote#OpenNoteRepo()
 		endif
 		call s:goto_note_buffer()
 	endif
@@ -281,7 +227,7 @@ function codenote#YankCodeWithFunctionHeader(shortcut)
 	call s:yank_registers(l:file, l:body_line, l:body_content, 0, 1, 1)
 	
 	if s:only_has_one_repo()
-		call s:open_note_repo(g:noterepo_dir)
+		call codenote#OpenNoteRepo()
 	endif
 	call s:goto_note_buffer()
 endfunction
@@ -293,7 +239,7 @@ function codenote#YankCodeLinkVisual(need_beginline, need_endline, append, goto_
 	call s:yank_registers(l:file, l:line, l:content, a:need_beginline, a:need_endline, a:append)
 	if a:goto_buf
 		if s:only_has_one_repo()
-			call s:open_note_repo(g:noterepo_dir)
+			call codenote#OpenNoteRepo()
 		endif
 		call s:goto_note_buffer()
 	endif
@@ -311,7 +257,7 @@ function codenote#YankCodeWithFunctionHeaderVisual(shortcut) range
 	call s:yank_registers(l:file, l:body_line, l:body_content, 0, 1, 1)
 	
 	if s:only_has_one_repo()
-		call s:open_note_repo(g:noterepo_dir)
+		call codenote#OpenNoteRepo()
 	endif
 	call s:goto_note_buffer()
 endfunction

@@ -108,7 +108,7 @@ local M = {
 	'pechorin/any-jump.vim',
 	{ 'jupyter-vim/jupyter-vim', cmd = { 'JupyterConnect' } },
 	'goerz/jupytext.vim',
-	{ 'jpalardy/vim-slime',                               ft = { 'python', 'ocaml' } },
+	{ 'jpalardy/vim-slime',   ft = { 'python', 'ocaml' } },
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -118,9 +118,14 @@ local M = {
 		end,
 		ft = { "markdown" },
 	},
-	{ 'ojroques/vim-oscyank',                             branch = 'main' },
-	{ 'whonore/Coqtail',                                  ft = 'coq' },
-	{ dir = "~/.vim/pack/my_plugins/start/project" },
+	{ 'ojroques/vim-oscyank', branch = 'main' },
+	{ 'whonore/Coqtail',      ft = 'coq' },
+	{
+		dir = "~/.vim/pack/my_plugins/start/project",
+		dependencies = {
+			'skywind3000/asynctasks.vim',
+		}
+	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 }
 
