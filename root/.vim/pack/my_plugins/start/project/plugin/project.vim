@@ -24,4 +24,5 @@ augroup load_my_project
 	autocmd TabNew * call TabNewLoadProjectConfig()
 augroup END
 
+let g:project_vimrc = get(g:, 'project_vimrc', '.project.vim')
 call LoadProjectConfigEachTab()
