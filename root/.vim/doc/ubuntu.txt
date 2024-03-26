@@ -73,3 +73,15 @@ Your python3 install is corrupted
 >
 	sudo ln -fs /usr/bin/python3.6 /usr/bin/python3
 <
+===============================================================================
+*font设置*
+
+中文字体
+https://source.typekit.com/source-han-serif/cn/
+
+手动安装方式:
+
+可以将字体文件复制到~/.local/share/fonts（推荐，仅限当前用户使用）或/usr/share/fonts（系统级别，所有用户均可使用）目录下。之后，运行以下命令更新字体缓存：
+>
+	fc-cache -fv
+<

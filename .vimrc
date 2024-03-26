@@ -173,12 +173,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:netrw_liststyle = 3 " tree style listing
 	let g:netrw_preview = 0 " preview window horizontally
 	let g:netrw_hide = 1 " show not-hidden files
-	let g:netrw_keepdir=0
+	let g:netrw_keepdir = 1
 	" see netrw-v
 	" 新的窗口出现在当前窗口的右边
 	set splitright
-	let g:netrw_altv = 1
-	let g:netrw_winsize = 20
+	" let g:netrw_altv = 1
+	" let g:netrw_winsize = 20
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	augroup jump_to_symbol
 		autocmd!
