@@ -94,7 +94,7 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 
 **Neovim**
 
-- init.vim of Neovim: `root/.config/nvim`
+- init.vim of Neovim: a soft link `root/.config/nvim/init.vim` to `root/.vim/vimrc`, you can run `install/setup.sh` to create it.
 
 ## Install Plugins Manually
 
