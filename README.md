@@ -54,12 +54,6 @@ tested in Ubuntu 18.04
 
 See `install/build_nvim_from_source.sh`
 
-##### Python3
-```bash
-sudo apt install neovim python3-pynvim
-pip3 install neovim
-```
-
 #### VSCode Neovim
 
 TODO
@@ -76,7 +70,19 @@ TODO
 
 Environment variables to setup:  `$DOC2` `$CODE_HOME`
 
-## Vimrc
+## Directory Structure
+
+| Directory Name   | Description                           |
+| :--------------- | :------------------------------------ |
+| install          | installation scripts                  |
+| project_dotfiles | dotfiles for a project                |
+| root             | dotfiles and full vim configurations  |
+| terminal         | configurations for terminal emulators |
+| wsl              | scripts for WSL                       |
+
+### Vimrc Files
+
+**Vim**
 
 - Full vimrc file: `.vim/vimrc`
     - Default configurations: see header of `.vim/vimrc`
@@ -85,6 +91,10 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 - Single vimrc file: `.vimrc`
     - Custom vim configuration file `~/config_single_vimrc.vim`
     - Local vimrc file: `.vimrc` (:h 'exrc')
+
+**Neovim**
+
+- init.vim of Neovim: `root/.config/nvim`
 
 ## Install Plugins Manually
 
