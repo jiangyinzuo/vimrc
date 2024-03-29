@@ -6,6 +6,8 @@ Github Copilot
 [tabnine](tabnine.com)(vscode, jetbrains)  
 codegeex  
 codeium  
+通义灵码  
+https://tongyi.aliyun.com/lingma/download
 
 fitten code
 https://github.com/FittenTech

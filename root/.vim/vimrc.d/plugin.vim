@@ -249,6 +249,8 @@ if !exists('g:vscode')
 		let g:vim_markdown_toc_autofit = 1
 		let g:vim_markdown_conceal_code_blocks = 0
 		let g:vim_markdown_math = 1
+		let g:markdown_folding = 1
+
 		if (has('unix') && exists('$WSLENV') && !has('nvim'))
 			command! -nargs=0 MdPreview call wsl#MdPreview()
 		endif

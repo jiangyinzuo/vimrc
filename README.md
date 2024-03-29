@@ -12,6 +12,8 @@ vim 9.1 (full features)
 vim 8.2.4919 (most of features)  
 vim 7.4.629 (minimal)  
 
+##### Install in Ubuntu
+
 ```bash
 sudo apt install vim-gtk3
 sudo update-alternatives --config vim
@@ -20,7 +22,8 @@ update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
 
 Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 
-**Build Vim from Source**
+##### Build Vim from Source
+
 ```sh
 apt install libgtk-3-dev libxt-dev
 ./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --with-python3-config-dir --enable-gui --with-x

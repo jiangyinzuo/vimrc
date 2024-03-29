@@ -47,16 +47,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 	let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
-	let g:clangd_args = get(g:, 'clangd_args', [
-				\               "--clang-tidy",
-				\               "--compile-commands-dir=build",
-				\               "--pretty",
-				\               "--cross-file-rename",
-				\               "--inlay-hints=true",
-				\               "--background-index",
-				\               "--suggest-missing-includes=true",
-				\               "--header-insertion=iwyu",
-				\       ])
+	let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--cross-file-rename", "--inlay-hints=true", "--background-index", "--suggest-missing-includes=true", "--header-insertion=iwyu"])
 	let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 	let g:clang_format = get(g:, 'clang_format', 'clang-format')
 
