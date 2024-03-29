@@ -1,5 +1,7 @@
 # Vimrc
 
+My personal vimrc configuration files, dotfiles and other scripts. Feel free to contact me or open an issue/PR if you have any questions or suggestions.
+
 ## Requirements
 
 ### Vim/Neovim/VSCode Neovim
