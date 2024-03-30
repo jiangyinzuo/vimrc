@@ -25,6 +25,10 @@ apt update失败，ModuleNotFoundError: No module named 'apt_pkg'
 ————————————————
 版权声明：本文为CSDN博主「-Lanausee-」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/StillOnMyWay/article/details/114492675
+
+*aptitude*
+aptitude是apt的一个前端，功能更强大，可以用来解决apt的依赖问题，但可能给出卸载软件的建议
+
 -------------------------------------------------------------------------------
 
 apt配置代理服务器 在`/etc/apt/apt.conf` 或者 `/etc/apt/apt.conf.d/proxy.conf`中添加
@@ -73,6 +77,10 @@ Your python3 install is corrupted
 >
 	sudo ln -fs /usr/bin/python3.6 /usr/bin/python3
 <
+
+devel版本升级时，apt依赖可能会出一些bug，比如依赖xxxt64库，实际安装xxx库，并报错apt源中没有xxxt64库
+，第二天更新apt源，发现问题被修复
+
 ===============================================================================
 *font设置*
 

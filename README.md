@@ -80,6 +80,7 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 | install          | installation scripts                  |
 | project_dotfiles | dotfiles for a project                |
 | root             | dotfiles and full vim configurations  |
+| root/.vim/doc    | my vimdocs                            |
 | terminal         | configurations for terminal emulators |
 | wsl              | scripts for WSL                       |
 
@@ -88,8 +89,7 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 **Vim**
 
 - Full vimrc file: `.vim/vimrc`
-    - Default configurations: see header of `.vim/vimrc`
-    - Custom vim configuration file: `~/.vim/config.vim`
+    - Custom vim configuration file: `~/.vim/config.vim`. See `root/.vim/config.vim.example`.
     - Local vimrc file: `.project.vim`
 - Single vimrc file: `.vimrc`
     - Custom vim configuration file `~/config_single_vimrc.vim`
@@ -98,6 +98,8 @@ Environment variables to setup:  `$DOC2` `$CODE_HOME`
 **Neovim**
 
 - init.vim of Neovim: a soft link `root/.config/nvim/init.vim` to `root/.vim/vimrc`, you can run `install/setup.sh` to create it.
+    - Custom vim configuration file: `~/.vim/config.vim`. See `root/.vim/config.vim.example`.
+    - Local vimrc file: `.project.vim`
 
 ## Install Plugins Manually
 

@@ -28,10 +28,14 @@ end
 plugins_setup.lualine()
 require('nvim_cmp').nvim_cmp()
 
-require("CopilotChat").setup {
-	debug = true, -- Enable debugging
-	-- See Configuration section for rest
-}
+if vim.g.ai_complete == 'copilot' then
+	require("CopilotChat").setup {
+		debug = true, -- Enable debugging
+		-- See Configuration section for rest
+	}
+elseif vim.g.ai_complete == 'fittencode' then
+	require('fittencode').setup()
+end
 
 require("nvim-devdocs").setup{}
 require('Comment').setup()

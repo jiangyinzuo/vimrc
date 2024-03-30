@@ -3,7 +3,7 @@ local plugins_setup = require('plugins_setup')
 local ai_complete
 if vim.g.ai_complete == 'codeium' then
 	ai_complete = 'Exafunction/codeium.vim'
-else
+elseif vim.g.ai_complete == 'copilot' then
 	ai_complete = {
 		"CopilotC-Nvim/CopilotChat.nvim",
 		lazy = true,
@@ -36,6 +36,13 @@ else
 		},
 		-- See Commands section for default commands if you want to lazy load on them
 	}
+elseif vim.g.ai_complete == 'fittencode' then
+	ai_complete = {
+		'luozhiya/fittencode.nvim',
+		config = function()
+			require('fittencode').setup()
+		end,
+	}
 end
 return {
 	{
@@ -64,6 +71,7 @@ return {
 		cmd = { "Telescope" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"aaronhallaert/advanced-git-search.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-media-files.nvim",
 			"nvim-tree/nvim-web-devicons",
@@ -78,6 +86,12 @@ return {
 	ai_complete,
 	{
 		'sindrets/diffview.nvim',
+	},
+	{
+		"aaronhallaert/advanced-git-search.nvim",
+		dependencies = {
+			'sindrets/diffview.nvim'
+		},
 	},
 	{
 		"luckasRanarison/nvim-devdocs",

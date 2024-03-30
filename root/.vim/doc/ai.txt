@@ -17,6 +17,9 @@ devin https://www.cognition-labs.com/blog
 全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
 https://36kr.com/p/2687396960595333
 
+gpt-pilot
+https://github.com/Pythagora-io/gpt-pilot
+
 https://www.swebench.com/
 
 https://www.kajetandomagala.com/codeium-vs-copilot/

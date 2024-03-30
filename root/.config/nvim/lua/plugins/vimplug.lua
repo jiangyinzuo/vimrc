@@ -127,6 +127,27 @@ local M = {
 		}
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
+
+	'lambdalisue/fern.vim',
+	{
+		'lambdalisue/fern-renderer-nerdfont.vim',
+		dependencies = {
+			'lambdalisue/fern.vim',
+			'lambdalisue/nerdfont.vim'
+		}
+	},
+	{
+		'lambdalisue/fern-hijack.vim',
+		dependencies = {
+			'lambdalisue/fern.vim'
+		}
+	},
+	{
+		'LumaKernel/fern-mapping-fzf.vim',
+		dependencies = {
+			'lambdalisue/fern.vim'
+		}
+	}
 }
 
 if vim.g.vimrc_lsp == 'coc.nvim' then

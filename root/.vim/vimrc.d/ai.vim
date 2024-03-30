@@ -52,6 +52,14 @@ if has('nvim') || v:version >= 900
 			imap <M-n> <Plug>(codeium-next)
 			imap <M-x> <Plug>(codeium-dismiss)
 		endif
+	elseif g:ai_complete == 'fittencode'
+		if g:vim_package_manager == 'vim-plug'
+			if has('nvim')
+				Plug 'luozhiya/fittencode.nvim'
+			else
+				Plug 'FittenTech/fittencode.vim'
+			endif
+		endif
 	endif
 endif
 

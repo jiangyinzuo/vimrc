@@ -32,6 +32,10 @@ function M.telescope()
 	local telescope = require("telescope")
 	telescope.setup({
 		extensions = {
+			advanced_git_search = {
+				-- See Config
+				git_flags = { "-c", "delta.pager=never" }
+			},
 			media_files = {
 				-- filetypes whitelist
 				-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
@@ -74,6 +78,7 @@ function M.telescope()
 	telescope.load_extension "file_browser"
 	telescope.load_extension "media_files"
 	telescope.load_extension "fzf"
+	telescope.load_extension "advanced_git_search"
 end
 
 function M.mason()

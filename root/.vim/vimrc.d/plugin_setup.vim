@@ -9,6 +9,8 @@ nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 
+let g:fern#renderer = "nerdfont"
+
 if has('nvim') || v:version >= 801
 	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	" let g:AutoPairsMapBS = 1

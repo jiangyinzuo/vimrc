@@ -39,6 +39,7 @@ Plug 'SmiteshP/nvim-navic'
 """ Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'aaronhallaert/advanced-git-search.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }

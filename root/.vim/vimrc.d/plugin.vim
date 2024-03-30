@@ -43,6 +43,12 @@ if !exists('g:vscode')
 	" See Also: :h :ascii
 	Plug 'tpope/vim-characterize'
 
+	Plug 'lambdalisue/fern.vim'
+	Plug 'lambdalisue/nerdfont.vim'
+	Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+	Plug 'lambdalisue/fern-hijack.vim'
+	Plug 'LumaKernel/fern-mapping-fzf.vim'
+
 	if has('nvim') || v:version >= 800
 		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 		Plug 'preservim/vimux'
