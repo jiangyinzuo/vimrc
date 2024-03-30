@@ -22,7 +22,7 @@ set -v
 # Leaderf needs python3-dev and python3-distutils
 # wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
 # wordnet: nvim cmp dictionary 可以用wordnet解释单词
-apt-get install -y libgtk-3-dev libxt-dev vim-gtk3 ripgrep fzf fd-find tree bat nodejs npm git sqlformat vifm python3-dev python3-distutils wamerican wordnet
+apt-get install -y libgtk-3-dev libxt-dev vim-gtk3 ripgrep fd-find tree bat nodejs npm git sqlformat vifm python3-dev python3-distutils wamerican wordnet
 
 # ripgrep-all（master分支）
 # See: https://github.com/phiresky/ripgrep-all/issues/113
