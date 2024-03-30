@@ -2,7 +2,9 @@
 
 My personal vimrc configuration files, dotfiles and other scripts. Feel free to contact me or open an issue/PR if you have any questions or suggestions.
 
-## Requirements
+## Requirements and Installation
+
+See also `install/README.md`
 
 ### Vim/Neovim/VSCode Neovim
 

@@ -5,8 +5,8 @@
 
 # Requirements: just ImageMagick (and a Sixel terminal, of course)
 
-# Version 1.8
-# B9 August 2021
+# Version 1.8.2
+# B9 November 2023
 
 # See end of file for USAGE.
 
@@ -194,7 +194,7 @@ main() {
 
 	# Only show first frame of animated GIFs if filename not specified.
 	for x in ${!MAPFILE[@]}; do
-	    if [[ ${MAPFILE[$x]} =~ gif$ ]]; then
+	    if [[ ${MAPFILE[$x]} =~ (gif|webp)$ ]]; then
 		MAPFILE[$x]="${MAPFILE[$x]}[0]"
 	    fi
 	done
