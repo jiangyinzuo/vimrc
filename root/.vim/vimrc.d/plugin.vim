@@ -257,10 +257,6 @@ if !exists('g:vscode')
 		let g:vim_markdown_math = 1
 		let g:markdown_folding = 1
 
-		if (has('unix') && exists('$WSLENV') && !has('nvim'))
-			command! -nargs=0 MdPreview call wsl#MdPreview()
-		endif
-
 		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 		Plug 'lervag/vimtex', {'for': 'tex'}
 		source ~/.vim/vimrc.d/latex.vim

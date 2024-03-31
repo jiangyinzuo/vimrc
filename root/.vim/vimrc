@@ -211,9 +211,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set signcolumn=yes " 同时显示git状态和行号
 	endif
 
+	" vim 7.3+
+	set conceallevel=2
 	if v:version >= 801 || has('nvim')
-		set conceallevel=2
-		
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside
 		set autoread
