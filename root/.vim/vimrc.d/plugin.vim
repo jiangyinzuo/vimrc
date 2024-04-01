@@ -255,7 +255,6 @@ if !exists('g:vscode')
 		let g:vim_markdown_toc_autofit = 1
 		let g:vim_markdown_conceal_code_blocks = 0
 		let g:vim_markdown_math = 1
-		let g:markdown_folding = 1
 
 		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 		Plug 'lervag/vimtex', {'for': 'tex'}

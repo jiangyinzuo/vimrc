@@ -4,6 +4,7 @@ plugins_setup.nvim_treesitter()
 plugins_setup.telescope()
 plugins_setup.mason()
 plugins_setup.gitsigns()
+plugins_setup.auto_session()
 
 local neodev_config = {}
 if vim.g.vim_dap == 'nvim-dap' then

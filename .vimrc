@@ -384,7 +384,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 			return b:cpp_fold_level
 		endfunction
 		autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
-		autocmd FileType python,vim,lua,go,markdown,sh setlocal foldmethod=indent
+		autocmd FileType python,vim,lua,go,sh setlocal foldmethod=indent
 		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
 		autocmd FileType tex setlocal foldmethod=manual
 	endif

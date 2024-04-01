@@ -74,6 +74,7 @@ return {
 			"aaronhallaert/advanced-git-search.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-media-files.nvim",
+			"rmagatti/session-lens",
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = plugins_setup.telescope,
@@ -127,4 +128,14 @@ return {
 		opts = {
 		}
 	},
+	{
+		'rmagatti/auto-session',
+		config = plugins_setup.auto_session,
+	},
+	{
+		'rmagatti/session-lens',
+		dependencies = {
+			'rmagatti/auto-session'
+		}
+	}
 }

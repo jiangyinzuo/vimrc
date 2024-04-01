@@ -43,6 +43,8 @@ Plug 'aaronhallaert/advanced-git-search.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
 """
 
 Plug 'hrsh7th/cmp-buffer'

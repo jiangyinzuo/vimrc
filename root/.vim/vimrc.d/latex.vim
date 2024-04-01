@@ -52,9 +52,9 @@ let g:vimtex_syntax_conceal = {
 
 augroup latex_commands
 	" 清除可能已存在的与 'latex_commands' 相关的自动命令
-  autocmd!
+	autocmd!
 	" [[palette]]打开当前tex文件中PDF对应的pptx文件			:OpenPPTX
-  autocmd FileType tex ++once command -nargs=0 OpenPPTX call latex#OpenPPTX()
+	autocmd FileType tex command -buffer -nargs=0 OpenPPTX call latex#OpenPPTX()
 augroup end
 
 " Plug 'PatrBal/vim-textidote'
