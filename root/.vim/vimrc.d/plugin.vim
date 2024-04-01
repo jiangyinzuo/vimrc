@@ -18,6 +18,7 @@ if has('nvim') || v:version >= 801
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
 
+	" See: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
 	" fix conflict with autopairs
 	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
 endif

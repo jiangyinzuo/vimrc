@@ -10,6 +10,7 @@ nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 
 let g:fern#renderer = "nerdfont"
+let g:fern#default_hidden = 1
 
 if has('nvim') || v:version >= 801
 	set nocursorline " vim-css-color插件下，set cursorline有性能问题

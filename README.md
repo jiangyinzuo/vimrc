@@ -73,7 +73,7 @@ TODO
 ./install/setup.sh
 ```
 
-Environment variables to setup:  `$DOC2` `$CODE_HOME`
+Environment variables to setup:  `$DOC2`
 
 ## Directory Structure
 

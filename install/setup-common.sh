@@ -55,7 +55,6 @@ setup() {
 
 	echo_green "Environment variables used:"
 	echo DOC2="$DOC2"
-	echo CODE_HOME="$CODE_HOME"
 
 	echo_green "Add the following to your .bashrc if you want to use pygments for gtags:"
 	echo "export GTAGSLABEL=native-pygments"
