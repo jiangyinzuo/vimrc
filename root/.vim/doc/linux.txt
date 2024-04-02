@@ -1,7 +1,5 @@
 *linux*
 
-~/.vim/doc/linux.md
-
 *trace工具*
 `ktrace`, `ptrace`, 和 `strace` 都是与跟踪和监控系统调用和进程执行相关的工具，但它们适用于不同的操作系统和有着不同的用途。
 

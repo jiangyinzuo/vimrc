@@ -67,6 +67,11 @@ sudo dpkg -i fd-musl_x.x.x_amd64.deb
 
 模糊查找: |fzf|
 
+递归删除当前文件夹下所有.o文件
+>
+	 find . -name "*.o" -type f -delete
+<
+
 -------------------------------------------------------------------------------
 下载: wget -> axel  
 git终端: lazygit, tig  
