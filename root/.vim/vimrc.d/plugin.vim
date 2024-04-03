@@ -126,6 +126,12 @@ if !exists('g:vscode')
 			if v:version >= 802
 				" neovim 内置了 inccommand, 无需该插件
 				Plug 'markonm/traces.vim'
+				" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
+				" See:
+				" https://github.com/vim/vim/pull/9639
+				" https://github.com/vim/vim/releases/tag/v9.1.0064
+				Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+		
 				if v:version >= 900
 					" Alternative: https://github.com/gelguy/wilder.nvim
 					Plug 'girishji/autosuggest.vim'
@@ -206,12 +212,6 @@ if !exists('g:vscode')
 	if has('nvim') || v:version >= 802
 		Plug 'skywind3000/vim-quickui'
 		Plug 'pechorin/any-jump.vim'
-		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
-		" See:
-		" https://github.com/vim/vim/pull/9639
-		" https://github.com/vim/vim/releases/tag/v9.1.0064
-		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-		" vnoremap <leader>c :OSCYank<CR>
 	
 		Plug 'voldikss/vim-floaterm'
 		Plug 'voldikss/LeaderF-floaterm'

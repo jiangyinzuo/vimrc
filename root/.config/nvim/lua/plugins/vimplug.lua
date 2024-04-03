@@ -118,7 +118,6 @@ local M = {
 		end,
 		ft = { "markdown" },
 	},
-	{ 'ojroques/vim-oscyank', branch = 'main' },
 	{ 'whonore/Coqtail',      ft = 'coq' },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project",
