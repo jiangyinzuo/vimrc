@@ -1,6 +1,7 @@
 " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'ishan9299/nvim-solarized-lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'RRethy/nvim-treesitter-endwise'
 
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these

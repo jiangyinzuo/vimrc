@@ -57,6 +57,9 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = plugins_setup.nvim_treesitter,
+		dependencies = {
+			'RRethy/nvim-treesitter-endwise'
+		}
 	},
 	{
 		"nvim-telescope/telescope.nvim",

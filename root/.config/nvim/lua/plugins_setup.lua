@@ -11,6 +11,9 @@ function M.nvim_treesitter()
 			enable = true,
 			additional_vim_regex_highlighting = false,
 		},
+		endwise = {
+			enable = true,
+		},
 	}
 end
 
@@ -213,7 +216,7 @@ function M.auto_session()
 		auto_session_enabled = true,
 		auto_save_enabled = nil,
 		auto_restore_enabled = nil,
-		auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+		auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/", "~/.config", "~/.vim", "~/vimrc" },
 		auto_session_use_git_branch = nil,
 		-- the configs below are lua only
 		bypass_session_save_file_types = nil

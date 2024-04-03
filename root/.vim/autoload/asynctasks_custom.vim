@@ -10,7 +10,7 @@ function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
 
 	for line in l:lines
 		if line =~ '^\w.*:'
-			let target = matchstr(line, '^\w\+')
+			let target = matchstr(line, '^\([a-zA-Z/0-9_-]\|\.\)\+')
 			" Only add targets that match ArgLead
 			if target =~ '^' . a:ArgLead
 				call add(l:targets, target)

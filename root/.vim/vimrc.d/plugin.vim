@@ -107,6 +107,7 @@ if !exists('g:vscode')
 		" Since: v0.12.0
 		" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
 		Plug 'tpope/vim-commentary'
+		Plug 'tpope/vim-endwise'
 
 		" Remove ~/.vim/autoload/detect_indent.vim
 		" Since: v0.12.0
