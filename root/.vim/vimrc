@@ -14,6 +14,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" autopair with nvim may has bug
 		" https://github.com/neovim/neovim/issues/23666
 		let g:AutoPairsMapCR = 0
+		if has('wsl')
+			let g:clipboard = { 'name': 'WslClipboard', 'copy': { '+': 'clip.exe', '*': 'clip.exe', }, 'paste': { '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))', '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))', }, 'cache_enabled': 0, }
+		endif
 	endif
 	if filereadable(expand('~/.vim/config.vim'))
 		source ~/.vim/config.vim

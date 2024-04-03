@@ -4,8 +4,9 @@ Windows矢量图画图软件: draw.io
 
 打开网页：xdg-open index.html
 
-Neovim uses system clipboard in WSL
-https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+Neovim uses system clipboard in WSL `:h clipboard-wsl`
+
+~~See https://github.com/neovim/neovim/wiki/FAQ/6fec592e6f5cbf6b2eb1b74e5fb35e803b00d14a#how-to-use-the-windows-clipboard-from-wsl~~
 
 ## 编译C程序, 为URL Scheme添加注册表
 
