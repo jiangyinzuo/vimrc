@@ -20,3 +20,31 @@ function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
 
 	return l:targets->uniq()
 endfunction
+
+" Example:
+" let g:default_open_prefixes = [['*.md', '.'], 
+" 			\ ['*.bib', 'mycmd://D:/'], 
+" 			\ ['*.bib.j2', '.'],
+" 			\ ]
+function asynctasks_custom#Open(prefix)
+	let l:cfile = expand("<cfile>")
+	let l:prefix = a:prefix
+	if empty(l:prefix) && exists('g:default_open_prefixes')
+		let l:longest_matched_index = 99999
+		let l:current_buffer_filepath = expand('%:t')
+		for pair in g:default_open_prefixes
+			let l:matched_index = match(l:current_buffer_filepath, glob2regpat(pair[0]))
+			if l:matched_index >= 0 && l:matched_index < l:longest_matched_index
+				let l:longest_matched_index = l:matched_index
+				let l:prefix = pair[1]
+			endif
+		endfor
+	endif
+	let l:filename = l:prefix . l:cfile
+	if (l:filename =~# '^mycmd://.*') && exists('$WSLENV')
+		let l:command = '/mnt/d/url_scheme.exe'
+	else
+		let l:command = 'xdg-open'
+	endif
+	call asyncrun#run('', {'silent': 1}, l:command . ' ' . l:filename)
+endfunction
