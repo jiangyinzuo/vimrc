@@ -20,4 +20,5 @@ endfunction
 
 command -nargs=0 BuildFileDebug :AsyncTask file-build-debug
 command -nargs=0 RunFile        :AsyncTask file-run
-command -nargs=* -complete=customlist,asynctasks_custom#MakefileComplete Make :AsyncTask make +make_target=<args>
+command -nargs=* -complete=customlist,asynctasks_custom#MakefileComplete MakeTask AsyncTask make +make_target=<args>
+command -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
