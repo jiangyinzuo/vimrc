@@ -88,6 +88,7 @@ local function setup_lsp(on_attach, capabilities)
 	}
 
 	lspconfig.texlab.setup {
+		autostart = vim.fn.get(vim.g.nvim_lsp_autostart, 'texlab', false),
 		on_attach = on_attach,
 		capabilities = capabilities,
 		settings = {
@@ -105,6 +106,7 @@ local function setup_lsp(on_attach, capabilities)
 
 	-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
 	lspconfig.ltex.setup {
+		autostart = vim.fn.get(vim.g.nvim_lsp_autostart, 'ltex', false),
 		on_attach = on_attach,
 		capabilities = capabilities,
 		filetypes = { "bib", "tex", "latex" },

@@ -50,7 +50,7 @@ if !exists('g:vscode')
 	Plug 'lambdalisue/fern-hijack.vim'
 	Plug 'LumaKernel/fern-mapping-fzf.vim'
 
-	if has('nvim') || v:version >= 800
+	if v:version >= 800
 		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 		Plug 'preservim/vimux'
 		Plug 'SirVer/ultisnips'
@@ -83,99 +83,95 @@ if !exists('g:vscode')
 	Plug 'godlygeek/tabular'
 	Plug 'axvr/org.vim', { 'for': 'org' }
 	Plug 'kaarmu/typst.vim', { 'for': 'typst' }
-	if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
+	if v:version >= 802
 		" Use release branch (recommend)
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'antoinemadec/coc-fzf'
 	endif
-	if has('nvim')
-		source ~/.vim/vimrc.d/plugin_nvim.vim
+	" Plug 'nordtheme/vim', { 'as': 'nordtheme' }
+	" Plug 'dracula/vim', { 'as': 'dracula' }
+	" Plug 'tomasiser/vim-code-dark'
+	" Plug 'morhetz/gruvbox'
+
+	" Commenting blocks of code.
+	" 可以选中多行后，用:norm i# 在所有行前面添加#
+	" :norm 0i 在所有行前面添加
+	" :norm ^i 在所有行前面添加(不包括空格)
+	" :norm 0x删除所有行的第一个字母
+	" :norm ^x删除所有行的第一个字母(不包括空格)
+	"
+	" Replace custom commands for commenting.
+	" Since: v0.12.0
+	" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-endwise'
+
+	" Remove ~/.vim/autoload/detect_indent.vim
+	" Since: v0.12.0
+	if v:version >= 901
+		packadd! editorconfig
 	else
-		" Plug 'nordtheme/vim', { 'as': 'nordtheme' }
-		" Plug 'dracula/vim', { 'as': 'dracula' }
-		" Plug 'tomasiser/vim-code-dark'
-		" Plug 'morhetz/gruvbox'
-
-		" Commenting blocks of code.
-		" 可以选中多行后，用:norm i# 在所有行前面添加#
-		" :norm 0i 在所有行前面添加
-		" :norm ^i 在所有行前面添加(不包括空格)
-		" :norm 0x删除所有行的第一个字母
-		" :norm ^x删除所有行的第一个字母(不包括空格)
-		"
-		" Replace custom commands for commenting.
-		" Since: v0.12.0
-		" See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-		Plug 'tpope/vim-commentary'
-		Plug 'tpope/vim-endwise'
-
-		" Remove ~/.vim/autoload/detect_indent.vim
-		" Since: v0.12.0
-		if v:version >= 901
-			packadd! editorconfig
-		else
-			Plug 'editorconfig/editorconfig-vim'
-		endif
-		let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
-		au FileType gitcommit let b:EditorConfig_disable = 1
-		" vim-sleuth does not behave as expected.
-		" Plug 'tpope/vim-sleuth'
-
-		if v:version >= 800
-			Plug 'lifepillar/vim-solarized8'
-			source ~/.vim/vimrc.d/leaderf.vim
-			if v:version >= 802
-				" neovim 内置了 inccommand, 无需该插件
-				Plug 'markonm/traces.vim'
-				" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
-				" See:
-				" https://github.com/vim/vim/pull/9639
-				" https://github.com/vim/vim/releases/tag/v9.1.0064
-				Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-		
-				if v:version >= 900
-					" Alternative: https://github.com/gelguy/wilder.nvim
-					Plug 'girishji/autosuggest.vim'
-					" External cmd is slow.
-					autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm'] }}) | endif
-					if v:version >= 901
-						Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
-					endif
-				endif
-				if g:vim_dap == 'vimspector'
-					Plug 'puremourning/vimspector'
-					let g:vimspector_enable_mappings='VISUAL_STUDIO'
-
-					" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-					" There are two locations for debug configurations for a project:
-					" 
-					" g:vimspector_configurations vim variable (dict)
-					" <vimspector home>/configurations/<OS>/<filetype>/*.json
-					" .vimspector.json in the project source
-					"
-					" json配置位于.vim/configurationsw目录下
-					let g:vimspector_base_dir = $HOME . '/.vim'
-					let g:vimspector_sign_priority = {
-								\    'vimspectorBP':          20,
-								\    'vimspectorBPCond':      20,
-								\    'vimspectorBPLog':       20,
-								\    'vimspectorBPDisabled':  20,
-								\    'vimspectorNonActivePC': 20,
-								\    'vimspectorPC':          999,
-								\    'vimspectorPCBP':        999,
-								\ }
-				endif
-				Plug 'jiangyinzuo/term-debugger'
-			endif
-		endif
-
-		Plug 'airblade/vim-gitgutter'
-		let g:gitgutter_sign_priority = 10
-		omap ih <Plug>(GitGutterTextObjectInnerPending)
-		omap ah <Plug>(GitGutterTextObjectOuterPending)
-		xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-		xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+		Plug 'editorconfig/editorconfig-vim'
 	endif
+	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
+	au FileType gitcommit let b:EditorConfig_disable = 1
+	" vim-sleuth does not behave as expected.
+	" Plug 'tpope/vim-sleuth'
+
+	if v:version >= 800
+		Plug 'lifepillar/vim-solarized8'
+		source ~/.vim/vimrc.d/leaderf.vim
+		if v:version >= 802
+			" neovim 内置了 inccommand, 无需该插件
+			Plug 'markonm/traces.vim'
+			" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
+			" See:
+			" https://github.com/vim/vim/pull/9639
+			" https://github.com/vim/vim/releases/tag/v9.1.0064
+			Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+	
+			if v:version >= 900
+				" Alternative: https://github.com/gelguy/wilder.nvim
+				Plug 'girishji/autosuggest.vim'
+				" External cmd is slow.
+				autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm'] }}) | endif
+				if v:version >= 901
+					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
+				endif
+			endif
+			if g:vim_dap == 'vimspector'
+				Plug 'puremourning/vimspector'
+				let g:vimspector_enable_mappings='VISUAL_STUDIO'
+
+				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+				" There are two locations for debug configurations for a project:
+				" 
+				" g:vimspector_configurations vim variable (dict)
+				" <vimspector home>/configurations/<OS>/<filetype>/*.json
+				" .vimspector.json in the project source
+				"
+				" json配置位于.vim/configurationsw目录下
+				let g:vimspector_base_dir = $HOME . '/.vim'
+				let g:vimspector_sign_priority = {
+							\    'vimspectorBP':          20,
+							\    'vimspectorBPCond':      20,
+							\    'vimspectorBPLog':       20,
+							\    'vimspectorBPDisabled':  20,
+							\    'vimspectorNonActivePC': 20,
+							\    'vimspectorPC':          999,
+							\    'vimspectorPCBP':        999,
+							\ }
+			endif
+			Plug 'jiangyinzuo/term-debugger'
+		endif
+	endif
+
+	Plug 'airblade/vim-gitgutter'
+	let g:gitgutter_sign_priority = 10
+	omap ih <Plug>(GitGutterTextObjectInnerPending)
+	omap ah <Plug>(GitGutterTextObjectOuterPending)
+	xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+	xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 	" FZF :Commits依赖vim-fugitive
 	Plug 'tpope/vim-fugitive'
@@ -284,14 +280,14 @@ endif
 
 """""""""""""""""" begin colorscheme
 " 防止neovim启动时屏幕暂时变成黑色
-if !has('nvim') && has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
+if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
 	set termguicolors
 endif
 
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
 " 防止neovim启动时屏幕暂时变成黑色
-if v:version >= 800 && !has('nvim')
+if v:version >= 800
 	" true color support
 	" https://github.com/lifepillar/vim-solarized8#troubleshooting
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -309,11 +305,11 @@ hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
 hi debugBreakpoint term=reverse ctermbg=red guibg=red
 """""""""""""""""" end colorscheme
 
-if (v:version >= 802 || has('nvim')) && g:vimrc_lsp == 'coc.nvim'
+if v:version >= 802 && g:vimrc_lsp == 'coc.nvim'
 	source ~/.vim/vimrc.d/coc.vim
 endif
 
-if has('nvim') || v:version >= 801
+if v:version >= 801
 	let g:AutoPairs = autopairs#AutoPairsDefine([
 				\ {"open": "<", "close": ">", "filetype": ["html"]}
 				\ ]) " This is a filetype-specific mapping

@@ -4,16 +4,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
 	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
-	let g:vim_package_manager = get(g:, 'vim_package_manager', 'vim-plug')
 	if has('nvim')
 		let g:nvim_enable_inlayhints = 1
-		if g:vim_package_manager == 'vim-plug'
-			set runtimepath^=~/.vim runtimepath+=~/.vim/after
-			let &packpath = &runtimepath
-		endif
 		" autopair with nvim may has bug
 		" https://github.com/neovim/neovim/issues/23666
 		let g:AutoPairsMapCR = 0
+		let g:nvim_lsp_autostart = {}
 		runtime clipboard_config.lua
 	endif
 	if filereadable(expand('~/.vim/config.vim'))
@@ -186,10 +182,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if exists("g:vscode")
 		let g:loaded_netrw = 1
 		let g:loaded_netrwPlugin = 1
-		if g:vim_package_manager == 'vim-plug'
-			source ~/.vim/vimrc.d/plugin.vim
-		elseif has('nvim') && g:vim_package_manager == 'lazy.nvim'
+		if has('nvim')
 			runtime lazy.lua
+		else
+			source ~/.vim/vimrc.d/plugin.vim
 		endif
 		finish
 	endif
@@ -401,10 +397,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		helptags ~/.vim/doc
 	endif
 	if &loadplugins
-		if g:vim_package_manager == 'vim-plug'
-			source ~/.vim/vimrc.d/plugin.vim
-		elseif has('nvim') && g:vim_package_manager == 'lazy.nvim'
+		if has('nvim')
 			runtime lazy.lua
+		else
+			source ~/.vim/vimrc.d/plugin.vim
 		endif
 	endif
 
@@ -601,8 +597,4 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set csprg=gtags-cscope
 		endif
 	endif
-
-	if g:no_plug == 0 && has('nvim') && !exists("g:vscode") && g:vim_package_manager == 'vim-plug'
-		runtime vimplug.lua
-	end
 endif

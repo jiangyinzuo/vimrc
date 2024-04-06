@@ -1,4 +1,4 @@
-if has('nvim') || v:version >= 900
+if v:version >= 900
 	let g:vim_ai_roles_config_file = '~/.vim/vim-ai-roles.ini'
 
 	" alternatives: https://github.com/codota/tabnine-nvim
@@ -6,7 +6,7 @@ if has('nvim') || v:version >= 900
 		" copilot.vim在打开文件后，第一次快速进入插入模式时，存在卡顿的问题
 		" Github Coplit Support
 		" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
-		if g:vim_package_manager == 'vim-plug'
+		if !has('nvim')
 			Plug 'github/copilot.vim'
 		endif
 		" use <C-x> to auto complete github copilot
@@ -38,7 +38,7 @@ if has('nvim') || v:version >= 900
 
 	elseif g:ai_complete == 'codeium'
 		" Alternative: https://github.com/Exafunction/codeium.nvim
-		if g:vim_package_manager == 'vim-plug'
+		if !has('nvim')
 			Plug 'Exafunction/codeium.vim'
 		endif
 		let g:codeium_disable_bindings = 1
@@ -53,12 +53,8 @@ if has('nvim') || v:version >= 900
 			imap <M-x> <Plug>(codeium-dismiss)
 		endif
 	elseif g:ai_complete == 'fittencode'
-		if g:vim_package_manager == 'vim-plug'
-			if has('nvim')
-				Plug 'luozhiya/fittencode.nvim'
-			else
-				Plug 'FittenTech/fittencode.vim'
-			endif
+		if !has('nvim')
+			Plug 'FittenTech/fittencode.vim'
 		endif
 	endif
 endif
@@ -117,7 +113,8 @@ if has('python3')
 
 	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
 
-	if g:vim_package_manager == 'vim-plug'
+
+	if !has('nvim')
 		Plug 'madox2/vim-ai'
 	endif
 	call AISwitchServer(get(g:, 'ai_service', 'aiproxy'))

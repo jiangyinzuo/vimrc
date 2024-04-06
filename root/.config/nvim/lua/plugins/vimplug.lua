@@ -120,10 +120,11 @@ local M = {
 	},
 	{ 'whonore/Coqtail',      ft = 'coq' },
 	{
-		dir = "~/.vim/pack/my_plugins/start/project",
+		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {
 			'skywind3000/asynctasks.vim',
-		}
+		},
+		priority = 2000,
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 
