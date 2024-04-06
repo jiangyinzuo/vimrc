@@ -3,25 +3,6 @@
 " https://github.com/antoinemadec/coc-fzf/issues/113
 let g:coc_fzf_location_delay = 20
 
-" coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
-" 其它可选coc插件(有更好的vim插件可用)：
-" coc-lists(buffer, grep, lines, mru, quickfix, tags, files等列表源 => fzf.vim和leaderf
-" coc-git   => gitgutter lazygit
-" coc-pairs => auto-pairs插件暂时不需要auto-pair补全
-" other sources: https://github.com/neoclide/coc-sources
-" Reference: https://github.com/neoclide
-"
-" 语法类插件（不好用）：
-" coc-grammarly
-"
-" clangd:
-" 可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
-"
-" coc-marksman: 需要在根目录放一份.marksman.toml
-"
-" coc-codegeex: Aminer的代码片段生成器，暂时不可用
-"
-" coc-ltex: latex语法检查
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 
@@ -49,7 +30,10 @@ augroup coc_mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -170,7 +154,6 @@ nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
 
 autocmd filetype coctree nmap <buffer> <F1> :h coc-tree<CR>
 
-" Use netrw instead
 " autocmd filetype coc-explorer nmap <buffer> <F1> :h coc-explorer<CR>
 " autocmd filetype coc-explorer nmap <buffer> gx :call coc_custom#NetrwGxHandler()<CR>
 " nnoremap <silent><nowait> <leader>e :<C-u>CocCommand explorer<CR>

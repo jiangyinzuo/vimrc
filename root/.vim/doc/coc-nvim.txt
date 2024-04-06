@@ -1,0 +1,28 @@
+*coc.nvim*
+
+-------------------------------------------------------
+自v0.15.0后，coc-list替代了mksession.vim
+
+*基于coc-list保存会话session*	:Mksession
+*基于coc-list加载会话session*	:Loadsession
+
+-------------------------------------------------------
+
+coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
+
+coc-git   => gitgutter lazygit
+
+coc-pairs => auto-pairs插件暂时不需要auto-pair补全
+other sources: https://github.com/neoclide/coc-sources
+Reference: https://github.com/neoclide
+
+语法类插件（不好用）：coc-grammarly
+
+|clangd|
+可以使用coc.nvim自带的支持（:CocConfig添加languageserver配置），也可以下载coc-clangd插件(clangd.enabled: true)，两者不能同时使用
+
+coc-marksman: 需要在根目录放一份.marksman.toml
+
+coc-codegeex: Aminer的代码片段生成器，暂时不可用
+
+coc-ltex: latex语法检查

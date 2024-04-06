@@ -2,6 +2,8 @@ vim:set ft=help:
 
 *ai.txt*
 
+cursor.so
+
 Github Copilot  
 [tabnine](tabnine.com)(vscode, jetbrains)  
 codegeex  

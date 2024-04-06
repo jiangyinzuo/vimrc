@@ -9,8 +9,6 @@
 <
 *vim-airline/vim-airline* beautify status line
 
-*skywind3000/vim-quickui* top menu
-
 *preservim/nerdtree* file system explorer, see >
   git show v0.2.1:root/vimrc.d/nerdtree.vim
 <
@@ -45,6 +43,3 @@ Terminal Manager: https://zhuanlan.zhihu.com/p/469396812
 	endif
 <
 
-game:
-vim/killersheep
-johngrib/vim-game-snake

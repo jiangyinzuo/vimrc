@@ -17,12 +17,6 @@ ISSUE: helpfile开启ft=help后，在快速插入---------------------时存在�
 删除文件/文件夹 D
 -------------------------------------------------------------------------------
 
-自v0.15.0后，coc-list替代了mksession.vim
-
-*基于coc-list保存会话session*	:Mksession
-*基于coc-list加载会话session*	:Loadsession
--------------------------------------------------------------------------------
-
 *往下/上翻1页*		CTRL-F CTRL-B
 *往下/上翻半页*		CTRL-D CTRL-U
 
@@ -132,8 +126,7 @@ Markdown等文本编辑添加链接：
 查找Hashtag并插入到当前光标位置		:Hashtag
 
 -------------------------------------------------------------------------------
-*lsp* *formatter* *linter*  *coc.nvim*
-
+*lsp* *formatter* *linter*
 cpp ~
 
 *clangd*
@@ -319,6 +312,4 @@ docker容器，容器内有许多课程独有的基于深度学习处理器（DL
 
 5. Jetbrains Fleet
 
-6. cursor.so
-
-7. [distant](https://github.com/chipsenkbeil/distant)
+6. [distant](https://github.com/chipsenkbeil/distant)
