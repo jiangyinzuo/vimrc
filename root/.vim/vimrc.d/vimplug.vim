@@ -206,7 +206,7 @@ if !exists('g:vscode')
 	" paste img in markdown/latex style
 	Plug 'jiangyinzuo/img-paste.vim'
 
-	if has('nvim') || v:version >= 802
+	if v:version >= 802
 		Plug 'skywind3000/vim-quickui'
 		Plug 'pechorin/any-jump.vim'
 	
@@ -220,8 +220,6 @@ if !exists('g:vscode')
 
 		" require +job
 		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-		let g:pydocstring_doq_path = 'doq'
-		let g:pydocstring_formatter = 'numpy'
 
 		" vim和jupyter notebook(运行在浏览器上)同步，
 		" 需要安装jupyter_ascending, 目前不支持notebook 7
@@ -229,11 +227,6 @@ if !exists('g:vscode')
 		" See: https://github.com/imbue-ai/jupyter_ascending
 		" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
 		Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
-		let g:jupyter_ascending_default_mappings = 0
-		let g:jupyter_ascending_python_executable = 'python3'
-		" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
-		" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
-		let g:jupyter_ascending_auto_write = v:true
 		
 		" vim和jupyter console/qtconsole同步
 		" :h jupyter-qtconsole

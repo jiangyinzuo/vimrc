@@ -135,8 +135,17 @@ if has('nvim') || v:version >= 802
 	let g:quickui_context = [['hello', 'echo "hello world!"']]
 	let g:quickui_border_style = 2
 
+	let g:pydocstring_doq_path = 'doq'
+	let g:pydocstring_formatter = 'numpy'
+
 	let g:jupyter_mapkeys = 0
 	let g:jupyter_cell_separators = ['\s*##']
+
+	let g:jupyter_ascending_default_mappings = 0
+	let g:jupyter_ascending_python_executable = 'python3'
+	" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
+	" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
+	let g:jupyter_ascending_auto_write = v:true
 
 	let g:jupytext_fmt = 'py'
 

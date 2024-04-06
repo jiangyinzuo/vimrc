@@ -19,7 +19,7 @@ local M = {
 		end
 	},
 	-- Ref: https://github.com/ibhagwan/fzf-lua
-	{ "junegunn/fzf",     build = "./install --bin" },
+	{ "junegunn/fzf",                    build = "./install --bin" },
 	{
 		'junegunn/fzf.vim',
 		dependencies = { 'junegunn/fzf' },
@@ -27,6 +27,8 @@ local M = {
 			vim.api.nvim_command('source ~/.vim/vimrc.d/fzf.vim')
 		end
 	},
+	{ 'heavenshell/vim-pydocstring',     ft = 'python' },
+	{ 'imbue-ai/jupyter_ascending.vim',  ft = 'python' },
 	{
 		'voldikss/vim-floaterm',
 		init = function()
@@ -108,7 +110,7 @@ local M = {
 	'pechorin/any-jump.vim',
 	{ 'jupyter-vim/jupyter-vim', cmd = { 'JupyterConnect' } },
 	'goerz/jupytext.vim',
-	{ 'jpalardy/vim-slime',   ft = { 'python', 'ocaml' } },
+	{ 'jpalardy/vim-slime', ft = { 'python', 'ocaml' } },
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -118,7 +120,7 @@ local M = {
 		end,
 		ft = { "markdown" },
 	},
-	{ 'whonore/Coqtail',      ft = 'coq' },
+	{ 'whonore/Coqtail',    ft = 'coq' },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {
