@@ -75,7 +75,6 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"aaronhallaert/advanced-git-search.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-media-files.nvim",
 			"rmagatti/session-lens",
 			"nvim-tree/nvim-web-devicons",

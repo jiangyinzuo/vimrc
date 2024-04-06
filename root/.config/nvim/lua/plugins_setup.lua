@@ -24,14 +24,7 @@ function M.telescope()
 	vim.keymap.set('x', '<leader>rg', builtin.grep_string, {})
 	vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 	vim.keymap.set('n', '<leader>fh', builtin.oldfiles, {})
-	vim.api.nvim_set_keymap(
-		"n",
-		"<leader>ft",
-		":Telescope file_browser<cr>",
-		{ noremap = true }
-	)
 
-	local fb_actions = require "telescope._extensions.file_browser.actions"
 	local telescope = require("telescope")
 	telescope.setup({
 		extensions = {
@@ -46,28 +39,6 @@ function M.telescope()
 				-- find command (defaults to `fd`)
 				find_cmd = "fd"
 			},
-			file_browser = {
-				hijack_netrw = false,
-				depth = false,
-				mappings = {
-					["i"] = {
-						["<A-c>"] = fb_actions.create,
-						["<A-e>"] = fb_actions.create_from_prompt, -- 创建文件（夹）
-						["<A-r>"] = fb_actions.rename,
-						["<A-m>"] = fb_actions.move,
-						["<A-y>"] = fb_actions.copy,
-						["<A-d>"] = fb_actions.remove,
-						["<C-o>"] = fb_actions.open,
-						["<C-g>"] = fb_actions.goto_parent_dir,
-						["<C-e>"] = fb_actions.goto_home_dir,
-						["<C-w>"] = fb_actions.goto_cwd,
-						["<C-t>"] = fb_actions.change_cwd,
-						["<C-f>"] = fb_actions.toggle_browser,
-						["<C-h>"] = fb_actions.toggle_hidden,
-						["<C-s>"] = fb_actions.toggle_all,
-					},
-				}
-			},
 			fzf = {
 				fuzzy = true,               -- false will only do exact matching
 				override_generic_sorter = true, -- override the generic sorter
@@ -78,7 +49,6 @@ function M.telescope()
 		}
 	})
 
-	telescope.load_extension "file_browser"
 	telescope.load_extension "media_files"
 	telescope.load_extension "fzf"
 	telescope.load_extension "advanced_git_search"
