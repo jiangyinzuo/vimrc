@@ -102,6 +102,11 @@ function M.lualine()
 		}
 	end
 
+	local filename = {
+		'filename',
+		path = 4,
+		shorting_target = 40,
+	}
 	require('lualine').setup {
 		options = {
 			icons_enabled = true,
@@ -124,7 +129,7 @@ function M.lualine()
 			}
 		},
 		sections = {
-			lualine_a = { 'filename' },
+			lualine_a = { filename },
 			-- 'diff' is slow
 			lualine_b = { 'branch', 'diagnostics' },
 			lualine_c = lualine_c,
@@ -135,7 +140,7 @@ function M.lualine()
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
-			lualine_c = { 'filename' },
+			lualine_c = { filename },
 			lualine_x = { 'location' },
 			lualine_y = {},
 			lualine_z = {}

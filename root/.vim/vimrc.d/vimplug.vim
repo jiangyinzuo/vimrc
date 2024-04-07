@@ -50,6 +50,7 @@ if !exists('g:vscode')
 	Plug 'lambdalisue/fern-hijack.vim'
 	Plug 'LumaKernel/fern-mapping-fzf.vim'
 
+	Plug 'jiangyinzuo/bd.vim'
 	if v:version >= 800
 		Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 		Plug 'preservim/vimux'
@@ -204,6 +205,7 @@ if !exists('g:vscode')
 	augroup END
 
 	" paste img in markdown/latex style
+	" Alternative: HakonHarnes/img-clip.nvim
 	Plug 'jiangyinzuo/img-paste.vim'
 
 	if v:version >= 802

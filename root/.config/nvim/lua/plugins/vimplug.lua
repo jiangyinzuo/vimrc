@@ -1,6 +1,7 @@
 vim.api.nvim_command('source ~/.vim/vimrc.d/plugin_setup.vim')
 
 local M = {
+	'jiangyinzuo/bd.vim',
 	{
 		"lervag/vimtex",
 		ft = "tex",
