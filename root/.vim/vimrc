@@ -6,6 +6,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	if has('nvim')
 		let g:nvim_enable_inlayhints = 1
+		set runtimepath^=~/.vim runtimepath+=~/.vim/after
+		let &packpath = &runtimepath
 		" autopair with nvim may has bug
 		" https://github.com/neovim/neovim/issues/23666
 		let g:AutoPairsMapCR = 0
