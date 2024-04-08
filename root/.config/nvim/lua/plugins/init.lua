@@ -119,11 +119,9 @@ return {
 		},
 		opts = {}
 	},
-	{
-		'numToStr/Comment.nvim',
-		opts = {
-		}
-	},
+	-- neovim 0.10.0 has builtin comments
+	-- :h commenting
+	-- 'numToStr/Comment.nvim',
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

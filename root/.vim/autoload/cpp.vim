@@ -13,7 +13,7 @@ function s:yank_def(lineNumber, className)
 endfunction
 
 " [[palette]]生成cpp类方法的函数定义，放在默认寄存器			:YDef
-function YDef(...)
+function cpp#YDef(...)
 	let l:current_line_number = line('.')
 
 	if a:0 == 0
@@ -29,6 +29,3 @@ function YDef(...)
 	endif
 	call s:yank_def(l:current_line_number, className)
 endfunction
-command -nargs=? YDef call YDef(<f-args>)
-
-setlocal commentstring=//%s

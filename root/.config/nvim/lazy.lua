@@ -19,7 +19,8 @@ require("lazy").setup("plugins", {
 		reset_packpath = false,
 		rtp = {
 			paths = {
-				'~/.vim'
+				'~/.vim',
+				'~/.vim/after'
 			}
 		}
 	}
