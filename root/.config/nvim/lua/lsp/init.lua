@@ -143,6 +143,8 @@ local function setup_lsp(on_attach, capabilities)
 end
 
 function M.lspconfig()
+	require('lsp.diagnostic')
+
 	-- Register the command
 	vim.api.nvim_create_user_command('InlayHintsToggle', function(_)
 		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
@@ -155,21 +157,6 @@ function M.lspconfig()
 		if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(bufnr, true)
 		end
-		-- 自动浮窗展示diagnostic
-		vim.api.nvim_create_autocmd("CursorHold", {
-			buffer = bufnr,
-			callback = function()
-				local opts = {
-					focusable = false,
-					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-					border = 'rounded',
-					source = 'always',
-					prefix = ' ',
-					scope = 'cursor',
-				}
-				vim.diagnostic.open_float(nil, opts)
-			end
-		})
 	end
 
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍

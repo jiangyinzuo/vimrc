@@ -1,0 +1,5 @@
+*neovim.txt*
+
+Toggle lsp diagnostic auto floating window *:LspFloatToggle*
+
+Enable lsp diagnostic auto floating window *g:nvim_lsp_diagnostic_enable_auto_floating_window*
