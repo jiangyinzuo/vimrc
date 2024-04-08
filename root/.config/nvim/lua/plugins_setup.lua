@@ -200,13 +200,23 @@ function M.auto_session()
 	require('auto-session').setup(opts)
 end
 
+local colorscheme_loaded = false
 function M.colorscheme()
-	-- make winbar background transparent
-	vim.cmd([[
-	set termguicolors
-	colorscheme solarized
-	hi WinBar guibg=NONE
-	]])
+	if not colorscheme_loaded then
+		-- make winbar background transparent
+		vim.cmd([[
+			set termguicolors
+			colorscheme solarized
+			hi WinBar guibg=NONE
+		]])
+		colorscheme_loaded = true
+	end
+end
+
+function M.vimrc_load_colorscheme()
+	if vim.g.vimrc_load_colorscheme == nil or vim.g.vimrc_load_colorscheme then
+		M.colorscheme()
+	end
 end
 
 return M

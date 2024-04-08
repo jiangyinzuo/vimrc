@@ -26,3 +26,9 @@ augroup END
 
 let g:project_vimrc = get(g:, 'project_vimrc', '.project.vim')
 call LoadProjectConfigEachTab()
+
+if exists('g:project_load_post_hook')
+	for hook in g:project_load_post_hook
+		execute hook
+	endfor
+endif

@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.project_load_post_hook = { ':lua require("plugins_setup").vimrc_load_colorscheme()' }
+
 -- https://gist.github.com/BlueDrink9/474b150c44d41b80934990c0acfb00be
 require("lazy").setup("plugins", {
 	root = vim.g.vim_plug_dir,
@@ -30,4 +32,3 @@ require("lazy").setup("plugins", {
 vim.cmd[[set packpath+=~/.vim]]
 
 -- load colorscheme at the end to avoid black background on startup
-require("plugins_setup").colorscheme()

@@ -177,7 +177,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	let g:project_vimrc = '.project.vim'
 	" do not add too much root marks, it will slow down search performance
-	let g:RootMarks = ['.git', g:project_vimrc, '.root']
+	let g:RootMarks = ['.git', g:project_vimrc, '.root', '.noterepo', '.coderepo']
 
 	" vimplug.vim 可能会改变g:no_plug的值
 	let g:no_plug = (glob(g:vim_plug_dir) == "") || &loadplugins == 0
