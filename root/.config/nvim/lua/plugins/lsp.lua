@@ -1,6 +1,5 @@
 local lualine = {
 	'nvim-lualine/lualine.nvim',
-	config = require('plugins_setup').lualine,
 }
 
 if vim.g.vimrc_lsp == 'nvim-lsp' then

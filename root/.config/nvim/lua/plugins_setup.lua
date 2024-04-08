@@ -209,6 +209,7 @@ function M.colorscheme()
 			colorscheme solarized
 			hi WinBar guibg=NONE
 		]])
+		M.lualine()
 		colorscheme_loaded = true
 	end
 end

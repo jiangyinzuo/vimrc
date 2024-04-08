@@ -16,11 +16,11 @@ function codenote#SignCodeLinks()
 	if g:code_link_dict == {}
 		return
 	endif
-	sign unplace * group=code_note_link
 	let l:current_file = expand("%:p")
 	if l:current_file[0:len(g:coderepo_dir) - 1] == g:coderepo_dir
 		let l:current_file = l:current_file[len(g:coderepo_dir) + 1:]
 		if has_key(g:code_link_dict, l:current_file)
+			sign unplace * group=code_note_link
 			for l:line in g:code_link_dict[l:current_file]
 				execute "sign place " . l:line . " line=" . l:line . " group=code_note_link priority=2000 name=code_note_link file=" . l:current_file
 			endfor
@@ -59,7 +59,6 @@ function codenote#GetCodeLinkDict()
 		endif
 	endfor
 endfunction
-
 
 " 第一个tab作为note repo window，第二个tab作为code repo window
 function s:goto_code_buffer()
@@ -135,12 +134,18 @@ function s:GoToNoteLink()
 endfunction
 
 function codenote#GoToCodeNoteLink()
+	if !exists("t:repo_type")
+		:LoadCodeNote
+	endif
 	if t:repo_type == "note"
 		call s:GoToCodeLink()
 	elseif t:repo_type == "code"
 		call s:GoToNoteLink()
 	else
 		echoerr "t:repo_type is not set"
+	endif
+	if !exists("t:repo_type")
+		:LoadCodeNote
 	endif
 endfunction
 
