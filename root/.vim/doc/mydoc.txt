@@ -313,3 +313,20 @@ docker容器，容器内有许多课程独有的基于深度学习处理器（DL
 5. Jetbrains Fleet
 
 6. [distant](https://github.com/chipsenkbeil/distant)
+
+
+-------------------------------------------------------------------------------
+
+*:Open* 打开文件
+*g:default_open_prefixes* 控制打开文件的前缀
+
+Example:
+>
+	let g:default_open_prefixes = [['*.md', '.'], 
+				\ ['*.bib', 'mycmd://D:/'], 
+				\ ['*.bib.j2', '.'],
+				\ ]
+<
+
+*intro-myself*
+head $(vim -Es -c '!echo $VIMRUNTIME' -c 'q')/syntax/cuda.vim

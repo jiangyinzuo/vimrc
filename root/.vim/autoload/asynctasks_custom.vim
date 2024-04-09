@@ -21,11 +21,6 @@ function! asynctasks_custom#MakefileComplete(ArgLead, CmdLine, CursorPos)
 	return l:targets->uniq()
 endfunction
 
-" Example:
-" let g:default_open_prefixes = [['*.md', '.'], 
-" 			\ ['*.bib', 'mycmd://D:/'], 
-" 			\ ['*.bib.j2', '.'],
-" 			\ ]
 function asynctasks_custom#Open(prefix)
 	let l:cfile = expand("<cfile>")
 	let l:prefix = a:prefix

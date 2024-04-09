@@ -117,9 +117,15 @@ local function setup_lsp(on_attach, capabilities)
 		}
 	}
 
+	lspconfig.marksman.setup {
+		autostart = vim.fn.get(vim.g.nvim_lsp_autostart, 'marksman', false),
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
+
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
-	local other_servers = { 'jsonls', 'pyright', 'typst_lsp' }
+	local other_servers = { 'jsonls', 'pyright', 'typst_lsp', 'marksman' }
 	for _, lsp in ipairs(other_servers) do
 		lspconfig[lsp].setup {
 			on_attach = on_attach,
