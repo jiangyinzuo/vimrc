@@ -42,7 +42,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" coc-explorer will kill neovim's intro, quickly type <space> or other key
 	" when starting can avoid it.
 	" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
-	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-sumneko-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-dictionary', 'coc-word', 'coc-tag', 'coc-emoji', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
+	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-sumneko-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
 	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 	let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')

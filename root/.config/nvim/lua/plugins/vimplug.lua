@@ -20,7 +20,7 @@ local M = {
 		end
 	},
 	-- Ref: https://github.com/ibhagwan/fzf-lua
-	{ "junegunn/fzf",                    build = "./install --bin" },
+	{ "junegunn/fzf",                   build = "./install --bin" },
 	{
 		'junegunn/fzf.vim',
 		dependencies = { 'junegunn/fzf' },
@@ -28,8 +28,8 @@ local M = {
 			vim.api.nvim_command('source ~/.vim/vimrc.d/fzf.vim')
 		end
 	},
-	{ 'heavenshell/vim-pydocstring',     ft = 'python' },
-	{ 'imbue-ai/jupyter_ascending.vim',  ft = 'python' },
+	{ 'heavenshell/vim-pydocstring',    ft = 'python' },
+	{ 'imbue-ai/jupyter_ascending.vim', ft = 'python' },
 	{
 		'voldikss/vim-floaterm',
 		init = function()
@@ -150,7 +150,18 @@ local M = {
 		dependencies = {
 			'lambdalisue/fern.vim'
 		}
-	}
+	},
+	{
+		'Yggdroot/LeaderF',
+		build = ":LeaderfInstallCExtension",
+		init = function()
+			vim.api.nvim_command('source ~/.vim/vimrc.d/leaderf.vim')
+		end,
+		dependencies = {
+			'skywind3000/Leaderf-snippet',
+			'voldikss/LeaderF-emoji',
+		}
+	},
 }
 
 if vim.g.vimrc_lsp == 'coc.nvim' then

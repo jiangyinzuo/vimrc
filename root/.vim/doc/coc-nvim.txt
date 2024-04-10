@@ -1,4 +1,5 @@
-*coc.nvim*
+vim:ft=help
+*coc-nvim.txt* *coc.nvim*
 
 -------------------------------------------------------
 自v0.15.0后，coc-list替代了mksession.vim
@@ -7,6 +8,7 @@
 *基于coc-list加载会话session*	:Loadsession
 
 -------------------------------------------------------
+coc.nvim插件 ~
 
 coc-snippets 不如coc-ultisnips配合UltiSnips插件好用
 
@@ -26,3 +28,6 @@ coc-marksman: 需要在根目录放一份.marksman.toml
 coc-codegeex: Aminer的代码片段生成器，暂时不可用
 
 coc-ltex: latex语法检查
+
+coc-emoji: 会卡顿，使用Leaderf emoji
+coc-word, coc-dictionary: 会卡顿，使用 CTRL-X CTRL-K 或者`:Dictionary`
