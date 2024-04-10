@@ -116,7 +116,21 @@ let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCal
 
 " 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
 let g:typst_pdf_viewer = 'SumatraPDF.exe'
-	
+
+let g:bookmark_no_default_key_mappings = 1
+nmap <Leader>mm <Plug>BookmarkToggle
+nmap <Leader>mi <Plug>BookmarkAnnotate
+nmap <Leader>ma <Plug>BookmarkShowAll
+nmap <Leader>mn <Plug>BookmarkNext
+nmap <Leader>mp <Plug>BookmarkPrev
+nmap <Leader>mc <Plug>BookmarkClear
+nmap <Leader>mx <Plug>BookmarkClearAll
+nmap <Leader>mk <Plug>BookmarkMoveUp
+nmap <Leader>mj <Plug>BookmarkMoveDown
+nmap <Leader>mg <Plug>BookmarkMoveToLine
+let g:bookmark_auto_save = 1
+let g:bookmark_save_per_working_dir = 0
+
 let g:mdip_imgdir = '.'
 let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
 function! g:LatexPasteImage(relpath)

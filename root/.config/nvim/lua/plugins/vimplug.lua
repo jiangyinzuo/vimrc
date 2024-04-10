@@ -106,6 +106,7 @@ local M = {
 	'tpope/vim-fugitive',
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',        ft = { 'c', 'cpp', 'cuda' } },
+	'MattesGroeger/vim-bookmarks',
 	'jiangyinzuo/img-paste.vim',
 	'skywind3000/vim-quickui',
 	'pechorin/any-jump.vim',

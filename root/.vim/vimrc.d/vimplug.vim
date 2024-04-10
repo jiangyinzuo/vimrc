@@ -184,7 +184,7 @@ if !exists('g:vscode')
 		let g:GIT_LENS_ENABLED = 0
 	endif
 
-	" Plug 'MattesGroeger/vim-bookmarks'
+	Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
 	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp', 'cuda']}
 	" Enable function highlighting (affects both C and C++ files)
