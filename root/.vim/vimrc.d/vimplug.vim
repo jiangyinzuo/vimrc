@@ -168,7 +168,8 @@ if !exists('g:vscode')
 	endif
 
 	Plug 'airblade/vim-gitgutter'
-	let g:gitgutter_sign_priority = 10
+	" 比默认priority低1级, bookmarkspriority为10
+	let g:gitgutter_sign_priority = 9
 	omap ih <Plug>(GitGutterTextObjectInnerPending)
 	omap ah <Plug>(GitGutterTextObjectOuterPending)
 	xmap ih <Plug>(GitGutterTextObjectInnerVisual)

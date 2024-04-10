@@ -130,6 +130,7 @@ nmap <Leader>mj <Plug>BookmarkMoveDown
 nmap <Leader>mg <Plug>BookmarkMoveToLine
 let g:bookmark_auto_save = 1
 let g:bookmark_save_per_working_dir = 0
+let g:bookmark_display_annotation = 1
 
 let g:mdip_imgdir = '.'
 let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'

@@ -154,7 +154,8 @@ end
 
 function M.gitsigns()
 	require('gitsigns').setup {
-		sign_priority = 10,
+		-- 比默认priority低1级, bookmarkspriority为10
+		sign_priority = 9,
 		on_attach = function(bufnr)
 			local gs = package.loaded.gitsigns
 
