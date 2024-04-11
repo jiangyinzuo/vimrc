@@ -34,6 +34,7 @@ return {
 			"nvim-telescope/telescope-media-files.nvim",
 			"rmagatti/session-lens",
 			"nvim-tree/nvim-web-devicons",
+			"nvim-telescope/telescope-bibtex.nvim",
 		},
 		config = plugins_setup.telescope,
 	},
