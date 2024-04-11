@@ -15,20 +15,6 @@ if v:version >= 900
 
 		" Load the plugin on InsertEnter
 		" autocmd InsertEnter * ++once call plug#load('copilot.vim')
-
-		" showkey -a 查看组合键的编码
-		" M-c M-[ 存在bug
-		" 在终端下按下 ALT+X，那么终端软件将会发送 <ESC>x 两个字节过去，字节码为：0x27, 0x78。
-		" See Also:
-		" https://superuser.com/questions/1554782/why-was-the-meta-key-replaced-on-modern-terminals
-		" https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
-		" https://www.skywind.me/blog/archives/2021
-		" :h set-termcap
-		execute "set <M-n>=\en"
-		execute "set <M-p>=\ep"
-		execute "set <M-x>=\ex"
-		execute "set <M-w>=\ew"
-		execute "set <M-l>=\el"
 		imap <M-p> <Plug>(copilot-previous)
 		imap <M-n> <Plug>(copilot-next)
 		imap <M-x> <Plug>(copilot-dismiss)
@@ -43,9 +29,6 @@ if v:version >= 900
 		endif
 		let g:codeium_disable_bindings = 1
 		command -nargs=0 CodeiumChat call codeium#Chat()
-		execute "set <M-n>=\en"
-		execute "set <M-p>=\ep"
-		execute "set <M-x>=\ex"
 		if g:no_plug == 0
 			imap <script><silent><nowait><expr> <Tab> codeium#Accept()
 			imap <M-p> <Plug>(codeium-previous)

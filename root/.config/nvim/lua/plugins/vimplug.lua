@@ -53,6 +53,7 @@ local M = {
 		end
 	},
 	'justinmk/vim-sneak',
+	'matze/vim-move',
 	'ap/vim-css-color',
 	{
 		'LunarWatcher/auto-pairs',

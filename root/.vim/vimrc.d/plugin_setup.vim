@@ -1,6 +1,25 @@
 " Plug 'justinmk/vim-sneak'
 let g:sneak#label = 1
 let g:sneak#s_next = 1
+
+" showkey -a 查看组合键的编码
+" M-c M-[ 存在bug
+" 在终端下按下 ALT+X，那么终端软件将会发送 <ESC>x 两个字节过去，字节码为：0x27, 0x78。
+" See Also:
+" https://superuser.com/questions/1554782/why-was-the-meta-key-replaced-on-modern-terminals
+" https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
+" https://www.skywind.me/blog/archives/2021
+" :h set-termcap
+" 给copilot.vim, vim-move, codeium.vim插件使用
+execute "set <M-h>=\eh"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+execute "set <M-n>=\en"
+execute "set <M-p>=\ep"
+execute "set <M-x>=\ex"
+execute "set <M-w>=\ew"
+
 " default s: delete [count] charaters and start insert
 nmap s <Plug>Sneak_s
 nmap S <Plug>Sneak_S

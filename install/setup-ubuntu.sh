@@ -28,8 +28,5 @@ apt-get install -y libgtk-3-dev libxt-dev vim-gtk3 ripgrep fd-find tree bat node
 # See: https://github.com/phiresky/ripgrep-all/issues/113
 # apt install ripgrep pandoc poppler-utils ffmpeg
 
-# checkrepo.py needs GitPython
-pip3 install GitPython
-
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 cargo install git-delta

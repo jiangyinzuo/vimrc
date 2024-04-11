@@ -13,6 +13,7 @@ call plug#begin(g:vim_plug_dir)
 
 " similar Plugin: Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
+Plug 'matze/vim-move'
 
 if has('nvim') || v:version >= 801
 	Plug 'ap/vim-css-color'
@@ -222,6 +223,7 @@ if !exists('g:vscode')
 		source ~/.vim/vimrc.d/fzf.vim
 
 		" require +job
+		" pip3 install doq --break-system-packages
 		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
 		" vim和jupyter notebook(运行在浏览器上)同步，
