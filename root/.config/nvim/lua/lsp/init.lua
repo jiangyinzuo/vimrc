@@ -219,6 +219,8 @@ function M.lspconfig()
 			vim.diagnostic.config({
 				-- virtual text is too noisy!
 				virtual_text = false,
+				-- ERROR 比 INFO优先级更高显示
+				severity_sort = true,
 			})
 		end,
 	})

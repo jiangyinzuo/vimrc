@@ -17,7 +17,9 @@ local function create_floating_window_autocmd()
 	})
 end
 
-vim.g.nvim_lsp_diagnostic_enable_auto_floating_window = vim.fn.get(vim.g, 'nvim_lsp_diagnostic_enable_auto_floating_window', false)
+if vim.g.nvim_lsp_diagnostic_enable_auto_floating_window == nil then
+	vim.g.nvim_lsp_diagnostic_enable_auto_floating_window = true
+end
 local function toggle_auto_floating_window()
 	if vim.g.nvim_lsp_diagnostic_enable_auto_floating_window then
 		vim.api.nvim_del_augroup_by_name("nvim_lsp_floating_window")
