@@ -22,6 +22,9 @@ https://36kr.com/p/2687396960595333
 gpt-pilot
 https://github.com/Pythagora-io/gpt-pilot
 
+aichat cli
+https://github.com/sigoden/aichat
+
 https://www.swebench.com/
 
 https://www.kajetandomagala.com/codeium-vs-copilot/

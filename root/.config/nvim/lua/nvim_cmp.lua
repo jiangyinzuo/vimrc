@@ -38,25 +38,25 @@ function M.nvim_cmp()
 				['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 			}),
 			sources = cmp.config.sources({
-				{ name = 'nvim_lsp' },
-				-- { name = 'vsnip' }, -- For vsnip users.
-				{ name = 'luasnip' }, -- For luasnip users.
-				-- { name = 'ultisnips' }, -- For ultisnips users.
-				-- { name = 'snippy' }, -- For snippy users.
-			}, {
-				{
-					name = 'omni',
-					option = {
-						disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }
-					}
-				},
-				{ name = 'buffer' },
+				-- 越后面优先级越高
 				-- `cmd.setup.filetype('text', {...})` does not work.
 				{
 					name = "dictionary",
 					keyword_length = 2,
 				},
 				{ name = 'path' },
+				{ name = 'buffer' },
+				{
+					name = 'omni',
+					option = {
+						disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }
+					}
+				},
+				{ name = 'nvim_lsp' },
+				-- { name = 'vsnip' }, -- For vsnip users.
+				{ name = 'luasnip' }, -- For luasnip users.
+				-- { name = 'ultisnips' }, -- For ultisnips users.
+				-- { name = 'snippy' }, -- For snippy users.
 			}),
 			formatting = {
 				format = cmp_format_fn
