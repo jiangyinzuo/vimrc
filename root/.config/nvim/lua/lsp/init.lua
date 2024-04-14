@@ -117,15 +117,22 @@ local function setup_lsp(on_attach, capabilities)
 		}
 	}
 
+	-- marksman and markdown_oxide are both markdown language servers, choose one of them
 	lspconfig.marksman.setup {
 		autostart = vim.fn.get(vim.g.nvim_lsp_autostart, 'marksman', false),
 		on_attach = on_attach,
 		capabilities = capabilities,
 	}
+	lspconfig.markdown_oxide.setup {
+		autostart = vim.fn.get(vim.g.nvim_lsp_autostart, 'markdown_oxide', false),
+		on_attach = on_attach,
+		capabilities = capabilities,
+		root_dir = lspconfig.util.root_pattern('.moxide.toml', '.git'),
+	}
 
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
-	local other_servers = { 'jsonls', 'pyright', 'typst_lsp', 'marksman' }
+	local other_servers = { 'jsonls', 'pyright', 'typst_lsp' }
 	for _, lsp in ipairs(other_servers) do
 		lspconfig[lsp].setup {
 			on_attach = on_attach,

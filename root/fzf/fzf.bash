@@ -84,7 +84,7 @@ rfv() {
 		--header 'CTRL-T: Switch between ripgrep/fzf' \
 		--preview 'batcat --color=always {1} --highlight-line {2}' \
 		--preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-		--bind 'enter:become(vim {1} +{2})'
+		--bind "enter:become(${EDITOR:-vim} {1} +{2})"
 }
 
 rffv() {
@@ -103,7 +103,7 @@ rffv() {
 		--preview 'batcat --color=always {1} --highlight-line {2}' \
 		--preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
 	)
-	[ -n "${selected[0]}" ] && vim "${selected[0]}" "+${selected[1]}"
+	[ -n "${selected[0]}" ] && ${EDITOR:-vim} "${selected[0]}" "+${selected[1]}"
 }
 
 # https://github.com/ColonelBuendia/rgpipe
