@@ -96,5 +96,19 @@ return {
 		dependencies = {
 			'rmagatti/auto-session'
 		}
+	},
+	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
+	-- See also:
+	-- https://github.com/neovim/neovim/issues/20784
+	-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_willRenameFiles
+	{
+		'stevearc/oil.nvim',
+		opts = {
+			default_file_explorer = false,
+			view_options = {
+				-- Show files and directories that start with "."
+				show_hidden = false,
+			}
+		}
 	}
 }
