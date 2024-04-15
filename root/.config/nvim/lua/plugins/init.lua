@@ -32,7 +32,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"aaronhallaert/advanced-git-search.nvim",
 			"nvim-telescope/telescope-media-files.nvim",
-			"rmagatti/session-lens",
+			"rmagatti/auto-session",
 			"nvim-tree/nvim-web-devicons",
 			"nvim-telescope/telescope-bibtex.nvim",
 		},
@@ -89,12 +89,27 @@ return {
 	},
 	{
 		'rmagatti/auto-session',
-		config = plugins_setup.auto_session,
-	},
-	{
-		'rmagatti/session-lens',
-		dependencies = {
-			'rmagatti/auto-session'
+		opts = {
+			log_level = 'error',
+			auto_session_enable_last_session = false,
+			auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
+			auto_session_enabled = true,
+			auto_save_enabled = nil,
+			auto_restore_enabled = nil,
+			auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/", "~/.config", "~/.vim", "~/vimrc" },
+			auto_session_use_git_branch = nil,
+			-- the configs below are lua only
+			bypass_session_save_file_types = nil,
+
+			-- ⚠️ This will only work if Telescope.nvim is installed
+			-- The following are already the default values, no need to provide them if these are already the settings you want.
+			session_lens = {
+				-- If load_on_setup is set to false, one needs to eventually call `require("auto-session").setup_session_lens()` if they want to use session-lens.
+				buftypes_to_ignore = {}, -- list of buffer types what should not be deleted from current session
+				load_on_setup = true,
+				theme_conf = { border = true },
+				previewer = false,
+			},
 		}
 	},
 	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
