@@ -393,7 +393,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
 	" save
-	inoremap <c-S> <esc>:w<CR>i
+	inoremap <c-S> <cmd>w<CR>
 	if has("autocmd") && exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif

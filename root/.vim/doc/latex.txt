@@ -2,9 +2,19 @@ vim:ft=help
 
 *latex*
 
+------------------------------------------------------
+
+*bibtex*
+
 |dblp爬虫|
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
 https://github.com/jiangyinzuo/dblp-api
+
+*zhihu2bib.py*
+
+知乎的两行分享链接转换成@misc bibtex格式
+
+------------------------------------------------------
 
 拼写检查 ~
 
