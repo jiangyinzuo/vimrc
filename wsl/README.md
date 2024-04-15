@@ -4,9 +4,18 @@ Windows矢量图画图软件: draw.io
 
 打开网页：xdg-open index.html
 
+## Neovim Clipboard
+
 Neovim uses system clipboard in WSL `:h clipboard-wsl`
 
 ~~See https://github.com/neovim/neovim/wiki/FAQ/6fec592e6f5cbf6b2eb1b74e5fb35e803b00d14a#how-to-use-the-windows-clipboard-from-wsl~~
+
+然而powershell clip.exe复制会导致中文乱码，还是使用wl-copy
+
+在WSL中，`$XDG_RUNTIME_DIR`默认可能没有wayland-0 socket，需要创建软链接(See: https://github.com/microsoft/WSL/issues/11261 ):
+
+- 将`symlink-wayland-socket.service`放到`~/.config/systemd/user/`下
+- `systemctl --user enable symlink-wayland-socket.service`
 
 ## 编译C程序, 为URL Scheme添加注册表
 
@@ -46,4 +55,5 @@ lrwxrwxrwx 1 root root 63 Feb 10  2023 x-www-browser -> '/mnt/c/Program Files (x
 ```
 
 ## 其它工具(尚未用到)
+
 https://gitlab.com/4U6U57/wsl-open
