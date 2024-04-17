@@ -1,4 +1,5 @@
 vim.api.nvim_command('source ~/.vim/vimrc.d/plugin_setup.vim')
+vim.api.nvim_command('source ~/.vim/vimrc.d/ai.vim')
 
 local M = {
 	'jiangyinzuo/bd.vim',
@@ -13,12 +14,7 @@ local M = {
 	-- https://github.com/jackMort/ChatGPT.nvim
 	-- https://github.com/dpayne/CodeGPT.nvim
 	-- https://github.com/Robitx/gp.nvim
-	{
-		'madox2/vim-ai',
-		init = function()
-			vim.api.nvim_command('source ~/.vim/vimrc.d/ai.vim')
-		end
-	},
+	'madox2/vim-ai',
 	-- Ref: https://github.com/ibhagwan/fzf-lua
 	{ "junegunn/fzf",                   build = "./install --bin" },
 	{

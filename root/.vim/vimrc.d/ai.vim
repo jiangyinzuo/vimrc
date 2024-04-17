@@ -1,4 +1,4 @@
-if v:version >= 900
+if v:version >= 900 || has('nvim')
 	let g:vim_ai_roles_config_file = '~/.vim/vim-ai-roles.ini'
 
 	" alternatives: https://github.com/codota/tabnine-nvim

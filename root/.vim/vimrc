@@ -3,7 +3,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nocp " no Vi-compatible
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
-	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
+	if filereadable(expand('~/.vim/config.vim'))
+		source ~/.vim/config.vim
+	endif
 	if has('nvim')
 		let g:nvim_enable_inlayhints = 1
 		set runtimepath^=~/.vim runtimepath+=~/.vim/after
@@ -12,11 +14,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" https://github.com/neovim/neovim/issues/23666
 		let g:AutoPairsMapCR = 0
 		let g:nvim_lsp_autostart = {}
+		" speed up loading
+		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
 		runtime clipboard_config.lua
 	endif
-	if filereadable(expand('~/.vim/config.vim'))
-		source ~/.vim/config.vim
-	endif
+
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 	" 'vimspector' | 'nvim-dap' | ''
