@@ -23,7 +23,7 @@ title: str = zhihu_link[0]
 url: str = zhihu_link[1]
 
 # substitute space with underscore
-reference: str = title.replace(' ', '_')
+reference: str = title.replace(' ', '_').replace('（', '(').replace('）', ')')
 
 print(f"""
 @misc{{{reference},
