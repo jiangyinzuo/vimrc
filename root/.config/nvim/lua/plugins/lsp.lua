@@ -102,6 +102,17 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 			}
 		},
 		{
+			'nvimtools/none-ls.nvim',
+			config = function()
+				local null_ls = require("null-ls")
+				null_ls.setup({
+					sources = {
+						null_ls.builtins.formatting.stylua,
+					},
+				})
+			end
+		},
+		{
 			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 			"folke/neodev.nvim",
 			opts = {},

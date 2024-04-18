@@ -2,78 +2,78 @@ local M = {}
 
 local function nvim_navic()
 	local navic = require("nvim-navic")
-	navic.setup {
+	navic.setup({
 		icons = {
-			File = ' ',
-			Module = ' ',
-			Namespace = ' ',
-			Package = ' ',
-			Class = ' ',
-			Method = ' ',
-			Property = ' ',
-			Field = ' ',
-			Constructor = ' ',
-			Enum = ' ',
-			Interface = ' ',
-			Function = ' ',
-			Variable = ' ',
-			Constant = ' ',
-			String = ' ',
-			Number = ' ',
-			Boolean = ' ',
-			Array = ' ',
-			Object = ' ',
-			Key = ' ',
-			Null = ' ',
-			EnumMember = ' ',
-			Struct = ' ',
-			Event = ' ',
-			Operator = ' ',
-			TypeParameter = ' '
+			File = " ",
+			Module = " ",
+			Namespace = " ",
+			Package = " ",
+			Class = " ",
+			Method = " ",
+			Property = " ",
+			Field = " ",
+			Constructor = " ",
+			Enum = " ",
+			Interface = " ",
+			Function = " ",
+			Variable = " ",
+			Constant = " ",
+			String = " ",
+			Number = " ",
+			Boolean = " ",
+			Array = " ",
+			Object = " ",
+			Key = " ",
+			Null = " ",
+			EnumMember = " ",
+			Struct = " ",
+			Event = " ",
+			Operator = " ",
+			TypeParameter = " ",
 		},
 		highlight = true,
 		separator = " > ",
 		depth_limit = 0,
 		depth_limit_indicator = "..",
-		safe_output = true
-	}
+		safe_output = true,
+	})
 	return navic
 end
 
 local function setup_lsp(on_attach, capabilities)
-	local lspconfig = require('lspconfig')
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'clangd', false) then
-		lspconfig.clangd.setup {
+	local lspconfig = require("lspconfig")
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", false) then
+		lspconfig.clangd.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
 			cmd = vim.g.clangd_cmd,
-		}
+		})
 		-- use builtin inlay hints
 		-- require("clangd_extensions.inlay_hints").setup_autocmd()
 		-- require("clangd_extensions.inlay_hints").set_inlay_hints()
 	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'lua_ls', false) then
-		lspconfig.lua_ls.setup {
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "lua_ls", false) then
+		lspconfig.lua_ls.setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 			settings = {
 				Lua = {
 					runtime = {
 						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-						version = 'LuaJIT',
+						version = "LuaJIT",
 					},
 					format = {
-						enable = true,
+						enable = false,
 						-- Put format options here
 						-- NOTE: the value should be STRING!!
 						defaultConfig = {
 							indent_style = "tab",
 							indent_size = "2",
-						}
+						},
 					},
 					diagnostics = {
 						-- Get the language server to recognize the `vim` global
-						globals = { 'vim' },
+						globals = { "vim" },
 					},
 					workspace = {
 						-- Make the server aware of Neovim runtime files
@@ -84,34 +84,34 @@ local function setup_lsp(on_attach, capabilities)
 						enable = false,
 					},
 					completion = {
-						callSnippet = "Replace"
-					}
+						callSnippet = "Replace",
+					},
 				},
 			},
-		}
+		})
 	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'texlab', false) then
-		lspconfig.texlab.setup {
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "texlab", false) then
+		lspconfig.texlab.setup({
 			autostart = true,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
 				texlab = {
-					latexFormatter = 'latexindent',
+					latexFormatter = "latexindent",
 					latexindent = {
-						['local'] = os.getenv("HOME") .. '/vimrc/root/latexindent.yaml', -- local is a reserved keyword
+						["local"] = os.getenv("HOME") .. "/vimrc/root/latexindent.yaml", -- local is a reserved keyword
 						modifyLineBreaks = false,
 					},
-					bibtexFormatter = 'texlab',
+					bibtexFormatter = "texlab",
 					formatterLineLength = 80,
 				},
-			}
-		}
+			},
+		})
 	end
 
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'ltex', false) then
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "ltex", false) then
 		-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
-		lspconfig.ltex.setup {
+		lspconfig.ltex.setup({
 			autostart = true,
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -120,57 +120,55 @@ local function setup_lsp(on_attach, capabilities)
 				ltex = {
 					language = "en-US",
 				},
-			}
-		}
+			},
+		})
 	end
 
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'marksman', false) then
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "marksman", false) then
 		-- marksman and markdown_oxide are both markdown language servers, choose one of them
-		lspconfig.marksman.setup {
+		lspconfig.marksman.setup({
 			autostart = true,
 			on_attach = on_attach,
 			capabilities = capabilities,
-		}
+		})
 	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, 'markdown_oxide', false) then
-		lspconfig.markdown_oxide.setup {
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "markdown_oxide", false) then
+		lspconfig.markdown_oxide.setup({
 			autostart = true,
 			on_attach = on_attach,
 			capabilities = capabilities,
-			root_dir = lspconfig.util.root_pattern('.moxide.toml', '.git'),
-		}
+			root_dir = lspconfig.util.root_pattern(".moxide.toml", ".git"),
+		})
 	end
 
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
-	local other_servers = { 'jsonls', 'pyright', 'typst_lsp', 'gopls' }
+	local other_servers = { "jsonls", "pyright", "typst_lsp", "gopls" }
 	for _, lsp in ipairs(other_servers) do
-		lspconfig[lsp].setup {
+		lspconfig[lsp].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-		}
+		})
 	end
 
 	vim.g.rustaceanvim = {
 		-- Plugin configuration
-		tools = {
-		},
+		tools = {},
 		-- LSP configuration
 		server = {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		},
 		-- DAP configuration
-		dap = {
-		},
+		dap = {},
 	}
 end
 
 function M.lspconfig()
-	require('lsp.diagnostic')
+	require("lsp.diagnostic")
 
 	-- Register the command
-	vim.api.nvim_create_user_command('InlayHintsToggle', function(_)
+	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
 		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
 	end, {})
 	local navic = nvim_navic()
@@ -191,14 +189,14 @@ function M.lspconfig()
 				-- virtual text is too noisy!
 				virtual_text = false,
 			})
-		end
+		end,
 	})
-	vim.keymap.set('n', '<leader>da', vim.diagnostic.open_float)
-	vim.keymap.set('n', '[da', vim.diagnostic.goto_prev)
-	vim.keymap.set('n', ']da', vim.diagnostic.goto_next)
+	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
+	vim.keymap.set("n", "[da", vim.diagnostic.goto_prev)
+	vim.keymap.set("n", "]da", vim.diagnostic.goto_next)
 
 	-- Set up lspconfig.
-	local capabilities = require('cmp_nvim_lsp').default_capabilities()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 	-- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
 	-- capabilities = capabilities,
@@ -207,8 +205,8 @@ function M.lspconfig()
 
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
-	vim.api.nvim_create_autocmd('LspAttach', {
-		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)
 			-- Enable completion triggered by <c-x><c-o>
 			-- 让一些插件（如vimtex）自动设置omnifunc，lsp不要设置omnifunc
@@ -229,10 +227,10 @@ function M.lspconfig()
 			-- 	end, bufopts)
 			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-			vim.keymap.set({ 'n', 'v' }, '<leader>ac', vim.lsp.buf.code_action, opts)
+			vim.keymap.set({ "n", "v" }, "<leader>ac", vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "<leader>fmt", function()
-				vim.lsp.buf.format { async = true }
+				vim.lsp.buf.format({ async = true })
 			end, bufopts)
 			vim.diagnostic.config({
 				-- virtual text is too noisy!
@@ -242,10 +240,10 @@ function M.lspconfig()
 			})
 		end,
 	})
-	vim.api.nvim_create_user_command('OutgoingCalls', function(_)
+	vim.api.nvim_create_user_command("OutgoingCalls", function(_)
 		vim.lsp.buf.outgoing_calls()
 	end, { nargs = 0 })
-	vim.api.nvim_create_user_command('IncomingCalls', function(_)
+	vim.api.nvim_create_user_command("IncomingCalls", function(_)
 		vim.lsp.buf.incoming_calls()
 	end, { nargs = 0 })
 end
