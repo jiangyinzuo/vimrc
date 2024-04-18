@@ -127,20 +127,8 @@ Markdown等文本编辑添加链接：
 
 -------------------------------------------------------------------------------
 *lsp* *formatter* *linter*
-cpp ~
 
-*clangd*
-用户全局配置文件: `~/.config/clangd/config.yaml`
-
-项目目录 compile_flags.txt
-
-*clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
-No need of `Plug 'rhysd/vim-clang-format'`
-
-*clang-tidy* 
-output to quickfix list: >
-  :CExprsys clang-tidy hello.cpp
-<
+|c-cpp-cuda|
 
 Go ~
 *gopls*

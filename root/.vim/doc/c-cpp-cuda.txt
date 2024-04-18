@@ -1,3 +1,37 @@
+vim:ft=help
+*c-cpp-cuda*
+
+Clangd ~
+
+*clangd*
+
+用户全局配置文件: `~/.config/clangd/config.yaml`
+
+项目目录 compile_flags.txt
+
+clangd设置`compile_commands.json`文件位置为`build/release/compile_commands.json`
+
+`.clangd`文件中添加
+
+See: https://www.reddit.com/r/neovim/comments/vj0e16/how_to_specify_location_of_compile_commandsjson/
+>
+	CompileFlags:
+	  CompilationDatabase: build/       # Search build/ directory for compile_commands.json
+<
+同时clangd启动命令添加`--compile-commands-dir=build/release`
+
+NOTE
+clangd还没实现outgoing calls in call hierarchy https://github.com/llvm/llvm-project/pull/77556
+--------------------------------------------------------------------------------
+
+*clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
+No need of `Plug 'rhysd/vim-clang-format'`
+
+*clang-tidy* 
+output to quickfix list: >
+  :CExprsys clang-tidy hello.cpp
+<
+
 *Makefile*
 
 = 延迟赋值，使用到变量的时候才确定变量的值

@@ -48,8 +48,9 @@ local function setup_lsp(on_attach, capabilities)
 			capabilities = capabilities,
 			cmd = vim.g.clangd_cmd,
 		}
-		require("clangd_extensions.inlay_hints").setup_autocmd()
-		require("clangd_extensions.inlay_hints").set_inlay_hints()
+		-- use builtin inlay hints
+		-- require("clangd_extensions.inlay_hints").setup_autocmd()
+		-- require("clangd_extensions.inlay_hints").set_inlay_hints()
 	end
 	if vim.fn.get(vim.g.nvim_lsp_autostart, 'lua_ls', false) then
 		lspconfig.lua_ls.setup {
