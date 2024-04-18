@@ -81,6 +81,7 @@ function M.telescope()
 	telescope.load_extension "advanced_git_search"
 	telescope.load_extension "session-lens"
 	telescope.load_extension "bibtex"
+	telescope.load_extension "luasnip"
 end
 
 function M.mason()

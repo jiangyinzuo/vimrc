@@ -1,0 +1,16 @@
+*java.txt*
+
+ubuntu设置java默认路径 ~
+
+方法一
+>
+	sudo update-java-alternatives --list
+	sudo update-alternatives --config java
+<
+
+See: https://computingforgeeks.com/how-to-set-default-java-version-on-ubuntu-debian/https://computingforgeeks.com/how-to-set-default-java-version-on-ubuntu-debian/
+
+方法二：直接修改环境变量
+>
+	export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+<

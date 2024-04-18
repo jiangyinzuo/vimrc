@@ -147,6 +147,9 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 			-- 该命令在网络环境差的情况下可能会卡顿，故手动执行
 			-- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 		},
+		{
+			'mfussenegger/nvim-jdtls',
+		},
 		lualine,
 	}
 else

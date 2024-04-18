@@ -130,6 +130,10 @@ Markdown等文本编辑添加链接：
 
 |c-cpp-cuda|
 
+Rust ~
+
+`rustup component add rust-analyzer` 需要GLIBC2.28
+
 Go ~
 *gopls*
 可以通过vim-go下载后，配置环境变量
