@@ -1,0 +1,7 @@
+{
+	"Lua.workspace.library": [
+		"/usr/local/share/nvim/runtime/lua",
+		"/usr/local/share/nvim/runtime/lua/vim",
+		"/usr/local/share/nvim/runtime/lua/vim/lsp"
+	]
+}

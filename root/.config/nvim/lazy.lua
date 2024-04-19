@@ -30,7 +30,7 @@ require("lazy").setup("plugins", {
 vim.cmd([[set packpath+=~/.vim]])
 
 -- load colorscheme at the end to avoid black background on startup
-vim.api.nvim_create_autocmd("VimEnter", {
-	once = true,
-	callback = require("plugins_setup").colorscheme,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	once = true,
+-- 	callback = require("plugins_setup").colorscheme,
+-- })

@@ -1,6 +1,6 @@
 local M = {}
 function M.nvim_treesitter()
-	require("nvim-treesitter.configs").setup {
+	require("nvim-treesitter.configs").setup({
 		-- 安装 language parser
 		-- :TSInstallInfo 命令查看支持的语言
 		ensure_installed = { "cpp", "lua", "vim", "vimdoc", "python", "rust", "html" },
@@ -14,23 +14,23 @@ function M.nvim_treesitter()
 		endwise = {
 			enable = true,
 		},
-	}
+	})
 end
 
 function M.telescope()
-	local builtin = require('telescope.builtin')
-	vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-	vim.keymap.set('n', '<leader>rg', builtin.grep_string, {})
-	vim.keymap.set('x', '<leader>rg', builtin.grep_string, {})
-	vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-	vim.keymap.set('n', '<leader>fh', builtin.oldfiles, {})
+	local builtin = require("telescope.builtin")
+	vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+	vim.keymap.set("n", "<leader>rg", builtin.grep_string, {})
+	vim.keymap.set("x", "<leader>rg", builtin.grep_string, {})
+	vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+	vim.keymap.set("n", "<leader>fh", builtin.oldfiles, {})
 
 	local telescope = require("telescope")
 	telescope.setup({
 		extensions = {
 			advanced_git_search = {
 				-- See Config
-				git_flags = { "-c", "delta.pager=never" }
+				git_flags = { "-c", "delta.pager=never" },
 			},
 			bibtex = {
 				-- Depth for the *.bib file
@@ -39,13 +39,13 @@ function M.telescope()
 				custom_formats = {},
 				-- Format to use for citation label.
 				-- Try to match the filetype by default, or use 'plain'
-				format = '',
+				format = "",
 				-- Path to global bibliographies (placed outside of the project)
 				global_files = {},
 				-- Define the search keys to use in the picker
-				search_keys = { 'year', 'title' },
+				search_keys = { "year", "title" },
 				-- Template for the formatted citation
-				citation_format = '{{author}} ({{year}}), {{title}}.',
+				citation_format = "{{author}} ({{year}}), {{title}}.",
 				-- Only use initials for the authors first name
 				citation_trim_firstname = true,
 				-- Max number of authors to write in the formatted citation
@@ -64,28 +64,28 @@ function M.telescope()
 				-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
 				filetypes = { "png", "webp", "jpg", "jpeg" },
 				-- find command (defaults to `fd`)
-				find_cmd = "fd"
+				find_cmd = "fd",
 			},
 			fzf = {
-				fuzzy = true,               -- false will only do exact matching
+				fuzzy = true, -- false will only do exact matching
 				override_generic_sorter = true, -- override the generic sorter
 				override_file_sorter = true, -- override the file sorter
-				case_mode = "smart_case",   -- or "ignore_case" or "respect_case"
+				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 				-- the default case_mode is "smart_case"
-			}
-		}
+			},
+		},
 	})
 
-	telescope.load_extension "media_files"
-	telescope.load_extension "fzf"
-	telescope.load_extension "advanced_git_search"
-	telescope.load_extension "session-lens"
-	telescope.load_extension "bibtex"
-	telescope.load_extension "luasnip"
+	telescope.load_extension("media_files")
+	telescope.load_extension("fzf")
+	telescope.load_extension("advanced_git_search")
+	telescope.load_extension("session-lens")
+	telescope.load_extension("bibtex")
+	telescope.load_extension("luasnip")
 end
 
 function M.mason()
-	require("mason").setup {
+	require("mason").setup({
 		ui = {
 			icons = {
 				package_installed = "✓",
@@ -101,13 +101,15 @@ function M.mason()
 			-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
 			download_url_template = "https://cors.isteed.cc/github.com/%s/releases/download/%s/%s",
 		},
-	}
+	})
 end
 
 function M.lualine()
+	local lualine_b = {}
 	local lualine_c = {}
-	local winbar    = {}
-	if vim.g.vimrc_lsp == 'nvim-lsp' then
+	local winbar = {}
+	if vim.g.vimrc_lsp == "nvim-lsp" then
+		lualine_b = { "branch", "diagnostics" }
 		lualine_c = {
 			-- invoke `progress` to get lsp progress status.
 			require("lsp-progress").progress,
@@ -116,13 +118,14 @@ function M.lualine()
 			lualine_c = {
 				"navic",
 				color_correction = nil,
-				navic_opts = nil
-			}
+				navic_opts = nil,
+			},
 		}
-	elseif vim.g.vimrc_lsp == 'coc.nvim' then
+	elseif vim.g.vimrc_lsp == "coc.nvim" then
+		lualine_b = { "branch" }
 		lualine_c = {
 			-- invoke `coc#status` to get coc status.
-			'coc#status',
+			[[%{exists("*coc#status")?coc#status():''}]]
 		}
 		winbar = {
 			lualine_c = {
@@ -132,18 +135,18 @@ function M.lualine()
 	end
 
 	local filename = {
-		'filename',
+		"filename",
 		path = 4,
 		shorting_target = 40,
 	}
-	require('lualine').setup {
+	require("lualine").setup({
 		options = {
 			icons_enabled = true,
 			-- theme = 'solarized',
-			component_separators = { left = '', right = '' },
+			component_separators = { left = "", right = "" },
 			-- leave them blank, or lualine will kill intro.
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
-			section_separators = { left = '', right = '' },
+			section_separators = { left = "", right = "" },
 			disabled_filetypes = {
 				statusline = {},
 				winbar = {},
@@ -155,34 +158,34 @@ function M.lualine()
 				statusline = 1200,
 				tabline = 1000,
 				winbar = 1200,
-			}
+			},
 		},
 		sections = {
 			lualine_a = { filename },
 			-- 'diff' is slow
-			lualine_b = { 'branch', 'diagnostics' },
+			lualine_b = lualine_b,
 			lualine_c = lualine_c,
-			lualine_x = { 'encoding', 'fileformat', 'filetype' },
-			lualine_y = { 'progress' },
-			lualine_z = { 'location' }
+			lualine_x = { "encoding", "fileformat", "filetype" },
+			lualine_y = { "progress" },
+			lualine_z = { "location" },
 		},
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = { filename },
-			lualine_x = { 'location' },
+			lualine_x = { "location" },
 			lualine_y = {},
-			lualine_z = {}
+			lualine_z = {},
 		},
 		tabline = {},
 		winbar = winbar,
 		inactive_winbar = {},
-		extensions = { 'quickfix' }
-	}
+		extensions = { "quickfix" },
+	})
 end
 
 function M.gitsigns()
-	require('gitsigns').setup {
+	require("gitsigns").setup({
 		-- 比默认priority低1级, bookmarkspriority为10
 		sign_priority = 9,
 		on_attach = function(bufnr)
@@ -195,32 +198,43 @@ function M.gitsigns()
 			end
 
 			-- Navigation
-			map('n', ']c', function()
-				if vim.wo.diff then return ']c' end
-				vim.schedule(function() gs.next_hunk() end)
-				return '<Ignore>'
+			map("n", "]c", function()
+				if vim.wo.diff then
+					return "]c"
+				end
+				vim.schedule(function()
+					gs.next_hunk()
+				end)
+				return "<Ignore>"
 			end, { expr = true })
 
-			map('n', '[c', function()
-				if vim.wo.diff then return '[c' end
-				vim.schedule(function() gs.prev_hunk() end)
-				return '<Ignore>'
+			map("n", "[c", function()
+				if vim.wo.diff then
+					return "[c"
+				end
+				vim.schedule(function()
+					gs.prev_hunk()
+				end)
+				return "<Ignore>"
 			end, { expr = true })
 
 			-- Text object
-			map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-		end
-	}
+			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+		end,
+	})
 end
 
 local colorscheme_loaded = false
 function M.colorscheme()
 	if not colorscheme_loaded then
 		-- make winbar background transparent
+		-- Reset coc.nvim highlight after colorscheme loaded
+		-- See: https://github.com/neoclide/coc.nvim/issues/4857
 		vim.cmd([[
 			set termguicolors
 			colorscheme solarized
 			hi WinBar guibg=NONE
+			hi! link CocInlayHint LspInlayHint
 		]])
 		M.lualine()
 		colorscheme_loaded = true

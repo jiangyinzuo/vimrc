@@ -1,21 +1,22 @@
-local plugins_setup = require('plugins_setup')
+local plugins_setup = require("plugins_setup")
 
 return {
 	{
 		"ishan9299/nvim-solarized-lua",
-		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 2,
+		config = plugins_setup.colorscheme,
 	},
 	{
-		'nvim-tree/nvim-web-devicons'
+		"nvim-tree/nvim-web-devicons",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = plugins_setup.nvim_treesitter,
 		dependencies = {
-			'RRethy/nvim-treesitter-endwise'
-		}
+			"RRethy/nvim-treesitter-endwise",
+		},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -39,18 +40,18 @@ return {
 		},
 		config = plugins_setup.telescope,
 	},
-	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{
 		"williamboman/mason.nvim",
 		config = plugins_setup.mason,
 	},
 	{
-		'sindrets/diffview.nvim',
+		"sindrets/diffview.nvim",
 	},
 	{
 		"aaronhallaert/advanced-git-search.nvim",
 		dependencies = {
-			'sindrets/diffview.nvim'
+			"sindrets/diffview.nvim",
 		},
 	},
 	{
@@ -74,26 +75,25 @@ return {
 			"DevdocsOpenCurrent",
 			"DevdocsOpenCurrentFloat",
 		},
-		opts = {}
+		opts = {},
 	},
 	-- neovim 0.10.0 has builtin comments, but Comment.nvim is better
 	-- :h commenting
 	{
-		'numToStr/Comment.nvim',
-		opts = {}
+		"numToStr/Comment.nvim",
+		opts = {},
 	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-		}
+		opts = {},
 	},
 	{
-		'rmagatti/auto-session',
+		"rmagatti/auto-session",
 		opts = {
-			log_level = 'error',
+			log_level = "error",
 			auto_session_enable_last_session = false,
-			auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
+			auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
 			auto_session_enabled = true,
 			auto_save_enabled = nil,
 			auto_restore_enabled = nil,
@@ -101,6 +101,14 @@ return {
 			auto_session_use_git_branch = nil,
 			-- the configs below are lua only
 			bypass_session_save_file_types = nil,
+
+			cwd_change_handling = {
+				restore_upcoming_session = true, -- already the default, no need to specify like this, only here as an example
+				pre_cwd_changed_hook = nil, -- already the default, no need to specify like this, only here as an example
+				post_cwd_changed_hook = function() -- example refreshing the lualine status line _after_ the cwd changes
+					require("lualine").refresh() -- refresh lualine so the new session name is displayed in the status bar
+				end,
+			},
 
 			-- ⚠️ This will only work if Telescope.nvim is installed
 			-- The following are already the default values, no need to provide them if these are already the settings you want.
@@ -111,20 +119,20 @@ return {
 				theme_conf = { border = true },
 				previewer = false,
 			},
-		}
+		},
 	},
 	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
 	-- See also:
 	-- https://github.com/neovim/neovim/issues/20784
 	-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_willRenameFiles
 	{
-		'stevearc/oil.nvim',
+		"stevearc/oil.nvim",
 		opts = {
 			default_file_explorer = false,
 			view_options = {
 				-- Show files and directories that start with "."
 				show_hidden = false,
-			}
-		}
-	}
+			},
+		},
+	},
 }

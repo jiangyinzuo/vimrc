@@ -172,6 +172,7 @@ else
 		{
 			"neoclide/coc.nvim",
 			branch = "release",
+			event = 'UIEnter',
 			init = function()
 				vim.cmd([[source ~/.vim/vimrc.d/coc.vim]])
 			end,
