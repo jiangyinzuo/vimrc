@@ -1,23 +1,40 @@
 local lualine = {
-	'nvim-lualine/lualine.nvim',
+	"nvim-lualine/lualine.nvim",
 }
 
-if vim.g.vimrc_lsp == 'nvim-lsp' then
+if vim.g.vimrc_lsp == "nvim-lsp" then
 	lualine.dependencies = {
 		"neovim/nvim-lspconfig",
 		"linrongbin16/lsp-progress.nvim",
 	}
-	local lsp = require('lsp.init')
+	local lsp = require("lsp.init")
 	-- try plugins in https://nvimdev.github.io
 	return {
 		{
 			"neovim/nvim-lspconfig",
 			priority = 500,
 			dependencies = {
-				'SmiteshP/nvim-navic',
-				'p00f/clangd_extensions.nvim'
+				"SmiteshP/nvim-navic",
+				"p00f/clangd_extensions.nvim",
 			},
 			config = lsp.lspconfig,
+		},
+		-- 目前缺乏type hierarchy tree UI
+		{
+			"nvimdev/lspsaga.nvim",
+			event = "LspAttach",
+			config = function()
+				require("lspsaga").setup({
+					symbol_in_winbar = {
+						-- use lsp-progress.nvim
+						enable = false,
+					},
+				})
+			end,
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter", -- optional
+				"nvim-tree/nvim-web-devicons", -- optional
+			},
 		},
 		{
 			"linrongbin16/lsp-progress.nvim",
@@ -76,18 +93,13 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 				-- Format client message.
 				client_format = function(client_name, spinner, series_messages)
 					return #series_messages > 0
-							and ("[" .. client_name .. "] " .. spinner .. " " .. table.concat(
-								series_messages,
-								", "
-							))
-							or nil
+							and ("[" .. client_name .. "] " .. spinner .. " " .. table.concat(series_messages, ", "))
+						or nil
 				end,
 				-- Format (final) message.
 				format = function(client_messages)
 					local sign = " LSP" -- nf-fa-gear \uf013
-					return #client_messages > 0
-							and (sign .. " " .. table.concat(client_messages, " "))
-							or sign
+					return #client_messages > 0 and (sign .. " " .. table.concat(client_messages, " ")) or sign
 				end,
 				--- Enable debug.
 				debug = false,
@@ -99,10 +111,10 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 				-- For Windows: `$env:USERPROFILE\AppData\Local\nvim-data\lsp-progress.log`.
 				-- For *NIX: `~/.local/share/nvim/lsp-progress.log`.
 				file_log_name = "lsp-progress.log",
-			}
+			},
 		},
 		{
-			'nvimtools/none-ls.nvim',
+			"nvimtools/none-ls.nvim",
 			config = function()
 				local null_ls = require("null-ls")
 				null_ls.setup({
@@ -110,14 +122,14 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 						null_ls.builtins.formatting.stylua,
 					},
 				})
-			end
+			end,
 		},
 		{
 			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 			"folke/neodev.nvim",
 			opts = {},
-			ft = { 'lua' },
-			priority = 501
+			ft = { "lua" },
+			priority = 501,
 		},
 		{
 			"hedyhli/outline.nvim",
@@ -128,9 +140,9 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 			},
 		},
 		{
-			'mrcjkb/rustaceanvim',
-			version = '^4', -- Recommended
-			ft = { 'rust' },
+			"mrcjkb/rustaceanvim",
+			version = "^4", -- Recommended
+			ft = { "rust" },
 		},
 		{
 			"ray-x/go.nvim",
@@ -143,12 +155,12 @@ if vim.g.vimrc_lsp == 'nvim-lsp' then
 				require("go").setup()
 			end,
 			event = { "CmdlineEnter" },
-			ft = { "go", 'gomod' },
+			ft = { "go", "gomod" },
 			-- 该命令在网络环境差的情况下可能会卡顿，故手动执行
 			-- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 		},
 		{
-			'mfussenegger/nvim-jdtls',
+			"mfussenegger/nvim-jdtls",
 		},
 		lualine,
 	}
@@ -158,10 +170,10 @@ else
 	}
 	return {
 		{
-			'neoclide/coc.nvim',
-			branch = 'release',
+			"neoclide/coc.nvim",
+			branch = "release",
 			init = function()
-				vim.cmd [[source ~/.vim/vimrc.d/coc.vim]]
+				vim.cmd([[source ~/.vim/vimrc.d/coc.vim]])
 			end,
 		},
 		lualine,

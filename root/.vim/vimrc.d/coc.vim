@@ -5,7 +5,7 @@ let g:coc_fzf_location_delay = 20
 
 let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
-
+autocmd FileType lua ++once call coc#config('stylua.styluaPath', $HOME . '/.cargo/bin/stylua')
 autocmd FileType c,cpp,cuda ++once call coc_clang#setup_coc_clangd()
 
 function! s:show_documentation()

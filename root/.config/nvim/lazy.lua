@@ -19,18 +19,18 @@ require("lazy").setup("plugins", {
 		reset_packpath = false,
 		rtp = {
 			paths = {
-				'~/.vim',
-				'~/.vim/after'
-			}
-		}
-	}
+				"~/.vim",
+				"~/.vim/after",
+			},
+		},
+	},
 })
 
 -- lazy.nvim has reset packpath, so we need to add ~/.vim back
-vim.cmd [[set packpath+=~/.vim]]
+vim.cmd([[set packpath+=~/.vim]])
 
 -- load colorscheme at the end to avoid black background on startup
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd("VimEnter", {
 	once = true,
-	callback = require('plugins_setup').colorscheme
+	callback = require("plugins_setup").colorscheme,
 })

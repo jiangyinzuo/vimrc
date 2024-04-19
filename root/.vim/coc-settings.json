@@ -51,11 +51,12 @@
 		}
 	},
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
-	"coc.preferences.currentFunctionSymbolDebounceTime": 1000,
+	"coc.preferences.currentFunctionSymbolDebounceTime": 500,
 	"coc.preferences.useQuickfixForLocations": true,
 	"outline.keepWindow": false,
 	"clangd.enabled": true,
 	"html.format.enable": true,
+	"Lua.format.enable": false,
 	"ltex.enabled": false,
 	"python.pythonPath": "/bin/python3",
 	"python.linting.mypyEnabled": false,
