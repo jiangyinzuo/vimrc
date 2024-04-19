@@ -156,18 +156,30 @@ cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快�
 pdf导出注释: pdfannots https://github.com/0xabu/pdfannots
 pdf转text: pdftotext
 
-文件管理器:
+json: jq
+补全父目录 -> bd
+
+-------------------------------------------------------------------------------
+*file-explorer*
 - Netrw
 - coc-explorer
+	新建文件 a
+	新建文件夹 A
+	删除文件 df
+	永久删除文件 dF
+	剪切 dd
+	粘贴 p
+	进入文件夹 <CR>
+	回退 <BS>
+	展开文件夹 l
+	折叠文件夹 h
 - ranger
 - vifm
 - nnn
 - lf
 - fzf-filemanager https://github.com/sc0ttj/fzf-filemanager/blob/main/filemanager
 - fm脚本
-
-json: jq
-补全父目录 -> bd
+- yazi
 
 -------------------------------------------------------------------------------
 *image* 终端查看图片

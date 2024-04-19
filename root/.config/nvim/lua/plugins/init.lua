@@ -135,4 +135,6 @@ return {
 			},
 		},
 	},
+	-- A graphical display window manager in neovim
+	-- {'altermo/nxwm',branch='x11'},
 }

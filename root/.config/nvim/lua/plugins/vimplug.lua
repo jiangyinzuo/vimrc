@@ -104,6 +104,7 @@ local M = {
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',        ft = { 'c', 'cpp', 'cuda' } },
 	'MattesGroeger/vim-bookmarks',
+	-- Alternatives: https://github.com/HakonHarnes/img-clip.nvim
 	'jiangyinzuo/img-paste.vim',
 	'skywind3000/vim-quickui',
 	'pechorin/any-jump.vim',
