@@ -111,15 +111,6 @@ local M = {
 	{ 'jupyter-vim/jupyter-vim', cmd = { 'JupyterConnect' } },
 	'goerz/jupytext.vim',
 	{ 'jpalardy/vim-slime', ft = { 'python', 'ocaml' } },
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		build = "cd app && yarn install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
 	{ 'whonore/Coqtail',    ft = 'coq' },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
