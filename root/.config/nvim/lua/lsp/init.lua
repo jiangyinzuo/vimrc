@@ -47,6 +47,15 @@ local function setup_lsp(on_attach, capabilities)
 			on_attach = on_attach,
 			capabilities = capabilities,
 			cmd = vim.g.clangd_cmd,
+			root_dir = lspconfig.util.root_pattern(
+				".project.vim",
+				".git",
+				".clangd",
+				".clang-tidy",
+				".clang-format",
+				"compile_commands.json",
+				"compile_flags.txt"
+			),
 		})
 		-- use builtin inlay hints
 		-- require("clangd_extensions.inlay_hints").setup_autocmd()

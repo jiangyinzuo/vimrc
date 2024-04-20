@@ -60,7 +60,48 @@ function codenote#GetCodeLinkDict()
 	endfor
 endfunction
 
-" 第一个tab作为note repo window，第二个tab作为code repo window
+function s:CommonPrefixLength(s1, s2)
+	let n1 = len(a:s1)
+	let n2 = len(a:s2)
+	let min_len = min([n1, n2])
+	let i = 0
+
+	while i < min_len && a:s1[i] ==# a:s2[i]
+		let i += 1
+	endwhile
+
+	return i
+endfunction
+
+" 根据文件名的绝对路径，来判断当前buffer属于coderepo还是noterepo
+" return 'code', 'note', or ''
+function s:get_repo_type_of_current_buffer()
+	if !exists('g:coderepo_dir') || !exists('g:noterepo_dir')
+		echom 'g:coderepo_dir or g:noterepo_dir does not exist!'
+		return
+	endif
+
+	let bufpath = expand('%:p')
+	let prefix_with_coderepo = s:CommonPrefixLength(bufpath, g:coderepo_dir)
+	let prefix_with_noterepo = s:CommonPrefixLength(bufpath, g:noterepo_dir)
+	if len(g:coderepo_dir) == prefix_with_coderepo && len(g:noterepo_dir) == prefix_with_noterepo
+		if prefix_with_coderepo < prefix_with_noterepo
+			return 'note'
+		elseif prefix_with_coderepo > prefix_with_noterepo
+			return 'code'
+		else
+			return ''
+		endif
+	elseif len(g:coderepo_dir) == prefix_with_coderepo
+		return 'code'
+	elseif len(g:noterepo_dir) == prefix_with_noterepo
+		return 'note'
+	else
+		return ''
+	endif
+endfunction
+
+" 约定第一个tab作为note repo window，第二个tab作为code repo window
 function s:goto_code_buffer()
 	tabnext 2
 endfunction
@@ -74,14 +115,9 @@ function s:open_file(filename)
 endfunction
 
 function codenote#OpenNoteRepo()
-	if exists("t:repo_type") && t:repo_type == "note"
-		echoerr "Already in note repo"
-		return
-	endif
 	call s:open_file(g:noterepo_dir)
 	tabmove 0
 	execute "tcd " . g:noterepo_dir
-	let t:repo_type = 'note'
 	call codenote#GetAllCodeLinks()
 endfunction
 
@@ -130,33 +166,24 @@ function s:GoToNoteLink()
 	else
 		call s:goto_note_buffer()
 	endif
-	silent! exe "vim /" . l:pattern . "/g" . asyncrun#get_root('%') . "/**/*.md" 
+	silent! exe "vim /" . l:pattern . "/g " . g:noterepo_dir . "/**/*.md"
 endfunction
 
 function codenote#GoToCodeNoteLink()
-	if !exists("t:repo_type")
-		:LoadCodeNote
-	endif
-	if t:repo_type == "note"
+	let buf_repo_type = s:get_repo_type_of_current_buffer()
+	echom buf_repo_type
+	if buf_repo_type == "note"
 		call s:GoToCodeLink()
-	elseif t:repo_type == "code"
+	elseif buf_repo_type == "code"
 		call s:GoToNoteLink()
 	else
-		echoerr "t:repo_type is not set"
-	endif
-	if !exists("t:repo_type")
-		:LoadCodeNote
+		echoerr "current buffer doesn't belong to codenote repo"
 	endif
 endfunction
 
 function codenote#OpenCodeRepo()
-	if exists("t:repo_type") && t:repo_type == "code"
-		echoerr "Already in code repo"
-		return
-	endif
 	call s:open_file(g:coderepo_dir)
 	tabmove 1
-	let t:repo_type = 'code'
 	call codenote#GetAllCodeLinks()
 endfunction
 
@@ -276,21 +303,5 @@ function codenote#GetAllCodeLinks()
 			autocmd BufWinEnter * call codenote#SignCodeLinks()
 			autocmd BufWritePost *.md call codenote#GetCodeLinkDict()
 		augroup END
-	endif
-endfunction
-
-function codenote#LoadCodeNote(project_root)
-	if !empty(glob(a:project_root . '/.noterepo'))
-		let g:noterepo_dir = a:project_root
-		" let g:coderepo_dir = trim(system("cat " . a:project_root . "/.noterepo"))
-		let g:coderepo_dir = readfile(a:project_root . "/.noterepo", '', 1)[0]
-		let t:repo_type = "note"
-		execute "tcd " . g:noterepo_dir
-	elseif !empty(glob(a:project_root . '/.coderepo'))
-		let g:coderepo_dir = a:project_root
-		" let g:noterepo_dir = trim(system("cat " . a:project_root . "/.coderepo"))
-		let g:noterepo_dir = readfile(a:project_root . "/.coderepo", '', 1)[0]
-		let t:repo_type = "code"
-		execute "tcd " . g:coderepo_dir
 	endif
 endfunction

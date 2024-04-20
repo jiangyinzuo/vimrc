@@ -1,3 +1,0 @@
-*codenote.txt*
-
-手动填写.coderepo .noterepo文件

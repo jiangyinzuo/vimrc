@@ -1,6 +1,6 @@
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
-	set nocp " no Vi-compatible
+	set nocp "no Vi-compatible
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
 	if filereadable(expand('~/.vim/config.vim'))
@@ -69,7 +69,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		packadd! matchit
 	endif
 
-	if exists('&viminfofile') && !has('nvim') 
+	if exists('&viminfofile') && !has('nvim')
 		set viminfofile=$HOME/.vim/.viminfo
 		" 保留50个marks
 		" 每个寄存器保存50行内容
@@ -80,17 +80,13 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 保存0-9，A-Zmark
 		set viminfo='50,<50,/50,:50,h,s10,f100
 	endif
-
 	set history=500 " Sets how many lines of history VIM has to remember
-
 	filetype indent on
 	filetype plugin on
 	syntax on "语法高亮显示
-
 	set encoding=utf-8
 	set fileencoding=utf-8
-	" vim自动探测fileencodeing的顺序列表
-	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
+	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030 " vim自动探测fileencodeing的顺序列表
 	set termencoding=utf-8
 	set fileformats=unix,dos,mac " 文件格式
 	set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
@@ -106,7 +102,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	set wildignore=.git/*,build/*,.cache/*
 	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
-
 	" https://www.skywind.me/blog/archives/2021
 	set timeoutlen=3000 " key map 超时时间
 	set ttimeout
@@ -115,20 +110,16 @@ if has('autocmd') " vim-tiny does not have autocmd
 	elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
 		set ttimeoutlen=80
 	endif
-
 	set autowrite " 自动保存
 	set scrolloff=7 " 光标离底部或顶部保持7行
 	set hlsearch " Highlight search results
 	set incsearch " 输入搜索内容时就显示搜索结果
 	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
-
 	set dictionary+=/usr/share/dict/american-english
-
 	set nobackup       "no backup files
 	set nowritebackup  "only in case you don't want a backup file while editing
 	set noswapfile     "no swap files
-
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802 || has('nvim')
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
@@ -141,7 +132,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	else
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
 	endif
-
 	" 选中想格式化的段落后，可以用gq格式化
 	" 设置textwidth，可以让文本格式化时自动换行
 	" 内置的format会考虑virtual text，如果需要忽略virtual
@@ -157,23 +147,19 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set autoindent " 跟随上一行的缩进方式
 	" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
 	" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
-
 	""" default indent
 	" markdown在被默认vim runtime file设置为tabstop=4
 	" :verbose set tabstop? shiftwidth? softtabstop?
 	set tabstop=4 shiftwidth=4 softtabstop=4
-
 	augroup equalprg_filetype
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
 		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
-
 		" pip3 install sqlformat
 		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
 		" apt install shfmt
 		autocmd FileType sh,bash setlocal equalprg=shfmt
 	augroup end
-
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
 	autocmd FileType cuda,vim,tex,html,sh,zsh,json,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 	" tex使用空格缩进
@@ -181,7 +167,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	let g:project_vimrc = '.project.vim'
 	" do not add too much root marks, it will slow down search performance
-	let g:RootMarks = ['.git', g:project_vimrc, '.root', '.noterepo', '.coderepo']
+	let g:RootMarks = ['.git', g:project_vimrc, '.root']
 
 	" vimplug.vim 可能会改变g:no_plug的值
 	let g:no_plug = (glob(g:vim_plug_dir) == "") || &loadplugins == 0
@@ -195,7 +181,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		finish
 	endif
-
 	" 显示空白字符
 	" https://codepoints.net/U+23B5
 	" set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
@@ -203,18 +188,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 	autocmd FileType man setlocal nolist
 	" Enable :Man command
 	runtime ftplugin/man.vim
-
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20
-
 	if has("nvim-0.5.0") || has("patch-8.1.1564")
 		set signcolumn=number " 合并git状态与行号
 	elseif v:version >= 801
 		set signcolumn=yes " 同时显示git状态和行号
 	endif
-
-	" vim 7.3+
+	" vim7.3+
 	set conceallevel=2
 	if v:version >= 801 || has('nvim')
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -224,7 +206,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
 		autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
 		" Notification after file change
 		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
@@ -250,10 +231,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	command -nargs=0 DiffthisPlain :diffthis | setf text
 	command -nargs=0 DiffoffRestoreFiletype :diffoff | edit
-	""""""""""""""""""""""""""""""""""""""""""""""""""""" termdebug
+	""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=
-
 	if has('nvim') || v:version >= 801
 		autocmd Filetype c,cpp,rust,cuda ++once packadd termdebug
 		autocmd Filetype termdebug setlocal termwinsize=0*10000
@@ -262,7 +242,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 设置一个较大的宽度，防止termdebug gdb窗口折行
 		let g:termdebug_config['wide'] = 1
 	endif
-
 	""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
 	" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
 	"  open explorer :Ex :Sex :Vex
@@ -276,14 +255,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:netrw_preview = 0 " preview window horizontally
 	let g:netrw_hide = 1 " show not-hidden files
 	let g:netrw_keepdir = 0
-
 	" see netrw-v
 	" 新的窗口出现在当前窗口的右边
 	set splitright
 	" let g:netrw_altv = 1
 	" let g:netrw_winsize = 20
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 	augroup jump_to_symbol
 		autocmd!
 		" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
@@ -361,11 +338,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" 添加高亮一行
+	nnoremap <Leader>ll <cmd>call matchadd('Todo', '\%.l')<cr>
+	" 清空高亮
+	nnoremap <Leader>lc <cmd>call clearmatches()<cr>
 
 	" Example:
 	" :e+22 ~/.vimrc
 	command! -nargs=0 VimExeLine exe getline(".")
-
 	if v:version >= 740 || &readonly == 0
 		set mouse=a
 		if !has('nvim') && has('unix') && exists('$TMUX')
@@ -387,9 +367,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd FileType python,vim,lua,go,sh setlocal foldmethod=indent
 		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
 		autocmd FileType tex setlocal foldmethod=manual
-
 	endif
-
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
@@ -556,7 +534,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		else
 			set cscopequickfix=s-,g-,c-,t-,e-,f-,i-,d-
 		endif
-
 		" show msg when any other cscope db added
 		set cscopeverbose
 		" 先搜索cscope数据库，如果没有再搜索tags
@@ -573,7 +550,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		"   'i'   includes: find files that include the filename under cursor
 		"   'd'   called: find functions that function under cursor calls
 		"   'a'   assigned: find places where this symbol is assigned a value
-
 		" <C-R>= ... <CR> 用于计算表达式（如2+2， expand("<cword>")等），并将结果插入到命令行中
 		nnoremap <leader>cs :cs find s <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <leader>cg :cs find g <C-R>=expand("<cword>")<CR><CR>

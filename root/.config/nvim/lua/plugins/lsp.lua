@@ -29,6 +29,11 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						-- use lsp-progress.nvim
 						enable = false,
 					},
+					lightbulb = {
+						enable = true,
+						sign = true,
+						virtual_text = false,
+					},
 				})
 			end,
 			dependencies = {

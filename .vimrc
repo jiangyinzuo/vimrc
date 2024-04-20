@@ -164,6 +164,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let g:termdebug_config['wide'] = 1
 	endif
 	""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
+	" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
 	"  open explorer :Ex :Sex :Vex
 	" close explorer :Rex
 	"
@@ -337,6 +338,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" 添加高亮一行
+	nnoremap <Leader>ll <cmd>call matchadd('Todo', '\%.l')<cr>
+	" 清空高亮
+	nnoremap <Leader>lc <cmd>call clearmatches()<cr>
 
 	" Example:
 	" :e+22 ~/.vimrc
@@ -508,11 +513,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 			""""""""""""" Standard cscope/vim boilerplate
 			" reset cscope:
 			" :cs reset
-			" add any cscope database in current directory
 			if filereadable("cscope.out")
+			" add any cscope database in current directory
 				cs add cscope.out
-			" else add the database pointed to by environment variable
 			elseif $CSCOPE_DB != ""
+			" else add the database pointed to by environment variable
 				cs add $CSCOPE_DB
 			endif
 		elseif g:tag_system == 'gtags-cscope'

@@ -119,6 +119,9 @@ local M = {
 		},
 		priority = 2000,
 	},
+	{
+		dir = "~/.vim/pack/my_plugins/start/codenote",
+	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 
 	'lambdalisue/fern.vim',
