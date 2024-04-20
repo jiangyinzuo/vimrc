@@ -45,7 +45,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set hidden " 未保存文本就可以隐藏buffer
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
-	if v:version >= 802 || has('nvim')
+	if v:version >= 900 || has('nvim')
 		set wildoptions=pum " 显示popup window
 	else
 		set wildmode=list:full

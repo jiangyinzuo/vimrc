@@ -1,4 +1,4 @@
-if vim.fn.has('wsl') then
+if vim.fn.has('wsl') == 1 then
 	return {
 		{
 			"iamcco/markdown-preview.nvim",

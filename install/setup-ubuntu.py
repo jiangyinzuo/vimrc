@@ -1,4 +1,10 @@
 import subprocess
+import os
+
+
+def get_ubuntu_code_name() -> str:
+    return subprocess.check_output(["lsb_release", "-rs"], text=True)
+
 
 def get_ubuntu_version() -> float:
     """通过 lsb_release 命令获取 Ubuntu 版本号"""
@@ -9,13 +15,17 @@ def get_ubuntu_version() -> float:
         print("无法获取 Ubuntu 版本号")
         return 0
 
-# 获取当前 Ubuntu 版本号
-current_version = get_ubuntu_version()
 
-if current_version:
-    print(f"当前 Ubuntu 版本号为: {current_version}")
+ubuntu_version = get_ubuntu_version()
+code_name = get_ubuntu_code_name()
 
-if current_version <= 18.04:
+print(f"当前 Ubuntu 版本号为: {ubuntu_version}, code name为: {code_name}")
+
+apt_install_list = [
+    'tree bat git cmake sqlformat python3-dev python3-distutils wamerican',
+]
+
+if ubuntu_version <= 18.04:
     print("""
     ripgrep:
     请前往 https://github.com/BurntSushi/ripgrep/releases 下载对应版本的 ripgrep deb package (14.1.0可用)
@@ -25,7 +35,6 @@ if current_version <= 18.04:
     运行 sudo dpkg -i <package_name>.deb 安装 fd
     """)
 else:
-    print("""
-    ripgrep:
-    sudo apt-get install ripgrep fd-find
-    """)
+    apt_install_list += ['ripgrep', 'fd-find', 'neovim']
+
+os.system(f'apt install {" ".join(apt_install_list)}')

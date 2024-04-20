@@ -9,7 +9,8 @@ sudo add-apt-repository ppa:neovim-ppa/unstable
 # install nodejs
 # alternative: n
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-nvm install --lts
+# source .bashrc
+# nvm install --lts
 
 # install llvm toolchain
 # https://apt.llvm.org/
@@ -21,6 +22,9 @@ EOF
 sudo apt-get update
 sudo apt-get install -y clangd
 
+apt-get install -y neovim
+pip install neovim
+
 # ripgrep:
 # any-jump.vim cpp需要PCRE2 feature
 # Ubuntu18.04 需要前往https://github.com/BurntSushi/ripgrep/releases
@@ -30,7 +34,7 @@ sudo apt-get install -y clangd
 # Leaderf needs python3-dev and python3-distutils
 # wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
 # wordnet: nvim cmp dictionary 可以用wordnet解释单词
-apt-get install -y ripgrep fd-find tree bat git sqlformat python3-dev python3-distutils wamerican
+apt-get install -y ripgrep fd-find tree bat git cmake sqlformat python3-dev python3-distutils wamerican
 
 # ripgrep-all（master分支）
 # See: https://github.com/phiresky/ripgrep-all/issues/113
@@ -40,4 +44,4 @@ apt-get install -y ripgrep fd-find tree bat git sqlformat python3-dev python3-di
 # cargo install git-delta
 
 # install vim-gtk3
-apt-get install -y libgtk-3-dev libxt-dev vim-gtk3
+# apt-get install -y libgtk-3-dev libxt-dev vim-gtk3
