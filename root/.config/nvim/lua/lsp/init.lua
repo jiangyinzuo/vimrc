@@ -169,7 +169,7 @@ function M.lspconfig()
 
 	-- Register the command
 	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
-		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 	end, {})
 	local navic = nvim_navic()
 	local on_attach = function(client, bufnr)
@@ -177,7 +177,7 @@ function M.lspconfig()
 			navic.attach(client, bufnr)
 		end
 		if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
-			vim.lsp.inlay_hint.enable(bufnr, true)
+			vim.lsp.inlay_hint.enable(true)
 		end
 	end
 
