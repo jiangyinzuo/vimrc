@@ -1,7 +1,7 @@
 local ai_complete
-if vim.g.ai_complete == 'codeium' then
-	ai_complete = { 'Exafunction/codeium.vim' }
-elseif vim.g.ai_complete == 'copilot' then
+if vim.g.ai_complete == "codeium" then
+	ai_complete = { "Exafunction/codeium.vim" }
+elseif vim.g.ai_complete == "copilot" then
 	ai_complete = {
 		{
 			"CopilotC-Nvim/CopilotChat.nvim",
@@ -35,16 +35,27 @@ elseif vim.g.ai_complete == 'copilot' then
 			},
 			-- See Commands section for default commands if you want to lazy load on them
 		},
-		"github/copilot.vim"
+		"github/copilot.vim",
 	}
-elseif vim.g.ai_complete == 'fittencode' then
+elseif vim.g.ai_complete == "fittencode" then
 	ai_complete = {
 		{
-			'luozhiya/fittencode.nvim',
+			"luozhiya/fittencode.nvim",
 			config = function()
-				require('fittencode').setup()
+				require("fittencode").setup()
 			end,
-		}
+		},
+	}
+elseif vim.g.ai_complete == "tabnine" then
+	ai_complete = { "codota/tabnine-nvim", build = "./dl_binaries.sh" }
+elseif vim.g.ai_complete == "sourcegraph" then
+	ai_complete = {
+		"sourcegraph/sg.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+		},
+		-- If you have a recent version of lazy.nvim, you don't need to add this!
+		build = "nvim -l build/init.lua",
 	}
 end
 return ai_complete
