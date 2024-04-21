@@ -34,7 +34,8 @@ function codenote#GetCodeLinkDict()
 		return
 	endif
 
-	" 支持/path/to/filename.ext:line_number 和 
+	" 高亮标记支持
+	" /path/to/filename.ext:line_number 和
 	" +line_number path/to/filename.ext两种格式
 	" --max-columns=0 防止rg显示 [ ... xxx more matches ]
 	let g:code_links = system("rg -INo --max-columns=0 '(^[\\w\\d\\-./]+:[0-9]+$)|(^\\+[0-9]+ .*$)' " . g:noterepo_dir)
@@ -196,7 +197,7 @@ endfunction
 " 2) +123 /path/to/file
 " 3) src/execution/operator/aggregate/physical_hash_aggregate.cpp|478 col 7-32|
 "
-" 3) 源自coc.nvim在quickfix list中的显示格式
+" 3) 源自coc.nvim/nvim lsp在quickfix list中的显示格式
 let s:codelink_regex = '[A-Za-z0-9\-./]\+\([:|][0-9]\+\)\|\(^\+[0-9]\+\s\)'
 
 if g:codenote_filepath_style == 'colon'

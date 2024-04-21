@@ -19,6 +19,54 @@ return {
 		},
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		config = function()
+			require'nvim-treesitter.configs'.setup {
+				textobjects = {
+					select = {
+						enable = true,
+
+						-- Automatically jump forward to textobj, similar to targets.vim
+						lookahead = true,
+						keymaps = {
+							ib = "@block.inner",
+							ab = "@block.outer",
+							ic = "@class.inner",
+							ac = "@class.outer",
+							["if"] = "@function.inner",
+							af = "@function.outer",
+						},
+					},
+					move = {
+						enable = true,
+						set_jumps = true, -- whether to set jumps in the jumplist
+						goto_next_start = {
+							["]b"] = "@block.outer",
+							["]m"] = "@function.outer",
+							["]]"] = { query = "@class.outer", desc = "Next class start" },
+						},
+						goto_next_end = {
+							["]B"] = "@block.outer",
+							["]M"] = "@function.outer",
+							["]["] = "@class.outer",
+						},
+						goto_previous_start = {
+							["[b"] = "@block.outer",
+							["[m"] = "@function.outer",
+							["[["] = "@class.outer",
+						},
+						goto_previous_end = {
+							["[B"] = "@block.outer",
+							["[M"] = "@function.outer",
+							["[]"] = "@class.outer",
+						},
+					},
+				},
+			}
+		end,
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
 		keys = {
