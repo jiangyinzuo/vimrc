@@ -48,14 +48,5 @@ elseif vim.g.ai_complete == "fittencode" then
 	}
 elseif vim.g.ai_complete == "tabnine" then
 	ai_complete = { "codota/tabnine-nvim", build = "./dl_binaries.sh" }
-elseif vim.g.ai_complete == "sourcegraph" then
-	ai_complete = {
-		"sourcegraph/sg.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
-		},
-		-- If you have a recent version of lazy.nvim, you don't need to add this!
-		build = "nvim -l build/init.lua",
-	}
 end
 return ai_complete

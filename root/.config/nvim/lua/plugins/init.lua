@@ -137,4 +137,17 @@ return {
 	},
 	-- A graphical display window manager in neovim
 	-- {'altermo/nxwm',branch='x11'},
+	{
+		"sourcegraph/sg.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+		},
+		config = function()
+			vim.keymap.set("n", "<leader>sg", function()
+				require("sg.extensions.telescope").fuzzy_search_results()
+			end)
+		end,
+		-- If you have a recent version of lazy.nvim, you don't need to add this!
+		build = "nvim -l build/init.lua",
+	},
 }
