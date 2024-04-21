@@ -42,22 +42,22 @@ return {
 						set_jumps = true, -- whether to set jumps in the jumplist
 						goto_next_start = {
 							["]b"] = "@block.outer",
-							["]m"] = "@function.outer",
+							["]f"] = "@function.outer",
 							["]]"] = { query = "@class.outer", desc = "Next class start" },
 						},
 						goto_next_end = {
 							["]B"] = "@block.outer",
-							["]M"] = "@function.outer",
+							["]F"] = "@function.outer",
 							["]["] = "@class.outer",
 						},
 						goto_previous_start = {
 							["[b"] = "@block.outer",
-							["[m"] = "@function.outer",
+							["[f"] = "@function.outer",
 							["[["] = "@class.outer",
 						},
 						goto_previous_end = {
 							["[B"] = "@block.outer",
-							["[M"] = "@function.outer",
+							["[F"] = "@function.outer",
 							["[]"] = "@class.outer",
 						},
 					},

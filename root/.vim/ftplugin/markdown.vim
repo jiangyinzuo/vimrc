@@ -5,7 +5,12 @@ setlocal conceallevel=0
 " ASCII of ~ is 126
 " See: :h surround-customizing
 let b:surround_126 = "~~\r~~"
-let g:markdown_folding = 1
+if has('nvim')
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
+else
+	let g:markdown_folding = 1
+endif
 
 if (has('unix') && exists('$WSLENV') && !has('nvim'))
 	command! -buffer -nargs=0 MdPreview call wsl#MdPreview()

@@ -133,6 +133,10 @@ if !exists('g:vscode')
 			Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 	
 			if v:version >= 900
+				Plug 'Clavelito/indent-awk.vim'
+				Plug 'Eliot00/git-lens.vim'
+				let g:GIT_LENS_ENABLED = 0
+
 				" Alternative: https://github.com/gelguy/wilder.nvim
 				Plug 'girishji/autosuggest.vim'
 				" External cmd is slow.
@@ -180,11 +184,6 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-fugitive'
 	" A git commit browser.
 	Plug 'junegunn/gv.vim'
-	if has('vim9script')
-		Plug 'Clavelito/indent-awk.vim'
-		Plug 'Eliot00/git-lens.vim'
-		let g:GIT_LENS_ENABLED = 0
-	endif
 
 	Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
@@ -301,6 +300,7 @@ hi link SpecialKey NonText
 "hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
 hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
 hi debugBreakpoint term=reverse ctermbg=red guibg=red
+hi link QuickPreview Normal
 """""""""""""""""" end colorscheme
 
 if v:version >= 802 && g:vimrc_lsp == 'coc.nvim'

@@ -6,3 +6,4 @@ else
 	nnoremap <buffer> j :call setqflist([], 'r', {'idx': line('.') + 1})<CR>
 	nnoremap <buffer> k :call setqflist([], 'r', {'idx': line('.') - 1})<CR>
 endif
+nnoremap <silent><buffer> p <cmd>call quickui#tools#preview_quickfix()<cr>

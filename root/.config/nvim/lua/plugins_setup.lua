@@ -235,6 +235,7 @@ function M.colorscheme()
 			colorscheme solarized
 			hi WinBar guibg=NONE
 			hi! link CocInlayHint LspInlayHint
+			hi link QuickPreview Normal
 		]])
 		M.lualine()
 		colorscheme_loaded = true
