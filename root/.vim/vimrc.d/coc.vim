@@ -7,7 +7,7 @@ let g:coc_filetype_map = {'tex': 'latex'}
 autocmd FileType tex ++once call coc#config('texlab.latexindent.local', $VIMRC_ROOT . "/latexindent.yaml")
 autocmd FileType lua ++once call coc#config('stylua.styluaPath', $HOME . '/.cargo/bin/stylua')
 autocmd FileType c,cpp,cuda ++once call coc_clang#setup_coc_clangd()
-
+autocmd FileType python ++once call coc#config('python.formatting.provider', g:python_formatter)
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')

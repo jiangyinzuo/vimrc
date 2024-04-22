@@ -150,13 +150,7 @@ return {
 			-- the configs below are lua only
 			bypass_session_save_file_types = nil,
 
-			cwd_change_handling = {
-				restore_upcoming_session = true, -- already the default, no need to specify like this, only here as an example
-				pre_cwd_changed_hook = nil, -- already the default, no need to specify like this, only here as an example
-				post_cwd_changed_hook = function() -- example refreshing the lualine status line _after_ the cwd changes
-					require("lualine").refresh() -- refresh lualine so the new session name is displayed in the status bar
-				end,
-			},
+			cwd_change_handling = nil, -- 不要监听文件夹切换事件: 不在cd后自动切换会话
 
 			-- ⚠️ This will only work if Telescope.nvim is installed
 			-- The following are already the default values, no need to provide them if these are already the settings you want.

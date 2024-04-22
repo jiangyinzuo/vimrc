@@ -24,6 +24,9 @@ rg 指定文件类型递归查找
 rg 'rosetta' --glob '*.md'
 :RgwithArgs 'rosetta' --glob '*.md'
 
+*rg视为字符串常量*
+rg -F 'void foo(int a[1]);'
+
 *leaderf-rg-example*
 *leaderf搜索当前目录下所有tex文件，大小写敏感，包含raft关键字*
 :Leaderf rg -g **/*.tex -s raft

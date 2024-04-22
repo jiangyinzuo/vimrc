@@ -1,3 +1,5 @@
+vim:ft=help
+
 *http-proxy*
 
 WSL启动http proxy server ~
@@ -16,6 +18,30 @@ apt install squid
 squid --foreground
 或者
 sudo systemctl start squid
+
+http转发到能连外网的跳板机 ~
+
+在跳板机中后台(tmux)执行
+>
+	ssh -NR 3128:localhost:3128 kiwi
+<
+
+http转发到个人电脑 ~
+
+假设目标机器为kiwi-nf，跳板机为cherry01，个人电脑启动squid，端口号为3128.
+服务器http proxy也转发到3128
+>
+Host kiwi-nf
+	HostName 10.208.130.1
+	User jiangyinzuo
+	Port 3527
+	# 防止长时间断连
+	ServerAliveInterval 60
+	# ProxyJump grape
+	ProxyJump cherry01
+	# 服务器端口:本地端口
+	RemoteForward 3128 localhost:3128
+<
 
 Warning: remote port forwarding failed for listen port 3128 ~
 >

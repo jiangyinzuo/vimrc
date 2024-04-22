@@ -122,10 +122,14 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			"nvimtools/none-ls.nvim",
 			config = function()
 				local null_ls = require("null-ls")
+				sources = {
+					null_ls.builtins.formatting.stylua,
+				}
+				if vim.g.python_formatter == "black" then
+					table.insert(sources, null_ls.builtins.formatting.black)
+				end
 				null_ls.setup({
-					sources = {
-						null_ls.builtins.formatting.stylua,
-					},
+					sources = sources,
 				})
 			end,
 		},

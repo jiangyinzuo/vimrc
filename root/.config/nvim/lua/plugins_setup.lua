@@ -3,7 +3,18 @@ function M.nvim_treesitter()
 	require("nvim-treesitter.configs").setup({
 		-- 安装 language parser
 		-- :TSInstallInfo 命令查看支持的语言
-		ensure_installed = { "cpp", "lua", "vim", "vimdoc", "python", "rust", "html", "query", "markdown", "markdown_inline" },
+		ensure_installed = {
+			"cpp",
+			"lua",
+			"vim",
+			"vimdoc",
+			"python",
+			"rust",
+			"html",
+			"query",
+			"markdown",
+			"markdown_inline",
+		},
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = false,
 		-- 启用代码高亮模块
@@ -125,12 +136,12 @@ function M.lualine()
 		lualine_b = { "branch" }
 		lualine_c = {
 			-- invoke `coc#status` to get coc status.
-			[[%{exists("*coc#status")?coc#status():''}]]
+			[[%{exists("*coc#status")?coc#status():''}]],
 		}
 		winbar = {
 			lualine_c = {
-				[[%{%get(b:, 'coc_symbol_line', '')%}]]
-			}
+				[[%{%get(b:, 'coc_symbol_line', '')%}]],
+			},
 		}
 	end
 
@@ -148,8 +159,14 @@ function M.lualine()
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
 			section_separators = { left = "", right = "" },
 			disabled_filetypes = {
-				statusline = {},
-				winbar = {},
+				winbar = {
+					"dap-repl",
+					"dapui_breakpoints",
+					"dapui_console",
+					"dapui_scopes",
+					"dapui_watches",
+					"dapui_stacks",
+				},
 			},
 			ignore_focus = {},
 			always_divide_middle = true,
@@ -180,7 +197,7 @@ function M.lualine()
 		tabline = {},
 		winbar = winbar,
 		inactive_winbar = {},
-		extensions = { "quickfix" },
+		extensions = { "fern", "quickfix", "nvim-dap-ui" },
 	})
 end
 

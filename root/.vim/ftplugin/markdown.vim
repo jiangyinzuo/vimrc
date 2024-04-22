@@ -5,10 +5,7 @@ setlocal conceallevel=0
 " ASCII of ~ is 126
 " See: :h surround-customizing
 let b:surround_126 = "~~\r~~"
-if has('nvim')
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-else
+if !has('nvim')
 	let g:markdown_folding = 1
 endif
 

@@ -125,6 +125,9 @@ Markdown等文本编辑添加链接：
 
 查找Hashtag并插入到当前光标位置		:Hashtag
 
+Alternatives:
+- https://github.com/epwalsh/obsidian.nvim
+
 -------------------------------------------------------------------------------
 *lsp* *formatter* *linter*
 

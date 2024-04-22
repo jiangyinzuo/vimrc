@@ -53,6 +53,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--cross-file-rename", "--inlay-hints=true", "--background-index", "--suggest-missing-includes=true", "--header-insertion=iwyu"])
 	let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 	let g:clang_format = get(g:, 'clang_format', 'clang-format')
+	" black, ruff
+	let g:python_formatter = get(g:, 'python_formatter', 'black')
 
 	let g:ai_complete = get(g:, 'ai_complete', 'copilot')
 
@@ -352,7 +354,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 		endif
 
-		set foldmethod=marker
+		if has('nvim')
+			set foldmethod=expr
+			set foldexpr=nvim_treesitter#foldexpr()
+		else
+			set foldmethod=marker
+		endif
 		set foldmarker={,}
 
 		" 默认打开所有折叠，将foldlevelstart设置为较大的值
@@ -364,7 +371,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 		autocmd FileType c,cpp,cuda setlocal foldmethod=expr foldexpr=mycpp#FoldExpr(v:lnum)
 		autocmd FileType c,cpp,cuda setlocal completefunc=mycpp#CompleteFunc
-		autocmd FileType python,vim,lua,go,sh setlocal foldmethod=indent
+		autocmd FileType vim,lua,go,sh setlocal foldmethod=indent
 		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
 		autocmd FileType tex setlocal foldmethod=manual
 	endif

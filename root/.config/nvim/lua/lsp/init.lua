@@ -152,7 +152,13 @@ local function setup_lsp(on_attach, capabilities)
 
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
+	-- "pylsp": too slow
+	-- "pylyzer": report too many diagnostics
 	local other_servers = { "jsonls", "pyright", "typst_lsp", "gopls" }
+	if vim.g.python_formatter == "ruff" then
+		-- pip install ruff-lsp ruff
+		table.insert(other_servers, "ruff_lsp")
+	end
 	for _, lsp in ipairs(other_servers) do
 		lspconfig[lsp].setup({
 			on_attach = on_attach,

@@ -64,6 +64,7 @@ if !exists('g:vscode')
 
 		" Alternative: https://github.com/sindrets/diffview.nvim
 		Plug 'jiangyinzuo/open-gitdiff.vim'
+		Plug 'andrewradev/linediff.vim'
 	endif
 
 	" vim-surround和vim-sneak会共享s/S shortcut，但不冲突
@@ -185,6 +186,7 @@ if !exists('g:vscode')
 	" A git commit browser.
 	Plug 'junegunn/gv.vim'
 
+	" vim-bookmarks最好作为临时的书签，不要当作代码笔记。否则git版本更新后，会导致书签内容不一致，且难以纠正。
 	Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
 	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp', 'cuda']}

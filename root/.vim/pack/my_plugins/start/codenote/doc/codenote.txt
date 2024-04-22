@@ -1,3 +1,0 @@
-*codenote.txt*
-
-manually set *g:coderepo_dir* and *g:noterepo_dir*

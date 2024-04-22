@@ -2,6 +2,12 @@ vim.api.nvim_command('source ~/.vim/vimrc.d/plugin_setup.vim')
 vim.api.nvim_command('source ~/.vim/vimrc.d/ai.vim')
 
 local M = {
+	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
+	-- let g:omni_sql_default_compl_type = 'syntax'
+	{
+		'vim-scripts/dbext.vim',
+		ft = 'sql',
+	},
 	'jiangyinzuo/bd.vim',
 	{
 		"lervag/vimtex",
@@ -84,6 +90,7 @@ local M = {
 		ft = 'csv',
 	},
 	'jiangyinzuo/open-gitdiff.vim',
+	'andrewradev/linediff.vim',
 	'tpope/vim-surround',
 	'tpope/vim-eunuch',
 	'AndrewRadev/splitjoin.vim',
@@ -103,6 +110,7 @@ local M = {
 	'tpope/vim-fugitive',
 	'junegunn/gv.vim',
 	{ 'alepez/vim-gtest',        ft = { 'c', 'cpp', 'cuda' } },
+	-- vim-bookmarks最好作为临时的书签，不要当作代码笔记。否则git版本更新后，会导致书签内容不一致，且难以纠正。
 	'MattesGroeger/vim-bookmarks',
 	-- Alternatives: https://github.com/HakonHarnes/img-clip.nvim
 	'jiangyinzuo/img-paste.vim',
@@ -120,7 +128,7 @@ local M = {
 		priority = 2000,
 	},
 	{
-		dir = "~/.vim/pack/my_plugins/start/codenote",
+		"jiangyinzuo/codenote"
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 
