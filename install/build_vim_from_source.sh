@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+MAKE_FLAG=${MAKE_FLAG:-"-j4"}
+
 _uninstall_current_version() {
 	if [[ -z $prev_vim_version ]]; then
 		echo "No previous Vim version found."
@@ -53,7 +55,7 @@ _install_vim() {
 	tar -xf $vimtar_file
 	pushd vim-${vim_version}
 	./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --with-python3-config-dir --enable-gui --with-x
-	make -j4
+	make ${MAKE_FLAG}
 	sudo make install
 	popd
 	
