@@ -1,28 +1,36 @@
-if vim.g.vim_dap == 'nvim-dap' then
+-- alternate: https://github.com/sakhnik/nvim-gdb
+if vim.g.vim_dap == "nvim-dap" then
 	return {
 		{
-			'rcarriga/nvim-dap-ui',
-			lazy = true,
-			cmd = {
-				"DapContinue",
-				"DapToggleRepl",
-				"DapSetLogLevel",
-				"DapLoadLaunchJSON",
-				"DapToggleBreakpoint",
-			},
+			"rcarriga/nvim-dap-ui",
 			dependencies = {
-				'mfussenegger/nvim-dap',
+				"mfussenegger/nvim-dap",
 				"nvim-neotest/nvim-nio",
-				'theHamsta/nvim-dap-virtual-text',
+				"theHamsta/nvim-dap-virtual-text",
+				"mfussenegger/nvim-dap-python",
 			},
-			config = require('dapconfig').dapconfig
+			config = require("dapconfig").dapconfig,
 		},
 		{
-			'theHamsta/nvim-dap-virtual-text',
+			"mfussenegger/nvim-dap",
+			lazy = true,
+			config = function()
+				vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+			end,
+		},
+		{
+			lazy = true,
+			"mfussenegger/nvim-dap-python",
+			dependencies = {
+				"mfussenegger/nvim-dap",
+			}
+		},
+		{
+			"theHamsta/nvim-dap-virtual-text",
 			lazy = true,
 			opts = {
-				commented = true
-			}
+				commented = true,
+			},
 		},
 	}
 else

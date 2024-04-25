@@ -2,46 +2,19 @@ local M = {}
 
 function M.dapconfig()
 	local dap, dapui = require("dap"), require("dapui")
-	dapui.setup({
-		layouts = {
-			{
-				elements = {
-					-- Provide as ID strings or tables with "id" and "size" keys
-					{
-						id = "scopes",
-						size = 0.2, -- Can be float or integer > 1
-					},
-					{ id = "breakpoints", size = 0.2 },
-					{ id = "stacks",      size = 0.2 },
-					{ id = "watches",     size = 0.2 },
-					{ id = "console",     size = 0.2 }
-				},
-				size = 40,
-				position = "left",
-			},
-			{ elements = { "repl" }, size = 10, position = "bottom" },
-		},
-		-- Requires Nvim version >= 0.8
-		controls = {
-			enabled = true,
-			-- Display controls in this session
-			element = "repl",
-		},
-		floating = {
-			max_height = nil,
-			max_width = nil,
-			mappings = { close = { "q", "<Esc>" } },
-		},
-		windows = { indent = 1 },
-	})
+	dapui.setup()
 
-	dap.listeners.after.event_initialized["dapui_config"] = function()
+	-- 自动开启/关闭dapui
+	dap.listeners.before.attach.dapui_config = function()
 		dapui.open()
 	end
-	dap.listeners.before.event_terminated["dapui_config"] = function()
+	dap.listeners.before.launch.dapui_config = function()
+		dapui.open()
+	end
+	dap.listeners.before.event_terminated.dapui_config = function()
 		dapui.close()
 	end
-	dap.listeners.before.event_exited["dapui_config"] = function()
+	dap.listeners.before.event_exited.dapui_config = function()
 		dapui.close()
 	end
 
@@ -86,26 +59,7 @@ function M.dapconfig()
 	dap.configurations.c = dap.configurations.cpp
 	dap.configurations.rust = dap.configurations.cpp
 
-	-- pip install debugpy
-	dap.adapters.python = {
-		type = 'executable',
-		command = 'python3',
-		args = { '-m', 'debugpy.adapter' },
-	}
-
-	dap.configurations.python = {
-		-- same as vscode launch.json
-		{
-			-- The first three options are required by nvim-dap
-			type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
-			request = 'launch',
-			name = "Launch file",
-			-- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-			console = "integratedTerminal",
-			program = "${file}", -- This configuration will launch the current file if used.
-			pythonPath = 'python3',
-		},
-	}
+	require("dap-python").setup("python3")
 end
 
 return M
