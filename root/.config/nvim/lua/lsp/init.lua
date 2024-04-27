@@ -251,7 +251,12 @@ function M.lspconfig()
 			-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			-- 	end, bufopts)
 			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			-- crn is default keymap in neovim 0.10.0
+			-- cr is a generic "refactor" prefix (fits nicely with the mappings from vim-abolish) too.
+			-- :h cr
+			-- :h crn
+			-- See: https://github.com/neovim/neovim/commit/688860741589b4583129e426f4df0523f9213275
+			vim.keymap.set("n", "crn", vim.lsp.buf.rename, bufopts)
 			vim.keymap.set({ "n", "v" }, "<leader>ac", vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "<leader>fmt", function()
