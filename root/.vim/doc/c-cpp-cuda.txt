@@ -21,6 +21,12 @@ See: https://www.reddit.com/r/neovim/comments/vj0e16/how_to_specify_location_of_
 同时clangd启动命令添加`--compile-commands-dir=build/release`
 
 NOTE
+clangd无法解析OpenMP pragma https://github.com/clangd/clangd/issues/1640
+暂时的解决方案：在`.clangd`文件中添加
+>
+CompileFlags:
+  Remove: [-fopenmp]
+<
 clangd还没实现outgoing calls in call hierarchy https://github.com/llvm/llvm-project/pull/77556
 --------------------------------------------------------------------------------
 

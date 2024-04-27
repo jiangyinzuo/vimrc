@@ -174,7 +174,7 @@ if !exists('g:vscode')
 	endif
 
 	Plug 'airblade/vim-gitgutter'
-	" 比默认priority低1级, bookmarkspriority为10
+	" 比默认priority低1级
 	let g:gitgutter_sign_priority = 9
 	omap ih <Plug>(GitGutterTextObjectInnerPending)
 	omap ah <Plug>(GitGutterTextObjectOuterPending)
@@ -186,8 +186,6 @@ if !exists('g:vscode')
 	" A git commit browser.
 	Plug 'junegunn/gv.vim'
 
-	" vim-bookmarks最好作为临时的书签，不要当作代码笔记。否则git版本更新后，会导致书签内容不一致，且难以纠正。
-	Plug 'MattesGroeger/vim-bookmarks'
 	source ~/.vim/vimrc.d/ai.vim
 	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp', 'cuda']}
 	" Enable function highlighting (affects both C and C++ files)

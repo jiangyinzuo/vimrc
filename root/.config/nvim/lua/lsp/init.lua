@@ -154,7 +154,7 @@ local function setup_lsp(on_attach, capabilities)
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
-	local other_servers = { "jsonls", "pyright", "typst_lsp", "gopls" }
+	local other_servers = { "jsonls", "pyright", "typst_lsp", "gopls", "cmake" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
 		table.insert(other_servers, "ruff_lsp")
@@ -256,7 +256,7 @@ function M.lspconfig()
 			-- :h cr
 			-- :h crn
 			-- See: https://github.com/neovim/neovim/commit/688860741589b4583129e426f4df0523f9213275
-			vim.keymap.set("n", "crn", vim.lsp.buf.rename, bufopts)
+			-- vim.keymap.set("n", "crn", vim.lsp.buf.rename, bufopts)
 			vim.keymap.set({ "n", "v" }, "<leader>ac", vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "<leader>fmt", function()
