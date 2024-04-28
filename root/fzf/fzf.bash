@@ -10,8 +10,8 @@ export PATH=$PATH:$HOME/plugged/fzf/bin
 # alias fzfcd='cd "$(find * -type d | fzf)"'
 
 # Reference: https://github.com/junegunn/fzf/tree/master/shell
-source $VIMRC_ROOT/fzf/key-bindings.bash
-source $VIMRC_ROOT/fzf/completion.bash
+source $HOME/plugged/fzf/shell/key-bindings.bash
+source $HOME/plugged/fzf/shell/completion.bash
 
 # Reference: https://github.com/lincheney/fzf-tab-completion
 source $VIMRC_ROOT/fzf/fzf-bash-completion.sh

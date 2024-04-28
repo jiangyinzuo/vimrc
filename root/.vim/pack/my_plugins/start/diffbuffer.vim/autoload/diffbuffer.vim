@@ -13,6 +13,7 @@ function diffbuffer#Diff()
 	" 执行 diff 命令
 	execute 'diffthis'
 	execute 'vsplit ' . temp_file
+	wincmd H
 	execute 'diffthis'
 endfunction
 

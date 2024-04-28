@@ -189,6 +189,8 @@ if !exists('g:vscode')
 	Plug 'tpope/vim-fugitive'
 	" A git commit browser.
 	Plug 'junegunn/gv.vim'
+	" optionally depend on vim-fugitive
+	Plug 'jiangyinzuo/codenote'
 
 	source ~/.vim/vimrc.d/ai.vim
 	Plug 'bfrg/vim-cpp-modern', {'for': ['c', 'cpp', 'cuda']}

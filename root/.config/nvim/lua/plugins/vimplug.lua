@@ -127,6 +127,9 @@ local M = {
 	},
 	{
 		"jiangyinzuo/codenote",
+		dependencies = {
+			"tpope/vim-fugitive",
+		},
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 

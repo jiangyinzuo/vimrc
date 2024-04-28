@@ -1,5 +1,3 @@
-command -nargs=0 DiffBufferSaveTempFile call diffbuffer#SaveTempFile()
-
-command -nargs=0 DiffBuffer call diffbuffer#Diff()
+command -nargs=0 DiffThisBufferFirst call diffbuffer#SaveTempFile()
 " diff, delta, ...
-command -nargs=1 -complete=custom,diffbuffer#ExternalToolsComplete DiffBufferExternal call diffbuffer#DiffExternal(<f-args>)
+command -nargs=? -complete=custom,diffbuffer#ExternalToolsComplete DiffThisBufferSecond if len(<q-args>) == 0 | call diffbuffer#Diff() | else | call diffbuffer#DiffExternal(<f-args>) | endif

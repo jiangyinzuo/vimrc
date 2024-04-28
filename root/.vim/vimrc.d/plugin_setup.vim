@@ -34,6 +34,12 @@ let g:fern#default_hidden = 1
 if has('nvim') || v:version >= 801
 	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	" let g:AutoPairsMapBS = 1
+	if has('nvim')
+		" confict with neovim luasnip
+		let g:AutoPairs = {'"': '"', '[': ']', '''''': '''''', '(': ')', '''''''''''': '''''''''''', '{': '}', '"""': '"""'}
+	else
+		let g:AutoPairs = {'```': '```',  '"': '"', '[': ']', '''''': '''''', '(': ')', '''''''''''': '''''''''''', '{': '}', '"""': '"""'}
+	endif
 	let g:AutoPairsMapSpace = 0
 	" 只在后面有空格或者是行尾时，才补全右括号
 	let g:AutoPairsCompleteOnlyOnSpace = 1
