@@ -1,0 +1,27 @@
+vim:ft=help
+
+*objdump.txt*
+
+检查一个 C 语言编译得到的动态链接库（在 Windows 中通常是 `.dll` 文件，在 Linux 或 macOS 中是 `.so` 或 `.dylib` 文件）中是否包含某个特定函数 ~
+
+在 Windows 上 ~
+
+1. 使用 `dumpbin` 工具：
+   - `dumpbin` 是 Visual Studio 提供的一个工具，可以用来显示二进制文件（包括 DLL）的信息。
+   - 使用 `dumpbin /exports yourlibrary.dll` 命令来查看 DLL 中所有导出的符号，其中包括函数名。这个命令会列出所有导出的函数，你可以在输出中搜索你的函数名。
+
+2. 使用 `Dependency Walker`（depends.exe）：
+   - 这是一个图形界面工具，可以用来查看 DLL 中的所有导出和导入的函数。
+   - 打开你的 DLL 文件，查看 "Exports" 标签页中列出的函数。
+
+在 Linux 或 macOS 上 ~
+
+1. 使用 `nm` 工具：
+   - 打开终端，使用命令 `nm -D yourlibrary.so` 或 `nm -g yourlibrary.dylib` 来查看动态链接库中的符号。
+   - 使用 `grep` 命令可以帮助你快速搜索特定的函数名，例如 `nm -D yourlibrary.so | grep your_function_name`。
+
+2. 使用 `objdump` 工具：
+   - 使用命令 `objdump -T yourlibrary.so` 可以显示动态链接库中所有的符号，包括函数。
+   - 同样可以使用 `grep` 来搜索特定的函数名。
+
+这些工具可以帮助你验证 DLL 或 SO 文件中是否包含特定的函数。在 Windows 上，如果你没有安装 Visual Studio，你可能需要下载 `Dependency Walker`。在 Linux 或 macOS 上，`nm` 和 `objdump` 通常已经包含在大多数发行版中。

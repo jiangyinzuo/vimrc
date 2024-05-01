@@ -28,7 +28,7 @@ CompileFlags:
   Remove: [-fopenmp]
 <
 clangd还没实现outgoing calls in call hierarchy https://github.com/llvm/llvm-project/pull/77556
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
 
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`
@@ -43,8 +43,15 @@ output to quickfix list: >
 = 延迟赋值，使用到变量的时候才确定变量的值
 := 立即赋值
 
+--------------------------------------------------------------------------------------
 *cmake*
 
+CMake 4种编译类型 ~
+
+Debug, Release, RelWithDebInfo, MinSizeRel
+
+https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
+--------------------------------------------------------------------------------------
 *c++20-module*
 
 Error:
