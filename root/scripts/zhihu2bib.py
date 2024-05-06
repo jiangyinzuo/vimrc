@@ -5,7 +5,7 @@
 # https://zhuanlan.zhihu.com/p/620185229
 #
 # Output:
-# @misc{Nvidia_Tensor_Core初探_-_木子知的文章_-_知乎,
+# @misc{Nvidia_Tensor_Core初探-木子知的文章-知乎,
 # title = {Nvidia Tensor Core初探 - 木子知的文章 - 知乎},
 # url = {https://zhuanlan.zhihu.com/p/620185229}
 # }
@@ -23,7 +23,7 @@ title: str = zhihu_link[0]
 url: str = zhihu_link[1]
 
 # substitute space with underscore
-reference: str = title.replace(' ', '_').replace('（', '(').replace('）', ')')
+reference: str = title.replace(' ', '_').replace('（', '(').replace('）', ')').replace('_-_', '-')
 
 print(f"""
 @misc{{{reference},

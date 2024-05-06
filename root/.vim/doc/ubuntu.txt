@@ -34,6 +34,10 @@ apt update失败，ModuleNotFoundError: No module named 'apt_pkg'
 *aptitude*
 aptitude是apt的一个前端，功能更强大，可以用来解决apt的依赖问题，但可能给出卸载软件的建议
 
+The following packages have unmet dependencies 依赖问题 ~
+
+可能是私加ppa源导致的，可以尝试在`/etc/apt/sources.list.d`删除ppa源，然后更新apt源`sudo apt dist-clean`, `sudo apt update`
+
 -------------------------------------------------------------------------------
 
 apt配置代理服务器 在`/etc/apt/apt.conf` 或者 `/etc/apt/apt.conf.d/proxy.conf`中添加
