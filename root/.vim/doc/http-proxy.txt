@@ -70,3 +70,6 @@ apt源 ~
 
 |docker设置http代理|
 
+pip http代理 ~
+
+pip3 install pandas --proxy=localhost:3128

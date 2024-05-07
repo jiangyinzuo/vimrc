@@ -70,11 +70,7 @@ nmap <silent> <leader>re <Plug>(coc-codeaction-refactor-selected)
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
-" crn is default keymap in neovim 0.10.0
-" cr is a generic "refactor" prefix (fits nicely with the mappings from vim-abolish) too.
-" :h cr
-" See: https://github.com/neovim/neovim/commit/688860741589b4583129e426f4df0523f9213275
-nmap crn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>fmt <Plug>(coc-format)
 xmap <leader>fmt <Plug>(coc-format-selected)
 
