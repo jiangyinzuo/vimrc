@@ -133,24 +133,24 @@ local M = {
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
 
-	"lambdalisue/fern.vim",
+	"lambdalisue/vim-fern",
 	{
 		"lambdalisue/fern-renderer-nerdfont.vim",
 		dependencies = {
-			"lambdalisue/fern.vim",
+			"lambdalisue/vim-fern",
 			"lambdalisue/nerdfont.vim",
 		},
 	},
 	{
 		"lambdalisue/fern-hijack.vim",
 		dependencies = {
-			"lambdalisue/fern.vim",
+			"lambdalisue/vim-fern",
 		},
 	},
 	{
 		"LumaKernel/fern-mapping-fzf.vim",
 		dependencies = {
-			"lambdalisue/fern.vim",
+			"lambdalisue/vim-fern",
 		},
 	},
 	{

@@ -134,6 +134,7 @@ See: $VIMRC_ROOT/scripts/rsync-git
 
 https://www.runoob.com/linux/linux-comm-awk.html
 
+$0 一行的内容
 FILENAME 当前文件名
 FS 字段分隔符（默认空格）
 NF 一行的字段数目
@@ -145,6 +146,12 @@ awk设置分隔符的例子
 	awk -F, '{print $1, $2}' filename
 	awk -F'[ \t]+' '{print $1, $2}' filename
 <
+
+ENDFILE {}   文件结束时执行
+END {}       所有文件结束时执行
+/---/,EOF {} 从---到EOF的内容
+
+if (/---/)   如果匹配---，执行
 -------------------------------------------------------------------------------
 cat -> bat，Ubuntu下的命令叫batcat。能让fzf.vim的preview window变快。  
 

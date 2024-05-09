@@ -45,7 +45,7 @@ if !exists('g:vscode')
 	" See Also: :h :ascii
 	Plug 'tpope/vim-characterize'
 
-	Plug 'lambdalisue/fern.vim'
+	Plug 'lambdalisue/vim-fern'
 	Plug 'lambdalisue/nerdfont.vim'
 	Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 	Plug 'lambdalisue/fern-hijack.vim'
