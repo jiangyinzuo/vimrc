@@ -95,6 +95,14 @@ https://apt.llvm.org/
 
 |nvidia-docker|
 
+cuda对gcc/clang存在版本要求，例如
+
+cuda 12.1
+>
+	clang version must be less than 16 and greater than 3.2 for cuda 12.1
+	gcc versions later than 12 are not supported for cuda 12.1
+<
+
 *glibc*
 
 查看glibc版本

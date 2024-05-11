@@ -107,7 +107,7 @@ Environment variables to setup:  `$DOC2`
 
 ## Install Plugins Manually
 
-vim-plug home: `~/plugged`, run `:PlugInstall`. `PlugInstall` can also update helptags for plugins.  
+vim-plug/lazy.nvim plugin directory: `g:vim_plug_dir` (`~/plugged` by default), run `:PlugInstall`. `PlugInstall` can also update helptags for plugins.  
 coc home: `~/coc`, run `:CocInstall`.  
 gadgets home: `~/gadgets`  
 
