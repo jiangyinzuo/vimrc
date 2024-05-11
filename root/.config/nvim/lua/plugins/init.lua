@@ -5,7 +5,6 @@ return {
 		"ishan9299/nvim-solarized-lua",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 2,
-		config = plugins_setup.colorscheme,
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
