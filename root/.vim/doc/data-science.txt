@@ -1,0 +1,10 @@
+vim:ft=help
+
+*data-science* *data-wrangling*
+
+Vscode Data Wrangler plugin
+
+Jupyter Lab
+
+Quarto®: an open-source scientific and technical publishing system built on Pandoc.
+- next generation of R Markdown

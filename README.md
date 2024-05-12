@@ -8,7 +8,7 @@ My personal vimrc configuration files, dotfiles and other scripts. Feel free to 
 
 See also `install/README.md`
 
-### Vim/Neovim/VSCode Neovim
+### Vim/Neovim
 
 #### Vim
 
@@ -60,10 +60,6 @@ See: https://github.com/neovim/neovim-releases
 tested in Ubuntu 18.04
 
 See `install/build_nvim_from_source.sh`
-
-#### VSCode Neovim
-
-TODO
 
 ### Node.js (coc.nvim, copilot.vim)
 

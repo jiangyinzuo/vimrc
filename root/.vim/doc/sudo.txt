@@ -2,6 +2,11 @@ vim:ft=help
 
 *sudo.txt*
 
+*sudo保留用户当前环境变量*
+>
+	sudo -E
+<
+
 Linux修改他人用户名 ~
 
 *linux-user*
