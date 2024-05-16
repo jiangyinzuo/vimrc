@@ -82,10 +82,15 @@ https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 升/降级python
 micromamba install python=3.11
 
-----------------------------------------------------------------
-*pdm* 替代requirements.txt
+micromamba创建新环境，使用python3.10.6
+>
+	micromamba create -n myenv python=3.10.6
+<
 
-https://pdm-project.org/latest/
+----------------------------------------------------------------
+*pdm* 替代requirements.txt https://pdm-project.org/latest/
+
+*python-poetry* 替代requirements.txt https://github.com/python-poetry/poetry
 ----------------------------------------------------------------
 *matplotlib-show报错*
 >

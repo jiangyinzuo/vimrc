@@ -7,7 +7,7 @@ vim:ft=help
 ===============================================================================
 *git添加ppa*
 https://launchpad.net/~git-core/+archive/ubuntu/ppa
--------------------------------------------------------------------------------
+===============================================================================
 Git 开发规范
 https://github.com/universal-ctags/ctags/pull/3747
 https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
@@ -16,9 +16,34 @@ https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
 
 See also:
 $DOC2/cs/system/software_engineering/version-control-and-release-model
-$DOC2/cs/tools-open-source/git-github
+$DOC2/cs/system/software_engineering/tools-open-source/git-github
 
--------------------------------------------------------------------------------
+*conventional-commits*
+
+https://cbea.ms/git-commit/
+
+|semver|
+www.conventionalcommits.org
+
+*cog*
+cli工具: https://github.com/cocogitto/cocogitto
+
+bash补全(See: https://docs.cocogitto.io/) >
+  cog generate-completions bash > ~/.local/share/bash-completion/completions/cog
+<
+
+初始化配置文件 >
+  cog init
+<
+
+之后可以在cog.toml中添加`tag_prefix = "v"`，用于识别语义化版本 https://semver.org/lang/zh-CN/
+
+
+*git-cliff* 自动生成changelog
+
+其它工具
+https://commitlint.js.org/#/
+===============================================================================
 *git-log*
 
 git 查看src/main.c 20-25行的修改历史
@@ -601,5 +626,7 @@ hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
 hint: 'development'. The just-created branch can be renamed via this command:
 hint:
 hint:   git branch -m <name>
+-------------------------------------------------------------------------------
+*git-mv* *git-grep* git对应的mv grep
 ===============================================================================
 

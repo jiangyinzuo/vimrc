@@ -3,7 +3,6 @@ vim:ft=help
 *project-vim*
 
 >
-	:LoadCodeNote
-	:Cdroot
 	let g:copilot_workspace_folders = ['~/Projects/myproject']
+	let g:nvim_lsp_autostart = {'clangd': v:true}
 <

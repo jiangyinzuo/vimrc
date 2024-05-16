@@ -43,7 +43,9 @@ output to quickfix list: >
 = 延迟赋值，使用到变量的时候才确定变量的值
 := 立即赋值
 
---------------------------------------------------------------------------------------
+======================================================================================
+C++包管理器
+
 *cmake*
 
 CMake 4种编译类型 ~
@@ -51,6 +53,19 @@ CMake 4种编译类型 ~
 Debug, Release, RelWithDebInfo, MinSizeRel
 
 https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
+
+*CPM.cmake* https://github.com/cpm-cmake/CPM.cmake
+
+使用项目：rapidsai/RAFT
+
+*conan*
+
+使用项目：milvus
+
+*bazel*
+
+使用项目：HA3
+
 --------------------------------------------------------------------------------------
 *c++20-module*
 
@@ -117,3 +132,7 @@ Ubuntu18.04 为2.27
 **gcc版本**
 2024年初，CentOS 7.1: 4.8.5
 Ubuntu 16.04: 5.4.0
+======================================================================================
+*cpp-mistakes*
+
+使用std::copy拷贝std::vector，而非memcpy

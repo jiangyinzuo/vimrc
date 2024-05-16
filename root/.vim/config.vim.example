@@ -10,4 +10,7 @@ if has('nvim')
 	let g:vim_package_manager = 'lazy.nvim'
 	" coc.nvim (default) | nvim-lsp (nvim only)
 	let g:vimrc_lsp = 'nvim-lsp'
+else
+	set grepprg=rg\ --vimgrep\ -uu
+	set grepformat=%f:%l:%c:%m
 endif
