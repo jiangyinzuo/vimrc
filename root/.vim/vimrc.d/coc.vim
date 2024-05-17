@@ -38,8 +38,8 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
 nmap <silent> <leader>da <Plug>(coc-diagnostic-info)
-nmap <silent> [da <Plug>(coc-diagnostic-prev)
-nmap <silent> ]da <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> <leader>gd <Plug>(coc-definition)

@@ -154,4 +154,7 @@ JUPYTER
 	# 创建pair notebook
 	:JupyterAscendingOpenPairNotebook
 <
+========================================================================
+setup.py ~
+
 

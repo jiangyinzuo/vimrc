@@ -1,3 +1,5 @@
+vim:ft=help
+
 *sed-command*
 
 -i 直接修改文件内容
@@ -15,4 +17,15 @@ find . -type f -name "*.md" -exec sed -i 's/old-text/new-text/g' {} +
 
 sed全字替换 >
   sed -i "s/\braft\b/Raft/g" *.tex
+<
+
+*sed替代*
+
+sd
+
+sad
+
+*sad绑定fzf* https://github.com/ms-jpq/sad/issues/308
+>
+  fd | sad Duck Chicken --fzf '\--bind ctrl-a:select-all'
 <

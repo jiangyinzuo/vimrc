@@ -58,13 +58,19 @@ https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
 
 使用项目：rapidsai/RAFT
 
-*conan*
+*conan1*
 
 使用项目：milvus
 
 *bazel*
 
 使用项目：HA3
+
+*conan2*
+
+*vcpkg*
+
+*xmake*
 
 --------------------------------------------------------------------------------------
 *c++20-module*
@@ -106,6 +112,7 @@ https://apt.llvm.org/
 	wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 <
 
+------------------------------------------------------------------------------------
 *cuda*
 
 |nvidia-docker|
@@ -118,6 +125,13 @@ cuda 12.1
 	gcc versions later than 12 are not supported for cuda 12.1
 <
 
+GPU监控 ~
+
+gpustat: `pip install gpustat`
+
+【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
+
+------------------------------------------------------------------------------------
 *glibc*
 
 查看glibc版本

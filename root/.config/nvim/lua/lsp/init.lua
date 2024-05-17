@@ -217,8 +217,6 @@ function M.lspconfig()
 		end,
 	})
 	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
-	vim.keymap.set("n", "[da", vim.diagnostic.goto_prev)
-	vim.keymap.set("n", "]da", vim.diagnostic.goto_next)
 
 	-- Set up lspconfig.
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()

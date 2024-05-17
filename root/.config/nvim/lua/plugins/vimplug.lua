@@ -77,10 +77,6 @@ local M = {
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
 	"tpope/vim-characterize",
-	{
-		"brooth/far.vim",
-		cmd = { "Far", "Farf", "Farp", "Farr" },
-	},
 	"preservim/vimux",
 	"honza/vim-snippets",
 	"voldikss/vim-translator",

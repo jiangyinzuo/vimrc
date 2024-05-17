@@ -1,3 +1,4 @@
+vim:ft=help
 *code-search* *novimrc* *noplugged*
 
 打开历史文件 ~
@@ -88,5 +89,37 @@ GTAGSLABEL=native-pygments gtags
 cmake可以在不执行编译的情况下生成compile_commands.json文件
 
 -------------------------------------------------------------------------------
+文档生成 ~
+
+doxygen https://www.doxygen.nl/
+-------------------------------------------------------------------------------
 补全
 See: complete.md
+
+===============================================================================
+搭环境考验
+
+大型单文件考验 ~
+
+4万行的Oceanbase单源文件。
+
+https://github.com/oceanbase/oceanbase/blob/develop/src/rootserver/ob_ddl_service.cpp
+
+据Vscode用户描述
+
+- clangd可能会非常慢(显示diagnostic可能需要2-3分钟以上）
+- 某些重命名功能可能会失败
+	- 机器内存不够可能导致clangd coredump
+
+或许需要选择性关闭某些功能。
+
+寻找大文件的方法: `find . -type f -size +1M`
+
+40核kiwi服务器，128GB内存：
+- 第一次下载依赖文件，编译项目花费19分钟
+- clangd索引构建11:08~12:02，花了近一小时
+- 重命名功能报错
+	- clangd: -32001: The number of affected files exceeds the max limit 50
+	- `:Far ObTableSchema ObTableSchema222 src/**/*.cpp src/**/*.h` 运行1~2秒，但 `:Far ObTableSchema ObTableSchema222 src/**/*.*` 会卡顿很久
+	- `:Rg` 很快
+

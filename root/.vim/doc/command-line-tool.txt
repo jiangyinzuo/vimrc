@@ -88,7 +88,7 @@ sudo dpkg -i fd-musl_x.x.x_amd64.deb
 -------------------------------------------------------------------------------
 下载: wget -> axel  
 git终端: lazygit, tig  
-Linux文本处理: awk, sed -> sd, cut
+Linux文本处理: awk, sed -> sd/sad, cut |sed-command|
 
 文本对比
 diff comm

@@ -20,7 +20,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
-			require'nvim-treesitter.configs'.setup {
+			require("nvim-treesitter.configs").setup({
 				textobjects = {
 					select = {
 						enable = true,
@@ -61,7 +61,7 @@ return {
 						},
 					},
 				},
-			}
+			})
 		end,
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
@@ -190,5 +190,36 @@ return {
 		end,
 		-- If you have a recent version of lazy.nvim, you don't need to add this!
 		build = "nvim -l build/init.lua",
+	},
+
+	-- find and replace
+	{
+		"brooth/far.vim",
+		cmd = { "Far", "Farf", "Farp", "Farr" },
+	},
+	{
+		"nvim-pack/nvim-spectre",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		cmd = { "Spectre" },
+		-- FIXME: do not add opts, it will break the UI behaviors
+	},
+	{
+		"ray-x/sad.nvim",
+		dependencies = {
+			"ray-x/guihua.lua",
+		},
+		cmd = { "Sad" },
+		config = function()
+			require("sad").setup({
+				height_ratio = 0.8, -- height ratio of sad window when split horizontally
+				width_ratio = 0.8, -- height ratio of sad window when split vertically
+			})
+		end,
+	},
+	{
+		"ray-x/guihua.lua",
+		build = "cd lua/fzy && make",
 	},
 }

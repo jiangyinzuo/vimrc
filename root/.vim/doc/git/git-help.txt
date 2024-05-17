@@ -55,6 +55,10 @@ git 查看src/main.c 20-25行的修改历史
 *git-blame*
 `:Git blame`也可以Visual mode选中执行。
 
+*git历史分析工具*
+
+https://github.com/src-d/hercules
+https://github.com/erikbern/git-of-theseus
 -------------------------------------------------------------------------------
 Git 修改历史提交的文件                                 *git-modify-history-file*
 
