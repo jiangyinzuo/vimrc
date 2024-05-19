@@ -1,45 +1,5 @@
 local M = {}
 
-local function nvim_navic()
-	local navic = require("nvim-navic")
-	navic.setup({
-		icons = {
-			File = " ",
-			Module = " ",
-			Namespace = " ",
-			Package = " ",
-			Class = " ",
-			Method = " ",
-			Property = " ",
-			Field = " ",
-			Constructor = " ",
-			Enum = " ",
-			Interface = " ",
-			Function = " ",
-			Variable = " ",
-			Constant = " ",
-			String = " ",
-			Number = " ",
-			Boolean = " ",
-			Array = " ",
-			Object = " ",
-			Key = " ",
-			Null = " ",
-			EnumMember = " ",
-			Struct = " ",
-			Event = " ",
-			Operator = " ",
-			TypeParameter = " ",
-		},
-		highlight = true,
-		separator = " > ",
-		depth_limit = 0,
-		depth_limit_indicator = "..",
-		safe_output = true,
-	})
-	return navic
-end
-
 local function setup_lsp(on_attach, capabilities)
 	local lspconfig = require("lspconfig")
 	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", false) then
@@ -189,6 +149,25 @@ local function setup_lsp(on_attach, capabilities)
 	-- })
 end
 
+M.on_attach = function(client, bufnr)
+	if client.server_capabilities.documentSymbolProvider then
+		local navic = require("nvim-navic")
+		navic.attach(client, bufnr)
+	end
+	if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
+		vim.lsp.inlay_hint.enable(true)
+	end
+end
+
+-- Set up lspconfig.
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+-- capabilities = capabilities,
+-- }
+function M.get_capabilities()
+	return require("cmp_nvim_lsp").default_capabilities()
+end
+
 function M.lspconfig()
 	require("lsp.diagnostic")
 
@@ -196,15 +175,6 @@ function M.lspconfig()
 	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 	end, {})
-	local navic = nvim_navic()
-	local on_attach = function(client, bufnr)
-		if client.server_capabilities.documentSymbolProvider then
-			navic.attach(client, bufnr)
-		end
-		if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
-			vim.lsp.inlay_hint.enable(true)
-		end
-	end
 
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
 	vim.api.nvim_create_autocmd("CmdlineEnter", {
@@ -218,13 +188,7 @@ function M.lspconfig()
 	})
 	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
 
-	-- Set up lspconfig.
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-	-- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-	-- capabilities = capabilities,
-	-- }
-	setup_lsp(on_attach, capabilities)
+	setup_lsp(M.on_attach, M.capabilities)
 
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
@@ -268,6 +232,10 @@ function M.lspconfig()
 	end, { nargs = 0 })
 	vim.api.nvim_create_user_command("IncomingCalls", function(_)
 		vim.lsp.buf.incoming_calls()
+	end, { nargs = 0 })
+	vim.api.nvim_create_user_command("LspLogClean", function(_)
+		local log = vim.fn.stdpath("state") .. "/lsp.log"
+		vim.fn.delete(log)
 	end, { nargs = 0 })
 end
 

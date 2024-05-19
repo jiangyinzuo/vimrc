@@ -6,10 +6,6 @@ let g:ai_complete = 'copilot'
 " aiproxy (default) | kimichat | 01ai
 let g:ai_service = '01ai'
 if has('nvim')
-	" vim-plug (default) | lazy.nvim (nvim only)
-	let g:vim_package_manager = 'lazy.nvim'
-	" coc.nvim (default) | nvim-lsp (nvim only)
-	let g:vimrc_lsp = 'nvim-lsp'
 else
 	set grepprg=rg\ --vimgrep\ -uu
 	set grepformat=%f:%l:%c:%m

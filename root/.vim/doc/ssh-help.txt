@@ -1,3 +1,5 @@
+vim:ft=help
+
 *ssh-help*
 
 *ssh生成key*
@@ -116,4 +118,17 @@ NOTE: 服务器端vim初始化X11 clipboard，共享剪贴板，大概需要756m
 ===============================================================================
 ssh替代：mosh
 
+mosh和ET都需要开放新的端口。
+
+mosh - 一款替代SSH的UDP远程终端软件 - 古古今今的文章 - 知乎
+https://zhuanlan.zhihu.com/p/28414523
+
 EternalTerminal https://github.com/MisterTea/EternalTerminal
+
+搭环境考验：ssh网络连接慢的情况下使用vim ~
+
+连接阿里云的印度尼西亚服务器，会有卡顿，会时常断连，如何解决？
+
+|slow-terminal|
+
+https://www.reddit.com/r/vim/comments/m2cksk/askreddit_how_do_you_deal_with_ssh_latency_when/

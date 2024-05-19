@@ -14,12 +14,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" https://github.com/neovim/neovim/issues/23666
 		let g:AutoPairsMapCR = 0
 		let g:nvim_lsp_autostart = {}
+		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
 		" speed up loading
 		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
 		runtime clipboard_config.lua
+	else
+		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	endif
 
-	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 	" 'vimspector' | 'nvim-dap' | ''
@@ -447,21 +449,21 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		" 左对齐和右对齐的分割点
 		set statusline+=%=
-		function RightStatusLine()
-			let l:result = ''
-			if &diff == 0 && winwidth(0) > 60 && exists('g:asyncrun_status')
-				if g:asyncrun_status == 'running'
-					let l:result .= ' '
-				elseif g:asyncrun_status == 'success'
-					let l:result .= '󰄴 '
-				elseif g:asyncrun_status == 'failure'
-					let l:result .= ' '
+		if v:version >= 820
+			function RightStatusLine()
+				let l:result = ''
+				if &diff == 0 && winwidth(0) > 60 && exists('g:asyncrun_status')
+					if g:asyncrun_status == 'running'
+						let l:result .= ' '
+					elseif g:asyncrun_status == 'success'
+						let l:result .= '󰄴 '
+					elseif g:asyncrun_status == 'failure'
+						let l:result .= ' '
+					endif
+					let l:result .= '%l/%L,%v %Y %{&fenc}'
 				endif
-				let l:result .= '%l/%L,%v %Y %{&fenc}'
-			endif
-			return l:result
-		endfunction
-		if v:version >= 800
+				return l:result
+			endfunction
 			if show_status && g:ai_complete == 'codeium'
 				set statusline+=%2*%{winwidth(0)>60?codeium#GetStatusString():''}\ %{%RightStatusLine()%}
 			else

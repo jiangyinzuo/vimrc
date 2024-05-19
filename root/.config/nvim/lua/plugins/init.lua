@@ -178,19 +178,20 @@ return {
 	},
 	-- A graphical display window manager in neovim
 	-- {'altermo/nxwm',branch='x11'},
-	{
-		"sourcegraph/sg.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
-		},
-		config = function()
-			vim.keymap.set("n", "<leader>sg", function()
-				require("sg.extensions.telescope").fuzzy_search_results()
-			end)
-		end,
-		-- If you have a recent version of lazy.nvim, you don't need to add this!
-		build = "nvim -l build/init.lua",
-	},
+	-- TODO: uncomment it when issue #236 https://github.com/sourcegraph/sg.nvim/issues/236 is fixed.
+	-- {
+	-- 	"sourcegraph/sg.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+	-- 	},
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>sg", function()
+	-- 			require("sg.extensions.telescope").fuzzy_search_results()
+	-- 		end)
+	-- 	end,
+	-- 	-- If you have a recent version of lazy.nvim, you don't need to add this!
+	-- 	build = "nvim -l build/init.lua",
+	-- },
 
 	-- find and replace
 	{
@@ -203,7 +204,7 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 		cmd = { "Spectre" },
-		-- FIXME: do not add opts, it will break the UI behaviors
+		-- NOTE: do not add opts, it will break the UI behaviors
 	},
 	{
 		"ray-x/sad.nvim",
@@ -222,4 +223,15 @@ return {
 		"ray-x/guihua.lua",
 		build = "cd lua/fzy && make",
 	},
+
+	-- {
+	-- 	"amitds1997/remote-nvim.nvim",
+	-- 	version = "*", -- Pin to GitHub releases
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim", -- For standard functions
+	-- 		"MunifTanjim/nui.nvim", -- To build the plugin UI
+	-- 		"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+	-- 	},
+	-- 	config = true,
+	-- },
 }

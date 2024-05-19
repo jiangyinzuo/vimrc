@@ -11,6 +11,44 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 	-- try plugins in https://nvimdev.github.io
 	return {
 		{
+			"SmiteshP/nvim-navic",
+			opts = {
+				icons = {
+					File = " ",
+					Module = " ",
+					Namespace = " ",
+					Package = " ",
+					Class = " ",
+					Method = " ",
+					Property = " ",
+					Field = " ",
+					Constructor = " ",
+					Enum = " ",
+					Interface = " ",
+					Function = " ",
+					Variable = " ",
+					Constant = " ",
+					String = " ",
+					Number = " ",
+					Boolean = " ",
+					Array = " ",
+					Object = " ",
+					Key = " ",
+					Null = " ",
+					EnumMember = " ",
+					Struct = " ",
+					Event = " ",
+					Operator = " ",
+					TypeParameter = " ",
+				},
+				highlight = true,
+				separator = " > ",
+				depth_limit = 0,
+				depth_limit_indicator = "..",
+				safe_output = true,
+			},
+		},
+		{
 			"neovim/nvim-lspconfig",
 			priority = 500,
 			dependencies = {
@@ -161,7 +199,22 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				"nvim-treesitter/nvim-treesitter",
 			},
 			config = function()
-				require("go").setup()
+				require("go").setup({
+					lsp_cfg = {
+						on_attach = lsp.on_attach,
+						capabilities = lsp.get_capabilities(),
+					},
+				})
+				-- Run gofmt + goimports on save
+				local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+				local lsp = require("lsp")
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					pattern = "*.go",
+					callback = function()
+						require("go.format").goimports()
+					end,
+					group = format_sync_grp,
+				})
 			end,
 			event = { "CmdlineEnter" },
 			ft = { "go", "gomod" },
@@ -181,7 +234,7 @@ else
 		{
 			"neoclide/coc.nvim",
 			branch = "release",
-			event = 'UIEnter',
+			event = "UIEnter",
 			init = function()
 				vim.cmd([[source ~/.vim/vimrc.d/coc.vim]])
 			end,

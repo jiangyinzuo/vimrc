@@ -1,15 +1,18 @@
 #!/bin/bash
 
+commit=$1
+
 sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config automake
 
-build_dir=$(pwd)/build
-mkdir -p $build_dir
-cd $build_dir
+function _uninstall() {
+	sudo make uninstall
+}
 
-wget https://github.com/tmux/tmux/archive/refs/heads/master.zip -O tmux-master.zip
-unzip tmux-master.zip
-cd tmux-master
+function _install() {
+	sh autogen.sh
+	./configure && make
+	sudo make install
+}
 
-sh autogen.sh
-./configure && make
-sudo make install
+. install/git.sh
+main https://github.com/tmux/tmux.git tmux $commit
