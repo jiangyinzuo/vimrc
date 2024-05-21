@@ -2,6 +2,13 @@ local M = {}
 
 local function setup_lsp(on_attach, capabilities)
 	local lspconfig = require("lspconfig")
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "ccls", false) then
+		lspconfig.ccls.setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			init_options = vim.g.ccls_init_options,
+		})
+	end
 	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", false) then
 		lspconfig.clangd.setup({
 			on_attach = on_attach,

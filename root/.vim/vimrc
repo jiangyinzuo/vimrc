@@ -21,6 +21,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 	else
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	endif
+	let g:ccls_init_options = {
+				\  "compilationDatabaseDirectory": "build",
+				\    "index": {
+				\      "threads":  0
+				\    },
+				\    "clang": {
+				\      "excludeArgs": ["-frounding-math"],
+				\    }
+				\}
 
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)

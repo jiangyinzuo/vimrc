@@ -109,6 +109,7 @@ https://github.com/oceanbase/oceanbase/blob/develop/src/rootserver/ob_ddl_servic
 
 - clangd可能会非常慢(显示diagnostic可能需要2-3分钟以上）
 - 某些重命名功能可能会失败
+	- clangd重命名功能可能要等1-2分钟，或者coredump
 	- 机器内存不够可能导致clangd coredump
 
 或许需要选择性关闭某些功能。

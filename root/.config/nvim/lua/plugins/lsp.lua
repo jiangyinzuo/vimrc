@@ -57,6 +57,12 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 			config = lsp.lspconfig,
 		},
+		{
+			"ranjithshegde/ccls.nvim",
+			dependencies = {
+				"neovim/nvim-lspconfig",
+			},
+		},
 		-- 目前缺乏type hierarchy tree UI
 		{
 			"nvimdev/lspsaga.nvim",

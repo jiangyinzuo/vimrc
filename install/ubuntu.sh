@@ -7,9 +7,9 @@ prompt=""
 
 function install_tmux() {
 	# Ubuntu18.04默认安装tmux2.6
-	# tmux2.6中，使用fzf的CTRL-R快捷键会卡死，请手动运行 cd ~/vimrc && ./install/build_tmux_from_source.sh安装
+	# tmux2.6中，使用fzf的CTRL-R快捷键会卡死，请手动运行 cd ~/vimrc && ./install/build_tmux.sh安装
 	if [[ $UBUNTU_VERSION == "18.04" ]]; then
-		./install/build_tmux_from_source.sh
+		./install/build_tmux.sh
 	else
 		sudo apt-get install -y tmux
 	fi
@@ -17,7 +17,7 @@ function install_tmux() {
 
 function install_nvim() {
 	if [[ $UBUNTU_VERSION == "18.04" || $UBUNTU_VERSION == "20.04" ]]; then
-		./install/build_nvim_from_source.sh $NVIM_COMMIT
+		./install/build_nvim.sh $NVIM_COMMIT
 	else
 		sudo add-apt-repository ppa:neovim-ppa/unstable
 		sudo apt-get install -y neovim
@@ -78,6 +78,7 @@ function install_git_delta() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	prompt=$prompt"
 		=== git-delta ===
+		source ~/.bashrc
 		cargo install git-delta
 
 	"
@@ -89,7 +90,7 @@ function install_vim() {
 	# sudo update-alternatives --config vim
 	# update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
 	sudo apt-get -y install libgtk-3-dev libxt-dev
-	./install/build_vim_from_source.sh $VIM_COMMIT
+	./install/build_vim.sh $VIM_COMMIT
 }
 
 function install_nvm() {

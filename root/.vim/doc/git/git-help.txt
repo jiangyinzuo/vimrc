@@ -113,7 +113,11 @@ https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/r
 *git-fetch*
 
 git只fetch某个远程仓库的某一个分支 >
-  git fetch origin master
+  git fetch origin feature
+<
+
+git远程仓库某个分支fetch到本地某个分支 >
+  git fetch origin feature:feature
 <
 
 -------------------------------------------------------------------------------
@@ -359,6 +363,10 @@ git 回滚untracked 修改
 
 -------------------------------------------------------------------------------
 
+*git-clone指定分支*
+
+git clone -b vector_search https://github.com/oceanbase/oceanbase.git --depth=100
+
 *Git在单体仓库中pull部分文件*
 
 *monorepo*
@@ -508,6 +516,8 @@ NOTE: v0.16.0 后，不再使用 ~/vimrc/tools/rsync-vimrc.sh 同步git仓库。
 
 远程服务器创建非裸仓库，直接在非裸仓库checkout machine/kiwi branch ~
 
+*git-init-vimrc-in-remote-machine*
+
 用例:
 远程服务器kiwi连不了外网，本地机器将远程服务器kiwi的`/home/jiangyinzuo/vimrc`
 作为远程仓库。本地服务器仅在main分支修改、push main分支，pull
@@ -634,3 +644,11 @@ hint:   git branch -m <name>
 *git-mv* *git-grep* git对应的mv grep
 ===============================================================================
 
+*github-cli*
+
+安装: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+
+pull并检出github某个pr
+>
+	gh pr checkout https://github.com/milvus-io/milvus/pull/33173
+<

@@ -92,6 +92,8 @@
 # 	git tree    # all commits
 # 	git tree -2 # last 2 commits
 	tree = log --graph --decorate --all --pretty=format:'%C(auto,yellow)%h %C(auto,green)%an %C(auto,blue)%ad%C(auto)%d%n%x09%C(reset)%s' --date=format-local:'%Y-%m-%d %H:%M:%S'
+	oneline = log --oneline --graph --decorate --all
+	picture = log --oneline --graph --simplify-by-decoration
 	# git status, but exclude some files
 	status-ex = "!f() { git ls-files | grep -v \"^$1/\" | xargs git status; }; f"
 	rm-file-in-history = !git-rm-file-in-history

@@ -135,6 +135,8 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
+	-- Alternatives:
+	-- https://github.com/jedrzejboczar/possession.nvim
 	{
 		"rmagatti/auto-session",
 		opts = {

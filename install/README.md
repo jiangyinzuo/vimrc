@@ -20,7 +20,7 @@ Run `sync-scripts.sh` and `:PlugUpgrade` to sync scripts (optional).
 
 Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 
-**Build from Source**: `install/build_vim_from_source.sh`
+**Build from Source**: `install/build_vim.sh`
 
 ### Neovim
 
@@ -36,7 +36,7 @@ https://github.com/neovim/neovim/blob/nightly/INSTALL.md#install-from-package
 
 See: https://github.com/neovim/neovim-releases
 
-**Build from Source**: `install/build_nvim_from_source.sh`
+**Build from Source**: `install/build_nvim.sh`
 
 ### Node.js
 
