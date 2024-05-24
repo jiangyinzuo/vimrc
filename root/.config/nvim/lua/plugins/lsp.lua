@@ -198,6 +198,8 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			ft = { "rust" },
 		},
 		{
+			-- NOTE: must ensure GOPATH/bin is in $PATH,
+			-- do not use apt install gopls, whose version is (unknown) and can not be parsed by go.nvim.
 			"ray-x/go.nvim",
 			dependencies = { -- optional packages
 				"ray-x/guihua.lua",
@@ -206,23 +208,15 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 			config = function()
 				require("go").setup({
+					-- debug
+					verbose = false,
 					lsp_cfg = {
-						on_attach = lsp.on_attach,
-						capabilities = lsp.get_capabilities(),
+						capabilities = require("lsp").get_capabilities(),
 					},
-				})
-				-- Run gofmt + goimports on save
-				local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
-				local lsp = require("lsp")
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					pattern = "*.go",
-					callback = function()
-						require("go.format").goimports()
-					end,
-					group = format_sync_grp,
+					-- after go.nvim's on_attach is called, then this on_attach will be called
+					lsp_on_client_start = require("lsp").on_attach,
 				})
 			end,
-			event = { "CmdlineEnter" },
 			ft = { "go", "gomod" },
 			-- 该命令在网络环境差的情况下可能会卡顿，故手动执行
 			-- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries

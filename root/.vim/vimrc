@@ -345,6 +345,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" :open 无法使用通配符，不能使用wildmode
 	" :next 可以打开多个文件
 	command! -nargs=1 FindFilesToQf call noplug#SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
+	command! -nargs=1 FdToQf call noplug#SystemToQf('fd ' . <q-args> . ' | xargs file | sed "s/:/:1:/"')
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
 

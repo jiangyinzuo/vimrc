@@ -53,29 +53,49 @@ function install_rg_fd() {
 
 	"
 	else
+		# ripgrep:
+		# any-jump.vim cpp需要PCRE2 feature
+		# Ubuntu18.04 需要前往https://github.com/BurntSushi/ripgrep/releases
+		# 下载.deb文件(ripgrep_14.1.0-1_amd64.deb 可以用)
 		sudo apt-get install -y ripgrep fd-find
+
+		# 输出结果
+		if [ "$path_found" = false ]; then
+			echo "$path_to_check is in \$PATH"
+		else
+			echo "$path_to_check is not in \$PATH"
+		fi
+
+		ln -s $(which fdfind) $HOME/.local/bin/fd
+		prompt=$prompt"
+		=== fd ===
+		请检查 $HOME/.local/bin/fd 是否在 \$PATH 中
+		"
 	fi
 }
 
 function install_other_apt_packages() {
-	# ripgrep:
-	# any-jump.vim cpp需要PCRE2 feature
-	# Ubuntu18.04 需要前往https://github.com/BurntSushi/ripgrep/releases
-	# 下载.deb文件(ripgrep_14.1.0-1_amd64.deb 可以用)
-	#
 	# apt install -y golang
 	# Leaderf needs python3-dev and python3-distutils
 	# wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
-	sudo apt-get install -y curl ripgrep fd-find tree bat git cmake sqlformat python3-dev python3-distutils wamerican
+	sudo apt-get install -y curl tree bat git cmake sqlformat python3-dev python3-distutils wamerican
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113
 	# apt install ripgrep pandoc poppler-utils ffmpeg
 }
 
+_cargo_installed=false
+function install_cargo() {
+	if [ "$_cargo_installed" = false ]; then
+		_cargo_installed=true
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	fi
+}
+
 function install_git_delta() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	install_cargo
 	prompt=$prompt"
 		=== git-delta ===
 		source ~/.bashrc
@@ -114,6 +134,8 @@ function install_gvm() {
 	bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 	prompt=$prompt"
 		=== Go ===
+		必须确保GOPATH/bin在环境变量，保证gopls能找到。
+		不要用apt安装gopls，该版本为unknown，影响go.nvim插件解析。
 		source ~/.bashrc
 		gvm install go1.16.3
 		gvm use go1.16.3

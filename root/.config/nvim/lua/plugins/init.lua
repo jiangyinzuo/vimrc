@@ -180,20 +180,19 @@ return {
 	},
 	-- A graphical display window manager in neovim
 	-- {'altermo/nxwm',branch='x11'},
-	-- TODO: uncomment it when issue #236 https://github.com/sourcegraph/sg.nvim/issues/236 is fixed.
-	-- {
-	-- 	"sourcegraph/sg.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
-	-- 	},
-	-- 	config = function()
-	-- 		vim.keymap.set("n", "<leader>sg", function()
-	-- 			require("sg.extensions.telescope").fuzzy_search_results()
-	-- 		end)
-	-- 	end,
-	-- 	-- If you have a recent version of lazy.nvim, you don't need to add this!
-	-- 	build = "nvim -l build/init.lua",
-	-- },
+	{
+		"sourcegraph/sg.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+		},
+		config = function()
+			vim.keymap.set("n", "<leader>sg", function()
+				require("sg.extensions.telescope").fuzzy_search_results()
+			end)
+		end,
+		-- If you have a recent version of lazy.nvim, you don't need to add this!
+		build = "nvim -l build/init.lua",
+	},
 
 	-- find and replace
 	{

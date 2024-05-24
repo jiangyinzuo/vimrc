@@ -121,7 +121,7 @@ local function setup_lsp(on_attach, capabilities)
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
-	local other_servers = { "jsonls", "basedpyright", "typst_lsp", "gopls", "cmake" }
+	local other_servers = { "jsonls", "basedpyright", "typst_lsp", "cmake" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
 		table.insert(other_servers, "ruff_lsp")
@@ -195,7 +195,7 @@ function M.lspconfig()
 	})
 	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
 
-	setup_lsp(M.on_attach, M.capabilities)
+	setup_lsp(M.on_attach, M.get_capabilities())
 
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
