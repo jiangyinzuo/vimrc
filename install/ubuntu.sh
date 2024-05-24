@@ -79,7 +79,7 @@ function install_other_apt_packages() {
 	# Leaderf needs python3-dev and python3-distutils
 	# wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
-	sudo apt-get install -y curl tree bat git cmake sqlformat python3-dev python3-distutils wamerican
+	sudo apt-get install -y curl tree bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113
@@ -125,20 +125,30 @@ function install_nvm() {
 	"
 }
 
+_go_installged=false
 function install_go() {
-	sudo snap install go --classic
+	if [ "$_go_installed" = false ]; then
+		_go_installed=true
+		sudo snap install go --classic
+		prompt=$prompt"
+		=== Go ===
+		必须确保GOPATH/bin在环境变量，保证gopls能找到。
+		不要用apt安装gopls/delve，该版本为unknown，影响go.nvim插件解析。
+
+		"
+	fi
 }
 
 function install_gvm() {
+	install_go
 	sudo apt-get -y install curl git mercurial make binutils bison gcc build-essential
 	bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 	prompt=$prompt"
-		=== Go ===
-		必须确保GOPATH/bin在环境变量，保证gopls能找到。
-		不要用apt安装gopls，该版本为unknown，影响go.nvim插件解析。
+		=== GVM ===
 		source ~/.bashrc
 		gvm install go1.16.3
 		gvm use go1.16.3
+
 	"
 }
 

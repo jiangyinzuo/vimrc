@@ -23,7 +23,7 @@ if vim.g.vim_dap == "nvim-dap" then
 			"mfussenegger/nvim-dap-python",
 			dependencies = {
 				"mfussenegger/nvim-dap",
-			}
+			},
 		},
 		{
 			"theHamsta/nvim-dap-virtual-text",
@@ -31,6 +31,10 @@ if vim.g.vim_dap == "nvim-dap" then
 			opts = {
 				commented = true,
 			},
+		},
+		{
+			"julianolf/nvim-dap-lldb",
+			dependencies = { "mfussenegger/nvim-dap" },
 		},
 	}
 else

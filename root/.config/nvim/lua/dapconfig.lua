@@ -32,10 +32,32 @@ function M.dapconfig()
 		type = "executable",
 		command = "OpenDebugAD7",
 	}
+	dap.adapters.codelldb = {
+		type = "server",
+		port = "${port}",
+		executable = {
+			-- CHANGE THIS to your path!
+			command = "codelldb",
+			args = { "--port", "${port}" },
+
+			-- On windows you may have to uncomment this:
+			-- detached = false,
+		},
+	}
 
 	dap.configurations.cpp = {
 		{
-			name = "Launch file",
+			name = "Launch debugger(codelldb)",
+			type = "codelldb",
+			request = "launch",
+			cwd = "${workspaceFolder}",
+			program = function()
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			end,
+			stopOnEntry = false,
+		},
+		{
+			name = "Launch file(cppdbg)",
 			type = "cppdbg",
 			request = "launch",
 			program = function()
@@ -45,7 +67,7 @@ function M.dapconfig()
 			stopAtEntry = true,
 		},
 		{
-			name = "Attach to gdbserver :1234",
+			name = "Attach to gdbserver :1234(cppdbg)",
 			type = "cppdbg",
 			request = "launch",
 			MIMode = "gdb",
@@ -57,9 +79,10 @@ function M.dapconfig()
 			end,
 		},
 	}
-
-	dap.configurations.c = dap.configurations.cpp
-	dap.configurations.rust = dap.configurations.cpp
+	for _, language in ipairs({ "c", "rust" }) do
+		-- append dap.configurations[language] with gdb configurations
+		dap.configurations[language] = dap.configurations["cpp"]
+	end
 
 	require("dap-python").setup("python3")
 	vim.api.nvim_create_user_command("DapPytestMethod", function(_)
