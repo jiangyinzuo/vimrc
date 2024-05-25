@@ -42,23 +42,23 @@ nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> grd <Plug>(coc-definition)
+nmap <silent> grt <Plug>(coc-type-definition)
+nmap <silent> gri <Plug>(coc-implementation)
 " See Also: :HelpRg mapping in root/.vim/vimrc.d/fzf.vim
-nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> grr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
-xmap <leader>ac  <Plug>(coc-codeaction-selected)
+xmap gra  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap gra  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
+nmap grs  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -70,7 +70,7 @@ nmap <silent> <leader>re <Plug>(coc-codeaction-refactor-selected)
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
-nmap <leader>rn <Plug>(coc-rename)
+nmap grn <Plug>(coc-rename)
 nmap <leader>fmt <Plug>(coc-format)
 xmap <leader>fmt <Plug>(coc-format-selected)
 

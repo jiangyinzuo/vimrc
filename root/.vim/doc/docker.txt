@@ -1,3 +1,4 @@
+vim:ft=help
 *docker* |nvidia-docker|
 
 Ubuntu 18.04安装 docker
@@ -42,7 +43,8 @@ https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 		]
 	}
 <
-阿里云也可以先docker login --username=xxx registry.cn-hangzhou.aliyuncs.com
+阿里云容器镜像服务 ACR
+也可以先docker login --username=xxx registry.cn-hangzhou.aliyuncs.com
 
 
 重启docker
@@ -122,4 +124,15 @@ https://hub.docker.com/r/nvidia/cuda
 nvidia-docker使用nvidia-smi，需要容器能访问GPU
 >
 	docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
+<
+
+
+-------------------------------------------------------------------------------
+Docker run 示例 ~
+
+开发OpenGauss使用的创建容器命令
+>
+	docker run -it --name jyz-openeuler --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e LANG=$LANG -e LC_ALL=$LC_ALL -v /usr3/jiangyinzuo_data:/data openeuler/openeuler:22.03
+bash
+	docker run -it --name jyz-centos7.6 --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e LANG=$LANG -e LC_ALL=$LC_ALL -v /usr3/jiangyinzuo_data:/data centos:centos7.6.1810 bash
 <

@@ -32,10 +32,6 @@ if vim.g.vim_dap == "nvim-dap" then
 				commented = true,
 			},
 		},
-		{
-			"julianolf/nvim-dap-lldb",
-			dependencies = { "mfussenegger/nvim-dap" },
-		},
 	}
 else
 	return {}

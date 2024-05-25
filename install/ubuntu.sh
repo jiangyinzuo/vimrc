@@ -116,6 +116,7 @@ function install_vim() {
 function install_nvm() {
 	# install nodejs
 	# alternative: n
+	# Ubuntu18.04安装node20的一种方案: https://github.com/nodesource/distributions/issues/1392#issuecomment-1815887430
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 	prompt=$prompt"
 		=== Node.js ===
