@@ -25,6 +25,12 @@ function M.nvim_treesitter()
 		endwise = {
 			enable = true,
 		},
+		-- https://github.com/andymass/vim-matchup
+		matchup = {
+			enable = true, -- mandatory, false will disable the whole extension
+			disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+			-- [options]
+		},
 	})
 end
 

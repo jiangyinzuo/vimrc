@@ -82,6 +82,9 @@ http://keyserver.ubuntu.com 查询
 	do-release-upgrade
 <
 
+手工清理source list，保证`sudo apt update`不报错
+更新重启后，ssh端口配置变为默认值22
+
 Your python3 install is corrupted
 >
 	sudo ln -fs /usr/bin/python3.6 /usr/bin/python3

@@ -8,6 +8,7 @@ local M = {
 		"vim-scripts/dbext.vim",
 		ft = "sql",
 	},
+	"andymass/vim-matchup",
 	"jiangyinzuo/bd.vim",
 	{
 		"lervag/vimtex",

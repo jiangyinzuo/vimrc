@@ -15,6 +15,8 @@ call plug#begin(g:vim_plug_dir)
 Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
 
+Plug 'andymass/vim-matchup'
+
 if has('nvim') || v:version >= 801
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'

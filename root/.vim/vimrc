@@ -21,16 +21,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	else
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	endif
-	let g:ccls_init_options = {
-				\  "compilationDatabaseDirectory": "build",
-				\    "index": {
-				\      "threads":  0
-				\    },
-				\    "clang": {
-				\      "excludeArgs": ["-frounding-math"],
-				\    }
-				\}
-
+	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 	" 'vimspector' | 'nvim-dap' | ''
@@ -77,10 +68,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置
 	set modeline
 	set noexrc " 不读取当前文件夹的.vimrc
-
-	if has("patch-7.4.1649")
-		packadd! matchit
-	endif
 
 	if exists('&viminfofile') && !has('nvim')
 		set viminfofile=$HOME/.vim/.viminfo
@@ -414,6 +401,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if g:no_plug
 		" https://zhuanlan.zhihu.com/p/106309525
 		autocmd FileType c,cpp,cuda setlocal completefunc=noplug#MyCppCompleteFunc
+		if has("patch-7.4.1649")
+			packadd! matchit
+		endif
 	endif
 
 	""""""""""""""""" StatusLine """"""""""""""""""

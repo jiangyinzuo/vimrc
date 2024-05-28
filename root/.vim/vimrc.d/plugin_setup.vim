@@ -28,6 +28,11 @@ nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 
+let g:matchup_override_vimtex = 1
+let g:matchup_surround_enabled = 1
+let g:loaded_matchit = 1
+let g:matchup_matchparen_enabled = 0
+
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 
