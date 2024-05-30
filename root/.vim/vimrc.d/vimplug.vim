@@ -36,8 +36,9 @@ if !exists('g:vscode')
 	" Plug 'mbbill/undotree'
 	" let g:undotree_WindowLayout = 4
 	Plug 'simnalamburt/vim-mundo'
-	" Enable persistent undo so that undo history persists across vim sessions
 
+	" suda is a plugin to read or write files with sudo command.
+	Plug 'lambdalisue/vim-suda'
 	Plug 'aperezdc/vim-template'
 	
 	Plug 'szw/vim-maximizer'

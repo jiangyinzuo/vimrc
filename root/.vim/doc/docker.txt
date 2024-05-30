@@ -1,6 +1,10 @@
 vim:ft=help
 *docker* |nvidia-docker|
 
+nvidia-docker 被achieved了，使用 *nvidia-container-toolkit*
+- https://github.com/NVIDIA/nvidia-docker
+- https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
 Ubuntu 18.04安装 docker
 https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 

@@ -1,3 +1,4 @@
+vim:ft=help
 *command-line-tool*
 
 命令行软件 vs 图形界面软件 ~
@@ -20,6 +21,7 @@ https://github.com/jiangyinzuo/write-maintainable-command-line-tools
 *thefuck* 基于规则自动修正上一个命令的错误(too slow)
 
 https://explainshell.com/
+https://www.commands.dev/
 
 *shellcheck*
 

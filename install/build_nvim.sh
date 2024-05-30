@@ -1,9 +1,11 @@
 #!/bin/bash
 
+PYTHON=/usr/bin/python3
+
 commit=$1
 
 sudo apt-get -y install ninja-build gettext cmake unzip curl build-essential
-pip3 install -U neovim
+$PYTHON -m pip install -U neovim
 
 function _uninstall() {
 	sudo cmake --build build/ --target uninstall

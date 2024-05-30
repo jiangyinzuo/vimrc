@@ -8,6 +8,8 @@ local M = {
 		"vim-scripts/dbext.vim",
 		ft = "sql",
 	},
+	-- suda is a plugin to read or write files with sudo command.
+	"lambdalisue/vim-suda",
 	"andymass/vim-matchup",
 	"jiangyinzuo/bd.vim",
 	{

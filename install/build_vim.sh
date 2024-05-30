@@ -4,6 +4,8 @@ commit=$1
 
 MAKE_FLAG=${MAKE_FLAG:-"-j4"}
 
+sudo apt-get -y install libgtk-3-dev libxt-dev
+
 function _uninstall() {
 	sudo make uninstall
 }

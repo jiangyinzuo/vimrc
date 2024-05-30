@@ -211,6 +211,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
 	endif
 
+	" Enable persistent undo so that undo history persists across vim sessions
 	if has("persistent_undo")
 		if has('nvim')
 			let target_path = expand('~/.vim/undodir/nvim')
