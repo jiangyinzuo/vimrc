@@ -4,7 +4,12 @@ return {
 	{
 		"ishan9299/nvim-solarized-lua",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 2,
+		priority = 2000,
+		config = function()
+			-- Reset coc.nvim highlight after colorscheme loaded
+			-- See: https://github.com/neoclide/coc.nvim/issues/4857
+			vim.cmd("colorscheme solarized")
+		end,
 	},
 	{
 		"nvim-tree/nvim-web-devicons",

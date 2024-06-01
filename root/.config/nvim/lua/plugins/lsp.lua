@@ -214,7 +214,11 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						capabilities = require("lsp").get_capabilities(),
 					},
 					-- after go.nvim's on_attach is called, then this on_attach will be called
-					lsp_on_client_start = require("lsp").on_attach,
+					lsp_on_client_start = function(client, bufnr)
+						local lsp_module = require("lsp")
+						lsp_module.attach_navic(client, bufnr)
+						lsp_module.attach_inlay_hints(client, bufnr)
+					end,
 				})
 			end,
 			ft = { "go", "gomod" },

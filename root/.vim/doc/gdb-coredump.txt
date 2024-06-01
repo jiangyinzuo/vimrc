@@ -147,6 +147,7 @@ vimspector中调试多线程C++程序。
 
 For the C++ (GDB/LLDB) debugging environment, you can execute GDB, LLDB and LLDB-MI commands directly through the debug console with the -exec command, but be careful, executing commands directly in the debug console is untested and might crash VS Code in some cases.
 
+codelldb的执行速度比vscode-cpptools快。因为codelldb是Rust实现，vscode-cpptools是TypeScript实现。
 -------------------------------------------------------------------------------
 *lldb*  https://lldb.llvm.org/
 

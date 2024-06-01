@@ -32,12 +32,14 @@ function M.dapconfig()
 		type = "executable",
 		command = "OpenDebugAD7",
 	}
+
+	-- TODO: Data Visualization? https://github.com/vadimcn/codelldb/wiki/Data-visualization
 	dap.adapters.codelldb = {
 		type = "server",
 		port = "${port}",
 		executable = {
 			-- CHANGE THIS to your path!
-			command = "codelldb",
+			command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
 			args = { "--port", "${port}" },
 
 			-- On windows you may have to uncomment this:

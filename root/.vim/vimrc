@@ -237,7 +237,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set t_ut=
 	if has('nvim') || v:version >= 801
 		autocmd Filetype c,cpp,rust,cuda ++once packadd termdebug
-		autocmd Filetype termdebug setlocal termwinsize=0*10000
+		if exists('&termwinsize')
+			autocmd Filetype termdebug setlocal termwinsize=0*10000
+		endif
 		let g:termdebug_config = {}
 		let g:termdebug_config['command'] = "gdb"
 		" 设置一个较大的宽度，防止termdebug gdb窗口折行

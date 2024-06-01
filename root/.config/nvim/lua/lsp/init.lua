@@ -34,6 +34,9 @@ local function setup_lsp(on_attach, capabilities)
 			on_attach = on_attach,
 			settings = {
 				Lua = {
+					codeLens = {
+						enable = true,
+					},
 					runtime = {
 						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
 						version = "LuaJIT",
@@ -156,13 +159,33 @@ local function setup_lsp(on_attach, capabilities)
 	-- })
 end
 
-M.on_attach = function(client, bufnr)
+M.attach_navic = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		local navic = require("nvim-navic")
 		navic.attach(client, bufnr)
 	end
+end
+
+M.attach_inlay_hints = function(client, _)
 	if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
 		vim.lsp.inlay_hint.enable(true)
+	end
+end
+
+local function attach_codelens(client, bufnr)
+	-- 作者：贺呵呵
+	-- 链接：https://www.zhihu.com/question/656229461/answer/3506519415
+	-- 来源：知乎
+	-- 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+	-- code lens
+	if client.supports_method("textDocument/codeLens", { bufnr = bufnr }) then
+		vim.lsp.codelens.refresh({ bufnr = bufnr })
+		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.codelens.refresh({ bufnr = bufnr })
+			end,
+		})
 	end
 end
 
@@ -195,7 +218,11 @@ function M.lspconfig()
 	})
 	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
 
-	setup_lsp(M.on_attach, M.get_capabilities())
+	setup_lsp(function(client, bufnr)
+		M.attach_navic(client, bufnr)
+		M.attach_inlay_hints(client, bufnr)
+		attach_codelens(client, bufnr)
+	end, M.get_capabilities())
 
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer

@@ -1,4 +1,5 @@
-*presentation.cnx*
+vim:ft=help
+*presentation.txt*
 
 ===============================================================================
 
@@ -12,6 +13,7 @@
   `iamcco/markdown-preview.nvim`等vim插件或Google Chrome markdown插件。
 
 - typst/latex作为一种排版语言，语法噪音过多。
+	- typst做PPT: https://github.com/touying-typ/touying
 - |pandoc|等转换工具在转pptx时，对3列布局等复杂布局的处理存在bug。
    
 https://github.com/ickc/pandoc-pptx/blob/master/index.csv

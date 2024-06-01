@@ -75,7 +75,9 @@ local M = {
 		"jiangyinzuo/vim-visual-multi",
 		branch = "master",
 	},
+	-- TODO: see https://github.com/nvim-neotest/neotest
 	"vim-test/vim-test",
+	{ "alepez/vim-gtest", ft = { "c", "cpp", "cuda" } },
 	"simnalamburt/vim-mundo",
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
@@ -108,7 +110,6 @@ local M = {
 	},
 	"tpope/vim-fugitive",
 	"junegunn/gv.vim",
-	{ "alepez/vim-gtest", ft = { "c", "cpp", "cuda" } },
 	-- Alternatives: https://github.com/HakonHarnes/img-clip.nvim
 	"jiangyinzuo/img-paste.vim",
 	"skywind3000/vim-quickui",

@@ -36,6 +36,8 @@ https://www.swebench.com/
 
 https://www.kajetandomagala.com/codeium-vs-copilot/
 
+deepseek https://www.deepseek.com/
+
 AI Tool 具备的功能 ~
 
 code completion

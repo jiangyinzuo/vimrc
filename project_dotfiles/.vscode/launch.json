@@ -1,0 +1,30 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch unittest via codelldb",
+			"type": "codelldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/cmake_build/bin/all_tests",
+			"cwd": "${workspaceFolder}",
+			"args": ["--gtest_filter=Query.ShowExecutor"],
+			"env": {
+					"LD_LIBRARY_PATH": "${env:LD_LIBRARY_PATH}:${workspaceFolder}/internal/core/output/lib"
+			},
+			"stopOnEntry": false
+		},
+		{
+			"name": "Launch unittest via cpptools",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/cmake_build/bin/all_tests",
+			"cwd": "${workspaceFolder}",
+			"args": ["--gtest_filter=Query.ShowExecutor"],
+			"environment": [{
+				"name": "LD_LIBRARY_PATH",
+				"value": "${env:LD_LIBRARY_PATH}:${workspaceFolder}/internal/core/output/lib"
+			}],
+			"stopAtEntry": true
+		}
+	]
+}

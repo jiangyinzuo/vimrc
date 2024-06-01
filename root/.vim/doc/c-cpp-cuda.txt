@@ -86,6 +86,10 @@ https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
 
 *xmake*
 
+|conda|
+
+使用项目：rapidsai/RAFT
+
 --------------------------------------------------------------------------------------
 *c++20-module*
 
