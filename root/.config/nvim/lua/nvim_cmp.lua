@@ -9,6 +9,7 @@ local snippet_source =
 	{
 		name = "snippets",
 		max_item_count = 10,
+		priority = 10,
 	}
 
 local function cmp_format_fn(entry, vim_item)
@@ -26,6 +27,16 @@ local function cmp_format_fn(entry, vim_item)
 end
 
 function M.nvim_cmp()
+	require("cmp_dictionary").setup({
+		exact_length = 2,
+		paths = { vim.api.nvim_get_option_value("dictionary", {}) },
+		first_case_insensitive = true,
+		document = {
+			enable = true,
+			-- apt install wordnet
+			command = { "wn", "${label}", "-over" },
+		},
+	})
 	local cmp = require("cmp")
 	if vim.g.vimrc_lsp == "nvim-lsp" then
 		local feedkey = function(key, mode)
@@ -35,7 +46,28 @@ function M.nvim_cmp()
 			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 		end
+
+		local comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			-- cmp.config.compare.scopes,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			cmp.config.compare.kind,
+			-- cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		}
+		if vim.g.vimrc_lsp == "nvim-lsp" then
+			table.insert(comparators, 5, require("clangd_extensions.cmp_scores"))
+		end
+
 		cmp.setup({
+			sorting = {
+				-- priority_weight = 2,
+				comparators = comparators,
+			},
 			snippet = {
 				-- REQUIRED - you must specify a snippet engine
 				expand = function(args)
@@ -80,68 +112,57 @@ function M.nvim_cmp()
 				end, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-				-- NOTE: 越后面优先级越高
-				-- `cmd.setup.filetype('text', {...})` does not work.
-				{
-					name = "dictionary",
-					keyword_length = 2,
-				},
-				{ name = "path" },
-				{ name = "buffer" },
+				-- NOTE: 不指定优先级时，越后面优先级越低
+				{ name = "path", priority = 10 },
+				{ name = "buffer", priority = 10 },
 				{
 					name = "omni",
 					option = {
 						disable_omnifuncs = { "v:lua.vim.lsp.omnifunc" },
 					},
+					priority = 10,
 				},
-				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp", priority = 10 },
 				snippet_source,
 			}),
 			formatting = {
 				format = cmp_format_fn,
 			},
 		})
-
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype({ "tex", "bib" }, {
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "vimtex" },
-			}, {
+				{ name = "nvim_lsp", priority = 10 },
+				{ name = "vimtex", priority = 10 },
 				snippet_source,
-				{ name = "buffer" },
-				{ name = "path" },
+			}, {
+				{ name = "buffer", priority = 10 },
+				{ name = "path", priority = 10 },
 				{
 					name = "dictionary",
 					keyword_length = 2,
+					priority = 10,
 				},
 			}),
 			formatting = {
 				format = cmp_format_fn,
 			},
 		})
-		local dictfile = vim.api.nvim_get_option_value("dictionary", {})
-		local dict = {
-			["*"] = {},
-			text = { dictfile },
-			tex = { dictfile },
-			markdown = { dictfile },
-		}
-
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "text,tex,markdown",
-			callback = function(ev)
-				require("cmp_dictionary").setup({
-					exact_length = 2,
-					paths = dict[ev.match] or dict["*"],
-					first_case_insensitive = true,
-					document = {
-						enable = true,
-						-- apt install wordnet
-						command = { "wn", "${label}", "-over" },
-					},
-				})
-			end,
+		cmp.setup.filetype({ "markdown" }, {
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp", priority = 10 },
+				snippet_source,
+				{ name = "buffer", priority = 10 },
+				{ name = "path", priority = 10 },
+				{
+					name = "dictionary",
+					keyword_length = 2,
+					priority = 10,
+				},
+			}),
+			formatting = {
+				format = cmp_format_fn,
+			},
 		})
 	end
 
@@ -169,25 +190,6 @@ function M.nvim_cmp()
 		}, {
 			{ name = "cmdline" },
 		}),
-	})
-
-	local comparators = {
-		cmp.config.compare.offset,
-		cmp.config.compare.exact,
-		cmp.config.compare.recently_used,
-		cmp.config.compare.kind,
-		cmp.config.compare.sort_text,
-		cmp.config.compare.length,
-		cmp.config.compare.order,
-	}
-	if vim.g.vimrc_lsp == "nvim-lsp" then
-		table.insert(comparators, require("clangd_extensions.cmp_scores"))
-	end
-	cmp.setup({
-		-- ... rest of your cmp setup ...
-		sorting = {
-			comparators = comparators,
-		},
 	})
 end
 
