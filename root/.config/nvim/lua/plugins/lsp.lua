@@ -177,13 +177,27 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				})
 			end,
 		},
+		-- {
+		-- 	-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+		-- 	"folke/neodev.nvim",
+		-- 	opts = {},
+		-- 	ft = { "lua" },
+		-- 	priority = 501,
+		-- },
 		{
-			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-			"folke/neodev.nvim",
-			opts = {},
-			ft = { "lua" },
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
 			priority = 501,
+			opts = {
+				library = {
+					vim.env.LAZY .. "/luvit-meta/library", -- see below
+					-- You can also add plugins you always want to have loaded.
+					-- Useful if the plugin has globals or types you want to use
+					-- vim.env.LAZY .. "/LazyVim", -- see below
+				},
+			},
 		},
+		{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 		{
 			"hedyhli/outline.nvim",
 			lazy = true,
@@ -198,7 +212,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			ft = { "rust" },
 		},
 		{
-			-- NOTE: must ensure GOPATH/bin is in $PATH,
+			-- NOTE: must ensure `go env GOPATH`/bin is in $PATH,
 			-- do not use apt install gopls, whose version is (unknown) and can not be parsed by go.nvim.
 			"ray-x/go.nvim",
 			dependencies = { -- optional packages
@@ -210,6 +224,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				require("go").setup({
 					-- debug
 					verbose = false,
+					lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
 					lsp_cfg = {
 						capabilities = require("lsp").get_capabilities(),
 					},
