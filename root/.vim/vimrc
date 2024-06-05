@@ -100,6 +100,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	else
 		set wildmode=list:full
 	endif
+	if has('patch-9.1.463') || has('nvim')
+		set completeopt+=fuzzy
+	endif
 	set wildignore=.git/*,build/*,.cache/*
 	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
 	" https://www.skywind.me/blog/archives/2021

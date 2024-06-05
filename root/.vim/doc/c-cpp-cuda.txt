@@ -32,6 +32,31 @@ CompileFlags:
   Remove: [-fopenmp]
 <
 clangd还没实现outgoing calls in call hierarchy https://github.com/llvm/llvm-project/pull/77556
+
+clangd omp.h not found ~
+
+locate /omp.h 找到omp.h文件位置，然后在`.clangd`文件中添加
+
+CompileFlags:
+  Add:
+    - -isystem/usr/lib/gcc/x86_64-linux-gnu/13/include/
+
+clangd / |ccls| 找不到c++系统头文件解决方法 ~
+
+安装当前系统最新的libstdc++
+
+>
+	apt search libstdc++
+	apt install libstdc++-12-dev
+<
+
+https://stackoverflow.com/questions/74785927/clangd-doesnt-recognize-standard-headers
+
+查看当前系统安装的libstdc++版本
+>
+	ls /usr/include/c++
+<
+
 --------------------------------------------------------------------------------------
 
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.

@@ -15,7 +15,7 @@ Vim/Neovim requirements:
 - vim 9.1+ (full features)
 - vim 8.2.4919+ (most of features)
 - vim 7.4.629+ (minimal)
-- neovim 0.10.0+
+- neovim 0.11.0+
 
 See [install/README.md](./install/README.md) for more details.
 
