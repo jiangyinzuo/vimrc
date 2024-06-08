@@ -169,7 +169,7 @@ command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
 command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/sr', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
 command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/sr ' . expand('%:p'))
 
-" [[palette]]读取常用项目dotfile			:ReadProjectDotFile
-command! -nargs=0 ReadProjectDotFile call fzf#run(fzf#wrap({'source': "find ~/vimrc/project_dotfiles -type f", 'sink': 'read', 'options': ['--prompt', 'ProjectDotFile > ', '--preview', 'cat {}', '--preview-window', 'up,60%']}))
+" [[palette]]读取常用项目配置文件			:ReadProjectFile
+command! -nargs=0 ReadProjectFile call fzf#run(fzf#wrap({'source': "find ~/vimrc/project_files -type f", 'sink': 'read', 'options': ['--prompt', 'ProjectFile > ', '--preview', 'cat {}', '--preview-window', 'up,60%']}))
 
 command! -nargs=0 Dictionary call fzf#run(fzf#wrap('dictionary', {'source': 'cat ' . &dict, 'sink': function("s:paste_word")}))

@@ -125,8 +125,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 	set listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 	autocmd FileType man setlocal nolist
-	" Enable :Man command
-	runtime ftplugin/man.vim
+	if !has('nvim') && exists(":Man") != 2
+		" copied from ftplugin/man.vim
+		command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
+	endif
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20

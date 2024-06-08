@@ -20,6 +20,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		runtime clipboard_config.lua
 	else
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
+		if exists(":Man") != 2
+			" copied from ftplugin/man.vim
+			command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
+		endif
 	endif
 	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
 	" tmux2.2以上才支持true color
@@ -189,8 +193,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" set listchars=eol:⏎,tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 	set listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 	autocmd FileType man setlocal nolist
-	" Enable :Man command
-	runtime ftplugin/man.vim
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20

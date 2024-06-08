@@ -24,7 +24,7 @@ See [install/README.md](./install/README.md) for more details.
 | Directory Name   | Description                           |
 | :--------------- | :------------------------------------ |
 | install          | installation scripts                  |
-| project_dotfiles | dotfiles for a project                |
+| project_files    | config files for a project            |
 | root             | dotfiles and full vim configurations  |
 | root/.vim/doc    | my vimdocs                            |
 | terminal         | configurations for terminal emulators |
