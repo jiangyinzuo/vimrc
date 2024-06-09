@@ -56,7 +56,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 	let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
-	let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--background-index", "--header-insertion=iwyu"])
+	" use CompilationDatabase instead (absolute path)
+	" See: https://clangd.llvm.org/config#compilationdatabase
+	" let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--background-index", "--header-insertion=iwyu"])
+	let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--pretty", "--background-index", "--header-insertion=iwyu"])
 	let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 	let g:clang_format = get(g:, 'clang_format', 'clang-format')
 	" black, ruff

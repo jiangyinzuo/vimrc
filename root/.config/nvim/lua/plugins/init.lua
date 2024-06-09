@@ -88,7 +88,7 @@ return {
 			"rmagatti/auto-session",
 			"nvim-tree/nvim-web-devicons",
 			"nvim-telescope/telescope-bibtex.nvim",
-			"benfowler/telescope-luasnip.nvim",
+			-- "benfowler/telescope-luasnip.nvim",
 		},
 		config = plugins_setup.telescope,
 	},

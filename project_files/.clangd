@@ -1,0 +1,4 @@
+CompileFlags:
+  # use absolute path
+  CompilationDatabase: /home/jiangyinzuo/gpudb-project-ictdb/gpudb-project-code-ictdb/duckdb-anns/build/debug
+
