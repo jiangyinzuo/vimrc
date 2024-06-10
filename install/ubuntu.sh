@@ -156,6 +156,8 @@ function install_gvm() {
 set -v
 
 install_tmux
+sudo snap install --classic zellij
+
 # option: $NVIM_COMMIT
 install_nvim
 LLVM_VERSION=${LLVM_VERSION:="-18"}
