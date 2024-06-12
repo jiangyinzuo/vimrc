@@ -222,7 +222,7 @@ uwberzug:
 
 翻译 https://github.com/afc163/fanyi#error-spawn-festival-enoent
 
->
+>bash
 	sudo apt-get install festival festvox-kallpc16k
 	npm i -g fanyi
 <
@@ -235,14 +235,18 @@ uwberzug:
 *onefetch* 查看git项目信息
 https://github.com/o2sh/onefetch
 https://onefetch.dev/
->
+>bash
 	onefetch --include-hidden
 <
 
 -------------------------------------------------------------------------------
 
+|git-quick-stats| 统计代码行数
+>bash
+	apt install git-quick-stats
+<
 *cloc* 统计代码行数
->
+>bash
 	cloc $(git ls-files)
 	cloc .
 <
