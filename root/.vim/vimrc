@@ -103,12 +103,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
 	if v:version >= 900 || has('nvim')
+		if has('patch-9.1.463') || has('nvim')
+			set completeopt+=fuzzy
+		endif
 		set wildoptions=pum " 显示popup window
 	else
 		set wildmode=list:full
-	endif
-	if has('patch-9.1.463') || has('nvim')
-		set completeopt+=fuzzy
 	endif
 	set wildignore=.git/*,build/*,.cache/*
 	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
@@ -498,8 +498,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" 关闭当前缓冲区，但不退出Vim
 			" 如果你想让Vim退出，可以用：quit 或 similar
 			bdelete
-			" 推荐用户使用less打开，但不自动执行
-			" !less %
 		endif
 	endfunction
 	" 在读取文件之前检查文件大小

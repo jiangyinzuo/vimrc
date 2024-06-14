@@ -3,8 +3,7 @@
 PYTHON=/usr/bin/python3
 
 commit=$1
-
-sudo apt-get -y install ninja-build gettext cmake unzip curl build-essential
+sudo apt-get -y install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 $PYTHON -m pip install -U neovim
 
 function _uninstall() {

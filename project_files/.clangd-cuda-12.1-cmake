@@ -6,3 +6,5 @@ CompileFlags:
     - "-ccbin*"
     - -forward-unknown-to-host-compiler
     - --generate-code=*
+    - -rdc=*
+    - --options-file

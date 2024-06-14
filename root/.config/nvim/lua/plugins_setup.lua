@@ -4,7 +4,9 @@ function M.nvim_treesitter()
 		-- 安装 language parser
 		-- :TSInstallInfo 命令查看支持的语言
 		ensure_installed = {
+			"c",
 			"cpp",
+			"go",
 			"lua",
 			"vim",
 			"vimdoc",
@@ -28,7 +30,7 @@ function M.nvim_treesitter()
 		-- https://github.com/andymass/vim-matchup
 		matchup = {
 			enable = true, -- mandatory, false will disable the whole extension
-			disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+			-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
 			-- [options]
 		},
 	})
@@ -165,6 +167,7 @@ function M.lualine()
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
 			section_separators = { left = "", right = "" },
 			disabled_filetypes = {
+				-- do not override dapui's buttons
 				winbar = {
 					"dap-repl",
 					"dapui_breakpoints",
