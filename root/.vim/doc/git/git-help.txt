@@ -112,6 +112,8 @@ https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/r
 -------------------------------------------------------------------------------
 *git-fetch*
 
+先git clone xxx --depth=10, 再git fetch --unshallow似乎比直接git clone xxx快。
+
 git只fetch某个远程仓库的某一个分支 >
   git fetch origin feature
 <

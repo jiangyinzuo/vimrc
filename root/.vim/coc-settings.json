@@ -1,112 +1,112 @@
 {
-	"languageserver": {
-		"cmake": {
-			"command": "cmake-language-server",
-			"filetypes": [
-				"cmake"
-			],
-			"rootPatterns": [
-				"build/"
-			],
-			"initializationOptions": {
-				"buildDirectory": "build"
-			}
-		},
-		"ocaml-lsp": {
-			"command": "opam",
-			"args": [
-				"exec",
-				"--",
-				"ocamllsp"
-			],
-			"filetypes": [
-				"ocaml",
-				"reason"
-			]
-		},
-		"typst": {
-			"command": "typst-lsp",
-			"filetypes": [
-				"typst"
-			]
-		},
-		"bash": {
-			"enable": false,
-			"command": "bash-language-server",
-			"args": [
-				"start"
-			],
-			"filetypes": [
-				"sh"
-			],
-			"ignoredRootPaths": [
-				"~"
-			]
-		},
-		"mlir": {
-			"command": "mlir-lsp-server",
-			"filetypes": [
-				"mlir"
-			]
-		}
-	},
-	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
-	"coc.preferences.currentFunctionSymbolDebounceTime": 500,
-	"coc.preferences.useQuickfixForLocations": true,
-	"outline.keepWindow": false,
-	"clangd.enabled": true,
-	"html.format.enable": true,
-	"Lua.format.enable": false,
-	"ltex.enabled": false,
-	"python.pythonPath": "/bin/python3",
-	"python.linting.mypyEnabled": false,
-	"python.linting.pylintEnabled": true,
-	"pyright.enable": true,
-	"pyright.testing.provider": "unittest",
-	"rust-analyzer.enable": true,
-	"rust-analyzer.cargo.autoreload": true,
-	"rust-analyzer.procMacro.enable": true,
-	"workspace.ignoredFolders": [
-		"$HOME",
-		"$HOME/.cargo/**",
-		"$HOME/.rustup/**"
-	],
-	"go.enable": true,
-	"go.goplsPath": "/usr/bin/gopls",
-	"java.enabled": true,
-	"json.enable": true,
-	"json.schemaDownload.enable": true,
-	"marksman.enable": false,
-	"texlab.latexFormatter": "latexindent",
-	"coc.source.around.shortcut": "around",
-	"coc.source.buffer.shortcut": "buffer",
-	"coc.source.dictionary.enable": true,
-	"coc.source.dictionary.filetypes": [
-		"markdown",
-		"text",
-		"latex"
-	],
-	"coc.source.dictionary.shortcut": "dict",
-	"coc.source.word.enable": true,
-	"coc.source.word.filetypes": [
-		"markdown",
-		"text",
-		"latex"
-	],
-	"coc.source.word.shortcut": "word",
-	"coc.source.emoji.enable": true,
-	"coc.source.tag.enable": true,
-	"coc.source.tag.shortcut": "tag",
-	"coc.source.ultisnips.shortcut": "snip",
-	"coc.source.vimtex.enable": true,
-	"suggest.formatItems": [
-		"abbr",
-		"menu",
-		"kind",
-		"shortcut"
-	],
-	"explorer.git.enable": false,
-	"explorer.file.showHiddenFiles": true,
-	"explorer.icon.enableNerdfont": true,
-	"session.saveOnVimLeave": true
+  "languageserver": {
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": [
+        "cmake"
+      ],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
+    },
+    "ocaml-lsp": {
+      "command": "opam",
+      "args": [
+        "exec",
+        "--",
+        "ocamllsp"
+      ],
+      "filetypes": [
+        "ocaml",
+        "reason"
+      ]
+    },
+    "typst": {
+      "command": "typst-lsp",
+      "filetypes": [
+        "typst"
+      ]
+    },
+    "bash": {
+      "enable": false,
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
+    },
+    "mlir": {
+      "command": "mlir-lsp-server",
+      "filetypes": [
+        "mlir"
+      ]
+    }
+  },
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.currentFunctionSymbolDebounceTime": 500,
+  "coc.preferences.useQuickfixForLocations": true,
+  "outline.keepWindow": false,
+  "clangd.enabled": true,
+  "html.format.enable": true,
+  "Lua.format.enable": false,
+  "ltex.enabled": false,
+  "python.pythonPath": "/bin/python3",
+  "python.linting.mypyEnabled": false,
+  "python.linting.pylintEnabled": true,
+  "pyright.enable": true,
+  "pyright.testing.provider": "unittest",
+  "rust-analyzer.enable": true,
+  "rust-analyzer.cargo.autoreload": true,
+  "rust-analyzer.procMacro.enable": true,
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
+  "go.enable": true,
+  "go.goplsPath": "/usr/bin/gopls",
+  "java.enabled": true,
+  "json.enable": true,
+  "json.schemaDownload.enable": true,
+  "marksman.enable": false,
+  "texlab.latexFormatter": "latexindent",
+  "coc.source.around.shortcut": "around",
+  "coc.source.buffer.shortcut": "buffer",
+  "coc.source.dictionary.enable": true,
+  "coc.source.dictionary.filetypes": [
+    "markdown",
+    "text",
+    "latex"
+  ],
+  "coc.source.dictionary.shortcut": "dict",
+  "coc.source.word.enable": true,
+  "coc.source.word.filetypes": [
+    "markdown",
+    "text",
+    "latex"
+  ],
+  "coc.source.word.shortcut": "word",
+  "coc.source.emoji.enable": true,
+  "coc.source.tag.enable": true,
+  "coc.source.tag.shortcut": "tag",
+  "coc.source.ultisnips.shortcut": "snip",
+  "coc.source.vimtex.enable": true,
+  "suggest.formatItems": [
+    "abbr",
+    "menu",
+    "kind",
+    "shortcut"
+  ],
+  "explorer.git.enable": false,
+  "explorer.file.showHiddenFiles": true,
+  "explorer.icon.enableNerdfont": true,
+  "session.saveOnVimLeave": true
 }

@@ -114,9 +114,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd FileType sh,bash setlocal equalprg=shfmt
 	augroup end
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
-	autocmd FileType cuda,vim,tex,html,sh,zsh,lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
-	" tex使用空格缩进
-	autocmd FileType tex setlocal expandtab
+	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType tex,json setlocal expandtab
 	if v:version >= 901
 		packadd! editorconfig
 	endif
@@ -398,7 +397,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 			return b:cpp_fold_level
 		endfunction
 		autocmd FileType c,cpp setlocal foldmethod=expr foldexpr=CppFoldExpr(v:lnum)
-		autocmd FileType python,vim,lua,go,sh setlocal foldmethod=indent
+		autocmd FileType python,vim,lua,go,sh,json setlocal foldmethod=indent
 		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
 		autocmd FileType tex setlocal foldmethod=manual
 	endif
