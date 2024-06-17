@@ -16,3 +16,6 @@ endfunction
 
 let g:gtest#gtest_runner = function('CustomGTestRun')
 let g:gtest#gtest_command = "path/to/test/executable"
+
+" Copilot
+" let g:copilot_workspace_folders = ['~/Projects/myproject']

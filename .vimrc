@@ -103,7 +103,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	""" default indent
 	" markdown在被默认vim runtime file设置为tabstop=4
 	" :verbose set tabstop? shiftwidth? softtabstop?
-	set tabstop=4 shiftwidth=4 softtabstop=4
+	set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 	augroup equalprg_filetype
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
@@ -115,7 +115,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	augroup end
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
 	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
-	autocmd FileType tex,json setlocal expandtab
 	if v:version >= 901
 		packadd! editorconfig
 	endif

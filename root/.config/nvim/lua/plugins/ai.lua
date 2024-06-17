@@ -1,6 +1,6 @@
 local ai_complete
 if vim.g.ai_complete == "codeium" then
-	ai_complete = { "Exafunction/codeium.vim" }
+	ai_complete = { "Exafunction/codeium.vim", event = "BufEnter" }
 elseif vim.g.ai_complete == "copilot" then
 	ai_complete = {
 		{

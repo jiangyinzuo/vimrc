@@ -3,6 +3,6 @@
 # top-most EditorConfig file
 root = true
 
-[{.vimrc,vimrc,*.vim}]
+[{.vimrc,vimrc,*.vim,*.lua}]
 indent_size = 2
 indent_style = tab

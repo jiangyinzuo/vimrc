@@ -1,6 +1,13 @@
 vim.api.nvim_command("source ~/.vim/vimrc.d/plugin_setup.vim")
 vim.api.nvim_command("source ~/.vim/vimrc.d/ai.vim")
 
+local leaderf_dependencies = {
+	"voldikss/LeaderF-emoji",
+}
+if vim.g.vimrc_lsp == "coc.nvim" then
+	table.insert(leaderf_dependencies, "skywind3000/Leaderf-snippet")
+end
+
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
 	-- let g:omni_sql_default_compl_type = 'syntax'
@@ -159,10 +166,7 @@ local M = {
 		init = function()
 			vim.api.nvim_command("source ~/.vim/vimrc.d/leaderf.vim")
 		end,
-		dependencies = {
-			"skywind3000/Leaderf-snippet",
-			"voldikss/LeaderF-emoji",
-		},
+		dependencies = leaderf_dependencies,
 	},
 }
 

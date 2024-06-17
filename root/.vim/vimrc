@@ -155,12 +155,13 @@ if has('autocmd') " vim-tiny does not have autocmd
 	""""""""""""""""""""""""""""""
 	set smarttab
 	set autoindent " 跟随上一行的缩进方式
+	" expandtab: 大多数编程语言风格使用空格缩进
 	" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
 	" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
 	""" default indent
 	" markdown在被默认vim runtime file设置为tabstop=4
 	" :verbose set tabstop? shiftwidth? softtabstop?
-	set tabstop=4 shiftwidth=4 softtabstop=4
+	set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 	augroup equalprg_filetype
 		autocmd!
 		" autocmd FileType c,cpp setlocal equalprg=indent
@@ -172,7 +173,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	augroup end
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
 	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
-	autocmd FileType tex,json setlocal expandtab
 
 	let g:project_vimrc = '.project.vim'
 	" do not add too much root marks, it will slow down search performance
@@ -396,6 +396,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报 mixed encoding的错误
 		" set helplang=cn
 		helptags ~/.vim/doc
+		helptags ~/.vim/pack/my_plugins/start/project.vim/doc
 	endif
 	if &loadplugins
 		if has('nvim')

@@ -1,0 +1,4 @@
+vim:ft=help
+*project-vim.txt*
+
+*g:project_load_state* possible value: "init" "tabnew"

@@ -1,8 +1,0 @@
-vim:ft=help
-
-*project-vim*
-
->
-	let g:copilot_workspace_folders = ['~/Projects/myproject']
-	let g:nvim_lsp_autostart = {'clangd': v:true}
-<

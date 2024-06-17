@@ -83,7 +83,14 @@ In the C/C++ LSP domain, the famous tools are clangd and ccls. Here we recommend
 - Unity building doesn't be supported by clangd, but OceanBase is being built by unity, failed to build index through compile_commands.json by clangd.
 
 ======================================================================================
-C++包管理器
+C++ Build & Package Management Tools
+
+*ninja*
+
+改变控制台输出状态。
+>bash
+	export NINJA_STATUS="[%r processes, %f/%t @ %o/s | %e sec]"
+<
 
 *cmake*
 
@@ -92,6 +99,33 @@ CMake 4种编译类型 ~
 Debug, Release, RelWithDebInfo, MinSizeRel
 
 https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
+
+CMake 显示编译命令 ~
+
+Makefile: 添加 `set(CMAKE_VERBOSE_MAKEFILE ON)` 或者
+>bash
+	cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
+<
+
+或者
+>bash
+	make VERBOSE=1
+<
+
+Ninja:
+>bash
+	cmake -DCMAKE_VERBOSE_MAKEFILE=ON -G Ninja ..
+	ninja -v
+<
+
+调试CMake ~
+
+输出 CMake 执行的每一步操作，适用于需要详细调试信息的场景。
+>bash
+	cmake --trace --trace-expand ..
+<
+
+--------------------------------------------------------------------------------------
 
 *CPM.cmake* https://github.com/cpm-cmake/CPM.cmake
 

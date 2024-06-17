@@ -1,4 +1,4 @@
-function! LoadProjectConfigEachTab()
+function! LoadProjectConfigEachTab(state)
 	" 加载对应的.project.vim文件,  require v:version >= 802
 	let l:possible_vimrc = (exists('*asyncrun#current_root') ? asyncrun#current_root() : '.') . '/' . g:project_vimrc
 	let l:project_vimrc = ''
@@ -7,6 +7,7 @@ function! LoadProjectConfigEachTab()
 	endif
 
 	if l:project_vimrc != ''
+		let g:project_load_state = a:state
 		execute 'source ' l:project_vimrc
 	endif
 endfunction
@@ -14,7 +15,7 @@ endfunction
 function TabNewLoadProjectConfig()
 	augroup tab_load_my_project
 		autocmd!
-		autocmd BufRead * ++once call LoadProjectConfigEachTab()
+		autocmd BufRead * ++once call LoadProjectConfigEachTab('tabnew')
 	augroup END
 endfunction
 
@@ -25,10 +26,4 @@ augroup load_my_project
 augroup END
 
 let g:project_vimrc = get(g:, 'project_vimrc', '.project.vim')
-call LoadProjectConfigEachTab()
-
-if exists('g:project_load_post_hook')
-	for hook in g:project_load_post_hook
-		execute hook
-	endfor
-endif
+call LoadProjectConfigEachTab('init')
