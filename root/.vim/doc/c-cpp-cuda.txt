@@ -192,6 +192,8 @@ https://apt.llvm.org/
 ------------------------------------------------------------------------------------
 *cuda*
 
+CUDA 安装: https://developer.nvidia.com/cuda-toolkit-archive
+
 |nvidia-docker|
 
 cuda对gcc/clang存在版本要求，例如

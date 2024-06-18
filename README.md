@@ -19,16 +19,18 @@ Vim/Neovim requirements:
 
 See [install/README.md](./install/README.md) for more details.
 
-## Directory Structure
+## File Structure
 
-| Directory Name   | Description                           |
-| :--------------- | :------------------------------------ |
-| install          | installation scripts                  |
-| project_files    | config files for a project            |
-| root             | dotfiles and full vim configurations  |
-| root/.vim/doc    | my vimdocs                            |
-| terminal         | configurations for terminal emulators |
-| wsl              | scripts for WSL                       |
+| File Name         | Description                           |
+| :---------------- | :------------------------------------ |
+| install           | installation scripts                  |
+| project_files     | config files for local project        |
+| root              | dotfiles                              |
+| root/.config/nvim | neovim configurations                 |
+| root/.vim/vimrc   | full vimrc file                       |
+| root/.vim/doc     | my vimdocs                            |
+| terminal          | configurations for terminal emulators |
+| wsl               | scripts for WSL                       |
 
 ### Vimrc Files
 

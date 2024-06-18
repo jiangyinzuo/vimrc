@@ -5,10 +5,6 @@ vim:ft=help
 *ubuntu查看版本号*
 cat /etc/os-release
 
-Ubuntu支持软件版本 ~
-
-see ~/.vim/doc/ubuntu-version.md
-
 ===============================================================================
 *apt*
 
