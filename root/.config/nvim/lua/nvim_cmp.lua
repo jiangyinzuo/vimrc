@@ -100,14 +100,16 @@ function M.nvim_cmp()
 					elseif has_words_before() then
 						cmp.complete()
 					else
-						fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+						fallback() -- The fallback function sends a already mapped key.
 					end
 				end, { "i", "s" }),
-				["<C-k>"] = cmp.mapping(function()
+				["<C-k>"] = cmp.mapping(function(fallback)
 					-- if cmp.visible() then
 					-- 	cmp.select_prev_item()
 					if vim.snippet.active({ direction = -1 }) then
 						feedkey("<cmd>lua vim.snippet.jump(-1)<CR>", "")
+					else
+						fallback() -- The fallback function sends a already mapped key.
 					end
 				end, { "i", "s" }),
 			}),

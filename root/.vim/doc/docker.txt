@@ -1,9 +1,23 @@
 vim:ft=help
-*docker* |nvidia-docker|
+*docker*
+
+-------------------------------------------------------------------------------
+*nvidia-docker*
 
 nvidia-docker 被achieved了，使用 *nvidia-container-toolkit*
 - https://github.com/NVIDIA/nvidia-docker
 - https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+- https://www.howtogeek.com/devops/how-to-use-an-nvidia-gpu-with-docker-containers/
+
+
+https://hub.docker.com/r/nvidia/cuda
+
+nvidia-docker使用nvidia-smi，需要容器能访问GPU
+>
+	docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
+<
+
+-------------------------------------------------------------------------------
 
 Ubuntu 18.04安装 docker
 https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
@@ -119,18 +133,6 @@ Docker build 过程中 apt-get update ~
 	--build-arg "HTTPS_PROXY=http://proxy.example.com:8080/" \
 	--network host # 可能需要
 <
--------------------------------------------------------------------------------
-
-*nvidia-docker*
-
-https://hub.docker.com/r/nvidia/cuda
-
-nvidia-docker使用nvidia-smi，需要容器能访问GPU
->
-	docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
-<
-
-
 -------------------------------------------------------------------------------
 Docker run 示例 ~
 

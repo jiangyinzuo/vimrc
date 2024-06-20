@@ -46,8 +46,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
 	if v:version >= 900 || has('nvim')
-		if has('patch-9.1.463') || has('nvim')
-			set completeopt+=fuzzy
+		" TODO: wait for https://github.com/neovim/neovim/pull/29429
+		if has('patch-9.1.503') " || has('nvim-0.11.0')
+			set completeopt+=fuzzy,fuzzycollect
 		endif
 		set wildoptions=pum " 显示popup window
 	else
@@ -155,20 +156,18 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
-	command -nargs=0 DiffthisPlain :diffthis | setf text
+	command -nargs=0 DiffthisSetfiletypeText :diffthis | setf text
 	command -nargs=0 DiffoffRestoreFiletype :diffoff | edit
 	""""""""""""""""""""" termdebug
 	set t_Co=256
 	set t_ut=
-	if has('nvim') || v:version >= 801
-		autocmd Filetype c,cpp,rust,cuda ++once packadd termdebug
+	if v:version >= 801
+		autocmd Filetype c,cpp,rust,cuda ++once if !exists(':Termdebug') | packadd termdebug | endif
 		if exists('&termwinsize')
 			autocmd Filetype termdebug setlocal termwinsize=0*10000
 		endif
-		let g:termdebug_config = {}
-		let g:termdebug_config['command'] = "gdb"
-		" 设置一个较大的宽度，防止termdebug gdb窗口折行
-		let g:termdebug_config['wide'] = 1
+		" wide: 设置一个较大的宽度，防止termdebug gdb窗口折行
+		let g:termdebug_config = {'command': 'gdb', 'wide': 1}
 	endif
 	""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
 	" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
@@ -195,10 +194,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" #gpt4-answer
 		" jump to the previous function
 		" 向后（b表示backward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-		autocmd FileType c,cpp nnoremap <silent> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+		autocmd FileType c,cpp nnoremap <silent> <buffer> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
 		" jump to the next function
 		" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-		autocmd FileType c,cpp nnoremap <silent> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
+		autocmd FileType c,cpp nnoremap <silent> <buffer> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 		" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
 		" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
 		" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
