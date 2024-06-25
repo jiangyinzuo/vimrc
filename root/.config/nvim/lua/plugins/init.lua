@@ -89,10 +89,16 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"nvim-telescope/telescope-bibtex.nvim",
 			-- "benfowler/telescope-luasnip.nvim",
+			"2kabhishek/nerdy.nvim",
 		},
 		config = plugins_setup.telescope,
 	},
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	-- nerdfont cheatsheet: https://www.nerdfonts.com/cheat-sheet
+	{
+		"2kabhishek/nerdy.nvim",
+		cmd = "Nerdy",
+	},
 	{
 		"williamboman/mason.nvim",
 		config = plugins_setup.mason,

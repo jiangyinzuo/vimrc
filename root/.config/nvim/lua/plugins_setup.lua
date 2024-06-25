@@ -101,6 +101,7 @@ function M.telescope()
 	telescope.load_extension("session-lens")
 	telescope.load_extension("bibtex")
 	-- telescope.load_extension("luasnip")
+	require('telescope').load_extension('nerdy')
 end
 
 function M.mason()
