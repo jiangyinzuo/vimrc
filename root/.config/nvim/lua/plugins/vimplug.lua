@@ -139,6 +139,12 @@ local M = {
 		},
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
+	{
+		dir = "~/.vim/pack/my_plugins/start/duckdb.vim",
+		dependencies = {
+			"skywind3000/asynctasks.vim",
+		},
+	},
 
 	"lambdalisue/vim-fern",
 	{

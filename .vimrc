@@ -51,6 +51,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set completeopt+=fuzzy,fuzzycollect
 		endif
 		set wildoptions=pum " 显示popup window
+		" save
+		inoremap <silent> <c-S> <cmd>w<CR>
 	else
 		set wildmode=list:full
 	endif
@@ -208,21 +210,17 @@ if has('autocmd') " vim-tiny does not have autocmd
 		autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
 		" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
 		" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
-		" autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
+		autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
+		autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
 		autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
 		autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
 		autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
 		autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
 
-		autocmd FileType c,cpp nnoremap <silent> <buffer> [t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
-		autocmd FileType c,cpp nnoremap <silent> <buffer> ]t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> [t :call search('\<type\>', "bW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> ]t :call search('\<type\>', "wW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> [t :call search('\<struct\>\|\<enum\>\|\<type\>', "bW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> ]t :call search('\<struct\>\|\<enum\>\|\<type\>', "wW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> [t :call search('\<class\>', "bW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> ]t :call search('\<class\>', "wW")<CR>
+		autocmd FileType c,cpp nnoremap <silent> <buffer> [[ :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
+		autocmd FileType c,cpp nnoremap <silent> <buffer> ]] :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
+		autocmd FileType go nnoremap <silent> <buffer> [[ :call search('\<type\>', "bW")<CR>
+		autocmd FileType go nnoremap <silent> <buffer> ]] :call search('\<type\>', "wW")<CR>
 	augroup END
 
 	function GetVisualSelection()
@@ -346,9 +344,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 SystemToQf call SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 添加高亮一行
-	nnoremap <Leader>ll <cmd>call matchadd('Todo', '\%.l')<cr>
+	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
 	" 清空高亮
-	nnoremap <Leader>lc <cmd>call clearmatches()<cr>
+	nnoremap <Leader>lc :call clearmatches()<cr>
 
 	" Example:
 	" :e+22 ~/.vimrc
@@ -365,9 +363,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 默认打开所有折叠，将foldlevelstart设置为较大的值
 		"" set foldlevel=-1 " 默认关闭所有折叠
 		set foldlevelstart=99
-		" https://www.zhihu.com/question/30782510/answer/70078216
-		nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
-		" 打开所有折叠: zR
 
 		function! CppFoldExpr(lnum)
 			let line = getline(a:lnum)
@@ -405,8 +400,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
-	" save
-	inoremap <c-S> <cmd>w<CR>
 	if has("autocmd") && exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif

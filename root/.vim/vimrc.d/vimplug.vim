@@ -17,7 +17,7 @@ Plug 'matze/vim-move'
 
 Plug 'andymass/vim-matchup'
 
-if has('nvim') || v:version >= 801
+if v:version >= 801
 	Plug 'ap/vim-css-color'
 	Plug 'LunarWatcher/auto-pairs'
 
@@ -307,16 +307,13 @@ endif
 hi clear SpecialKey
 hi link SpecialKey NonText
 "hi SpecialKey ctermfg=darkgray guifg=#5a5a5a
-hi debugPC term=reverse ctermbg=4 guibg=DarkBlue
-hi debugBreakpoint term=reverse ctermbg=red guibg=red
 hi link QuickPreview Normal
 """""""""""""""""" end colorscheme
 
-if v:version >= 802 && g:vimrc_lsp == 'coc.nvim'
-	source ~/.vim/vimrc.d/coc.vim
-endif
-
 if v:version >= 801
+	if v:version >= 802 && g:vimrc_lsp == 'coc.nvim'
+		source ~/.vim/vimrc.d/coc.vim
+	endif
 	let g:AutoPairs = autopairs#AutoPairsDefine([
 				\ {"open": "<", "close": ">", "filetype": ["html"]}
 				\ ]) " This is a filetype-specific mapping

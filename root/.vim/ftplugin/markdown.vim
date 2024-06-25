@@ -1,4 +1,6 @@
-command! -range -nargs=0 YankWikiLink call markdown#YankWikiLink(<line1>, <line2>)
+command -range -nargs=0 -buffer YankWikiLink call markdown#YankWikiLink(<line1>, <line2>)
+command -nargs=0 -buffer NumberHeadings call markdown#NumberHeadings()
+command -nargs=0 -buffer RemoveNumberHeadings call markdown#RemoveNumberHeadings()
 
 setlocal conceallevel=0
 
@@ -12,3 +14,4 @@ endif
 if (has('unix') && exists('$WSLENV') && !has('nvim'))
 	command! -buffer -nargs=0 MdPreview call wsl#MdPreview()
 endif
+

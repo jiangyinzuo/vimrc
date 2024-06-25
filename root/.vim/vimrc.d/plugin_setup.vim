@@ -36,7 +36,7 @@ let g:matchup_matchparen_enabled = 0
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 
-if has('nvim') || v:version >= 801
+if v:version >= 801
 	set nocursorline " vim-css-color插件下，set cursorline有性能问题
 	" let g:AutoPairsMapBS = 1
 	if has('nvim')
@@ -90,7 +90,7 @@ nnoremap <silent><C-w>m :MaximizerToggle<CR>
 vnoremap <silent><C-w>m :MaximizerToggle<CR>gv
 inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 
-if has('nvim') || v:version >= 800
+if v:version >= 800
 	let g:far#source = 'rg'
 	let g:far#enable_undo = 1
 	" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
@@ -109,7 +109,7 @@ if has('nvim') || v:version >= 800
 	let g:rainbow_comment_prefix = '#'
 	" 不显示行列位置，防止覆盖search mode下的shortmess提示信息
 	let g:disable_rainbow_hover = 1
-	if has('patch-9.1.497') || has('nvim')
+	if has('patch-9.1.497') || has('nvim-0.11.0')
 		" 禁用rainbow_csv的高亮
 		let g:rcsv_colorlinks = ['NONE', 'NONE']
 	endif
@@ -181,7 +181,13 @@ if has('nvim') || v:version >= 802
 	let g:jupytext_fmt = 'py'
 
 	" ocaml utop在第一次send时可能会失败，需要再send一次，或提前打开:SlimeConfig
-	let g:slime_target = "vimterminal"
+	if has('nvim')
+		let g:slime_target = "tmux"
+		" g:slime_bracketed_paste = 0 slime多行复制粘贴有问题
+		let g:slime_bracketed_paste = 1
+	else
+		let g:slime_target = "vimterminal"
+	endif
 	let g:slime_no_mappings = 1
 
 	function s:map_sender(sender)
@@ -211,7 +217,7 @@ if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
 endif
 
-" 默认主题不显示colorcolumn
+" 默认主题不要显示colorcolumn
 set colorcolumn=80,120
 if !has('patch-9.1.176') || !has('nvim')
 	" markdown会conceal一些字符，导致colorcolumn显示混乱

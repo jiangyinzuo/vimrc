@@ -108,6 +108,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set completeopt+=fuzzy,fuzzycollect
 		endif
 		set wildoptions=pum " 显示popup window
+		" save
+		inoremap <silent> <c-S> <cmd>w<CR>
 	else
 		set wildmode=list:full
 	endif
@@ -272,42 +274,39 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" let g:netrw_altv = 1
 	" let g:netrw_winsize = 20
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	augroup jump_to_symbol
-		autocmd!
-		" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
-		" #gpt4-answer
-		" jump to the previous function
-		" 向后（b表示backward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-		autocmd FileType c,cpp nnoremap <silent> <buffer> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
-		" jump to the next function
-		" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-		autocmd FileType c,cpp nnoremap <silent> <buffer> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
-		" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
-		" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
-		" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
+	if !has('nvim')
+		augroup jump_to_symbol
+			autocmd!
+			" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
+			" #gpt4-answer
+			" jump to the previous function
+			" 向后（b表示backward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
+			autocmd FileType c,cpp nnoremap <silent> <buffer> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+			" jump to the next function
+			" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
+			autocmd FileType c,cpp nnoremap <silent> <buffer> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
+			" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
+			" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
+			" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
 
-		" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
-		" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
-		autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
-		" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
-		" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
-		" autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
-		autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
-		autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
-
-		autocmd FileType c,cpp nnoremap <silent> <buffer> [t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
-		autocmd FileType c,cpp nnoremap <silent> <buffer> ]t :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> [t :call search('\<type\>', "bW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> ]t :call search('\<type\>', "wW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> [t :call search('\<struct\>\|\<enum\>\|\<type\>', "bW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> ]t :call search('\<struct\>\|\<enum\>\|\<type\>', "wW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> [t :call search('\<class\>', "bW")<CR>
-		" autocmd FileType python nnoremap <silent> <buffer> ]t :call search('\<class\>', "wW")<CR>
-	augroup END
+			" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
+			" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
+			autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
+			autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
+			" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
+			" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
+			autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
+			autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
+			autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
+			autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
+			autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
+			autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
+			autocmd FileType c,cpp nnoremap <silent> <buffer> [[ :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
+			autocmd FileType c,cpp nnoremap <silent> <buffer> ]] :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
+			autocmd FileType go nnoremap <silent> <buffer> [[ :call search('\<type\>', "bW")<CR>
+			autocmd FileType go nnoremap <silent> <buffer> ]] :call search('\<type\>', "wW")<CR>
+		augroup END
+	endif
 
 	function GetVisualSelection()
 		" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
@@ -351,9 +350,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 添加高亮一行
-	nnoremap <Leader>ll <cmd>call matchadd('Todo', '\%.l')<cr>
+	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
 	" 清空高亮
-	nnoremap <Leader>lc <cmd>call clearmatches()<cr>
+	nnoremap <Leader>lc :call clearmatches()<cr>
 
 	" Example:
 	" :e+22 ~/.vimrc
@@ -369,28 +368,24 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set foldexpr=nvim_treesitter#foldexpr()
 		else
 			set foldmethod=marker
+			autocmd FileType c,cpp,cuda setlocal foldmethod=expr foldexpr=mycpp#FoldExpr(v:lnum)
+			autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
+			" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
+			autocmd FileType tex setlocal foldmethod=manual
+			autocmd FileType c,cpp,cuda setlocal completefunc=mycpp#CompleteFunc
+			" zpr mapping https://www.zhihu.com/question/30782510/answer/70078216,
+			" 可以用:vim /keyword/ % 替代
+			" 打开所有折叠: zR
 		endif
 		set foldmarker={,}
 
 		" 默认打开所有折叠，将foldlevelstart设置为较大的值
 		"" set foldlevel=-1 " 默认关闭所有折叠
 		set foldlevelstart=99
-		" https://www.zhihu.com/question/30782510/answer/70078216
-		nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=syntax<CR><CR>
-		" 打开所有折叠: zR
-
-		autocmd FileType c,cpp,cuda setlocal foldmethod=expr foldexpr=mycpp#FoldExpr(v:lnum)
-		autocmd FileType c,cpp,cuda setlocal completefunc=mycpp#CompleteFunc
-		autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
-		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
-		autocmd FileType tex setlocal foldmethod=manual
 	endif
 	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
-
-	" save
-	inoremap <c-S> <cmd>w<CR>
 
 	" neovim 会报错
 	if !has('nvim')
@@ -512,16 +507,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 	command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
 	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
-	"""""""""""""""""""" DuckDB """"""""""""""""""""
-	let g:duckdb_exe = 'duckdb -markdown'
-	" [[palette]]DuckDB执行SQL,输出到terminal				:DuckDBExec select 42
-	command -nargs=? -range DuckDBExec call duckdb#DuckDBExec(<q-args>, <line1>, <line2>)
-	" [[palette]]DuckDB执行文件里的SQL,输出到terminal			:DuckDBExec foo.sql
-	command -nargs=1 -complete=file DuckDBExecFile call duckdb#DuckDBExec('.read ' . <q-args>)
-
-	command NumberHeadings call markdown#NumberHeadings()
-	command RemoveNumberHeadings call markdown#RemoveNumberHeadings()
-
 	""""""""""""""""""" Marks """"""""""""""""""""""
 	" 为小写字母 a 到 z 创建映射
 	for mark in range(char2nr('a'), char2nr('z'))
