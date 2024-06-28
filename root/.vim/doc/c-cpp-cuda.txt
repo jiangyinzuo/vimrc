@@ -5,7 +5,7 @@ vim:ft=help
 LLVM Toolchains
 
 --------------------------------------------------------------------------------------
-Clangd
+Clangd ~
 
 *clangd*
 
@@ -24,22 +24,24 @@ See: https://www.reddit.com/r/neovim/comments/vj0e16/how_to_specify_location_of_
 <
 同时clangd启动命令添加`--compile-commands-dir=build/release`
 
-NOTE
+Clangd 配置 ~
+
 clangd无法解析OpenMP pragma https://github.com/clangd/clangd/issues/1640
 暂时的解决方案：在`.clangd`文件中添加
->
-CompileFlags:
-  Remove: [-fopenmp]
+>yaml
+    CompileFlags:
+      Remove: [-fopenmp]
 <
 clangd还没实现outgoing calls in call hierarchy https://github.com/llvm/llvm-project/pull/77556
 
 clangd omp.h not found ~
 
 locate /omp.h 找到omp.h文件位置，然后在`.clangd`文件中添加
-
-CompileFlags:
-  Add:
-    - -isystem/usr/lib/gcc/x86_64-linux-gnu/13/include/
+>yaml
+    CompileFlags:
+      Add:
+        - -isystem/usr/lib/gcc/x86_64-linux-gnu/13/include/
+<
 
 clangd / |ccls| 找不到c++系统头文件解决方法 ~
 
@@ -56,13 +58,27 @@ https://stackoverflow.com/questions/74785927/clangd-doesnt-recognize-standard-he
 >
 	ls /usr/include/c++
 <
+clang: In included file: use of undeclared identifier '__builtin_ia32_prefetch' 解决方法 ~
 
+由于编译器未启用特定的处理器架构或指令集支持所致。这个内建函数是用于 x86
+平台的特定指令。如果没有正确设置目标架构，编译器可能无法识别这些内建函数。
+
+方法一：添加编译选项
+>yaml
+    CompileFlags:
+      Add: [-march=x86-64]
+<
+
+方法二：添加头文件
+>cpp
+    #include <xmmintrin.h>
+<
 --------------------------------------------------------------------------------------
 
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`
 
-*clang-tidy* 
+*clang-tidy*
 output to quickfix list: >
   :CExprsys clang-tidy hello.cpp
 <
@@ -125,6 +141,10 @@ Ninja:
 	cmake --trace --trace-expand ..
 <
 
+CMake导出compile_commands.json ~
+>bash
+    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+<
 --------------------------------------------------------------------------------------
 
 *CPM.cmake* https://github.com/cpm-cmake/CPM.cmake
@@ -189,7 +209,7 @@ https://apt.llvm.org/
 	wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 <
 
-------------------------------------------------------------------------------------
+====================================================================================
 *cuda*
 
 CUDA 安装: https://developer.nvidia.com/cuda-toolkit-archive
@@ -211,6 +231,13 @@ gpustat: `pip install gpustat`
 【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
 
 ------------------------------------------------------------------------------------
+Failed to initialize NVML: Driver/library version mismatch NVML library version: 535.183
+
+原因：kernel mod 的 Nvidia driver 的版本没有更新
+解决方法：重启服务器
+
+https://comzyh.com/blog/archives/967/
+====================================================================================
 *glibc*
 
 查看glibc版本

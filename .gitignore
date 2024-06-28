@@ -5,6 +5,7 @@ root/.vim/.netrwhist
 root/.vim/plugged
 root/.vim/doc/tags
 root/.vim/doc/tags-cn
+root/.vim/backup
 root/.vim/coc
 root/.vim/gadgets
 root/.vim/.viminfo

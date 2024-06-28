@@ -47,6 +47,7 @@ Ubuntu22.04下均可通过apt安装
 
 命令行补全目录: .local/share/bash-completion/completions
 
+*rename-command*
 批量重命名: rename。rename有两个版本，
 一种版本支持's/foo/bar/g'替换模式 (Ubuntu 23.10)，
 另一种版本不支持。

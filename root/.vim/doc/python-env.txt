@@ -88,9 +88,19 @@ micromamba创建新环境，使用python3.10.6
 <
 
 ----------------------------------------------------------------
-*pdm* 替代requirements.txt https://pdm-project.org/latest/
+Modern Python Package Manager ~
 
-*python-poetry* 替代requirements.txt https://github.com/python-poetry/poetry
+替代简单的requirements.txt
+
+poetry vs. hatch vs. pdm vs. rye https://dev.to/adamghill/python-package-manager-comparison-1g98
+
+*python-poetry* https://github.com/python-poetry/poetry
+*hatch* https://hatch.pypa.io/latest/
+*pdm*  https://pdm-project.org/latest/
+*rye* https://github.com/astral-sh/rye
+
+----------------------------------------------------------------
+*tox* 测试工具  https://tox.readthedocs.io/en/latest/
 ----------------------------------------------------------------
 *matplotlib-show报错*
 >

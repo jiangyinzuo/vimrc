@@ -158,7 +158,8 @@ gc.reflogExpireUnreachable：控制不可达引用日志条目的保留时间，
 对于 HEAD 引用，这个设置通常更加严格，因为 HEAD 更有可能被频繁地改变。
 
 -------------------------------------------------------------------------------
-git reset                                             *git-reset*
+Git Reset ~
+*git-reset*
 
 |git合并commit|
 
@@ -171,6 +172,9 @@ git reset 用于回滚到历史commit。
 将HEAD指针移动到<commit>，丢弃原本的commit，文件更改放到unstaged area。
 
                                                  *git-reset-hard*
+WARNING
+`git reset --hard`会丢弃没有`git add`的文件更改，无法恢复！(Untracked Files不受影响)
+
 'git reset --hard <commit>'
 将HEAD指针移动到<commit>，丢弃原本的commit，丢弃文件更改(不可逆)。
 
@@ -178,6 +182,8 @@ git reset 用于回滚到历史commit。
 1. 'git reflog' 查找想要恢复的<commit>
 2. 'git reset --hard <commit>' 恢复commit。
 
+git reset --hard 操作建议 ~
+使用git stash暂存没有`git add`的修改。保证git reset --hard时没有unstaged changes。
 -------------------------------------------------------------------------------
                         *git-revert* *git生成逆向提交*  *git安全地撤销提交*
 
@@ -644,6 +650,48 @@ hint:
 hint:   git branch -m <name>
 -------------------------------------------------------------------------------
 *git-mv* *git-grep* git对应的mv grep
+-------------------------------------------------------------------------------
+git生成patch ~
+
+|git-diff| 生成的patch不带commit message。
+>bash
+    git diff > my_changes.patch
+<
+*git-format-patch* 生成的patch带commit message。
+>bash
+    git format-patch <commit_hash>
+    git format-patch -1 <commit_hash>
+<
+
+git应用patch ~
+
+如果文件路径不一致（如vim移植到neovim），可以手动编辑patch文件。
+
+方法一: *git-apply-patch*
+>bash
+    git apply /path/to/my_changes.patch
+<
+
+方法二: *git-am*
+应用patch，保留原本的提交信息（可以加`--signoff`）
+
+>bash
+    git am /path/to/patch-file.patch
+<
+
+使用 `git am` 时，补丁文件需要通过 `git format-patch` 创建，这样才包含了必要的提交信息。直接使用 `git diff` 生成的补丁文件不包含提交信息，不适合与 `git am` 一起使用。
+-------------------------------------------------------------------------------
+*git-co-author*
+
+Github的规范
+
+>gitcommit
+    Co-authored-by: Jane Doe <jane.doe@example.com>
+    Co-authored-by: John Smith <john.smith@example.com>
+<
+
+Co-author最好放commit message底部。
+GitHub会根据提供的邮箱地址自动链接到对应的GitHub账户。
 ===============================================================================
 
 *github-cli*

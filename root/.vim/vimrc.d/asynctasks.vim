@@ -12,14 +12,6 @@ command! -nargs=0 CdrootCfile let project_root = asyncrun#get_root('%:p:h') | ex
 command! -nargs=0 LcdrootCfile let project_root = asyncrun#get_root('%:p:h') | exe 'lcd ' . project_root | pwd
 command! -nargs=0 TcdrootCfile let project_root = asyncrun#get_root('%:p:h') | exe 'tcd ' . project_root | pwd
 
-function AsyncRunOrSystem(cmd)
-	if g:asyncrun_support == 1
-		call asyncrun#run('', {'silent': 1}, a:cmd)
-	else
-		call system(a:cmd)
-	endif
-endfunction
-
 command -nargs=* -complete=customlist,asynctasks_custom#MakefileComplete Make AsyncTask make +make_target=<args>
 command -bang -nargs=* -complete=file MakeInternalCmd AsyncRun -program=make @ <args>
 

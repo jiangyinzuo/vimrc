@@ -51,8 +51,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" coc-explorer will kill neovim's intro, quickly type <space> or other key
 	" when starting can avoid it.
 	" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
-	" Note: basedpyright is a fork of pyright https://github.com/fannheyward/coc-basedpyright
-	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-basedpyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
+	" Note: 'coc-basedpyright' is a fork of pyright https://github.com/fannheyward/coc-basedpyright
+	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
 	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
 	let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
@@ -130,9 +130,42 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
 	set dictionary+=/usr/share/dict/american-english
-	set nobackup       "no backup files
-	set nowritebackup  "only in case you don't want a backup file while editing
-	set noswapfile     "no swap files
+	" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
+	set nobackup
+	set nowritebackup
+	if has('nvim')
+		let s:backup_dir = "~/.vim/backup/nvim"
+	else
+		let s:backup_dir = "~/.vim/backup/vim"
+	endif
+
+	function AsyncRunOrSystem(cmd)
+		if exists("*asyncrun#run")
+			call asyncrun#run('', {'silent': 1}, a:cmd)
+		else
+			call system(a:cmd)
+		endif
+	endfunction
+	" NOTE: 运行 clean-vim-backup.py，仅保留最新的1个备份版本
+	function BackupFile()
+		" 获取当前文件的大小（单位：字节）
+		let l:filesize = getfsize(expand('%:p'))
+		" 设置大小阈值为5MB
+		let l:maxsize = 5 * 1024 * 1024
+		if l:filesize > l:maxsize
+			return
+		endif
+		if !exists("b:backup_dir")
+			let b:backup_dir = expand(s:backup_dir) . expand("%:p:h")
+			if !isdirectory(b:backup_dir)
+				call mkdir(b:backup_dir, "p", 0700)
+			endif
+		endif
+		call AsyncRunOrSystem('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") .. '.bak')
+	endfunction
+	autocmd BufWritePost * call BackupFile()
+	set swapfile
+	set updatecount=100
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802 || has('nvim')
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
@@ -224,6 +257,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 
 	" Enable persistent undo so that undo history persists across vim sessions
+	" NOTE: persistent_undo在文件丢失后无法恢复历史，需要开启backup
 	if has("persistent_undo")
 		if has('nvim')
 			let target_path = expand('~/.vim/undodir/nvim')

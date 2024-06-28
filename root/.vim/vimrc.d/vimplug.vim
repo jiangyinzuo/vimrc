@@ -301,6 +301,9 @@ if v:version >= 800
 	let g:solarized_diffmode = "normal"
 	colorscheme solarized8
 	hi NonText cterm=None term=None gui=None
+	" solarized8会覆盖debugPC和debugBreakpoint的颜色，需要重新设置
+	hi debugPC term=reverse ctermbg=darkblue guibg=darkblue
+	hi debugBreakpoint term=reverse ctermbg=red guibg=red
 endif
 
 " tab颜色

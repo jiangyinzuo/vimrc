@@ -73,9 +73,33 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
 	set dictionary+=/usr/share/dict/american-english
-	set nobackup       "no backup files
-	set nowritebackup  "only in case you don't want a backup file while editing
-	set noswapfile     "no swap files
+	" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
+	set nobackup
+	set nowritebackup
+	if has('nvim')
+		let s:backup_dir = "~/.vim/backup/nvim"
+	else
+		let s:backup_dir = "~/.vim/backup/vim"
+	endif
+	function BackupFile()
+		" 获取当前文件的大小（单位：字节）
+		let l:filesize = getfsize(expand('%:p'))
+		" 设置大小阈值为5MB
+		let l:maxsize = 5 * 1024 * 1024
+		if l:filesize > l:maxsize
+			return
+		endif
+		if !exists("b:backup_dir")
+			let b:backup_dir = expand(s:backup_dir) . expand("%:p:h")
+			if !isdirectory(b:backup_dir)
+				call mkdir(b:backup_dir, "p", 0700)
+			endif
+		endif
+		call system('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") .. '.bak')
+	endfunction
+	autocmd BufWritePost * call BackupFile()
+	set swapfile
+	set updatecount=100
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802 || has('nvim')
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
@@ -153,6 +177,23 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" Notification after file change
 		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+	endif
+
+	" Enable persistent undo so that undo history persists across vim sessions
+	" NOTE: persistent_undo在文件丢失后无法恢复历史，需要开启backup
+	if has("persistent_undo")
+		if has('nvim')
+			let target_path = expand('~/.vim/undodir/nvim')
+		else
+			let target_path = expand('~/.vim/undodir/vim')
+		endif
+		" create the directory and any parent directories
+		" if the location does not exist.
+		if !isdirectory(target_path)
+			call mkdir(target_path, "p", 0700)
+		endif
+		let &undodir=target_path
+		set undofile
 	endif
 	"""""""""""""""""""""""""""""""
 	if has("patch-8.1.0360")
