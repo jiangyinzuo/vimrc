@@ -76,11 +76,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
 	set nobackup
 	set nowritebackup
-	if has('nvim')
-		let s:backup_dir = "~/.vim/backup/nvim"
-	else
-		let s:backup_dir = "~/.vim/backup/vim"
-	endif
 	function BackupFile()
 		" 获取当前文件的大小（单位：字节）
 		let l:filesize = getfsize(expand('%:p'))
@@ -90,7 +85,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 			return
 		endif
 		if !exists("b:backup_dir")
-			let b:backup_dir = expand(s:backup_dir) . expand("%:p:h")
+			let b:backup_dir = expand("~/.vim/backup") . expand("%:p:h")
 			if !isdirectory(b:backup_dir)
 				call mkdir(b:backup_dir, "p", 0700)
 			endif

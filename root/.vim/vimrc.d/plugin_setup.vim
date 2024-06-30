@@ -93,9 +93,12 @@ inoremap <silent><C-w>m <C-o>:MaximizerToggle<CR>
 if v:version >= 800
 	let g:far#source = 'rg'
 	let g:far#enable_undo = 1
+	if exists('$WSLENV') " :Far command is slow in WSL2
+		let g:far#auto_preview = 0
+		let g:far#auto_preview_on_start = 0
+	endif
 	" 大多数情况下使用coc-ultisnips的回车键补全，若遇到tb23
 	" 这样的补全，使用F12
-	" nmap中F12被映射为打开终端, see floaterm.vim
 	let g:UltiSnipsExpandTrigger="<f12>"
 	
 	let g:qf_auto_open_quickfix = 0
