@@ -89,6 +89,11 @@ GTAGSLABEL=native-pygments gtags
 cmake可以在不执行编译的情况下生成compile_commands.json文件
 
 -------------------------------------------------------------------------------
+代码质量检查 ~
+
+https://www.sonarsource.com/
+
+-------------------------------------------------------------------------------
 文档生成 ~
 
 doxygen https://www.doxygen.nl/

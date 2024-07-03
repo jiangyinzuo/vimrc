@@ -1,5 +1,4 @@
 vim:set ft=help:
-
 *ai.txt*
 
 AI Tools ~
@@ -11,8 +10,9 @@ Github Copilot
 tabnine
 codegeex
 codeium
-通义灵码
-https://tongyi.aliyun.com/lingma/download
+阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
+百度 文心快码 https://comate.baidu.com/zh
+字节 豆包MarsCode https://www.marscode.cn/
 
 fitten code
 https://github.com/FittenTech
@@ -37,6 +37,8 @@ https://www.swebench.com/
 https://www.kajetandomagala.com/codeium-vs-copilot/
 
 deepseek https://www.deepseek.com/
+
+Poe https://poe.com/
 
 AI Tool 具备的功能 ~
 
@@ -72,4 +74,3 @@ $ gh copilot explain "traceroute github.com"
 
 *gpt-engineer*
 https://github.com/gpt-engineer-org/gpt-engineer
--------------------------------------------------------------------------------

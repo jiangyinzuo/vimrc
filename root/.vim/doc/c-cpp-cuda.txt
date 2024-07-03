@@ -5,8 +5,6 @@ vim:ft=help
 LLVM Toolchains
 
 --------------------------------------------------------------------------------------
-Clangd ~
-
 *clangd*
 
 用户全局配置文件: `~/.config/clangd/config.yaml`
@@ -24,7 +22,8 @@ See: https://www.reddit.com/r/neovim/comments/vj0e16/how_to_specify_location_of_
 <
 同时clangd启动命令添加`--compile-commands-dir=build/release`
 
-Clangd 配置 ~
+--------------------------------------------------------------------------------------
+Clangd 配置问题
 
 clangd无法解析OpenMP pragma https://github.com/clangd/clangd/issues/1640
 暂时的解决方案：在`.clangd`文件中添加
@@ -211,6 +210,9 @@ https://apt.llvm.org/
 
 ====================================================================================
 *cuda*
+
+https://docs.nvidia.com/cuda/cuda-c-programming-guide/
+https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/
 
 CUDA 安装: https://developer.nvidia.com/cuda-toolkit-archive
 

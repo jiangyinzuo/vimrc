@@ -1,8 +1,9 @@
+vim:ft=help
 *clean-disk*
 
 rust ~
 cargo install cargo-cache
-cargo-clean -a
+cargo-cache -a
 
 ocaml ~
 opam clean
@@ -27,3 +28,5 @@ https://stackoverflow.com/questions/70946140/docker-desktop-wsl-ext4-vhdx-too-la
 	select vdisk file="D:\wsl2\ext4.vhdx"
 	compact vdisk
 <
+docker ~
+docker system prune -a

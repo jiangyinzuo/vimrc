@@ -10,6 +10,8 @@ My personal vim/neovim configuration files, dotfiles and other scripts. Feel fre
 
 ## Requirements and Installation
 
+OS: Linux, WSL
+
 Vim/Neovim requirements:
 
 - vim 9.1+ (full features)

@@ -1,3 +1,4 @@
+vim:ft=help
 *java.txt*
 
 ubuntu设置java默认路径 ~
@@ -14,3 +15,7 @@ See: https://computingforgeeks.com/how-to-set-default-java-version-on-ubuntu-deb
 >
 	export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 <
+
+Jmeter压测工具
+JProfiler Java性能分析
+Tomcat服务器
