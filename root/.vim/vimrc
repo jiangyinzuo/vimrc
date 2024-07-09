@@ -103,9 +103,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set cmdheight=2 " cmd行高2, 减少hit-enter
 	set wildmenu " command自动补全时显示菜单
 	if v:version >= 900 || has('nvim')
-		" TODO: wait for https://github.com/neovim/neovim/pull/29429
-		if has('patch-9.1.503') " TODO: remove comment || has('nvim-0.11.0')
-			set completeopt+=fuzzy,fuzzycollect
+		if has('patch-9.1.503') || has('nvim-0.11.0')
+			set completeopt+=fuzzy
 		endif
 		set wildoptions=pum " 显示popup window
 		" save
