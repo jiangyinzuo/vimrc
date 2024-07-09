@@ -9,13 +9,13 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Cocogitto release
         id: release
-        uses: cocogitto/cocogitto-action@v3.5
+        uses: cocogitto/cocogitto-action@v3.8
         with:
           release: true
           git-user: 'Cog Bot'
