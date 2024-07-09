@@ -18,8 +18,6 @@ jobs:
         uses: cocogitto/cocogitto-action@v3.8
         with:
           release: true
-          git-user: 'Cog Bot'
-          git-user-email: 'mycoolproject@org.org'
           check-latest-tag-only: true
 
       - name: Generate Changelog

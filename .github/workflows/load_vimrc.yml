@@ -6,17 +6,19 @@ on:
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
+      - '**/*.yml'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
+      - '**/*.yml'
 
 jobs:
   load_vimrc_in_vim7_4:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
     - name: install vim
@@ -35,7 +37,7 @@ jobs:
   load_vimrc_in_latest_vim:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
     - name: install vim
