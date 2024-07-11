@@ -54,20 +54,6 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'LumaKernel/fern-mapping-fzf.vim'
 
 Plug 'jiangyinzuo/bd.vim'
-if v:version >= 800
-	Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
-	Plug 'preservim/vimux'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
-	Plug 'voldikss/vim-translator'
-	Plug 'romainl/vim-qf'
-
-	Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-
-	" Alternative: https://github.com/sindrets/diffview.nvim
-	Plug 'jiangyinzuo/open-gitdiff.vim'
-	Plug 'andrewradev/linediff.vim'
-endif
 
 " vim-surround和vim-sneak会共享s/S shortcut，但不冲突
 " 创建surround类文本对象
@@ -89,11 +75,6 @@ Plug 'godlygeek/tabular'
 Plug 'axvr/org.vim', { 'for': 'org' }
 Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 
-if v:version >= 802
-	" Use release branch (recommend)
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'antoinemadec/coc-fzf'
-endif
 " Plug 'nordtheme/vim', { 'as': 'nordtheme' }
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'tomasiser/vim-code-dark'
@@ -129,6 +110,19 @@ au FileType gitcommit let b:EditorConfig_disable = 1
 " Plug 'tpope/vim-sleuth'
 
 if v:version >= 800
+	Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
+	Plug 'preservim/vimux'
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'voldikss/vim-translator'
+	Plug 'romainl/vim-qf'
+
+	Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+
+	" Alternative: https://github.com/sindrets/diffview.nvim
+	Plug 'jiangyinzuo/open-gitdiff.vim'
+	Plug 'andrewradev/linediff.vim'
+
 	Plug 'lifepillar/vim-solarized8'
 	source ~/.vim/vimrc.d/leaderf.vim
 	if v:version >= 802
@@ -140,7 +134,58 @@ if v:version >= 800
 		" https://github.com/vim/vim/releases/tag/v9.1.0064
 		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
+		Plug 'skywind3000/vim-quickui'
+		Plug 'pechorin/any-jump.vim'
+
+		Plug 'voldikss/vim-floaterm'
+		Plug 'voldikss/LeaderF-floaterm'
+		Plug 'voldikss/fzf-floaterm'
+		source ~/.vim/vimrc.d/floaterm.vim
+		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+		Plug 'junegunn/fzf.vim'
+		source ~/.vim/vimrc.d/fzf.vim
+
+		" require +job
+		" pip3 install doq --break-system-packages
+		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+
+		" vim和jupyter notebook(运行在浏览器上)同步，
+		" 需要安装jupyter_ascending, 目前不支持notebook 7
+		" :h jupyter-notebook
+		" See: https://github.com/imbue-ai/jupyter_ascending
+		" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
+		Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
+		
+		" vim和jupyter console/qtconsole同步
+		" :h jupyter-qtconsole
+		Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
+		" ipynb打开时显示python
+		Plug 'goerz/jupytext.vim'
+
+		Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
+
+		" support more features(mermaid, flowchart, ...)
+		Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
+
+		" See: https://github.com/preservim/vim-markdown/pull/633
+		Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
+		let g:vim_markdown_no_default_key_mappings = 1
+		let g:vim_markdown_folding_disabled = 1
+		let g:vim_markdown_toc_autofit = 1
+		let g:vim_markdown_conceal_code_blocks = 0
+		let g:vim_markdown_math = 1
+
+		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
+		Plug 'lervag/vimtex', {'for': 'tex'}
+		source ~/.vim/vimrc.d/latex.vim
+		Plug 'skywind3000/asynctasks.vim'
+		Plug 'skywind3000/asyncrun.vim'
+		source ~/.vim/vimrc.d/asynctasks.vim
+
 		if v:version >= 900
+			" Use release branch (recommend)
+			Plug 'neoclide/coc.nvim', {'branch': 'release'}
+			Plug 'antoinemadec/coc-fzf'
 			Plug 'Clavelito/indent-awk.vim'
 			Plug 'Eliot00/git-lens.vim'
 			let g:GIT_LENS_ENABLED = 0
@@ -217,56 +262,6 @@ augroup END
 " paste img in markdown/latex style
 " Alternative: HakonHarnes/img-clip.nvim
 Plug 'jiangyinzuo/img-paste.vim'
-
-if v:version >= 802
-	Plug 'skywind3000/vim-quickui'
-	Plug 'pechorin/any-jump.vim'
-
-	Plug 'voldikss/vim-floaterm'
-	Plug 'voldikss/LeaderF-floaterm'
-	Plug 'voldikss/fzf-floaterm'
-	source ~/.vim/vimrc.d/floaterm.vim
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	Plug 'junegunn/fzf.vim'
-	source ~/.vim/vimrc.d/fzf.vim
-
-	" require +job
-	" pip3 install doq --break-system-packages
-	Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-
-	" vim和jupyter notebook(运行在浏览器上)同步，
-	" 需要安装jupyter_ascending, 目前不支持notebook 7
-	" :h jupyter-notebook
-	" See: https://github.com/imbue-ai/jupyter_ascending
-	" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
-	Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
-	
-	" vim和jupyter console/qtconsole同步
-	" :h jupyter-qtconsole
-	Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
-	" ipynb打开时显示python
-	Plug 'goerz/jupytext.vim'
-
-	Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
-
-	" support more features(mermaid, flowchart, ...)
-	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
-
-	" See: https://github.com/preservim/vim-markdown/pull/633
-	Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
-	let g:vim_markdown_no_default_key_mappings = 1
-	let g:vim_markdown_folding_disabled = 1
-	let g:vim_markdown_toc_autofit = 1
-	let g:vim_markdown_conceal_code_blocks = 0
-	let g:vim_markdown_math = 1
-
-	" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-	Plug 'lervag/vimtex', {'for': 'tex'}
-	source ~/.vim/vimrc.d/latex.vim
-	Plug 'skywind3000/asynctasks.vim'
-	Plug 'skywind3000/asyncrun.vim'
-	source ~/.vim/vimrc.d/asynctasks.vim
-endif
 Plug 'whonore/Coqtail', { 'for': 'coq' }
 
 " if exists("$WSLENV")
@@ -312,7 +307,7 @@ hi link QuickPreview Normal
 """""""""""""""""" end colorscheme
 
 if v:version >= 801
-	if v:version >= 802 && g:vimrc_lsp == 'coc.nvim'
+	if v:version >= 900 && g:vimrc_lsp == 'coc.nvim'
 		source ~/.vim/vimrc.d/coc.vim
 	endif
 	let g:AutoPairs = autopairs#AutoPairsDefine([

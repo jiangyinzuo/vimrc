@@ -28,7 +28,7 @@ augroup coc_mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+augroup END
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
@@ -108,7 +108,7 @@ command! -nargs=0 Format :call CocActionAsync('format')
 " Add `:Fold` command to fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer
-command! -nargs=0 OrganizeImports   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OrganizeImports :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Use coc-lists instead of custom mksession.vim
 " https://github.com/neoclide/coc-lists
@@ -128,28 +128,10 @@ command! -nargs=0 CocSuperTypes :call CocAction('showSuperTypes')
 " 在多光标操作结束后再执行
 " :setlist
 nmap <silent> <C-c> :<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
-nmap <silent> <C-j> j:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
-nmap <silent> <C-k> k:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
+" nmap <silent> <C-j> j:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
+" nmap <silent> <C-k> k:<C-u>silent! call CocAction('cursorsSelect', bufnr('%'), 'position', 'n')<CR>
 " nmap <silent> <C-d> <Plug>(coc-cursors-word)
 " xmap <silent> <C-d> <Plug>(coc-cursors-range)
-
-" Mappings for CoCList
-" Show all diagnostics
-" nnoremap <silent><nowait> <leader>da  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent><nowait> <leader>ext  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent><nowait> <leader>cmd  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent><nowait> <leader>out  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent><nowait> <leader>sym  :<C-u>CocList -I symbols<cr>
-" Do default action for next item
-nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
-" Do default action for previous item
-nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
 
 autocmd filetype coctree nmap <buffer> <F1> :h coc-tree<CR>
 
