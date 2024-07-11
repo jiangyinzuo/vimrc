@@ -140,6 +140,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 	if v:version >= 901
 		packadd! editorconfig
+		if has('patch-9.1.375')
+			packadd comment
+		endif
 	endif
 	" 显示空白字符
 	" https://codepoints.net/U+23B5

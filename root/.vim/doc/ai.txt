@@ -9,7 +9,8 @@ notion.so 文档管理APP
 Github Copilot
 tabnine
 codegeex
-codeium
+codeium https://codeium.com/
+CodiumAI https://www.codium.ai/
 阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
 百度 文心快码 https://comate.baidu.com/zh
 字节 豆包MarsCode https://www.marscode.cn/
