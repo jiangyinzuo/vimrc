@@ -19,7 +19,7 @@ Neovim uses system clipboard in WSL `:h clipboard-wsl`
 
 ## 编译C程序, 为URL Scheme添加注册表
 
-```
+```bash
 gcc -o no_terminal.exe execute_command.c sumarapdf_no_terminal.c -mwindows
 gcc -o url_scheme.exe execute_command.c url_scheme.c -mwindows
 ```
@@ -30,8 +30,6 @@ gcc -o url_scheme.exe execute_command.c url_scheme.c -mwindows
 ## 命令行帮助
 
 每日事项: `forget`
-
-WSL命令行帮助菜单: `wslhelp`
 
 ## 设置Windows浏览器为WSL2浏览器
 

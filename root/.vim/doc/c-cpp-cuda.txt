@@ -109,6 +109,10 @@ C++ Build & Package Management Tools
 
 *cmake*
 
+>bash
+    pip install cmake-language-server cmakelang
+<
+
 CMake 4种编译类型 ~
 
 Debug, Release, RelWithDebInfo, MinSizeRel

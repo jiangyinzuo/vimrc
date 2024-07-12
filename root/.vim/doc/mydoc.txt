@@ -6,8 +6,6 @@ vim:ft=help
 
 ===============================================================================
 
-ISSUE: helpfile开启ft=help后，在快速插入---------------------时存在性能问题
-
 *vim-helpfiles-cheetsheet* https://devhints.io/vim-help
 
 |netrw|
@@ -43,7 +41,7 @@ https://vimtricks.com/p/vim-calculator/
 *goto-file* gf gF CTRL-Vgf CTRL-VgF
 *跳转到上一次文本变更的位置*  |g;| |:changes|
 
-*increment-number* CTRL-A
+*increment-number* |CTRL-A|
 
 *next-in-search-mode* *查找模式下的n和N* CTRL-G CTRL-T
 *put-vim-progress-to-the-background* CTRL-Z, see linux tool `fg`, `bg`.
@@ -154,20 +152,13 @@ bash ~
 npm i -g bash-language-server
 sudo apt install shellcheck -y
 
-cmake ~
-
-pip install cmake-language-server cmakelang
-
 -------------------------------------------------------------------------------
-*fzf.vim*
-
 *paste-to-fzf-popup-window*
 
 "+y           yank to system
 CTRL-SHIFT-V  paste
 
 -------------------------------------------------------------------------------
-
 *mydoc-vim-visual-multi*
 
 *vim-visual-multi选中words创建cursor*	CTRL-N
@@ -178,22 +169,14 @@ CTRL-SHIFT-V  paste
 *打开所有折叠*		zR
 
 -------------------------------------------------------------------------------
-
-*bash-help*
-
 *start*					WSL用windows打开文件
 *WSL创建软链接文件夹*			mklinkd 2023-03-07-1  /mnt/d/doc2/group-meeting/readinggroup/2023-03-07-1
 
 *z* 模糊跳转autojump
+zt: 根据最近cd时间排序目录，并通过fzf cd目录, 依赖z
 
 *vimt* tex
-*vimhelp* help
-
 -------------------------------------------------------------------------------
-
-*bash-fzf*
-
-*fzf快捷键*
 *fzf跳转* 	fzfcd ALT-C
 *fzf补全*	CTRL-T：递归搜索当前文件夹下文件
 		CTRL-R：历史命令
@@ -206,7 +189,6 @@ CTRL-SHIFT-V  paste
 *rgi-fzf*	ripgrep查找各种类型的文件（支持pptx），fzf模糊查找，最后打开文件
 
 -------------------------------------------------------------------------------
-
 *junegunn/fzf-git.sh*	https://github.com/junegunn/fzf-git.sh/
 
 CTRL-G CTRL-F for Files
@@ -232,7 +214,6 @@ https://stackoverflow.com/questions/39973214/how-to-display-the-hex-value-in-the
 https://github.com/kana/vim-textobj-user
 
 -------------------------------------------------------------------------------
-
 索引查找 ~
 
 1. 基于文本匹配的查找
@@ -253,7 +234,6 @@ cpp需要rg with PCRE2 support
 |ai.txt|
 
 -------------------------------------------------------------------------------
-
 远程开发环境对比 ~
 
 1. sourcegraph/github/devv.ai: *在线代码阅读* *code-search-online*
@@ -289,9 +269,7 @@ docker容器，容器内有许多课程独有的基于深度学习处理器（DL
 
 6. [distant](https://github.com/chipsenkbeil/distant)
 
-
 -------------------------------------------------------------------------------
-
 *:Open* 打开文件
 *g:default_open_prefixes* 控制打开文件的前缀
 

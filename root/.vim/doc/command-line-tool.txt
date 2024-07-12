@@ -264,10 +264,12 @@ pip install ppt2md
 
 extract-pptx.py
 
-*dblp爬虫*
+*dblp爬虫* 从dblp下载bibtex
 >
 	:r !dblp <paper title>
 <
 See also:
 https://github.com/jiangyinzuo/dblp-api
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
+
+*mklink* *mklinkd* WSL创建软链接文件

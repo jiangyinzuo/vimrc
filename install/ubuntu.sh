@@ -170,6 +170,8 @@ install_git_delta
 install_nvm
 # install_go
 # install_gvm
-# ./install/python.sh
+
+# cmake and python lsp
+pip3 install cmake-language-server cmakelang basedpyright black -U
 
 echo "$prompt"
