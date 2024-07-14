@@ -238,7 +238,7 @@ cpp需要rg with PCRE2 support
 
 1. sourcegraph/github/devv.ai: *在线代码阅读* *code-search-online*
 
-2. 本地开发环境+远程文件系统：sshfs/ |rsync| 同步
+2. 本地开发环境+远程文件系统：sshfs/rclone/ |rsync| 同步
 
 适用于本地有开发环境，远程没有搭开发环境的场景
 

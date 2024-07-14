@@ -326,6 +326,8 @@ sudo chattr +a /path/to/shared_folder/filename
 * **适用场景**：适合需要频繁交互和访问远程文件系统的场景。
 * **使用方法**：先安装 SSHFS，然后使用 `sshfs user@remote:/remote/directory /local/mountpoint` 挂载。
 
+> SSHFS维护不够活跃，rclone作为替代品?
+
 ### 4. **FileZilla**
 
 * **描述**：FileZilla 是一个图形界面的 FTP/SFTP 客户端，支持 SSH 文件传输。

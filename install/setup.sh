@@ -1,13 +1,25 @@
 #!/bin/bash
 
 soft_link_files=(
-	.vim .ripgreprc .globalrc .tmux.conf .config/ctags .config/lazygit
-	.config/vifm .gitconfig .gitconfig-ict .config/himalaya .config/clangd
-	.config/zellij .config/nnn/plugins .config/nvim .condarc
+	.condarc
+	.config/clangd
+	.config/ctags
+	.config/himalaya
+	.config/lazygit
+	.config/nnn/plugins
+	.config/nvim
+	.config/vifm
+	.config/zellij
+	.gitconfig
+	.gitconfig-ict
+	.globalrc
+	.ripgreprc
+	.tmux.conf
+	.vim
 )
 
 echo_green() {
-  echo -e "\033[32m$1\033[0m"
+	echo -e "\033[32m$1\033[0m"
 }
 
 echo_yellow() {
@@ -27,22 +39,18 @@ _make_soft_link() {
 }
 
 do_setup() {
-
 	# 检查 $VIMRC_ROOT 是否存在
 	if [ -z "$VIMRC_ROOT" ]; then
-	  # 如果不存在，则追加到 .bashrc
+		# 如果不存在，则追加到 .bashrc
 		echo_green "Add source ~/vimrc/root/bashrc to .bashrc:"
-		echo "source ~/vimrc/root/bashrc" >> ~/.bashrc
+		echo "source ~/vimrc/root/bashrc" >>~/.bashrc
 		. ~/vimrc/root/bashrc
 	fi
 
 	echo_green "Setup soft links:"
-	# nvim
-	# ln -s $VIMRC_ROOT/.config/nvim ~/.config/nvim
-	# ln -s $VIMRC_ROOT/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 	mkdir -p ~/.local/share/bash-completion/completions
 	mkdir -p ~/.config/nnn
-	for f in "${soft_link_files[@]}" ; do
+	for f in "${soft_link_files[@]}"; do
 		_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 	done
 

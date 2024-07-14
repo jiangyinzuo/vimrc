@@ -148,6 +148,25 @@ CMake导出compile_commands.json ~
 >bash
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 <
+
+CMake不使用response file ~
+
+CUDA的include flag放在response file中，用`--options-file`参数表示。低版本的clangd 16.0.6无法正确解析`--options-file`
+https://github.com/llvm/llvm-project/blame/80e61e38428964c9c9abac5b7a59bb513b5b1c3d/clang/lib/Driver/ToolChains/Cuda.cpp#L506
+
+以CUDA为例。set()需要放在project()后面。
+>cmake
+    project(AlgorithmInCuda LANGUAGES CXX CUDA)
+
+    # put these lines after project() to avoid response file
+    # See:
+    # https://github.com/clangd/clangd/issues/81#issuecomment-546618695
+    # https://github.com/search?q=repo%3AKitware%2FCMake+RESPONSE_FILE&type=code
+    # https://stackoverflow.com/questions/67928865/how-to-force-cmake-to-use-a-response-file-when-linking-cuda-on-windows
+    set(CMAKE_CUDA_USE_RESPONSE_FILE_FOR_INCLUDES 0)
+    set(CMAKE_CUDA_USE_RESPONSE_FILE_FOR_LIBRARIES 0)
+    set(CMAKE_CUDA_USE_RESPONSE_FILE_FOR_OBJECTS 0)
+<
 --------------------------------------------------------------------------------------
 
 *CPM.cmake* https://github.com/cpm-cmake/CPM.cmake
@@ -233,6 +252,7 @@ cuda 12.1
 GPU监控 ~
 
 gpustat: `pip install gpustat`
+nvtop
 
 【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
 
