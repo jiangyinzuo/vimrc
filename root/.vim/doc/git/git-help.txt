@@ -20,6 +20,8 @@ $DOC2/cs/system/software_engineering/tools-open-source/git-github
 
 *conventional-commits*
 
+代码提交版本的备注重要吗？ - 知乎 https://www.zhihu.com/question/659970119
+
 https://cbea.ms/git-commit/
 
 |semver|
@@ -28,12 +30,14 @@ www.conventionalcommits.org
 *cog*
 cli工具: https://github.com/cocogitto/cocogitto
 
-bash补全(See: https://docs.cocogitto.io/) >
-  cog generate-completions bash > ~/.local/share/bash-completion/completions/cog
+bash补全(See: https://docs.cocogitto.io/)
+>bash
+    cog generate-completions bash > ~/.local/share/bash-completion/completions/cog
 <
 
-初始化配置文件 >
-  cog init
+初始化配置文件
+>bash
+    cog init
 <
 
 之后可以在cog.toml中添加`tag_prefix = "v"`，用于识别语义化版本 https://semver.org/lang/zh-CN/
@@ -699,6 +703,6 @@ GitHub会根据提供的邮箱地址自动链接到对应的GitHub账户。
 安装: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 
 pull并检出github某个pr
->
-	gh pr checkout https://github.com/milvus-io/milvus/pull/33173
+>bash
+    gh pr checkout https://github.com/milvus-io/milvus/pull/33173
 <

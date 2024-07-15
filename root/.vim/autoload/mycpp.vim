@@ -29,6 +29,9 @@ function! mycpp#FoldExpr(lnum)
 
 	return b:cpp_fold_level
 endfunction
+
+" VIM学习笔记 自动补全详解(Auto-Completion Detail) - YYQ的文章 - 知乎
+" https://zhuanlan.zhihu.com/p/106309525
 function! mycpp#CompleteFunc(findstart, base)
 	if a:findstart
 		" 确定补全开始的位置

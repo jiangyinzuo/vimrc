@@ -1,1 +1,1 @@
-setlocal commentstring=//\ %s
+runtime! after/ftplugin/cpp.vim

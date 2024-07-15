@@ -1,3 +1,2 @@
 command -buffer -nargs=? YDef call cpp#YDef(<f-args>)
-
-setlocal commentstring=//\ %s
+runtime! after/ftplugin/c.vim

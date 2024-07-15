@@ -127,15 +127,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 	command -nargs=1 IndentSize :set tabstop=<args> shiftwidth=<args> softtabstop=<args>
 	command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> softtabstop=<args>
-	augroup equalprg_filetype
-		autocmd!
-		" autocmd FileType c,cpp setlocal equalprg=indent
-		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
-		" pip3 install sqlformat
-		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
-		" apt install shfmt
-		autocmd FileType sh,bash setlocal equalprg=shfmt
-	augroup end
+	" apt install shfmt
+	autocmd FileType sh,bash setlocal equalprg=shfmt
+	" autocmd FileType c,cpp setlocal equalprg=indent
+	" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
 	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
 	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 	if v:version >= 901
@@ -454,12 +449,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 			endif
 			return start + 1
 		endif
+
 		if getline('.') =~# &include
 			let filetype = &filetype
 			if filetype == 'cpp' || filetype == 'cuda'
 				" r! ls -1 /usr/include/c++/13 | awk '{print " \x27"$0"\x27"}' | paste -sd,
 				let completions = ['algorithm', 'any', 'array', 'atomic', 'backward', 'barrier', 'bit', 'bits', 'bitset', 'cassert', 'ccomplex', 'cctype', 'cerrno', 'cfenv', 'cfloat', 'charconv', 'chrono', 'cinttypes', 'ciso646', 'climits', 'clocale', 'cmath', 'codecvt', 'compare', 'complex', 'complex.h', 'concepts', 'condition_variable', 'coroutine', 'csetjmp', 'csignal', 'cstdalign', 'cstdarg', 'cstdbool', 'cstddef', 'cstdint', 'cstdio', 'cstdlib', 'cstring', 'ctgmath', 'ctime', 'cuchar', 'cwchar', 'cwctype', 'cxxabi.h', 'debug', 'decimal', 'deque', 'exception', 'execution', 'expected', 'experimental', 'ext', 'fenv.h', 'filesystem', 'format', 'forward_list', 'fstream', 'functional', 'future', 'initializer_list', 'iomanip', 'ios', 'iosfwd', 'iostream', 'istream', 'iterator', 'latch', 'limits', 'list', 'locale', 'map', 'math.h', 'memory', 'memory_resource', 'mutex', 'new', 'numbers', 'numeric', 'optional', 'ostream', 'parallel', 'pstl', 'queue', 'random', 'ranges', 'ratio', 'regex', 'scoped_allocator', 'semaphore', 'set', 'shared_mutex', 'source_location', 'span', 'spanstream', 'sstream', 'stack', 'stacktrace', 'stdatomic.h', 'stdexcept', 'stdfloat', 'stdlib.h', 'stop_token', 'streambuf', 'string', 'string_view', 'syncstream', 'system_error', 'tgmath.h', 'thread', 'tr1', 'tr2', 'tuple', 'typeindex', 'typeinfo', 'type_traits', 'unordered_map', 'unordered_set', 'utility', 'valarray', 'variant', 'vector', 'version']
 				call filter(completions, 'v:val =~ "^" . a:base')
+			else
+				let completions = []
 			endif
 			" 使用getcompletion()获取文件类型的补全列表
 			echom a:base

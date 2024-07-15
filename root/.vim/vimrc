@@ -45,7 +45,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
 	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-
 	" See Also: https://github.com/neoclide/coc-sources
 	" All Coc Extensions:
 	" coc-explorer will kill neovim's intro, quickly type <space> or other key
@@ -194,16 +193,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 	command -nargs=1 IndentSize :set tabstop=<args> shiftwidth=<args> softtabstop=<args>
 	command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> softtabstop=<args>
-	augroup equalprg_filetype
-		autocmd!
-		" autocmd FileType c,cpp setlocal equalprg=indent
-		" autocmd FileType c,cpp setlocal equalprg=uncrustify\ -c\ .uncrustify.cfg\ --replace\ --no-backup
-		" pip3 install sqlformat
-		autocmd FileType sql setlocal equalprg=sqlformat\ -k\ upper\ -r\ --indent_columns\ -
-		" apt install shfmt
-		autocmd FileType sh,bash setlocal equalprg=shfmt
-	augroup end
-	autocmd FileType c,cpp if expand('%:p') =~ '^/usr/include/\(\(c++\)\|\(\w\+\.h$\)\)' | setlocal tabstop=8 shiftwidth=8 softtabstop=8 | else | setlocal tabstop=2 shiftwidth=2 softtabstop=2 | endif
+	" apt install shfmt
+	autocmd FileType sh,bash setlocal equalprg=shfmt
 	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 	let g:project_vimrc = '.project.vim'
@@ -296,17 +287,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		augroup jump_to_symbol
 			autocmd!
 			" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
-			" #gpt4-answer
-			" jump to the previous function
-			" 向后（b表示backward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-			autocmd FileType c,cpp nnoremap <silent> <buffer> [f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
-			" jump to the next function
-			" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
-			autocmd FileType c,cpp nnoremap <silent> <buffer> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
-			" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
-			" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
-			" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
-
 			" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
 			" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
 			autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
@@ -319,8 +299,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 			autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
 			autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
 			autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
-			autocmd FileType c,cpp nnoremap <silent> <buffer> [[ :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
-			autocmd FileType c,cpp nnoremap <silent> <buffer> ]] :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
 			autocmd FileType go nnoremap <silent> <buffer> [[ :call search('\<type\>', "bW")<CR>
 			autocmd FileType go nnoremap <silent> <buffer> ]] :call search('\<type\>', "wW")<CR>
 		augroup END
@@ -386,11 +364,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 			set foldexpr=nvim_treesitter#foldexpr()
 		else
 			set foldmethod=marker
-			autocmd FileType c,cpp,cuda setlocal foldmethod=expr foldexpr=mycpp#FoldExpr(v:lnum)
 			autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
 			" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
 			autocmd FileType tex setlocal foldmethod=manual
-			autocmd FileType c,cpp,cuda setlocal completefunc=mycpp#CompleteFunc
 			" zpr mapping https://www.zhihu.com/question/30782510/answer/70078216,
 			" 可以用:vim /keyword/ % 替代
 			" 打开所有折叠: zR
@@ -423,12 +399,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
-	if g:no_plug
-		" https://zhuanlan.zhihu.com/p/106309525
-		autocmd FileType c,cpp,cuda setlocal completefunc=noplug#MyCppCompleteFunc
-		if has("patch-7.4.1649")
-			packadd! matchit
-		endif
+	if g:no_plug && has("patch-7.4.1649")
+		packadd! matchit
 	endif
 
 	""""""""""""""""" StatusLine """"""""""""""""""
