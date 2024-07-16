@@ -40,8 +40,9 @@ vim:ft=help
 `find -type f`  查找文件
 `find -type d`  查找目录
 
-使用fd
-可以添加.ignore文件, 用于忽略文件
+使用fd ~
+可以添加.fdignore/.ignore文件, 用于忽略文件
+https://github.com/sharkdp/fd
 
 其它 ~
 `tldr find`

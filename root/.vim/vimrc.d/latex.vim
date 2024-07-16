@@ -10,14 +10,14 @@ let g:tex_conceal = 'admgs'
 " alternative pdf viewer: 
 " sudo apt install zathura evince mupdf
 
-if has('unix') && exists('$WSLENV') && (has('clientserver') || has('nvim'))
+if exists('$WSLENV') && (has('clientserver') || has('nvim'))
 	let g:vimtex_view_general_viewer = $VIMRC_ROOT.'/scripts/sumatrapdf.zsh'
 
 	" 需要提前编译no_terminal.exe
 	" ISSUE: 反向搜索在多latex文件时可能不精准
 	let g:vimtex_view_general_options
 				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"D:/no_terminal.exe  \\\"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\\\"\""
-	command! -nargs=1 SumatraPDF call sumatrapdf#SendToVim(<q-args>)
+	command! -nargs=1 SumatraPDF call latex#SumatraPDFSendToVim(<q-args>)
 endif
 
 " The quickfix window is never opened/closed automatically.
@@ -49,12 +49,5 @@ let g:vimtex_syntax_conceal = {
 			\ 'sections': 0,
 			\ 'styles': 0,
 			\}
-
-augroup latex_commands
-	" 清除可能已存在的与 'latex_commands' 相关的自动命令
-	autocmd!
-	" [[palette]]打开当前tex文件中PDF对应的pptx文件			:OpenPPTX
-	autocmd FileType tex command -buffer -nargs=0 OpenPPTX call latex#OpenPPTX()
-augroup end
 
 " Plug 'PatrBal/vim-textidote'

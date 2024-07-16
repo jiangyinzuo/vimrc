@@ -239,6 +239,10 @@ git rebase --edit-timestamp            *git-rebase*
 *git提交把作者改成自己*				git commit --amend --reset-author --no-edit
 *git回退版本*					git reset --soft 需要回退的commit hash
 *git先暂存自己的修改，再pull别人的提交*		1) git stash 	2) git pull 	3) git pop
+
+git stash适用于藏匿当前正在修改，但尚未commit的工作区。适合临时保存、切换工作区（比如临时hotfix）
+
+-------------------------------------------------------------------------------
 *git复制某一分支*				git remote set-url
 *git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
 
@@ -410,9 +414,23 @@ https://stackoverflow.com/questions/11375070/pushing-to-github-after-a-shallow-c
 
 *git-partial-clone*
 
-其它参考资料： [https://github.blog/tag/monorepo/](https://github.blog/tag/monorepo/) [https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/](https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/) [https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)
+参考资料:
+https://github.blog/tag/monorepo/
+https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/
+https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+
 -------------------------------------------------------------------------------
 *git-submodule*
+
+Git clone包含大量submodule的大仓库 ~
+*git-clone-submodule*
+
+ClickHouse有一个脚本 contrib/update-submodules.sh
+See: https://clickhouse.com/docs/en/development/developer-instruction
+
+>bash
+    git clone --recursive --shallow-submodules https://github.com/ClickHouse/ClickHouse.git --depth=1 -j64
+<
 
 *git-submodule-add*
 
@@ -430,10 +448,6 @@ git submodule add ../onnxruntime.git onnxruntime
 git submodule deinit 节省git仓库空间
 
 -------------------------------------------------------------------------------
-
-*藏匿当前正在修改，但尚未commit的工作区。适合临时保存、切换工作区（比如临时hotfix）*		git stash
-
--------------------------------------------------------------------------------
 *detached-git-directory* *git目录* *gitdir*
 
 .git目录可以不在当前仓库中: .git可以是一个文件，里面包含类似下面的记录
@@ -444,10 +458,9 @@ git submodule deinit 节省git仓库空间
 
 -------------------------------------------------------------------------------
 git gc, git 减小.git目录大小                        *git-gc*
->
-  git gc --prune=now --aggressive
+>bash
+    git gc --prune=now --aggressive
 <
-
 -------------------------------------------------------------------------------
 *git-flow*
 *git-branch-model*

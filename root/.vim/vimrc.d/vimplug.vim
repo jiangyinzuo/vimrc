@@ -73,6 +73,7 @@ Plug 'samoshkin/vim-mergetool'
 
 Plug 'godlygeek/tabular'
 Plug 'axvr/org.vim', { 'for': 'org' }
+" The full plugin has :TypstWatch, :Toc commands while built-in has not.
 Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 
 " Plug 'nordtheme/vim', { 'as': 'nordtheme' }

@@ -87,8 +87,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set viminfo='50,<50,/50,:50,h,s10,f100
 	endif
 	set history=500 " Sets how many lines of history VIM has to remember
-	filetype indent on
-	filetype plugin on
+	filetype indent plugin on
 	syntax on "语法高亮显示
 	set encoding=utf-8
 	set fileencoding=utf-8
@@ -171,14 +170,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	else
 		set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
 	endif
-	" 选中想格式化的段落后，可以用gq格式化
-	" 设置textwidth，可以让文本格式化时自动换行
-	" 内置的format会考虑virtual text，如果需要忽略virtual
-	" text，可以使用外部命令行工具，比如
-	" set formatprg=par\ 80
-	" set formatprg=fmt\ -w81\ -g81
-	" See: https://github.com/vim/vim/issues/14276
-	autocmd Filetype tex setlocal textwidth=80
 	""""""""""""""""""""""""""""""
 	"indent and tab
 	""""""""""""""""""""""""""""""
@@ -195,7 +186,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> softtabstop=<args>
 	" apt install shfmt
 	autocmd FileType sh,bash setlocal equalprg=shfmt
-	autocmd FileType cuda,vim,tex,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType cuda,vim,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 	let g:project_vimrc = '.project.vim'
 	" do not add too much root marks, it will slow down search performance
@@ -423,7 +414,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set laststatus=2
 	if !has('nvim')
 		set statusline=%1*%F%m%r%h%w
-		let show_status = exists("g:plugs") && v:version >= 802 && g:no_plug == 0
+		let show_status = exists("g:plugs") && v:version >= 900 && g:no_plug == 0
 		if show_status
 			function LeftStatusLine()
 				if &diff == 0 && winwidth(0) > 60
@@ -446,7 +437,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 		" 左对齐和右对齐的分割点
 		set statusline+=%=
-		if v:version >= 820
+		if v:version >= 900
 			function RightStatusLine()
 				let l:result = ''
 				if &diff == 0 && winwidth(0) > 60 && exists('g:asyncrun_status')
@@ -471,7 +462,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		endif
 	endif
 
-	" 定义一个自定义命令:Read，它接受一个参数（文件名），并调用上面定义的函数
 	command! -nargs=1 -complete=file Read call noplug#MyRead(<f-args>)
 
 	function! CheckFileSize()
@@ -564,10 +554,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" reset cscope:
 			" :cs reset
 			if filereadable("cscope.out")
-			" add any cscope database in current directory
+				" add any cscope database in current directory
 				cs add cscope.out
 			elseif $CSCOPE_DB != ""
-			" else add the database pointed to by environment variable
+				" else add the database pointed to by environment variable
 				cs add $CSCOPE_DB
 			endif
 		elseif g:tag_system == 'gtags-cscope'

@@ -31,8 +31,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set viminfo='50,<50,/50,:50,h,s10,f100
 	endif
 	set history=500 " Sets how many lines of history VIM has to remember
-	filetype indent on
-	filetype plugin on
+	filetype indent plugin on
 	syntax on "语法高亮显示
 	set encoding=utf-8
 	set fileencoding=utf-8
@@ -548,10 +547,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" reset cscope:
 			" :cs reset
 			if filereadable("cscope.out")
-			" add any cscope database in current directory
+				" add any cscope database in current directory
 				cs add cscope.out
 			elseif $CSCOPE_DB != ""
-			" else add the database pointed to by environment variable
+				" else add the database pointed to by environment variable
 				cs add $CSCOPE_DB
 			endif
 		elseif g:tag_system == 'gtags-cscope'
