@@ -2,11 +2,7 @@
 
 [wiki](https://github.com/jiangyinzuo/vimrc/wiki)
 
-My personal vim/neovim configuration files, dotfiles and other scripts. Feel free to contact me or open an issue/PR if you have any questions or suggestions.
-
-> "User-friendly," "universal," and "easy to use" form the impossible trinity of tools.
->
-> 好用，通用，易用，是工具的不可能三角。
+My personal vim/neovim configuration files, dotfiles and other scripts.
 
 ## Requirements and Installation
 

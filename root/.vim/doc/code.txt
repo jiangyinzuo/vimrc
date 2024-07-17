@@ -17,6 +17,9 @@ vim:ft=help
 全字匹配
 :grep -w def foo.py
 
+文件内case insensitive search
+/\chello
+
 使用grep ~
 `grep 'func main' -r --exclude tags .`
 `grep 'func main' ~/hello.go` 查找~/hello.go文件中的func main

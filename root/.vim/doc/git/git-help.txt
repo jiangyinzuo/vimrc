@@ -447,6 +447,11 @@ git submodule add ../onnxruntime.git onnxruntime
 *git-submodule-deinit*
 git submodule deinit 节省git仓库空间
 
+git submodule只有.git文件/目录的解决方法
+>bash
+    git submodule deinit -f -- contrib/mariadb-connector-c
+    git submodule update --init --depth=1 -- contrib/mariadb-connector-c
+<
 -------------------------------------------------------------------------------
 *detached-git-directory* *git目录* *gitdir*
 

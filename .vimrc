@@ -157,7 +157,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endif
 	" vim7.3+
 	set conceallevel=2
-	if v:version >= 801 || has('nvim')
+	if v:version >= 801
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside
 		set autoread
@@ -168,6 +168,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" Notification after file change
 		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+		if has('patch-8.1.311')
+			" filter quickfix list, do not use vim-qf plugin
+			packadd cfilter
+		endif
 	endif
 
 	" Enable persistent undo so that undo history persists across vim sessions

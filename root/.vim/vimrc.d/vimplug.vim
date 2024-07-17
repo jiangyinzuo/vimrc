@@ -116,7 +116,6 @@ if v:version >= 800
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'voldikss/vim-translator'
-	Plug 'romainl/vim-qf'
 
 	Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 

@@ -101,12 +101,6 @@ if v:version >= 800
 	" 这样的补全，使用F12
 	let g:UltiSnipsExpandTrigger="<f12>"
 	
-	let g:qf_auto_open_quickfix = 0
-	nmap <leader>cn <Plug>QfCnext
-	nmap <leader>cp <Plug>QfCprevious
-	nmap <leader>ln <Plug>QfLnext
-	nmap <leader>lp <Plug>QfLprevious
-	
 	" 默认csv带有header
 	let g:rbql_with_headers = 1
 	let g:rainbow_comment_prefix = '#'
@@ -135,14 +129,7 @@ if v:version >= 800
 
 	exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 	command -nargs=+ -complete=customlist,fugitive#LogComplete GitDiff2Paths call open_gitdiff#open_diff_by_path(<f-args>)
-else
-	nnoremap <silent> <leader>cn :cn<CR>
-	nnoremap <silent> <leader>cp :cp<CR>
-	nnoremap <silent> <leader>ln :ln<CR>
-	nnoremap <silent> <leader>lp :lp<CR>
 endif
-noremap ]q :call noplug#ToggleQuickfix('c')<CR>
-noremap ]l :call noplug#ToggleQuickfix('l')<CR>
 
 let g:caser_prefix = 'gs'
 

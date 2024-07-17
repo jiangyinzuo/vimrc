@@ -92,7 +92,6 @@ local M = {
 	"preservim/vimux",
 	"honza/vim-snippets",
 	"voldikss/vim-translator",
-	"romainl/vim-qf",
 	{
 		"mechatroner/rainbow_csv",
 		ft = "csv",

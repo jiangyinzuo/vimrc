@@ -220,6 +220,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" Notification after file change
 		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+		if has('patch-8.1.311')
+			" filter quickfix list, do not use vim-qf plugin
+			packadd cfilter
+		endif
 	endif
 
 	" Enable persistent undo so that undo history persists across vim sessions
@@ -332,6 +336,13 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 FdToQf call noplug#SystemToQf('fd ' . <q-args> . ' | xargs file | sed "s/:/:1:/"')
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
+
+	noremap ]q :call noplug#ToggleQuickfix('c')<CR>
+	noremap ]l :call noplug#ToggleQuickfix('l')<CR>
+	nnoremap <silent> <leader>cn :cn<CR>
+	nnoremap <silent> <leader>cp :cp<CR>
+	nnoremap <silent> <leader>ln :ln<CR>
+	nnoremap <silent> <leader>lp :lp<CR>
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)

@@ -78,12 +78,6 @@ recording a macro: >
 *add-to-the-begin-of-line* `:%s/^/hello /g`
 *put-grep-results-into-quickfixlist-then-execute-by-cdo* `:cdo %s/<search term>/<replace term>/cg`
 
-*filter-quickfix* >
-  :packadd cfilter
-  :vimgrep /foo/
-  :Cfilter /runtime/
-<
-
 -------------------------------------------------------------------------------
 Undo System ~
 
