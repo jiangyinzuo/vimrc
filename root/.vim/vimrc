@@ -63,7 +63,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:clang_format = get(g:, 'clang_format', 'clang-format')
 	" black, ruff
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
-
+	let g:sql_type_default = 'mysql'
 	let g:ai_complete = get(g:, 'ai_complete', 'copilot')
 
 	" gtags-cscope | cscope

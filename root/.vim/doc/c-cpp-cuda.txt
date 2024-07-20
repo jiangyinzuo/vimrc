@@ -253,6 +253,7 @@ GPU监控 ~
 
 gpustat: `pip install gpustat`
 nvtop
+nvitop: `pip install nvitop`
 
 【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
 

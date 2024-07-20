@@ -90,7 +90,7 @@ devel版本升级时，apt依赖可能会出一些bug，比如依赖xxxt64库，
 ，第二天更新apt源，发现问题被修复
 
 ===============================================================================
-*font设置*
+*font设置* *fc-cache*
 
 中文字体
 https://source.typekit.com/source-han-serif/cn/

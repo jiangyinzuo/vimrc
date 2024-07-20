@@ -19,6 +19,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("patch-7.4.1649")
 		packadd! matchit
 	endif
+
+	let g:sql_type_default = 'mysql'
 	if exists('&viminfofile') && !has('nvim')
 		set viminfofile=$HOME/.vim/.viminfo
 		" 保留50个marks
