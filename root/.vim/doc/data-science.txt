@@ -6,6 +6,7 @@ Vscode Data Wrangler plugin
 
 Jupyter Lab
 
+*quarto*
 Quarto®: an open-source scientific and technical publishing system built on Pandoc.
 - next generation of R Markdown
 

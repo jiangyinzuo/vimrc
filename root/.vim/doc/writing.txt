@@ -1,0 +1,144 @@
+vim:ft=help
+*writing.txt*
+
+===============================================================================
+gq和=的区别 ~
+
+|gq|: 格式化文本或段落
+|=|: 缩进代码
+===============================================================================
+*markdown*
+
+Markdown等文本编辑添加链接：
+1) fd > path.txt  预处理得到项目所有文件路径
+2）:Path模糊查找文件路径并插入到当前光标位置
+
+查找Hashtag并插入到当前光标位置		:Hashtag
+
+Alternatives:
+- https://github.com/epwalsh/obsidian.nvim
+
+Markdown转PDF: |quarto|
+-------------------------------------------------------------------------------
+*slides*
+
+复杂的slides直接用PowerPoint制作，不使用markdown/typst/latex等标记语言，因为
+
+- 即使有现成的markdown，也很难灵活排版，几乎需要破坏原本markdown的结构、添加不
+  少markdown语法噪音用于排版。如果需要临时展示markdown，不如直接使用
+  `iamcco/markdown-preview.nvim`等vim插件或Google Chrome markdown插件。
+
+- typst/latex作为一种排版语言，语法噪音过多。
+	- typst做PPT: https://github.com/touying-typ/touying
+- |pandoc|等转换工具在转pptx时，对3列布局等复杂布局的处理存在bug。
+   
+https://github.com/ickc/pandoc-pptx/blob/master/index.csv
+https://github.com/jgm/pandoc/issues/5258
+
+-------------------------------------------------------------------------------
+
+*其它slides工具*
+
+google doc
+https://slides.com/
+https://revealjs.com  比较现代的html slides
+
+*pandoc*
+
+pandoc可以将某种标记语言转为 
+→ LaTeX Beamer
+→ Microsoft PowerPoint
+→ Slidy
+→ reveal.js
+→ Slideous
+→ S5
+→ DZSlides
+
+https://pandoc.org/MANUAL.html
+https://github.com/topics/pandoc-templates
+
+$DOC2/cs/tools-open-source/pandoc/note.md
+
+*marp* Markdown Presentation Ecosystem
+
+See: https://github.com/marp-team/marp-cli
+
+watch mode >
+  npx @marp-team/marp-cli@latest note.md -w --html
+<
+
+md -> html >
+  :AsyncRun npx @marp-team/marp-cli@latest note.md
+<
+
+md enable inlining html >
+  :AsyncRun npx @marp-team/marp-cli@latest note.md --html
+<
+
+md -> pptx >
+   npx @marp-team/marp-cli@latest llvm-udo.md --pptx --allow-local-files --html
+<
+
+-------------------------------------------------------------------------------
+*latex* *bibtex*
+
+|dblp爬虫|
+https://github.com/jiangyinzuo/vimrc/wiki/Latex
+https://github.com/jiangyinzuo/dblp-api
+
+*zhihu2bib.py*
+
+知乎的两行分享链接转换成@misc bibtex格式
+
+-------------------------------------------------------------------------------
+
+拼写检查 ~
+
+1. Vim原生|spell|
+2. linux aspell spell命令
+3. ltex拼写检查(基于languagetool) https://languagetool.org/
+>
+	:CocCommand ltex.showStatusInformation
+<
+查看字典所在位置（位于某个.vscode文件中）
+
+
+4. 其它基于languagetool的工具
+
+依赖Java 8和textidote jar包，不适用于没有Java的环境
+https://github.com/PatrBal/vim-textidote
+https://github.com/sylvainhalle/textidote
+
+*texdoc命令行工具查询在线文档*
+>
+	texdoc subfigure
+<
+
+生成diff.tex的命令行工具: latexdiff。不一定好用，因为还要进一步编译成pdf
+-------------------------------------------------------------------------------
+*tectonic*
+Rust实现的一个tex编译引擎。
+
+需要提前预处理EPS文件
+https://github.com/tectonic-typesetting/tectonic/issues/27
+
+-------------------------------------------------------------------------------
+常见编译错误
+
+>
+	! LaTeX Error: File `algorithm2e.sty' not found
+<
+
+原因:
+LaTeX 环境中缺少 algorithm2e 宏包。algorithm2e.sty文件是algorithm2e` 宏包的一部分，
+该宏包提供了一个环境来编写算法和伪代码。
+
+解决方法1:
+>
+	sudo apt-get install texlive-science
+<
+解决方法2:
+从CTAN下载 algorithm2e.sty 文件，手动放到Latex项目目录下面。
+
+有的论文模板格式或许会魔改algorithm2e.sty，这时候需要将它提供的
+algorithm2e.sty放到Latex项目目录下面。

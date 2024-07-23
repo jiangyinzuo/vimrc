@@ -16,16 +16,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'matze/vim-move'
 
 Plug 'andymass/vim-matchup'
-
-if v:version >= 801
-	Plug 'ap/vim-css-color'
-	Plug 'LunarWatcher/auto-pairs'
-
-	" See: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
-	" fix conflict with autopairs
-	Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
-endif
-
 " Test framework
 " Plug 'junegunn/vader.vim'
 
@@ -46,12 +36,6 @@ Plug 'szw/vim-maximizer'
 " digraphs, etc.)
 " See Also: :h :ascii
 Plug 'tpope/vim-characterize'
-
-Plug 'lambdalisue/vim-fern'
-Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/fern-hijack.vim'
-Plug 'LumaKernel/fern-mapping-fzf.vim'
 
 Plug 'jiangyinzuo/bd.vim'
 
@@ -125,103 +109,118 @@ if v:version >= 800
 
 	Plug 'lifepillar/vim-solarized8'
 	source ~/.vim/vimrc.d/leaderf.vim
-	if v:version >= 802
-		" neovim 内置了 inccommand, 无需该插件
-		Plug 'markonm/traces.vim'
-		" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
-		" See:
-		" https://github.com/vim/vim/pull/9639
-		" https://github.com/vim/vim/releases/tag/v9.1.0064
-		Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
-		Plug 'skywind3000/vim-quickui'
-		Plug 'pechorin/any-jump.vim'
+	if v:version >= 801
+		Plug 'ap/vim-css-color'
+		Plug 'LunarWatcher/auto-pairs'
 
-		Plug 'voldikss/vim-floaterm'
-		Plug 'voldikss/LeaderF-floaterm'
-		Plug 'voldikss/fzf-floaterm'
-		source ~/.vim/vimrc.d/floaterm.vim
-		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-		Plug 'junegunn/fzf.vim'
-		source ~/.vim/vimrc.d/fzf.vim
+		" See: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+		" fix conflict with autopairs
+		Plug 'jiangyinzuo/vim-visual-multi', {'branch': 'master'}
+		if v:version >= 802
+			" neovim 内置了 inccommand, 无需该插件
+			Plug 'markonm/traces.vim'
+			" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
+			" See:
+			" https://github.com/vim/vim/pull/9639
+			" https://github.com/vim/vim/releases/tag/v9.1.0064
+			Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
-		" require +job
-		" pip3 install doq --break-system-packages
-		Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+			Plug 'skywind3000/vim-quickui'
+			Plug 'pechorin/any-jump.vim'
 
-		" vim和jupyter notebook(运行在浏览器上)同步，
-		" 需要安装jupyter_ascending, 目前不支持notebook 7
-		" :h jupyter-notebook
-		" See: https://github.com/imbue-ai/jupyter_ascending
-		" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
-		Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
-		
-		" vim和jupyter console/qtconsole同步
-		" :h jupyter-qtconsole
-		Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
-		" ipynb打开时显示python
-		Plug 'goerz/jupytext.vim'
+			Plug 'voldikss/vim-floaterm'
+			Plug 'voldikss/LeaderF-floaterm'
+			Plug 'voldikss/fzf-floaterm'
+			source ~/.vim/vimrc.d/floaterm.vim
+			Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+			Plug 'junegunn/fzf.vim'
+			source ~/.vim/vimrc.d/fzf.vim
 
-		Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
+			Plug 'lambdalisue/vim-fern'
+			Plug 'lambdalisue/nerdfont.vim'
+			Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+			Plug 'lambdalisue/fern-hijack.vim'
+			Plug 'LumaKernel/fern-mapping-fzf.vim'
 
-		" support more features(mermaid, flowchart, ...)
-		Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
+			" require +job
+			" pip3 install doq --break-system-packages
+			Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
-		" See: https://github.com/preservim/vim-markdown/pull/633
-		Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
-		let g:vim_markdown_no_default_key_mappings = 1
-		let g:vim_markdown_folding_disabled = 1
-		let g:vim_markdown_toc_autofit = 1
-		let g:vim_markdown_conceal_code_blocks = 0
-		let g:vim_markdown_math = 1
+			" vim和jupyter notebook(运行在浏览器上)同步，
+			" 需要安装jupyter_ascending, 目前不支持notebook 7
+			" :h jupyter-notebook
+			" See: https://github.com/imbue-ai/jupyter_ascending
+			" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
+			Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
+			
+			" vim和jupyter console/qtconsole同步
+			" :h jupyter-qtconsole
+			Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
+			" ipynb打开时显示python
+			Plug 'goerz/jupytext.vim'
 
-		" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-		Plug 'lervag/vimtex', {'for': 'tex'}
-		source ~/.vim/vimrc.d/latex.vim
-		Plug 'skywind3000/asynctasks.vim'
-		Plug 'skywind3000/asyncrun.vim'
-		source ~/.vim/vimrc.d/asynctasks.vim
+			Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
 
-		if v:version >= 900
-			" Use release branch (recommend)
-			Plug 'neoclide/coc.nvim', {'branch': 'release'}
-			Plug 'antoinemadec/coc-fzf'
-			Plug 'Clavelito/indent-awk.vim'
-			Plug 'Eliot00/git-lens.vim'
-			let g:GIT_LENS_ENABLED = 0
+			" support more features(mermaid, flowchart, ...)
+			Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
 
-			" Alternative: https://github.com/gelguy/wilder.nvim
-			Plug 'girishji/autosuggest.vim'
-			" External cmd is slow.
-			autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far'] }}) | endif
-			if v:version >= 901
-				Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
+			" See: https://github.com/preservim/vim-markdown/pull/633
+			Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
+			let g:vim_markdown_no_default_key_mappings = 1
+			let g:vim_markdown_folding_disabled = 1
+			let g:vim_markdown_toc_autofit = 1
+			let g:vim_markdown_conceal_code_blocks = 0
+			let g:vim_markdown_math = 1
+
+			" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
+			Plug 'lervag/vimtex', {'for': 'tex'}
+			source ~/.vim/vimrc.d/latex.vim
+			Plug 'skywind3000/asynctasks.vim'
+			Plug 'skywind3000/asyncrun.vim'
+			source ~/.vim/vimrc.d/asynctasks.vim
+
+			if v:version >= 900
+				" Use release branch (recommend)
+				Plug 'neoclide/coc.nvim', {'branch': 'release'}
+				Plug 'antoinemadec/coc-fzf'
+				Plug 'Clavelito/indent-awk.vim'
+				Plug 'Eliot00/git-lens.vim'
+				let g:GIT_LENS_ENABLED = 0
+
+				" Alternative: https://github.com/gelguy/wilder.nvim
+				Plug 'girishji/autosuggest.vim'
+				" External cmd is slow.
+				autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far'] }}) | endif
+				if v:version >= 901
+					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
+				endif
 			endif
-		endif
-		if g:vim_dap == 'vimspector'
-			Plug 'puremourning/vimspector'
-			let g:vimspector_enable_mappings='VISUAL_STUDIO'
+			if g:vim_dap == 'vimspector'
+				Plug 'puremourning/vimspector'
+				let g:vimspector_enable_mappings='VISUAL_STUDIO'
 
-			" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-			" There are two locations for debug configurations for a project:
-			" 
-			" g:vimspector_configurations vim variable (dict)
-			" <vimspector home>/configurations/<OS>/<filetype>/*.json
-			" .vimspector.json in the project source
-			"
-			" json配置位于.vim/configurationsw目录下
-			let g:vimspector_base_dir = $HOME . '/.vim'
-			let g:vimspector_sign_priority = {
-						\    'vimspectorBP':          20,
-						\    'vimspectorBPCond':      20,
-						\    'vimspectorBPLog':       20,
-						\    'vimspectorBPDisabled':  20,
-						\    'vimspectorNonActivePC': 20,
-						\    'vimspectorPC':          999,
-						\    'vimspectorPCBP':        999,
-						\ }
+				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+				" There are two locations for debug configurations for a project:
+				" 
+				" g:vimspector_configurations vim variable (dict)
+				" <vimspector home>/configurations/<OS>/<filetype>/*.json
+				" .vimspector.json in the project source
+				"
+				" json配置位于.vim/configurationsw目录下
+				let g:vimspector_base_dir = $HOME . '/.vim'
+				let g:vimspector_sign_priority = {
+							\    'vimspectorBP':          20,
+							\    'vimspectorBPCond':      20,
+							\    'vimspectorBPLog':       20,
+							\    'vimspectorBPDisabled':  20,
+							\    'vimspectorNonActivePC': 20,
+							\    'vimspectorPC':          999,
+							\    'vimspectorPCBP':        999,
+							\ }
+			endif
+			Plug 'jiangyinzuo/term-debugger'
 		endif
-		Plug 'jiangyinzuo/term-debugger'
 	endif
 endif
 
