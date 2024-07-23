@@ -550,7 +550,7 @@ function! s:GtagsAutoUpdate()
     if l:file == ''
         return
     endif
-    let l:result = AsyncRunOrSystem(s:GlobalCommand() . " -u --single-update=\"" . l:file . "\"")
+    let l:result = noplug#AsyncRunOrSystem(s:GlobalCommand() . " -u --single-update=\"" . l:file . "\"")
 endfunction
 
 "
@@ -577,7 +577,7 @@ function! GtagsCandidateCore(lead, line, pos)
         return glob(l:pattern)
     else
         let l:cmd = s:GlobalCommand() . ' ' . '-c' . s:option . ' ' . a:lead
-        call AsyncRunOrSystem(l:cmd)
+        call noplug#AsyncRunOrSystem(l:cmd)
     endif
 endfunction
 

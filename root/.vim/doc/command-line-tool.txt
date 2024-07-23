@@ -14,6 +14,8 @@ vim:ft=help
 
 -------------------------------------------------------------------------------
 
+*the-art-of-command-line* https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md
+
 *write-maintainable-command-line-tools*
 https://github.com/jiangyinzuo/write-maintainable-command-line-tools
 

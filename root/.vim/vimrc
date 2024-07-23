@@ -131,31 +131,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set nobackup
 	set nowritebackup
 
-	function AsyncRunOrSystem(cmd)
-		if exists("*asyncrun#run")
-			call asyncrun#run('', {'silent': 1}, a:cmd)
-		else
-			call system(a:cmd)
-		endif
-	endfunction
-	" NOTE: 运行 clean-vim-backup.py，仅保留最新的1个备份版本
-	function BackupFile()
-		" 获取当前文件的大小（单位：字节）
-		let l:filesize = getfsize(expand('%:p'))
-		" 设置大小阈值为5MB
-		let l:maxsize = 5 * 1024 * 1024
-		if l:filesize > l:maxsize
-			return
-		endif
-		if !exists("b:backup_dir")
-			let b:backup_dir = expand("~/.vim/backup") . expand("%:p:h")
-			if !isdirectory(b:backup_dir)
-				call mkdir(b:backup_dir, "p", 0700)
-			endif
-		endif
-		call AsyncRunOrSystem('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") .. '.bak')
-	endfunction
-	autocmd BufWritePost * call BackupFile()
+	autocmd BufWritePost * call noplug#BackupFile()
 	set swapfile
 	set updatecount=100
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
@@ -243,7 +219,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set undofile
 	endif
 	"""""""""""""""""""""""""""""""
-	if has("patch-8.1.0360") " nvim also has this patch
+	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 	endif
 	command -nargs=0 DiffthisSetfiletypeText :diffthis | setf text
@@ -299,30 +275,16 @@ if has('autocmd') " vim-tiny does not have autocmd
 		augroup END
 	endif
 
-	function GetVisualSelection()
-		" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
-		" Why is this not a built-in Vim script function?!
-		let [line_start, column_start] = getpos("'<")[1:2]
-		let [line_end, column_end] = getpos("'>")[1:2]
-		let lines = getline(line_start, line_end)
-		if len(lines) == 0
-			return ''
-		endif
-		let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-		let lines[0] = lines[0][column_start - 1:]
-		return join(lines, "\n")
-	endfunction
-
 	nnoremap <silent> <leader>vw :call noplug#FindWord(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vw :call noplug#FindWord(GetVisualSelection())<CR>
+	vnoremap <silent> <leader>vw :call noplug#FindWord(noplug#GetVisualSelection())<CR>
 	command! -nargs=1 VimWord call noplug#FindWord(<q-args>)
 
 	nnoremap <silent> <leader>vy :call noplug#FindType(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vy :call noplug#FindType(GetVisualSelection())<CR>
+	vnoremap <silent> <leader>vy :call noplug#FindType(noplug#GetVisualSelection())<CR>
 	command! -nargs=1 VimType call noplug#FindType(<q-args>)
 
 	nnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(expand("<cword>"))<CR>
-	vnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(GetVisualSelection())<CR>
+	vnoremap <silent> <leader>vd :call noplug#FindDefinitionFunction(noplug#GetVisualSelection())<CR>
 	command! -nargs=1 VimDef call noplug#FindDefinitionFunction(<q-args>)
 
 	" Reference: vim.fandom.com/wiki/Searching_for_files
@@ -337,8 +299,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
 
-	noremap ]q :call noplug#ToggleQuickfix('c')<CR>
-	noremap ]l :call noplug#ToggleQuickfix('l')<CR>
+	nnoremap ]q :call noplug#ToggleQuickfix('c')<CR>
+	nnoremap ]l :call noplug#ToggleQuickfix('l')<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
 	nnoremap <silent> <leader>ln :ln<CR>
@@ -352,9 +314,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" 清空高亮
 	nnoremap <Leader>lc :call clearmatches()<cr>
 
-	" Example:
-	" :e+22 ~/.vimrc
-	command! -nargs=0 VimExeLine exe getline(".")
 	if v:version >= 740 || &readonly == 0
 		set mouse=a
 		if !has('nvim') && has('unix') && exists('$TMUX')

@@ -90,7 +90,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 				call mkdir(b:backup_dir, "p", 0700)
 			endif
 		endif
-		call system('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") .. '.bak')
+		call system('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") . '.bak')
 	endfunction
 	autocmd BufWritePost * call BackupFile()
 	set swapfile
@@ -368,8 +368,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call SystemToQf('rg --vimgrep ' . <q-args>)
-	noremap ]q :call ToggleQuickfix('c')<CR>
-	noremap ]l :call ToggleQuickfix('l')<CR>
+	nnoremap ]q :call ToggleQuickfix('c')<CR>
+	nnoremap ]l :call ToggleQuickfix('l')<CR>
 	nnoremap <silent> <leader>cn :cn<CR>
 	nnoremap <silent> <leader>cp :cp<CR>
 	nnoremap <silent> <leader>ln :ln<CR>
@@ -386,9 +386,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" 清空高亮
 	nnoremap <Leader>lc :call clearmatches()<cr>
 
-	" Example:
-	" :e+22 ~/.vimrc
-	command! -nargs=0 VimExeLine exe getline(".")
 	if v:version >= 740 || &readonly == 0
 		set mouse=a
 		if !has('nvim') && has('unix') && exists('$TMUX')
@@ -438,7 +435,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
-	if has("autocmd") && exists("+omnifunc")
+	if exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
 	function! MyCppCompleteFunc(findstart, base)
