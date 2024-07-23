@@ -96,7 +96,6 @@ if has('python3')
 
 	command -nargs=1 -complete=customlist,AISwitchServerComplete AISwitchServer call AISwitchServer(<f-args>) | echom g:vim_ai_endpoint_url . ' ' . g:vim_ai_token_file_path . ' ' . g:vim_ai_model
 
-
 	if !has('nvim')
 		Plug 'madox2/vim-ai'
 	endif

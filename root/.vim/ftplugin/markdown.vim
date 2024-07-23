@@ -9,9 +9,8 @@ setlocal conceallevel=0
 let b:surround_126 = "~~\r~~"
 if !has('nvim')
 	let g:markdown_folding = 1
-endif
-
-if (has('unix') && exists('$WSLENV') && !has('nvim'))
-	command! -buffer -nargs=0 MdPreview call wsl#MdPreview()
+	if exists('$WSLENV')
+		command! -buffer -nargs=0 MdPreview call wsl#MdPreview()
+	endif
 endif
 
