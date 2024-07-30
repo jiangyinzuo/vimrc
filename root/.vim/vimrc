@@ -15,6 +15,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let g:AutoPairsMapCR = 0
 		let g:nvim_lsp_autostart = {}
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
+		let g:java_exe_for_jdtls = get(g:, 'java_exe_for_jdtls', '/usr/bin/java')
 		" speed up loading
 		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
 		runtime clipboard_config.lua

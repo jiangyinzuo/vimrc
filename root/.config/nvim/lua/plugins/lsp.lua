@@ -77,6 +77,9 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						enable = true,
 						sign = true,
 						virtual_text = false,
+						ignore = {
+							clients = {"jdtls"},
+						},
 					},
 				})
 			end,
@@ -166,8 +169,9 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			"nvimtools/none-ls.nvim",
 			config = function()
 				local null_ls = require("null-ls")
-				sources = {
+				local sources = {
 					null_ls.builtins.formatting.stylua,
+					null_ls.builtins.formatting.google_java_format,
 				}
 				if vim.g.python_formatter == "black" then
 					table.insert(sources, null_ls.builtins.formatting.black)
@@ -190,10 +194,9 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			priority = 501,
 			opts = {
 				library = {
-					vim.env.LAZY .. "/luvit-meta/library", -- see below
-					-- You can also add plugins you always want to have loaded.
-					-- Useful if the plugin has globals or types you want to use
-					-- vim.env.LAZY .. "/LazyVim", -- see below
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
 				},
 			},
 		},

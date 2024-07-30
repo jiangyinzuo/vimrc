@@ -2,14 +2,14 @@
 
 commit=$1
 
-sudo apt-get -y install libssl-dev
+apt-get -y install libssl-dev
 
 function _uninstall() {
-	sudo make uninstall
+	make uninstall
 }
 
 function _install() {
-	./bootstrap && make && sudo make install
+	./bootstrap && make && make install
 }
 
 . install/git.sh

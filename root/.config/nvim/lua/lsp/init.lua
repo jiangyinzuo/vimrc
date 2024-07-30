@@ -124,7 +124,7 @@ local function setup_lsp(on_attach, capabilities)
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
-	local other_servers = { "jsonls", "basedpyright", "typst_lsp", "cmake" }
+	local other_servers = { "jsonls", "basedpyright", "typst_lsp", "cmake", "html" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
 		table.insert(other_servers, "ruff_lsp")
@@ -252,7 +252,7 @@ function M.lspconfig()
 				vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts)
 				vim.keymap.set("n", "grr", vim.lsp.buf.references, bufopts)
 			end
-			vim.keymap.set("n", "<leader>fmt", function()
+			vim.keymap.set({"n", "x"}, "<leader>fmt", function()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
 			vim.diagnostic.config({

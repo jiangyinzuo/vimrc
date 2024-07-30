@@ -2,18 +2,18 @@
 
 commit=$1
 
-MAKE_FLAG=${MAKE_FLAG:-"-j4"}
+MAKE_FLAG=${MAKE_FLAG:-"-j$((`nproc`-2))"}
 
-sudo apt-get -y install libgtk-3-dev libxt-dev
+apt-get -y install libgtk-3-dev libxt-dev libncurses-dev
 
 function _uninstall() {
-	sudo make uninstall
+	make uninstall
 }
 
 function _install() {
 	./configure --with-features=huge --enable-fontset=yes --enable-cscope=yes --enable-multibyte --enable-python3interp=yes --with-python3-config-dir --enable-gui --with-x
 	make ${MAKE_FLAG}
-	sudo make install
+	make install
 }
 
 . install/git.sh

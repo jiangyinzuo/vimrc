@@ -2,7 +2,7 @@
 
 1. For Ubuntu users, run the following commands to install dependencies:
 ```bash
-./install/ubuntu.sh
+sudo -E ./install/ubuntu.sh
 ```
 
 2. Setup environment variables and soft links
@@ -10,15 +10,21 @@
 ./install/setup.sh
 ```
 
-Setup `$DOC2` manually (optional)
+**optional:**
 
-Run `sync-scripts.sh` and `:PlugUpgrade` to sync scripts (optional).
+- Setup `$DOC2` manually
+- Run `sync-scripts.sh` and `:PlugUpgrade` to sync scripts
+- Reinstall `lazy.nvim` manually
 
 ## Vim
 
 Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 
-**Build from Source**: `install/build_vim.sh`
+**Build from Source**
+
+```bash
+sudo -E install/build_vim.sh
+```
 
 ## Neovim
 
@@ -34,7 +40,11 @@ https://github.com/neovim/neovim/blob/nightly/INSTALL.md#install-from-package
 
 See also: https://github.com/neovim/neovim-releases
 
-**Build from Source**: `install/build_nvim.sh`
+**Build from Source**
+
+```bash
+sudo -E install/build_nvim.sh
+```
 
 ## Node.js
 

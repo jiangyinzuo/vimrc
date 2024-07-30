@@ -2,16 +2,16 @@
 
 commit=$1
 
-sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config automake
+apt-get install libevent-dev ncurses-dev build-essential bison pkg-config automake
 
 function _uninstall() {
-	sudo make uninstall
+	make uninstall
 }
 
 function _install() {
 	sh autogen.sh
 	./configure && make
-	sudo make install
+	make install
 }
 
 . install/git.sh

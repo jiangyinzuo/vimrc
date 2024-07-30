@@ -1,6 +1,7 @@
 local plugins_setup = require("plugins_setup")
 
 return {
+	-- Alternatives: https://github.com/Tsuzat/NeoSolarized.nvim
 	{
 		"ishan9299/nvim-solarized-lua",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme

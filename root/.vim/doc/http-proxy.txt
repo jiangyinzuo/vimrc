@@ -73,3 +73,22 @@ apt源 ~
 pip http代理 ~
 
 pip3 install pandas --proxy=localhost:3128
+
+Java Maven ~
+
+https://maven.apache.org/guides/mini/guide-proxies.html
+
+~/.m2/settings.xml
+>xml
+    <settings>
+      <proxies>
+       <proxy>
+          <id>example-proxy</id>
+          <active>true</active>
+          <protocol>http</protocol>
+          <host>localhost</host>
+          <port>3128</port>
+        </proxy>
+      </proxies>
+    </settings>
+<

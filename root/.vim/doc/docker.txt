@@ -137,8 +137,20 @@ Docker build 过程中 apt-get update ~
 Docker run 示例 ~
 
 开发OpenGauss使用的创建容器命令
->
+>bash
 	docker run -it --name jyz-openeuler --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e LANG=$LANG -e LC_ALL=$LC_ALL -v /usr3/jiangyinzuo_data:/data openeuler/openeuler:22.03
 bash
 	docker run -it --name jyz-centos7.6 --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e LANG=$LANG -e LC_ALL=$LC_ALL -v /usr3/jiangyinzuo_data:/data centos:centos7.6.1810 bash
+<
+
+starrocks: https://docs.starrocks.io/zh/docs/developers/build-starrocks/Build_in_docker/
+>bash
+	docker run -it -v /usr3/jiangyinzuo_data/:/data --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e TERM=$TERM -e LANG=C.UTF-8 -e LC_ALL=$LC_ALL --name  jyz-starrocks -d 93aa59ce2c45
+<
+
+LANG/LC_ALL变量：解决中文乱码，见 https://blog.csdn.net/listen_wq/article/details/117737035
+
+继承宿主机的TERM=xterm-256color
+>bash
+    docker exec -it -e TERM=$TERM jyz-starrocks bash
 <

@@ -16,6 +16,125 @@ See: https://computingforgeeks.com/how-to-set-default-java-version-on-ubuntu-deb
 	export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 <
 
+------------------------------------------------------------------
+代码格式化 ~
+
+https://github.com/google/google-java-format
+
+------------------------------------------------------------------
+Maven ~
+
+新建项目：https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+Generating project in Batch mode 卡死
+
+https://blog.csdn.net/weixin_43999182/article/details/105882148
+
+Maven Checkstyle ~
+
+在 Maven 中运行 Checkstyle 可以通过以下步骤实现：
+
+1. **添加 Checkstyle 插件到你的 `pom.xml` 文件**：
+   在你的 Maven 项目的 `pom.xml` 文件中，添加 Checkstyle Maven 插件。这可以通过在 `<build>` 部分的 `<plugins>` 标签中添加以下内容来完成：
+
+>xml
+   <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-checkstyle-plugin</artifactId>
+       <version>3.1.2</version> <!-- 确保使用最新版本 -->
+       <executions>
+           <execution>
+               <id>validate</id>
+               <phase>validate</phase>
+               <configuration>
+                   <configLocation>config/sun_checks.xml</configLocation> <!-- 指定 Checkstyle 配置文件 -->
+                   <encoding>UTF-8</encoding>
+                   <consoleOutput>true</consoleOutput>
+                   <failsOnError>true</failsOnError>
+                   <linkXRef>false</linkXRef>
+               </configuration>
+               <goals>
+                   <goal>check</goal>
+               </goals>
+           </execution>
+       </executions>
+   </plugin>
+<
+
+在这个配置中：
+
+- `<configLocation>` 标签指定了 Checkstyle 的配置文件路径，通常是 `config/sun_checks.xml` 或其他你希望使用的配置文件。
+- `<encoding>` 标签指定了文件编码。
+- `<consoleOutput>` 标签决定是否在控制台输出检查结果。
+- `<failsOnError>` 标签决定是否在发现错误时使构建失败。
+- `<linkXRef>` 标签决定是否生成一个带有链接的 HTML 报告。
+
+2. *运行 Checkstyle 检查：
+
+在命令行中，进入你的 Maven 项目目录，并运行以下命令：
+
+>bash
+    mvn checkstyle:check
+<
+
+这个命令会触发 Checkstyle 插件，执行代码风格检查。如果配置了 `<failsOnError>` 为 `true`，则任何违反规则的代码都会使构建失败。
+
+3. *生成报告*：
+   如果你希望生成一个详细的 HTML 报告，可以在 `<configuration>` 中添加 `<xrefLocation>` 标签：
+
+>xml
+   <configuration>
+       <configLocation>config/sun_checks.xml</configLocation>
+       <encoding>UTF-8</encoding>
+       <consoleOutput>true</consoleOutput>
+       <failsOnError>true</failsOnError>
+       <linkXRef>true</linkXRef>
+       <xrefLocation>${project.build.directory}/checkstyle</xrefLocation>
+   </configuration>
+<
+
+然后运行：
+
+>bash
+   mvn checkstyle:checkstyle
+<
+
+这会在指定的目录生成一个 HTML 格式的报告。
+
+通过这些步骤，你可以在 Maven 项目中集成并运行 Checkstyle，确保代码符合预定的编码规范。
+
+Eclipse Lifecycle Mapping Problem ~
+
+Lifecycle Mapping 是 Maven项目在构建过程中使用的一组规则，定义了特定构建阶段（如
+validate、compile、test、package 等）应执行的任务。Eclipse 的 Lifecycle
+Mapping 功能允许 Eclipse IDE 了解并正确处理这些 Maven 构建生命周期。
+
+报错时，
+>txt
+    [ERROR][2024-07-26 15:48:48] ...lsp/handlers.lua:624	'Jul 26, 2024, 3:48:48 PM Error occured while building workspace. Details: \n message: Invalid plugin execution mapping (plugin execution "org.apache.maven.plugins:maven-compiler-plugin:3.11.0:testCompile (execution: default-testCompile, phase: test-compile)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1\n message: Invalid plugin execution mapping (plugin execution "org.apache.maven.plugins:maven-dependency-plugin:3.1.1:copy-dependencies (execution: copy-dependencies, phase: package)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1\n message: Invalid plugin execution mapping (plugin execution "org.codehaus.mojo:build-helper-maven-plugin:1.7:add-source (execution: add-source, phase: generate-sources)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1\n message: Invalid plugin execution mapping (plugin execution "org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources (execution: default-resources, phase: process-resources)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1\n message: Invalid plugin execution mapping (plugin execution "org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (execution: default-compile, phase: compile)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1\n message: Invalid plugin execution mapping (plugin execution "org.apache.maven.plugins:maven-resources-plugin:3.3.1:testResources (execution: default-testResources, phase: process-test-resources)"). To enable full functionality, correct the invalid mapping and run Maven->Update Project Configuration.; code: 0; resource: /data/starrocks/fe/fe-core/pom.xml; line: 1'
+<
+
+在pom.xml中找到lifecycle-mapping，将其注释，或许可以解决问题。之后再取消注释，不再报错。
+>xml
+    <pluginManagement>
+        <plugins>
+            <!--set for ecplise lifecycle -->
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    ...
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </pluginManagement>
+<
+
+https://www.cnblogs.com/yy3b2007com/p/11208367.html
+------------------------------------------------------------------
+
 Jmeter压测工具
 JProfiler Java性能分析
 Tomcat服务器

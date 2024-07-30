@@ -48,8 +48,7 @@
 *tab分隔的表格转md-table*				:'<,'>!tab2table.py
 *查看某个option是在什么位置设置的*			:verbose set <option>?
 *Tabular格式化，按照=对齐*				:Tabularize /=
-*加载quickfixlist*					:LoadList foo
-*保存quickfixlist*					:SaveList foo
+*切换到上一个quickfixlist*				:colder
 *git加载所有unmerged文件到quickfixlist*			:Git mergetool
 *将当前文件和其它版本对比*					:Gdiffsplit HEAD~3:%
 *统计当前buffer某个文本的个数*				:%s/<word>//gn

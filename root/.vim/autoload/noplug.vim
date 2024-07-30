@@ -105,7 +105,7 @@ endfunction
 
 function noplug#AsyncRunOrSystem(cmd)
 	if exists("*asyncrun#run")
-		call asyncrun#run('', {'silent': 1}, a:cmd)
+		call asyncrun#run('', {'mode': 'term', 'pos': 'hide', 'silent': 1}, a:cmd)
 	else
 		call system(a:cmd)
 	endif

@@ -2,7 +2,7 @@
 
 [wiki](https://github.com/jiangyinzuo/vimrc/wiki)
 
-My personal vim/neovim configuration files, dotfiles and other scripts.
+My personal vim/neovim configuration files, dotfiles, docs and other scripts.
 
 ## Requirements and Installation
 
