@@ -101,7 +101,7 @@ function M.telescope()
 	telescope.load_extension("session-lens")
 	telescope.load_extension("bibtex")
 	-- telescope.load_extension("luasnip")
-	require('telescope').load_extension('nerdy')
+	require("telescope").load_extension("nerdy")
 end
 
 function M.mason()
@@ -216,7 +216,7 @@ function M.gitsigns()
 		-- 比默认priority低1级, bookmarkspriority为10
 		sign_priority = 9,
 		on_attach = function(bufnr)
-			local gs = package.loaded.gitsigns
+			local gitsigns = require("gitsigns")
 
 			local function map(mode, l, r, opts)
 				opts = opts or {}
@@ -224,26 +224,30 @@ function M.gitsigns()
 				vim.keymap.set(mode, l, r, opts)
 			end
 
-			-- Navigation
+			-- Unstaged hunk navigation
 			map("n", "]c", function()
 				if vim.wo.diff then
-					return "]c"
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gitsigns.nav_hunk("next")
 				end
-				vim.schedule(function()
-					gs.next_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true })
+			end)
 
 			map("n", "[c", function()
 				if vim.wo.diff then
-					return "[c"
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gitsigns.nav_hunk("prev")
 				end
-				vim.schedule(function()
-					gs.prev_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true })
+			end)
+
+			-- Staged hunk navigation
+			map("n", "]sc", function()
+				gitsigns.nav_hunk("next", { target = "staged" })
+			end)
+			map("n", "[sc", function()
+				gitsigns.nav_hunk("prev", { target = "staged" })
+			end)
 
 			-- Text object
 			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -258,10 +262,10 @@ function M.colorscheme()
 		-- Reset coc.nvim highlight after colorscheme loaded
 		-- See: https://github.com/neoclide/coc.nvim/issues/4857
 		vim.cmd([[
-			set termguicolors
-			hi WinBar guibg=NONE
-			hi! link CocInlayHint LspInlayHint
-			hi link QuickPreview Normal
+		set termguicolors
+		hi WinBar guibg=NONE
+		hi! link CocInlayHint LspInlayHint
+		hi link QuickPreview Normal
 		]])
 		M.lualine()
 		colorscheme_loaded = true
