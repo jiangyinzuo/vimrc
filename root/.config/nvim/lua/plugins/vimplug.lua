@@ -173,6 +173,7 @@ local M = {
 		end,
 		dependencies = leaderf_dependencies,
 	},
+	{ "sebdah/vim-delve", ft = "go" },
 }
 
 if vim.g.vimrc_lsp == "coc.nvim" then

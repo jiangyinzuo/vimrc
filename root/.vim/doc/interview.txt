@@ -1,0 +1,182 @@
+vim:ft=help
+*interview.txt*
+
+面试前准备：了解编程环境（编译器版本）
+
+算法题解： https://github.com/jiangyinzuo/algorithm
+
+禁用Github Copilot `:Copilot disable`
+
+建立单文件项目
+
+--------------------------------
+命令行单文件编译运行 ~
+
+Java: `java Main.java < 1.in`
+Python: `python3 a.py < 1.in`
+
+AsyncTask 单文件编译运行 ~
+
+`:AsyncTask file-run`
+标准输入重定向 `:AsyncTask file-run-redir`
+
+--------------------------------
+单步调试 ~
+
+Java/Python: 先`:DapToggleBreakpoint`, 再`:DapContinue`，在dap-terminal中输入输出
+
+C/Cpp/Rust: `:Termdebug`
+
+Go Dap ~
+
+调试单文件前，在当前目录`.vscode/launch.json`中添加配置(可以通过`:ReadProjectFile`选择`.vscode/go-debug-single-file.launch.json`)
+>json
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Launch file",
+                "type": "go",
+                "request": "launch",
+                "mode": "debug",
+                "program": "${file}"
+            }
+        ]
+    }
+<
+
+然后运行`:GoDebug` (go.nvim封装了nvim-dap, 无需配置)
+
+Go Dap支持STDIN比较困难
+https://github.com/golang/vscode-go/wiki/debugging#features
+
+Go Delve ~
+
+https://github.com/sebdah/vim-delve
+
+Go调试单文件，标准输入重定向: `:DlvDebug foo.go -r 1.in`
+
+--------------------------------
+标准I/O ~
+
+*interview-stdio*
+
+CTRL-D: EOF
+
+来源：牛客网提示
+
+C语言
+>c
+    #include <stdio.h>
+
+    int main() {
+        int a, b;
+        while (scanf("%d %d", &a, &b) != EOF) {
+            printf("%d\n", a + b);
+        }
+        return 0;
+    }
+<
+
+C++
+>cpp
+    #include <iostream>
+    using namespace std;
+
+    int main() {
+        int a, b;
+        while (cin >> a >> b) {
+            cout << a + b << endl;
+        }
+        return 0;
+    }
+<
+
+Java
+>java
+    import java.util.Scanner;
+
+    // 注意类名必须为 Main, 不要有任何 package xxx 信息
+    public class Main {
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            // 注意 hasNext 和 hasNextLine 的区别
+            while (in.hasNextInt()) { // 注意 while 处理多个 case
+                int a = in.nextInt();
+                int b = in.nextInt();
+                System.out.println(a + b);
+            }
+        }
+    }
+<
+
+Python
+>python
+    import sys
+
+    for line in sys.stdin:
+        a = line.split()
+        print(int(a[0]) + int(a[1]))
+<
+
+>python
+    a, b, c = map(int, input().split())
+<
+
+Python EOF
+>python
+    a, b = 0, 0
+    while True:
+        try:
+            a, b = map(int, input().split())
+        except EOFError:
+            break
+    print(a + b)
+<
+
+Rust
+>rust
+    use std::io::{self, *};
+
+    fn main() {
+        let stdin = io::stdin();
+        unsafe {
+            for line in stdin.lock().lines() {
+                let ll = line.unwrap();
+                let numbers: Vec<&str> = ll.split(" ").collect();
+                let a = numbers[0].trim().parse::<i32>().unwrap_or(0);
+                let b = numbers[1].trim().parse::<i32>().unwrap_or(0);
+                print!("{}\n", a + b);
+            }
+        }
+    }
+<
+
+Golang的文件名随意，但package name必须是main，这样才能运行`go run foo.go`
+>go
+    package main
+
+    import (
+        "fmt"
+    )
+
+    func main() {
+        a := 0
+        b := 0
+        for {
+            n, _ := fmt.Scan(&a, &b)
+            if n == 0 {
+                break
+            } else {
+                fmt.Printf("%d\n", a + b)
+            }
+        }
+    }
+<
+--------------------------------
+DevDocs ~
+
+https://devdocs.io/
+
+cpp openjdk-21
+

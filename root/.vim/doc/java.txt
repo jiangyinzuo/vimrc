@@ -1,6 +1,13 @@
 vim:ft=help
 *java.txt*
 
+LSP查看JDK源码 ~
+
+Ubuntu 24.04
+>bash
+    apt install openjdk-21-source
+<
+
 ubuntu设置java默认路径 ~
 
 方法一
