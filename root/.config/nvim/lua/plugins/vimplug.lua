@@ -88,6 +88,7 @@ local M = {
 	"simnalamburt/vim-mundo",
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
+	"wesQ3/vim-windowswap",
 	"tpope/vim-characterize",
 	"preservim/vimux",
 	"honza/vim-snippets",
