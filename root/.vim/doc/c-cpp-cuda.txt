@@ -177,6 +177,15 @@ https://github.com/llvm/llvm-project/blame/80e61e38428964c9c9abac5b7a59bb513b5b1
 
 使用项目：milvus
 
+~/.conan/conan.conf 改存储路径，节省硬盘空间
+>
+    [storage]
+    # This is the default path, but you can write your own. It must be an absolute path or a
+    # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
+    # with "~/", will be relative to the conan user home, not to the system user home)
+    path = /usr3/jiangyinzuo_data/conan_data
+<
+
 *bazel*
 
 使用项目：HA3

@@ -184,6 +184,14 @@ Golang的文件名随意，但package name必须是main，这样才能运行`go 
     }
 <
 --------------------------------
+Python ~
+
+深拷贝二维数组
+>python
+    a = [[0,0] for _ in range(4)]
+<
+
+--------------------------------
 DevDocs ~
 
 https://devdocs.io/

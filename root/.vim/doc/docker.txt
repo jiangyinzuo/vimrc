@@ -2,6 +2,42 @@ vim:ft=help
 *docker*
 
 -------------------------------------------------------------------------------
+Docker磁盘空间清理 ~
+
+https://blog.csdn.net/MinggeQingchun/article/details/125006782
+
+无用的镜像和容器太多 ~
+
+docker system df -v 查看单个image镜像、container容器空间占用细节，以确定是哪个镜像、容器或本地卷占用过高空间
+docker system prune 命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像（即无tag的镜像）
+docker system prune -a 命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉
+
+迁移/var/lib/docker目录 ~
+
+https://cloud.tencent.com/developer/article/2020334
+>bash
+    systemctl stop docker
+    mkdir -p /usr3/docker_data
+    rsync -avzP /var/lib/docker /usr3/docker_data
+<
+
+修改/lib/systemd/system/docker.service文件：
+
+在ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock后添加--data-root=/usr3/docker_data/docker
+
+`--data-root string                        Root directory of persistent Docker state (default "/var/lib/docker")`
+
+重启docker
+>bash
+    systemctl daemon-reload
+    systemctl restart docker
+<
+删除原目录
+>bash
+    rm -rf /var/lib/docker
+<
+
+-------------------------------------------------------------------------------
 *nvidia-docker*
 
 nvidia-docker 被achieved了，使用 *nvidia-container-toolkit*

@@ -19,3 +19,9 @@ let g:gtest#gtest_command = "path/to/test/executable"
 
 " Copilot
 " let g:copilot_workspace_folders = ['~/Projects/myproject']
+
+if has('nvim')
+  let g:gitsign_default_base = 'HEAD~1'
+else
+  let g:gitgutter_diff_base = 'HEAD~1'
+endif
