@@ -252,7 +252,7 @@ function M.gitsigns()
 			-- Text object
 			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 		end,
-		base = vim.g.gitsign_default_base or "HEAD"
+		base = vim.g.gitsign_default_base
 	})
 end
 

@@ -1,0 +1,7 @@
+{
+    "header 1 align center": {
+        "prefix": "h1center",
+        "body": ["<h1 align=\"center\"> ${0} </h1>"],
+        "description": "Add header level 1, align center"
+    }
+}

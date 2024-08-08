@@ -23,14 +23,26 @@ endfunction
 " sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser '/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe' 200
 " sudo update-alternatives --config x-www-browser
 function wsl#BrowserPreview()
-	call job_start('x-www-browser "' . ConvertWSLPath(expand("%:p")) . '"')
+	if has('nvim')
+		call jobstart('x-www-browser "' . ConvertWSLPath(expand("%:p")) . '"')
+	else
+		call job_start('x-www-browser "' . ConvertWSLPath(expand("%:p")) . '"')
+	endif
 endfunction
 
 function WSLOpen(uri)
 	let uri_converted = ConvertWSLPath(a:uri)
-	if uri_converted =~ '\.md$'
-		call job_start('x-www-browser "' . uri_converted . '"')
+	if has('nvim')
+		if uri_converted =~ '\.md$'
+			call jobstart('x-www-browser "' . uri_converted . '"')
+		else
+			call jobstart('cmd.exe /c start "" ' . uri_converted . '')
+		endif
 	else
-		call job_start('cmd.exe /c start "" ' . uri_converted . '')
+		if uri_converted =~ '\.md$'
+			call job_start('x-www-browser "' . uri_converted . '"')
+		else
+			call job_start('cmd.exe /c start "" ' . uri_converted . '')
+		endif
 	endif
 endfunction

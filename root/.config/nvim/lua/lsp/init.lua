@@ -14,6 +14,7 @@ local function setup_lsp(on_attach, capabilities)
 			on_attach = on_attach,
 			capabilities = capabilities,
 			cmd = vim.g.clangd_cmd,
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 			root_dir = lspconfig.util.root_pattern(
 				".project.vim",
 				".git",
@@ -224,6 +225,10 @@ function M.lspconfig()
 		attach_codelens(client, bufnr)
 	end, M.get_capabilities())
 
+	vim.keymap.del("n", "]d")
+	vim.keymap.del("n", "[d")
+	vim.keymap.del("n", "]D")
+	vim.keymap.del("n", "[D")
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd("LspAttach", {
@@ -249,10 +254,10 @@ function M.lspconfig()
 			vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, bufopts)
 			if vim.version.ge({ 0, 10, 0 }, vim.version()) then
 				vim.keymap.set("n", "grn", vim.lsp.buf.rename, bufopts)
-				vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts)
+				vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, bufopts)
 				vim.keymap.set("n", "grr", vim.lsp.buf.references, bufopts)
 			end
-			vim.keymap.set({"n", "x"}, "<leader>fmt", function()
+			vim.keymap.set({ "n", "x" }, "<leader>fmt", function()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
 			vim.diagnostic.config({
@@ -261,6 +266,24 @@ function M.lspconfig()
 				-- ERROR 比 INFO优先级更高显示
 				severity_sort = true,
 			})
+			vim.keymap.set("n", "]da", function()
+				vim.diagnostic.jump({ count = 1, float = true })
+			end, bufopts)
+			vim.keymap.set("n", "[da", function()
+				vim.diagnostic.jump({ count = -1, float = true })
+			end, bufopts)
+			vim.keymap.set("n", "]dw", function()
+				vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN }, float = true })
+			end, bufopts)
+			vim.keymap.set("n", "[dw", function()
+				vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN }, float = true })
+			end, bufopts)
+			vim.keymap.set("n", "]de", function()
+				vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
+			end, bufopts)
+			vim.keymap.set("n", "[de", function()
+				vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
+			end, bufopts)
 		end,
 	})
 	vim.api.nvim_create_user_command("OutgoingCalls", function(_)
