@@ -78,7 +78,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						sign = true,
 						virtual_text = false,
 						ignore = {
-							clients = {"jdtls"},
+							clients = { "jdtls", "marksman" },
 						},
 					},
 				})

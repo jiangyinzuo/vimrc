@@ -101,3 +101,27 @@ https://source.typekit.com/source-han-serif/cn/
 >
 	fc-cache -fv
 <
+
+locale 语言环境改为zh_CN.UTF-8 ~
+
+可以让|sort|按照中文拼音顺序排序
+
+https://www.cnblogs.com/BillyLV/p/12658463.html
+
+`locale -a`: 查看支持的字符集。
+
+安装zh_CN.UTF-8
+>bash
+    sudo apt-get install  -y language-pack-zh-hans
+<
+
+临时修改
+>bash
+    export LANG=zh_CN.UTF-8
+<
+
+永久修改
+>bash
+    localectl set-locale LANG=zh_CN.UTF8
+<
+或编辑`/etc/locale.conf`, `/etc/default/locale`文件, 并reboot重启系统

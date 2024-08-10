@@ -109,7 +109,13 @@ local M = {
 	"samoshkin/vim-mergetool",
 	"godlygeek/tabular",
 	{ "axvr/org.vim", ft = "org" },
-	{ "kaarmu/typst.vim", ft = "typst" },
+	{ "jiangyinzuo/typst.vim", ft = "typst", branch = "patch-1" },
+	{
+		"jiangyinzuo/vim-AdvancedSorters",
+		dependencies = {
+			"inkarkat/vim-ingo-library",
+		},
+	},
 	-- take place of 'airblade/vim-gitgutter',
 	{
 		"lewis6991/gitsigns.nvim",

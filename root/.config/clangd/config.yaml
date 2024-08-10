@@ -23,6 +23,7 @@ Diagnostics:
       - cppcoreguidelines-pro-bounds-array-to-pointer-decay
       - cppcoreguidelines-pro-bounds-pointer-arithmetic
       - cppcoreguidelines-pro-type-vararg
+      - llvmlibc-restrict-system-libc-headers
       - google-runtime-int
       - modernize-avoid-c-arrays
       - modernize-use-nodiscard
