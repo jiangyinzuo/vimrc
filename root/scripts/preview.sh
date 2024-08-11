@@ -1,5 +1,5 @@
 #!/bin/bash
-# Used by `fzf.vim`, `fm`
+# Used by `fzf.vim`
 
 # Run
 # `xdg-mime query filetype <filename>` or

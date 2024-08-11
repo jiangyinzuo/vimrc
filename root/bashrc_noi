@@ -7,7 +7,6 @@ export VIMRC_ROOT=$HOME/vimrc/root
 
 . "$VIMRC_ROOT"/z.sh
 source "$VIMRC_ROOT"/goto.sh
-. "$VIMRC_ROOT"/fm
 
 bd() {
 	local d;

@@ -6,9 +6,7 @@ soft_link_files=(
 	.config/ctags
 	.config/himalaya
 	.config/lazygit
-	.config/nnn/plugins
 	.config/nvim
-	.config/vifm
 	.config/zellij
 	.gitconfig
 	.gitconfig-ict
@@ -49,7 +47,6 @@ do_setup() {
 
 	echo_green "Setup soft links:"
 	mkdir -p ~/.local/share/bash-completion/completions
-	mkdir -p ~/.config/nnn
 	for f in "${soft_link_files[@]}"; do
 		_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 	done

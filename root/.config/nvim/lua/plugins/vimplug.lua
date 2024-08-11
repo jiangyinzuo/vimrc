@@ -42,12 +42,7 @@ local M = {
 	},
 	{ "heavenshell/vim-pydocstring", ft = "python" },
 	{ "imbue-ai/jupyter_ascending.vim", ft = "python" },
-	{
-		"voldikss/vim-floaterm",
-		init = function()
-			vim.api.nvim_command("source ~/.vim/vimrc.d/floaterm.vim")
-		end,
-	},
+	"voldikss/vim-floaterm",
 	{
 		"voldikss/fzf-floaterm",
 		dependencies = {

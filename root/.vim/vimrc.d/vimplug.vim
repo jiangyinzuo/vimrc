@@ -136,7 +136,6 @@ if v:version >= 800
 			Plug 'voldikss/vim-floaterm'
 			Plug 'voldikss/LeaderF-floaterm'
 			Plug 'voldikss/fzf-floaterm'
-			source ~/.vim/vimrc.d/floaterm.vim
 			Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 			Plug 'junegunn/fzf.vim'
 			source ~/.vim/vimrc.d/fzf.vim

@@ -28,9 +28,6 @@ zt() {
 	fi
 }
 
-export NNN_PLUG='z:autojump'
-export NNN_OPTS='e'
-
 if [[ $(uname -a) == *WSL* ]]; then
 	. "$VIMRC_ROOT"/wsl-init.bash
 fi
