@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# We install fzf via vim-plug
 export PATH=$PATH:$HOME/plugged/fzf/bin
 # Extended-search-mode
 # 
@@ -7,15 +8,10 @@ export PATH=$PATH:$HOME/plugged/fzf/bin
 # or start fzf with -e
 # Reference: https://github.com/junegunn/fzf#extended-search-mode
 
-# alias fzfcd='cd "$(find * -type d | fzf)"'
-
+# https://github.com/lincheney/fzf-tab-completion is removed, use fzf default completion instead
 # Reference: https://github.com/junegunn/fzf/tree/master/shell
 source $HOME/plugged/fzf/shell/key-bindings.bash
 source $HOME/plugged/fzf/shell/completion.bash
-
-# Reference: https://github.com/lincheney/fzf-tab-completion
-source $VIMRC_ROOT/fzf/fzf-bash-completion.sh
-bind -x '"\C-f": fzf_bash_completion'
 
 # Reference: https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
 source $VIMRC_ROOT/fzf/fzf-git.sh
