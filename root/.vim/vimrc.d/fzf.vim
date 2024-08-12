@@ -172,4 +172,6 @@ command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC
 " [[palette]]读取常用项目配置文件			:ReadProjectFile
 command! -nargs=0 ReadProjectFile call fzf#run(fzf#wrap({'source': "find ~/vimrc/project_files -type f", 'sink': 'read', 'options': ['--prompt', 'ProjectFile > ', '--preview', 'cat {}', '--preview-window', 'up,60%']}))
 
+command! -nargs=0 BackupFile call fzf#run(fzf#wrap({'source': "find ~/.vim/backup" . expand('%:p') . '* -type f', 'sink': function("fzf_custom#fzf#backup"), 'options': ['--tac', '--no-sort', '--prompt', 'BackupFile> ', '--preview', 'head -n 1000 {}', '--preview-window', 'up,60%']}))
+
 command! -nargs=0 Dictionary call fzf#run(fzf#wrap('dictionary', {'source': 'cat ' . &dict, 'sink': function("s:paste_word")}))
