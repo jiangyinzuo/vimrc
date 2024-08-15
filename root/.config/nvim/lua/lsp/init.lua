@@ -225,10 +225,16 @@ function M.lspconfig()
 		attach_codelens(client, bufnr)
 	end, M.get_capabilities())
 
-	vim.keymap.del("n", "]d")
-	vim.keymap.del("n", "[d")
-	vim.keymap.del("n", "]D")
-	vim.keymap.del("n", "[D")
+	-- remove default nvim lsp keymap
+	if vim.version.ge(vim.version(), { 0, 10, 0 }) then
+		vim.keymap.del("n", "]d")
+		vim.keymap.del("n", "[d")
+		vim.keymap.del("n", "]D")
+		vim.keymap.del("n", "[D")
+		vim.keymap.del({"x", "n"}, "gra")
+		vim.keymap.del("n", "grn")
+		vim.keymap.del("n", "grr")
+	end
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd("LspAttach", {
@@ -241,22 +247,21 @@ function M.lspconfig()
 			-- Mappings.
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 			local bufopts = { noremap = true, silent = true, buffer = ev.buf }
-			vim.keymap.set("n", "grD", vim.lsp.buf.declaration, bufopts)
-			vim.keymap.set("n", "grd", vim.lsp.buf.definition, bufopts)
-			-- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-			vim.keymap.set("n", "gri", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
+			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
+			vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
+			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
+			vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, bufopts)
 			-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 			-- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 			-- 	vim.keymap.set("n", "<space>wl", function()
 			-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			-- 	end, bufopts)
-			vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, bufopts)
-			if vim.version.ge({ 0, 10, 0 }, vim.version()) then
-				vim.keymap.set("n", "grn", vim.lsp.buf.rename, bufopts)
-				vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, bufopts)
-				vim.keymap.set("n", "grr", vim.lsp.buf.references, bufopts)
-			end
+			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
+			-- range_code_action and range_formatting are deprecated
+			vim.keymap.set({ "n", "x" }, "<leader>ac", vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set({ "n", "x" }, "<leader>fmt", function()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
