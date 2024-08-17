@@ -106,7 +106,7 @@ local M = {
 	{ "axvr/org.vim", ft = "org" },
 	{ "jiangyinzuo/typst.vim", ft = "typst", branch = "patch-1" },
 	{
-		"jiangyinzuo/vim-AdvancedSorters",
+		"inkarkat/vim-AdvancedSorters",
 		dependencies = {
 			"inkarkat/vim-ingo-library",
 		},
