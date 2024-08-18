@@ -149,6 +149,12 @@ local M = {
 
 	"lambdalisue/vim-fern",
 	{
+		"jiangyinzuo/fern-oil.nvim",
+		dependencies = {
+			"lambdalisue/vim-fern",
+		},
+	},
+	{
 		"lambdalisue/fern-renderer-nerdfont.vim",
 		dependencies = {
 			"lambdalisue/vim-fern",

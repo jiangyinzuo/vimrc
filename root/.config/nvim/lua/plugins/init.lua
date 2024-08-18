@@ -91,6 +91,7 @@ return {
 			"nvim-telescope/telescope-bibtex.nvim",
 			-- "benfowler/telescope-luasnip.nvim",
 			"2kabhishek/nerdy.nvim",
+			"albenisolmos/telescope-oil.nvim",
 		},
 		config = plugins_setup.telescope,
 	},
@@ -153,6 +154,7 @@ return {
 		"rmagatti/auto-session",
 		opts = {
 			log_level = "error",
+			args_allow_single_directory = false, -- boolean Follow normal sesion save/load logic if launched with a single directory as the only argument
 			auto_session_enable_last_session = false,
 			auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
 			auto_session_enabled = true,
