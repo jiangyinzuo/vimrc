@@ -24,3 +24,11 @@ function latex#SumatraPDFSendToVim(args)
 	let l:newargs = join([l:line, ' /mnt/', l:diskname, l:wslpath], '')
 	execute 'edit +' . l:newargs
 endfunction
+
+function latex#LatexPasteImage(relpath)
+	execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
+	let ipos = getcurpos()
+	execute "normal! a" . "mage}"
+	call setpos('.', ipos)
+	execute "normal! ve\<C-g>"
+endfunction

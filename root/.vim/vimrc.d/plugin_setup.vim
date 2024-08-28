@@ -140,15 +140,7 @@ let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 let g:mdip_imgdir = '.'
 let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
-function! g:LatexPasteImage(relpath)
-	execute "normal! i\\includegraphics{" . a:relpath . "}\r\\caption{I"
-	let ipos = getcurpos()
-	execute "normal! a" . "mage}"
-	call setpos('.', ipos)
-	execute "normal! ve\<C-g>"
-endfunction
 " autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
-autocmd FileType tex let g:PasteImageFunction = 'g:LatexPasteImage'
 autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
 if has('nvim') || v:version >= 802

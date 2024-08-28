@@ -153,6 +153,7 @@ return {
 	{
 		"rmagatti/auto-session",
 		opts = {
+			silent_restore = false,
 			log_level = "error",
 			args_allow_single_directory = false, -- boolean Follow normal sesion save/load logic if launched with a single directory as the only argument
 			auto_session_enable_last_session = false,

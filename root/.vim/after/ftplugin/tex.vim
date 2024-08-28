@@ -10,4 +10,5 @@ setlocal tabstop=2 shiftwidth=2 softtabstop=2
 if exists('$WSLENV')
 	" [[palette]]打开当前tex文件中PDF对应的pptx文件			:OpenPPTX
 	command -buffer -nargs=0 OpenPPTX call latex#OpenPPTX()
+	let g:PasteImageFunction = 'latex#LatexPasteImage'
 endif

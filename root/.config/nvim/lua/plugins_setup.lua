@@ -196,14 +196,16 @@ function M.lualine()
 			lualine_b = lualine_b,
 			lualine_c = lualine_c,
 			lualine_x = { "encoding", "fileformat", "filetype" },
-			lualine_y = { "progress" },
-			lualine_z = { "location" },
+			lualine_y = {},
+			-- file location
+			lualine_z = { "%l/%L,%v" },
 		},
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = { filename },
-			lualine_x = { "location" },
+			-- file location
+			lualine_x = { "%l/%L,%v" },
 			lualine_y = {},
 			lualine_z = {},
 		},

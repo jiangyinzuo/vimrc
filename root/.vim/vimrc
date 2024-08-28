@@ -1,6 +1,7 @@
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
+	set relativenumber
 	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
 	if filereadable(expand('~/.vim/config.vim'))
@@ -26,6 +27,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 			" copied from ftplugin/man.vim
 			command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
 		endif
+		set showcmd " show pressed keys
 	endif
 	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
 	" tmux2.2以上才支持true color
@@ -180,14 +182,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20
-	if has("nvim-0.5.0") || has("patch-8.1.1564")
-		set signcolumn=number " 合并git状态与行号
-	elseif v:version >= 801
-		set signcolumn=yes " 同时显示git状态和行号
-	endif
-	" vim7.3+
-	set conceallevel=2
+	set conceallevel=2 " vim7.3+
 	if v:version >= 801
+		set signcolumn=yes " 同时显示git状态和行号
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside
 		set autoread

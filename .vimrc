@@ -3,9 +3,11 @@
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
+	set relativenumber
 	let g:mapleader = ' '
 	set modeline " 开启模式行, 读取文件开头结尾类似于 /* vim:set ts=2 sw=2 noexpandtab: */ 的配置
 	set exrc " 读取当前文件夹的.vimrc
+	set showcmd " show pressed keys
 	if v:version >= 800
 		set bg=dark
 	else
@@ -152,14 +154,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set list
 	" set nowrap " 不折行
 	set guifont=Monospace\ Regular\ 20
-	if has("nvim-0.5.0") || has("patch-8.1.1564")
-		set signcolumn=number " 合并git状态与行号
-	elseif v:version >= 801
-		set signcolumn=yes " 同时显示git状态和行号
-	endif
-	" vim7.3+
-	set conceallevel=2
+	set conceallevel=2 " vim7.3+
 	if v:version >= 801
+		set signcolumn=yes " 同时显示git状态和行号
 		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 		" Set to auto read when a file is changed from the outside
 		set autoread
