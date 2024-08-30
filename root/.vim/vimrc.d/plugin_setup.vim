@@ -159,15 +159,6 @@ if has('nvim') || v:version >= 802
 	" imap中F12被映射为UltiSnipsExpandTrigger, see plugin.vim
 	let g:floaterm_keymap_toggle = '<F2>'
 	let g:floaterm_title='<F9> kill | <F10> new | <F11> prev | <F12> next | <F2> toggle ($1/$2)'
-	" 在floaterm中才会生效的快捷键
-	augroup FloatermShortcuts
-		autocmd!
-		autocmd FileType floaterm tnoremap <buffer> <F9>  <C-\><C-n>:FloatermKill<CR>
-		autocmd FileType floaterm tnoremap <buffer> <F10>  <C-\><C-n>:FloatermNew<CR>
-		autocmd FileType floaterm tnoremap <buffer> <F11> <C-\><C-n>:FloatermPrev<CR>
-		autocmd FileType floaterm tnoremap <buffer> <F12> <C-\><C-n>:FloatermNext<CR>
-	augroup END
-	" 使用Fern作为内置文件浏览器，不添加 :Yazi, :NNN, :Vifm等命令
 	""""""""""""""""""
 
 	let g:pydocstring_doq_path = 'doq'
@@ -181,14 +172,16 @@ if has('nvim') || v:version >= 802
 	" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
 	" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
 	let g:jupyter_ascending_auto_write = v:true
-
 	let g:jupytext_fmt = 'py'
 
 	" ocaml utop在第一次send时可能会失败，需要再send一次，或提前打开:SlimeConfig
 	if has('nvim')
-		let g:slime_target = "tmux"
-		" g:slime_bracketed_paste = 0 slime多行复制粘贴有问题
-		let g:slime_bracketed_paste = 1
+		""""""" tmux """""""
+		" let g:slime_target = "tmux"
+		" " g:slime_bracketed_paste = 0 slime多行复制粘贴有问题
+		" let g:slime_bracketed_paste = 1
+		""""""""""""""""""""
+		let g:slime_target = "neovim"
 	else
 		let g:slime_target = "vimterminal"
 	endif
