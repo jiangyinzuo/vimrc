@@ -3,8 +3,16 @@
 
 set -e;
 
-apt-get update
-apt-get install -y lsb-release software-properties-common python3-pip
+if command -v sudo >/dev/null 2>&1; then
+	# sudo 命令存在，使用sudo执行命令
+	SUDO=sudo
+else
+	# sudo 命令不存在，直接执行命令
+	SUDO=
+fi
+
+$SUDO apt-get update
+$SUDO apt-get install -y lsb-release software-properties-common python3-pip
 
 UBUNTU_CODE_NAME=$(lsb_release -c | cut -f2)
 UBUNTU_VERSION=$(lsb_release -r | cut -f2)
@@ -17,7 +25,7 @@ function install_tmux() {
 	if [[ $UBUNTU_VERSION == "18.04" ]]; then
 		./install/build_tmux.sh
 	else
-		apt-get install -y tmux
+		$SUDO apt-get install -y tmux
 	fi
 }
 
@@ -25,8 +33,8 @@ function install_nvim() {
 	if [[ $UBUNTU_VERSION == "18.04" ]]; then
 		./install/build_nvim.sh $NVIM_COMMIT
 	else
-		add-apt-repository ppa:neovim-ppa/unstable
-		apt-get install -y neovim
+		$SUDO add-apt-repository ppa:neovim-ppa/unstable
+		$SUDO apt-get install -y neovim
 		pip3 install neovim
 	fi
 }
@@ -42,8 +50,8 @@ function install_llvm() {
 deb ${LLVM_URL}/$UBUNTU_CODE_NAME/ llvm-toolchain-$UBUNTU_CODE_NAME${LLVM_VERSION} main
 deb-src ${LLVM_URL}/$UBUNTU_CODE_NAME/ llvm-toolchain-$UBUNTU_CODE_NAME${LLVM_VERSION} main
 EOF
-	apt-get update
-	apt-get install -y clangd${LLVM_VERSION} clang-tidy${LLVM_VERSION} clang-format${LLVM_VERSION} clang${LLVM_VERSION}
+	$SUDO apt-get update
+	$SUDO apt-get install -y clangd${LLVM_VERSION} clang-tidy${LLVM_VERSION} clang-format${LLVM_VERSION} clang${LLVM_VERSION}
 }
 
 function install_rg() {
@@ -54,9 +62,9 @@ function install_rg() {
 		# 下载.deb文件(ripgrep_14.1.0-1_amd64.deb 可以用)
 		mkdir -p build
 		wget --directory-prefix build https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb
-		dpkg -i build/ripgrep_14.1.0-1_amd64.deb
+		$SUDO dpkg -i build/ripgrep_14.1.0-1_amd64.deb
 	else
-		apt-get install -y ripgrep
+		$SUDO apt-get install -y ripgrep
 	fi
 }
 
@@ -68,7 +76,7 @@ function install_fd() {
 		运行 dpkg -i <package_name>.deb 安装 fd
 	"
 	else
-		apt-get install -y fd-find
+		$SUDO apt-get install -y fd-find
 		ln -s $(which fdfind) $HOME/.local/bin/fd
 		prompt=$prompt"
 		=== fd ===
@@ -82,7 +90,7 @@ function install_other_apt_packages() {
 	# Leaderf needs python3-dev and python3-distutils
 	# wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
-	apt-get install -y curl less tree bd bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet
+	$SUDO apt-get install -y curl less tree bd bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet shfmt
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113
@@ -112,7 +120,7 @@ function install_vim() {
 	# apt-get install -y libgtk-3-dev libxt-dev vim-gtk3
 	# update-alternatives --config vim
 	# update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
-	apt-get -y install libgtk-3-dev libxt-dev
+	$SUDO apt-get -y install libgtk-3-dev libxt-dev
 	./install/build_vim.sh $VIM_COMMIT
 }
 
@@ -133,7 +141,7 @@ _go_installged=false
 function install_go() {
 	if [ "$_go_installed" = false ]; then
 		_go_installed=true
-		snap install go --classic
+		$SUDO snap install go --classic
 		prompt=$prompt"
 		=== Go ===
 		必须确保GOPATH/bin在环境变量，保证gopls能找到。
@@ -145,7 +153,7 @@ function install_go() {
 
 function install_gvm() {
 	install_go
-	apt-get -y install curl git mercurial make binutils bison gcc build-essential
+	$SUDO apt-get -y install curl git mercurial make binutils bison gcc build-essential
 	bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 	prompt=$prompt"
 		=== GVM ===

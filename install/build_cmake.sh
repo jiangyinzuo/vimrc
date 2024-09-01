@@ -1,16 +1,17 @@
 #!/bin/bash
 
+. install/git.sh
+
 commit=$1
 
-apt-get -y install libssl-dev
+$SUDO apt-get -y install libssl-dev
 
 function _uninstall() {
-	make uninstall
+	$SUDO make uninstall
 }
 
 function _install() {
-	./bootstrap && make && make install
+	./bootstrap && make && $SUDO make install
 }
 
-. install/git.sh
 main https://gitlab.kitware.com/cmake/cmake.git cmake $commit
