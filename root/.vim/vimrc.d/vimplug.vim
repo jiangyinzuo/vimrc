@@ -170,11 +170,6 @@ if v:version >= 800
 
 			" See: https://github.com/preservim/vim-markdown/pull/633
 			Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
-			let g:vim_markdown_no_default_key_mappings = 1
-			let g:vim_markdown_folding_disabled = 1
-			let g:vim_markdown_toc_autofit = 1
-			let g:vim_markdown_conceal_code_blocks = 0
-			let g:vim_markdown_math = 1
 
 			" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 			Plug 'lervag/vimtex', {'for': 'tex'}

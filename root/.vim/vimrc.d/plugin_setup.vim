@@ -129,6 +129,15 @@ if v:version >= 800
 
 	exe command_def . 'QfGitDiff call open_gitdiff#select("enew", function("open_gitdiff#quickfix#view"), <f-args>)'
 	command -nargs=+ -complete=customlist,fugitive#LogComplete GitDiff2Paths call open_gitdiff#open_diff_by_path(<f-args>)
+
+	let g:vim_markdown_no_default_key_mappings = 1
+	let g:vim_markdown_folding_disabled = 1
+	let g:vim_markdown_toc_autofit = 1
+	let g:vim_markdown_conceal_code_blocks = 0
+	let g:vim_markdown_math = 1
+	if has('nvim')
+		let g:vim_markdown_conceal = 0
+	endif
 endif
 
 let g:caser_prefix = 'gs'
