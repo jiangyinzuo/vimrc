@@ -230,6 +230,11 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 					lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
 					lsp_cfg = {
 						capabilities = require("lsp").get_capabilities(),
+						settings = {
+							gopls = {
+								semanticTokens = false, -- disable semantic string tokens so we can use treesitter highlight injection
+							}
+						}
 					},
 					-- after go.nvim's on_attach is called, then this on_attach will be called
 					lsp_on_client_start = function(client, bufnr)

@@ -5,7 +5,7 @@ tag_prefix = "v"
 chore = { changelog_title = "Chore", omit_from_changelog = true }
 ci = { changelog_title = "CI", omit_from_changelog = true }
 docs = { changelog_title = "Docs", omit_from_changelog = true }
-enhance = { changelog_title = "Enhance", omit_from_changelog = true }
+enhance = { changelog_title = "Enhancement", omit_from_changelog = false }
 
 [changelog]
 path = "CHANGELOG.md"
