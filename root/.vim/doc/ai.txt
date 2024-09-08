@@ -1,9 +1,31 @@
 vim:set ft=help:
 *ai.txt*
 
-AI Tools ~
+IDE功能需求 ~
 
-cursor.so
+https://docs.cursor.com/get-started/usage
+
+Tab
+- completion
+
+Chat
+- code rewrite
+- code generation
+
+Context
+- codebase indexing (project files)
+- rag
+
+Products ~
+
+perplexity
+
+cursor.com
+- Code Generation
+- Multi-Line Edits
+- Smart Rewrites
+- Cursor Prediction
+
 notion.so 文档管理APP
 
 Github Copilot
@@ -14,6 +36,8 @@ CodiumAI https://www.codium.ai/
 阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
 百度 文心快码 https://comate.baidu.com/zh
 字节 豆包MarsCode https://www.marscode.cn/
+deepseek https://www.deepseek.com/
+amazonq
 
 fitten code
 https://github.com/FittenTech
@@ -37,17 +61,7 @@ https://www.swebench.com/
 
 https://www.kajetandomagala.com/codeium-vs-copilot/
 
-deepseek https://www.deepseek.com/
-
 Poe https://poe.com/
-
-AI Tool 具备的功能 ~
-
-code completion
-code search
-chat
-- code rewrite
-- code generation
 
 OpenAI assistants (beta) ~
 
