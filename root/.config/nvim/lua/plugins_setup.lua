@@ -24,8 +24,9 @@ function M.nvim_treesitter()
 			enable = true,
 			additional_vim_regex_highlighting = false,
 		},
+		-- https://github.com/RRethy/nvim-treesitter-endwise
 		endwise = {
-			enable = true,
+			enable = false, -- nvim-treesitter-endwise is not maintained
 		},
 		-- https://github.com/andymass/vim-matchup
 		matchup = {

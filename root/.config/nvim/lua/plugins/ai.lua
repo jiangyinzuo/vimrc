@@ -36,7 +36,21 @@ elseif vim.g.ai_complete == "copilot" then
 			-- See Commands section for default commands if you want to lazy load on them
 		},
 		"github/copilot.vim",
-		-- https://github.com/olimorris/codecompanion.nvim
+		-- https://github.com/magicalne/nvim.ai
+		-- {
+		-- 	"olimorris/codecompanion.nvim",
+		-- 	dependencies = {
+		-- 		"nvim-lua/plenary.nvim",
+		-- 		"nvim-treesitter/nvim-treesitter",
+		-- 		"hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+		-- 		"nvim-telescope/telescope.nvim", -- Optional: For working with files with slash commands
+		-- 		-- {
+		-- 		-- 	"stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
+		-- 		-- 	opts = {},
+		-- 		-- },
+		-- 	},
+		-- 	config = true
+		-- },
 		-- {
 		-- 	"yetone/avante.nvim",
 		-- 	event = "VeryLazy",

@@ -111,6 +111,7 @@ local M = {
 			"inkarkat/vim-ingo-library",
 		},
 	},
+	"tpope/vim-endwise",
 	-- take place of 'airblade/vim-gitgutter',
 	{
 		"lewis6991/gitsigns.nvim",

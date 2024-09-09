@@ -20,7 +20,7 @@ return {
 		build = ":TSUpdate",
 		config = plugins_setup.nvim_treesitter,
 		dependencies = {
-			"RRethy/nvim-treesitter-endwise",
+			-- "RRethy/nvim-treesitter-endwise",
 		},
 	},
 	{
