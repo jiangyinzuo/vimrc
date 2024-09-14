@@ -273,6 +273,14 @@ Failed to initialize NVML: Driver/library version mismatch NVML library version:
 解决方法：重启服务器
 
 https://comzyh.com/blog/archives/967/
+
+*cuda-gdb*
+
+帮助 `help cuda`
+查看cuda线程 `info cuda threads`
+查看当前cuda线程 `cuda thread`
+切换到cuda线程2 `cuda thread 2`
+
 ====================================================================================
 *glibc*
 

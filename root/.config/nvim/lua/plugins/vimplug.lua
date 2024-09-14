@@ -85,6 +85,7 @@ local M = {
 	"szw/vim-maximizer",
 	"wesQ3/vim-windowswap",
 	"tpope/vim-characterize",
+	"tpope/vim-speeddating",
 	"preservim/vimux",
 	"honza/vim-snippets",
 	"voldikss/vim-translator",

@@ -37,7 +37,7 @@ Plug 'wesQ3/vim-windowswap'
 " digraphs, etc.)
 " See Also: :h :ascii
 Plug 'tpope/vim-characterize'
-
+Plug 'tpope/vim-speeddating'
 Plug 'jiangyinzuo/bd.vim'
 
 " vim-surround和vim-sneak会共享s/S shortcut，但不冲突

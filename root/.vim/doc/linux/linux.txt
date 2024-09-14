@@ -70,3 +70,13 @@ Linux修改他人用户名 ~
 >
 	getent group sudo
 <
+
+手动创建误删除的home目录 ~
+
+>bash
+    sudo mkdir /home/username
+    sudo chown username:username /home/username
+    sudo chmod 700 /home/username
+<
+
+打开 `/etc/passwd` 文件，查看对应用户的home目录是否正确。

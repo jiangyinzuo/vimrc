@@ -1,0 +1,112 @@
+vim:ft=help
+*centos*
+===================================================================
+*yum*
+
+yum whatprovides */lspci 查看包含 lspci 的软件包
+yum clean all 清除所有缓存
+yum makecache 重新构建缓存
+
+2024年6月30日，CentOS 7停止服务后, mirrorlist.centos.org无法访问
+
+- http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container
+
+解决方法：更换阿里云镜像 https://www.bilibili.com/read/cv36141293/?jump_opus=1
+
+>bash
+    http_proxy=http://localhost:3128 curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+    yum clean all # 清除所有缓存
+    yum makecache # 重新构建缓存
+<
+
+Transaction check error ~
+
+ `yum update` 报错
+>
+    Transaction check error:
+      Unknown error during transaction test in RPM
+
+    Error Summary
+    -------------
+<
+
+解决方法：Unknown error，没有指出明确的依赖错误，试试 `sudo yum update`
+
+CentOS 7重新分区 ~
+
+See also: ~/.vim/doc/linux/filesystem.md
+
+增加/home分区大小，减小/分区大小
+
+要备份 `/home` 分区的数据并重新创建文件系统，然后恢复数据，您可以按照以下步骤操作：
+
+1. 备份数据
+
+使用 `xfsdump` 工具备份 `/home` 分区。确保您有足够的空间来存储备份文件。
+>bash
+    sudo yum install xfsdump
+    xfsdump -f /path/to/backup/file /home
+<
+
+这里的 `/path/to/backup/file` 是您存放备份文件的路径，确保该路径有足够的空间。
+
+2. 卸载 `/home` 分区：
+
+在进行任何操作之前，您需要卸载 `/home` 分区。
+>bash
+    umount /home
+<
+
+3. 缩小`/home` 分区
+
+使用 `lvreduce` 命令减小 `/home` 分区的大小。请小心操作，因为这可能会导致数据丢失。
+>bash
+    lvreduce -L 10G /dev/mapper/centos-home
+<
+
+这里将 `/home` 分区缩小到 10GB。请确保您有足够的空间来容纳缩小后的分区。
+
+4. 扩展 `root` 分区
+
+使用 `lvextend` 命令扩展 `root` 分区，使用 `/home` 分区释放出来的空间。
+>bash
+    lvextend -l +100%FREE /dev/mapper/centos-root
+<
+
+5. 重新创建 `/home` 分区的文件系统
+
+缩小分区后，您需要重新创建 `/home` 分区的文件系统。
+>bash
+    mkfs.xfs -f /dev/mapper/centos-home
+<
+
+6. 恢复数据
+
+重新挂载 `/home`分区，并使用 `xfsrestore` 工具恢复之前备份的数据。
+>bash
+    mount /home
+    xfsrestore -f /path/to/backup/file /home
+<
+
+7. 更新 `/etc/fstab`
+   如果 `/home` 分区的 UUID 发生了变化，您需要更新 `/etc/fstab` 文件中的相应条目。
+
+8. 验证：
+   最后，您可以使用 `df -h` 命令来验证分区大小是否已经按照您的预期进行了调整。
+
+请注意，这些步骤涉及到的数据操作可能会导致数据丢失，因此在执行之前一定要确保已经备份了所有重要数据。另外，这些操作需要 root 权限。如果您不确定如何操作，或者没有信心完成这些步骤，可能需要寻求专业的系统管理员帮助。
+
+修改Hostname ~
+
+>bash
+    sudo hostnamectl set-hostname 新的主机名
+<
+
+添加用户 ~
+
+>bash
+    sudo useradd $username
+    sudo passwd $username
+    # 添加到sudo组
+    sudo usermod -aG wheel $username
+<
