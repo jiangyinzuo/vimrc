@@ -2,7 +2,7 @@
 
 [wiki](https://github.com/jiangyinzuo/vimrc/wiki)
 
-My personal vim/neovim configuration files, dotfiles, docs and other scripts.
+My personal Vim/Neovim configuration files, dotfiles, docs and other scripts.
 
 ## Requirements and Installation
 
@@ -11,7 +11,7 @@ OS: Linux, WSL
 Vim/Neovim requirements:
 
 - vim 9.1+ (full features)
-- vim 7.4.629+ (minimal)
+- vim 7.4.629+ (minimal, tested in CentOS 7)
 - neovim 0.11.0+
 
 See [install/README.md](./install/README.md) for more details.

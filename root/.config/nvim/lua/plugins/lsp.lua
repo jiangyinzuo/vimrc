@@ -211,7 +211,8 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"mrcjkb/rustaceanvim",
-			version = "^4", -- Recommended
+			version = "^5", -- Recommended
+			lazy = false, -- This plugin is already lazy
 			ft = { "rust" },
 		},
 		{
@@ -227,14 +228,15 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				require("go").setup({
 					-- debug
 					verbose = false,
+					lsp_semantic_highlights = false, -- do not use highlights from gopls so we can use treesitter highlight injection
 					lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
 					lsp_cfg = {
 						capabilities = require("lsp").get_capabilities(),
 						settings = {
 							gopls = {
 								semanticTokens = false, -- disable semantic string tokens so we can use treesitter highlight injection
-							}
-						}
+							},
+						},
 					},
 					-- after go.nvim's on_attach is called, then this on_attach will be called
 					lsp_on_client_start = function(client, bufnr)
