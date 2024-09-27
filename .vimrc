@@ -3,7 +3,8 @@
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
-	set relativenumber
+	" 和面试官交流时，面试官可能看不懂相对行号，所以最好关闭
+	" set relativenumber
 	let g:mapleader = ' '
 	set modeline " 开启模式行, 读取文件开头结尾类似于 /* vim:set ts=2 sw=2 noexpandtab: */ 的配置
 	set exrc " 读取当前文件夹的.vimrc
