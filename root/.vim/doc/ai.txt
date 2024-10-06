@@ -37,7 +37,6 @@ CodiumAI https://www.codium.ai/
 百度 文心快码 https://comate.baidu.com/zh
 字节 豆包MarsCode https://www.marscode.cn/
 deepseek https://www.deepseek.com/
-amazonq
 
 fitten code
 https://github.com/FittenTech
@@ -89,3 +88,5 @@ $ gh copilot explain "traceroute github.com"
 
 *gpt-engineer*
 https://github.com/gpt-engineer-org/gpt-engineer
+
+Amazon Q 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html

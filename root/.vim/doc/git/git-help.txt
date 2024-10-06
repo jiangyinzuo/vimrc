@@ -724,3 +724,11 @@ pull并检出github某个pr
 >bash
     gh pr checkout https://github.com/milvus-io/milvus/pull/33173
 <
+
+
+===============================================================================
+
+Git 命令行工具 ~
+
+lazygit
+fzf-git.sh https://github.com/junegunn/fzf-git.sh

@@ -13,9 +13,6 @@ export PATH=$PATH:$HOME/plugged/fzf/bin
 source $HOME/plugged/fzf/shell/key-bindings.bash
 source $HOME/plugged/fzf/shell/completion.bash
 
-# Reference: https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
-source $VIMRC_ROOT/fzf/fzf-git.sh
-
 # Reference: https://github.com/junegunn/fzf#fzf-tmux-script
 export FZF_TMUX=1
 
