@@ -1,7 +1,7 @@
 *smile*							:smile
+*intro*							:intro
 *cd当前文件所在目录*					:cd %:h
 *cd到项目根目录*					:Cd
-*文件查看*						:Telescope file_browser
 *搜索当前buffer的LSP-symbol-outline(nvim)*		:Telescope lsp_document_symbols
 *显示当前buffer的LSP-symbol-outline(nvim)*		:SymbolsOutline
 *搜索当前buffer的LSP-symbol-outline(vim)*		:CocList outline 
@@ -24,7 +24,6 @@
 *当前行作为vim-command执行*				:exe getline('.')
 *关闭preview窗口*					:pc
 *查看当前文件名*					:f
-*intro*							:intro
 *关闭其它所有windows*					:only
 *关闭其它所有标签页(tab)*				:tabonly
 *clang-format当前文件*					:%!clang-format
@@ -42,9 +41,6 @@
 *leaderf通过rg全字匹配*					:Leaderf rg -w 'func main'
 *leaderf通过rg大小写敏感*				:Leaderf rg -s <word>
 *leaderf通过rg搜索，不使用正则表达式*			:Leaderf rg -F <word>
-*生成ctags*						:!ctags -R
-*生成gtags*						:!global
-*增量更新gtags*						:!global -u
 *tab分隔的表格转md-table*				:'<,'>!tab2table.py
 *查看某个option是在什么位置设置的*			:verbose set <option>?
 *Tabular格式化，按照=对齐*				:Tabularize /=

@@ -8,6 +8,7 @@ https://github.com/hellogcc/100-gdb-tips
 gdb插件 ~
 
 - https://github.com/hugsy/gef
+- https://github.com/cyrus-and/gdb-dashboard
 
 -------------------------------------------------------------------------------
 step -> step in
