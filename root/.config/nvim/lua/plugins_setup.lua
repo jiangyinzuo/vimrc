@@ -133,8 +133,9 @@ function M.lualine()
 	local lualine_c = {}
 	local winbar = {}
 	if vim.g.vimrc_lsp == "nvim-lsp" then
-		lualine_b = { "branch", "diagnostics" }
+		lualine_b = { "branch" }
 		lualine_c = {
+			"diagnostics",
 			-- invoke `progress` to get lsp progress status.
 			require("lsp-progress").progress,
 		}
@@ -166,7 +167,7 @@ function M.lualine()
 	require("lualine").setup({
 		options = {
 			icons_enabled = true,
-			-- theme = 'solarized',
+			theme = "auto",
 			component_separators = { left = "", right = "" },
 			-- leave them blank, or lualine will kill intro.
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
@@ -196,17 +197,17 @@ function M.lualine()
 			-- 'diff' is slow
 			lualine_b = lualine_b,
 			lualine_c = lualine_c,
-			lualine_x = { "encoding", "fileformat", "filetype" },
+			lualine_x = {},
 			lualine_y = {},
 			-- file location
-			lualine_z = { "%l/%L,%v" },
+			lualine_z = { "%l/%L:%v", { "filetype", icons_enabled = false }, "encoding", "fileformat" },
 		},
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = { filename },
 			-- file location
-			lualine_x = { "%l/%L,%v" },
+			lualine_x = { "%l/%L:%v" },
 			lualine_y = {},
 			lualine_z = {},
 		},
@@ -258,7 +259,7 @@ function M.gitsigns()
 			-- Text object
 			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 		end,
-		base = vim.g.gitsign_default_base
+		base = vim.g.gitsign_default_base,
 	})
 end
 

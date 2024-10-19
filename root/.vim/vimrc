@@ -419,7 +419,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 					elseif g:asyncrun_status == 'failure'
 						let l:result .= ' '
 					endif
-					let l:result .= '%l/%L,%v %Y %{&fenc}'
+					let l:result .= '%l/%L:%v %Y %{&fenc} %{&ff}'
 				endif
 				return l:result
 			endfunction
@@ -429,7 +429,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 				set statusline+=%2*%{%RightStatusLine()%}
 			endif
 		else
-			set statusline+=%l/%L,%v\ %Y\ %{&fenc}
+			set statusline+=%l/%L:%v\ %Y\ %{&fenc}\ %{&ff}
 		endif
 	endif
 
