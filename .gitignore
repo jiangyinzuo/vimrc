@@ -1,6 +1,5 @@
 build
 root/.config/lazygit/state.yml
-root/.config/nvim/lazy-lock.json
 root/.vim/.netrwhist
 root/.vim/plugged
 root/.vim/doc/tags
