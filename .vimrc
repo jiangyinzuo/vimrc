@@ -366,13 +366,14 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call SystemToQf('rg --vimgrep ' . <q-args>)
-	nnoremap ]q :call ToggleQuickfix('c')<CR>
-	nnoremap ]l :call ToggleQuickfix('l')<CR>
-	nnoremap <silent> <leader>cn :cn<CR>
-	nnoremap <silent> <leader>cp :cp<CR>
-	nnoremap <silent> <leader>ln :ln<CR>
-	nnoremap <silent> <leader>lp :lp<CR>
-
+	nnoremap <leader>q :call ToggleQuickfix('c')<CR>
+	nnoremap <leader>lf :call ToggleQuickfix('l')<CR>
+	if !has('nvim')
+		nnoremap <silent> ]q :cn<CR>
+		nnoremap <silent> [q :cp<CR>
+		nnoremap <silent> ]l :ln<CR>
+		nnoremap <silent> [l :lp<CR>
+	endif
 	" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 	" nnoremap <silent> <leader>t :term ++rows=9<CR>
 
@@ -381,6 +382,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 添加高亮一行
 	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
+	vnoremap <Leader>ll :call matchadd('Todo', '\%V')<cr>
 	" 清空高亮
 	nnoremap <Leader>lc :call clearmatches()<cr>
 

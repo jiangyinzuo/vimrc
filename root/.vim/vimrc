@@ -299,19 +299,21 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 FdToQf call noplug#SystemToQf('fd ' . <q-args> . ' | xargs file | sed "s/:/:1:/"')
 	" neovim 0.10.0 uses ripgrep as greppg by default
 	command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
-
-	nnoremap ]q :call noplug#ToggleQuickfix('c')<CR>
-	nnoremap ]l :call noplug#ToggleQuickfix('l')<CR>
-	nnoremap <silent> <leader>cn :cn<CR>
-	nnoremap <silent> <leader>cp :cp<CR>
-	nnoremap <silent> <leader>ln :ln<CR>
-	nnoremap <silent> <leader>lp :lp<CR>
+	nnoremap <leader>q :call noplug#ToggleQuickfix('c')<CR>
+	nnoremap <leader>lf :call noplug#ToggleQuickfix('l')<CR>
+	if !has('nvim') " https://github.com/tpope/vim-unimpaired
+		nnoremap <silent> ]q :cn<CR>
+		nnoremap <silent> [q :cp<CR>
+		nnoremap <silent> ]l :ln<CR>
+		nnoremap <silent> [l :lp<CR>
+	endif
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 添加高亮一行
 	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
+	vnoremap <Leader>ll :call matchadd('Todo', '\%V')<cr>
 	" 清空高亮
 	nnoremap <Leader>lc :call clearmatches()<cr>
 
@@ -343,8 +345,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" [[palette]]git-blame						:GitBlame
 	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
 
-	" neovim 会报错
-	if !has('nvim')
+	if !has('nvim') " neovim 会报错
 		" .txt的helpfile，第一行必须都是英文，不能包含中文，否则报 mixed encoding的错误
 		" set helplang=cn
 		helptags ~/.vim/doc
