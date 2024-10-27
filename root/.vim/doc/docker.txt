@@ -40,22 +40,65 @@ https://cloud.tencent.com/developer/article/2020334
 -------------------------------------------------------------------------------
 *nvidia-docker*
 
-nvidia-docker 被achieved了，使用 *nvidia-container-toolkit*
-- https://github.com/NVIDIA/nvidia-docker
-- https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
-- https://www.howtogeek.com/devops/how-to-use-an-nvidia-gpu-with-docker-containers/
+Container Runtime ~
 
+容器运行时（Container Runtime）是一组软件技术，用于在操作系统上创建、运行和管理容器。容器是一种轻量级的、可移植的、自包含的软件运行环境，它将应用程序及其依赖项打包在一起，以确保应用程序在不同环境中的一致性和可移植性。
+
+容器运行时的主要功能包括：
+
+1. 创建容器实例：根据容器镜像创建一个新的容器实例。
+2. 运行容器：启动容器实例，使其开始执行。
+3. 管理容器生命周期：包括暂停、恢复、停止和删除容器。
+4. 资源隔离：确保容器内的进程不会影响宿主机或其他容器。
+5. 资源限制：限制容器可以使用的CPU、内存、磁盘空间等资源。
+6. 网络配置：为容器配置网络接口和IP地址，使其能够与外部通信。
+7. 存储管理：管理容器的文件系统和持久化存储。
+
+常见的容器运行时包括：
+
+- Docker Engine：Docker是最著名的容器技术之一，它提供了自己的容器运行时。
+- containerd：是一个行业标准的容器运行时，由CNCF（Cloud Native Computing Foundation）支持，Docker和Kubernetes都使用它作为后端。
+- CRI-O：是一个轻量级的容器运行时，专为Kubernetes设计。
+- Podman：是一个无需守护进程的容器引擎，由Red Hat开发，旨在提供与Docker相似的用户体验，但无需运行Docker守护进程。
+
+容器运行时是容器生态系统中的关键组件，它为容器提供了必要的基础设施，使其能够在各种环境中高效、安全地运行。
+
+想使用GPU，就需要安装Nvidia Container Runtime https://developer.nvidia.com/container-runtime
+
+Docker能使用GPU的关键 ~
+
+1. docker版本 >= 19.03
+2. 安装nvidia-container-toolkit (含Nvidia Container Runtime)
+
+>bash
+    docker info | grep -E "(Runtime)|(Version)"
+<
+
+安装步骤 ~
+
+nvidia-docker 被achieved了，使用 *nvidia-container-toolkit*
+- https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html ⭐
+- https://github.com/NVIDIA/nvidia-container-toolkit
+- https://www.howtogeek.com/devops/how-to-use-an-nvidia-gpu-with-docker-containers/
+- https://github.com/NVIDIA/nvidia-docker (achieved)
 
 https://hub.docker.com/r/nvidia/cuda
 
 nvidia-docker使用nvidia-smi，需要容器能访问GPU
->
-	docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
+>bash
+    docker run --gpus all -it nvidia/cuda:11.0-base nvidia-smi
+    # 或者
+    docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 <
 
--------------------------------------------------------------------------------
+FAQ
 
+Q: unknown flag: --gpus
+A: Docker版本过旧，需要Docker >= 19.03
+
+-------------------------------------------------------------------------------
 Ubuntu 18.04安装 docker
+
 https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 
 >
@@ -77,12 +120,29 @@ https://roychou121.github.io/2020/07/13/ubuntu-install-docker/
 	sudo apt-get install nvidia-container-toolkit
 
 	sudo systemctl restart docker
-
-	# 执行docker不加sudo
-	sudo groupadd docker
-	sudo gpasswd -a ${USER} docker
-	sudo service docker restart
 <
+
+-------------------------------------------------------------------------------
+CentOS 7安装最新版docker
+
+See: https://blog.csdn.net/webrx/article/details/135091731
+>bash
+    sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    # 或使用aliyun速度更快
+    sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    sudo yum install -y docker-ce docker-ce-cli containerd.io
+<
+
+-------------------------------------------------------------------------------
+执行docker不加sudo
+
+>bash
+    sudo groupadd docker
+    sudo gpasswd -a ${USER} docker
+    sudo systemctl restart docker
+<
+
+然后退出ssh terminal，重新登录
 
 -------------------------------------------------------------------------------
 *docker国内镜像*

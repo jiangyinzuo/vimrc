@@ -369,6 +369,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	nnoremap <leader>q :call ToggleQuickfix('c')<CR>
 	nnoremap <leader>lf :call ToggleQuickfix('l')<CR>
 	if !has('nvim')
+		nnoremap <silent> ]Q :clast<CR>
+		nnoremap <silent> [Q :crewind<CR>
 		nnoremap <silent> ]q :cn<CR>
 		nnoremap <silent> [q :cp<CR>
 		nnoremap <silent> ]l :ln<CR>
