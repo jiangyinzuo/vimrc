@@ -246,6 +246,11 @@ return {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
 	},
+	{
+		'chomosuke/typst-preview.nvim',
+		ft = 'typst',
+		build = function() require 'typst-preview'.update() end,
+	}
 	-- {
 	-- 	"amitds1997/remote-nvim.nvim",
 	-- 	version = "*", -- Pin to GitHub releases

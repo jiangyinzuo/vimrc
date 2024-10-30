@@ -165,10 +165,6 @@ command -nargs=0 GlobalSym call fzf_custom#tags#GlobalSym()
 " [[palette]]Global 查找定义						:GlobalDef
 command -nargs=0 GlobalDef call fzf_custom#tags#GlobalDef()
 
-" [[palette]]间隔重复						:SpacedRepetitionList
-command -nargs=0 SpacedRepetitionList call fzf#run(fzf#wrap({'source': $VIMRC_ROOT . '/scripts/sr', 'sink': 'e', 'options': ['--prompt', 'Spaced Repetition >', '--color', 'hl:148,hl+:190']}))
-command -nargs=0 SpacedRepetitionAdd call asyncrun#run('', {'silent': 1}, $VIMRC_ROOT . '/scripts/sr ' . expand('%:p'))
-
 " [[palette]]读取常用项目配置文件			:ReadProjectFile
 command! -nargs=0 ReadProjectFile call fzf#run(fzf#wrap({'source': "find ~/vimrc/project_files -type f", 'sink': 'read', 'options': ['--prompt', 'ProjectFile > ', '--preview', 'cat {}', '--preview-window', 'up,60%']}))
 
