@@ -2,6 +2,8 @@ local lualine = {
 	"nvim-lualine/lualine.nvim",
 }
 
+local detect = require("detect")
+
 if vim.g.vimrc_lsp == "nvim-lsp" then
 	lualine.dependencies = {
 		"neovim/nvim-lspconfig",
@@ -211,7 +213,8 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"mrcjkb/rustaceanvim",
-			version = "^5", -- Recommended
+			cond = detect.has_rust_executable,
+			-- version = "^5", -- Recommended
 			lazy = false, -- This plugin is already lazy
 			ft = { "rust" },
 		},
@@ -219,6 +222,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			-- NOTE: must ensure `go env GOPATH`/bin is in $PATH,
 			-- do not use apt install gopls, whose version is (unknown) and can not be parsed by go.nvim.
 			"ray-x/go.nvim",
+			cond = detect.has_go_executable,
 			dependencies = { -- optional packages
 				"ray-x/guihua.lua",
 				"neovim/nvim-lspconfig",

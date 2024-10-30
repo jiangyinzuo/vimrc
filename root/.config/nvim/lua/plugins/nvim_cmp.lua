@@ -1,5 +1,9 @@
 return {
 	{
+		"micangl/cmp-vimtex",
+		cond = require("detect").has_pdflatex_executable,
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -13,7 +17,6 @@ return {
 			-- 请检查:verbose set omnifunc? 是否符合预期
 			"garymjr/nvim-snippets",
 			"hrsh7th/cmp-omni",
-			"micangl/cmp-vimtex",
 		},
 		config = require("nvim_cmp").nvim_cmp,
 	},

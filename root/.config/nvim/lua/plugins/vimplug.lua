@@ -8,6 +8,8 @@ if vim.g.vimrc_lsp == "coc.nvim" then
 	table.insert(leaderf_dependencies, "skywind3000/Leaderf-snippet")
 end
 
+local detect = require("detect")
+
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
 	-- let g:omni_sql_default_compl_type = 'syntax'
@@ -21,6 +23,7 @@ local M = {
 	"jiangyinzuo/bd.vim",
 	{
 		"lervag/vimtex",
+		cond = detect.has_pdflatex_executable,
 		ft = "tex",
 		init = function()
 			vim.api.nvim_command("source ~/.vim/vimrc.d/latex.vim")
@@ -105,7 +108,6 @@ local M = {
 	"samoshkin/vim-mergetool",
 	"godlygeek/tabular",
 	{ "axvr/org.vim", ft = "org" },
-	{ "jiangyinzuo/typst.vim", ft = "typst", branch = "patch-1" },
 	{
 		"inkarkat/vim-AdvancedSorters",
 		dependencies = {
@@ -128,7 +130,7 @@ local M = {
 	"goerz/jupytext.vim",
 	{ "jpalardy/vim-slime", ft = { "python", "ocaml" } },
 	"jiangyinzuo/vim-markdown",
-	{ "whonore/Coqtail", ft = "coq" },
+	{ "whonore/Coqtail", cond = detect.has_coqtop_executable, ft = "coq" },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {
@@ -184,7 +186,7 @@ local M = {
 		end,
 		dependencies = leaderf_dependencies,
 	},
-	{ "sebdah/vim-delve", ft = "go" },
+	{ "sebdah/vim-delve", cond = detect.has_go_executable, ft = "go" },
 }
 
 if vim.g.vimrc_lsp == "coc.nvim" then

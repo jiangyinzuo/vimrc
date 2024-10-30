@@ -1,4 +1,5 @@
 local plugins_setup = require("plugins_setup")
+local has_typst_executable = require("detect").has_typst_executable
 
 return {
 	-- Alternatives: https://github.com/Tsuzat/NeoSolarized.nvim
@@ -195,19 +196,19 @@ return {
 	},
 	-- A graphical display window manager in neovim
 	-- {'altermo/nxwm',branch='x11'},
-	{
-		"sourcegraph/sg.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
-		},
-		config = function()
-			vim.keymap.set("n", "<leader>sg", function()
-				require("sg.extensions.telescope").fuzzy_search_results()
-			end)
-		end,
-		-- If you have a recent version of lazy.nvim, you don't need to add this!
-		build = "nvim -l build/init.lua",
-	},
+	-- {
+	-- 	"sourcegraph/sg.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+	-- 	},
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>sg", function()
+	-- 			require("sg.extensions.telescope").fuzzy_search_results()
+	-- 		end)
+	-- 	end,
+	-- 	-- If you have a recent version of lazy.nvim, you don't need to add this!
+	-- 	build = "nvim -l build/init.lua",
+	-- },
 
 	-- find and replace
 	{
@@ -240,17 +241,26 @@ return {
 		build = "cd lua/fzy && make",
 	},
 	{
-		'MeanderingProgrammer/render-markdown.nvim',
+		"MeanderingProgrammer/render-markdown.nvim",
 		opts = {},
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 	},
 	{
-		'chomosuke/typst-preview.nvim',
-		ft = 'typst',
-		build = function() require 'typst-preview'.update() end,
-	}
+		"chomosuke/typst-preview.nvim",
+		cond = has_typst_executable,
+		ft = "typst",
+		build = function()
+			require("typst-preview").update()
+		end,
+	},
+	{
+		"jiangyinzuo/typst.vim",
+		cond = has_typst_executable,
+		ft = "typst",
+		branch = "patch-1",
+	},
 	-- {
 	-- 	"amitds1997/remote-nvim.nvim",
 	-- 	version = "*", -- Pin to GitHub releases

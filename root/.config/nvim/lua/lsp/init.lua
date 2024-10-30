@@ -121,11 +121,13 @@ local function setup_lsp(on_attach, capabilities)
 		})
 	end
 
-	-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
-	lspconfig.tinymist.setup({
-		-- Installed via 'chomosuke/typst-preview.nvim'
-		cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
-	})
+	if require("detect").has_typst_executable then
+		-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
+		lspconfig.tinymist.setup({
+			-- Installed via 'chomosuke/typst-preview.nvim'
+			cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
+		})
+	end
 
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
