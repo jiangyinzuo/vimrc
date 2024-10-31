@@ -17,6 +17,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let g:AutoPairsMapCR = 0
 		let g:nvim_lsp_autostart = {}
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
+		let g:jdtls_exe = get(g:, 'jdtls_exe', 'jdtls')
 		let g:jdtls_java_exe = get(g:, 'jdtls_java_exe', '/usr/bin/java')
 		let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
 		" speed up loading
@@ -444,7 +445,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" 设置大小阈值为5MB
 		let l:maxsize = 5 * 1024 * 1024
 		if l:filesize > l:maxsize
-			echom "文件超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
+			echom "文件 " . expand('%:p') . " 超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
 			" 关闭当前缓冲区，但不退出Vim
 			" 如果你想让Vim退出，可以用：quit 或 similar
 			bdelete

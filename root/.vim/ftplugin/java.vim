@@ -19,3 +19,5 @@ if g:vimrc_lsp == 'coc.nvim'
 	command -nargs=0 JavaRunDebugMode call JavaRunDebugMode()
 	command -nargs=0 JavaStartDebug call JavaStartDebug()
 endif
+let g:java_ignore_html = 1
+let g:java_ignore_markdown = 1

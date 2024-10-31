@@ -29,13 +29,32 @@ See: https://computingforgeeks.com/how-to-set-default-java-version-on-ubuntu-deb
 https://github.com/google/google-java-format
 
 ------------------------------------------------------------------
+Jdtls ~
+
+jdtls无法索引整个maven项目：运行`JdtCompile full`命令，
+根据错误提示修复pom.xml文件中的错误（注释一些plugin）。
+
+https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#nothing-happens-when-opening-a-java-file-and-i-cant-use-any-vimlspbuf-functions
+
 Maven ~
+
+Maven 设置 |http-proxy|
 
 新建项目：https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
 Generating project in Batch mode 卡死
 
 https://blog.csdn.net/weixin_43999182/article/details/105882148
+
+Maven 常用命令 ~
+
+编译: `mvn compile`
+
+运行main()方法：
+
+>bash
+    mvn exec:java -Dexec.mainClass="io.milvus.v2.Float16VectorExample"
+<
 
 Maven Checkstyle ~
 

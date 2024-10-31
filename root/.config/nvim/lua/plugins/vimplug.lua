@@ -129,7 +129,7 @@ local M = {
 	{ "jupyter-vim/jupyter-vim", cmd = { "JupyterConnect" } },
 	"goerz/jupytext.vim",
 	{ "jpalardy/vim-slime", ft = { "python", "ocaml" } },
-	"jiangyinzuo/vim-markdown",
+	{ "jiangyinzuo/vim-markdown", ft = "markdown" },
 	{ "whonore/Coqtail", cond = detect.has_coqtop_executable, ft = "coq" },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
