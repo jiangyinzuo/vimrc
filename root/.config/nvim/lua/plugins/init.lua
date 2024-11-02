@@ -256,10 +256,9 @@ return {
 		end,
 	},
 	{
-		"jiangyinzuo/typst.vim",
+		"kaarmu/typst.vim",
 		cond = has_typst_executable,
-		ft = "typst",
-		branch = "patch-1",
+		ft = "typst"
 	},
 	-- {
 	-- 	"amitds1997/remote-nvim.nvim",

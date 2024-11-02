@@ -59,7 +59,7 @@ Plug 'samoshkin/vim-mergetool'
 Plug 'godlygeek/tabular'
 Plug 'axvr/org.vim', { 'for': 'org' }
 " The full plugin has :TypstWatch, :Toc commands while built-in has not.
-Plug 'jiangyinzuo/typst.vim', { 'for': 'typst', 'branch': 'patch-1' }
+Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 
 Plug 'inkarkat/vim-ingo-library' " dependency of vim-AdvancedSorters
 Plug 'inkarkat/vim-AdvancedSorters'
