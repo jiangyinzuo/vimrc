@@ -27,6 +27,41 @@ info sources: 查看源文件。
 💁 可以通过`info sources`检查一个第三方动态库是否包含了调试信息（-g）。
 如果`info sources`只有能被include的头文件， 缺乏cpp源文件，那么这个库没有包含调试信息。
 
+gdb attach 进程 ~
+
+== 方法1.1 ==
+>bash
+    gdb /path/to/your/program
+<
+然后
+>
+    (gdb) attach <pid>
+<
+
+== 方法1.2 ==
+>bash
+    gdb
+<
+然后
+>
+    (gdb) file <path/to/your/program>
+    (gdb) attach <pid>
+<
+
+== 方法2 ==
+
+Termdebug中可能会导致Vim卡住，最后失去:Break等命令
+
+>bash
+    gdb -p <pid>
+<
+
+gdb 处理 signal ~
+
+>
+    (gdb) handle <signal> <keywords…>
+<
+
 gdb多线程调试 ~
 
 一旦中断，所有线程都会被暂停。
