@@ -92,6 +92,30 @@ function M.dapconfig()
 		dap_python.test_runner = "pytest"
 		dap_python.test_method()
 	end, { nargs = 0 })
+	table.insert(require('dap').configurations.python, {
+		type = 'python';
+		request = 'launch';
+		name = 'Launch module with arguments';
+		module = function()
+			return vim.fn.input('Module: ')
+		end;
+		args = function()
+			local args_string = vim.fn.input('Arguments: ')
+			return vim.split(args_string, " +")
+		end;
+		console = nil;
+		pythonPath = nil,
+	})
+	table.insert(require('dap').configurations.python, {
+		type = 'python';
+		request = 'launch';
+		name = 'Launch module';
+		module = function()
+			return vim.fn.input('Module: ')
+		end;
+		console = nil;
+		pythonPath = nil,
+	})
 end
 
 return M
