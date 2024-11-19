@@ -73,6 +73,10 @@ return {
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 	{
+		"windwp/nvim-ts-autotag",
+		opts = {},
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
 		keys = {

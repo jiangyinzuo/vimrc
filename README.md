@@ -1,5 +1,7 @@
 # Vimrc
 
+<a href="https://dotfyle.com/jiangyinzuo/vimrc"><img src="https://dotfyle.com/jiangyinzuo/vimrc/badges/plugin-manager?style=for-the-badge" /></a>
+
 [wiki](https://github.com/jiangyinzuo/vimrc/wiki)
 
 My personal Vim/Neovim configuration files, dotfiles, docs and other scripts.

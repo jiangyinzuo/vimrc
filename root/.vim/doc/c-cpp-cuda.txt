@@ -267,6 +267,13 @@ GPU监控 ~
 【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
 
 ------------------------------------------------------------------------------------
+CUDA 编程常见错误
+
+an illegal memory access was encountered: 显存OOM了，检查有没有显存忘记释放
+
+invalid argument: 调用核函数时传递的参数有问题（shared memory、block size等参数过大或非法）
+
+------------------------------------------------------------------------------------
 Failed to initialize NVML: Driver/library version mismatch NVML library version: 535.183
 
 原因：kernel mod 的 Nvidia driver 的版本没有更新

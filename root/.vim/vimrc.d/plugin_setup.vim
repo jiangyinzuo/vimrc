@@ -142,9 +142,11 @@ endif
 
 let g:caser_prefix = 'gs'
 
+" base, local, remote, merged
+let g:mergetool_layout = 'blr,m'
 let g:MergetoolSetLayoutCallback = function('mergetool_custom#MergetoolLayoutCallback')
 
-" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器
+" 即使pdf位于wsl中，typst也可以使用windows下的pdf阅读器。这是typst.vim插件配置
 let g:typst_pdf_viewer = 'SumatraPDF.exe'
 
 let g:mdip_imgdir = '.'

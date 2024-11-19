@@ -39,9 +39,11 @@ CodiumAI https://www.codium.ai/
 deepseek https://www.deepseek.com/
 
 fitten code
-https://github.com/FittenTech
-https://github.com/luozhiya/fittencode.nvim
+- https://github.com/FittenTech
+- https://github.com/luozhiya/fittencode.nvim
 
+continue.dev https://github.com/continuedev
+SuperMaven https://github.com/supermaven-inc/supermaven-nvim
 sourcegraph
 
 devin https://www.cognition-labs.com/blog
@@ -90,3 +92,9 @@ $ gh copilot explain "traceroute github.com"
 https://github.com/gpt-engineer-org/gpt-engineer
 
 Amazon Q 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
+
+-------------------------------------------------------------------------------
+Vim插件
+
+https://github.com/huggingface/llm.nvim
+https://github.com/yetone/avante.nvim

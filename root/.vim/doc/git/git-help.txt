@@ -287,6 +287,14 @@ Git Diff ~
 :Gedit 11ad9622:%
 
 Git Merge ~
+
+Local和Remote ~
+
+git checkout a, git merge  b时：a是local branch，b是remote branch
+git checkout a, git rebase b时：b是local branch，a是remote branch
+
+See: https://stackoverflow.com/questions/3051461/git-rebase-keeping-track-of-local-and-remote
+
 *git-mergetool*
 
 git列举所有unmerged文件			git diff --name-only --diff-filter=U --relative
@@ -365,7 +373,7 @@ NOTE: merge之后可以多按几次`]c`或`[c`, 防止有diff漏下
 :GitUnmergedRaw FZF打开unmerged文件，直接编辑
 :GitUnmerged    FZF打开unmerged文件，然后:MergetoolStart
 
-clean-LOCAL-BASE-REMOTE-files			git clean -i
+*clean-LOCAL-BASE-REMOTE-files*			git clean -i
 
 -------------------------------------------------------------------------------
 *git-clean*
