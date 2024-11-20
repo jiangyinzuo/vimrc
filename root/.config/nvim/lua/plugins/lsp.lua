@@ -206,7 +206,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		{
 			"hedyhli/outline.nvim",
 			lazy = true,
-			cmd = { "Outline", "OutlineOpen" },
+			cmd = { "Outline", "OutlineOpen", "OutlineStatus" },
 			opts = {
 				-- Your setup opts here
 			},

@@ -98,6 +98,7 @@ au FileType gitcommit let b:EditorConfig_disable = 1
 " vim-sleuth does not behave as expected.
 " Plug 'tpope/vim-sleuth'
 
+Plug 'dhruvasagar/vim-table-mode'
 if v:version >= 800
 	Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 	Plug 'preservim/vimux'

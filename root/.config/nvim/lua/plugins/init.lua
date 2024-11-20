@@ -25,6 +25,12 @@ return {
 		},
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opt = {
+			min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+		},
+	},
+	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -262,7 +268,7 @@ return {
 	{
 		"kaarmu/typst.vim",
 		cond = has_typst_executable,
-		ft = "typst"
+		ft = "typst",
 	},
 	-- {
 	-- 	"amitds1997/remote-nvim.nvim",

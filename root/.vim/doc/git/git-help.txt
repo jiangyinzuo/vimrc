@@ -168,19 +168,29 @@ Git Reset ~
 |git合并commit|
 
 git reset 用于回滚到历史commit。
-                                                 *git-reset-soft*
-'git reset --soft <commit>'
-将HEAD指针移动到<commit>，丢弃原本的commit，文件更改放到staged area。
 
-'git reset <commit>'
-将HEAD指针移动到<commit>，丢弃原本的commit，文件更改放到unstaged area。
+--soft, --mixed（默认）, --hard, --keep ~
+
+git reset --soft <commit>        *git-reset-soft*
+git reset <commit> / git reset --mixed <commit>
+git reset --keep <commit>
+git reset --hard <commit>
+
+| ----------------- | --------------------- | ----------------------------- | ------ | ------ |
+| 文件修改          | --soft                | --mixed                       | --keep | --hard |
+| ----------------- | --------------------- | ----------------------------- | ------ | ------ |
+| commit的文件修改  | 放到staged area       | 放到unstaged area             | 丢弃   | 丢弃   |
+|                   | 相当于撤销git commit  | 相当于撤销git commit和git add |        |        |
+| ----------------- | --------------------- | ----------------------------- | ------ | ------ |
+| staged文件修改    | 保留                  | 保留                          | 保留   | 丢弃   |
+| ----------------- | --------------------- | ----------------------------- | ------ | ------ |
+| untracked文件修改 | 保留                  | 保留                          | 保留   | 丢弃   |
+| ----------------- | --------------------- | ----------------------------- | ------ | ------ |
 
                                                  *git-reset-hard*
 WARNING
 `git reset --hard`会丢弃没有`git add`的文件更改，无法恢复！(Untracked Files不受影响)
 
-'git reset --hard <commit>'
-将HEAD指针移动到<commit>，丢弃原本的commit，丢弃文件更改(不可逆)。
 
 如果不小心使用了 'git reset HEAD~3' 并希望恢复:
 1. 'git reflog' 查找想要恢复的<commit>

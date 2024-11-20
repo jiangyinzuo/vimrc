@@ -1,3 +1,4 @@
+vim:ft=help
 *luajit*
 
 lua not enough memory

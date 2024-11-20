@@ -114,6 +114,7 @@ local M = {
 			"inkarkat/vim-ingo-library",
 		},
 	},
+	"dhruvasagar/vim-table-mode",
 	"tpope/vim-endwise",
 	-- take place of 'airblade/vim-gitgutter',
 	{

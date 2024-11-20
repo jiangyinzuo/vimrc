@@ -7,3 +7,8 @@ else
 	nnoremap <buffer> k :call setqflist([], 'r', {'idx': line('.') - 1})<CR>
 endif
 nnoremap <silent><buffer> p <cmd>call quickui#tools#preview_quickfix()<cr>
+
+" sticky buf
+if exists('&winfixbuf')
+	setlocal winfixbuf
+endif
