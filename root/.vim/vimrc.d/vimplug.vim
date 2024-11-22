@@ -190,7 +190,7 @@ if v:version >= 800
 				" Alternative: https://github.com/gelguy/wilder.nvim
 				Plug 'girishji/autosuggest.vim'
 				" External cmd is slow.
-				autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far'] }}) | endif
+				autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }}) | endif
 				if v:version >= 901
 					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
 				endif

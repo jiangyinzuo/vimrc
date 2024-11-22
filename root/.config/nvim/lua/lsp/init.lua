@@ -9,7 +9,7 @@ local function setup_lsp(on_attach, capabilities)
 			init_options = vim.g.ccls_init_options,
 		})
 	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", false) then
+	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", true) then
 		lspconfig.clangd.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -25,9 +25,6 @@ local function setup_lsp(on_attach, capabilities)
 				"compile_flags.txt"
 			),
 		})
-		-- use builtin inlay hints
-		-- require("clangd_extensions.inlay_hints").setup_autocmd()
-		-- require("clangd_extensions.inlay_hints").set_inlay_hints()
 	end
 	if vim.fn.get(vim.g.nvim_lsp_autostart, "lua_ls", false) then
 		lspconfig.lua_ls.setup({
@@ -258,7 +255,8 @@ function M.lspconfig()
 			local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-			vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
+			-- neovim默认映射: K
+			-- vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
 			vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, bufopts)
 			-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)

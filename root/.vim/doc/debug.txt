@@ -1,6 +1,6 @@
 vim:ft=help
 ===============================================================================
-*gdb-tips.txt*
+*debug.txt*
 
 https://github.com/hellogcc/100-gdb-tips
 
@@ -15,6 +15,11 @@ step -> step in
 next -> step over
 finish -> step out
 continue -> continue
+
+条件断点 *conditional-breakpoint*
+
+gdb `b <line> if <condition>`
+nvim-dap `:lua require("dap").toggle_breakpoint("i == 3")`
 
 gdb调试.so ~
 
