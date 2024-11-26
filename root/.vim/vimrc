@@ -321,6 +321,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	nnoremap <Leader>lc :call clearmatches()<cr>
 
 	if v:version >= 740 || &readonly == 0
+		" 需要从终端复制文字，（如调用豆包桌面版API时），可以
+		" set mouse=vi，禁用normal模式下的鼠标功能
 		set mouse=a
 		if !has('nvim') && has('unix') && exists('$TMUX')
 			set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小

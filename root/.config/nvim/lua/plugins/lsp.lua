@@ -174,6 +174,10 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				local sources = {
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.google_java_format,
+					-- go.nvim
+					-- require("go.null_ls").gotest(),
+					-- require("go.null_ls").gotest_action(),
+					require("go.null_ls").golangci_lint(),
 				}
 				if vim.g.python_formatter == "black" then
 					table.insert(sources, null_ls.builtins.formatting.black)
@@ -230,8 +234,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 			config = function()
 				require("go").setup({
-					-- debug
-					verbose = false,
+					verbose = false, -- debug
 					lsp_semantic_highlights = false, -- do not use highlights from gopls so we can use treesitter highlight injection
 					lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
 					lsp_cfg = {
@@ -248,6 +251,15 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						lsp_module.attach_navic(client, bufnr)
 						lsp_module.attach_inlay_hints(client, bufnr)
 					end,
+					null_ls = { -- set to false to disable null-ls setup
+						golangci_lint = {
+							method = { "NULL_LS_DIAGNOSTICS_ON_SAVE", "NULL_LS_DIAGNOSTICS_ON_OPEN" }, -- when it should run
+							-- 为了防止和项目的.golangci.yml文件配置冲突，故disable和enable为空
+							disable = {}, -- linters to disable empty by default
+							enable = {}, -- linters to enable; empty by default
+							severity = vim.diagnostic.severity.INFO, -- severity level of the diagnostics
+						},
+					},
 				})
 			end,
 			ft = { "go", "gomod" },

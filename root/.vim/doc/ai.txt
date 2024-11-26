@@ -36,6 +36,10 @@ CodiumAI https://www.codium.ai/
 阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
 百度 文心快码 https://comate.baidu.com/zh
 字节 豆包MarsCode https://www.marscode.cn/
+
+💁 需要从终端复制Vim屏幕的文字，调用豆包桌面版功能时，可以先`set mouse=vi`
+（没有n，normal模式下禁用鼠标）来禁用Vim的鼠标响应。
+
 deepseek https://www.deepseek.com/
 
 fitten code
@@ -96,5 +100,8 @@ Amazon Q 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug
 -------------------------------------------------------------------------------
 Vim插件
 
-https://github.com/huggingface/llm.nvim
-https://github.com/yetone/avante.nvim
+https://github.com/neovim/neovim/discussions/28162
+
+- https://github.com/huggingface/llm.nvim
+- https://github.com/yetone/avante.nvim
+- https://github.com/olimorris/codecompanion.nvim
