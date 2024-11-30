@@ -173,6 +173,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				local null_ls = require("null-ls")
 				local sources = {
 					null_ls.builtins.formatting.stylua,
+					-- install via mason
 					null_ls.builtins.formatting.google_java_format,
 					-- go.nvim
 					-- require("go.null_ls").gotest(),

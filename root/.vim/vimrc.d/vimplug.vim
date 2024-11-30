@@ -49,7 +49,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'AndrewRadev/splitjoin.vim'
 " 改进查找替换
 Plug 'tpope/vim-abolish'
-Plug 'arthurxavierx/vim-caser'
+" Plug 'arthurxavierx/vim-caser' " use vim-abolish cr
 
 Plug 'preservim/tagbar'
 " See: https://github.com/liuchengxu/vista.vim/issues/462

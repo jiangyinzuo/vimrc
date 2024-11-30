@@ -48,9 +48,11 @@ https://blog.csdn.net/weixin_43999182/article/details/105882148
 
 Maven 常用命令 ~
 
-编译: `mvn compile`
+编译: `mvn compile`。pom.xml所在目录下有src/main/java目录
 
 运行main()方法：
+
+在pom.xml所在目录下运行，该目录中有target/classes/io/milvus/v2/Float16VectorExample.class文件
 
 >bash
     mvn exec:java -Dexec.mainClass="io.milvus.v2.Float16VectorExample"

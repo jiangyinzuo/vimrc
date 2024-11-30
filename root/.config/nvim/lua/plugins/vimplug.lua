@@ -101,8 +101,13 @@ local M = {
 	"tpope/vim-surround",
 	"tpope/vim-eunuch",
 	"AndrewRadev/splitjoin.vim",
-	"tpope/vim-abolish",
-	"arthurxavierx/vim-caser",
+	{
+		"tpope/vim-abolish",
+		init = function()
+			-- Disable coercion mappings. I use coerce.nvim for that.
+			vim.g.abolish_no_mappings = true
+		end,
+	},
 	"preservim/tagbar",
 	"liuchengxu/vista.vim",
 	"samoshkin/vim-mergetool",

@@ -281,4 +281,8 @@ return {
 	-- 	},
 	-- 	config = true,
 	-- },
+	{
+		"gregorias/coerce.nvim",
+		config = true,
+	},
 }
