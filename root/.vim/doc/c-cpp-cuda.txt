@@ -107,6 +107,8 @@ C++ Build & Package Management Tools
 	export NINJA_STATUS="[%r processes, %f/%t @ %o/s | %e sec]"
 <
 
+列出所有targets: `ninja -t targets`
+
 *cmake*
 
 >bash

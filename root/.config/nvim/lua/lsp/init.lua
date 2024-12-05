@@ -130,7 +130,8 @@ local function setup_lsp(on_attach, capabilities)
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
-	local other_servers = { "jsonls", vim.g.python_lsp, "cmake", "html" }
+	-- use "neocmake" instead of "cmake"
+	local other_servers = { "jsonls", vim.g.python_lsp, "neocmake", "html" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
 		table.insert(other_servers, "ruff_lsp")
