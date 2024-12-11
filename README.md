@@ -14,7 +14,9 @@ Vim/Neovim requirements:
 
 - vim 9.1+ (full features)
 - vim 7.4.629+ (minimal, tested in CentOS 7)
+    - plugin manager: [vim-plug](https://github.com/junegunn/vim-plug)
 - neovim 0.11.0+
+    - plugin manager: [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 See [install/README.md](./install/README.md) for more details.
 
@@ -38,7 +40,6 @@ See [install/README.md](./install/README.md) for more details.
 - Full vimrc file: `.vim/vimrc`
     - Custom vim configuration file: `~/.vim/config.vim`. See `root/.vim/config.vim.example`.
     - Local project vimrc file: `.project.vim`
-    - [vim-plug](https://github.com/junegunn/vim-plug) as plugin manager
 - Single vimrc file: `.vimrc`
     - Custom vim configuration file `~/config_single_vimrc.vim`
     - Local project vimrc file: `.vimrc` (:h 'exrc')
@@ -49,4 +50,3 @@ init.vim(`root/.config/nvim/init.vim`) is a soft link to `root/.vim/vimrc`, you 
 
 - Custom vim configuration file: `~/.vim/config.vim`. See `root/.vim/config.vim.example`.
 - Local project vimrc file: `.project.vim`
-- [lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager.

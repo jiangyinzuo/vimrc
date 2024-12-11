@@ -111,6 +111,9 @@ C++ Build & Package Management Tools
 
 *cmake*
 
+教程
+https://cliutils.gitlab.io/modern-cmake/README.html
+
 >bash
     pip install cmake-language-server cmakelang
 <

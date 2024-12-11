@@ -6,28 +6,29 @@ elseif vim.g.ai_complete == "copilot" then
 		{
 			"CopilotC-Nvim/CopilotChat.nvim",
 			lazy = true,
-			branch = "canary",
 			dependencies = {
-				{ "github/copilot.vim" }, -- or github/copilot.vim
-				{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+				{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+				{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 			},
+			build = "make tiktoken", -- Only on MacOS or Linux
 			cmd = {
 				"CopilotChat",
-				"CopilotChatFix",
-				"CopilotChatDocs",
-				"CopilotChatLoad",
-				"CopilotChatOpen",
-				"CopilotChatSave",
+				"CopilotChatAgents",
 				"CopilotChatClose",
+				"CopilotChatCommit",
+				"CopilotChatCommitStaged",
+				"CopilotChatDebugInfo",
+				"CopilotChatDocs",
+				"CopilotChatExplain",
+				"CopilotChatFix",
+				"CopilotChatFixDiagnostic",
+				"CopilotChatLoad",
+				"CopilotChatModels",
+				"CopilotChatOpen",
+				"CopilotChatOptimize",
 				"CopilotChatReset",
 				"CopilotChatTests",
-				"CopilotChatCommit",
 				"CopilotChatToggle",
-				"CopilotChatExplain",
-				"CopilotChatOptimize",
-				"CopilotChatDebugInfo",
-				"CopilotChatCommitStaged",
-				"CopilotChatFixDiagnostic",
 			},
 			opts = {
 				debug = true, -- Enable debugging
