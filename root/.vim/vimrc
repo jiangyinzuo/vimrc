@@ -393,46 +393,15 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set statusline=%1*%F%m%r%h%w
 		let show_status = exists("g:plugs") && v:version >= 900 && g:no_plug == 0
 		if show_status
-			function LeftStatusLine()
-				if &diff == 0 && winwidth(0) > 60
-					let l:result = ' | '
-					if exists('*FugitiveHead')
-						let l:gitbranch = FugitiveHead()
-						let l:result .= l:gitbranch == '' ? '' : (' ' . l:gitbranch . ' ')
-					endif
-					if exists('*coc#status')
-						" Some functions are too long to put into statusline.
-						" Please directly echo b:coc_current_function.
-						let l:result .= coc#status()
-					endif
-				else
-					let l:result = ''
-				endif
-				return l:result
-			endfunction
-			set statusline+=%{LeftStatusLine()}
+			set statusline+=%{statusline#Left()}
 		endif
 		" 左对齐和右对齐的分割点
 		set statusline+=%=
-		if v:version >= 900
-			function RightStatusLine()
-				let l:result = ''
-				if &diff == 0 && winwidth(0) > 60 && exists('g:asyncrun_status')
-					if g:asyncrun_status == 'running'
-						let l:result .= ' '
-					elseif g:asyncrun_status == 'success'
-						let l:result .= '󰄴 '
-					elseif g:asyncrun_status == 'failure'
-						let l:result .= ' '
-					endif
-					let l:result .= '%l/%L:%v %Y %{&fenc} %{&ff}'
-				endif
-				return l:result
-			endfunction
+		if show_status
 			if show_status && g:ai_complete == 'codeium'
-				set statusline+=%2*%{winwidth(0)>60?codeium#GetStatusString():''}\ %{%RightStatusLine()%}
+				set statusline+=%2*%{winwidth(0)>60?codeium#GetStatusString():''}\ %{%statusline#Right()%}
 			else
-				set statusline+=%2*%{%RightStatusLine()%}
+				set statusline+=%2*%{%statusline#Right()%}
 			endif
 		else
 			set statusline+=%l/%L:%v\ %Y\ %{&fenc}\ %{&ff}
