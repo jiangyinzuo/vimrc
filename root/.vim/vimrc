@@ -313,6 +313,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
 	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
+	command! -nargs=1 QfSave call writefile([json_encode(getqflist())], <q-args>)
+	command! -nargs=1 -complete=file QfLoad call setqflist([], 'a', {'title': <q-args>, 'items': json_decode(readfile(<q-args>)[0])})
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" 添加高亮一行
 	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>

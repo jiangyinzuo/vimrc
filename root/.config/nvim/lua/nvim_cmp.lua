@@ -115,7 +115,7 @@ function M.nvim_cmp()
 			}),
 			sources = cmp.config.sources({
 				-- NOTE: 不指定优先级时，越后面优先级越低
-				{ name = "path", priority = 10 },
+				{ name = "async_path", priority = 10 },
 				{ name = "buffer", priority = 10 },
 				{
 					name = "omni",
@@ -139,7 +139,7 @@ function M.nvim_cmp()
 				snippet_source,
 			}, {
 				{ name = "buffer", priority = 10 },
-				{ name = "path", priority = 10 },
+				{ name = "async_path", priority = 10 },
 				{
 					name = "dictionary",
 					keyword_length = 2,
@@ -155,7 +155,7 @@ function M.nvim_cmp()
 				{ name = "nvim_lsp", priority = 10 },
 				snippet_source,
 				{ name = "buffer", priority = 10 },
-				{ name = "path", priority = 10 },
+				{ name = "async_path", priority = 10 },
 				{
 					name = "dictionary",
 					keyword_length = 2,
@@ -184,11 +184,11 @@ function M.nvim_cmp()
 		},
 	})
 
-	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	-- Use cmdline & async_path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
-			{ name = "path" },
+			{ name = "async_path" },
 		}, {
 			{ name = "cmdline" },
 		}),

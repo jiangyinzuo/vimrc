@@ -187,12 +187,11 @@ if v:version >= 800
 				Plug 'Eliot00/git-lens.vim'
 				let g:GIT_LENS_ENABLED = 0
 
-				" Alternative: https://github.com/gelguy/wilder.nvim
-				Plug 'girishji/autosuggest.vim'
-				" External cmd is slow.
-				autocmd VimEnter * ++once if exists('*g:AutoSuggestSetup') | call g:AutoSuggestSetup({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }}) | endif
 				if v:version >= 901
 					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
+					" Alternative: https://github.com/gelguy/wilder.nvim
+					" Plug 'girishji/vimsuggest'
+					" autocmd VimEnter * ++once call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }})
 				endif
 			endif
 			if g:vim_dap == 'vimspector'
