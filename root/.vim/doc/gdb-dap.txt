@@ -1,6 +1,6 @@
 vim:ft=help
 ===============================================================================
-*debug.txt*
+*gdb-dap.txt*
 
 https://github.com/hellogcc/100-gdb-tips
 

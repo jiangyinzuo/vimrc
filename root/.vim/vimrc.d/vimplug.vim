@@ -190,8 +190,8 @@ if v:version >= 800
 				if v:version >= 901
 					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
 					" Alternative: https://github.com/gelguy/wilder.nvim
-					" Plug 'girishji/vimsuggest'
-					" autocmd VimEnter * ++once call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }})
+					Plug 'girishji/vimsuggest'
+					autocmd VimEnter * ++once call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }})
 				endif
 			endif
 			if g:vim_dap == 'vimspector'
