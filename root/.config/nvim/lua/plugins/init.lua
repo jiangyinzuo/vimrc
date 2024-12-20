@@ -288,4 +288,7 @@ return {
 		},
 		config = true,
 	},
+	{
+		"goerz/jupytext.nvim",
+	},
 }

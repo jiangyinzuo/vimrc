@@ -133,7 +133,6 @@ local M = {
 	"skywind3000/vim-quickui",
 	"pechorin/any-jump.vim",
 	{ "jupyter-vim/jupyter-vim", cmd = { "JupyterConnect" } },
-	"goerz/jupytext.vim",
 	{ "jpalardy/vim-slime", ft = { "python", "ocaml" } },
 	{ "jiangyinzuo/vim-markdown", ft = "markdown" },
 	{ "whonore/Coqtail", cond = detect.has_coqtop_executable, ft = "coq" },
