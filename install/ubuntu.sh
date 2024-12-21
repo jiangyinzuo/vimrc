@@ -3,6 +3,9 @@
 
 set -e;
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source $SCRIPT_DIR/rust-toolchain.sh
+
 if command -v sudo >/dev/null 2>&1; then
 	# sudo 命令存在，使用sudo执行命令
 	SUDO=sudo
@@ -88,31 +91,13 @@ function install_fd() {
 function install_other_apt_packages() {
 	# apt install -y golang
 	# Leaderf needs python3-dev and python3-distutils
-	# wamerican: American English字典文件，安装后位于/usr/share/dict/american-english, 用于vim dictionary
+	# wamerican: American English字典文件，安装后位于/usr/share/dict/words, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
 	$SUDO apt-get install -y curl less tree bd bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet shfmt
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113
 	# apt install ripgrep pandoc poppler-utils ffmpeg
-}
-
-_cargo_installed=false
-function install_cargo() {
-	if [ "$_cargo_installed" = false ]; then
-		_cargo_installed=true
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-	fi
-}
-
-function install_git_delta() {
-	install_cargo
-	prompt=$prompt"
-		=== git-delta ===
-		source ~/.bashrc
-		cargo install git-delta
-
-	"
 }
 
 function install_vim() {
@@ -188,4 +173,5 @@ install_nvm
 # lua
 # cargo install stylua
 
+# 加上双引号才能echo换行符
 echo "$prompt"

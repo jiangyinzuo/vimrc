@@ -47,6 +47,7 @@ do_setup() {
 
 	echo_green "Setup soft links:"
 	mkdir -p ~/.local/share/bash-completion/completions
+	mkdir -p ~/.config
 	for f in "${soft_link_files[@]}"; do
 		_make_soft_link "$VIMRC_ROOT"/"$f" ~/"$f"
 	done

@@ -17,6 +17,7 @@ Vim/Neovim requirements:
     - plugin manager: [vim-plug](https://github.com/junegunn/vim-plug)
 - neovim 0.11.0+
     - plugin manager: [lazy.nvim](https://github.com/folke/lazy.nvim)
+        - Git 2.19.0+
 
 See [install/README.md](./install/README.md) for more details.
 

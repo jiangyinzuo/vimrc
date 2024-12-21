@@ -1,3 +1,4 @@
+" vim:set ts=2 sw=2 noexpandtab:
 set number "显示行号
 if has('autocmd') " vim-tiny does not have autocmd
 	set nocp "no Vi-compatible
@@ -133,7 +134,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set incsearch " 输入搜索内容时就显示搜索结果
 	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
-	set dictionary+=/usr/share/dict/american-english
+	if filereadable('/usr/share/dict/words')
+		set dictionary+=/usr/share/dict/words
+	endif
 	" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
 	set nobackup
 	set nowritebackup

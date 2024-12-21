@@ -32,6 +32,21 @@ Transaction check error ~
 
 解决方法：Unknown error，没有指出明确的依赖错误，试试 `sudo yum update`
 
+===================================================================
+CentOS 7 安装新版软件
+
+scl: Setup and run software from Software Collection environment
+
+gcc: *devtoolset* / conda
+>bash
+    sudo yum install devtoolset-11
+    scl enable devtoolset-11 bash
+    # 退出scl环境
+    exit
+<
+git: https://www.endpointdev.com/blog/2021/12/installing-git-2-on-centos-7/
+
+===================================================================
 CentOS 7重新分区 ~
 
 See also: ~/.vim/doc/linux/filesystem.md

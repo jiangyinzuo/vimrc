@@ -1,8 +1,14 @@
 # Installation
 
-1. For Ubuntu users, run the following commands to install dependencies:
+1. Install dependencies:
 ```bash
+# Ubuntu
 sudo -E ./install/ubuntu.sh
+# CentOS7
+sudo yum install centos-release-scl
+sudo yum install devtoolset-11
+scl enable devtoolset-11
+sudo -E ./install/centos7.sh
 ```
 
 2. Setup environment variables and soft links
@@ -30,7 +36,7 @@ sudo -E install/build_vim.sh
 
 Source code and executables: https://github.com/neovim/neovim/releases
 
-**Install from Package**
+### Install from Package
 
 Supported build needs glibc 2.29, while glibc versions of Ubuntu18.04 and CentOS 7.1 are lower than 2.28.
 
@@ -40,7 +46,20 @@ https://github.com/neovim/neovim/blob/nightly/INSTALL.md#install-from-package
 
 See also: https://github.com/neovim/neovim-releases
 
-**Build from Source**
+### Install via Snap in CentOS 7
+
+```bash
+sudo yum install epel-release
+sudo yum install snapd
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+# edge: nightly version
+sudo snap install nvim --classic --edge
+```
+
+Reference: https://gist.github.com/backroot/add72227c11759615207cbae79362287
+
+### Build from Source
 
 ```bash
 sudo -E install/build_nvim.sh
