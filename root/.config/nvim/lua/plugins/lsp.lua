@@ -208,13 +208,18 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 		},
 		{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+		-- alternative: "hedyhli/outline.nvim",
 		{
-			"hedyhli/outline.nvim",
-			lazy = true,
-			cmd = { "Outline", "OutlineOpen", "OutlineStatus" },
-			opts = {
-				-- Your setup opts here
+			"stevearc/aerial.nvim",
+			-- Optional dependencies
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter",
+				"nvim-tree/nvim-web-devicons",
 			},
+			config = function()
+				require("aerial").setup({})
+				vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
+			end,
 		},
 		{
 			"mrcjkb/rustaceanvim",

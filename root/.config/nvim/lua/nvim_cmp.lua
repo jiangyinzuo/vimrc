@@ -184,13 +184,19 @@ function M.nvim_cmp()
 		},
 	})
 
+	local cmp_cmdline_ignore_cmds = vim.fn.has("wsl") == 1 and { "Man", "!", "terminal" } or { "Man" }
 	-- Use cmdline & async_path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = "async_path" },
 		}, {
-			{ name = "cmdline" },
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = cmp_cmdline_ignore_cmds,
+				},
+			},
 		}),
 	})
 end

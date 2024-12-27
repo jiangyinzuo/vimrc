@@ -115,6 +115,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		set wildoptions=pum " 显示popup window
 		" save
 		inoremap <silent> <c-S> <cmd>w<CR>
+		let g:help_example_languages = { "vim": "vim", "bash": "bash" }
 	else
 		set wildmode=list:full
 	endif

@@ -66,12 +66,13 @@ make altinstall: 安装编译python，安装到/usr/local/bin/python3.8
 
 *python-virtual-environment*
 
+----------------------------------------------------------------
 *mamba* *micromamba*
 
 See:
 https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html#mamba-org-releases
 
->
+>bash
 	curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
 	./bin/micromamba shell init -s bash -p ~/micromamba
 
@@ -83,8 +84,21 @@ https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 micromamba install python=3.11
 
 micromamba创建新环境，使用python3.10.6
->
+>bash
 	micromamba create -n myenv python=3.10.6
+<
+
+升级micromamba ~
+
+
+碰到以下报错，则需添加conda-forge到channels
+>
+    critical libmamba No micromamba found in the loaded channels. Add 'conda-forge' to your config file.
+<
+
+>bash
+    micromamba config append channels conda-forge
+    micromamba self-update
 <
 
 ----------------------------------------------------------------
