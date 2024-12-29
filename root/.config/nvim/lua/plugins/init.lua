@@ -158,7 +158,29 @@ return {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {},
+		opts = {
+			highlight = {
+				multiline = true,
+				keyword = "bg",
+				-- NOTE(jiangyinzuo): highlight this comment
+				pattern = { [[\s(KEYWORDS)\(.+\):]], [[\s(KEYWORDS):]] }, -- pattern or table of patterns, used for highlightng (vim regex, \v\C)
+			},
+			search = {
+				command = "rg",
+				args = {
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--max-columns=0",
+				},
+				-- regex that will be used to match keywords.
+				-- don't replace the (KEYWORDS) placeholder:
+				pattern = [[\b(KEYWORDS)(\(.+\))?:]], -- ripgrep regex
+				-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+			},
+		},
 	},
 	-- Alternatives:
 	-- https://github.com/jedrzejboczar/possession.nvim

@@ -324,12 +324,19 @@ if has('autocmd') " vim-tiny does not have autocmd
 	endfunction
 	function ToggleQuickfix(list)
 		if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
-			let height = len(getqflist())
-			let height = height > 7 ? 7 : height
-			let height = height < 2 ? 2 : height
 			if a:list == 'c'
+				let height = len(getqflist())
+				let height = height > 7 ? 7 : height
+				let height = height < 2 ? 2 : height
 				exe 'copen ' . height
 			else
+				let height = len(getloclist(0))
+				if height == 0
+					echom 'empty loclist'
+					return
+				endif
+				let height = height > 7 ? 7 : height
+				let height = height < 2 ? 2 : height
 				exe 'lopen ' . height
 			endif
 		else
