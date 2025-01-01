@@ -53,7 +53,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"neovim/nvim-lspconfig",
-			event = "VeryLazy",
+			event = "VimEnter",
 			priority = 500,
 			dependencies = {
 				"SmiteshP/nvim-navic",
@@ -63,7 +63,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"ranjithshegde/ccls.nvim",
-			event = "VeryLazy",
+			event = "VimEnter",
 			dependencies = {
 				"neovim/nvim-lspconfig",
 			},

@@ -270,10 +270,6 @@ return {
 		end,
 	},
 	{
-		"ray-x/guihua.lua",
-		build = "cd lua/fzy && make",
-	},
-	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		opts = {
 			file_types = { "markdown", "Avante" },
