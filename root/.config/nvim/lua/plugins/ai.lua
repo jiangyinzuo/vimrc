@@ -28,45 +28,44 @@ local copilot_lua = {
 	end,
 }
 
-local ai_complete = {}
-if vim.g.ai_complete == "codeium" then
-	ai_complete = { "Exafunction/codeium.vim", event = "BufEnter" }
-elseif vim.g.ai_complete == "copilot" then
-	ai_complete = {
-		{
-			"CopilotC-Nvim/CopilotChat.nvim",
-			lazy = true,
-			dependencies = {
-				-- { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-				{ "zbirenbaum/copilot.lua" },
-				{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-			},
-			build = "make tiktoken", -- Only on MacOS or Linux
-			cmd = {
-				"CopilotChat",
-				"CopilotChatAgents",
-				"CopilotChatClose",
-				"CopilotChatCommit",
-				"CopilotChatCommitStaged",
-				"CopilotChatDebugInfo",
-				"CopilotChatDocs",
-				"CopilotChatExplain",
-				"CopilotChatFix",
-				"CopilotChatFixDiagnostic",
-				"CopilotChatLoad",
-				"CopilotChatModels",
-				"CopilotChatOpen",
-				"CopilotChatOptimize",
-				"CopilotChatReset",
-				"CopilotChatTests",
-				"CopilotChatToggle",
-			},
-			opts = {
-				debug = true, -- Enable debugging
-				-- See Configuration section for rest
-			},
-			-- See Commands section for default commands if you want to lazy load on them
-		},
+local copilot_chat = {
+	"CopilotC-Nvim/CopilotChat.nvim",
+	lazy = true,
+	dependencies = {
+		-- { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+		{ "zbirenbaum/copilot.lua" },
+		{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+	},
+	build = "make tiktoken", -- Only on MacOS or Linux
+	cmd = {
+		"CopilotChat",
+		"CopilotChatAgents",
+		"CopilotChatClose",
+		"CopilotChatCommit",
+		"CopilotChatCommitStaged",
+		"CopilotChatDebugInfo",
+		"CopilotChatDocs",
+		"CopilotChatExplain",
+		"CopilotChatFix",
+		"CopilotChatFixDiagnostic",
+		"CopilotChatLoad",
+		"CopilotChatModels",
+		"CopilotChatOpen",
+		"CopilotChatOptimize",
+		"CopilotChatReset",
+		"CopilotChatTests",
+		"CopilotChatToggle",
+	},
+	opts = {
+		debug = true, -- Enable debugging
+		-- See Configuration section for rest
+	},
+	-- See Commands section for default commands if you want to lazy load on them
+}
+
+local plugins = {
+	copilot = {
+		copilot_chat,
 		-- "github/copilot.vim",
 		copilot_lua,
 		-- https://github.com/magicalne/nvim.ai
@@ -84,10 +83,8 @@ elseif vim.g.ai_complete == "copilot" then
 		-- 	},
 		-- 	config = true
 		-- },
-	}
-elseif vim.g.ai_complete == "avante.nvim" then
-	local provider = "copilot"
-	ai_complete = {
+	},
+	["avante.nvim"] = {
 		{
 			"yetone/avante.nvim",
 			event = "VeryLazy",
@@ -129,17 +126,15 @@ elseif vim.g.ai_complete == "avante.nvim" then
 			},
 		},
 		copilot_lua,
-	}
-elseif vim.g.ai_complete == "fittencode" then
-	ai_complete = {
-		{
-			"luozhiya/fittencode.nvim",
-			config = function()
-				require("fittencode").setup()
-			end,
-		},
-	}
-elseif vim.g.ai_complete == "tabnine" then
-	ai_complete = { "codota/tabnine-nvim", build = "./dl_binaries.sh" }
-end
-return ai_complete
+		copilot_chat,
+	},
+	fittencode = { {
+		"luozhiya/fittencode.nvim",
+		config = function()
+			require("fittencode").setup()
+		end,
+	} },
+	tabnine = { { "codota/tabnine-nvim", build = "./dl_binaries.sh" } },
+	codeium = { { "Exafunction/codeium.vim", event = "BufEnter" } },
+}
+return plugins[vim.g.ai_complete]

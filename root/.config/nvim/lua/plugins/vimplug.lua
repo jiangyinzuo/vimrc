@@ -19,7 +19,8 @@ local M = {
 	},
 	-- suda is a plugin to read or write files with sudo command.
 	"lambdalisue/vim-suda",
-	{ "andymass/vim-matchup", event = "VeryLazy" },
+	-- vim-matchup的event不能设置为VeryLazy / VimEnter
+	"andymass/vim-matchup",
 	"jiangyinzuo/bd.vim",
 	{
 		"lervag/vimtex",
