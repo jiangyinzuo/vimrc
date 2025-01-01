@@ -51,4 +51,13 @@
 *undo到上一次保存*					:earlier 1f
 *垂直切分显示buffer-id为4的终端*	:vsp|b4
 *用TODO高亮当前行*					:call matchadd('Todo', '\%.l')
-*取消高亮*							:call clearmatches()
+*取消高亮*						:call clearmatches()
+*camelCase*						crc
+*dot.case*						crd
+*kebab-case*						crk
+*n12e*							crn
+*PascalCase*						crp
+*snake_case*						crs
+*UPPER_CASE*						cru
+*path/case*						cr/
+*space_case*						cr 
