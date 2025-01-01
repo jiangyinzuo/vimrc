@@ -1,10 +1,13 @@
 return {
 	{
 		"micangl/cmp-vimtex",
+		lazy = true,
+		event = "VeryLazy",
 		cond = require("detect").has_pdflatex_executable,
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		event = "VeryLazy",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
@@ -23,6 +26,8 @@ return {
 	},
 	{
 		"uga-rosa/cmp-dictionary",
+		lazy = true,
+		event = "VeryLazy",
 		ft = { "tex", "bib", "markdown", "text" },
 	},
 	-- 'SirVer/ultisnips' is slow in Neovim.
@@ -36,9 +41,9 @@ return {
 	-- 		require("luasnip.loaders.from_snipmate").lazy_load()
 	-- 	end,
 	-- },
-	{ "rafamadriz/friendly-snippets" },
 	{
 		"garymjr/nvim-snippets",
+		event = "VeryLazy",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 		},

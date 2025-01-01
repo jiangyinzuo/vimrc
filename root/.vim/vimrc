@@ -147,7 +147,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	set updatecount=100
 	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
 	if v:version >= 802 || has('nvim')
-		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
+		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize,folds
 
 		" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
 		tnoremap <ScrollWheelUp> <C-\><C-n>

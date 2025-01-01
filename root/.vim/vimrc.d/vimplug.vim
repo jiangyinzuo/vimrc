@@ -184,6 +184,7 @@ if v:version >= 800
 				Plug 'neoclide/coc.nvim', {'branch': 'release'}
 				Plug 'antoinemadec/coc-fzf'
 				Plug 'Clavelito/indent-awk.vim'
+				Plug 'bfrg/vim-qf-preview'
 				Plug 'Eliot00/git-lens.vim'
 				let g:GIT_LENS_ENABLED = 0
 

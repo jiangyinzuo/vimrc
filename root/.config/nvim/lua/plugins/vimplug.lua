@@ -19,7 +19,7 @@ local M = {
 	},
 	-- suda is a plugin to read or write files with sudo command.
 	"lambdalisue/vim-suda",
-	"andymass/vim-matchup",
+	{ "andymass/vim-matchup", event = "VeryLazy" },
 	"jiangyinzuo/bd.vim",
 	{
 		"lervag/vimtex",
@@ -33,7 +33,7 @@ local M = {
 	-- https://github.com/jackMort/ChatGPT.nvim
 	-- https://github.com/dpayne/CodeGPT.nvim
 	-- https://github.com/Robitx/gp.nvim
-	"madox2/vim-ai",
+	{ "madox2/vim-ai", event = "VeryLazy" },
 	-- Ref: https://github.com/ibhagwan/fzf-lua
 	{ "junegunn/fzf", build = "./install --bin" },
 	{
@@ -48,6 +48,7 @@ local M = {
 	"voldikss/vim-floaterm",
 	{
 		"voldikss/fzf-floaterm",
+		event = "VeryLazy",
 		dependencies = {
 			"junegunn/fzf",
 			"voldikss/vim-floaterm",
@@ -55,6 +56,7 @@ local M = {
 	},
 	{
 		"skywind3000/asynctasks.vim",
+		event = "VeryLazy",
 		dependencies = {
 			"skywind3000/asyncrun.vim",
 		},
@@ -81,7 +83,10 @@ local M = {
 		branch = "master",
 	},
 	-- TODO: see https://github.com/nvim-neotest/neotest
-	"vim-test/vim-test",
+	{
+		"vim-test/vim-test",
+		event = "VeryLazy",
+	},
 	{ "alepez/vim-gtest", ft = { "c", "cpp", "cuda" } },
 	"simnalamburt/vim-mundo",
 	"aperezdc/vim-template",

@@ -1,5 +1,6 @@
 local lualine = {
 	"nvim-lualine/lualine.nvim",
+	event = "UIEnter",
 }
 
 local detect = require("detect")
@@ -52,6 +53,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"neovim/nvim-lspconfig",
+			event = "VeryLazy",
 			priority = 500,
 			dependencies = {
 				"SmiteshP/nvim-navic",
@@ -61,6 +63,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"ranjithshegde/ccls.nvim",
+			event = "VeryLazy",
 			dependencies = {
 				"neovim/nvim-lspconfig",
 			},
@@ -175,10 +178,6 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 					null_ls.builtins.formatting.stylua,
 					-- install via mason
 					null_ls.builtins.formatting.google_java_format,
-					-- go.nvim
-					-- require("go.null_ls").gotest(),
-					-- require("go.null_ls").gotest_action(),
-					require("go.null_ls").golangci_lint(),
 				}
 				if vim.g.python_formatter == "black" then
 					table.insert(sources, null_ls.builtins.formatting.black)
@@ -237,6 +236,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				"ray-x/guihua.lua",
 				"neovim/nvim-lspconfig",
 				"nvim-treesitter/nvim-treesitter",
+				"nvimtools/none-ls.nvim",
 			},
 			config = function()
 				require("go").setup({
@@ -267,6 +267,10 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						},
 					},
 				})
+				-- go.nvim
+				-- require("go.null_ls").gotest(),
+				-- require("go.null_ls").gotest_action(),
+				require("null-ls").register(require("go.null_ls").golangci_lint())
 			end,
 			ft = { "go", "gomod" },
 			-- 该命令在网络环境差的情况下可能会卡顿，故手动执行
