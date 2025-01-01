@@ -23,6 +23,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
 		" speed up loading
 		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
+		let g:avante_provider = get(g:, 'avante_provider', 'copilot') " openai, copilot
+		let g:avante_auto_suggestions_provider = get(g:, 'avante_auto_suggestions_provider', 'copilot') " openai, copilot, claude
 		runtime clipboard_config.lua
 	else
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')

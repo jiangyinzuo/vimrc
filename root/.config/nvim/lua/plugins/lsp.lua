@@ -1,15 +1,6 @@
-local lualine = {
-	"nvim-lualine/lualine.nvim",
-	event = "UIEnter",
-}
-
 local detect = require("detect")
 
 if vim.g.vimrc_lsp == "nvim-lsp" then
-	lualine.dependencies = {
-		"neovim/nvim-lspconfig",
-		"linrongbin16/lsp-progress.nvim",
-	}
 	local lsp = require("lsp.init")
 	-- try plugins in https://nvimdev.github.io
 	return {
@@ -279,12 +270,8 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		{
 			"mfussenegger/nvim-jdtls",
 		},
-		lualine,
 	}
 else
-	lualine.dependencies = {
-		"neoclide/coc.nvim",
-	}
 	return {
 		{
 			"neoclide/coc.nvim",
@@ -294,6 +281,5 @@ else
 				vim.cmd([[source ~/.vim/vimrc.d/coc.vim]])
 			end,
 		},
-		lualine,
 	}
 end

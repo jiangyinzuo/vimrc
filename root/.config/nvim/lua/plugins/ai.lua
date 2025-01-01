@@ -4,7 +4,7 @@ local copilot_lua = {
 	config = function()
 		require("copilot").setup({
 			suggestion = {
-				enabled = true,
+				enabled = vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_provider == "copilot",
 				auto_trigger = true,
 				hide_during_completion = false,
 				debounce = 75,
@@ -63,6 +63,14 @@ local copilot_chat = {
 	-- See Commands section for default commands if you want to lazy load on them
 }
 
+local deepseek_api = {
+	endpoint = "https://api.deepseek.com/v1",
+	model = "deepseek-chat",
+	timeout = 30000, -- Timeout in milliseconds
+	temperature = 0,
+	max_tokens = 4096,
+}
+
 local plugins = {
 	copilot = {
 		copilot_chat,
@@ -91,9 +99,20 @@ local plugins = {
 			lazy = true,
 			version = false, -- set this if you want to always pull the latest change
 			opts = { -- add any opts here
-				provider = "copilot",
+				debug = false,
+				provider = vim.g.avante_provider,
+				auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
+				openai = deepseek_api,
 				behaviour = {
-					auto_suggestions = false, -- Experimental stage
+					auto_suggestions = vim.g.avante_provider ~= "copilot", -- Experimental stage
+				},
+				mappings = {
+					suggestion = {
+						accept = "<Tab>",
+						next = "<M-]>",
+						prev = "<M-[>",
+						dismiss = "<C-]>",
+					},
 				},
 			},
 			-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -128,13 +147,16 @@ local plugins = {
 		copilot_lua,
 		copilot_chat,
 	},
-	fittencode = { {
-		"luozhiya/fittencode.nvim",
-		config = function()
-			require("fittencode").setup()
-		end,
-	} },
+	fittencode = {
+		{
+			"luozhiya/fittencode.nvim",
+			config = function()
+				require("fittencode").setup()
+			end,
+		},
+	},
 	tabnine = { { "codota/tabnine-nvim", build = "./dl_binaries.sh" } },
 	codeium = { { "Exafunction/codeium.vim", event = "BufEnter" } },
 }
+
 return plugins[vim.g.ai_complete]
