@@ -151,8 +151,6 @@ CTRL-SHIFT-V  paste
 *打开所有折叠*		zR
 
 -------------------------------------------------------------------------------
-*start*					WSL用windows打开文件
-*WSL创建软链接文件夹*			mklinkd 2023-03-07-1  /mnt/d/doc2/group-meeting/readinggroup/2023-03-07-1
 
 *z* 模糊跳转autojump
 zt: 根据最近cd时间排序目录，并通过fzf cd目录, 依赖z

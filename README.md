@@ -24,15 +24,15 @@ See [install/README.md](./install/README.md) for more details.
 ## File Structure
 
 | File Name         | Description                           |
-| :---------------- | :------------------------------------ |
+|:------------------|:--------------------------------------|
 | install           | installation scripts                  |
 | project_files     | config files for local project        |
 | root              | dotfiles                              |
 | root/.config/nvim | neovim configurations                 |
 | root/.vim/vimrc   | full vimrc file                       |
-| root/.vim/doc     | my vimdocs                            |
+| root/.vim/doc     | my help files                         |
 | terminal          | configurations for terminal emulators |
-| wsl               | scripts for WSL                       |
+| wsl               | scripts for WSL, `:h wsl.txt`         |
 
 ### Vimrc Files
 

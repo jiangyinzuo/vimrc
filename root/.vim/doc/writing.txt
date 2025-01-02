@@ -86,6 +86,8 @@ md -> pptx >
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
 https://github.com/jiangyinzuo/dblp-api
 
+*学术写作* https://www.writefull.com/
+
 *zhihu2bib.py*
 
 知乎的两行分享链接转换成@misc bibtex格式

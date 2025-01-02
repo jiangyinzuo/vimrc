@@ -49,8 +49,11 @@ fitten code
 continue.dev https://github.com/continuedev
 SuperMaven https://github.com/supermaven-inc/supermaven-nvim
 sourcegraph
+cline https://github.com/cline/cline
 
-devin https://www.cognition-labs.com/blog
+devin
+https://www.cognition.ai/
+https://www.cognition-labs.com/blog
 全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
 https://36kr.com/p/2687396960595333
 首个AI程序员造假被抓，Devin再次“震撼”硅谷！扒皮详解附上
