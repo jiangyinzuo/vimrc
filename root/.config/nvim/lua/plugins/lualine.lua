@@ -1,13 +1,10 @@
 local lualine = {
 	"nvim-lualine/lualine.nvim",
 	event = "UIEnter",
+	dependencies = {}
 }
 
-if vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_enabled == 0 then
-	lualine.dependencies = {
-		"AndreM222/copilot-lualine"
-	}
-end
+-- WARN: DO NOT USE AndreM222/copilot-lualine
 
 if vim.g.vimrc_lsp == "nvim-lsp" then
 	table.insert(lualine.dependencies, "neovim/nvim-lspconfig")

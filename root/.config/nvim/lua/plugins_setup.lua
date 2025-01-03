@@ -159,13 +159,6 @@ function M.lualine()
 		}
 	end
 
-	local lualine_x = {}
-	if vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_provider == "copilot" then
-		lualine_x = {
-			"copilot",
-		}
-	end
-
 	local filename = {
 		"filename",
 		path = 4,
@@ -204,7 +197,7 @@ function M.lualine()
 			-- 'diff' is slow
 			lualine_b = lualine_b,
 			lualine_c = lualine_c,
-			lualine_x = lualine_x,
+			lualine_x = {},
 			lualine_y = {},
 			-- file location
 			lualine_z = { "%l/%L:%v", { "filetype", icons_enabled = false }, "encoding", "fileformat" },

@@ -1,8 +1,7 @@
 " vim:ft=vim
 " copy this file to config.vim
 
-" copilot (default) | codeium | fittencode
-let g:ai_complete = 'copilot'
+let g:ai_suggestion = 'copilot.vim'
 " aiproxy (default) | kimichat | 01ai
 let g:ai_service = '01ai'
 let g:clangd_path = '/usr/bin/clangd'

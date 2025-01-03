@@ -2,7 +2,7 @@ if v:version >= 900 || has('nvim')
 	let g:vim_ai_roles_config_file = '~/.vim/vim-ai-roles.ini'
 
 	" alternatives: https://github.com/codota/tabnine-nvim
-	if g:ai_complete == 'copilot'
+	if g:ai_suggestion == 'copilot.vim'
 		" copilot.vim在打开文件后，第一次快速进入插入模式时，存在卡顿的问题
 		" Github Coplit Support
 		" https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-neovim?platform=linux
@@ -24,7 +24,7 @@ if v:version >= 900 || has('nvim')
 		" copilot workspace folder
 		autocmd BufReadPost,BufNewFile * ++once let b:workspace_folder = asyncrun#current_root()
 
-	elseif g:ai_complete == 'codeium'
+	elseif g:ai_suggestion == 'codeium.vim'
 		" Alternative: https://github.com/Exafunction/codeium.nvim
 		if !has('nvim')
 			Plug 'Exafunction/codeium.vim'
@@ -37,7 +37,7 @@ if v:version >= 900 || has('nvim')
 			imap <M-n> <Plug>(codeium-next)
 			imap <M-x> <Plug>(codeium-dismiss)
 		endif
-	elseif g:ai_complete == 'fittencode'
+	elseif g:ai_suggestion == 'fittencode'
 		if !has('nvim')
 			Plug 'FittenTech/fittencode.vim'
 		endif
