@@ -1,10 +1,15 @@
+if vim.g.avante_provider == "copilot" or vim.g.avante_auto_suggestions_provider == "copilot" then
+	vim.cmd[[echoerr "DO NOT USE third-party Copilot extensions!!!"]]
+	return nil
+end
+
 local copilot_lua = {
 	"zbirenbaum/copilot.lua",
 	event = "InsertEnter",
 	config = function()
 		require("copilot").setup({
 			suggestion = {
-				enabled = vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_provider == "copilot",
+				enabled = (vim.avante_auto_suggestions_enabled == 0),
 				auto_trigger = true,
 				hide_during_completion = false,
 				debounce = 75,
@@ -104,7 +109,7 @@ local plugins = {
 				auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 				openai = deepseek_api,
 				behaviour = {
-					auto_suggestions = vim.g.avante_provider ~= "copilot", -- Experimental stage
+					auto_suggestions = vim.g.avante_auto_suggestions_enabled == 1, -- Experimental stage
 				},
 				mappings = {
 					suggestion = {

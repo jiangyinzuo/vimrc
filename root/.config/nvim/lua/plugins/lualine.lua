@@ -3,7 +3,7 @@ local lualine = {
 	event = "UIEnter",
 }
 
-if vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_provider == "copilot" then
+if vim.g.ai_complete == "copilot" or vim.g.avante_auto_suggestions_enabled == 0 then
 	lualine.dependencies = {
 		"AndreM222/copilot-lualine"
 	}
