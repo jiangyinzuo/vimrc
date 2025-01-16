@@ -23,6 +23,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
 		" speed up loading
 		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
+		" WARN: DO NOT use copilot provider, it will cause abuse.
 		let g:avante_provider = get(g:, 'avante_provider', 'openai') " openai, claude
 		let g:avante_auto_suggestions_provider = get(g:, 'avante_auto_suggestions_provider', 'openai') " openai , claude
 		runtime clipboard_config.lua
@@ -74,6 +75,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
 	let g:python_lsp = get(g:, 'python_lsp', 'pyright')
 	let g:sql_type_default = 'mysql'
+	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, codeium.vim
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
 
 	" gtags-cscope | cscope

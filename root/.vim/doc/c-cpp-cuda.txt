@@ -251,8 +251,6 @@ https://apt.llvm.org/
 https://docs.nvidia.com/cuda/cuda-c-programming-guide/
 https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/
 
-CUDA 安装: https://developer.nvidia.com/cuda-toolkit-archive
-
 |nvidia-docker|
 
 cuda对gcc/clang存在版本要求，例如
@@ -262,6 +260,18 @@ cuda 12.1
 	clang version must be less than 16 and greater than 3.2 for cuda 12.1
 	gcc versions later than 12 are not supported for cuda 12.1
 <
+
+安装CUDA  ~
+
+https://developer.nvidia.com/cuda-toolkit-archive
+
+第一类方法： `apt install nvidia-cuda-toolkit`，安装后nvcc位于 `/usr/bin/nvcc`
+第二类方法：添加apt源后 `apt install cuda`，安装后nvcc位于 `/usr/local/cuda-X-Y/bin/nvcc`
+第三类方法： 下载runfile安装。
+
+卸载CUDA ~
+
+https://docs.nvidia.com/cuda/archive/11.8.0/cuda-installation-guide-linux/index.html#handle-uninstallation
 
 GPU监控 ~
 
