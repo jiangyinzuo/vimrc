@@ -1,5 +1,7 @@
 channels:
   - defaults
+  - conda-forge
+  # - nodefaults
 default_channels:
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/main
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/free
@@ -16,3 +18,7 @@ custom_channels:
 auto_activate_base: false
 show_channel_urls: true
 solver: libmamba
+# strict: 如果最高优先级通道中的包不满足要求，不会从其他通道中寻找替代包，而是会报错。
+# flexible: 如果最高优先级通道中的包不满足要求，conda 会自动从其他优先级较低的通道中寻找替代包。
+# https://blog.csdn.net/qq_52964132/article/details/141195025?spm=1001.2014.3001.5502
+# channel_priority: strict
