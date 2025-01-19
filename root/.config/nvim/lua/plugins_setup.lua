@@ -1,41 +1,4 @@
 local M = {}
-function M.nvim_treesitter()
-	require("nvim-treesitter.configs").setup({
-		-- 安装 language parser
-		-- :TSInstallInfo 命令查看支持的语言
-		ensure_installed = {
-			"c",
-			"cpp",
-			"go",
-			"lua",
-			"vim",
-			"vimdoc",
-			"python",
-			"rust",
-			"html",
-			"query",
-			"markdown",
-			"markdown_inline",
-		},
-		-- Install parsers synchronously (only applied to `ensure_installed`)
-		sync_install = false,
-		-- 启用代码高亮模块
-		highlight = {
-			enable = true,
-			additional_vim_regex_highlighting = false,
-		},
-		-- https://github.com/RRethy/nvim-treesitter-endwise
-		endwise = {
-			enable = false, -- nvim-treesitter-endwise is not maintained
-		},
-		-- https://github.com/andymass/vim-matchup
-		matchup = {
-			enable = true, -- mandatory, false will disable the whole extension
-			-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
-			-- [options]
-		},
-	})
-end
 
 function M.telescope()
 	local builtin = require("telescope.builtin")

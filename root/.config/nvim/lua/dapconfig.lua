@@ -95,7 +95,7 @@ function M.dapconfig()
 	table.insert(require('dap').configurations.python, {
 		type = 'python';
 		request = 'launch';
-		name = 'Launch module with arguments';
+		name = 'Launch module with arguments (调试本地module注意要在module所在目录运行)';
 		module = function()
 			return vim.fn.input('Module: ')
 		end;
@@ -109,7 +109,7 @@ function M.dapconfig()
 	table.insert(require('dap').configurations.python, {
 		type = 'python';
 		request = 'launch';
-		name = 'Launch module';
+		name = 'Launch module (调试本地module注意要在module所在目录运行)';
 		module = function()
 			return vim.fn.input('Module: ')
 		end;

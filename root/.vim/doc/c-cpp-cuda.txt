@@ -281,6 +281,17 @@ GPU监控 ~
 
 【工具篇】如何优雅地监控显卡(GPU)使用情况？ - 聚丙烯酰胺的文章 - 知乎 https://zhuanlan.zhihu.com/p/577533593
 
+运行CUDA程序时，限定使用哪些GPU ~
+
+默认使用GPU 0
+>bash
+    # 仅使用GPU 0和2
+    CUDA_VISIBLE_DEVICES=0,2 python your_script.py
+    # 仅使用GPU 1
+    CUDA_VISIBLE_DEVICES=1 python3 -m cuvs_bench.run --algorithms cuvs_cagra --dataset=gist-960-euclidean --dataset-path=/home/jiangyinzuo/cuvs/datasets -bs 10
+    # 完全禁用GPU
+    CUDA_VISIBLE_DEVICES= python your_script.py
+<
 ------------------------------------------------------------------------------------
 CUDA 编程常见错误
 

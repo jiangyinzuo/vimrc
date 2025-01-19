@@ -89,3 +89,10 @@ Linux修改他人用户名 ~
     # 查看所有进程
     ps -ef
 <
+
+增加动态链接库查找路径 ~
+
+*LD_LIBRARY_PATH*
+>bash
+    export LD_LIBRARY_PATH=/your/custom/path:$LD_LIBRARY_PATH
+<

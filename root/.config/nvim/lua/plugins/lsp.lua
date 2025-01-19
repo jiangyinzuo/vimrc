@@ -44,7 +44,11 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		},
 		{
 			"neovim/nvim-lspconfig",
-			event = "VimEnter",
+			-- event 若设为"VimEnter"，可能导致
+			-- 1) 启动时打开的文件无法自动启动lsp，需要:e才能启动
+			-- 2) auto-session加载时报错 "no fold found"
+			-- 3) treesitter 第一个文件的foldexpr失效
+			-- 4) treesitter渲染有延迟
 			priority = 500,
 			dependencies = {
 				"SmiteshP/nvim-navic",
