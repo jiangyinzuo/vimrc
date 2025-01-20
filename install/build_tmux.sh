@@ -4,7 +4,17 @@
 
 commit=$1
 
-$SUDO apt-get install libevent-dev ncurses-dev build-essential bison pkg-config automake
+if [ -f /etc/os-release ]; then
+	. /etc/os-release
+	if [ "$ID" = "ubuntu" ]; then
+		$SUDO apt-get install libevent-dev ncurses-dev build-essential bison pkg-config automake
+	elif [ "$ID" = "centos" ]; then
+		$SUDO yum install libevent-devel ncurses-devel gcc make bison automake
+	fi
+else
+	echo "Unsupported Linux distribution"
+	exit 1
+fi
 
 function _uninstall() {
 	$SUDO make uninstall
