@@ -169,4 +169,8 @@ return {
 		cond = vim.g.ai_suggestion == "codeium.vim",
 		event = "BufEnter",
 	},
+	{
+		"huggingface/llm.nvim",
+		cond = vim.g.ai_suggestion == "llm.nvim",
+	}
 }

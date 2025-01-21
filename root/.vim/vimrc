@@ -75,7 +75,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
 	let g:python_lsp = get(g:, 'python_lsp', 'pyright')
 	let g:sql_type_default = 'mysql'
-	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, codeium.vim
+	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, codeium.vim, llm.nvim
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
 
 	" gtags-cscope | cscope

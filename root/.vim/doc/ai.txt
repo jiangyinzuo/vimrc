@@ -32,6 +32,7 @@ Github Copilot
 tabnine
 codegeex
 codeium https://codeium.com/
+- windsurf https://codeium.com/windsurf
 CodiumAI https://www.codium.ai/
 阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
 百度 文心快码 https://comate.baidu.com/zh
@@ -105,6 +106,4 @@ Vim插件
 
 https://github.com/neovim/neovim/discussions/28162
 
-- https://github.com/huggingface/llm.nvim
-- https://github.com/yetone/avante.nvim
 - https://github.com/olimorris/codecompanion.nvim
