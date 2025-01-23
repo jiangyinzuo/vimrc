@@ -26,11 +26,15 @@ sudo -E ./install/centos7.sh
 
 Unofficial PPA for Vim: https://launchpad.net/~jonathonf/+archive/ubuntu/vim
 
-**Build from Source**
+### Build from Source
 
 ```bash
 sudo -E install/build_vim.sh
 ```
+
+### Install Vim from Conda-Forge
+
+https://github.com/conda-forge/vim-feedstock
 
 ## Neovim
 

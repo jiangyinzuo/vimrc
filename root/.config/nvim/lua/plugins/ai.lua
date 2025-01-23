@@ -40,9 +40,9 @@ end
 -- 	end,
 -- }
 
-local deepseek_api = {
-	endpoint = "https://api.deepseek.com/v1",
-	model = "deepseek-chat",
+local openai_api = {
+	endpoint = vim.g.openai_endpoint,
+	model = vim.g.openai_model,
 	timeout = 30000, -- Timeout in milliseconds
 	temperature = 0,
 	max_tokens = 4096,
@@ -111,7 +111,7 @@ return {
 			debug = false,
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
-			openai = deepseek_api,
+			openai = openai_api,
 			behaviour = {
 				auto_suggestions = vim.g.ai_suggestion == "avante.nvim", -- Experimental stage
 			},
@@ -172,5 +172,5 @@ return {
 	{
 		"huggingface/llm.nvim",
 		cond = vim.g.ai_suggestion == "llm.nvim",
-	}
+	},
 }

@@ -6,6 +6,8 @@
 " set formatprg=fmt\ -w81\ -g81
 " See: https://github.com/vim/vim/issues/14276
 setlocal textwidth=80
+" 不要自动换行。因为表格换行后可能不好看
+setlocal formatoptions-=t
 setlocal tabstop=2 shiftwidth=2 softtabstop=2
 if exists('$WSLENV')
 	" [[palette]]打开当前tex文件中PDF对应的pptx文件			:OpenPPTX

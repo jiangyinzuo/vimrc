@@ -107,3 +107,32 @@ Vim插件
 https://github.com/neovim/neovim/discussions/28162
 
 - https://github.com/olimorris/codecompanion.nvim
+
+OpenAI 兼容 API ~
+
+temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
+
+>vim
+    let g:openai_token_file = "~/.config/openai.token"
+
+    " deepseek
+    let g:openai_endpoint = "https://api.deepseek.com/v1"
+    let g:openai_model = "deepseek-chat"
+
+    " doubao
+    let g:openai_endpoint = "https://ark.cn-beijing.volces.com/api/v3"
+    " 见火山引擎控制台
+    let g:openai_model = "..."
+
+    " aiproxy
+    let g:openai_endpoint = "https://api.aiproxy.io/v1"
+    let g:openai_model = "gpt-4"
+
+    " kimichat
+    let g:openai_endpoint = "https://api.moonshot.cn/v1"
+    let g:openai_model = "moonshot-v1-8k"
+
+    " 01ai: https://platform.lingyiwanwu.com/docs
+    let g:openai_endpoint = "https://api.lingyiwanwu.com/v1"
+    let g:openai_model = "yi-34b-chat-0205"
+<
