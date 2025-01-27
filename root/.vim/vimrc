@@ -368,6 +368,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" set helplang=cn
 		helptags ~/.vim/doc
 		helptags ~/.vim/pack/my_plugins/start/project.vim/doc
+		helptags ~/.vim/pack/my_plugins/start/duckdb.vim/doc
 	endif
 	if &loadplugins
 		if has('nvim')

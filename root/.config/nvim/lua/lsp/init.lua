@@ -206,7 +206,7 @@ function M.get_capabilities()
 end
 
 function M.lspconfig()
-	require("lsp.diagnostic")
+	local diagnostic = require("lsp.diagnostic")
 
 	-- Register the command
 	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
@@ -216,14 +216,8 @@ function M.lspconfig()
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
 	vim.api.nvim_create_autocmd("CmdlineEnter", {
 		once = true,
-		callback = function()
-			vim.diagnostic.config({
-				-- virtual text is too noisy!
-				virtual_text = false,
-			})
-		end,
+		callback = diagnostic.setup_vim_diagnostic,
 	})
-	vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
 
 	setup_lsp(function(client, bufnr)
 		M.attach_navic(client, bufnr)
@@ -273,30 +267,7 @@ function M.lspconfig()
 			vim.keymap.set({ "n", "x" }, "<leader>fmt", function()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
-			vim.diagnostic.config({
-				-- virtual text is too noisy!
-				virtual_text = false,
-				-- ERROR 比 INFO优先级更高显示
-				severity_sort = true,
-			})
-			vim.keymap.set("n", "]da", function()
-				vim.diagnostic.jump({ count = 1, float = true })
-			end, bufopts)
-			vim.keymap.set("n", "[da", function()
-				vim.diagnostic.jump({ count = -1, float = true })
-			end, bufopts)
-			vim.keymap.set("n", "]dw", function()
-				vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN }, float = true })
-			end, bufopts)
-			vim.keymap.set("n", "[dw", function()
-				vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN }, float = true })
-			end, bufopts)
-			vim.keymap.set("n", "]de", function()
-				vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
-			end, bufopts)
-			vim.keymap.set("n", "[de", function()
-				vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
-			end, bufopts)
+			diagnostic.setup_vim_diagnostic_on_attach()
 		end,
 	})
 	vim.api.nvim_create_user_command("OutgoingCalls", function(_)

@@ -52,6 +52,8 @@ See also: https://github.com/neovim/neovim-releases
 
 ### Install via Snap in CentOS 7
 
+https://snapcraft.io/nvim
+
 ```bash
 sudo yum install epel-release
 sudo yum install snapd
@@ -59,6 +61,8 @@ sudo systemctl enable --now snapd.socket
 sudo ln -s /var/lib/snapd/snap /snap
 # edge: nightly version
 sudo snap install nvim --classic --edge
+# update
+sudo snap refresh nvim --edge --classic
 ```
 
 Reference: https://gist.github.com/backroot/add72227c11759615207cbae79362287
