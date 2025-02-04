@@ -1,8 +1,3 @@
-function Cond(cond, ...)
-	let opts = get(a:000, 0, {})
-	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
 " run
 " :source %
 " to update
@@ -164,7 +159,7 @@ if v:version >= 800
 			" ipynb打开时显示python
 			Plug 'goerz/jupytext.vim'
 
-			Plug 'jpalardy/vim-slime', {'for': ['python', 'ocaml']}
+			Plug 'jpalardy/vim-slime', {'for': ['lua', 'python', 'ocaml']}
 
 			" support more features(mermaid, flowchart, ...)
 			Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }

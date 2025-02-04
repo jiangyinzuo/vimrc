@@ -213,6 +213,7 @@ if has('nvim') || v:version >= 802
 			if a:sender == 'jupyter-matplotlib'
 				let timer = timer_start(1500, function('jupyter_custom#MatplotlibInit'))
 			endif
+			echom '<leader>sc -> send cell | <leader>si -> send code | <leader>sp -> send range'
 		endif
 	endfunction
 	function s:sender_list(ArgLead, CmdLine, CursorPos)

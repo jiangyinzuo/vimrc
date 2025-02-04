@@ -138,8 +138,8 @@ local M = {
 	"jiangyinzuo/img-paste.vim",
 	"skywind3000/vim-quickui",
 	"pechorin/any-jump.vim",
-	{ "jupyter-vim/jupyter-vim", cmd = { "JupyterConnect" } },
-	{ "jpalardy/vim-slime", ft = { "python", "ocaml" } },
+	{ "jupyter-vim/jupyter-vim", ft = { "python" } },
+	{ "jpalardy/vim-slime", ft = { "lua", "python", "ocaml" } },
 	{ "jiangyinzuo/vim-markdown", ft = "markdown" },
 	{ "whonore/Coqtail", cond = detect.has_coqtop_executable, ft = "coq" },
 	{
