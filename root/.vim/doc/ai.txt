@@ -110,10 +110,15 @@ https://github.com/neovim/neovim/discussions/28162
 
 OpenAI 兼容 API ~
 
+*g:openai_token_file* *g:openai_endpoint* *g:openai_model*
+
 temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
 
 >vim
+    " vim-ai
     let g:openai_token_file = "~/.config/openai.token"
+    " avante.nvim
+    export OPENAI_API_KEY=...
 
     " deepseek
     let g:openai_endpoint = "https://api.deepseek.com/v1"
@@ -135,4 +140,7 @@ temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
     " 01ai: https://platform.lingyiwanwu.com/docs
     let g:openai_endpoint = "https://api.lingyiwanwu.com/v1"
     let g:openai_model = "yi-34b-chat-0205"
+
+    let g:openai_endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    let g:openai_model = "qwen-plus"
 <

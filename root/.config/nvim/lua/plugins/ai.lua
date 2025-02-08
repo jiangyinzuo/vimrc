@@ -46,6 +46,7 @@ local openai_api = {
 	timeout = 30000, -- Timeout in milliseconds
 	temperature = 0,
 	max_tokens = 4096,
+	disable_tools = true,
 }
 
 return {
