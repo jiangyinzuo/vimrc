@@ -136,14 +136,18 @@ function M.lualine()
 			-- https://github.com/nvim-lualine/lualine.nvim/issues/259#issuecomment-1890485361
 			section_separators = { left = "", right = "" },
 			disabled_filetypes = {
-				-- do not override dapui's buttons
 				winbar = {
+					-- do not override dapui's buttons
 					"dap-repl",
 					"dapui_breakpoints",
 					"dapui_console",
 					"dapui_scopes",
 					"dapui_watches",
 					"dapui_stacks",
+					"termdebug",
+					"Avante",
+					"AvanteSelectedFiles",
+					"AvanteInput",
 				},
 			},
 			ignore_focus = {},

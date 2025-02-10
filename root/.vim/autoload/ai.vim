@@ -17,16 +17,17 @@ function ai#RunWithInitialPrompt(func, prompt, range, ...) range
 	call call(a:func, [a:range, l:config, l:prompt])
 endfunction
 function ai#GitCommitMessage()
-  let l:diff = system('git --no-pager diff --staged')
-  let l:prompt = "generate a short git commit message from the diff below, using conventional commit format:\n" . l:diff
-  let l:config = {
-  \  "engine": "chat",
-  \  "options": {
-  \    "endpoint_url": g:vim_ai_endpoint_url,
-  \    "model": g:vim_ai_model,
-  \    "initial_prompt": ">>> system\nyou are a code assistant",
-  \    "temperature": 1,
-  \  },
-  \}
-  call vim_ai#AIRun(l:config, l:prompt)
+	let l:range = 0
+	let l:diff = system('git --no-pager diff --staged')
+	let l:prompt = "generate a short git commit message from the diff below, using conventional commit format:\n" . l:diff
+	let l:config = {
+				\  "engine": "chat",
+				\  "options": {
+				\    "endpoint_url": g:openai_endpoint . "/chat/completions",
+				\    "model": g:openai_model,
+				\    "initial_prompt": ">>> system\nyou are a code assistant",
+				\    "temperature": 0.2,
+				\  },
+				\}
+	call vim_ai#AIRun(l:range, l:config, l:prompt)
 endfunction

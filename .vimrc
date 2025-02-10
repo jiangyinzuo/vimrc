@@ -194,6 +194,9 @@ if has('autocmd') " vim-tiny does not have autocmd
 	"""""""""""""""""""""""""""""""
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
+		if has("patch-9.1.1072") || has("nvim-0.11.0")
+			set diffopt+=linematch:60
+		endif
 	endif
 	""""""""""""""""""""" termdebug
 	set t_Co=256

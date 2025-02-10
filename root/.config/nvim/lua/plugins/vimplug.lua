@@ -67,7 +67,7 @@ local M = {
 	},
 	"justinmk/vim-sneak",
 	"matze/vim-move",
-	"ap/vim-css-color",
+	"norcalli/nvim-colorizer.lua",
 	{
 		"LunarWatcher/auto-pairs",
 		config = function()

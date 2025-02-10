@@ -98,6 +98,25 @@ In the C/C++ LSP domain, the famous tools are clangd and ccls. Here we recommend
 - Unity building doesn't be supported by clangd, but OceanBase is being built by unity, failed to build index through compile_commands.json by clangd.
 
 ======================================================================================
+CCache
+
+*ccache*
+>bash
+    # Ccache设置目录
+    export CCACHE_DIR=<path-to-your-cache-directory>
+    # 设置缓存大小
+    ccache -M 50G
+<
+
+CMake设置CCache ~
+>cmake
+    find_program(CCACHE_PROGRAM ccache)
+    if(CCACHE_PROGRAM)
+        set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+        set(CMAKE_CUDA_COMPILER_LAUNCHER "${CCACHE_PROGRAM}") # CMake 3.9+
+    endif()
+<
+======================================================================================
 C++ Build & Package Management Tools
 
 *ninja*
