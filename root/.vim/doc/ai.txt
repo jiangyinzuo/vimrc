@@ -141,6 +141,12 @@ temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
     let g:openai_endpoint = "https://api.lingyiwanwu.com/v1"
     let g:openai_model = "yi-34b-chat-0205"
 
+    " 阿里云Qwen
     let g:openai_endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     let g:openai_model = "qwen-plus"
+
+    " 硅基流动
+    let g:openai_endpoint = "https://api.siliconflow.cn/v1"
+    let g:openai_model = "deepseek-ai/DeepSeek-V3"
+    let g:openai_token_file = "~/.config/siliconflow.token"
 <
