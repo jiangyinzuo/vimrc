@@ -42,10 +42,6 @@ function M.nvim_cmp()
 		local feedkey = function(key, mode)
 			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 		end
-		local has_words_before = function()
-			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-		end
 
 		local comparators = {
 			cmp.config.compare.offset,
@@ -76,6 +72,7 @@ function M.nvim_cmp()
 					-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
 					-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 					vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+					vim.notify("<S-n>/<S-p> 前后跳转snippet, <C-c>退出snippet")
 				end,
 			},
 			window = {
@@ -85,29 +82,51 @@ function M.nvim_cmp()
 			mapping = cmp.mapping.preset.insert({
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
-				-- ["<C-Space>"] = cmp.mapping.complete(),
-				["<C-c>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				-- 作者：贺呵呵
-				-- 链接：https://www.zhihu.com/question/656229461/answer/3506519415
-				-- 来源：知乎
-				-- 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-				["<C-j>"] = cmp.mapping(function(fallback)
-					-- if cmp.visible() then
-					-- 	cmp.select_next_item()
-					if vim.snippet.active({ direction = 1 }) then
-						feedkey("<cmd>lua vim.snippet.jump(1)<CR>", "")
-					elseif has_words_before() then
-						cmp.complete()
+				["<C-c>"] = cmp.mapping(function(fallback)
+					local need_fallback = true
+					if cmp.visible() then
+						cmp.abort()
+						need_fallback = false
+					end
+					if vim.snippet.active() then
+						vim.snippet.stop()
+						need_fallback = false
+					end
+					if need_fallback then
+						fallback()
+					end
+				end, {"i", "s"}),
+				["<CR>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.confirm({ select = true })
+					else
+						fallback()
+					end
+				end, {"i", "s"}),
+				["<C-n>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
 					else
 						fallback() -- The fallback function sends a already mapped key.
 					end
 				end, { "i", "s" }),
-				["<C-k>"] = cmp.mapping(function(fallback)
-					-- if cmp.visible() then
-					-- 	cmp.select_prev_item()
+				["<C-p>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback() -- The fallback function sends a already mapped key.
+					end
+				end, { "i", "s" }),
+				["<S-n>"] = cmp.mapping(function(fallback)
+					if vim.snippet.active({ direction = 1 }) then
+						vim.snippet.jump(1)
+					else
+						fallback() -- The fallback function sends a already mapped key.
+					end
+				end, { "i", "s" }),
+				["<S-p>"] = cmp.mapping(function(fallback)
 					if vim.snippet.active({ direction = -1 }) then
-						feedkey("<cmd>lua vim.snippet.jump(-1)<CR>", "")
+						vim.snippet.jump(-1)
 					else
 						fallback() -- The fallback function sends a already mapped key.
 					end
