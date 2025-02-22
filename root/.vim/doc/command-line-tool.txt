@@ -231,7 +231,7 @@ https://onefetch.dev/
 
 -------------------------------------------------------------------------------
 
-|git-quick-stats| 统计代码行数
+|git-quick-stats| *统计代码行数*
 >bash
 	apt install git-quick-stats
 <

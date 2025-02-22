@@ -38,6 +38,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:openai_endpoint = get(g:, 'openai_endpoint', "https://api.deepseek.com/v1")
 	let g:openai_model = get(g:, 'openai_model', "deepseek-chat")
 	let g:openai_token_file = get(g:, 'openai_token_file', "~/.config/deepseek.token")
+	let g:openai_disable = get(g:, 'openai_disable', 1)
 	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
@@ -78,7 +79,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
 	let g:python_lsp = get(g:, 'python_lsp', 'pyright')
 	let g:sql_type_default = 'mysql'
-	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, codeium.vim, llm.nvim
+	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, codeium.vim, llm.nvim,
+	" minuet-ai.nvim
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
 
 	" gtags-cscope | cscope

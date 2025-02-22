@@ -70,7 +70,8 @@ if v:version >= 801
 endif
 
 let test#strategy = "asyncrun_background_term"
-let test#python#pytest#executable = 'python3 -m pytest'
+" -s: 控制台输出print()，pytest不要捕获stdout
+let test#python#pytest#executable = 'python3 -m pytest -vv -s'
 let test#rust#cargotest#test_options = { 'nearest': ['--', '--nocapture', '--exact'], 'file': [] }
 
 let g:mundo_help = 1

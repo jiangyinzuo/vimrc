@@ -6,7 +6,13 @@ IDE功能需求 ~
 https://docs.cursor.com/get-started/usage
 
 Tab
-- completion
+
+Completion
+- fill in the middle (给定前缀和后缀，补全中间)
+- 多位置complete (speculative edits / edit prediction / Editing By Rewriting)
+  - https://github.com/milanglacier/minuet-ai.nvim/issues/26
+  - Zed开源了一个edit-prediction model https://zed.dev/blog/edit-prediction
+    - https://github.com/boltlessengineer/zeta.nvim [WIP]
 
 Chat
 - code rewrite
@@ -14,6 +20,7 @@ Chat
 
 Context
 - codebase indexing (project files)
+    - https://github.com/Davidyz/VectorCode
 - rag
 
 Products ~
@@ -96,6 +103,11 @@ Examples:
 $ gh copilot suggest "Install git"
 $ gh copilot explain "traceroute github.com"
 
+终端登录使用github copilot的方法（必须选择浏览器登录） ~
+
+BROWSER=nonexistent gh auth login
+https://github.com/cli/cli/issues/297
+
 *gpt-engineer*
 https://github.com/gpt-engineer-org/gpt-engineer
 
@@ -114,6 +126,8 @@ OpenAI 兼容 API ~
 
 temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
 
+API集合 https://openrouter.ai/
+
 >vim
     " vim-ai
     let g:openai_token_file = "~/.config/openai.token"
@@ -129,9 +143,17 @@ temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
     " 见火山引擎控制台
     let g:openai_model = "..."
 
-    " aiproxy
+    " aiproxy (2025年8月后停用)
     let g:openai_endpoint = "https://api.aiproxy.io/v1"
     let g:openai_model = "gpt-4"
+
+    " openrouter
+
+    " ppinfra https://ppinfra.com/
+    let g:openai_endpoint = "https://api.ppinfra.com/v3/openai"
+
+    " uiuiapi https://sg.uiuiapi.com/
+    let g:openai_endpoint = "https://sg.uiuiapi.com/v1"
 
     " kimichat
     let g:openai_endpoint = "https://api.moonshot.cn/v1"
@@ -150,3 +172,49 @@ temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
     let g:openai_model = "deepseek-ai/DeepSeek-V3"
     let g:openai_token_file = "~/.config/siliconflow.token"
 <
+
+
+-------------------------------------------------------------------------------
+本地部署大模型
+
+*ollama* https://github.com/ollama/ollama
+
+-------------------------------------------------------------------------------
+LLM Agent
+
+benchmark ~
+
+swe-bench (ICLR 2024) https://www.swebench.com/
+
+
+LLM Agent 开发框架 ~
+
+7种Agent框架对比: https://www.helicone.ai/blog/ai-agent-builders
+
+Dify (无代码)
+llama_index https://github.com/run-llama/llama_index
+langchain
+eino https://github.com/cloudwego/eino
+crewAI https://github.com/crewAIInc/crewAI
+autogen https://github.com/microsoft/autogen
+
+现成LLM Agent ~
+
+feature 需求：
+
+- 全局代码理解
+- bug定位
+
+aider https://aider.chat/
+- 不支持使用命令行tool、不能运行程序，读取程序输出
+
+SWESynInfer: https://github.com/LingmaTongyi/Lingma-SWE-GPT
+- 开源缺乏维护
+
+AutoCodeRover: Autonomous Program Improvement https://github.com/AutoCodeRoverSG/auto-code-rover
+Agentless https://github.com/OpenAutoCoder/Agentless
+SWE-Agent https://github.com/SWE-agent/SWE-agent
+OpenHands https://github.com/All-Hands-AI/OpenHands
+
+Tool Use ~
+https://github.com/dlants/magenta.nvim

@@ -46,10 +46,7 @@ local openai_api = {
 	timeout = 30000, -- Timeout in milliseconds
 	temperature = 0,
 	max_tokens = 4096,
-	disable_tools = not vim.tbl_contains({
-		"deepseek-ai/DeepSeek-V3",
-		"deepseek-chat",
-	}, vim.g.openai_model),
+	disable_tools = vim.g.openai_disable_tools == 1,
 }
 
 return {
@@ -88,31 +85,106 @@ return {
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 	-- https://github.com/magicalne/nvim.ai
-	-- {
-	-- 	"olimorris/codecompanion.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
-	-- 		"nvim-telescope/telescope.nvim", -- Optional: For working with files with slash commands
-	-- 		-- {
-	-- 		-- 	"stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-	-- 		-- 	opts = {},
-	-- 		-- },
-	-- 	},
-	-- 	config = true
-	-- },
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			{
+				adapters = {
+					my_openai = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							env = {
+								url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
+								api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
+								chat_url = "/chat/completions", -- optional: default value, override if different
+							},
+							schema = {
+								model = {
+									default = vim.g.openai_model, -- define llm model to be used
+								},
+							},
+						})
+					end,
+				},
+				strategies = {
+					chat = {
+						adapter = "my_openai",
+					},
+					inline = {
+						adapter = "my_openai",
+					},
+					cmd = {
+						adapter = "my_openai",
+					},
+					workflow = {
+						adapter = "my_openai",
+					},
+				},
+			},
+		},
+	},
 	{
 		"github/copilot.vim",
 		cond = vim.g.ai_suggestion == "copilot.vim",
+	},
+	{
+		"milanglacier/minuet-ai.nvim",
+		config = function()
+			require("minuet").setup({
+				cmp = {
+					enable_auto_complete = false,
+				},
+				blink = {
+					enable_auto_complete = false,
+				},
+				virtualtext = {
+					auto_trigger_ft = { "*" },
+					keymap = {
+						-- accept whole completion
+						accept = "<Tab>",
+						-- accept one line
+						accept_line = "<M-l>",
+						-- accept n lines (prompts for number)
+						-- e.g. "A-z 2 CR" will accept 2 lines
+						accept_n_lines = "<A-z>",
+						-- Cycle to prev completion item, or manually invoke completion
+						prev = "<A-[>",
+						-- Cycle to next completion item, or manually invoke completion
+						next = "<A-]>",
+						dismiss = "<A-e>",
+					},
+				},
+				provider = "openai_compatible",
+				provider_options = {
+					openai_compatible = {
+						model = vim.g.openai_model,
+						-- system = "see [Prompt] section for the default value",
+						-- few_shots = "see [Prompt] section for the default value",
+						-- chat_input = "See [Prompt Section for default value]",
+						end_point = vim.g.openai_endpoint .. "/chat/completions",
+						api_key = "OPENAI_API_KEY",
+						name = "openai_compatible",
+						stream = true,
+						optional = {
+							stop = nil,
+							max_tokens = nil,
+						},
+					},
+				},
+			})
+		end,
+		cond = vim.g.ai_suggestion == "minuet-ai.nvim",
 	},
 	{
 		"yetone/avante.nvim",
 		event = "VeryLazy",
 		lazy = true,
 		version = false, -- set this if you want to always pull the latest change
-		opts = { -- add any opts here
-			debug = false,
+		opts = {
+			debug = true,
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 			openai = openai_api,

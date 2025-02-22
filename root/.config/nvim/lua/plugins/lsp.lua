@@ -274,6 +274,13 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 		{
 			"mfussenegger/nvim-jdtls",
 		},
+		-- {
+		-- 	"jmbuhr/otter.nvim",
+		-- 	dependencies = {
+		-- 		"nvim-treesitter/nvim-treesitter",
+		-- 	},
+		-- 	opts = {},
+		-- },
 	}
 else
 	return {

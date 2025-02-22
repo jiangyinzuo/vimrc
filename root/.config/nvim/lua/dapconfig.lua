@@ -92,7 +92,8 @@ function M.dapconfig()
 		dap_python.test_runner = "pytest"
 		dap_python.test_method()
 	end, { nargs = 0 })
-	table.insert(require('dap').configurations.python, {
+	local python_table = require('dap').configurations.python
+	table.insert(python_table, {
 		type = 'python';
 		request = 'launch';
 		name = 'Launch module with arguments (调试本地module注意要在module所在目录运行)';
@@ -106,7 +107,7 @@ function M.dapconfig()
 		console = nil;
 		pythonPath = nil,
 	})
-	table.insert(require('dap').configurations.python, {
+	table.insert(python_table, {
 		type = 'python';
 		request = 'launch';
 		name = 'Launch module (调试本地module注意要在module所在目录运行)';

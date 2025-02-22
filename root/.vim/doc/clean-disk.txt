@@ -8,6 +8,9 @@ cargo-cache -a
 ocaml ~
 opam clean
 
+go ~
+go clean -cache
+
 系统 ~
 寻找当前文件夹下最大的10个文件目录
 >

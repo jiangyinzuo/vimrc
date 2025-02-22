@@ -6,3 +6,13 @@ export WEZTERM=/mnt/c/Users/Jiang\ Yinzuo/.wezterm.lua
 # 双引号不能省略
 vim "$WEZTERM"
 ```
+
+## 其它terminal
+
+- ghostty
+- warp
+    - AI
+- waveterm
+    - AI
+    - 浏览器
+    - 图形UI
