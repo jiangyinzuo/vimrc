@@ -197,6 +197,7 @@ langchain
 eino https://github.com/cloudwego/eino
 crewAI https://github.com/crewAIInc/crewAI
 autogen https://github.com/microsoft/autogen
+pydantic ai https://github.com/pydantic/pydantic-ai
 
 现成LLM Agent ~
 
