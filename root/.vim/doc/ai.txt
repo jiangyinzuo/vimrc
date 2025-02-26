@@ -171,8 +171,13 @@ API集合 https://openrouter.ai/
     let g:openai_endpoint = "https://api.siliconflow.cn/v1"
     let g:openai_model = "deepseek-ai/DeepSeek-V3"
     let g:openai_token_file = "~/.config/siliconflow.token"
+
+    " https://4.0.wokaai.com/topup
 <
 
+Claude 兼容 API ~
+
+https://api.mjdjourney.cn
 
 -------------------------------------------------------------------------------
 本地部署大模型

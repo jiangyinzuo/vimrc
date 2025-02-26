@@ -92,36 +92,52 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 		},
 		opts = {
-			{
-				adapters = {
-					my_openai = function()
-						return require("codecompanion.adapters").extend("openai_compatible", {
-							env = {
-								url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
-								api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
-								chat_url = "/chat/completions", -- optional: default value, override if different
-							},
-							schema = {
-								model = {
-									default = vim.g.openai_model, -- define llm model to be used
-								},
-							},
-						})
-					end,
+			log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
+			adapters = {
+				opts = {
+					show_defaults = false,
 				},
-				strategies = {
-					chat = {
-						adapter = "my_openai",
-					},
-					inline = {
-						adapter = "my_openai",
-					},
-					cmd = {
-						adapter = "my_openai",
-					},
-					workflow = {
-						adapter = "my_openai",
-					},
+				my_anthropic = function()
+					return require("codecompanion.adapters").extend("anthropic", {
+						url = vim.g.claude_endpoint .. "/v1/messages",
+						env = {
+							api_key = "ANTHROPIC_API_KEY",
+						},
+						schema = {
+							model = {
+								default = vim.g.claude_model,
+							},
+						},
+					})
+				end,
+				my_openai = function()
+					return require("codecompanion.adapters").extend("openai_compatible", {
+						env = {
+							url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
+							api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
+						},
+						schema = {
+							model = {
+								default = vim.g.openai_model, -- define llm model to be used
+							},
+						},
+					})
+				end,
+			},
+			strategies = {
+				-- codecompanion.nvim暂时没使用native tools
+				-- https://github.com/olimorris/codecompanion.nvim/discussions/494
+				chat = {
+					adapter = "my_anthropic",
+				},
+				inline = {
+					adapter = "my_anthropic",
+				},
+				cmd = {
+					adapter = "my_openai",
+				},
+				workflow = {
+					adapter = "my_anthropic",
 				},
 			},
 		},
@@ -188,6 +204,13 @@ return {
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 			openai = openai_api,
+			claude = {
+				endpoint = vim.g.claude_endpoint,
+				model = vim.g.claude_model,
+				temperature = 0,
+				max_tokens = 4096,
+				disable_tools = false,
+			},
 			behaviour = {
 				auto_suggestions = vim.g.ai_suggestion == "avante.nvim", -- Experimental stage
 			},
