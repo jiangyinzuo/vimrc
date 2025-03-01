@@ -79,7 +79,7 @@ return {
 			"CopilotChatToggle",
 		},
 		opts = {
-			debug = true, -- Enable debugging
+			debug = false, -- Enable debugging
 			-- See Configuration section for rest
 		},
 		-- See Commands section for default commands if you want to lazy load on them
@@ -200,7 +200,7 @@ return {
 		lazy = true,
 		version = false, -- set this if you want to always pull the latest change
 		opts = {
-			debug = true,
+			debug = false,
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 			openai = openai_api,

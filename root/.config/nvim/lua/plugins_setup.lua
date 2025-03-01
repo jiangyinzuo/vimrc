@@ -148,6 +148,7 @@ function M.lualine()
 					"Avante",
 					"AvanteSelectedFiles",
 					"AvanteInput",
+					"oil",
 				},
 			},
 			ignore_focus = {},
