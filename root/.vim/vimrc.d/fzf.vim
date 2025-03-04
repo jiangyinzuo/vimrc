@@ -68,24 +68,6 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 command! -bang -complete=dir -nargs=? LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
-""""""""""""""""" Z """"""""""""""""""""
-" [[palette]]FZF搜索z并cd到目录					:Z
-command! -bang -nargs=? Z call z#Z(<q-args>, 'cd')
-" [[palette]]FZF搜索z并tcd到目录					:TZ
-command! -bang -nargs=? TZ call z#Z(<q-args>, 'tcd')
-" [[palette]]FZF搜索z并lcd到目录					:LZ
-command! -bang -nargs=? LZ call z#Z(<q-args>, 'lcd')
-" [[palette]]FZF搜索z并Ex到目录					:Zex
-command! -bang -nargs=? Zex call z#Z(<q-args>, 'Ex')
-" [[palette]]FZF根据时间搜索z并cd到目录				:Zt
-command! -bang -nargs=? Zt call z#Zt(<q-args>, 'cd')
-" [[palette]]FZF根据时间搜索z并tcd到目录				:TZt
-command! -bang -nargs=? TZt call z#Zt(<q-args>, 'tcd')
-" [[palette]]FZF根据时间搜索z并lcd到目录				:LZt
-command! -bang -nargs=? LZt call z#Zt(<q-args>, 'lcd')
-" [[palette]]FZF根据时间搜索z并Ex到目录				:Zext
-command! -bang -nargs=? Zext call z#Zt(<q-args>, 'Ex')
-
 """"""""""""""""" Fd 类""""""""""""""""
 command! -nargs=* -bang Fd call fzf#run(fzf#wrap({'source': 'fd ' . <q-args>, 'sink': 'e', 'options': ['--prompt', 'fd ' . <q-args> . ' > ']}))
 command! -nargs=* -bang FdPaste call fzf#run(fzf#wrap({'source': 'fd ' . <q-args>, 'sink': function("s:paste_word"), 'options': ['--prompt', 'fd ' . <q-args> . ' > ']}))

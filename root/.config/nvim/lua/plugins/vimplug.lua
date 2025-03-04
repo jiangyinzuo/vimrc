@@ -44,6 +44,7 @@ local M = {
 			vim.api.nvim_command("source ~/.vim/vimrc.d/fzf.vim")
 		end,
 	},
+	"jiangyinzuo/z.vim",
 	{ "heavenshell/vim-pydocstring", ft = "python" },
 	{ "imbue-ai/jupyter_ascending.vim", ft = "python" },
 	"voldikss/vim-floaterm",

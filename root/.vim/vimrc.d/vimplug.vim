@@ -134,6 +134,7 @@ if v:version >= 800
 			Plug 'voldikss/fzf-floaterm'
 			Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 			Plug 'junegunn/fzf.vim'
+			Plug 'jiangyinzuo/z.vim'
 			source ~/.vim/vimrc.d/fzf.vim
 
 			Plug 'lambdalisue/vim-fern'
