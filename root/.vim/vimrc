@@ -325,6 +325,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 		nnoremap <silent> [q :cp<CR>
 		nnoremap <silent> ]l :ln<CR>
 		nnoremap <silent> [l :lp<CR>
+		nnoremap <silent> [b :bprevious<CR>
+		nnoremap <silent> ]b :bnext<CR>
+		nnoremap <silent> [a :previous<CR>
+		nnoremap <silent> ]a :next<CR>
 	endif
 
 	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf

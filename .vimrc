@@ -377,13 +377,17 @@ if has('autocmd') " vim-tiny does not have autocmd
 	command! -nargs=1 RgToQf call SystemToQf('rg --vimgrep ' . <q-args>)
 	nnoremap <leader>q :call ToggleQuickfix('c')<CR>
 	nnoremap <leader>lf :call ToggleQuickfix('l')<CR>
-	if !has('nvim')
+	if !has('nvim') " https://github.com/tpope/vim-unimpaired
 		nnoremap <silent> ]Q :clast<CR>
 		nnoremap <silent> [Q :crewind<CR>
 		nnoremap <silent> ]q :cn<CR>
 		nnoremap <silent> [q :cp<CR>
 		nnoremap <silent> ]l :ln<CR>
 		nnoremap <silent> [l :lp<CR>
+		nnoremap <silent> [b :bprevious<CR>
+		nnoremap <silent> ]b :bnext<CR>
+		nnoremap <silent> [a :previous<CR>
+		nnoremap <silent> ]a :next<CR>
 	endif
 	" vnoremap <silent> <leader>t :term ++open ++rows=9<CR>
 	" nnoremap <silent> <leader>t :term ++rows=9<CR>
