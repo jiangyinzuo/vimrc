@@ -107,7 +107,18 @@ local M = {
 	"andrewradev/linediff.vim",
 	"tpope/vim-surround",
 	"tpope/vim-eunuch",
-	"AndrewRadev/splitjoin.vim",
+	-- replace "AndrewRadev/splitjoin.vim"
+	{
+		"Wansmer/treesj",
+		keys = { "gJ" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({ use_default_keymaps = false })
+			vim.keymap.set("n", "gJ", function()
+				require("treesj").toggle({ split = { recursive = true } })
+			end)
+		end,
+	},
 	{
 		"tpope/vim-abolish",
 		init = function()
@@ -163,7 +174,6 @@ local M = {
 			"skywind3000/asynctasks.vim",
 		},
 	},
-
 	"lambdalisue/vim-fern",
 	{
 		"jiangyinzuo/fern-oil.nvim",
@@ -199,11 +209,10 @@ local M = {
 		dependencies = leaderf_dependencies,
 	},
 	{ "sebdah/vim-delve", cond = detect.has_go_executable, ft = "go" },
+	{
+		"SirVer/ultisnips",
+		cond = vim.g.vimrc_lsp == "coc.nvim"
+	}
 }
 
-if vim.g.vimrc_lsp == "coc.nvim" then
-	table.insert(M, {
-		"SirVer/ultisnips",
-	})
-end
 return M
