@@ -61,3 +61,4 @@
 *UPPER_CASE*						cru
 *path/case*						cr/
 *space_case*						cr 
+*TitleCase*						crt

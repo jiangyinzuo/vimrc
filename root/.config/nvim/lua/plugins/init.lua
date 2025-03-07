@@ -397,7 +397,30 @@ return {
 		dependencies = {
 			"gregorias/coop.nvim",
 		},
-		config = true,
+		config = function()
+			require("coerce").setup()
+			local split_keyword = require("coerce.case").split_keyword
+			require("coerce").register_case({
+				keymap = "t",
+				case = function(str)
+					local parts = split_keyword(str)
+					-- 不需要大写的单词列表
+					local no_cap_words = {
+						"a", "an", "the", "and", "or", "but", "for", "nor", "as", "at",
+						"by", "in", "of", "on", "to", "with"
+					}
+					parts = vim.tbl_map(function(part)
+						-- 如果单词在no_cap_words列表中且不是第一个单词，保持小写
+						if vim.tbl_contains(no_cap_words, part:lower()) and part ~= parts[1] then
+							return part:lower()
+						end
+						return part:sub(1, 1):upper() .. part:sub(2):lower()
+					end, parts)
+					return table.concat(parts, " ")
+				end,
+				description = "Title Case",
+			})
+		end,
 	},
 	{
 		"goerz/jupytext.nvim",
