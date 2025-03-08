@@ -222,6 +222,14 @@ return {
 					dismiss = "<C-]>",
 				},
 			},
+			vendors = {
+				vllm = {
+					__inherited_from = "openai",
+					endpoint = vim.g.vllm_endpoint,
+					model = vim.g.vllm_model,
+					disable_tools = vim.g.vllm_disable_tools == 1,
+				},
+			},
 		},
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		build = "make",
