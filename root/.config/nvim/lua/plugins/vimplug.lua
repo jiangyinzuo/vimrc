@@ -142,7 +142,48 @@ local M = {
 	-- take place of 'airblade/vim-gitgutter',
 	{
 		"lewis6991/gitsigns.nvim",
-		config = require("plugins_setup").gitsigns,
+		opts = {
+			-- 比默认priority低1级, bookmarkspriority为10
+			sign_priority = 9,
+			on_attach = function(bufnr)
+				local gitsigns = require("gitsigns")
+
+				local function map(mode, l, r, opts)
+					opts = opts or {}
+					opts.buffer = bufnr
+					vim.keymap.set(mode, l, r, opts)
+				end
+
+				-- Unstaged hunk navigation
+				map("n", "]c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "]c", bang = true })
+					else
+						gitsigns.nav_hunk("next")
+					end
+				end)
+
+				map("n", "[c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "[c", bang = true })
+					else
+						gitsigns.nav_hunk("prev")
+					end
+				end)
+
+				-- Staged hunk navigation
+				map("n", "]sc", function()
+					gitsigns.nav_hunk("next", { target = "staged" })
+				end)
+				map("n", "[sc", function()
+					gitsigns.nav_hunk("prev", { target = "staged" })
+				end)
+
+				-- Text object
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+			end,
+			base = vim.g.gitsign_default_base,
+		},
 	},
 	"tpope/vim-fugitive",
 	"junegunn/gv.vim",
@@ -211,8 +252,8 @@ local M = {
 	{ "sebdah/vim-delve", cond = detect.has_go_executable, ft = "go" },
 	{
 		"SirVer/ultisnips",
-		cond = vim.g.vimrc_lsp == "coc.nvim"
-	}
+		cond = vim.g.vimrc_lsp == "coc.nvim",
+	},
 }
 
 return M

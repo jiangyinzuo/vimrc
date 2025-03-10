@@ -1,4 +1,3 @@
-local plugins_setup = require("plugins_setup")
 local has_typst_executable = require("detect").has_typst_executable
 local has_quarto_executable = require("detect").has_quarto_executable
 
@@ -26,31 +25,6 @@ return {
 			vim.cmd("colorscheme solarized")
 		end,
 	},
-	{
-		"nvim-telescope/telescope.nvim",
-		lazy = true,
-		keys = {
-			"<leader>fb",
-			"<leader>ff",
-			"<leader>fh",
-			"<leader>ft",
-			"<leader>rg",
-		},
-		cmd = { "Telescope" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"aaronhallaert/advanced-git-search.nvim",
-			"nvim-telescope/telescope-media-files.nvim",
-			"rmagatti/auto-session",
-			"nvim-tree/nvim-web-devicons",
-			"nvim-telescope/telescope-bibtex.nvim",
-			-- "benfowler/telescope-luasnip.nvim",
-			"2kabhishek/nerdy.nvim",
-			"albenisolmos/telescope-oil.nvim",
-		},
-		config = plugins_setup.telescope,
-	},
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	-- nerdfont cheatsheet: https://www.nerdfonts.com/cheat-sheet
 	{
 		"2kabhishek/nerdy.nvim",
@@ -58,7 +32,23 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		config = plugins_setup.mason,
+		opts = {
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
+			},
+			github = {
+				-- The template URL to use when downloading assets from GitHub.
+				-- The placeholders are the following (in order):
+				-- 1. The repository (e.g. "rust-lang/rust-analyzer")
+				-- 2. The release version (e.g. "v0.3.0")
+				-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
+				download_url_template = "https://cors.isteed.cc/github.com/%s/releases/download/%s/%s",
+			},
+		},
 	},
 	{
 		"sindrets/diffview.nvim",
@@ -269,7 +259,7 @@ return {
 	},
 	{
 		"quarto-dev/quarto-nvim",
-		cond = has_quarto_executable,
+		cond = vim.g.vimrc_lsp == 'nvim-lsp' and has_quarto_executable,
 		dependencies = {
 			"jmbuhr/otter.nvim",
 			"nvim-treesitter/nvim-treesitter",
@@ -300,8 +290,22 @@ return {
 					local parts = split_keyword(str)
 					-- 不需要大写的单词列表
 					local no_cap_words = {
-						"a", "an", "the", "and", "or", "but", "for", "nor", "as", "at",
-						"by", "in", "of", "on", "to", "with"
+						"a",
+						"an",
+						"the",
+						"and",
+						"or",
+						"but",
+						"for",
+						"nor",
+						"as",
+						"at",
+						"by",
+						"in",
+						"of",
+						"on",
+						"to",
+						"with",
 					}
 					parts = vim.tbl_map(function(part)
 						-- 如果单词在no_cap_words列表中且不是第一个单词，保持小写

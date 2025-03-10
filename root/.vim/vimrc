@@ -26,7 +26,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" WARN: DO NOT use copilot provider, it will cause abuse.
 		let g:avante_provider = get(g:, 'avante_provider', 'openai') " openai, claude
 		let g:avante_auto_suggestions_provider = get(g:, 'avante_auto_suggestions_provider', 'openai') " openai , claude
-		runtime clipboard_config.lua
 	else
 		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 		if exists(":Man") != 2

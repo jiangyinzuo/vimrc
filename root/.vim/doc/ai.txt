@@ -14,6 +14,9 @@ Completion
   - Zed开源了一个edit-prediction model https://zed.dev/blog/edit-prediction
     - https://github.com/boltlessengineer/zeta.nvim [WIP]
 
+补全插件:
+- gergap/vim-ollama
+
 Chat
 - code rewrite
 - code generation

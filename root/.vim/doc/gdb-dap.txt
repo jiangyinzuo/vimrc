@@ -179,7 +179,8 @@ finish和continue为什么不是单步命令 ~
 	echo '/tmp/core.%e.%p.%t' | sudo tee /proc/sys/kernel/core_pattern
 <
 
-永久设置coredump文件 ~
+coredumpctl 生成backtrace |dev-tools-backtrace|
+https://neovim.io/doc/user/dev_tools.html#dev-tools-backtrace
 
 -------------------------------------------------------------------------------
 *debug-adapter*
