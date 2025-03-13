@@ -160,6 +160,7 @@ end
 -- See: https://github.com/neoclide/coc.nvim/issues/4857
 vim.cmd([[
 set packpath+=~/.vim
+set termguicolors
 hi WinBar guibg=NONE
 hi! link CocInlayHint LspInlayHint
 hi link QuickPreview Normal
