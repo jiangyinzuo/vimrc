@@ -3,11 +3,12 @@ if vim.fn.has('wsl') == 1 then
 		{
 			"iamcco/markdown-preview.nvim",
 			cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-			build = "cd app && yarn install",
+			-- or "cd app && yarn install"
+			build = "cd app && npx --yes yarn install",
 			init = function()
-				vim.g.mkdp_filetypes = { "markdown" }
+				vim.g.mkdp_filetypes = { "markdown", "quarto" }
 			end,
-			ft = { "markdown" },
+			ft = { "markdown", "quarto" },
 		},
 	}
 else

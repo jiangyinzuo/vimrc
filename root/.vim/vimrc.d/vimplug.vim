@@ -163,7 +163,7 @@ if v:version >= 800
 			Plug 'jpalardy/vim-slime', {'for': ['lua', 'python', 'ocaml']}
 
 			" support more features(mermaid, flowchart, ...)
-			Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': 'markdown' }
+			Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install', 'for': ['markdown', 'quarto'] }
 
 			" See: https://github.com/preservim/vim-markdown/pull/633
 			Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }

@@ -153,7 +153,7 @@ let g:typst_pdf_viewer = 'SumatraPDF.exe'
 let g:mdip_imgdir = '.'
 let g:mdip_wsl_path = '\\\\wsl.localhost\\Ubuntu-22.04'
 " autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
-autocmd FileType markdown,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown,quarto,tex nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>
 
 if has('nvim') || v:version >= 802
 	let g:quickui_color_scheme = 'system'
