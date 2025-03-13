@@ -8,3 +8,6 @@ CompileFlags:
     - --generate-code=*
     - -rdc=*
     - --options-file
+  Add:
+  # half type
+    - '-include cuda_fp16.h'
