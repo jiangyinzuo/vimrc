@@ -6,7 +6,7 @@ commit=$1
 
 MAKE_FLAG=${MAKE_FLAG:-"-j$((`nproc`-2))"}
 
-$SUDO apt-get -y install libgtk-3-dev libxt-dev libncurses-dev
+# $SUDO apt-get -y install libgtk-3-dev libxt-dev libncurses-dev
 
 function _uninstall() {
 	$SUDO make uninstall
