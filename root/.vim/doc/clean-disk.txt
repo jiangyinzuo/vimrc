@@ -13,10 +13,12 @@ go clean -cache
 
 系统 ~
 寻找当前文件夹下最大的10个文件目录
->
+>bash
 	du -Sh . | sort -rh | head -n10
+	du -h --max-depth=1 | sort -hr | head -n 10
 <
 
+*$XDG_CACHE_HOME* 默认为`$HOME/.cache`，可以按需修改。
 
 *WSL2设置自动清理磁盘空间*
 >

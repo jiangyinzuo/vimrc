@@ -34,6 +34,8 @@ info sources: 查看源文件。
 
 gdb attach 进程 ~
 
+首先通过`ps -a`查看进程号。
+
 == 方法1.1 ==
 >bash
     gdb /path/to/your/program
@@ -59,6 +61,13 @@ Termdebug中可能会导致Vim卡住，最后失去:Break等命令
 
 >bash
     gdb -p <pid>
+<
+
+如果碰到`ptrace: Operation not permitted`，可以临时设置
+
+>bash
+    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+    sudo sysctl -p
 <
 
 gdb 处理 signal ~
