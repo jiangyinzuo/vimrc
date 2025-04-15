@@ -3,6 +3,9 @@ vim:set ft=help:
 
 IDE功能需求 ~
 
+AI/LLM/GenAI related features https://github.com/neovim/neovim/issues/32084
+
+Vscode 1.99 agent、MCP模式、next edit suggestions https://www.youtube.com/watch?v=dutyOc_cAEU
 https://docs.cursor.com/get-started/usage
 
 Tab
@@ -13,6 +16,7 @@ Completion
   - https://github.com/milanglacier/minuet-ai.nvim/issues/26
   - Zed开源了一个edit-prediction model https://zed.dev/blog/edit-prediction
     - https://github.com/boltlessengineer/zeta.nvim [WIP]
+  - Vscode Next Edit Suggestions https://code.visualstudio.com/blogs/2025/02/12/next-edit-suggestions
 
 补全插件:
 - gergap/vim-ollama
@@ -20,6 +24,10 @@ Completion
 Chat
 - code rewrite
 - code generation
+
+Edit
+
+Agent
 
 Context
 - codebase indexing (project files)

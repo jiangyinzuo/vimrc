@@ -1,169 +1,122 @@
 local M = {}
 
-local function setup_lsp(on_attach, capabilities)
-	local lspconfig = require("lspconfig")
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "ccls", false) then
-		lspconfig.ccls.setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			init_options = vim.g.ccls_init_options,
-		})
-	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "clangd", true) then
-		lspconfig.clangd.setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			cmd = vim.g.clangd_cmd,
-			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-			root_dir = lspconfig.util.root_pattern(
-				".project.vim",
-				".git",
-				".clangd",
-				".clang-tidy",
-				".clang-format",
-				"compile_commands.json",
-				"compile_flags.txt"
-			),
-		})
-	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "lua_ls", false) then
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = {
-				Lua = {
-					codeLens = {
-						enable = true,
-					},
-					runtime = {
-						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-						version = "LuaJIT",
-					},
-					format = {
-						enable = false,
-						-- Put format options here
-						-- NOTE: the value should be STRING!!
-						defaultConfig = {
-							indent_style = "tab",
-							indent_size = "2",
-						},
-					},
-					diagnostics = {
-						-- Get the language server to recognize the `vim` global
-						globals = { "vim" },
-					},
-					workspace = {
-						-- Make the server aware of Neovim runtime files
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-					-- Do not send telemetry data containing a randomized but unique identifier
-					telemetry = {
-						enable = false,
-					},
-					completion = {
-						callSnippet = "Replace",
+local function setup_lsp(capabilities)
+	vim.lsp.config("*", {
+		capabilities = capabilities,
+	})
+	vim.lsp.config('ccls', {
+		init_options = vim.g.ccls_init_options,
+	})
+	vim.lsp.config('clangd', {
+		cmd = vim.g.clangd_cmd,
+		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+		root_markers = {
+			".project.vim",
+			".git",
+			".clangd",
+			".clang-tidy",
+			".clang-format",
+			"compile_commands.json",
+			"compile_flags.txt"
+		},
+	})
+
+	vim.lsp.config('lua_ls', {
+		settings = {
+			Lua = {
+				codeLens = {
+					enable = true,
+				},
+				runtime = {
+					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
+				},
+				format = {
+					enable = false,
+					-- Put format options here
+					-- NOTE: the value should be STRING!!
+					defaultConfig = {
+						indent_style = "tab",
+						indent_size = "2",
 					},
 				},
-			},
-		})
-	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "texlab", false) then
-		lspconfig.texlab.setup({
-			autostart = true,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = {
-				texlab = {
-					latexFormatter = "latexindent",
-					latexindent = {
-						["local"] = os.getenv("HOME") .. "/vimrc/root/latexindent.yaml", -- local is a reserved keyword
-						modifyLineBreaks = false,
-					},
-					bibtexFormatter = "texlab",
-					formatterLineLength = 80,
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+				},
+				workspace = {
+					-- Make the server aware of Neovim runtime files
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+				-- Do not send telemetry data containing a randomized but unique identifier
+				telemetry = {
+					enable = false,
+				},
+				completion = {
+					callSnippet = "Replace",
 				},
 			},
-		})
-	end
-
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "ltex", false) then
-		-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
-		lspconfig.ltex.setup({
-			autostart = true,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			filetypes = { "bib", "tex", "latex" },
-			settings = {
-				ltex = {
-					language = "en-US",
+		},
+	})
+	vim.lsp.config('texlab', {
+		settings = {
+			texlab = {
+				latexFormatter = "latexindent",
+				latexindent = {
+					["local"] = os.getenv("HOME") .. "/vimrc/root/latexindent.yaml", -- local is a reserved keyword
+					modifyLineBreaks = false,
 				},
+				bibtexFormatter = "texlab",
+				formatterLineLength = 80,
 			},
-		})
-	end
+		},
+	})
 
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "marksman", false) then
-		-- marksman and markdown_oxide are both markdown language servers, choose one of them
-		lspconfig.marksman.setup({
-			autostart = true,
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-	end
-	if vim.fn.get(vim.g.nvim_lsp_autostart, "markdown_oxide", false) then
-		lspconfig.markdown_oxide.setup({
-			autostart = true,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			root_dir = lspconfig.util.root_pattern(".moxide.toml", ".git"),
-		})
-	end
+	-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
+	-- vim.lsp.config("ltex", {
+	-- 	filetypes = { "bib", "tex", "latex" },
+	-- 	settings = {
+	-- 		ltex = {
+	-- 			language = "en-US",
+	-- 		},
+	-- 	},
+	-- })
 
-	if require("detect").has_typst_executable then
-		-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
-		lspconfig.tinymist.setup({
-			-- Installed via 'chomosuke/typst-preview.nvim'
-			cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
-		})
-	end
+	vim.lsp.config("markdown_oxide", {
+		root_markers = { ".moxide.toml", ".git" },
+	})
+
+	-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
+	vim.lsp.config("tinymist", {
+		-- Installed via 'chomosuke/typst-preview.nvim'
+		cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
+	})
 
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
 	-- use "neocmake" instead of "cmake"
-	local other_servers = { "jsonls", vim.g.python_lsp, "neocmake", "html" }
+	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
-		table.insert(other_servers, "ruff_lsp")
+		table.insert(enabled_servers, "ruff_lsp")
 	end
-	for _, lsp in ipairs(other_servers) do
-		lspconfig[lsp].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
+	if require("detect").has_typst_executable then
+		table.insert(enabled_servers, "tinymist")
 	end
+	vim.lsp.enable(enabled_servers)
 
 	vim.g.rustaceanvim = {
 		-- Plugin configuration
 		tools = {},
 		-- LSP configuration
 		server = {
-			on_attach = on_attach,
 			capabilities = capabilities,
 		},
 		-- DAP configuration
 		dap = {},
 	}
-
-	-- sg is buggy
-	-- require("sg").setup({
-	-- 	-- Pass your own custom attach function
-	-- 	--    If you do not pass your own attach function, then the following maps are provide:
-	-- 	--        - gd -> goto definition
-	-- 	--        - gr -> goto references
-	-- 	on_attach = on_attach,
-	-- 	capabilities = capabilities,
-	-- })
 end
 
 M.attach_navic = function(client, bufnr)
@@ -219,11 +172,7 @@ function M.lspconfig()
 		callback = diagnostic.setup_vim_diagnostic,
 	})
 
-	setup_lsp(function(client, bufnr)
-		M.attach_navic(client, bufnr)
-		M.attach_inlay_hints(client, bufnr)
-		attach_codelens(client, bufnr)
-	end, M.get_capabilities())
+	setup_lsp(M.get_capabilities())
 
 	-- remove default nvim lsp keymap
 	if vim.version.ge(vim.version(), { 0, 10, 0 }) then
@@ -268,6 +217,11 @@ function M.lspconfig()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
 			diagnostic.setup_vim_diagnostic_on_attach()
+
+			local client = vim.lsp.get_client_by_id(ev.data.client_id)
+			M.attach_navic(client, ev.buf)
+			M.attach_inlay_hints(client, ev.buf)
+			attach_codelens(client, ev.buf)
 		end,
 	})
 	vim.api.nvim_create_user_command("OutgoingCalls", function(_)

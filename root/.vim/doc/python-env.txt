@@ -178,6 +178,11 @@ JUPYTER
 	# 创建pair notebook
 	:JupyterAscendingOpenPairNotebook
 <
+
+*ipython*
+
+使用vim-slime时，在terminal中使用：`ipython --no-autoindent` 防止自动缩进
+
 ========================================================================
 setup.py ~
 
