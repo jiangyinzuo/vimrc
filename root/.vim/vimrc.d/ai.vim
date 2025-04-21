@@ -24,10 +24,9 @@ if v:version >= 900 || has('nvim')
 		" copilot workspace folder
 		autocmd BufReadPost,BufNewFile * ++once let b:workspace_folder = asyncrun#current_root()
 
-	elseif g:ai_suggestion == 'codeium.vim'
-		" Alternative: https://github.com/Exafunction/codeium.nvim
+	elseif g:ai_suggestion == 'windsurf.vim'
 		if !has('nvim')
-			Plug 'Exafunction/codeium.vim'
+			Plug 'Exafunction/windsurf.vim'
 		endif
 		let g:codeium_disable_bindings = 1
 		command -nargs=0 CodeiumChat call codeium#Chat()
@@ -40,6 +39,10 @@ if v:version >= 900 || has('nvim')
 	elseif g:ai_suggestion == 'fittencode'
 		if !has('nvim')
 			Plug 'FittenTech/fittencode.vim'
+		endif
+	elseif g:ai_suggestion == 'augment.vim'
+		if !has('nvim')
+			Plug 'augmentcode/augment.vim'
 		endif
 	endif
 endif

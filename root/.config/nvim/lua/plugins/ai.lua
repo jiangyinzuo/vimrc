@@ -286,10 +286,11 @@ return {
 		build = "./dl_binaries.sh",
 	},
 	{
-		"Exafunction/codeium.vim",
-		cond = vim.g.ai_suggestion == "codeium.vim",
+		"Exafunction/windsurf.vim",
+		cond = vim.g.ai_suggestion == "windsurf.vim",
 		event = "BufEnter",
 	},
+	{ "augmentcode/augment.vim", cond = vim.g.ai_suggestion == "augment.vim" },
 	{
 		"huggingface/llm.nvim",
 		cond = vim.g.ai_suggestion == "llm.nvim",
