@@ -3,25 +3,16 @@ local M = {}
 local function setup_lsp(capabilities)
 	vim.lsp.config("*", {
 		capabilities = capabilities,
+		root_markers = { ".project.vim" },
 	})
-	vim.lsp.config('ccls', {
+	vim.lsp.config("ccls", {
 		init_options = vim.g.ccls_init_options,
 	})
-	vim.lsp.config('clangd', {
+	vim.lsp.config("clangd", {
 		cmd = vim.g.clangd_cmd,
-		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-		root_markers = {
-			".project.vim",
-			".git",
-			".clangd",
-			".clang-tidy",
-			".clang-format",
-			"compile_commands.json",
-			"compile_flags.txt"
-		},
 	})
 
-	vim.lsp.config('lua_ls', {
+	vim.lsp.config("lua_ls", {
 		settings = {
 			Lua = {
 				codeLens = {
@@ -58,7 +49,7 @@ local function setup_lsp(capabilities)
 			},
 		},
 	})
-	vim.lsp.config('texlab', {
+	vim.lsp.config("texlab", {
 		settings = {
 			texlab = {
 				latexFormatter = "latexindent",
@@ -81,10 +72,6 @@ local function setup_lsp(capabilities)
 	-- 		},
 	-- 	},
 	-- })
-
-	vim.lsp.config("markdown_oxide", {
-		root_markers = { ".moxide.toml", ".git" },
-	})
 
 	-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
 	vim.lsp.config("tinymist", {
@@ -123,12 +110,6 @@ M.attach_navic = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		local navic = require("nvim-navic")
 		navic.attach(client, bufnr)
-	end
-end
-
-M.attach_inlay_hints = function(client, _)
-	if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
-		vim.lsp.inlay_hint.enable(true)
 	end
 end
 
@@ -220,7 +201,14 @@ function M.lspconfig()
 
 			local client = vim.lsp.get_client_by_id(ev.data.client_id)
 			M.attach_navic(client, ev.buf)
-			M.attach_inlay_hints(client, ev.buf)
+
+			if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
+				vim.lsp.inlay_hint.enable(true)
+			end
+
+			-- if client:supports_method("textDocument/documentColor") then
+			-- 	vim.lsp.document_color.enable(true, ev.buf)
+			-- end
 			attach_codelens(client, ev.buf)
 		end,
 	})

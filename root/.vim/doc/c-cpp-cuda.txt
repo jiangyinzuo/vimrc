@@ -77,6 +77,10 @@ clang: In included file: use of undeclared identifier '__builtin_ia32_prefetch' 
 *clang-format* `:%!clang-format` or `:'<,'>!clang-format`.
 No need of `Plug 'rhysd/vim-clang-format'`
 
+静态分析工具
+
+cpp-check
+
 *clang-tidy*
 output to quickfix list: >
   :CExprsys clang-tidy hello.cpp

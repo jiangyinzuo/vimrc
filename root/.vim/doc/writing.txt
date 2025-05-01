@@ -82,6 +82,9 @@ md -> pptx >
 -------------------------------------------------------------------------------
 *latex* *bibtex*
 
+Ubuntu20.04 texlive宏包xcolor调用时报错 https://www.bilibili.com/opus/650359062208184322
+修改color.cfg文件，添加\protect\ExecuteOptions{dvips}
+
 |dblp爬虫|
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
 https://github.com/jiangyinzuo/dblp-api
