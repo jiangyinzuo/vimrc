@@ -73,6 +73,13 @@ Reference: https://gist.github.com/backroot/add72227c11759615207cbae79362287
 sudo -E install/build_nvim.sh
 ```
 
+## tmux and tpm
+
+```bash
+./install/build_tmux.sh
+./install/tpm_install.sh
+```
+
 ## Node.js
 
 coc.nvim and copilot.vim depend on Node.js.

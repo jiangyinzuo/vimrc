@@ -260,3 +260,7 @@ https://github.com/jiangyinzuo/dblp-api
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
 
 *mklink* *mklinkd* WSL创建软链接文件
+
+-------------------------------------------------------------------------------
+
+*tmux使用vim编辑当前pane历史* CTRL-B CTRL-E

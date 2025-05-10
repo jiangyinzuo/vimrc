@@ -214,7 +214,7 @@ if v:version >= 800
 							\    'vimspectorPCBP':        999,
 							\ }
 			endif
-			Plug 'jiangyinzuo/term-debugger'
+			" Plug 'jiangyinzuo/term-debugger'
 		endif
 	endif
 endif
