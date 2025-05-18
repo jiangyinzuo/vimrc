@@ -82,8 +82,23 @@ md -> pptx >
 -------------------------------------------------------------------------------
 *latex* *bibtex*
 
-Ubuntu20.04 texlive宏包xcolor调用时报错 https://www.bilibili.com/opus/650359062208184322
-修改color.cfg文件，添加\protect\ExecuteOptions{dvips}
+Ubuntu20.04 texlive宏包xcolor调用时报错
+
+有问题的解决方案：修改color.cfg文件，比如添加\protect\ExecuteOptions{dvips} (来自 https://www.bilibili.com/opus/650359062208184322 )
+
+NOTE
+dvips会导致png显示空白、tikz图片排版混乱。安装texlive-full后，xcolor似乎能自动选择了
+
+dvips是将.dvi文件转为.ps文件的工具
+
+
+| 工具       | 输入     | 输出     | 特点                      |
++------------+----------+----------+---------------------------+
+| dvips      | DVI      | PS       | 生成 PostScript，兼容性强 |
+| dvipdfm    | DVI      | PDF      | 直接生成 PDF，速度较快    |
+| pdflatex   | TeX      | PDF      | 现代默认工具，支持多媒体  |
+
+
 
 |dblp爬虫|
 https://github.com/jiangyinzuo/vimrc/wiki/Latex
