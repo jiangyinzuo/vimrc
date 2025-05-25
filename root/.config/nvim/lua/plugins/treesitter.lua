@@ -5,6 +5,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		branch = "main",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				-- 安装 language parser
