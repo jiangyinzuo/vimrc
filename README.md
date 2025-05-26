@@ -6,7 +6,7 @@
 
 My personal Vim/Neovim configuration files, dotfiles, docs and other scripts.
 
-## Requirements and Installation
+## Requirements
 
 OS: Linux, WSL
 
@@ -19,7 +19,9 @@ Vim/Neovim requirements:
     - plugin manager: [lazy.nvim](https://github.com/folke/lazy.nvim)
         - Git 2.19.0+
 
-See [install/README.md](./install/README.md) for more details.
+## Installation
+
+See [install/README.md](./install/README.md).
 
 ## File Structure
 
@@ -30,6 +32,7 @@ See [install/README.md](./install/README.md) for more details.
 | root              | dotfiles                              |
 | root/.config/nvim | neovim configurations                 |
 | root/.vim/vimrc   | full vimrc file                       |
+| .vimrc            | single vimrc file                     |
 | root/.vim/doc     | my help files                         |
 | terminal          | configurations for terminal emulators |
 | wsl               | scripts for WSL, `:h wsl.txt`         |
