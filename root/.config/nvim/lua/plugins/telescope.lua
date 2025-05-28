@@ -35,7 +35,9 @@ return {
 			vim.keymap.set("n", "<leader>rg", builtin.grep_string, {})
 			vim.keymap.set("x", "<leader>rg", builtin.grep_string, {})
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-			vim.keymap.set("n", "<leader>fh", builtin.oldfiles, {})
+			vim.keymap.set("n", "<leader>fh", function()
+				builtin.oldfiles({ layout_strategy = layout_strategy })
+			end, {})
 
 			local telescope = require("telescope")
 			telescope.setup({
