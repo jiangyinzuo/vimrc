@@ -6,10 +6,7 @@ export EDITOR=vim
 export BASH_ENV=$HOME/vimrc/root/bashrc_noi
 source $HOME/vimrc/root/bashrc_noi
 
-alias vimt='vim --servername TEX'
-alias vims='vim -c ":CocCommand session.load"'
-
-source "$VIMRC_ROOT"/fzf/fzf.bash
+source "$VIMRC_ROOT"/fzf.bash
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
