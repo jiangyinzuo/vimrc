@@ -40,15 +40,6 @@ end
 -- 	end,
 -- }
 
-local openai_api = {
-	endpoint = vim.g.openai_endpoint,
-	model = vim.g.openai_model,
-	timeout = 30000, -- Timeout in milliseconds
-	temperature = 0,
-	max_tokens = 4096,
-	disable_tools = vim.g.openai_disable_tools == 1,
-}
-
 return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -217,13 +208,36 @@ return {
 			debug = false,
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
-			openai = openai_api,
-			claude = {
-				endpoint = vim.g.claude_endpoint,
-				model = vim.g.claude_model,
-				temperature = 0,
-				max_tokens = 4096,
-				disable_tools = false,
+			providers = {
+				openai = {
+					endpoint = vim.g.openai_endpoint,
+					model = vim.g.openai_model,
+					timeout = 30000, -- Timeout in milliseconds
+					extra_request_body = {
+						options = {
+							temperature = 0,
+							max_tokens = 4096,
+						},
+					},
+					disable_tools = vim.g.openai_disable_tools == 1,
+				},
+				claude = {
+					endpoint = vim.g.claude_endpoint,
+					model = vim.g.claude_model,
+					extra_request_body = {
+						options = {
+							temperature = 0,
+							max_tokens = 4096,
+						},
+					},
+					disable_tools = false,
+				},
+				vllm = {
+					__inherited_from = "openai",
+					endpoint = vim.g.vllm_endpoint,
+					model = vim.g.vllm_model,
+					disable_tools = vim.g.vllm_disable_tools == 1,
+				},
 			},
 			behaviour = {
 				auto_suggestions = vim.g.ai_suggestion == "avante.nvim", -- Experimental stage
@@ -234,14 +248,6 @@ return {
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",
-				},
-			},
-			vendors = {
-				vllm = {
-					__inherited_from = "openai",
-					endpoint = vim.g.vllm_endpoint,
-					model = vim.g.vllm_model,
-					disable_tools = vim.g.vllm_disable_tools == 1,
 				},
 			},
 		},
