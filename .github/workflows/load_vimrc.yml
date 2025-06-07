@@ -38,8 +38,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
+    - name: install X11
+      run: sudo apt update && sudo apt install -y libx11-dev xorg-dev
     - name: install vim
-      run: CONFIGURE_FLAG="--with-x=no" sudo ./install/build_vim.sh
+      run: sudo ./install/build_vim.sh
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
     - name: single vimrc with view
