@@ -41,7 +41,7 @@ jobs:
     - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
     - name: install vim
-      run: sudo ./install/build_vim.sh
+      run: CONFIGURE_FLAG="" sudo ./install/build_vim.sh
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
     - name: single vimrc with view
