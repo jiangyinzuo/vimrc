@@ -324,15 +324,13 @@ return {
 		"goerz/jupytext.nvim",
 		event = "VeryLazy",
 	},
-	-- FIXME: This plugin may cause SIGSEGV on `:copen`
-	-- see: https://github.com/jiangyinzuo/vimrc/issues/10
-	-- {
-	-- 	"kevinhwang91/nvim-bqf",
-	-- 	ft = "qf",
-	-- 	opts = {
-	-- 		preview = {
-	-- 			auto_preview = false,
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		opts = {
+			preview = {
+				auto_preview = false,
+			},
+		},
+	},
 }
