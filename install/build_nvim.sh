@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . install/git.sh
 
 PYTHON=/usr/bin/python3
