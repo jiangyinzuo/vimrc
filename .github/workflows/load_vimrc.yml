@@ -6,13 +6,11 @@ on:
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
-      - '**/*.yml'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
-      - '**/*.yml'
 
 jobs:
   load_vimrc_in_vim7_4:
@@ -41,7 +39,7 @@ jobs:
     - name: single vimrc with vim.tiny
       run: vim.tiny -E -s -u .vimrc -c "qa!"
     - name: install vim
-      run: CONFIGURE_FLAG="--enable-gui" sudo ./install/build_vim.sh
+      run: CONFIGURE_FLAG="--with-x=no" sudo ./install/build_vim.sh
     - name: single vimrc
       run: vim -E -s -u .vimrc -c "qa!"
     - name: single vimrc with view
