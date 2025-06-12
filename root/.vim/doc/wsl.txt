@@ -11,6 +11,11 @@ Windows矢量图画图软件: draw.io
 
 Neovim Clipboard ~
 
+WSL复制到全局剪贴板
+>bash
+    cat foo.txt | clip.exe
+<
+
 Neovim uses system clipboard in WSL `:h clipboard-wsl`
 
 See https://github.com/neovim/neovim/wiki/FAQ/6fec592e6f5cbf6b2eb1b74e5fb35e803b00d14a#how-to-use-the-windows-clipboard-from-wsl

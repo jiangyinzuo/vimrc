@@ -209,17 +209,19 @@ return {
 	-- },
 
 	-- find and replace
+	-- alternatives: brooth/far.vim, nvim-pack/nvim-spectre
 	{
-		"brooth/far.vim",
-		cmd = { "Far", "Farf", "Farp", "Farr" },
-	},
-	{
-		"nvim-pack/nvim-spectre",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		cmd = { "Spectre" },
-		-- NOTE: do not add opts, it will break the UI behaviors
+		"MagicDuck/grug-far.nvim",
+		-- Note (lazy loading): grug-far.lua defers all it's requires so it's lazy by default
+		-- additional lazy config to defer loading is not really needed...
+		config = function()
+			-- optional setup call to override plugin options
+			-- alternatively you can set options with vim.g.grug_far = { ... }
+			require("grug-far").setup({
+				-- options, see Configuration section below
+				-- there are no required options atm
+			})
+		end,
 	},
 	{
 		"ray-x/sad.nvim",
@@ -259,7 +261,7 @@ return {
 	},
 	{
 		"quarto-dev/quarto-nvim",
-		cond = vim.g.vimrc_lsp == 'nvim-lsp' and has_quarto_executable,
+		cond = vim.g.vimrc_lsp == "nvim-lsp" and has_quarto_executable,
 		dependencies = {
 			"jmbuhr/otter.nvim",
 			"nvim-treesitter/nvim-treesitter",

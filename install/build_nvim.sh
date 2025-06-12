@@ -1,4 +1,5 @@
 #!/bin/bash
+# The alternative can be bob, neovim version manager https://github.com/MordechaiHadad/bob
 
 set -e
 

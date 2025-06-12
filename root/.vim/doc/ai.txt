@@ -32,7 +32,8 @@ Agent
 Context
 - codebase indexing (project files)
     - https://github.com/Davidyz/VectorCode
-- rag
+    - cursor的codebase indexing功能背后的原理是什么？有平替吗？ - 小橘子的回答 - 知乎 https://www.zhihu.com/question/11166707580/answer/1908670259566712126
+- RAG
 
 Products ~
 
