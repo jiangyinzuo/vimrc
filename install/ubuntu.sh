@@ -165,6 +165,8 @@ install_git_delta
 # option: $VIM_COMMIT
 # install_vim
 install_nvm
+# tree-sitter cli
+npm install tree-sitter-cli
 # install_go
 # install_gvm
 

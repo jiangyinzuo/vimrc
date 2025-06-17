@@ -1,5 +1,8 @@
 return {
 	{
+		"nvim-tree/nvim-web-devicons",
+	},
+	{
 		"ray-x/guihua.lua",
 		event = "VeryLazy",
 		lazy = true,
