@@ -221,9 +221,20 @@ return {
 	},
 	{
 		"yetone/avante.nvim",
+		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+		-- ⚠️ must add this setting! ! !
+		build = function()
+			-- conditionally use the correct build system for the current OS
+			if vim.fn.has("win32") == 1 then
+				return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+			else
+				return "make"
+			end
+		end,
 		event = "VeryLazy",
-		lazy = true,
-		version = false, -- set this if you want to always pull the latest change
+		version = false, -- Never set this value to "*"! Never!
+		---@module 'avante'
+		---@type avante.Config
 		opts = {
 			debug = false,
 			provider = vim.g.avante_provider,
@@ -271,11 +282,7 @@ return {
 				},
 			},
 		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
