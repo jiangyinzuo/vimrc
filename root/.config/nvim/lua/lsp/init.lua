@@ -156,7 +156,7 @@ function M.lspconfig()
 	setup_lsp(M.get_capabilities())
 
 	-- remove default nvim lsp keymap
-	if vim.version.ge(vim.version(), { 0, 10, 0 }) then
+	if vim.version.gt(vim.version(), { 0, 11, 0 }) then
 		vim.keymap.del("n", "]d")
 		vim.keymap.del("n", "[d")
 		vim.keymap.del("n", "]D")
@@ -165,6 +165,7 @@ function M.lspconfig()
 		vim.keymap.del("n", "gri")
 		vim.keymap.del("n", "grn")
 		vim.keymap.del("n", "grr")
+		vim.keymap.del("n", "grt")
 	end
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
@@ -189,7 +190,12 @@ function M.lspconfig()
 			-- 	vim.keymap.set("n", "<space>wl", function()
 			-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			-- 	end, bufopts)
-			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, bufopts)
+			vim.keymap.set(
+				"n",
+				"<leader>gt",
+				vim.lsp.buf.type_definition,
+				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.type_definition" }
+			)
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			-- range_code_action and range_formatting are deprecated

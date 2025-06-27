@@ -27,6 +27,7 @@ Plug 'aperezdc/vim-template'
 
 Plug 'szw/vim-maximizer'
 Plug 'wesQ3/vim-windowswap'
+Plug 'tyru/capture.vim'
 
 " enhanced ga(show not only ascii code, but also unicode code, emoji,
 " digraphs, etc.)
