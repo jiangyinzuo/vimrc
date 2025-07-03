@@ -256,15 +256,17 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
 	"  open explorer :Ex :Sex :Vex
 	" close explorer :Rex
-	"
-	" do not load netrw
-	" let g:loaded_netrw = 1
-	" let g:loaded_netrwPlugin = 1
-	let g:netrw_browse_split = 0 " open the file using netrw buffer
-	let g:netrw_liststyle = 3 " tree style listing
-	let g:netrw_preview = 0 " preview window horizontally
-	let g:netrw_hide = 1 " show not-hidden files
-	let g:netrw_keepdir = 0
+	if has('nvim')
+		" do not load netrw
+		let g:loaded_netrw = 1
+		let g:loaded_netrwPlugin = 1
+	else
+		let g:netrw_browse_split = 0 " open the file using netrw buffer
+		let g:netrw_liststyle = 3 " tree style listing
+		let g:netrw_preview = 0 " preview window horizontally
+		let g:netrw_hide = 1 " show not-hidden files
+		let g:netrw_keepdir = 0
+	endif
 	" see netrw-v
 	" 新的窗口出现在当前窗口的右边
 	set splitright
@@ -275,20 +277,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 		augroup jump_to_symbol
 			autocmd!
 			" See: https://stackoverflow.com/questions/12128678/vim-go-to-beginning-end-of-next-method
-			" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
 			" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
-			autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
-			autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
 			" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
 			" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
-			autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
-			autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
-			autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
-			autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
 			autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
 			autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
-			autocmd FileType go nnoremap <silent> <buffer> [[ :call search('\<type\>', "bW")<CR>
-			autocmd FileType go nnoremap <silent> <buffer> ]] :call search('\<type\>', "wW")<CR>
 		augroup END
 	endif
 

@@ -47,7 +47,7 @@ return {
 			-- statuscolumn = { enabled = true },
 			-- words = { enabled = true },
 		},
-		cond = false,
+		cond = true,
 	},
 	-- nerdfont cheatsheet: https://www.nerdfonts.com/cheat-sheet
 	{
@@ -181,6 +181,58 @@ return {
 				previewer = false,
 			},
 		},
+	},
+	{
+		"echasnovski/mini.files",
+		version = false,
+		opts = {
+			-- General options
+			options = {
+				-- Whether to delete permanently or move into module-specific trash
+				permanent_delete = true,
+				-- Whether to use for editing directories
+				use_as_default_explorer = false,
+			},
+		},
+		config = function()
+			local MiniFiles = require("mini.files")
+			-- create a custom command to open the file explorer
+			vim.api.nvim_create_user_command("MiniFiles", function()
+				MiniFiles.open(vim.fn.expand("%:p:h"))
+			end, { desc = "Open file explorer in current directory" })
+
+			local show_dotfiles = true
+
+			local filter_show = function(fs_entry)
+				return true
+			end
+
+			local filter_hide = function(fs_entry)
+				return not vim.startswith(fs_entry.name, ".")
+			end
+
+			local toggle_dotfiles = function()
+				show_dotfiles = not show_dotfiles
+				local new_filter = show_dotfiles and filter_show or filter_hide
+				MiniFiles.refresh({ content = { filter = new_filter } })
+			end
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "MiniFilesBufferCreate",
+				callback = function(args)
+					local buf_id = args.data.buf_id
+					-- Tweak left-hand side of mapping to your liking
+					vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle dotfiles" })
+					vim.keymap.set("n", "<leader>ff", function()
+						MiniFiles.close()
+						require("telescope.builtin").find_files({ search_dirs = { MiniFiles.get_latest_path() } })
+					end, {
+						buffer = buf_id,
+						desc = "Telescope find files",
+					})
+				end,
+			})
+		end,
 	},
 	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
 	-- See also:
