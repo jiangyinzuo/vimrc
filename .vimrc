@@ -238,27 +238,11 @@ if has('autocmd') " vim-tiny does not have autocmd
 		" jump to the next function
 		" 向前（w表示forward）搜索一个匹配特定模式的地方，这个模式是一个函数的开始位置。
 		autocmd FileType c,cpp nnoremap <silent> <buffer> ]f :call search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
-		" 搜索的模式是一个正则表达式，用来匹配不是在if, for, while, switch, 和catch后面的左花括号{，因为在C++中函数的定义是以左花括号开始的。
-		" 需要注意的是，这个搜索模式可能并不完全精确，因为函数的定义还可能包含许多其他的复杂性，比如模板函数，函数指针，宏定义等等。对于一些简单的代码文件，这个方法通常可以工作得很好。
-		" 这些配置会更好地在代码中快速导航，但如果你需要更精确地识别函数，你可能需要考虑使用一些更高级的插件，比如ctags,cscope等等。
-
-		" Go 语言的函数定义是以 func 关键字开始的，所以我们可以使用这个关键字来搜索函数的开始位置。
-		" 在这里，我们用 \< 和 \> 来指定词的边界，这样我们就可以准确地匹配func，而不是 func 作为其他词的一部分。bW 和 wW是搜索命令的标志，b 表示向后搜索，w 表示向前搜索，W 表示只匹配整个单词。
-		autocmd FileType go nnoremap <silent> <buffer> [f :call search('\<func\>', "bW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> ]f :call search('\<func\>', "wW")<CR>
-		" 以上代码仅会简单地跳转到包含 func 关键字的行，不过如果你需要更精确或更高级的功能，你可能需要考虑使用一些专门为
-		" Go 语言设计的 Vim 插件，例如 vim-go。这个插件为 Go语言提供了许多功能，包括代码导航、自动完成、代码格式化等等。
-		autocmd FileType python nnoremap <silent> <buffer> [f :call search('\<def\>', "bW")<CR>
-		autocmd FileType python nnoremap <silent> <buffer> ]f :call search('\<def\>', "wW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> [f :call search('\<fn\>', "bW")<CR>
-		autocmd FileType rust nnoremap <silent> <buffer> ]f :call search('\<fn\>', "wW")<CR>
 		autocmd FileType lua nnoremap <silent> <buffer> [f :call search('\<function\>', "bW")<CR>
 		autocmd FileType lua nnoremap <silent> <buffer> ]f :call search('\<function\>', "wW")<CR>
 
 		autocmd FileType c,cpp nnoremap <silent> <buffer> [[ :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "bW")<CR>
 		autocmd FileType c,cpp nnoremap <silent> <buffer> ]] :call search('\<class\>\|\<struct\>\|\<enum\>\|\<typedef\>', "wW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> [[ :call search('\<type\>', "bW")<CR>
-		autocmd FileType go nnoremap <silent> <buffer> ]] :call search('\<type\>', "wW")<CR>
 	augroup END
 
 	function GetVisualSelection()
