@@ -2,10 +2,22 @@
 " copy this file to config.vim
 
 let g:ai_suggestion = 'copilot.vim'
-" aiproxy (default) | kimichat | 01ai
-let g:ai_service = '01ai'
-let g:clangd_path = '/usr/bin/clangd'
+let g:duckdb_exe = 'duckdb -csv'
+
+let g:openai_endpoint = "https://api.deepseek.com/v1"
+let g:openai_model = "deepseek-chat"
+let g:openai_disable_tools = 1
+let g:openai_token_file = "~/.config/deepseek.token"
+
+let g:claude_endpoint = "https://api.mjdjourney.cn"
+let g:claude_model = "claude-3-7-sonnet-20250219"
+
+let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-21', 'path': '/usr/lib/jvm/java-21-openjdk-amd64'}])
+
 if has('nvim')
+	let g:vimrc_lsp = 'nvim-lsp'
+	let g:avante_provider = 'openai'
+	let g:avante_auto_suggestions_provider = 'openai'
 else
 	set grepprg=rg\ --vimgrep\ -uu
 	set grepformat=%f:%l:%c:%m
