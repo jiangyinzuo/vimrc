@@ -223,14 +223,8 @@ return {
 		"yetone/avante.nvim",
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		-- ⚠️ must add this setting! ! !
-		build = function()
-			-- conditionally use the correct build system for the current OS
-			if vim.fn.has("win32") == 1 then
-				return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-			else
-				return "make"
-			end
-		end,
+		build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+			or "make",
 		event = "VeryLazy",
 		version = false, -- Never set this value to "*"! Never!
 		---@module 'avante'
@@ -262,6 +256,15 @@ return {
 						},
 					},
 					disable_tools = false,
+				},
+				moonshot = {
+					endpoint = "https://api.moonshot.ai/v1",
+					model = "kimi-k2-0711-preview",
+					timeout = 30000, -- Timeout in milliseconds
+					extra_request_body = {
+						temperature = 0.75,
+						max_tokens = 32768,
+					},
 				},
 				vllm = {
 					__inherited_from = "openai",

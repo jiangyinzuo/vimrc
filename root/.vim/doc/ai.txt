@@ -236,3 +236,10 @@ OpenHands https://github.com/All-Hands-AI/OpenHands
 
 Tool Use ~
 https://github.com/dlants/magenta.nvim
+
+Deep Research Agent ~
+
+https://blog.csdn.net/dinaxuejie/article/details/146195104
+
+- Genimi Deep Research
+- OpenAI Deep Research
