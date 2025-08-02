@@ -26,6 +26,7 @@ function! noplug#MyRead(file)
 		execute 'read ' . a:file
 	endif
 endfunction
+
 function noplug#ToggleQuickfix(list)
 	if empty(filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "quickfix"'))
 		if a:list == 'c'
@@ -62,46 +63,6 @@ function s:ShowQuickfixListIfNotEmpty()
 	elseif length == 0
 		echo 'empty quickfix list'
 	endif
-endfunction
-
-function noplug#FindWord(word)
-	if &filetype == 'c' || &filetype == 'cpp' || &filetype == 'cuda'
-		let l:extension = '**/*.c* **/*.h*'
-	else
-		let l:extension = '**/*.' . expand('%:e')
-	endif
-	" <pattern>: 匹配整个单词
-	exe 'vimgrep /\<'.a:word.'\>/ ' . l:extension
-	call s:ShowQuickfixListIfNotEmpty()
-endfunction
-
-function noplug#FindType(word)
-	" <pattern>: 匹配整个单词
-	if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
-		exe 'vimgrep' '/\<\(struct\|union\|class\) '.a:word.'\>/' '**/*.c*' '**/*.h*'
-	elseif &filetype == 'python'
-		exe 'vimgrep' '/\<class '.a:word.'\>/' '**/*.py'
-	elseif &filetype == 'go'
-		exe 'vimgrep' '/\<type '.a:word.'\>/' '**/*.go'
-	else
-		echo 'unsupport filetype: '.&filetype
-		return
-	endif
-	call s:ShowQuickfixListIfNotEmpty()
-endfunction
-
-function noplug#FindDefinitionFunction(word)
-	if &filetype == 'cpp' || &filetype == 'c' || &filetype == 'cuda'
-		exe 'vimgrep' '/\<'.a:word.'\s*(/ **/*.c* **/*.h*'
-	elseif &filetype == 'python'
-		exe 'vimgrep' '/\<def '.a:word.'(/' '**/*.py'
-	elseif &filetype == 'go'
-		exe 'vimgrep' '/\<func '.a:word.'(/' '**/*.go'
-	else
-		echo 'unsupport filetype: '.&filetype
-		return
-	endif
-	call s:ShowQuickfixListIfNotEmpty()
 endfunction
 
 function noplug#SystemToQf(args)

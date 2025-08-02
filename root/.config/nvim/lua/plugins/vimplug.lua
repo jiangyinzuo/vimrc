@@ -101,7 +101,6 @@ local M = {
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
 	"wesQ3/vim-windowswap",
-	"tyru/capture.vim",
 	"tpope/vim-characterize",
 	"tpope/vim-speeddating",
 	"preservim/vimux",

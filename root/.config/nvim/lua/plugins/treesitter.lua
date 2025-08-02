@@ -8,21 +8,14 @@ return {
 		branch = "master",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				-- 安装 language parser
+				-- 安装 language parser，有些parser在neovim中已经内置，如"vim", "lua", "markdown", "c"等
 				-- :TSInstallInfo 命令查看支持的语言
 				ensure_installed = {
-					"c",
 					"cpp",
 					"go",
-					"lua",
-					"vim",
-					"vimdoc",
 					"python",
 					"rust",
 					"html",
-					"query",
-					"markdown",
-					"markdown_inline",
 				},
 				-- Install parsers synchronously (only applied to `ensure_installed`)
 				sync_install = false,

@@ -15,7 +15,7 @@ Vim/Neovim requirements:
 - vim 9.1+ (full features)
 - vim 7.4.629+ (minimal, tested in CentOS 7)
     - plugin manager: [vim-plug](https://github.com/junegunn/vim-plug)
-- neovim 0.11.0+
+- neovim 0.12.0-dev
     - plugin manager: [lazy.nvim](https://github.com/folke/lazy.nvim)
         - Git 2.19.0+
 

@@ -31,7 +31,7 @@ require("lazy").setup("plugins", {
 })
 
 local function config_clipboard()
-	if vim.fn.has('wsl') == 1 then
+	if vim.fn.has("wsl") == 1 then
 		-- clip.exe会导致中文乱码，使用默认的wl-copy
 		-- See: ~/vimrc/wsl/README.md
 		-- vim.g.clipboard = {
@@ -45,14 +45,14 @@ local function config_clipboard()
 		-- }
 	else
 		vim.g.clipboard = {
-			name = 'OSC 52',
+			name = "OSC 52",
 			copy = {
-				['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-				['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+				["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+				["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 			},
 			paste = {
-				['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-				['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+				["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+				["*"] = require("vim.ui.clipboard.osc52").paste("*"),
 			},
 		}
 	end
@@ -71,3 +71,6 @@ hi! link CocInlayHint LspInlayHint
 hi link QuickPreview Normal
 ]])
 config_clipboard()
+
+-- https://github.com/neovim/neovim/pull/27855
+require("vim._extui").enable({ enable = true, msg = { target = "msg" } })
