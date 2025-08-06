@@ -139,6 +139,7 @@ return {
 	},
 	{
 		"copilotlsp-nvim/copilot-lsp",
+		-- cond = vim.g.ai_suggestion == "copilot.vim",
 		cond = false,
 		init = function()
 			vim.g.copilot_nes_debounce = 500
@@ -184,20 +185,14 @@ return {
 						dismiss = "<A-e>",
 					},
 				},
-				provider = "openai_compatible",
+				provider = "openai_fim_compatible",
 				provider_options = {
-					openai_compatible = {
-						model = vim.g.openai_model,
-						-- system = "see [Prompt] section for the default value",
-						-- few_shots = "see [Prompt] section for the default value",
-						-- chat_input = "See [Prompt Section for default value]",
-						end_point = vim.g.openai_endpoint .. "/chat/completions",
-						api_key = "OPENAI_API_KEY",
-						name = "openai_compatible",
-						stream = true,
+					openai_fim_compatible = {
+						api_key = "DEEPSEEK_API_KEY",
+						name = "deepseek",
 						optional = {
-							stop = nil,
-							max_tokens = nil,
+							max_tokens = 256,
+							top_p = 0.9,
 						},
 					},
 				},

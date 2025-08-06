@@ -153,6 +153,15 @@ if v:version >= 800
 			" :h jupyter-notebook
 			" See: https://github.com/imbue-ai/jupyter_ascending
 			" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
+			let g:jupyter_mapkeys = 0
+			let g:jupyter_cell_separators = ['\s*##']
+
+			let g:jupyter_ascending_default_mappings = 0
+			let g:jupyter_ascending_python_executable = 'python3'
+			" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
+			" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
+			let g:jupyter_ascending_auto_write = v:true
+			let g:jupytext_fmt = 'py'
 			Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
 			
 			" vim和jupyter console/qtconsole同步
@@ -271,6 +280,8 @@ call plug#end()
 if g:no_plug
 	finish
 endif
+
+source ~/.vim/vimrc.d/slime.vim
 
 """""""""""""""""" begin colorscheme
 " 防止neovim启动时屏幕暂时变成黑色

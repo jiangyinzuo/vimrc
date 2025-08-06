@@ -5,6 +5,7 @@ return {
 		lazy = true,
 		build = "cd lua/fzy && make",
 	},
+	"MunifTanjim/nui.nvim",
 	-- {
 	-- 	"j-hui/fidget.nvim",
 	-- 	opts = {

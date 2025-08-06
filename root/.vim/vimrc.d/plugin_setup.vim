@@ -168,60 +168,13 @@ if has('nvim') || v:version >= 802
 	let g:floaterm_height = 0.95
 	let g:floaterm_position = 'right'
 	let g:floaterm_rootmarkers = g:RootMarks
-	" imap中F12被映射为UltiSnipsExpandTrigger, see plugin.vim
 	let g:floaterm_keymap_toggle = '<F2>'
+	" imap中F12被映射为UltiSnipsExpandTrigger, see plugin_setup.vim
 	let g:floaterm_title='<F9> kill | <F10> new | <F11> prev | <F12> next | <F2> toggle ($1/$2)'
 	""""""""""""""""""
 
 	let g:pydocstring_doq_path = 'doq'
 	let g:pydocstring_formatter = 'numpy'
-
-	let g:jupyter_mapkeys = 0
-	let g:jupyter_cell_separators = ['\s*##']
-
-	let g:jupyter_ascending_default_mappings = 0
-	let g:jupyter_ascending_python_executable = 'python3'
-	" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
-	" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
-	let g:jupyter_ascending_auto_write = v:true
-	let g:jupytext_fmt = 'py'
-
-	" ocaml utop在第一次send时可能会失败，需要再send一次，或提前打开:SlimeConfig
-	if has('nvim')
-		""""""" tmux """""""
-		" let g:slime_target = "tmux"
-		" " g:slime_bracketed_paste = 0 slime多行复制粘贴有问题
-		" let g:slime_bracketed_paste = 1
-		""""""""""""""""""""
-		let g:slime_target = "neovim"
-	else
-		let g:slime_target = "vimterminal"
-	endif
-	let g:slime_no_mappings = 1
-
-	function s:map_sender(sender)
-		if a:sender == 'slime'
-			xmap <leader>sp <Plug>SlimeRegionSend
-			nmap <leader>sl <Plug>SlimeLineSend
-			nmap <leader>sp <Plug>SlimeParagraphSend
-			nmap <leader>sc <Plug>SlimeSendCell
-		elseif a:sender == 'jupyter' || a:sender == 'jupyter-matplotlib'
-			:JupyterConnect
-			nnoremap <leader>sc :JupyterSendCell<CR>
-			nnoremap <leader>si :JupyterSendCode ''<Left>
-			nnoremap <leader>sp :JupyterSendRange<CR>
-			xnoremap <leader>sp :JupyterSendRange<CR>
-			if a:sender == 'jupyter-matplotlib'
-				let timer = timer_start(1500, function('jupyter_custom#MatplotlibInit'))
-			endif
-			echom '<leader>sc -> send cell | <leader>si -> send code | <leader>sp -> send range'
-		endif
-	endfunction
-	function s:sender_list(ArgLead, CmdLine, CursorPos)
-		return filter(['jupyter', 'jupyter-matplotlib', 'slime'], 'stridx(v:val, a:ArgLead) == 0')
-	endfunction
-	command -nargs=1 -complete=customlist,s:sender_list MapSender call s:map_sender(<f-args>)
-	MapSender slime
 endif
 if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
@@ -229,7 +182,4 @@ endif
 
 " 默认主题不要显示colorcolumn
 set colorcolumn=80,120
-if !has('patch-9.1.176') || !has('nvim')
-	" markdown会conceal一些字符，导致colorcolumn显示混乱
-	autocmd FileType org,markdown,text setlocal colorcolumn=
-endif
+autocmd FileType org,markdown,text setlocal colorcolumn=

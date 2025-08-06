@@ -142,11 +142,6 @@ end
 function M.lspconfig()
 	local diagnostic = require("lsp.diagnostic")
 
-	-- Register the command
-	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
-		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-	end, {})
-
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
 	vim.api.nvim_create_autocmd("CmdlineEnter", {
 		once = true,
@@ -228,6 +223,9 @@ function M.lspconfig()
 		local log = vim.fn.stdpath("state") .. "/lsp.log"
 		vim.fn.delete(log)
 	end, { nargs = 0 })
+	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	end, {})
 end
 
 return M
