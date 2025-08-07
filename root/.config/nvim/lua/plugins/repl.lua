@@ -1,7 +1,7 @@
 return {
 	{
 		"SUSTech-data/neopyter",
-		cond = vim.fn.has('wsl'),
+		cond = vim.fn.has('wsl') == 1,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter", -- neopyter don't depend on `nvim-treesitter`, but does depend on treesitter parser of python

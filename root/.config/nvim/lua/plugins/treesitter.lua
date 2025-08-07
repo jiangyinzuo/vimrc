@@ -14,7 +14,7 @@ return {
 				"rust",
 				"html",
 			}
-			if vim.fn.has("wsl") then
+			if vim.fn.has("wsl") == 1 then
 				-- add "r" to ensure_installed
 				table.insert(ensure_installed, "r")
 			end
