@@ -7,16 +7,21 @@ return {
 		build = ":TSUpdate",
 		branch = "master",
 		config = function()
+			local ensure_installed = {
+				"cpp",
+				"go",
+				"python",
+				"rust",
+				"html",
+			}
+			if vim.fn.has("wsl") then
+				-- add "r" to ensure_installed
+				table.insert(ensure_installed, "r")
+			end
 			require("nvim-treesitter.configs").setup({
 				-- 安装 language parser，有些parser在neovim中已经内置，如"vim", "lua", "markdown", "c"等
 				-- :TSInstallInfo 命令查看支持的语言
-				ensure_installed = {
-					"cpp",
-					"go",
-					"python",
-					"rust",
-					"html",
-				},
+				ensure_installed = ensure_installed,
 				-- Install parsers synchronously (only applied to `ensure_installed`)
 				sync_install = false,
 				-- 启用代码高亮模块

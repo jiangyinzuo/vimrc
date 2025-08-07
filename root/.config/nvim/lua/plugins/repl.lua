@@ -1,6 +1,7 @@
 return {
 	{
 		"SUSTech-data/neopyter",
+		cond = vim.fn.has('wsl'),
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter", -- neopyter don't depend on `nvim-treesitter`, but does depend on treesitter parser of python
@@ -12,6 +13,7 @@ return {
 			mode = "direct",
 			remote_address = "127.0.0.1:9001",
 			file_pattern = { "*.ju.*" },
+			---@type neopyter.ParserOption  # ref `:h neopyter.ParserOption`
 			on_attach = function(buf)
 				local function map(mode, lhs, rhs, desc)
 					vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = buf })
