@@ -201,6 +201,46 @@ return {
 		cond = vim.g.ai_suggestion == "minuet-ai.nvim",
 	},
 	{
+		"dlants/magenta.nvim",
+		lazy = false, -- you could also bind to <leader>mt
+		cond = vim.g.ai_suggestion == "magenta.nvim",
+		build = "npm install --frozen-lockfile",
+		opts = {
+			profiles = {
+				{
+					name = "claude-3-7",
+					provider = "anthropic",
+					model = "claude-3-7-sonnet-latest",
+					fastModel = "claude-3-5-haiku-latest", -- optional, defaults provided
+					apiKeyEnvVar = "ANTHROPIC_API_KEY",
+					baseUrl = vim.g.claude_endpoint,
+				},
+			},
+			editPrediction = {
+				-- Use a dedicated profile for predictions (independent of main profiles)
+				profile = {
+					provider = "anthropic",
+					model = "claude-4-sonnet-latest",
+					apiKeyEnvVar = "ANTHROPIC_API_KEY",
+					baseUrl = vim.g.claude_endpoint,
+				},
+
+				-- Maximum number of changes to track for context (default: 10)
+				changeTrackerMaxChanges = 20,
+
+				-- Token budget for including recent changes (default: 1000)
+				-- Higher values include more history but use more tokens
+				recentChangeTokenBudget = 1500,
+
+				-- Replace the default system prompt entirely
+				-- systemPrompt = "Your custom prediction system prompt here...",
+
+				-- Append to the default system prompt instead of replacing it
+				-- systemPromptAppend = "Additional instructions to improve predictions...",
+			},
+		},
+	},
+	{
 		"ravitemer/mcphub.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
@@ -310,4 +350,11 @@ return {
 		"huggingface/llm.nvim",
 		cond = vim.g.ai_suggestion == "llm.nvim",
 	},
+	-- {
+	-- 	"aweis89/ai-terminals.nvim",
+	-- 	dependencies = { "folke/snacks.nvim" },
+	-- 	config = function()
+	-- 		require("ai-terminals").setup({})
+	-- 	end,
+	-- },
 }

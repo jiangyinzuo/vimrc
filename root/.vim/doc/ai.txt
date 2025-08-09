@@ -125,6 +125,26 @@ https://github.com/gpt-engineer-org/gpt-engineer
 
 Amazon Q 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
 
+Claude Code CLI ~
+
+greggh/claude-code.nvim
+coder/claudecode.nvim
+
+Gemini CLI ~
+
+Qwen Coder ~
+
+基于Gemini CLI，可以运行deepseek。
+
+OpenAI CodeX ~
+
+运行deepseek可能有bug。
+
+AIDER ~
+
+https://aider.chat/
+不支持MCP、tool call
+
 -------------------------------------------------------------------------------
 Vim插件
 
@@ -223,9 +243,6 @@ feature 需求：
 - 全局代码理解
 - bug定位
 
-aider https://aider.chat/
-- 不支持使用命令行tool、不能运行程序，读取程序输出
-
 SWESynInfer: https://github.com/LingmaTongyi/Lingma-SWE-GPT
 - 开源缺乏维护
 
@@ -241,5 +258,5 @@ Deep Research Agent ~
 
 https://blog.csdn.net/dinaxuejie/article/details/146195104
 
-- Genimi Deep Research
+- Gemini Deep Research
 - OpenAI Deep Research

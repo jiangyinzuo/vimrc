@@ -79,12 +79,21 @@ local function setup_lsp(capabilities)
 		cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
 	})
 
+	vim.lsp.config("ts_ls", {
+		init_options = {
+			hostInfo = "neovim",
+			preferences = {
+				includeInlayVariableTypeHints = true,
+			},
+		},
+	})
+
 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
 	-- npm i -g vscode-langservers-extracted
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
 	-- use "neocmake" instead of "cmake"
-	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls" }
+	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls", "ts_ls" }
 	if vim.g.python_formatter == "ruff" then
 		-- pip install ruff-lsp ruff
 		table.insert(enabled_servers, "ruff_lsp")

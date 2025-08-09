@@ -31,7 +31,7 @@ local M = {
 	"jiangyinzuo/bd.vim",
 	{
 		"lervag/vimtex",
-		cond = detect.has_pdflatex_executable,
+		cond = (vim.fn.has("wsl") == 1) and detect.has_pdflatex_executable,
 		ft = "tex",
 		init = function()
 			vim.api.nvim_command("source ~/.vim/vimrc.d/latex.vim")

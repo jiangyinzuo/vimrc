@@ -14,6 +14,7 @@ soft_link_files=(
 	.ripgreprc
 	.tmux.conf
 	.vim
+	.codex
 )
 
 echo_green() {

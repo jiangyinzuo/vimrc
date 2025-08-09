@@ -1,6 +1,8 @@
+vim:ft=help
+
 *nodejs*
 
-coc.nvim, copilot.vim depend on nodejs.
+coc.nvim, copilot.vim and qwen-code depend on nodejs.
 
 Installation ~
 
