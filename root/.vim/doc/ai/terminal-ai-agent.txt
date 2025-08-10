@@ -28,6 +28,9 @@ $ gh copilot explain "traceroute github.com"
 BROWSER=nonexistent gh auth login
 https://github.com/cli/cli/issues/297
 
+mods ~
+https://github.com/charmbracelet/mods
+
 =======================================================
 命令行Agent
 

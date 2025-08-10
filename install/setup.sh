@@ -7,6 +7,7 @@ soft_link_files=(
 	.config/ctags
 	.config/himalaya
 	.config/lazygit
+	.config/mods
 	.config/nvim
 	.config/zellij
 	.gitconfig
