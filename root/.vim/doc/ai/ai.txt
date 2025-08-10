@@ -97,55 +97,6 @@ Moonshot AI 传文件
 https://platform.openai.com/docs/assistants/overview
 
 -------------------------------------------------------------------------------
-命令行AI工具
-
-*shell-gpt* *sgpt*
->
-	pip install shell-gpt
-<
-*github-copilot-cli* |github-cli|
-
-https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
-
-Usage:
-  copilot [command]
-
-Examples:
-
-$ gh copilot suggest "Install git"
-$ gh copilot explain "traceroute github.com"
-
-终端登录使用github copilot的方法（必须选择浏览器登录） ~
-
-BROWSER=nonexistent gh auth login
-https://github.com/cli/cli/issues/297
-
-*gpt-engineer*
-https://github.com/gpt-engineer-org/gpt-engineer
-
-Amazon Q 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
-
-Claude Code CLI ~
-
-greggh/claude-code.nvim
-coder/claudecode.nvim
-
-Gemini CLI ~
-
-Qwen Coder ~
-
-基于Gemini CLI，可以运行deepseek。
-
-OpenAI CodeX ~
-
-运行deepseek可能有bug。
-
-AIDER ~
-
-https://aider.chat/
-不支持MCP、tool call
-
--------------------------------------------------------------------------------
 Vim插件
 
 https://github.com/neovim/neovim/discussions/28162

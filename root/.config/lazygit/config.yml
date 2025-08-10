@@ -4,4 +4,7 @@ gui:
   editor:
     program: vim
     args: []
-
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never

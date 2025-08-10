@@ -3,6 +3,7 @@
 soft_link_files=(
 	.condarc
 	.config/clangd
+	.config/crush
 	.config/ctags
 	.config/himalaya
 	.config/lazygit

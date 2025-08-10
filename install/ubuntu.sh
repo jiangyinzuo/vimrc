@@ -93,7 +93,7 @@ function install_other_apt_packages() {
 	# Leaderf needs python3-dev and python3-distutils
 	# wamerican: American English字典文件，安装后位于/usr/share/dict/words, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
-	$SUDO apt-get install -y curl less tree bd bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet shfmt
+	$SUDO apt-get install -y curl less tree bd bat git cmake sqlformat python3-dev python3-distutils wamerican wordnet shfmt git-flow
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113

@@ -78,25 +78,6 @@ return {
 		"sindrets/diffview.nvim",
 	},
 	{
-		"akinsho/git-conflict.nvim",
-		version = "*",
-		config = function()
-			require("git-conflict").setup()
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "GitConflictDetected",
-				callback = function()
-					vim.notify("Conflict detected in " .. vim.fn.expand("<afile>"))
-				end,
-			})
-		end,
-	},
-	{
-		"aaronhallaert/advanced-git-search.nvim",
-		dependencies = {
-			"sindrets/diffview.nvim",
-		},
-	},
-	{
 		"luckasRanarison/nvim-devdocs",
 		lazy = true,
 		dependencies = {

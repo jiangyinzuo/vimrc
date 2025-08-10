@@ -1,4 +1,6 @@
-alacritty已从v0.22.0删除，最后一次commit见 ac5affb8c8c8268299c2c124683b25c6e8cde012
+# Terminal
+
+## WezTerm
 
 WSL快速编辑wezterm配置文件
 ```bash
@@ -10,6 +12,8 @@ vim "$WEZTERM"
 ## 其它terminal
 
 - ghostty
+- [rio](https://rioterm.com/)
+- alacritty
 - warp
     - AI
 - waveterm
