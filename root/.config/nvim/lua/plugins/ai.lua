@@ -105,6 +105,7 @@ return {
 					return require("codecompanion.adapters").extend("openai_compatible", {
 						env = {
 							url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
+							chat_url = "/chat/completions",
 							api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
 						},
 						schema = {
@@ -119,16 +120,16 @@ return {
 				-- codecompanion.nvim暂时没使用native tools
 				-- https://github.com/olimorris/codecompanion.nvim/discussions/494
 				chat = {
-					adapter = "my_anthropic",
+					adapter = "my_openai",
 				},
 				inline = {
-					adapter = "my_anthropic",
+					adapter = "my_openai",
 				},
 				cmd = {
 					adapter = "my_openai",
 				},
 				workflow = {
-					adapter = "my_anthropic",
+					adapter = "my_openai",
 				},
 			},
 		},
@@ -357,4 +358,26 @@ return {
 	-- 		require("ai-terminals").setup({})
 	-- 	end,
 	-- },
+	-- {
+	-- goose.nvim只支持对整个项目查看diff，不支持对某个修改查看diff并决定是否接受
+	{
+		"azorng/goose.nvim",
+		cond = false,
+		config = function()
+			require("goose").setup({
+				default_global_keymaps = false,
+			})
+		end,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MeanderingProgrammer/render-markdown.nvim",
+		},
+	},
+	-- 无法滚动，查看前面的对话记录
+	-- 无法查看diff并决定是否接受
+	{
+		"NickvanDyke/opencode.nvim",
+		cond = false,
+		dependencies = { 'folke/snacks.nvim', },
+	}
 }

@@ -49,6 +49,22 @@ OpenAI CodeX ~
 
 运行deepseek可能有bug。
 
+opencode.ai ~
+
+社区开源Agent
+暂时不支持手动编辑diff
+
+charm CRUSH ~
+
+社区开源Agent
+暂时不支持手动编辑diff https://github.com/charmbracelet/crush/issues/698
+charm 还有其它命令行工具, see https://charm.land/
+
+Goose ~
+
+社区开源Agent
+暂时不支持手动编辑diff
+
 AIDER ~
 
 https://aider.chat/

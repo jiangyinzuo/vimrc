@@ -20,6 +20,7 @@ return {
 			-- "benfowler/telescope-luasnip.nvim",
 			"2kabhishek/nerdy.nvim",
 			"albenisolmos/telescope-oil.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
 		config = function()
 			local layout_strategy
@@ -87,6 +88,11 @@ return {
 						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 						-- the default case_mode is "smart_case"
 					},
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({
+							-- even more opts
+						}),
+					},
 				},
 			})
 
@@ -98,6 +104,7 @@ return {
 			-- telescope.load_extension("luasnip")
 			telescope.load_extension("nerdy")
 			telescope.load_extension("oil")
+			telescope.load_extension("ui-select")
 
 			vim.keymap.set("n", "<leader>to", "<cmd>Telescope oil<CR>", { noremap = true, silent = true })
 		end,

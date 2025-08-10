@@ -752,6 +752,7 @@ Git 命令行工具 ~
 
 lazygit
 fzf-git.sh https://github.com/junegunn/fzf-git.sh
+git-flow
 
 ===============================================================================
 Git Large File Storage (LFS) ~
