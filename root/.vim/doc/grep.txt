@@ -1,3 +1,6 @@
+vim:set ft=help:
+
+*ugrep* 支持模糊搜索，比|ripgrep|快
 *ripgrep*
 内容搜索: grep -> ripgrep: ripgrep, ag要比ack/grep快
 

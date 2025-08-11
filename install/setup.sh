@@ -2,11 +2,13 @@
 
 soft_link_files=(
 	.condarc
+	.config/avante
 	.config/clangd
 	.config/crush
 	.config/ctags
 	.config/himalaya
 	.config/lazygit
+	.config/mcphub
 	.config/mods
 	.config/nvim
 	.config/zellij

@@ -30,8 +30,10 @@ Edit
 Agent
 
 Context
-- codebase indexing (project files)
+- codebase indexing: cursor提前建索引/cline Agent查询
     - https://github.com/Davidyz/VectorCode
+        - 需要连接huggingface.io使用sentence transformer，可能会有网络问题
+    - https://cocoindex.io/
     - cursor的codebase indexing功能背后的原理是什么？有平替吗？ - 小橘子的回答 - 知乎 https://www.zhihu.com/question/11166707580/answer/1908670259566712126
 - RAG
 
