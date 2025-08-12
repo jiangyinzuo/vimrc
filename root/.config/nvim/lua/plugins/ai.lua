@@ -385,7 +385,7 @@ return {
 		---@module 'avante'
 		---@type avante.Config
 		opts = {
-			debug = true,
+			debug = false,
 			provider = vim.g.avante_provider,
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 			providers = {
