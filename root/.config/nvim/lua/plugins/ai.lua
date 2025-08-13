@@ -541,6 +541,7 @@ return {
 		dependencies = { "folke/snacks.nvim" },
 	},
 	-- 需要连接huggingface，可能报错
+	-- 使用不擅长处理代码的embedding模型，会导致vector search不是很准
 	-- {
 	-- 	"Davidyz/VectorCode",
 	-- 	version = "*",

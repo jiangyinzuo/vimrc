@@ -1,6 +1,9 @@
 vim:set ft=help:
 *ai.txt*
 
+*huggingface镜像* https://hf-mirror.com/
+
+=============================
 IDE功能需求 ~
 
 AI/LLM/GenAI related features https://github.com/neovim/neovim/issues/32084
@@ -12,7 +15,7 @@ Tab
 
 Completion
 - fill in the middle (给定前缀和后缀，补全中间)
-- 多位置complete (speculative edits / edit prediction / Editing By Rewriting)
+- 多位置complete (nest edit suggestion / speculative edits / edit prediction / Editing By Rewriting)
   - https://github.com/milanglacier/minuet-ai.nvim/issues/26
   - Zed开源了一个edit-prediction model https://zed.dev/blog/edit-prediction
     - https://github.com/boltlessengineer/zeta.nvim [WIP]
@@ -37,6 +40,13 @@ Context
     - cursor的codebase indexing功能背后的原理是什么？有平替吗？ - 小橘子的回答 - 知乎 https://www.zhihu.com/question/11166707580/answer/1908670259566712126
 - RAG
 
+
+Slash Commands ~
+
+/init 将当前目录/项目代码总结为一个文件
+    - repomix: https://github.com/yamadashy/repomix 一个将代码库转为单个文件的工具，本身不是AI Agent，仅把所有代码文件合并为一个文件。
+
+=============================
 Products ~
 
 perplexity

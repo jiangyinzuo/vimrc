@@ -70,3 +70,5 @@ https://zhuanlan.zhihu.com/p/136108063
 其它工具(尚未用到) ~
 
 https://gitlab.com/4U6U57/wsl-open
+
+WSL连接V2rayN： V2rayN开启Tun模式，Tun模式设置禁用strict route。

@@ -1,0 +1,10 @@
+vim:ft=help
+
+需要注意embedding model的能力，有些embedding model仅仅适用于自然语言，不适用于代码。
+
+Codebase Indexing & Semantic Code Search ~
+
+Features:
+
+- 属性过滤，对文件路径、文件后缀等进行过滤
+- 基于treesitter自定义chunk level
