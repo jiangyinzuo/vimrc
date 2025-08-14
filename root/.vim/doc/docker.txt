@@ -134,7 +134,7 @@ See: https://blog.csdn.net/webrx/article/details/135091731
 <
 
 -------------------------------------------------------------------------------
-执行docker不加sudo
+执行docker不加sudo / docker添加用户组
 
 >bash
     sudo groupadd docker

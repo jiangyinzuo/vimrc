@@ -59,13 +59,13 @@ Linux修改他人用户名 ~
 
 *给他人添加sudo权限*
 
->
+>bash
 	sudo usermod -aG sudo username
 <
 
 *查看sudo组的成员*
 
->
+>bash
 	getent group sudo
 <
 
