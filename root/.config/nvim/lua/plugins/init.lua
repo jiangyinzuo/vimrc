@@ -55,6 +55,9 @@ return {
 		cmd = "Nerdy",
 	},
 	{
+		"brianhuster/unnest.nvim",
+	},
+	{
 		"williamboman/mason.nvim",
 		opts = {
 			ui = {
