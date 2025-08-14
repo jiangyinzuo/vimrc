@@ -1,4 +1,5 @@
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': ['go', 'gomod', 'gosum'] }
+" run `:GoUpdateBinaries` first
+Plug 'fatih/vim-go', { 'for': ['go', 'gomod', 'gosum'] }
 if v:version >= 801
   Plug 'sebdah/vim-delve', { 'for': 'go' }
 endif

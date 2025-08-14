@@ -121,16 +121,11 @@ poetry vs. hatch vs. pdm vs. rye https://dev.to/adamghill/python-package-manager
 	>>> plt.show()
 	<stdin>:1: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
 <
-*jupyter-qtconsole报错*
 
-的解决方法均为
->
-	pip install PyQt5
-	# 或者
-	pip install PyQt6
-<
 ----------------------------------------------------------------
 JUPYTER
+
+Deprecated:
 
 *jupyter-qtconsole*
 >
@@ -179,11 +174,11 @@ JUPYTER
 	:JupyterAscendingOpenPairNotebook
 <
 
+----------------------------------------------------------------
 *ipython*
 
 使用vim-slime时，在terminal中使用：`ipython --no-autoindent` 防止自动缩进
 
 ========================================================================
 setup.py ~
-
 

@@ -13,11 +13,13 @@ let g:tex_conceal = 'admgs'
 if exists('$WSLENV') && (has('clientserver') || has('nvim'))
 	let g:vimtex_view_general_viewer = $VIMRC_ROOT.'/scripts/sumatrapdf.zsh'
 
-	" 需要提前编译no_terminal.exe
-	" ISSUE: 反向搜索在多latex文件时可能不精准
-	let g:vimtex_view_general_options
-				\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"D:/no_terminal.exe  \\\"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\\\"\""
-	command! -nargs=1 SumatraPDF call latex#SumatraPDFSendToVim(<q-args>)
+	if !has('nvim')
+		" 需要提前编译no_terminal.exe
+		" ISSUE: 反向搜索在多latex文件时可能不精准
+		let g:vimtex_view_general_options
+					\ = "-reuse-instance -forward-search @tex @line @pdf -inverse-search \"D:/no_terminal.exe  \\\"wsl vim --servername TEX --remote-send \':SumatraPDF %l %f<CR>\'\\\"\""
+		command! -nargs=1 SumatraPDF call latex#SumatraPDFSendToVim(<q-args>)
+	endif
 endif
 
 " The quickfix window is never opened/closed automatically.

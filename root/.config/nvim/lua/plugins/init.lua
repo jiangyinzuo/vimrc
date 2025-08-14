@@ -380,10 +380,6 @@ return {
 		end,
 	},
 	{
-		"goerz/jupytext.nvim",
-		event = "VeryLazy",
-	},
-	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
 		opts = {

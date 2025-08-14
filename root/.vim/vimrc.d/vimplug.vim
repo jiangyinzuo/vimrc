@@ -148,28 +148,6 @@ if v:version >= 800
 			" pip3 install doq --break-system-packages
 			Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
-			" vim和jupyter notebook(运行在浏览器上)同步，
-			" 需要安装jupyter_ascending, 目前不支持notebook 7
-			" :h jupyter-notebook
-			" See: https://github.com/imbue-ai/jupyter_ascending
-			" See: https://alpha2phi.medium.com/jupyter-notebook-vim-neovim-c2d67d56d563#c0ed
-			let g:jupyter_mapkeys = 0
-			let g:jupyter_cell_separators = ['\s*##']
-
-			let g:jupyter_ascending_default_mappings = 0
-			let g:jupyter_ascending_python_executable = 'python3'
-			" 同步到浏览器内存中，若要同步到.ipynb文件中，需要浏览器手动/自动定时保存
-			" 或执行 jupytext --to ipynb hello2.sync.py，(虽然会丢失执行结果)
-			let g:jupyter_ascending_auto_write = v:true
-			let g:jupytext_fmt = 'py'
-			Plug 'imbue-ai/jupyter_ascending.vim', {'for': 'python'}
-			
-			" vim和jupyter console/qtconsole同步
-			" :h jupyter-qtconsole
-			Plug 'jupyter-vim/jupyter-vim', {'on': 'JupyterConnect'}
-			" ipynb打开时显示python
-			Plug 'goerz/jupytext.vim'
-
 			Plug 'jpalardy/vim-slime', {'for': ['lua', 'python', 'ocaml']}
 
 			" support more features(mermaid, flowchart, ...)
@@ -178,9 +156,6 @@ if v:version >= 800
 			" See: https://github.com/preservim/vim-markdown/pull/633
 			Plug 'jiangyinzuo/vim-markdown', { 'for': 'markdown' }
 
-			" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-			Plug 'lervag/vimtex', {'for': 'tex'}
-			source ~/.vim/vimrc.d/latex.vim
 			Plug 'skywind3000/asynctasks.vim'
 			Plug 'skywind3000/asyncrun.vim'
 			source ~/.vim/vimrc.d/asynctasks.vim
@@ -199,6 +174,10 @@ if v:version >= 800
 					" Alternative: https://github.com/gelguy/wilder.nvim
 					Plug 'girishji/vimsuggest'
 					autocmd VimEnter * ++once if exists('*g:VimSuggestSetOptions') | call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }}) | endif
+					" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
+					" do not lazy load vimtex
+					Plug 'lervag/vimtex'
+					source ~/.vim/vimrc.d/latex.vim
 				endif
 			endif
 			if g:vim_dap == 'vimspector'

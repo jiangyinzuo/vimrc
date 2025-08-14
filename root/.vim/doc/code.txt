@@ -105,6 +105,9 @@ doxygen https://www.doxygen.nl/
 补全
 See: complete.md
 
+-------------------------------------------------------------------------------
+SCIP
+SCIP - a better code indexing format than LSIF https://sourcegraph.com/blog/announcing-scip
 ===============================================================================
 NOTE: 搭环境考验
 
