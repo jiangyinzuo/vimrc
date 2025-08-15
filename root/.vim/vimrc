@@ -78,14 +78,12 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:clang_format = get(g:, 'clang_format', 'clang-format')
 	" black, ruff
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
-	let g:python_lsp = get(g:, 'python_lsp', 'pyright')
+	let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
 	let g:sql_type_default = 'mysql'
 	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim
 	" minuet-ai.nvim
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
 
-	" gtags-cscope | cscope
-	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 	let g:mapleader = get(g:, 'mapleader', ' ')
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -97,7 +95,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	filetype indent plugin on
 	syntax on "语法高亮显示
 	set encoding=utf-8
-	set fileencoding=utf-8
 	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030 " vim自动探测fileencodeing的顺序列表
 	set fileformats=unix,dos,mac " 文件格式
 	set cmdheight=2 " cmd行高2, 减少hit-enter

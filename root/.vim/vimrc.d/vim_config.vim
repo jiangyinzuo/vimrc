@@ -75,6 +75,8 @@ else
 endif
 
 """"""""""""""""""" Tag System """""""""""""""""
+" gtags-cscope | cscope
+let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 " 当前使用.globalrc配置文件
 " let $GTAGSCONF = '/root/gtags.conf'
 
