@@ -94,3 +94,7 @@ Linux修改他人用户名 ~
 >bash
     export LD_LIBRARY_PATH=/your/custom/path:$LD_LIBRARY_PATH
 <
+
+----------------------------------
+
+*linux查看重启时间* uptime

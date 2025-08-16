@@ -1,0 +1,23 @@
+{
+  "all_file": {
+    "prefix": "all_file",
+    "body": [
+      "SELECT *",
+      "FROM code_chunks;"
+    ],
+    "description": "Select all from code_chunks"
+  },
+  "basic": {
+    "prefix": "basic",
+    "body": [
+      "SELECT file_path",
+      "FROM code_chunks",
+      "-- always use double %%",
+      "-- WHERE file_path LIKE '%%.py'",
+      "-- a placeholder for the embedding vector",
+      "ORDER BY embedding <-> %(embedding)s::vector",
+      "LIMIT 10;"
+    ],
+    "description": "Basic ANN Search"
+  }
+}

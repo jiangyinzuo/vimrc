@@ -391,4 +391,10 @@ return {
 			},
 		},
 	},
+	{
+		"jiangyinzuo/codebase-semantic-search",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
 }
