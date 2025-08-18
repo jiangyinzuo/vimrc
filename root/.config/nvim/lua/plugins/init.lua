@@ -397,4 +397,8 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
+	-- development
+	-- {
+	-- 	dir = "~/codebase-semantic-search"
+	-- }
 }

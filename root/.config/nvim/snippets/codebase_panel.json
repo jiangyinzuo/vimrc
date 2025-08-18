@@ -10,12 +10,12 @@
   "basic": {
     "prefix": "basic",
     "body": [
-      "SELECT file_path",
+      "SELECT file_path, embedding <=> %(embedding)s::vector as distance",
       "FROM code_chunks",
       "-- always use double %%",
       "-- WHERE file_path LIKE '%%.py'",
-      "-- a placeholder for the embedding vector",
-      "ORDER BY embedding <-> %(embedding)s::vector",
+      "-- a placeholder for the embedding vector, <=> means cosine similarity",
+      "ORDER BY embedding <=> %(embedding)s::vector",
       "LIMIT 10;"
     ],
     "description": "Basic ANN Search"
