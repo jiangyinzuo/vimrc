@@ -1,0 +1,15 @@
+{
+  "selectedAuthType": "openai",
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"],
+      "env": {
+      },
+      "excludeTools": ["read_file", "create_text_file", "list_dir", "find_file", "execute_shell_command"],
+      "timeout": 30000,
+      "trust": false
+    }
+  },
+  "allowMCPServers": ["serena"]
+}

@@ -19,6 +19,7 @@ soft_link_files=(
 	.tmux.conf
 	.vim
 	.codex
+	.qwen
 )
 
 echo_green() {
