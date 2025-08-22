@@ -88,7 +88,12 @@ function noplug#BackupFile()
 		return
 	endif
 	if !exists("b:backup_dir")
-		let b:backup_dir = expand("~/.vim/backup") . expand("%:p:h")
+		let l:absolute_file_folder = expand("%:p:h")
+		" if do not start with / (oil:), ignore it
+		if l:absolute_file_folder[0] != '/'
+			return
+		endif
+		let b:backup_dir = expand("~/.vim/backup") . l:absolute_file_folder
 		if !isdirectory(b:backup_dir)
 			call mkdir(b:backup_dir, "p", 0700)
 		endif

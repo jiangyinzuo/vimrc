@@ -42,6 +42,8 @@ Claude Code CLI ~
 greggh/claude-code.nvim
 coder/claudecode.nvim
 
+https://www.anthropic.com/engineering/claude-code-best-practices
+
 Gemini CLI ~
 
 Qwen Coder ~
@@ -75,3 +77,31 @@ https://aider.chat/
 
 不再维护 ~
 https://github.com/AntonOsika/gpt-engineer
+
+=======================================================
+MCP
+
+https://github.com/oraios/serena  *serena*
+https://github.com/upstash/context7
+
+=======================================================
+Context
+
+Codebase Indexing & Semantic Code Search ~
+
+需要注意embedding model的能力，有些embedding model仅仅适用于自然语言，不适用于代码。
+
+Features:
+
+- 属性过滤，对文件路径、文件后缀等进行过滤
+- 基于treesitter自定义chunk level
+
+Repository Outline ~
+
+整个代码仓库的结构化大纲，可以用ctags生成的tags。
+
+>bash
+    ctags  --extras=+q --kinds-python=-iY -R --sort=no .
+<
+
+LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
