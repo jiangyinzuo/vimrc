@@ -120,8 +120,28 @@ CMake设置CCache ~
         set(CMAKE_CUDA_COMPILER_LAUNCHER "${CCACHE_PROGRAM}") # CMake 3.9+
     endif()
 <
+
+Make使用CCache ~
+
+>bash
+    ./configue CC='ccache gcc'
+    # or
+    make CC='ccache gcc'
+    # or
+    ccache make
+<
+
 ======================================================================================
 C++ Build & Package Management Tools
+
+*bear*
+
+>bash
+    no_proxy=localhost,127.0.0.1 bear -- ccache make -j8
+<
+
+-j8: 线程太多可能导致打开文件数量过多，进而报错。
+no_proxy=localhost,127.0.0.1: 防止报错“wrapper: failed with: gRPC call failed: failed to connect to all addresses”
 
 *ninja*
 
@@ -176,6 +196,8 @@ CMake导出compile_commands.json ~
 >bash
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 <
+
+cmake可以在不执行编译的情况下生成compile_commands.json文件
 
 CMake不使用response file ~
 

@@ -225,7 +225,9 @@ uwberzug:
 *onefetch* 查看git项目信息
 https://github.com/o2sh/onefetch
 https://onefetch.dev/
+
 >bash
+    cargo install onefetch
 	onefetch --include-hidden
 <
 

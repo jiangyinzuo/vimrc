@@ -548,4 +548,10 @@ return {
 	-- 	dependencies = { "nvim-lua/plenary.nvim" },
 	-- cond = vim.fn.executable("vectorcode") == 1,
 	-- },
+	{
+		"coder/claudecode.nvim",
+		dependencies = { "folke/snacks.nvim" },
+		config = true,
+		cond = vim.fn.executable("claude") == 1,
+	},
 }

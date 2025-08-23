@@ -98,10 +98,33 @@ Features:
 
 Repository Outline ~
 
-整个代码仓库的结构化大纲，可以用ctags生成的tags。
+整个代码仓库的结构化大纲，可以用ctags生成的tags。 |tags.txt|
 
 >bash
+    # python项目
     ctags  --extras=+q --kinds-python=-iY -R --sort=no .
+    # postgresql项目
+    ctags --languages=C,C++ --kinds-c=-hl --extras=+q -R --sort=no -o tags-nosort  .
 <
 
 LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
+
+=======================================================
+Use Cases
+
+PostgreSQL项目代码理解 ~
+
+基于Qwen Code
+保存对话记录：/chat save postgresql-notes
+恢复对话记录：/chat load postgresql-notes
+
+1. 创建postgresql-notes文件夹，将其通过
+
+>
+    /directory add /usr3/jiangyinzuo_data/postgresql-notes
+<
+添加。
+
+2. 运行/init，初始化项目，生成QWEN.md文件
+
+3. Prompt: “请按照关系型数据库代码的组织架构，帮我先分析项目C代码的整体架构。我为你创建了/usr3/jiangyinzuo_data/postgresql-notes目录，你可以在该目录下创建任意多个markdown文件，作为源码理解阅读笔记"

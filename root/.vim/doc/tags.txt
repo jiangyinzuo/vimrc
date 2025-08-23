@@ -28,8 +28,6 @@ Install on Ubuntu: >
 -------------------------------------
 CTags
 
-*ctags*
-
 直接下载二进制程序
 https://github.com/universal-ctags/ctags-nightly-build/releases
 
