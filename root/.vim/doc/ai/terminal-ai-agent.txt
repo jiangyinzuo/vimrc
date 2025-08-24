@@ -44,6 +44,8 @@ coder/claudecode.nvim
 
 https://www.anthropic.com/engineering/claude-code-best-practices
 https://github.com/musistudio/claude-code-router
+https://github.com/RonitSachdev/ccundo
+ccundo seamlessly integrates with Claude Code to provide granular undo functionality
 
 Gemini CLI ~
 
