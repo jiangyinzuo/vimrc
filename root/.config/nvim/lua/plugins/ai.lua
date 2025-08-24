@@ -552,6 +552,9 @@ return {
 		"coder/claudecode.nvim",
 		dependencies = { "folke/snacks.nvim" },
 		config = true,
+		opts = {
+			terminal_cmd = "claude", -- ccr code
+		},
 		cond = vim.fn.executable("claude") == 1,
 	},
 }

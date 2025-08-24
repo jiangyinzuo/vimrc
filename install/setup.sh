@@ -1,6 +1,7 @@
 #!/bin/bash
 
 soft_link_files=(
+	.claude-code-router
 	.condarc
 	.config/avante
 	.config/clangd

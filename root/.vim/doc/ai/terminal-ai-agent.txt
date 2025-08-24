@@ -43,6 +43,7 @@ greggh/claude-code.nvim
 coder/claudecode.nvim
 
 https://www.anthropic.com/engineering/claude-code-best-practices
+https://github.com/musistudio/claude-code-router
 
 Gemini CLI ~
 

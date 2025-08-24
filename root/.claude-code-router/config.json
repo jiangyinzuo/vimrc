@@ -1,0 +1,26 @@
+{
+  "Providers": [
+    {
+      "name": "deepseek",
+      "api_base_url": "https://api.deepseek.com/chat/completions",
+      "api_key": "$OPENAI_API_KEY",
+      "models": [
+        "deepseek-chat",
+        "deepseek-reasoner"
+      ],
+      "transformer": {
+        "use": [
+          "deepseek"
+        ],
+        "deepseek-chat": {
+          "use": [
+            "tooluse"
+          ]
+        }
+      }
+    }
+  ],
+  "Router": {
+    "default": "deepseek,deepseek-chat"
+  }
+}
