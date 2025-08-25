@@ -556,5 +556,13 @@ return {
 			terminal_cmd = "claude", -- ccr code
 		},
 		cond = vim.fn.executable("claude") == 1,
+		lazy = true,
+		keys = {
+			{ "<leader>ccc", "<cmd>ClaudeCode<cr>", desc = "ClaudeCode toggle" },
+			{ "<leader>ccd", nil, desc = "ClaudeCode Diff" },
+			{ "<leader>ccda", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+			{ "<leader>ccdd", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+			{ "<leader>ccs", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+		},
 	},
 }

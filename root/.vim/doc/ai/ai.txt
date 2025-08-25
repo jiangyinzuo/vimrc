@@ -219,10 +219,14 @@ https://github.com/dlants/magenta.nvim
 
 Deep Research Agent ~
 
+目前国内有哪些类似Manus的deep research应用？ - 三白有话说的回答 - 知乎
+https://www.zhihu.com/question/15684801110/answer/1892597238397657591
+
 https://blog.csdn.net/dinaxuejie/article/details/146195104
 
 - Gemini Deep Research
 - OpenAI Deep Research
+- Qwen
 
 =========================
 Benchmark Leaderboard

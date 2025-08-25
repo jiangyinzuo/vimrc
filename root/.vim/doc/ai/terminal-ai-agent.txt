@@ -34,20 +34,28 @@ https://github.com/charmbracelet/mods
 =======================================================
 命令行Agent
 
-Amazon Q ~
-仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
+-------------------------------------------------------
+Claude Code CLI                           *claude-code*
 
-Claude Code CLI ~
+Neovim 插件 ~
 
 greggh/claude-code.nvim
 coder/claudecode.nvim
 
 https://www.anthropic.com/engineering/claude-code-best-practices
-https://github.com/musistudio/claude-code-router
-https://github.com/RonitSachdev/ccundo
-ccundo seamlessly integrates with Claude Code to provide granular undo functionality
+https://github.com/hesreallyhim/awesome-claude-code
 
-Gemini CLI ~
+https://github.com/musistudio/claude-code-router
+https://github.com/RonitSachdev/ccundo ccundo seamlessly integrates with Claude Code to provide granular undo functionality
+
+
+Sub-agents ~
+
+https://github.com/VoltAgent/awesome-claude-code-subagents
+https://docs.anthropic.com/en/docs/claude-code/sub-agents
+
+-------------------------------------------------------
+Gemini CLI
 
 Qwen Coder ~
 
@@ -77,6 +85,9 @@ AIDER ~
 
 https://aider.chat/
 不支持MCP、tool call
+
+Amazon Q ~
+仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
 
 不再维护 ~
 https://github.com/AntonOsika/gpt-engineer
