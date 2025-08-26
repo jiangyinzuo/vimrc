@@ -33,6 +33,12 @@ https://github.com/universal-ctags/ctags-nightly-build/releases
 
 *生成ctags* :!ctags -R
 
+示例：
+>bash
+    # heavydb (GPU DB)项目
+    ctags --languages=C,C++,CUDA --kinds-c=-hl --extras=+q -R .
+<
+
 *tag跳转*	CTRL-]
 ctags生成python tag `ctags --language-force=python hello.py`
 

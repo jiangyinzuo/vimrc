@@ -12,7 +12,7 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			-- "hrsh7th/cmp-path",
-			"https://codeberg.org/FelipeLema/cmp-async-path.git",
+			"sutt0n/cmp-async-path",
 			"hrsh7th/cmp-cmdline",
 			-- "saadparwaiz1/cmp_luasnip",
 			-- 'quangnguyen30192/cmp-nvim-ultisnips',

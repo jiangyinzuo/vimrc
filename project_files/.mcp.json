@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "codebase": {
+      "command": "codebase-mcp"
+    }
+  }
+}

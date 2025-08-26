@@ -70,6 +70,7 @@ Reference: https://gist.github.com/backroot/add72227c11759615207cbae79362287
 ### Build from Source
 
 ```bash
+# may not work in CentOS 7
 sudo -E install/build_nvim.sh
 ```
 

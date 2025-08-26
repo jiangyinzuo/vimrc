@@ -10,3 +10,9 @@ Installation ~
 - https://github.com/tj/n
 - https://github.com/nvm-sh/nvm
 - https://github.com/neoclide/coc.nvim
+
+Micromanba / Conda 环境安装 ~
+
+>bash
+    micromanba install nodejs
+<

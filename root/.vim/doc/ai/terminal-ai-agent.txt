@@ -54,6 +54,10 @@ Sub-agents ~
 https://github.com/VoltAgent/awesome-claude-code-subagents
 https://docs.anthropic.com/en/docs/claude-code/sub-agents
 
+Type        Location              Scope                             Priority
+Project     .claude/agents/       Available in current project      Highest
+User        ~/.claude/agents/     Available across all projects     Lower
+
 -------------------------------------------------------
 Gemini CLI
 
