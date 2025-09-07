@@ -52,13 +52,4 @@
 *垂直切分显示buffer-id为4的终端*	:vsp|b4
 *用TODO高亮当前行*					:call matchadd('Todo', '\%.l')
 *取消高亮*						:call clearmatches()
-*camelCase*						crc
-*dot.case*						crd
-*kebab-case*						crk
-*n12e*							crn
-*PascalCase*						crp
-*snake_case*						crs
-*UPPER_CASE*						cru
-*path/case*						cr/
-*space_case*						cr 
-*TitleCase*						crt
+*AsyncRun执行外部命令*			:AsyncRun -mode=term -pos=bottom

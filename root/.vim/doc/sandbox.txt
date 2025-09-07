@@ -1,0 +1,32 @@
+vim:ft=help
+
+*sandbox.txt*
+
+临时切断网络连接 ~
+
+方案1. 使用 `unshare` 命令创建一个新的网络命名空间，从而切断当前 shell 的网络连接。
+
+>bash
+    unshare --net bash
+    # 或者可以直接尝试执行命令
+    unshare --net curl baidu.com
+<
+
+方案2. 使用firejail工具创建一个隔离的环境，切断网络连接。
+
+>bash
+    firejail --net=none bash
+    # 或者直接执行命令
+    firejail --net=none curl baidu.com
+<
+
+squid代理服务器禁止访问某些网站 ~
+
+See |squid禁止访问部分网址|
+
+==============================================================================
+基于 Linux网络命名空间和iptables 的网络沙箱环境 ~
+
+*netns* *iptables*
+
+见 ./network/README.md

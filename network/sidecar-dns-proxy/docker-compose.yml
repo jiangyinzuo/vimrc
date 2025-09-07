@@ -1,0 +1,36 @@
+services:
+  # sidecar DNS 代理容器
+  dns-proxy:
+    image: docker.m.daocloud.io/dockurr/dnsmasq
+    container_name: dns-proxy
+    networks:
+      app-network:
+        ipv4_address: 172.28.0.2
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  # 应用容器
+  alpine-app:
+    image: docker.m.daocloud.io/alpine:latest
+    container_name: alpine-app
+    networks:
+      app-network:
+        ipv4_address: 172.28.0.3
+    dns:
+      - 172.28.0.2  # 使用dns-proxy容器的IP
+    depends_on:
+      - dns-proxy
+    stdin_open: true  # 保持标准输入打开，对应docker run -i
+    tty: true         # 分配伪终端，对应docker run -t
+    command: sh       # 启动shell
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

@@ -6,14 +6,14 @@ set -e
 . install/git.sh
 
 PYTHON=/usr/bin/python3
-
+CMAKE=${CMAKE:-cmake}
 commit=$1
 
 # $SUDO apt-get -y install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 # $PYTHON -m pip install -U neovim
 
 function _uninstall() {
-	$SUDO cmake --build build/ --target uninstall
+	$SUDO $CMAKE --build build/ --target uninstall
 }
 
 function _install() {

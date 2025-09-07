@@ -2,6 +2,33 @@ vim:ft=help
 
 *ssh-help*
 
+sshconfig示例
+
+>sshconfig
+    # 跳板机
+    Host cherry00
+        HostName 10.12.0.80
+        User jiangyinzuo
+        Port 20022
+        ForwardAgent yes
+    # 目标机
+    Host kiwi-nf
+        HostName 10.208.130.1
+        User jiangyinzuo
+        Port 3527
+        # 每隔60秒发送一次探测包
+        # 防止 SSH 连接因网络空闲而被中间设备（如防火墙、路由器、NAT 网关）断开
+        ServerAliveInterval 60
+        # 跳板机
+        ProxyJump cherry00
+        # 服务器端口:本地端口，可以在本地启动squid
+        # http代理服务器，让远程服务器通过本地squid访问外网
+        RemoteForward 3128 localhost:3128
+        # 强制要求分配一个伪终端。默认情况下，当ssh
+        # kiwi-nf时，会分配伪终端；ssh kiwi-nf <command>时，不会分配伪终端
+        # RequestTTY yes
+<
+
 别再笨笨地使用SSH了 - Pavinberg的文章 - 知乎 https://zhuanlan.zhihu.com/p/716963359
 
 *ssh生成key*

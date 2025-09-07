@@ -233,7 +233,10 @@ let g:cpp_attributes_highlight = 1
 let g:cpp_member_highlight = 1
 " Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
-source ~/.vim/vimrc.d/golang.vim
+
+if has('patch-8.2.5072')
+	source ~/.vim/vimrc.d/golang.vim
+endif
 
 Plug 'alepez/vim-gtest', {'for': ['c', 'cpp', 'cuda']}
 Plug 'lambdalisue/doctest.vim', {'for': 'python'}

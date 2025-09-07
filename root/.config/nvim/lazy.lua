@@ -73,4 +73,4 @@ hi link QuickPreview Normal
 config_clipboard()
 
 -- https://github.com/neovim/neovim/pull/27855
--- require("vim._extui").enable({ enable = true, msg = { target = "cmd" } })
+require("vim._extui").enable({ enable = true, msg = { target = "cmd" } })

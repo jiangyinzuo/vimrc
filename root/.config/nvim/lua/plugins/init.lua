@@ -37,7 +37,7 @@ return {
 			-- bigfile = { enabled = true },
 			-- dashboard = { enabled = true },
 			-- explorer = { enabled = true },
-			-- indent = { enabled = true },
+			-- BUG: extui + snack.nvim input is buggy when using vim.lsp.buf.rename()
 			input = { enabled = true, border = "rounded" },
 			-- picker = { enabled = true },
 			-- notifier = { enabled = true },
@@ -47,12 +47,17 @@ return {
 			-- statuscolumn = { enabled = true },
 			-- words = { enabled = true },
 		},
-		cond = true,
+		cond = false,
 	},
 	-- nerdfont cheatsheet: https://www.nerdfonts.com/cheat-sheet
 	{
 		"2kabhishek/nerdy.nvim",
 		cmd = "Nerdy",
+		opts = {
+			max_recents = 30, -- Configure recent icons limit
+			add_default_keybindings = false, -- Add default keybindings
+			copy_to_clipboard = false, -- Copy glyph to clipboard instead of inserting
+		},
 	},
 	{
 		"brianhuster/unnest.nvim",
@@ -306,6 +311,7 @@ return {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 	},
+	-- based on tinymist
 	{
 		"chomosuke/typst-preview.nvim",
 		cond = has_typst_executable,

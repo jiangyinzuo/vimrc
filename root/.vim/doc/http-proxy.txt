@@ -5,19 +5,43 @@ vim:ft=help
 WSL启动http proxy server ~
 
 *squid*
+
 apt install squid
-/etc/squid/squid.conf配置文件中，找到 >
-	http_access deny all
-<
-改为
-	http_access allow all
-<
 
 运行squid:
 
 squid --foreground
 或者
 sudo systemctl start squid
+
+squid默认配置文件 `/etc/squid/squid.conf`
+
+*squid禁止访问部分网址*
+
+squid的规则是从上到下开始匹配的，匹配到第一条规则即结束。
+
+黑名单
+>squid
+    # 在TAG: acl中添加
+    acl Blocked_URL_by_jiangyinzuo dstdomain .baidu.com .qq.com
+    # 在TAG: http_access中添加
+    http_access deny Blocked_URL_by_jiangyinzuo
+<
+
+白名单
+>squid
+    # 白名单 ACL
+    acl whitelist dstdomain .example.com
+    acl whitelist dstdomain .github.com
+    acl whitelist dstdomain .google.com
+
+    # 拒绝非白名单
+    http_access deny !whitelist
+<
+
+
+然后更新配置文件
+sudo systemctl restart squid
 
 http转发到能连外网的跳板机 ~
 
@@ -31,7 +55,7 @@ http转发到个人电脑 ~
 假设目标机器为kiwi-nf，跳板机为cherry01，个人电脑启动squid，端口号为3128.
 服务器http proxy也转发到3128
 >
-Host kiwi-nf
+	Host kiwi-nf
 	HostName 10.208.130.1
 	User jiangyinzuo
 	Port 3527
@@ -50,8 +74,10 @@ Warning: remote port forwarding failed for listen port 3128 ~
 找到占用端口的进程（可能是之前的ssh异常退出），然后kill
 
 查看日志
-sudo tail -f /var/log/squid/access.log
-sudo tail -f /var/log/squid/cache.log
+>bash
+    sudo tail -f /var/log/squid/access.log
+    sudo tail -f /var/log/squid/cache.log
+<
 
 bash环境变量 ~
 

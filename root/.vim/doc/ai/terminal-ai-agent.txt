@@ -29,7 +29,7 @@ BROWSER=nonexistent gh auth login
 https://github.com/cli/cli/issues/297
 
 mods ~
-https://github.com/charmbracelet/mods
+命令行聊天 https://github.com/charmbracelet/mods
 
 =======================================================
 命令行Agent
@@ -48,6 +48,18 @@ https://github.com/hesreallyhim/awesome-claude-code
 https://github.com/musistudio/claude-code-router
 https://github.com/RonitSachdev/ccundo ccundo seamlessly integrates with Claude Code to provide granular undo functionality
 
+Claude code不要访问不必要的外部网络 ~
+
+|tshark抓包|
+
+参考资料：
+https://docs.anthropic.com/en/docs/claude-code/settings
+https://docs.anthropic.com/en/docs/claude-code/corporate-proxy#network-access-requirements
+
+>bash
+    # 设置NPM_CONFIG_REGISTRY=invalid，防止访问registry.npmjs.org
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 DISABLE_AUTOUPDATER=1 DISABLE_BUG_COMMAND=1 NPM_CONFIG_REGISTRY=invalid claude
+<
 
 Sub-agents ~
 
@@ -59,11 +71,15 @@ Project     .claude/agents/       Available in current project      Highest
 User        ~/.claude/agents/     Available across all projects     Lower
 
 -------------------------------------------------------
-Gemini CLI
+Gemini CLI ~
 
 Qwen Coder ~
 
 基于Gemini CLI，可以运行deepseek。
+
+iFlow CLI ~
+
+https://github.com/iflow-ai/iflow-cli
 
 OpenAI CodeX ~
 
@@ -126,6 +142,18 @@ Repository Outline ~
 <
 
 LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
+
+=======================================================
+Agent Client Protocol (ACP)
+*agent-client-protocol* *acp*
+
+https://agentclientprotocol.com/overview/introduction
+https://github.com/zed-industries/agent-client-protocol
+
+Gemini CLI
+Claude Code: 有两种SDK实现。
+https://github.com/zed-industries/claude-code-acp npm install @zed-industries/claude-code-acp
+https://github.com/Xuanwo/acp-claude-code
 
 =======================================================
 Use Cases

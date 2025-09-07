@@ -1,8 +1,6 @@
 " run `:GoUpdateBinaries` first
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod', 'gosum'] }
-if v:version >= 801
-  Plug 'sebdah/vim-delve', { 'for': 'go' }
-endif
+Plug 'sebdah/vim-delve', { 'for': 'go' }
 " 禁用vim-go的lsp功能，使用coc.nvim的lsp
 let g:go_gopls_enabled = 0
 let g:go_auto_type_info = 0

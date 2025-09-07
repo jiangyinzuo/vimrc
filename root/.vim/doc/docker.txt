@@ -147,13 +147,13 @@ See: https://blog.csdn.net/webrx/article/details/135091731
 -------------------------------------------------------------------------------
 *docker国内镜像*
 
-/etc/docker/daemon.json
+临时使用镜像：以pull ubuntu，使用 `docker.m.daocloud.io` 镜像站为例 `docker pull docker.m.daocloud.io/ubuntu`
+永久使用镜像：更新 `/etc/docker/daemon.json`
 >
 	{
 		"registry-mirrors": [
 			"https://<阿里云镜像url>.mirror.aliyuncs.com",
-			"https://registry.docker-cn.com",
-			"https://docker.mirrors.ustc.edu.cn/"
+                        "https://docker.m.daocloud.io"
 		]
 	}
 <

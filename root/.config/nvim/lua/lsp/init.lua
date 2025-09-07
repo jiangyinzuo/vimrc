@@ -203,7 +203,12 @@ function M.lspconfig()
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
 			-- range_code_action and range_formatting are deprecated
-			vim.keymap.set({ "n", "x" }, "<leader>ac", vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set(
+				{ "n", "x" },
+				"<leader>ac",
+				vim.lsp.buf.code_action,
+				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.code_action" }
+			)
 			vim.keymap.set({ "n", "x" }, "<leader>fmt", function()
 				vim.lsp.buf.format({ async = true })
 			end, bufopts)
@@ -234,6 +239,9 @@ function M.lspconfig()
 	end, { nargs = 0 })
 	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	end, {})
+	vim.api.nvim_create_user_command("LspCodelensRun", function(_)
+		vim.lsp.codelens.run()
 	end, {})
 end
 

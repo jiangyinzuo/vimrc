@@ -1,10 +1,91 @@
 *network.txt*
-IP地址类型完整指南
+
+===============================================================================
+
+*测试自己的公网IP*  `curl cip.cc`
+
+===============================================================================
+*tshark抓包http*
+
+>bash
+	# 抓http proxy server： 监听本地回环接口lo，过滤tcp端口3128（squid代理默认端口），显示http协议包
+	sudo tshark -i lo -f "tcp port 3128" -Y "http"
+<
+
+`curl qq.com`的抓包输出：
+>
+    4 0.000036569          ::1 → ::1          HTTP 198 GET http://qq.com/ HTTP/1.1
+    8 0.420832758          ::1 → ::1          HTTP 223 HTTP/1.1 302 Found  (text/html)
+<
+
+其中`::1`是IPv6的本地回环地址，等同于IPv4的`127.0.0.1`
+
+抓外发的http请求，见tshark-http.sh
+
+===============================================================================
+DNS（Domain Name Server，域名服务器）
+
+*DNS*
+
+公共DNS服务器 ~
+
+Google DNS: 8.8.8.8, 8.8.4.4
+Cloudflare DNS: 1.1.1.1
+中科院 中国科技网（CSTNET）: 159.226.39.1 (见cucumber `/etc/resolv.conf`)
+
+默认情况下，linux系统会从 `/etc/resolv.conf` 文件读取DNS服务器地址
+
+DNS代理服务器 ~
+
+`apt install dnsmasq`
+
+TShark抓包过滤DNS请求 ~
+
+DNS的标准端口是53。因为DNS查询和相应的数据量通常较小，所以往往使用UDP协议进行传输。
+
+>bash
+	sudo tshark -i any -f "udp port 53" -n
+<
+
+在cucumber服务器，没有设置http_proxy时，对`curl baidu.com`抓包的输出：
+
+>
+   1 0.000000000 10.156.152.108 → 159.226.39.1 DNS 71 Standard query 0x0fb1 A baidu.com
+   2 0.000003475 10.156.152.108 → 159.226.39.1 DNS 71 Standard query 0x50b0 AAAA baidu.com
+   3 0.000846939 159.226.39.1 → 10.156.152.108 DNS 103 Standard query response 0x0fb1 A baidu.com A 220.181.7.203 A 39.156.70.37
+   4 0.009310371 159.226.39.1 → 10.156.152.108 DNS 71 Standard query response 0x50b0 AAAA baidu.com
+<
+
+10.156.152.108 → 159.226.39.1  一个私有IP向公共DNS服务器发起查询请求。
+
+NAT并不会改变应用层（DNS）的数据包内容，NAT修改的是网络层的IP地址。
+
+A: IPv4地址, AAAA: IPv6地址
+
+通过ssh端口转发，将本地WSL中的localhost:3128 (squid)作为http
+proxy server时，在cucumber服务器中对`curl baidu.com`抓包的输出：
+
+>
+    1 0.000000000 10.255.255.254 → 10.255.255.254 DNS 68 Standard query 0xd819 A qq.com
+    2 0.000069580 10.255.255.254 → 10.255.255.254 DNS 68 Standard query 0x5fc3 AAAA qq.com
+    3 0.027304774 10.255.255.254 → 10.255.255.254 DNS 100 Standard query response 0xd819 A qq.com A 112.60.14.252 A 111.33.167.71
+    4 0.057722598 10.255.255.254 → 10.255.255.254 DNS 136 Standard query response 0x5fc3 AAAA qq.com SOA ns1.qq.com
+<
+
+`10.255.255.254`是WSL`/etc/resolv.conf`中配置的DNS服务器地址。可见squid代理服务器负责了DNS查询请求。
+|squid|的配置文件也可以通过`dns_nameservers`去配置DNS服务器，但默认会读取系统的`/etc/resolv.conf`。
+
+===============================================================================
+
+IP地址类型完整指南 ~
 
 ===============================================================================
 1. 按网络范围分类 ~
 
 1.1 内网（私有）IP地址 ~
+
+*私有IP地址范围*
+
 用途: 局域网(LAN)内部通信，不能直接访问互联网
 
 IPv4范围(RFC 1918):

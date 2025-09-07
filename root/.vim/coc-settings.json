@@ -74,7 +74,7 @@
     "$HOME/.rustup/**"
   ],
   "go.enable": true,
-  "go.goplsPath": "/usr/bin/gopls",
+  "go.goplsPath": "~/go/bin/gopls",
   "java.enabled": true,
   "json.enable": true,
   "json.schemaDownload.enable": true,

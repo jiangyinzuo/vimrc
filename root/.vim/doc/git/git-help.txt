@@ -649,7 +649,7 @@ git删除远程的一个tag
 -------------------------------------------------------------------------------
 *git-protocol* *git协议*
 
-服务器上的 Git - 协议 ~
+服务器上的 Git 协议 ~
 https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%8D%8F%E8%AE%AE
 
 git支持4种协议(local, ssh, http, git)
@@ -670,6 +670,16 @@ https://github.blog/2022-10-18-git-security-vulnerabilities-announced/
 	git config --global protocol.file.allow always
 <
 绕过安全限制。
+
+测试能否通过git协议访问github.com ~
+
+>bash
+    ssh -T git@github.com
+<
+若返回以下信息，说明可以通过git协议访问github.com
+>
+    Hi jiangyinzuo! You've successfully authenticated, but GitHub does not provide shell access.
+<
 
 -------------------------------------------------------------------------------
 *获得当前git仓库根目录*

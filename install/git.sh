@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if command -v sudo >/dev/null 2>&1; then
+if [ $USER = "root" ]; then
+	# 以 root 用户运行脚本，直接执行命令
+	SUDO=
+elif command -v sudo >/dev/null 2>&1; then
 	# sudo 命令存在，使用sudo执行命令
 	SUDO=sudo
 else

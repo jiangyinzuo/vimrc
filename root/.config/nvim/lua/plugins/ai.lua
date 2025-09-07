@@ -96,36 +96,87 @@ return {
 		opts = {
 			log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
 			adapters = {
-				opts = {
-					show_defaults = false,
+				acp = {
+					-- TODO: check if iflow and qwen-code can work with codecompanion.nvim
+					--
+					-- iflow = function()
+					-- 	return require("codecompanion.adapters").extend("gemini_cli", {
+					-- 		name = "iflow",
+					-- 		formatted_name = "iFlow CLI",
+					-- 		commands = {
+					-- 			default = {
+					-- 				"iflow",
+					-- 				"--yolo",
+					-- 				"false",
+					-- 				"--experimental-acp",
+					-- 			},
+					-- 			yolo = {
+					-- 				"iflow",
+					-- 				"--experimental-acp",
+					-- 			},
+					-- 		},
+					-- 		defaults = {},
+					-- 		env = {},
+					-- 		parameters = {
+					-- 			protocolVersion = "0.0.9",
+					-- 		},
+					-- 	})
+					-- end,
+					-- ["qwen-code"] = function()
+					-- 	return require("codecompanion.adapters").extend("gemini_cli", {
+					-- 		name = "qwen-code",
+					-- 		formatted_name = "Qwen-Code",
+					-- 		commands = {
+					-- 			default = {
+					-- 				"qwen",
+					-- 				"--yolo",
+					-- 				"false",
+					-- 				"--experimental-acp",
+					-- 			},
+					-- 			yolo = {
+					-- 				"qwen",
+					-- 				"--yolo",
+					-- 				"true",
+					-- 				"--experimental-acp",
+					-- 			},
+					-- 		},
+					-- 		defaults = {},
+					-- 		env = {},
+					-- 	})
+					-- end,
 				},
-				my_anthropic = function()
-					return require("codecompanion.adapters").extend("anthropic", {
-						url = vim.g.claude_endpoint .. "/v1/messages",
-						env = {
-							api_key = "ANTHROPIC_API_KEY",
-						},
-						schema = {
-							model = {
-								default = vim.g.claude_model,
+				http = {
+					opts = {
+						show_defaults = false,
+					},
+					my_anthropic = function()
+						return require("codecompanion.adapters").extend("anthropic", {
+							url = vim.g.claude_endpoint .. "/v1/messages",
+							env = {
+								api_key = "ANTHROPIC_API_KEY",
 							},
-						},
-					})
-				end,
-				my_openai = function()
-					return require("codecompanion.adapters").extend("openai_compatible", {
-						env = {
-							url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
-							chat_url = "/chat/completions",
-							api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
-						},
-						schema = {
-							model = {
-								default = vim.g.openai_model, -- define llm model to be used
+							schema = {
+								model = {
+									default = vim.g.claude_model,
+								},
 							},
-						},
-					})
-				end,
+						})
+					end,
+					my_openai = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							env = {
+								url = vim.g.openai_endpoint, -- optional: default value is ollama url http://127.0.0.1:11434
+								chat_url = "/chat/completions",
+								api_key = "OPENAI_API_KEY", -- optional: if your endpoint is authenticated
+							},
+							schema = {
+								model = {
+									default = vim.g.openai_model, -- define llm model to be used
+								},
+							},
+						})
+					end,
+				},
 			},
 			strategies = {
 				-- codecompanion.nvim暂时没使用native tools
@@ -184,7 +235,8 @@ return {
 						auto_generate_title = true,
 						title_generation_opts = {
 							---Adapter for generating titles (defaults to current chat adapter)
-							adapter = nil, -- "copilot"
+							--- NOTE: do not use acp adapter
+							adapter = "my_openai", -- "copilot"
 							---Model for generating titles (defaults to current chat model)
 							model = nil, -- "gpt-4o"
 							---Number of user prompts after which to refresh the title (0 to disable)
@@ -386,8 +438,31 @@ return {
 		---@type avante.Config
 		opts = {
 			debug = false,
-			provider = vim.g.avante_provider,
+			-- provider = vim.g.avante_provider,
+			provider = "claude-code",
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
+			acp_providers = {
+				["gemini-cli"] = {
+					command = "gemini",
+					args = { "--experimental-acp" },
+					env = {
+						NODE_NO_WARNINGS = "1",
+						GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
+					},
+				},
+				["claude-code"] = {
+					-- Use https://github.com/zed-industries/claude-code-acp
+					-- Alternatively, you can use https://github.com/Xuanwo/acp-claude-code
+					command = "claude-code-acp",
+					env = {
+						NODE_NO_WARNINGS = "1",
+						ANTHROPIC_BASE_URL = os.getenv("ANTHROPIC_BASE_URL"),
+						ANTHROPIC_AUTH_TOKEN = os.getenv("ANTHROPIC_AUTH_TOKEN"),
+						ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL"),
+						ANTHROPIC_SMALL_FAST_MODEL = os.getenv("ANTHROPIC_SMALL_FAST_MODEL"),
+					},
+				},
+			},
 			providers = {
 				openai = {
 					endpoint = vim.g.openai_endpoint,

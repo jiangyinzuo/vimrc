@@ -25,6 +25,25 @@ strace ~
 *sudo保留用户当前环境变量* `sudo -E`
 *sudo从stdin读取密码，防止脚本被sudo输密码暂停* `echo "mypassword" | sudo -S <command>`
 
+sudo权限限制，防止用户误操作 ~
+
+/etc/sudoers文件中修改%sudo group的权限。
+
+ALL: 允许执行所有命令
+!/usr/bin/su: 禁止使用su命令
+!/usr/sbin/iptables: 禁止使用iptables命令
+
+权限规则从右向左匹配，匹配到第一个规则后停止（默认是禁止所有命令，沉默即禁止）。
+>sudoers
+    %sudo   ALL=(ALL:ALL) ALL,!/usr/bin/su,!/usr/sbin/iptables
+<
+
+iptables: 误操作可能导致ssh无法连接服务器。
+
+参考资料：
+sudoers文件说明 - sudo免密码 - 限制sudo执行特殊命令 - 红色的红的文章 - 知乎
+https://zhuanlan.zhihu.com/p/632737024
+
 Linux修改他人用户名 ~
 
 *linux-user*
