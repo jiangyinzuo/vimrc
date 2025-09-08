@@ -1,3 +1,4 @@
 init.vim
 coc-settings.json
 lazy-lock.json
+lua/config.lua

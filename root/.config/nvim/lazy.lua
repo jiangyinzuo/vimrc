@@ -1,3 +1,4 @@
+local config = require("config")
 -- Linux: ~/.local/share/nvim/lazy/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -27,6 +28,9 @@ require("lazy").setup("plugins", {
 				"~/.vim/after",
 			},
 		},
+	},
+	install = {
+		missing = config.lazy_nvim_install_missing,
 	},
 })
 

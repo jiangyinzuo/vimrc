@@ -7,13 +7,7 @@ return {
 		build = ":TSUpdate",
 		branch = "master",
 		config = function()
-			local ensure_installed = {
-				"cpp",
-				"go",
-				"python",
-				"rust",
-				"html",
-			}
+			local ensure_installed = require("config").treesitter_ensure_installed
 			if vim.fn.has("wsl") == 1 then
 				-- add "r" to ensure_installed
 				table.insert(ensure_installed, "r")

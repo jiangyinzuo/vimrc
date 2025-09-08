@@ -35,6 +35,7 @@ ALL: 允许执行所有命令
 
 权限规则从右向左匹配，匹配到第一个规则后停止（默认是禁止所有命令，沉默即禁止）。
 >sudoers
+    # CentOS中%sudo改为%wheel
     %sudo   ALL=(ALL:ALL) ALL,!/usr/bin/su,!/usr/sbin/iptables
 <
 
@@ -76,10 +77,21 @@ Linux修改他人用户名 ~
 
 请注意，更改用户名可能会影响到用户的配置和权限。建议在执行这些操作之前做好备份，并检查所有与用户相关的服务和应用程序。在生产环境中，此类更改应谨慎进行，以避免任何不必要的服务中断。
 
+*创建用户*
+>bash
+    # CentOS 创建用户并指定home目录
+    sudo useradd -m -d /media/sdb/jiangyinzuo jiangyinzuo
+    # 给用户设置密码
+    sudo passwd jiangyinzuo
+<
+
 *给他人添加sudo权限*
 
 >bash
+	# Ubuntu 加入sudo组
 	sudo usermod -aG sudo username
+	# CentOS 加入wheel组
+	sudo usermod -aG wheel username
 <
 
 *查看sudo组的成员*

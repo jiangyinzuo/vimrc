@@ -41,5 +41,5 @@ See [install/README.md](./install/README.md).
 
 - `root/.vim/vimrc`
     - For Neovim: init.vim(`root/.config/nvim/init.vim`) is a soft link to `root/.vim/vimrc`, you can run `install/setup.sh` to create it.
-- Custom vim configuration file: `~/.vim/config.vim`. See `root/.vim/config.vim.example`.
+- Custom vim configuration file: `~/.vim/config.vim` (Vim / Neovim) and `~/.config/nvim/lua/config.lua` (Neovim). See `root/.vim/config.vim.example`.
 - Local project vimrc file: `.project.vim`
