@@ -93,7 +93,15 @@ Linux修改他人用户名 ~
 	# CentOS 加入wheel组
 	sudo usermod -aG wheel username
 <
+之后打开/etc/sudoers文件，确保%sudo或%wheel组有`ALL=(ALL:ALL) ALL`权限。
 
+*查看一个用户属于哪些组*
+>bash
+    # 查看自己
+    groups
+    # 查看"username"用户
+    groups username
+<
 *查看sudo组的成员*
 
 >bash
