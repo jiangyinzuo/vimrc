@@ -1,4 +1,4 @@
-if require("config").load_plugin.ai_public == false then
+if not require("config").load_plugin.ai_public then
 	return {}
 end
 

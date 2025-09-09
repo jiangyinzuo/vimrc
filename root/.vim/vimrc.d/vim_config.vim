@@ -58,7 +58,7 @@ endif
 " See: https://zhuanlan.zhihu.com/p/532430825
 set laststatus=2
 set statusline=%1*%F%m%r%h%w
-let show_status = exists("g:plugs") && v:version >= 900 && g:no_plug == 0
+let show_status = exists("g:plugs") && v:version >= 900 && g:no_vimplug == 0
 if show_status
 	set statusline+=%{statusline#Left()}
 endif

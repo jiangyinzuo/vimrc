@@ -1,3 +1,7 @@
+if not require("config").load_plugin.ai_local then
+	return {}
+end
+
 return {
 	-- https://github.com/magicalne/nvim.ai
 	{

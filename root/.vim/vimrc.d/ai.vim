@@ -30,7 +30,7 @@ if v:version >= 900 || has('nvim')
 		endif
 		let g:codeium_disable_bindings = 1
 		command -nargs=0 CodeiumChat call codeium#Chat()
-		if g:no_plug == 0
+		if g:no_vimplug == 0
 			imap <script><silent><nowait><expr> <Tab> codeium#Accept()
 			imap <M-p> <Plug>(codeium-previous)
 			imap <M-n> <Plug>(codeium-next)

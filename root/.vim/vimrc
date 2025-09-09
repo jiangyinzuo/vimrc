@@ -174,8 +174,8 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" do not add too much root marks, it will slow down search performance
 	let g:RootMarks = ['.git', g:project_vimrc, '.root']
 
-	" vimplug.vim 可能会改变g:no_plug的值
-	let g:no_plug = (glob(g:vim_plug_dir) == "") || &loadplugins == 0
+	" vimplug.vim 可能会改变g:no_vimplug的值
+	let g:no_vimplug = get(g:, 'no_vimplug', (glob(g:vim_plug_dir) == "") || &loadplugins == 0)
 	" 显示空白字符
 	" https://codepoints.net/U+23B5
 	set list listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
@@ -323,7 +323,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if exists("+omnifunc")
 		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 	endif
-	if g:no_plug && has("patch-7.4.1649")
+	if g:no_vimplug && has("patch-7.4.1649")
 		packadd! matchit
 	endif
 

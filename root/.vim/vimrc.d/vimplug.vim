@@ -259,9 +259,13 @@ source ~/.vim/vimrc.d/plugin_setup.vim
 " Initialize plugin system
 call plug#end()
 
-if g:no_plug
+if g:no_vimplug
 	finish
 endif
+
+" 默认主题不要显示colorcolumn
+set colorcolumn=80,120
+autocmd FileType org,markdown,text setlocal colorcolumn=
 
 source ~/.vim/vimrc.d/slime.vim
 

@@ -8,6 +8,8 @@ return {
 		-- "html",
 	},
 	load_plugin = {
+		-- AI plugins that can run locally
+		ai_local = true,
 		-- AI plugins that send data to public servers
 		ai_public = false,
 		development = {

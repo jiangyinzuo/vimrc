@@ -180,6 +180,3 @@ if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
 endif
 
-" 默认主题不要显示colorcolumn
-set colorcolumn=80,120
-autocmd FileType org,markdown,text setlocal colorcolumn=
