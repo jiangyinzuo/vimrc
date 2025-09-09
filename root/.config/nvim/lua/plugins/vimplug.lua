@@ -1,6 +1,3 @@
-vim.api.nvim_command("source ~/.vim/vimrc.d/plugin_setup.vim")
-vim.api.nvim_command("source ~/.vim/vimrc.d/ai.vim")
-
 local leaderf_dependencies = {
 	"voldikss/LeaderF-emoji",
 }
@@ -29,19 +26,6 @@ local M = {
 		},
 	},
 	"jiangyinzuo/bd.vim",
-	{
-		-- do not lazy load vimtex
-		"lervag/vimtex",
-		cond = (vim.fn.has("wsl") == 1) and detect.has_pdflatex_executable,
-		init = function()
-			vim.api.nvim_command("source ~/.vim/vimrc.d/latex.vim")
-		end,
-	},
-	-- Alternatives:
-	-- https://github.com/jackMort/ChatGPT.nvim
-	-- https://github.com/dpayne/CodeGPT.nvim
-	-- https://github.com/Robitx/gp.nvim
-	{ "madox2/vim-ai", event = "VeryLazy" },
 	-- Ref: https://github.com/ibhagwan/fzf-lua
 	{ "junegunn/fzf", build = "./install --bin" },
 	{
@@ -95,7 +79,6 @@ local M = {
 		"vim-test/vim-test",
 		event = "VeryLazy",
 	},
-	{ "alepez/vim-gtest", ft = { "c", "cpp", "cuda" } },
 	"simnalamburt/vim-mundo",
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
@@ -105,10 +88,6 @@ local M = {
 	"preservim/vimux",
 	"honza/vim-snippets",
 	"voldikss/vim-translator",
-	{
-		"mechatroner/rainbow_csv",
-		ft = "csv",
-	},
 	"andrewradev/linediff.vim",
 	"tpope/vim-surround",
 	"tpope/vim-eunuch",
@@ -150,7 +129,6 @@ local M = {
 	"skywind3000/vim-quickui",
 	"pechorin/any-jump.vim",
 	{ "jiangyinzuo/vim-markdown", ft = "markdown" },
-	{ "whonore/Coqtail", cond = detect.has_coqtop_executable, ft = "coq" },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {
@@ -205,7 +183,6 @@ local M = {
 		end,
 		dependencies = leaderf_dependencies,
 	},
-	{ "sebdah/vim-delve", cond = detect.has_go_executable, ft = "go" },
 	{
 		"SirVer/ultisnips",
 		cond = vim.g.vimrc_lsp == "coc.nvim",

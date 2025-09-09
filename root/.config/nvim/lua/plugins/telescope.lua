@@ -1,3 +1,19 @@
+local config = require("config")
+local telescope_dependencies = {
+	"nvim-lua/plenary.nvim",
+	"aaronhallaert/advanced-git-search.nvim",
+	"nvim-telescope/telescope-media-files.nvim",
+	"rmagatti/auto-session",
+	"nvim-tree/nvim-web-devicons",
+	-- "benfowler/telescope-luasnip.nvim",
+	"2kabhishek/nerdy.nvim",
+	"albenisolmos/telescope-oil.nvim",
+	"nvim-telescope/telescope-ui-select.nvim",
+}
+
+if config.load_plugin.development.writing then
+	table.insert(telescope_dependencies, "nvim-telescope/telescope-bibtex.nvim")
+end
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -10,18 +26,7 @@ return {
 			"<leader>rg",
 		},
 		cmd = { "Telescope" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"aaronhallaert/advanced-git-search.nvim",
-			"nvim-telescope/telescope-media-files.nvim",
-			"rmagatti/auto-session",
-			"nvim-tree/nvim-web-devicons",
-			"nvim-telescope/telescope-bibtex.nvim",
-			-- "benfowler/telescope-luasnip.nvim",
-			"2kabhishek/nerdy.nvim",
-			"albenisolmos/telescope-oil.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
+		dependencies = telescope_dependencies,
 		config = function()
 			local layout_strategy
 			if vim.o.columns <= 125 then
@@ -100,7 +105,9 @@ return {
 			telescope.load_extension("fzf")
 			telescope.load_extension("advanced_git_search")
 			telescope.load_extension("session-lens")
-			telescope.load_extension("bibtex")
+			if config.load_plugin.development.writing then
+				telescope.load_extension("bibtex")
+			end
 			-- telescope.load_extension("luasnip")
 			telescope.load_extension("nerdy")
 			telescope.load_extension("oil")

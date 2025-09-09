@@ -1,3 +1,6 @@
+if require("config").load_plugin.java == false then
+	return
+end
 -- See: https://github.com/mfussenegger/nvim-jdtls
 
 local root_dir = vim.env.PWD

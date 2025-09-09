@@ -1,5 +1,6 @@
 local M = {}
 
+M.has_ccls_executable = vim.fn.executable("ccls") == 1
 M.has_typst_executable = vim.fn.executable("typst") == 1
 M.has_go_executable = vim.fn.executable("go") == 1
 M.has_rust_executable = vim.fn.executable("rustc") == 1

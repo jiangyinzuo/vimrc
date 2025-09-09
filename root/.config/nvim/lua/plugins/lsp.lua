@@ -56,13 +56,6 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 			config = lsp.lspconfig,
 		},
-		{
-			"ranjithshegde/ccls.nvim",
-			event = "VimEnter",
-			dependencies = {
-				"neovim/nvim-lspconfig",
-			},
-		},
 		-- 目前缺乏type hierarchy tree UI
 		{
 			"nvimdev/lspsaga.nvim",
@@ -165,43 +158,6 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				file_log_name = "lsp-progress.log",
 			},
 		},
-		{
-			"nvimtools/none-ls.nvim",
-			config = function()
-				local null_ls = require("null-ls")
-				local sources = {
-					null_ls.builtins.formatting.stylua,
-					-- install via mason
-					null_ls.builtins.formatting.google_java_format,
-				}
-				if vim.g.python_formatter == "black" then
-					table.insert(sources, null_ls.builtins.formatting.black)
-				end
-				null_ls.setup({
-					sources = sources,
-				})
-			end,
-		},
-		-- {
-		-- 	-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-		-- 	"folke/neodev.nvim",
-		-- 	opts = {},
-		-- 	ft = { "lua" },
-		-- 	priority = 501,
-		-- },
-		{
-			"folke/lazydev.nvim",
-			ft = "lua", -- only load on lua files
-			priority = 501,
-			opts = {
-				library = {
-					-- See the configuration section for more details
-					-- Load luvit types when the `vim.uv` word is found
-					{ path = "luvit-meta/library", words = { "vim%.uv" } },
-				},
-			},
-		},
-		{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 		-- alternative: "hedyhli/outline.nvim",
 		{
 			"stevearc/aerial.nvim",
@@ -214,65 +170,6 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				require("aerial").setup({})
 				vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 			end,
-		},
-		{
-			"mrcjkb/rustaceanvim",
-			cond = detect.has_rust_executable,
-			-- version = "^5", -- Recommended
-			lazy = false, -- This plugin is already lazy
-			ft = { "rust" },
-		},
-		{
-			-- NOTE: must ensure `go env GOPATH`/bin is in $PATH,
-			-- do not use apt install gopls, whose version is (unknown) and can not be parsed by go.nvim.
-			"ray-x/go.nvim",
-			cond = detect.has_go_executable,
-			dependencies = { -- optional packages
-				"ray-x/guihua.lua",
-				"neovim/nvim-lspconfig",
-				"nvim-treesitter/nvim-treesitter",
-				"nvimtools/none-ls.nvim",
-			},
-			config = function()
-				require("go").setup({
-					verbose = false, -- debug
-					lsp_semantic_highlights = false, -- do not use highlights from gopls so we can use treesitter highlight injection
-					lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
-					lsp_cfg = {
-						capabilities = require("lsp").get_capabilities(),
-						settings = {
-							gopls = {
-								semanticTokens = false, -- disable semantic string tokens so we can use treesitter highlight injection
-							},
-						},
-					},
-					-- after go.nvim's on_attach is called, then this on_attach will be called
-					lsp_on_client_start = function(client, bufnr)
-						local lsp_module = require("lsp")
-						lsp_module.attach_navic(client, bufnr)
-						lsp_module.attach_inlay_hints(client, bufnr)
-					end,
-					null_ls = { -- set to false to disable null-ls setup
-						golangci_lint = {
-							method = { "NULL_LS_DIAGNOSTICS_ON_SAVE", "NULL_LS_DIAGNOSTICS_ON_OPEN" }, -- when it should run
-							-- 为了防止和项目的.golangci.yml文件配置冲突，故disable和enable为空
-							disable = {}, -- linters to disable empty by default
-							enable = {}, -- linters to enable; empty by default
-							severity = vim.diagnostic.severity.INFO, -- severity level of the diagnostics
-						},
-					},
-				})
-				-- go.nvim
-				-- require("go.null_ls").gotest(),
-				-- require("go.null_ls").gotest_action(),
-				require("null-ls").register(require("go.null_ls").golangci_lint())
-			end,
-			ft = { "go", "gomod" },
-			-- 该命令在网络环境差的情况下可能会卡顿，故手动执行
-			-- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-		},
-		{
-			"mfussenegger/nvim-jdtls",
 		},
 		-- {
 		-- 	"jmbuhr/otter.nvim",

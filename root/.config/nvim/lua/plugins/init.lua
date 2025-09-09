@@ -1,6 +1,3 @@
-local has_typst_executable = require("detect").has_typst_executable
-local has_quarto_executable = require("detect").has_quarto_executable
-
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -63,50 +60,7 @@ return {
 		"brianhuster/unnest.nvim",
 	},
 	{
-		"williamboman/mason.nvim",
-		opts = {
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-			github = {
-				-- The template URL to use when downloading assets from GitHub.
-				-- The placeholders are the following (in order):
-				-- 1. The repository (e.g. "rust-lang/rust-analyzer")
-				-- 2. The release version (e.g. "v0.3.0")
-				-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
-				download_url_template = "https://cors.isteed.cc/github.com/%s/releases/download/%s/%s",
-			},
-		},
-	},
-	{
 		"sindrets/diffview.nvim",
-	},
-	{
-		"luckasRanarison/nvim-devdocs",
-		lazy = true,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		cmd = {
-			"DevdocsOpen",
-			"DevdocsFetch",
-			"DevdocsToggle",
-			"DevdocsUpdate",
-			"DevdocsInstall",
-			"DevdocsOpenFloat",
-			"DevdocsUninstall",
-			"DevdocsUpdateAll",
-			"DevdocsKeywordprg",
-			"DevdocsOpenCurrent",
-			"DevdocsOpenCurrentFloat",
-		},
-		opts = {},
 	},
 	-- neovim 0.10.0 has builtin comments, but Comment.nvim is better
 	-- :h commenting
@@ -311,28 +265,6 @@ return {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 	},
-	-- based on tinymist
-	{
-		"chomosuke/typst-preview.nvim",
-		cond = has_typst_executable,
-		ft = "typst",
-		build = function()
-			require("typst-preview").update()
-		end,
-	},
-	{
-		"kaarmu/typst.vim",
-		cond = has_typst_executable,
-		ft = "typst",
-	},
-	{
-		"quarto-dev/quarto-nvim",
-		cond = vim.g.vimrc_lsp == "nvim-lsp" and has_quarto_executable,
-		dependencies = {
-			"jmbuhr/otter.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
 	-- {
 	-- 	"amitds1997/remote-nvim.nvim",
 	-- 	version = "*", -- Pin to GitHub releases
@@ -397,14 +329,4 @@ return {
 			},
 		},
 	},
-	{
-		"jiangyinzuo/codebase-semantic-search",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
-	-- development
-	-- {
-	-- 	dir = "~/codebase-semantic-search"
-	-- }
 }
