@@ -19,6 +19,7 @@ if has('nvim')
 	let g:vimrc_lsp = 'nvim-lsp'
 	let g:avante_provider = 'openai'
 	let g:avante_auto_suggestions_provider = 'openai'
+	" set bg=light
 else
 	set grepprg=rg\ --vimgrep\ -uu
 	set grepformat=%f:%l:%c:%m

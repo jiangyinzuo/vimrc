@@ -32,7 +32,7 @@ function M.nvim_cmp()
 		paths = { vim.api.nvim_get_option_value("dictionary", {}) },
 		first_case_insensitive = true,
 		document = {
-			enable = true,
+			enable = vim.fn.executable("wn") ~= 0,
 			-- apt install wordnet
 			command = { "wn", "${label}", "-over" },
 		},

@@ -85,7 +85,10 @@ local M = {
 	"wesQ3/vim-windowswap",
 	"tpope/vim-characterize",
 	"tpope/vim-speeddating",
-	"preservim/vimux",
+	{
+		"preservim/vimux",
+		cond = vim.fn.executable("tmux") ~= 0,
+	},
 	"honza/vim-snippets",
 	"voldikss/vim-translator",
 	"andrewradev/linediff.vim",

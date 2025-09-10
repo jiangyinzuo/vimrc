@@ -97,7 +97,9 @@ au FileType gitcommit let b:EditorConfig_disable = 1
 Plug 'dhruvasagar/vim-table-mode'
 if v:version >= 800
 	Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
-	Plug 'preservim/vimux'
+	if executable('tmux')
+		Plug 'preservim/vimux'
+	endif
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'voldikss/vim-translator'
@@ -109,7 +111,9 @@ if v:version >= 800
 	Plug 'andrewradev/linediff.vim'
 
 	Plug 'lifepillar/vim-solarized8'
-	source ~/.vim/vimrc.d/leaderf.vim
+	if has('python3') || has('python')
+		source ~/.vim/vimrc.d/leaderf.vim
+	endif
 
 	if v:version >= 801
 		Plug 'ap/vim-css-color'

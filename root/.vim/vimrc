@@ -46,6 +46,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" 'vimspector' | 'nvim-dap' | ''
 	let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
 	if v:version >= 800
+		" Neovim需要在config.vim中手动设置bg，否则可能屏幕会闪烁，或者加载速度过慢
 		" set bg=dark
 		" show [x/y] instead of search hit BOTTOM, continuing at TOP
 		set shortmess-=S
