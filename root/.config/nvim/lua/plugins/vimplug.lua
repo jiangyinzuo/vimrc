@@ -90,7 +90,10 @@ local M = {
 		cond = vim.fn.executable("tmux") ~= 0,
 	},
 	"honza/vim-snippets",
-	"voldikss/vim-translator",
+	{
+		"voldikss/vim-translator",
+		cond = require("config").load_plugin.public_network
+	},
 	"andrewradev/linediff.vim",
 	"tpope/vim-surround",
 	"tpope/vim-eunuch",

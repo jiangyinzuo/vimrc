@@ -776,13 +776,20 @@ Git Large File Storage (LFS) ~
 <
 这个命令会克隆仓库，但不会下载 LFS 管理的文件。相反，它会下载这些文件的指针文件。
 
+*git-lfs-pull*
+
 2. 稍后按需下载文件：如果之后你需要某个或某些 LFS 管理的文件，可以使用 `git lfs pull` 命令下载它们。你可以选择性地指定一个文件路径或使用通配符来下载特定的 LFS 文件。
 
 >bash
-   git lfs pull
-   # 或者
-   git lfs pull --include="path/to/file"
+    git lfs pull
+    # 只下载某个文件夹下的大文件
+    git lfs pull --include="path/to/file"
+    # 排除某些大文件
+    git lfs pull --exclude="models/huge_model.bin
+    # 开启 LFS 调试日志
+    GIT_CURL_VERBOSE=1 GIT_TRACE=1 git lfs pull
 <
+
 3. 配置仓库以禁用自动下载: 如果你经常需要以这种方式工作，可以在仓库的配置中设置这个选项，这样每次克隆时都不会自动下载 LFS 文件。
 
 >bash
@@ -792,6 +799,16 @@ Git Large File Storage (LFS) ~
 
 使用这种方法，你可以更好地控制何时下载大文件，特别是在带宽有限或只需查看仓库历史记录时非常有用。
 
+*git-lfs-临时目录空间不够*
+
+>bash
+    git config lfs.tempdir /path/to/your/large/tmp/dir
+    # 或者
+    TMPDIR=/path/to/your/big/tmp/dir git lfs pull
+
+
+Smudge: 指的是当 git checkout 或 git pull 时，Git 将仓库中的 LFS 指针文件（一个很小的文本文件）替换为实际的大文件内容的过程。
+Clean: 相反的过程，当你 git add 大文件时，Git 把大文件替换为指针，并将实际文件上传到 LFS 服务器。
 
 ===============================================================================
 Xet 对 Git LFS的改进 ~
@@ -801,3 +818,8 @@ Xet 对 Git LFS的改进 ~
 从文件到块: 提高 Hugging Face 存储效率 - Hugging Face的文章 - 知乎 https://zhuanlan.zhihu.com/p/27906353824
 
 《Git is for Data》CIDR 2023 paper: https://xethub.com/blog/git-is-for-data-published-in-cidr-2023
+
+
+===============================================================================
+*git-mm*
+华为资源多仓项目管理工具 https://www.devopschina.org/blog/devops/%E5%8D%8E%E4%B8%BA%E4%BA%91-devcloud-%E5%9C%A8%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%9B%A2%E9%98%9F-git-%E5%8D%8F%E4%BD%9C%E7%9A%84%E6%8E%A2%E7%B4%A2/

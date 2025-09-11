@@ -27,22 +27,20 @@ local function cmp_format_fn(entry, vim_item)
 end
 
 function M.nvim_cmp()
-	require("cmp_dictionary").setup({
-		exact_length = 2,
-		paths = { vim.api.nvim_get_option_value("dictionary", {}) },
-		first_case_insensitive = true,
-		document = {
-			enable = vim.fn.executable("wn") ~= 0,
-			-- apt install wordnet
-			command = { "wn", "${label}", "-over" },
-		},
-	})
+	if #vim.opt.dictionary > 0 then
+		require("cmp_dictionary").setup({
+			exact_length = 2,
+			paths = { vim.api.nvim_get_option_value("dictionary", {}) },
+			first_case_insensitive = true,
+			document = {
+				enable = vim.fn.executable("wn") ~= 0,
+				-- apt install wordnet
+				command = { "wn", "${label}", "-over" },
+			},
+		})
+	end
 	local cmp = require("cmp")
 	if vim.g.vimrc_lsp == "nvim-lsp" then
-		local feedkey = function(key, mode)
-			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-		end
-
 		local comparators = {
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
@@ -150,6 +148,7 @@ function M.nvim_cmp()
 				format = cmp_format_fn,
 			},
 		})
+
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype({ "tex", "bib" }, {
 			sources = cmp.config.sources({

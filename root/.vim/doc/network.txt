@@ -12,6 +12,39 @@
 这会导致curl等命令行工具无法正常工作，但浏览器可以正常访问。
 因此，最好提前打包所有插件，方便在企业环境安装。
 
+*x509-certificate-signed-by-unkown-authority*
+
+错误 x509: certificate signed by unknown authority 是一个非常常见的 SSL/TLS 证书验证错误。它表示您的系统或应用程序在尝试通过 HTTPS 连接到服务器时，无法信任该服务器提供的 SSL 证书，因为签发该证书的“证书颁发机构”（CA）不被您的系统认为是可信的。
+
+某些企业网络或开发工具（如 Charles、Fiddler）会拦截 HTTPS 流量并使用自己的证书进行重签，如果未手动信任该代理的 CA，就会出现此错误。
+
+解决办法：
+
+>bash
+	# git
+	# 临时关闭 SSL 验证
+	git config --global http.sslVerify false
+
+	# curl
+	curl -k https://your-server.com
+	# 或
+	curl --insecure https://your-server.com
+
+	# wget
+	wget --no-check-certificate https://your-server.com/file
+<
+
+docker: `/etc/docker/daemon.json`中写入
+>json
+	{
+	  "insecure-registries": [
+		"your.registry.com:port",
+		"192.168.1.100:5000"
+	  ]
+	}
+<
+
+然后sudo systemctl restart docker
 ===============================================================================
 
 *测试自己的公网IP*  `curl cip.cc`

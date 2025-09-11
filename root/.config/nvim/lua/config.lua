@@ -12,6 +12,7 @@ return {
 		ai_local = true,
 		-- AI plugins that send data to public servers
 		ai_public = false,
+		public_network = false,
 		development = {
 			cpp = true,
 			extra = false,
@@ -21,4 +22,17 @@ return {
 			rust = false,
 		},
 	},
+	minuet_opt = {
+		provider = "openai_fim_compatible",
+		provider_options = {
+			openai_fim_compatible = {
+				api_key = "DEEPSEEK_API_KEY",
+				name = "deepseek",
+				optional = {
+					max_tokens = 256,
+					top_p = 0.9,
+				},
+			},
+		}
+	}
 }

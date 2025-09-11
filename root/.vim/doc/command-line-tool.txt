@@ -113,6 +113,9 @@ diff comm
 *rsync本地目录同步到远程目录*
 >
 	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
+	# 把minuet-ai.nvim插件同步到远程服务器
+	rsync -avz --delete  ./minuet-ai.nvim remote-macine:~/plugged
+
 <
 *rsync远程同步到本地*
 >

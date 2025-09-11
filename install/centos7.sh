@@ -16,9 +16,9 @@ fi
 
 prompt=""
 
-# words: 字典
+# 字典：Ubuntu的wamerican和CentOS的words格式不同，因此CentOS系统不安装字典。
 # python*: LeaderF
-$SUDO yum install words python-devel python3 python3-devel
+$SUDO yum install python-devel python3 python3-devel
 
 # nvim-treesitter和pynvim需要高版本gcc，切换devtoolset来使用高版本gcc，或手动添加-std=c99 flag
 # https://github.com/nvim-treesitter/nvim-treesitter/pull/7490

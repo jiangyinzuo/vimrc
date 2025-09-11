@@ -29,6 +29,7 @@ return {
 		lazy = true,
 		event = "VeryLazy",
 		ft = { "tex", "bib", "markdown", "text" },
+		cond = #vim.opt.dictionary > 0,
 	},
 	-- 'SirVer/ultisnips' is slow in Neovim.
 	-- {

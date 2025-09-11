@@ -219,7 +219,7 @@ return {
 	{
 		"milanglacier/minuet-ai.nvim",
 		config = function()
-			require("minuet").setup({
+			local default_opt = {
 				cmp = {
 					enable_auto_complete = false,
 				},
@@ -254,7 +254,9 @@ return {
 						},
 					},
 				},
-			})
+			}
+			local merged = vim.tbl_extend("force", default_opt, require("config").minuet_opt)
+			require("minuet").setup(merged)
 		end,
 		cond = vim.g.ai_suggestion == "minuet-ai.nvim",
 	},
