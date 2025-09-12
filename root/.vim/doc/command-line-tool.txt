@@ -178,7 +178,7 @@ pdf导出注释: pdfannots https://github.com/0xabu/pdfannots
 pdf转text: pdftotext
 
 json: jq
-补全父目录 -> bd
+补全父目录 -> bd CentOS手动安装bd时，注意补全脚本名为/etc/bash_completion.d/bd-bash-completion.sh
 
 -------------------------------------------------------------------------------
 *file-explorer*
