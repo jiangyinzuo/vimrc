@@ -20,6 +20,7 @@ return {
 			java = false,
 			jupyter = false,
 			rust = false,
+			writing = false,
 		},
 	},
 	minuet_opt = {

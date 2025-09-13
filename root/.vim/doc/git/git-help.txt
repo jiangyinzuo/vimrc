@@ -555,6 +555,13 @@ git worktree add -b kiwi-dev ../gpudb-project-ictdb-kiwi-dev
 文件夹下开发，rsync仅在gpudb-project-ictdb-kiwi-dev下拉取/推送文件
 
 -------------------------------------------------------------------------------
+*git-remote-只能pull不能push*
+
+>bash
+    # 设置 push 使用无效地址（禁用 push）
+    git remote set-url --push origin "no-push"
+<
+
 *git把ssh远程服务器作为remote-repository*
 
 NOTE: v0.16.0 后，不再使用 ~/vimrc/tools/rsync-vimrc.sh 同步git仓库。可以直接
