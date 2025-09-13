@@ -16,3 +16,5 @@ command -nargs=* -complete=customlist,asynctasks_custom#MakefileComplete Make As
 command -bang -nargs=* -complete=file MakeInternalCmd AsyncRun -program=make @ <args>
 
 command -nargs=? OpenCFile call asynctasks_custom#Open(<q-args>)
+
+command -range=% -nargs=* AsyncRunSelected call asynctasks_custom#RunSelected(<q-args>)

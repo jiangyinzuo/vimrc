@@ -41,13 +41,13 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:claude_endpoint = get(g:, 'claude_endpoint', "https://api.anthropic.com")
 	let g:claude_model = get(g:, "claude_model", "claude-3-7-sonnet-latest")
 	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
+	" gtags-cscope | cscope
+	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 	" tmux2.2以上才支持true color
 	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
 	" 'vimspector' | 'nvim-dap' | ''
 	let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
 	if v:version >= 800
-		" Neovim需要在config.vim中手动设置bg，否则可能屏幕会闪烁，或者加载速度过慢
-		" set bg=dark
 		" show [x/y] instead of search hit BOTTOM, continuing at TOP
 		set shortmess-=S
 	else
@@ -80,7 +80,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" black, ruff
 	let g:python_formatter = get(g:, 'python_formatter', 'black')
 	let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
-	let g:sql_type_default = 'mysql'
+	let g:omni_sql_no_default_maps = 1
 	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim
 	" minuet-ai.nvim
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
@@ -181,7 +181,6 @@ if has('autocmd') " vim-tiny does not have autocmd
 	" https://codepoints.net/U+23B5
 	set list listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 	" set nowrap " 不折行
-	set guifont=Monospace\ Regular\ 20
 	set conceallevel=2
 	if v:version >= 801
 		set signcolumn=yes " 同时显示git状态和行号
@@ -221,7 +220,7 @@ if has('autocmd') " vim-tiny does not have autocmd
 	if has("patch-8.1.0360")
 		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
 		if has("patch-9.1.1072") || has("nvim-0.11.0")
-			set diffopt+=linematch:60
+			set diffopt+=linematch:60,inline:char
 		endif
 	endif
 	""""""""""""""""""""" termdebug

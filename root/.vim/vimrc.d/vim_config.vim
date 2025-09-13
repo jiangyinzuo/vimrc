@@ -24,7 +24,6 @@ nnoremap <silent> ]a :next<CR>
 " set helplang=cn
 helptags ~/.vim/doc
 helptags ~/.vim/pack/my_plugins/start/project.vim/doc
-helptags ~/.vim/pack/my_plugins/start/duckdb.vim/doc
 
 if exists('&viminfofile')
 	set viminfofile=$HOME/.vim/.viminfo
@@ -75,8 +74,6 @@ else
 endif
 
 """"""""""""""""""" Tag System """""""""""""""""
-" gtags-cscope | cscope
-let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 " 当前使用.globalrc配置文件
 " let $GTAGSCONF = '/root/gtags.conf'
 

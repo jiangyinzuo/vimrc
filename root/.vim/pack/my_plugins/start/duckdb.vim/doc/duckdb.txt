@@ -1,7 +1,0 @@
-vim:ft=help
-
-*g:duckdb_exe*
->vim
-    " The command to run DuckDB. Default as follows:
-    let g:duckdb_exe = 'duckdb -markdown'
-<

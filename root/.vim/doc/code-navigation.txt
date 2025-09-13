@@ -1,5 +1,5 @@
 vim:ft=help
-*code-search* *novimrc* *noplugged*
+*code-search* *novimrc* *noplugged* *code-navigation.txt*
 
 打开历史文件 ~
 |:oldfiles| 查看oldfiles
@@ -51,10 +51,47 @@ https://github.com/sharkdp/fd
 `tldr find`
 `tldr grep`
 
-|tagsystem|
-
 -------------------------------------------------------------------------------
-|ctags| |tags.txt|
+*tagsystem* *tags.txt*
+
+Vim 8 中 C/C++ 符号索引：GTags 篇 - 韦易笑的文章 - 知乎
+https://zhuanlan.zhihu.com/p/36279445
+
+使用pygments，解析更多语言:
+pip install pygments
+export GTAGSLABEL=native-pygments
+
+Comparison with ctags, gtags and cscope:
+  https://github.com/oracle/opengrok/wiki/Comparison-with-Similar-Tools
+
+gtags(global) > cscope > ctags
+
+Universal Ctags: a maintained implementation of ctags
+Exuberant Ctags: unmaintained
+
+Install on Ubuntu: >
+  sudo apt install global
+  sudo apt install cscpoe
+  sudo apt install universal-ctags
+  # sudo apt insatll exuberant-ctags
+<
+-------------------------------------------------------------------------------
+CTags
+
+直接下载二进制程序
+https://github.com/universal-ctags/ctags-nightly-build/releases
+
+*生成ctags* :!ctags -R
+
+示例：
+>bash
+    # heavydb (GPU DB)项目
+    ctags --languages=C,C++,CUDA --kinds-c=-hl --extras=+q -R .
+<
+
+*tag跳转*	CTRL-]
+ctags生成python tag `ctags --language-force=python hello.py`
+
 
 创建tags
 ctags -R .
@@ -65,7 +102,29 @@ CTRL-]
 其它 :h tags
 
 -------------------------------------------------------------------------------
-|gtags|
+GTags
+*global* *gtags*
+搜索符号和定义: >
+  global -s -rx println!
+  global -d -rx Foo
+<
+
+*生成gtags* :!global
+*增量更新gtags* :!global -u
+
+*gtags-cscope*
+
+可以在本地.project.vim/.vimrc中添加
+>
+	packadd! gtags_asyncrun
+	" 自动加载gtags db
+	if has('cscope')
+		call tagsystem#GtagsCscopeAdd()
+	endif
+	" 不使用global官方gtags-cscope vimscript
+	" https://www.gnu.org/software/global/globaldoc_toc.html#Gtags_002dcscope
+	" source ~/.vim/vimrc.d/gtags-cscope.vim
+<
 
 :set csprg=gtags-cscope
 

@@ -34,5 +34,6 @@ return {
 				},
 			},
 		}
-	}
+	},
+	iron_repl_sql_command = { "duckdb" },
 }

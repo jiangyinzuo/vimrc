@@ -10,10 +10,6 @@ local detect = require("detect")
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
 	-- let g:omni_sql_default_compl_type = 'syntax'
-	{
-		"vim-scripts/dbext.vim",
-		ft = "sql",
-	},
 	-- suda is a plugin to read or write files with sudo command.
 	"lambdalisue/vim-suda",
 	-- vim-matchup的event不能设置为VeryLazy / VimEnter
@@ -149,12 +145,6 @@ local M = {
 		},
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
-	{
-		dir = "~/.vim/pack/my_plugins/start/duckdb.vim",
-		dependencies = {
-			"skywind3000/asynctasks.vim",
-		},
-	},
 	"lambdalisue/vim-fern",
 	{
 		"jiangyinzuo/fern-oil.nvim",

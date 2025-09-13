@@ -21,7 +21,7 @@ continue -> continue
 gdb `b <line> if <condition>`
 nvim-dap `:lua require("dap").toggle_breakpoint("i == 3")`
 
-gdb调试.so ~
+*gdb调试.so*
 
 `gdb libraft.so` 可以调试动态链接库。
 
@@ -32,7 +32,7 @@ info sources: 查看源文件。
 💁 可以通过`info sources`检查一个第三方动态库是否包含了调试信息（-g）。
 如果`info sources`只有能被include的头文件， 缺乏cpp源文件，那么这个库没有包含调试信息。
 
-gdb attach 进程 ~
+*gdb-attach-进程*
 
 首先通过`ps -a`查看进程号。
 

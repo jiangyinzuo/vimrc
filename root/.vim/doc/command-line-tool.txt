@@ -273,3 +273,18 @@ https://github.com/jiangyinzuo/vimrc/wiki/Latex
 -------------------------------------------------------------------------------
 
 *tmux使用vim编辑当前pane历史* CTRL-B CTRL-E
+
+-------------------------------------------------------------------------------
+
+*vim运行文件*
+
+*运行duckdb*
+
+>vim
+    " 运行选中的语句
+    :AsyncRunSelected duckdb -csv -c
+    " 运行整个文件
+    :AsyncTask file-run
+    " 使用 iron repl
+    :IronAttach
+<

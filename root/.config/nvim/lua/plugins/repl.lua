@@ -25,6 +25,9 @@ return {
 							command = { "lua" },
 							format = common.bracketed_paste_lua,
 						},
+						sql = {
+							command = require("config").iron_repl_sql_command,
+						}
 					},
 					-- set the file type of the newly created repl to ft
 					-- bufnr is the buffer id of the REPL and ft is the filetype of the

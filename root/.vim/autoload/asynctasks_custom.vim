@@ -43,3 +43,15 @@ function asynctasks_custom#Open(prefix)
 	endif
 	call asyncrun#run('', {'silent': 1}, l:command . ' ' . l:filename)
 endfunction
+
+function asynctasks_custom#RunSelected(cmd)
+	" 获取选定的文本
+	let selected_text = noplug#GetVisualSelection()
+
+	" 构建并执行命令。'a:cmd' 接收用户输入的命令。
+	" 注意：如果你的命令不是 'foo -c'，请在此处修改。
+	" shellescape() 函数用于安全地转义文本，防止命令注入。
+	let full_cmd = a:cmd . ' ' . shellescape(selected_text)
+
+	call asyncrun#run('!', {'save': 1, 'silent': 1, 'raw': 1, 'mode': 'terminal'}, full_cmd)
+endfunction

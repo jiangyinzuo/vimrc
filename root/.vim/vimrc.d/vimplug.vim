@@ -142,11 +142,13 @@ if v:version >= 800
 			Plug 'jiangyinzuo/z.vim'
 			source ~/.vim/vimrc.d/fzf.vim
 
-			Plug 'lambdalisue/vim-fern'
-			Plug 'lambdalisue/nerdfont.vim'
-			Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-			Plug 'lambdalisue/fern-hijack.vim'
-			Plug 'LumaKernel/fern-mapping-fzf.vim'
+			if has('patch-8.2.5316')
+				Plug 'lambdalisue/vim-fern'
+				Plug 'lambdalisue/nerdfont.vim'
+				Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+				Plug 'lambdalisue/fern-hijack.vim'
+				Plug 'LumaKernel/fern-mapping-fzf.vim'
+			endif
 
 			" require +job
 			" pip3 install doq --break-system-packages
