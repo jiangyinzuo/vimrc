@@ -86,6 +86,9 @@ Ubuntu20.04 texlive宏包xcolor调用时报错
 
 有问题的解决方案：修改color.cfg文件，比如添加\protect\ExecuteOptions{dvips} (来自 https://www.bilibili.com/opus/650359062208184322 )
 
+解决方案：不要通过 `apt install texlive-full`，最好直接从官网脚本安装。
+https://www.tug.org/texlive/quickinstall.html
+
 NOTE
 dvips会导致png显示空白、tikz图片排版混乱。安装texlive-full后，xcolor似乎能自动选择了
 
