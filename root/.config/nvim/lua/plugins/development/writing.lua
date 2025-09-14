@@ -13,7 +13,7 @@ if require("config").load_plugin.development.writing then
 		{
 			-- do not lazy load vimtex
 			"lervag/vimtex",
-			cond = (vim.fn.has("wsl") == 1) and detect.has_pdflatex_executable,
+			cond = (vim.fn.has("wsl") == 1) and vim.g.has_pdflatex_executable ~= 0,
 			init = function()
 				vim.api.nvim_command("source ~/.vim/vimrc.d/latex.vim")
 			end,

@@ -86,6 +86,10 @@ if has('autocmd') " vim-tiny does not have autocmd
 	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
 
 	let g:mapleader = get(g:, 'mapleader', ' ')
+
+	let g:has_go_executable = executable("go")
+	let g:has_pdflatex_executable = executable("pdflatex")
+	let g:has_coqtop_executable = executable("coqtop")
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 	" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置

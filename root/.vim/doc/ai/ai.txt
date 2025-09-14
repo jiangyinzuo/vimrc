@@ -224,9 +224,13 @@ https://www.zhihu.com/question/15684801110/answer/1892597238397657591
 
 https://blog.csdn.net/dinaxuejie/article/details/146195104
 
-- Gemini Deep Research
 - OpenAI Deep Research
+- Gemini Deep Research
 - Qwen
+- Doubao
+- https://www.wenxiaobai.com/chat/xiaobaiyanbao
+
+https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard
 
 =========================
 Benchmark Leaderboard

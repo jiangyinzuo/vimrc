@@ -180,10 +180,13 @@ if v:version >= 800
 					" Alternative: https://github.com/gelguy/wilder.nvim
 					Plug 'girishji/vimsuggest'
 					autocmd VimEnter * ++once if exists('*g:VimSuggestSetOptions') | call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }}) | endif
-					" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
-					" do not lazy load vimtex
-					Plug 'lervag/vimtex'
-					source ~/.vim/vimrc.d/latex.vim
+					
+					if g:has_pdflatex_executable == 1
+						" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
+						" do not lazy load vimtex
+						Plug 'lervag/vimtex'
+						source ~/.vim/vimrc.d/latex.vim
+					endif
 				endif
 			endif
 			if g:vim_dap == 'vimspector'
@@ -240,7 +243,7 @@ let g:cpp_member_highlight = 1
 " Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
 
-if has('patch-8.2.5072')
+if has('patch-8.2.5072') && g:has_go_executable == 1
 	source ~/.vim/vimrc.d/golang.vim
 endif
 
@@ -254,7 +257,9 @@ augroup END
 " paste img in markdown/latex style
 " Alternative: HakonHarnes/img-clip.nvim
 Plug 'jiangyinzuo/img-paste.vim'
-Plug 'whonore/Coqtail', { 'for': 'coq' }
+if g:has_coqtop_executable == 1
+	Plug 'whonore/Coqtail', { 'for': 'coq' }
+endif
 
 " if exists("$WSLENV")
 " 	" https://github.com/alacritty/alacritty/issues/2324#issuecomment-1339594232

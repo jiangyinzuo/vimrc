@@ -3,7 +3,7 @@ return {
 		"micangl/cmp-vimtex",
 		lazy = true,
 		event = "VeryLazy",
-		cond = require("detect").has_pdflatex_executable,
+		cond = vim.g.has_pdflatex_executable ~= 0,
 	},
 	{
 		"hrsh7th/nvim-cmp",
