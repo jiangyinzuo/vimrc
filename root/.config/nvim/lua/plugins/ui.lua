@@ -4,6 +4,7 @@ local mini_clue_trigger_table = {
 	{ mode = "n", keys = "<leader>cs", desc = "Cscope" },
 	{ mode = "n", keys = "<leader>s", desc = "Iron REPL" },
 	{ mode = "n", keys = "cr", desc = "Case" },
+	{ mode = "x", keys = "<leader>a", desc = "Avante" },
 	{ mode = "x", keys = "<leader>cc", desc = "Claude" },
 	{ mode = "x", keys = "<leader>s", desc = "Iron REPL" },
 }

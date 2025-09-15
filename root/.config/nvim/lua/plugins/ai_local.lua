@@ -401,6 +401,10 @@ return {
 			behaviour = {
 				auto_suggestions = vim.g.ai_suggestion == "avante.nvim", -- Experimental stage
 			},
+			selection = {
+				enabled = true,
+				hint_display = "none",
+			},
 			mappings = {
 				suggestion = {
 					accept = "<Tab>",

@@ -1,5 +1,5 @@
-vim:ft=help
-*writing.txt*
+update EulerOS installation guide and SQL tooling, vim:ft=help
+6writing.txt*
 
 ===============================================================================
 gq和=的区别 ~
@@ -82,6 +82,7 @@ md -> pptx >
 -------------------------------------------------------------------------------
 *latex* *bibtex*
 
+*texlive*
 Ubuntu20.04 texlive宏包xcolor调用时报错
 
 有问题的解决方案：修改color.cfg文件，比如添加\protect\ExecuteOptions{dvips} (来自 https://www.bilibili.com/opus/650359062208184322 )
