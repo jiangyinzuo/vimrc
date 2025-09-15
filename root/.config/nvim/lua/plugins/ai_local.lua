@@ -229,8 +229,9 @@ return {
 				virtualtext = {
 					auto_trigger_ft = { "*" },
 					keymap = {
+						-- minuet-ai.nvim无法fallback tab键
 						-- accept whole completion
-						accept = "<Tab>",
+						accept = "<M-y>",
 						-- accept one line
 						accept_line = "<M-l>",
 						-- accept n lines (prompts for number)
