@@ -117,3 +117,46 @@ Linux 临时目录
 
 df -h /tmp 查看是内存文件系统tmpfs，还是磁盘分区。
 $TMPDIR  设置临时文件目录
+
+==================================
+
+*setgid.md*
+
+文件系统访问控制列表 (ACL - Access Control Lists)
+
+在/srv/shared_data目录下创建的文件，自动设置为组内共享，而非创建者私有 ~
+
+>bash
+    # -d 表示设置默认 ACL (default)
+    # -m 表示修改 ACL (modify)
+    # 组 (group) sharedgroup 的成员权限
+    sudo setfacl -d -m g:sharedgroup:rwx /srv/shared_data
+    # 文件所有者（user）权限
+    sudo setfacl -d -m u::rwx /srv/shared_data
+    # 其他人（other）权限
+    sudo setfacl -d -m o::r-x /srv/shared_data
+<
+
+*查看目录ACL*
+>bash
+    getfacl /srv/shared_data
+<
+
+在
+>
+    -rw-rw-r--+ 1 user1 sharedgroup 0 Sep 17 20:25 user1_test_file.txt
+<
+当中，+标志表示启用了ACL
+
+文件权限 ~
+
+递归地将foo/文件夹下所有文件的group权限设为和当前用户权限相同
+
+>bash
+    # 递归设置所有子目录的权限
+    # g=u: 先将组权限设置为与所有者权限相同 (通常是 rwx)。
+    # g+s: 然后，为组添加 (+) setgid (s) 权限。这确保了所有子目录都成为有效的共享目录。
+    find foo -type d -exec chmod g=u,g+s {} +
+    # 递归设置所有文件的权限
+    find foo -type f -exec chmod g=u {} +
+<

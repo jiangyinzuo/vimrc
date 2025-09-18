@@ -1,3 +1,6 @@
+# 限制 clangd 后台索引时使用的线程数，避免占用过多 CPU
+Index:
+  BackgroundThreads: 4 # 根据你的 CPU 核心数调整
 CompileFlags:
   # use absolute path
   CompilationDatabase: /home/jiangyinzuo/gpudb-project-ictdb/gpudb-project-code-ictdb/duckdb-anns/build/debug
