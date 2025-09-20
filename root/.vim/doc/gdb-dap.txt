@@ -76,12 +76,15 @@ gdb 处理 signal ~
     (gdb) handle <signal> <keywords…>
 <
 
-gdb多线程调试 ~
+*gdb多线程调试*
 
-一旦中断，所有线程都会被暂停。
-set scheduler-locking on 只有当前线程可以执行
-set scheduler-locking off 所有线程都可以执行，默认值
-set scheduler-locking step 使用step/next这些单步命令时，只有当前线程可以执行；使用finish/continue命令时，所有线程都可以执行
+set scheduler-locking on: 只允许当前线程运行，其他线程完全冻结。
+set scheduler-locking step: 仅在单步执行 (next, step 等) 时锁定当前线程。
+set scheduler-locking off: GDB 不干涉调度，所有线程自由运行。默认模式。用于观察线程间的自然交互。
+
+set non-step off: 一旦中断，所有线程都会被暂停（默认）
+set non-stop on: 命中断点时只暂停该线程，其他线程继续运行。: 调试复杂的实时交互、竞争条件等高级场景。
+
 thread <ID> 切换到ID线程
 info threads 查看所有线程
 thread apply all <command> 对所有线程执行command

@@ -230,8 +230,75 @@ Docker build 过程中 apt-get update ~
 	--network host # 可能需要
 <
 -------------------------------------------------------------------------------
-Docker run 示例 ~
+*docker启动开发容器*
 
+>bash
+    docker run -it \
+    --name jiangyinzuo-dev2.1 \
+    --privileged \
+    --pid=host --network=host \
+    --ulimit core=-1:-1 \
+    --user slave1 \
+    --group-add 1005 \
+    --shm-size=64g \
+    -v /sys/kernel/debug:/sys/kernel/debug \
+    -v /lib/modules:/lib/modules:ro \
+    -v /usr/src:/usr/src:ro \
+    -v /data1/jiangyinzuo/jiangyinzuo-dev2-data/:/jiangyinzuo-dev2-data \
+    <镜像ID/名称> bash
+<
+
+--network=host  容器共享宿主机网络空间
+--ulimit core=-1:-1 coredump文件大小不受限制
+--shm-size=64g /dev/shm 共享内存大小64g
+
+*docker宿主机和容器内两个用户共享文件夹*
+
+>bash
+    # 创建共享用户组
+    sudo groupadd sharedgroup
+    # 将宿主机用户jiangyinzuo加入共享用户组
+    sudo usermod -aG sharedgroup jiangyinzuo
+    # 创建共享目录，设置目录所有权，添加setgid位
+    sudo mkdir -p /data1/jiangyinzuo/jiangyinzuo-dev2-data
+    sudo chown :sharedgroup /srv/dev-data
+    sudo chmod g+s /srv/dev-data
+    # 设置ACL
+    # 规则1：新文件的所属组(sharedgroup)默认拥有 rwx 权限
+    sudo setfacl -d -m g:sharedgroup:rwx /data1/jiangyinzuo/jiangyinzuo-dev2-data
+    # 规则2：新文件的所有者默认拥有 rwx 权限
+    sudo setfacl -d -m u::rwx /data1/jiangyinzuo/jiangyinzuo-dev2-data
+    # 规则3：其他用户默认拥有 r-x 权限
+    sudo setfacl -d -m o::r-x /data1/jiangyinzuo/jiangyinzuo-dev2-data
+    # 查看sharedgroup的GID（假设为1005）
+    getent group sharedgroup
+<
+
+随后，在docker run -it的时候添加以下参数：
+
+-v /data1/jiangyinzuo/jiangyinzuo-dev2-data/:/jiangyinzuo-dev2-data
+--user slave1
+--group-add 1005
+把容器内的slave1用户也加入1005用户组，用于宿主机和容器共享 `jiangyinzuo-dev2-data/` 目录权限
+
+
+*docker容器内运行perf*
+>bash
+    # 验证有没有挂载tracefs或者debugfs
+    ls -l /sys/kernel/debug/tracing/events/sched/sched_switch/id
+    mount | grep -E 'tracefs|debugfs'
+<
+
+--pid=host  容器内可以看到宿主机的进程
+-v /sys/kernel/debug:/sys/kernel/debug
+在某些Linux发行版可能是 `/sys/kernel/tracefs` ，容器内可以使用perf工具
+
+-v /lib/modules:/lib/modules:ro \
+-v /usr/src:/usr/src:ro \
+绑定 kernel headers（/lib/modules、/usr/src）方便 bcc/bpftrace 编译 BPF 程序。
+可以看内核/模块函数名
+
+----------------
 开发OpenGauss使用的创建容器命令
 >bash
 	docker run -it --name jyz-openeuler --network=host --privileged -e http_proxy=http://localhost:3128 -e https_proxy=http://localhost:3128 -e LANG=$LANG -e LC_ALL=$LC_ALL -v /usr3/jiangyinzuo_data:/data openeuler/openeuler:22.03
