@@ -129,11 +129,6 @@ ocaml: ocaml-lsp(不直接通过`opam user-setup install`使用merlin)
 
 https://github.com/ocaml-ppx/ocamlformat
 
-bash ~
-
-npm i -g bash-language-server
-sudo apt install shellcheck -y
-
 -------------------------------------------------------------------------------
 *paste-to-fzf-popup-window*
 

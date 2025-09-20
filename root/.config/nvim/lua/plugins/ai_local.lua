@@ -517,9 +517,49 @@ return {
 		keys = {
 			{ "<leader>ccc", "<cmd>ClaudeCode<cr>", desc = "ClaudeCode toggle" },
 			{ "<leader>ccd", nil, desc = "ClaudeCode Diff" },
-			{ "<leader>ccda", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-			{ "<leader>ccdd", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+			{ "<leader>ccda", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept Claude diff" },
+			{ "<leader>ccdd", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny Claude diff" },
 			{ "<leader>ccs", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+			{
+				"<leader>ccs",
+				"<cmd>ClaudeCodeTreeAdd<cr>",
+				desc = "Add file to Claude",
+				ft = { "NvimTree", "neo-tree", "oil", "minifiles" },
+			},
+		},
+	},
+	{
+		"pittcat/claude-fzf.nvim",
+		dependencies = {
+			"ibhagwan/fzf-lua",
+			"coder/claudecode.nvim",
+		},
+		opts = {
+			auto_context = true,
+			batch_size = 10,
+			-- Logging configuration
+			logging = {
+				level = "WARN", -- TRACE, DEBUG, INFO, WARN, ERROR
+				file_logging = true, -- Enable file logging
+				console_logging = false, -- Enable console logging
+				show_caller = true, -- Show caller location
+				timestamp = true, -- Show timestamps
+			},
+		},
+		cmd = {
+			"ClaudeFzf",
+			"ClaudeFzfFiles",
+			"ClaudeFzfGrep",
+			"ClaudeFzfBuffers",
+			"ClaudeFzfGitFiles",
+			"ClaudeFzfDirectory",
+		},
+		keys = {
+			{ "<leader>ccff", "<cmd>ClaudeFzfFiles<cr>", desc = "Claude: Add files" },
+			{ "<leader>ccrg", "<cmd>ClaudeFzfGrep<cr>", desc = "Claude: Search and add" },
+			{ "<leader>ccb", "<cmd>ClaudeFzfBuffers<cr>", desc = "Claude: Add buffers" },
+			{ "<leader>ccgf", "<cmd>ClaudeFzfGitFiles<cr>", desc = "Claude: Add Git files" },
+			{ "<leader>ccfd", "<cmd>ClaudeFzfDirectory<cr>", desc = "Claude: Add directory files" },
 		},
 	},
 	-- Alternatives:

@@ -1,0 +1,6 @@
+vim:ft=help
+
+*shell.txt* *bash.txt*
+
+`source xxx.sh` 和 `. xxx.sh` 是在当前进程中执行。此时文件中的 `export` 环境变量会起作用。
+直接./xxx.sh是另开一个进程执行。此时文件中的 `export` 环境变量不会在当前shell环境起作用。
