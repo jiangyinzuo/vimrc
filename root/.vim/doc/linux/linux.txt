@@ -138,3 +138,33 @@ Linux修改他人用户名 ~
 
 *linux查看重启时间* uptime -p
 
+----------------------------------
+
+*linux程序性能分析*
+
+perf: 只能做函数级别的分析，函数内部无法分析
+
+虽然使用 perf 可以很方便的对程序进行性能评估，但是使用 perf 会对程序的运行产生比较大的 overhead，导致程序运行比较慢；并且 perf 生成的数据量非常大，其后处理需要花费很长的时间，在 brandon 的博客里面也有提到。因此，perf 实际上是不能用在生产环境中的，只能在测试场景下对程序做性能评估。
+
+作者：xxxwwxxx
+链接：https://zhuanlan.zhihu.com/p/672082073
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+*perf打火焰图*
+
+>bash
+    # $perf_pid: 进程
+    # $perf_time: 抓取时间
+    perf record -F 999 --call-graph dwarf -g -p $perf_pid -- sleep $perf_time
+
+    # 依赖FlameGraph perl脚本：https://github.com/brendangregg/FlameGraph
+    # $out: 输出的svg图片，如flame.svg
+    perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > $out
+<
+
+Intel VTune Profiler ~
+
+gperftools (libprofiler, pprof) ~
+
+*gperftools* 侵入式profiler

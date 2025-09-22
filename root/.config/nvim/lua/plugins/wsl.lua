@@ -1,4 +1,4 @@
-if vim.fn.has('wsl') == 1 then
+if vim.fn.has("wsl") == 1 then
 	return {
 		{
 			"iamcco/markdown-preview.nvim",
@@ -9,6 +9,13 @@ if vim.fn.has('wsl') == 1 then
 				vim.g.mkdp_filetypes = { "markdown", "quarto" }
 			end,
 			ft = { "markdown", "quarto" },
+		},
+		{
+			"brianhuster/live-preview.nvim",
+			dependencies = {
+				-- You can choose one of the following pickers
+				"nvim-telescope/telescope.nvim",
+			},
 		},
 	}
 else
