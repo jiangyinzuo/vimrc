@@ -221,7 +221,7 @@ return {
 		config = function()
 			local default_opt = {
 				cmp = {
-					enable_auto_complete = false,
+					enable_auto_complete = true,
 				},
 				blink = {
 					enable_auto_complete = false,
@@ -231,7 +231,7 @@ return {
 					keymap = {
 						-- minuet-ai.nvim无法fallback tab键
 						-- accept whole completion
-						accept = "<M-y>",
+						accept = "<M-p>",
 						-- accept one line
 						accept_line = "<M-l>",
 						-- accept n lines (prompts for number)

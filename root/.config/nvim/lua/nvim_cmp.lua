@@ -57,6 +57,63 @@ function M.nvim_cmp()
 			table.insert(comparators, 5, require("clangd_extensions.cmp_scores"))
 		end
 
+		local mapping = cmp.mapping.preset.insert({
+			["<C-u>"] = cmp.mapping.scroll_docs(-4),
+			["<C-d>"] = cmp.mapping.scroll_docs(4),
+			["<C-c>"] = cmp.mapping(function(fallback)
+				local need_fallback = true
+				if cmp.visible() then
+					cmp.abort()
+					need_fallback = false
+				end
+				if vim.snippet.active() then
+					vim.snippet.stop()
+					need_fallback = false
+				end
+				if need_fallback then
+					fallback()
+				end
+			end, { "i", "s" }),
+			["<CR>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.confirm({ select = true })
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+			["<C-n>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				else
+					fallback() -- The fallback function sends a already mapped key.
+				end
+			end, { "i", "s" }),
+			["<C-p>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				else
+					fallback() -- The fallback function sends a already mapped key.
+				end
+			end, { "i", "s" }),
+			["<S-n>"] = cmp.mapping(function(fallback)
+				if vim.snippet.active({ direction = 1 }) then
+					vim.snippet.jump(1)
+				else
+					fallback() -- The fallback function sends a already mapped key.
+				end
+			end, { "i", "s" }),
+			["<S-p>"] = cmp.mapping(function(fallback)
+				if vim.snippet.active({ direction = -1 }) then
+					vim.snippet.jump(-1)
+				else
+					fallback() -- The fallback function sends a already mapped key.
+				end
+			end, { "i", "s" }),
+		})
+		if vim.g.ai_suggestion == 'minuet-ai.nvim' then
+			mapping["<A-y>"] = require('minuet').make_cmp_map()
+		end
+
 		cmp.setup({
 			sorting = {
 				-- priority_weight = 2,
@@ -77,61 +134,10 @@ function M.nvim_cmp()
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			},
-			mapping = cmp.mapping.preset.insert({
-				["<C-u>"] = cmp.mapping.scroll_docs(-4),
-				["<C-d>"] = cmp.mapping.scroll_docs(4),
-				["<C-c>"] = cmp.mapping(function(fallback)
-					local need_fallback = true
-					if cmp.visible() then
-						cmp.abort()
-						need_fallback = false
-					end
-					if vim.snippet.active() then
-						vim.snippet.stop()
-						need_fallback = false
-					end
-					if need_fallback then
-						fallback()
-					end
-				end, {"i", "s"}),
-				["<CR>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.confirm({ select = true })
-					else
-						fallback()
-					end
-				end, {"i", "s"}),
-				["<C-n>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					else
-						fallback() -- The fallback function sends a already mapped key.
-					end
-				end, { "i", "s" }),
-				["<C-p>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item()
-					else
-						fallback() -- The fallback function sends a already mapped key.
-					end
-				end, { "i", "s" }),
-				["<S-n>"] = cmp.mapping(function(fallback)
-					if vim.snippet.active({ direction = 1 }) then
-						vim.snippet.jump(1)
-					else
-						fallback() -- The fallback function sends a already mapped key.
-					end
-				end, { "i", "s" }),
-				["<S-p>"] = cmp.mapping(function(fallback)
-					if vim.snippet.active({ direction = -1 }) then
-						vim.snippet.jump(-1)
-					else
-						fallback() -- The fallback function sends a already mapped key.
-					end
-				end, { "i", "s" }),
-			}),
+			mapping = mapping,
 			sources = cmp.config.sources({
 				-- NOTE: 不指定优先级时，越后面优先级越低
+				{ name = "minuet", priority = 10 },
 				{ name = "async_path", priority = 10 },
 				{ name = "buffer", priority = 10 },
 				{
@@ -147,11 +153,15 @@ function M.nvim_cmp()
 			formatting = {
 				format = cmp_format_fn,
 			},
+			performance = {
+				fetching_timeout = 2000,
+			},
 		})
 
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype({ "tex", "bib" }, {
 			sources = cmp.config.sources({
+				{ name = "minuet", priority = 10 },
 				{ name = "nvim_lsp", priority = 10 },
 				{ name = "vimtex", priority = 10 },
 				snippet_source,
@@ -170,6 +180,7 @@ function M.nvim_cmp()
 		})
 		cmp.setup.filetype({ "markdown" }, {
 			sources = cmp.config.sources({
+				{ name = "minuet", priority = 10 },
 				{ name = "nvim_lsp", priority = 10 },
 				snippet_source,
 				{ name = "buffer", priority = 10 },
@@ -188,6 +199,7 @@ function M.nvim_cmp()
 
 	cmp.setup.filetype("gitcommit", {
 		sources = cmp.config.sources({
+			{ name = "minuet", priority = 10 },
 			{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
 		}, {
 			{ name = "buffer" },
