@@ -101,5 +101,5 @@ function noplug#BackupFile()
 			call mkdir(b:backup_dir, "p", 0700)
 		endif
 	endif
-	call noplug#AsyncRunOrSystem('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%X") . '.bak')
+	call noplug#AsyncRunOrSystem('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%H:%M:%S") . '.bak')
 endfunction
