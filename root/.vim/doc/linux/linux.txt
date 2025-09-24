@@ -165,6 +165,10 @@ perf: 只能做函数级别的分析，函数内部无法分析
 
 Intel VTune Profiler ~
 
+*intel-vtune-profiler*
+
+2025后续版本不支持旧的Intel CPU。需要下载2024版本
+
 gperftools (libprofiler, pprof) ~
 
 *gperftools* 侵入式profiler

@@ -1,3 +1,4 @@
+local use_minuet = vim.g.ai_suggestion == "minuet-ai.nvim" and require("config").ai_local
 local M = {}
 
 local snippet_source =
@@ -110,8 +111,8 @@ function M.nvim_cmp()
 				end
 			end, { "i", "s" }),
 		})
-		if vim.g.ai_suggestion == 'minuet-ai.nvim' then
-			mapping["<A-y>"] = require('minuet').make_cmp_map()
+		if use_minuet then
+			mapping["<A-y>"] = require("minuet").make_cmp_map()
 		end
 
 		cmp.setup({
@@ -158,14 +159,17 @@ function M.nvim_cmp()
 			},
 		})
 
+		local tex_sources = {
+			{ name = "nvim_lsp", priority = 10 },
+			{ name = "vimtex", priority = 10 },
+			snippet_source,
+		}
+		if use_minuet then
+			table.insert(tex_sources, 0, { name = "minuet", priority = 10 })
+		end
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype({ "tex", "bib" }, {
-			sources = cmp.config.sources({
-				{ name = "minuet", priority = 10 },
-				{ name = "nvim_lsp", priority = 10 },
-				{ name = "vimtex", priority = 10 },
-				snippet_source,
-			}, {
+			sources = cmp.config.sources(tex_sources, {
 				{ name = "buffer", priority = 10 },
 				{ name = "async_path", priority = 10 },
 				{
@@ -178,30 +182,37 @@ function M.nvim_cmp()
 				format = cmp_format_fn,
 			},
 		})
+
+		local markdown_sources = {
+			{ name = "nvim_lsp", priority = 10 },
+			snippet_source,
+			{ name = "buffer", priority = 10 },
+			{ name = "async_path", priority = 10 },
+			{
+				name = "dictionary",
+				keyword_length = 2,
+				priority = 10,
+			},
+		}
+		if use_minuet then
+			table.insert(markdown_sources, 0, { name = "minuet", priority = 10 })
+		end
 		cmp.setup.filetype({ "markdown" }, {
-			sources = cmp.config.sources({
-				{ name = "minuet", priority = 10 },
-				{ name = "nvim_lsp", priority = 10 },
-				snippet_source,
-				{ name = "buffer", priority = 10 },
-				{ name = "async_path", priority = 10 },
-				{
-					name = "dictionary",
-					keyword_length = 2,
-					priority = 10,
-				},
-			}),
+			sources = cmp.config.sources(markdown_sources),
 			formatting = {
 				format = cmp_format_fn,
 			},
 		})
 	end
 
+	local gitcommit_sources = {
+		{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+	}
+	if use_minuet then
+		table.insert(gitcommit_sources, 0, { name = "minuet", priority = 10 })
+	end
 	cmp.setup.filetype("gitcommit", {
-		sources = cmp.config.sources({
-			{ name = "minuet", priority = 10 },
-			{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-		}, {
+		sources = cmp.config.sources(gitcommit_sources, {
 			{ name = "buffer" },
 		}),
 	})
