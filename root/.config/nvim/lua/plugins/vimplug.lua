@@ -178,6 +178,7 @@ local M = {
 			vim.api.nvim_command("source ~/.vim/vimrc.d/leaderf.vim")
 		end,
 		dependencies = leaderf_dependencies,
+		cond = require("config").load_plugin.development.extra,
 	},
 	{
 		"SirVer/ultisnips",
