@@ -175,6 +175,15 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				file_log_name = "lsp-progress.log",
 			},
 		},
+		{
+			"retran/meow.yarn.nvim",
+			dependencies = { "MunifTanjim/nui.nvim" },
+			config = function()
+				require("meow.yarn").setup({
+					-- Your custom configuration goes here
+				})
+			end,
+		},
 		-- alternative: "hedyhli/outline.nvim",
 		{
 			"stevearc/aerial.nvim",
