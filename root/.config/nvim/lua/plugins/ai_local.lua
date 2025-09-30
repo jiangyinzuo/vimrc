@@ -334,8 +334,8 @@ return {
 		---@type avante.Config
 		opts = {
 			debug = false,
-			-- provider = vim.g.avante_provider,
-			provider = "claude-code",
+			provider = vim.g.avante_provider,
+			-- provider = "claude-code",
 			auto_suggestions_provider = vim.g.avante_auto_suggestions_provider,
 			acp_providers = {
 				["gemini-cli"] = {
