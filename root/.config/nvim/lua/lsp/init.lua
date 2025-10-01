@@ -151,6 +151,9 @@ end
 function M.lspconfig()
 	-- Neovim >= 0.12.0
 	vim.lsp.inline_completion.enable()
+	vim.lsp.document_color.enable()
+	vim.lsp.inlay_hint.enable()
+
 	local diagnostic = require("lsp.diagnostic")
 
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
@@ -219,13 +222,6 @@ function M.lspconfig()
 			local client = vim.lsp.get_client_by_id(ev.data.client_id)
 			M.attach_navic(client, ev.buf)
 
-			if vim.g.nvim_enable_inlayhints == 1 and client.server_capabilities.inlayHintProvider then
-				vim.lsp.inlay_hint.enable(true)
-			end
-
-			-- if client:supports_method("textDocument/documentColor") then
-			-- 	vim.lsp.document_color.enable(true, ev.buf)
-			-- end
 			attach_codelens(client, ev.buf)
 		end,
 	})
@@ -239,9 +235,6 @@ function M.lspconfig()
 		local log = vim.fn.stdpath("state") .. "/lsp.log"
 		vim.fn.delete(log)
 	end, { nargs = 0 })
-	vim.api.nvim_create_user_command("InlayHintsToggle", function(_)
-		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-	end, {})
 	vim.api.nvim_create_user_command("LspCodelensRun", function(_)
 		vim.lsp.codelens.run()
 	end, {})
