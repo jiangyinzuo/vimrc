@@ -22,7 +22,6 @@ $SUDO yum install python-devel python3 python3-devel
 
 # nvim-treesitter和pynvim需要高版本gcc，切换devtoolset来使用高版本gcc，或手动添加-std=c99 flag
 # https://github.com/nvim-treesitter/nvim-treesitter/pull/7490
-pip3 install neovim
 
 if command -v snap >/dev/null 2>&1; then
 	$SUDO snap install ripgrep --classic

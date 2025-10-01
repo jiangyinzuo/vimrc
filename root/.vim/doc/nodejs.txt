@@ -8,7 +8,7 @@ Installation ~
 
 - Ubuntu18.04: https://github.com/nodesource/distributions#debian-and-ubuntu-based-distributions
 - https://github.com/tj/n
-- https://github.com/nvm-sh/nvm
+- https://github.com/nvm-sh/nvm ⭐
 - https://github.com/neoclide/coc.nvim
 
 Micromanba / Conda 环境安装 ~

@@ -38,7 +38,6 @@ function install_nvim() {
 	else
 		$SUDO add-apt-repository ppa:neovim-ppa/unstable
 		$SUDO apt-get install -y neovim
-		pip3 install neovim
 	fi
 }
 
@@ -109,19 +108,6 @@ function install_vim() {
 	./install/build_vim.sh $VIM_COMMIT
 }
 
-function install_nvm() {
-	# install nodejs
-	# alternative: n
-	# Ubuntu18.04安装node20的一种方案: https://github.com/nodesource/distributions/issues/1392#issuecomment-1815887430
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-	prompt=$prompt"
-		=== Node.js ===
-		source ~/.bashrc
-		nvm install --lts
-
-	"
-}
-
 _go_installged=false
 function install_go() {
 	if [ "$_go_installed" = false ]; then
@@ -164,14 +150,8 @@ install_other_apt_packages
 install_git_delta
 # option: $VIM_COMMIT
 # install_vim
-install_nvm
 # install_go
 # install_gvm
-
-# cmake and python lsp
-# pip3 install cmake-language-server cmakelang basedpyright black -U
-# lua
-# cargo install stylua
 
 # 加上双引号才能echo换行符
 echo "$prompt"
