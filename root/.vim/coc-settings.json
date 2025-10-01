@@ -24,11 +24,9 @@
         "reason"
       ]
     },
-    "typst": {
-      "command": "typst-lsp",
-      "filetypes": [
-        "typst"
-      ]
+    "tinymist": {
+      "command": "tinymist-linux-x64",
+      "filetypes": ["typst"]
     },
     "bash": {
       "enable": false,

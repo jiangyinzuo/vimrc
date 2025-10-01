@@ -1,371 +1,367 @@
 " vim:set ts=2 sw=2 noexpandtab:
 set number "显示行号
-if has('autocmd') " vim-tiny does not have autocmd
-	set nocp "no Vi-compatible
-	" 和面试官交流时，面试官可能看不懂相对行号，所以最好关闭
-	" set relativenumber
-	"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
-
-	if filereadable(expand('~/.vim/config.vim'))
-		source ~/.vim/config.vim
-	endif
-	if has('nvim')
-		let g:nvim_enable_inlayhints = 1
-		set runtimepath^=~/.vim runtimepath+=~/.vim/after
-		let &packpath = &runtimepath
-		" autopair with nvim may has bug
-		" https://github.com/neovim/neovim/issues/23666
-		let g:AutoPairsMapCR = 0
-		let g:nvim_lsp_autostart = {}
-		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
-		let g:jdtls_exe = get(g:, 'jdtls_exe', 'jdtls')
-		let g:jdtls_java_exe = get(g:, 'jdtls_java_exe', '/usr/bin/java')
-		let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
-		" speed up loading
-		let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
-		" WARN: DO NOT use copilot provider, it will cause abuse.
-		let g:avante_provider = get(g:, 'avante_provider', 'openai') " openai, claude
-		let g:avante_auto_suggestions_provider = get(g:, 'avante_auto_suggestions_provider', 'openai') " openai , claude
-	else
-		let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
-		if exists(":Man") != 2
-			" copied from ftplugin/man.vim
-			command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
-		endif
-		set showcmd " show pressed keys
-	endif
-	let g:openai_endpoint = get(g:, 'openai_endpoint', "https://api.deepseek.com/v1")
-	let g:openai_model = get(g:, 'openai_model', "deepseek-chat")
-	let g:openai_token_file = get(g:, 'openai_token_file', "~/.config/deepseek.token")
-	let g:openai_disable_tools = get(g:, 'openai_disable_tools', 1)
-	let g:claude_endpoint = get(g:, 'claude_endpoint', "https://api.anthropic.com")
-	let g:claude_model = get(g:, "claude_model", "claude-3-7-sonnet-latest")
-	let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
-	" gtags-cscope | cscope
-	let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
-	" tmux2.2以上才支持true color
-	let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
-	" 'vimspector' | 'nvim-dap' | ''
-	let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
-	if v:version >= 800
-		" show [x/y] instead of search hit BOTTOM, continuing at TOP
-		set shortmess-=S
-	else
-		set bg=light
-		hi ColorColumn ctermbg=0
-		hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
-		hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
-		hi Search ctermbg=143 ctermfg=0
-		hi Folded ctermbg=0
-	endif
-	let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
-
-	let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-	" See Also: https://github.com/neoclide/coc-sources
-	" All Coc Extensions:
-	" coc-explorer will kill neovim's intro, quickly type <space> or other key
-	" when starting can avoid it.
-	" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
-	" Note: 'coc-basedpyright' is a fork of pyright https://github.com/fannheyward/coc-basedpyright
-	" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
-	let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
-
-	let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
-	" use CompilationDatabase instead (absolute path)
-	" See: https://clangd.llvm.org/config#compilationdatabase
-	" let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--background-index", "--header-insertion=iwyu"])
-	let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--pretty", "--background-index", "--header-insertion=iwyu"])
-	let g:clangd_cmd = [g:clangd_path] + g:clangd_args
-	let g:clang_format = get(g:, 'clang_format', 'clang-format')
-	" black, ruff
-	let g:python_formatter = get(g:, 'python_formatter', 'black')
-	let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
-	let g:omni_sql_no_default_maps = 1
-	" copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim
-	" minuet-ai.nvim
-	let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
-
-	let g:mapleader = get(g:, 'mapleader', ' ')
-
-	let g:has_go_executable = executable("go")
-	let g:has_pdflatex_executable = executable("pdflatex")
-	let g:has_coqtop_executable = executable("coqtop")
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-	" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置
-	set modeline
-	set noexrc " 不读取当前文件夹的.vimrc
-
-	set history=500 " Sets how many lines of history VIM has to remember
-	filetype indent plugin on
-	syntax on "语法高亮显示
-	set encoding=utf-8
-	set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030 " vim自动探测fileencodeing的顺序列表
-	set fileformats=unix,dos,mac " 文件格式
-	set cmdheight=2 " cmd行高2, 减少hit-enter
-	set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
-	set matchtime=1 " showmatch的时间0.1s
-	set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
-	set hidden " 未保存文本就可以隐藏buffer
-	set wildmenu " command自动补全时显示菜单
-	if v:version >= 900 || has('nvim')
-		if has('patch-9.1.503') || has('nvim-0.11.0')
-			set completeopt+=fuzzy
-		endif
-		set wildoptions=pum " 显示popup window
-		" save
-		inoremap <silent> <c-S> <cmd>w<CR>
-		let g:help_example_languages = { "vim": "vim", "bash": "bash" }
-	else
-		set wildmode=list:full
-	endif
-	set wildignore=.git/*,build/*,.cache/*
-	set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
-	" https://www.skywind.me/blog/archives/2021
-	set timeoutlen=3000 " key map 超时时间
-	set ttimeout
-	if $TMUX != ''
-		set ttimeoutlen=30
-	elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-		set ttimeoutlen=80
-	endif
-	set autowrite " 自动保存
-	set scrolloff=7 " 光标离底部或顶部保持7行
-	set hlsearch " Highlight search results
-	set incsearch " 输入搜索内容时就显示搜索结果
-	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
-	set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
-	if filereadable('/usr/share/dict/words')
-		set dictionary+=/usr/share/dict/words
-	endif
-	" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
-	set nobackup
-	set nowritebackup
-
-	autocmd BufWritePost * call noplug#BackupFile()
-	set swapfile
-	set updatecount=100
-	" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
-	if v:version >= 802 || has('nvim')
-		set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
-
-		" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
-		tnoremap <ScrollWheelUp> <C-\><C-n>
-		tnoremap <ScrollWheelDown> <C-\><C-n>
-		nnoremap <ScrollWheelUp> 3<C-y>
-		nnoremap <ScrollWheelDown> 3<C-e>
-	else
-		set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
-	endif
-	""""""""""""""""""""""""""""""
-	"indent and tab
-	""""""""""""""""""""""""""""""
-	set smarttab
-	set autoindent " 跟随上一行的缩进方式
-	" expandtab: 大多数编程语言风格使用空格缩进
-	" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
-	" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
-	""" default indent
-	" markdown在被默认vim runtime file设置为tabstop=4
-	" :verbose set tabstop? shiftwidth? softtabstop?
-	set expandtab tabstop=4 shiftwidth=4 softtabstop=4
-	command -nargs=1 IndentSize :set tabstop=<args> shiftwidth=<args> softtabstop=<args>
-	command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> softtabstop=<args>
-	" apt install shfmt
-	autocmd FileType sh,bash setlocal equalprg=shfmt
-	autocmd FileType cuda,vim,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
-	let g:project_vimrc = '.project.vim'
-	" do not add too much root marks, it will slow down search performance
-	let g:RootMarks = ['.git', g:project_vimrc, '.root']
-
-	" vimplug.vim 可能会改变g:no_vimplug的值
-	let g:no_vimplug = get(g:, 'no_vimplug', (glob(g:vim_plug_dir) == "") || &loadplugins == 0)
-	" 显示空白字符
-	" https://codepoints.net/U+23B5
-	set list listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
-	" set nowrap " 不折行
-	set conceallevel=2
-	if v:version >= 801
-		set signcolumn=yes " 同时显示git状态和行号
-		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-		" Set to auto read when a file is changed from the outside
-		set autoread
-		" Triger `autoread` when files changes on disk
-		" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-		" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-		autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-		" Notification after file change
-		" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-		autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
-		if has('patch-8.1.311')
-			" filter quickfix list, do not use vim-qf plugin
-			packadd cfilter
-		endif
-	endif
-
-	" Enable persistent undo so that undo history persists across vim sessions
-	" NOTE: persistent_undo在文件丢失后无法恢复历史，需要开启backup
-	if has("persistent_undo")
-		if has('nvim')
-			let target_path = expand('~/.vim/undodir/nvim')
-		else
-			let target_path = expand('~/.vim/undodir/vim')
-		endif
-		" create the directory and any parent directories
-		" if the location does not exist.
-		if !isdirectory(target_path)
-			call mkdir(target_path, "p", 0700)
-		endif
-		let &undodir=target_path
-		set undofile
-	endif
-	"""""""""""""""""""""""""""""""
-	if has("patch-8.1.0360")
-		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
-		if has("patch-9.1.1072") || has("nvim-0.11.0")
-			set diffopt+=linematch:60,inline:char
-		endif
-	endif
-	""""""""""""""""""""" termdebug
-	set t_Co=256
-	set t_ut=
-	if v:version >= 801
-		autocmd Filetype c,cpp,rust,cuda ++once if !exists(':Termdebug') | packadd termdebug | endif
-		if exists('&termwinsize')
-			autocmd Filetype termdebug setlocal termwinsize=0*10000
-		endif
-		" wide: 设置一个较大的宽度，防止termdebug gdb窗口折行
-		let g:termdebug_config = {'command': 'gdb', 'wide': 1}
-	endif
-	""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
-	" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
-	"  open explorer :Ex :Sex :Vex
-	" close explorer :Rex
-	if has('nvim')
-		" do not load netrw
-		let g:loaded_netrw = 1
-		let g:loaded_netrwPlugin = 1
-	else
-		let g:netrw_browse_split = 0 " open the file using netrw buffer
-		let g:netrw_liststyle = 3 " tree style listing
-		let g:netrw_preview = 0 " preview window horizontally
-		let g:netrw_hide = 1 " show not-hidden files
-		let g:netrw_keepdir = 0
-	endif
-	" see netrw-v
-	" 新的窗口出现在当前窗口的右边
-	set splitright
-	" let g:netrw_altv = 1
-	" let g:netrw_winsize = 20
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-	" Reference: vim.fandom.com/wiki/Searching_for_files
-	" find files and populate the quickfix list
-	" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
-	" :new 开新的window
-	" :edit 在当前buffer
-	" :open 无法使用通配符，不能使用wildmode
-	" :next 可以打开多个文件
-	command! -nargs=1 FindFilesToQf call noplug#SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
-	command! -nargs=1 FdToQf call noplug#SystemToQf('fd ' . <q-args> . ' | xargs file | sed "s/:/:1:/"')
-	" neovim 0.10.0 uses ripgrep as greppg by default
-	command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
-	nnoremap <leader>q :call noplug#ToggleQuickfix('c')<CR>
-	nnoremap <leader>lf :call noplug#ToggleQuickfix('l')<CR>
-
-	" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
-	command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
-	command! -nargs=1 QfSave call writefile([json_encode(getqflist())], <q-args>)
-	command! -nargs=1 -complete=file QfLoad call setqflist([], 'a', {'title': <q-args>, 'items': json_decode(readfile(<q-args>)[0])})
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	" 添加高亮一行
-	nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
-	vnoremap <Leader>ll :call matchadd('Todo', '\%V')<cr>
-	" 清空高亮
-	nnoremap <Leader>lc :call clearmatches()<cr>
-
-	if v:version >= 740 || &readonly == 0
-		" 需要从终端复制文字，（如调用豆包桌面版API时），可以
-		" set mouse=vi，禁用normal模式下的鼠标功能
-		set mouse=a
-		if !has('nvim') && has('unix') && exists('$TMUX')
-			set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
-		endif
-
-		if has('nvim')
-			set foldmethod=expr
-			set foldexpr=nvim_treesitter#foldexpr()
-		else
-			set foldmethod=marker
-			autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
-			" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
-			autocmd FileType tex setlocal foldmethod=manual
-			" zpr mapping https://www.zhihu.com/question/30782510/answer/70078216,
-			" 可以用:vim /keyword/ % 替代
-			" 打开所有折叠: zR
-		endif
-		set foldmarker={,}
-
-		" 默认打开所有折叠，将foldlevelstart设置为较大的值
-		"" set foldlevel=-1 " 默认关闭所有折叠
-		set foldlevelstart=99
-	endif
-	" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
-	" [[palette]]git-blame						:GitBlame
-	command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
-
-	if &loadplugins
-		if has('nvim')
-			runtime lazy.lua
-		else
-			source ~/.vim/vimrc.d/vimplug.vim
-			source ~/.vim/vimrc.d/vim_config.vim
-		endif
-	endif
-
-	if exists("+omnifunc")
-		autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-	endif
-	if g:no_vimplug && has("patch-7.4.1649")
-		packadd! matchit
-	endif
-
-	command! -nargs=1 -complete=file Read call noplug#MyRead(<f-args>)
-
-	function! CheckFileSize()
-		" 获取当前文件的大小（单位：字节）
-		let l:filesize = getfsize(expand('%:p'))
-		" 设置大小阈值为5MB
-		let l:maxsize = 5 * 1024 * 1024
-		if l:filesize > l:maxsize
-			echom "文件 " . expand('%:p') . " 超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
-			" 关闭当前缓冲区，但不退出Vim
-			" 如果你想让Vim退出，可以用：quit 或 similar
-			bdelete
-		endif
-	endfunction
-	" 在读取文件之前检查文件大小
-	autocmd BufReadPre * call CheckFileSize()
-
-	""""""""""""""""""" Yank """""""""""""""""""""""
-	" 复制pathline用于gF文件跳转
-	" See rffv() in fzf/fzf.bash
-	" [[palette]]复制当前文件:行的pathline				:YankPathLine
-	command! -nargs=0 YankPathLine call yank#YankPathLine()
-	" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
-	command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
-	command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
-	""""""""""""""""""" Marks """"""""""""""""""""""
-	" 为小写字母 a 到 z 创建映射
-	for mark in range(char2nr('a'), char2nr('z'))
-		let sign_name = 'mark' . nr2char(mark)
-		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-	endfor
-	" 为大写字母 A 到 Z 创建映射
-	for mark in range(char2nr('A'), char2nr('Z'))
-		let sign_name = 'mark' . nr2char(mark)
-		execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-	endfor
-	""""""""""""""""""""""""""""""""""""""""""""""""
+if !has('autocmd') " vim-tiny does not have autocmd
+	finish
 endif
+set nocp "no Vi-compatible
+"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
+
+if filereadable(expand('~/.vim/config.vim'))
+	source ~/.vim/config.vim
+endif
+if has('nvim')
+	set runtimepath^=~/.vim runtimepath+=~/.vim/after
+	let &packpath = &runtimepath
+	" autopair with nvim may has bug
+	" https://github.com/neovim/neovim/issues/23666
+	let g:AutoPairsMapCR = 0
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
+	let g:jdtls_exe = get(g:, 'jdtls_exe', 'jdtls')
+	let g:jdtls_java_exe = get(g:, 'jdtls_java_exe', '/usr/bin/java')
+	let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
+	" speed up loading
+	let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
+	" WARN: DO NOT use copilot provider, it will cause abuse.
+else
+	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
+	if exists(":Man") != 2
+		" copied from ftplugin/man.vim
+		command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
+	endif
+	set showcmd " show pressed keys
+endif
+let g:openai_endpoint = get(g:, 'openai_endpoint', "https://api.deepseek.com/v1")
+let g:openai_model = get(g:, 'openai_model', "deepseek-chat")
+let g:openai_token_file = get(g:, 'openai_token_file', "~/.config/deepseek.token")
+let g:openai_disable_tools = get(g:, 'openai_disable_tools', 1)
+let g:claude_endpoint = get(g:, 'claude_endpoint', "https://api.anthropic.com")
+let g:claude_model = get(g:, "claude_model", "claude-3-7-sonnet-latest")
+let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
+" gtags-cscope | cscope
+let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
+" tmux2.2以上才支持true color
+let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
+" 'vimspector' | 'nvim-dap' | ''
+let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
+if v:version >= 800
+	" show [x/y] instead of search hit BOTTOM, continuing at TOP
+	set shortmess-=S
+else
+	set bg=light
+	hi ColorColumn ctermbg=0
+	hi NonText cterm=None term=None gui=None ctermfg=8 guifg=8
+	hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
+	hi Search ctermbg=143 ctermfg=0
+	hi Folded ctermbg=0
+endif
+let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
+
+let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
+" See Also: https://github.com/neoclide/coc-sources
+" All Coc Extensions:
+" coc-explorer will kill neovim's intro, quickly type <space> or other key
+" when starting can avoid it.
+" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
+" Note: 'coc-basedpyright' is a fork of pyright https://github.com/fannheyward/coc-basedpyright
+" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
+let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
+
+let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
+" use CompilationDatabase instead (absolute path)
+" See: https://clangd.llvm.org/config#compilationdatabase
+" let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--background-index", "--header-insertion=iwyu"])
+let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--pretty", "--background-index", "--header-insertion=iwyu"])
+let g:clangd_cmd = [g:clangd_path] + g:clangd_args
+let g:clang_format = get(g:, 'clang_format', 'clang-format')
+" black, ruff
+let g:python_formatter = get(g:, 'python_formatter', 'black')
+let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
+let g:omni_sql_no_default_maps = 1
+" copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim
+" minuet-ai.nvim
+let g:ai_suggestion = get(g:, 'ai_suggestion', 'copilot.vim')
+
+let g:mapleader = get(g:, 'mapleader', ' ')
+
+let g:has_go_executable = executable("go")
+let g:has_pdflatex_executable = executable("pdflatex")
+let g:has_coqtop_executable = executable("coqtop")
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 和面试官交流时，面试官可能看不懂相对行号，所以最好关闭
+" set relativenumber
+" 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置
+set modeline
+set noexrc " 不读取当前文件夹的.vimrc
+
+set history=500 " Sets how many lines of history VIM has to remember
+filetype indent plugin on
+syntax on "语法高亮显示
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,gbk,cp936,gb2312,gb18030 " vim自动探测fileencodeing的顺序列表
+set fileformats=unix,dos,mac " 文件格式
+set cmdheight=2 " cmd行高2, 减少hit-enter
+set showmatch  " 输入），}时，光标会暂时的回到相匹配的（，{。如果没有相匹配的就发出错误信息的铃声
+set matchtime=1 " showmatch的时间0.1s
+set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
+set hidden " 未保存文本就可以隐藏buffer
+set wildmenu " command自动补全时显示菜单
+if v:version >= 900 || has('nvim')
+	if has('patch-9.1.503') || has('nvim-0.11.0')
+		set completeopt+=fuzzy
+	endif
+	set wildoptions=pum " 显示popup window
+	" save
+	inoremap <silent> <c-S> <cmd>w<CR>
+	let g:help_example_languages = { "vim": "vim", "bash": "bash" }
+else
+	set wildmode=list:full
+endif
+set wildignore=.git/*,build/*,.cache/*
+set updatetime=700 " GitGutter更新和自动保存.swp的延迟时间
+" https://www.skywind.me/blog/archives/2021
+set timeoutlen=3000 " key map 超时时间
+set ttimeout
+if $TMUX != ''
+	set ttimeoutlen=30
+elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+	set ttimeoutlen=80
+endif
+set autowrite " 自动保存
+set scrolloff=7 " 光标离底部或顶部保持7行
+set hlsearch " Highlight search results
+set incsearch " 输入搜索内容时就显示搜索结果
+set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
+set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
+if filereadable('/usr/share/dict/words')
+	set dictionary+=/usr/share/dict/words
+endif
+" NOTE: persistent_undo在文件丢失后无法恢复历史，所以开启backup
+set nobackup
+set nowritebackup
+
+autocmd BufWritePost * call noplug#BackupFile()
+set swapfile
+set updatecount=100
+" 会话不保存options, 防止重新set background=dark后，覆盖一些highlight设置
+if v:version >= 802 || has('nvim')
+	set sessionoptions=curdir,globals,localoptions,resize,tabpages,terminal,winpos,winsize
+
+	" 在terminal中使用鼠标滚轮进入normal模式，方便滚动
+	tnoremap <ScrollWheelUp> <C-\><C-n>
+	tnoremap <ScrollWheelDown> <C-\><C-n>
+	nnoremap <ScrollWheelUp> 3<C-y>
+	nnoremap <ScrollWheelDown> 3<C-e>
+else
+	set sessionoptions=curdir,globals,localoptions,resize,tabpages,winpos,winsize
+endif
+""""""""""""""""""""""""""""""
+"indent and tab
+""""""""""""""""""""""""""""""
+set smarttab
+set autoindent " 跟随上一行的缩进方式
+" expandtab: 大多数编程语言风格使用空格缩进
+" 不开启smartindent, 否则visual模式shift缩进多行时，行首非空白字符开头的注释不会跟着shift
+" set smartindent " 以 { 或cinword变量开始的行（if、while...），换行后自动缩进
+""" default indent
+" markdown在被默认vim runtime file设置为tabstop=4
+" :verbose set tabstop? shiftwidth? softtabstop?
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4
+command -nargs=1 IndentSize :set tabstop=<args> shiftwidth=<args> softtabstop=<args>
+command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> softtabstop=<args>
+" apt install shfmt
+autocmd FileType sh,bash setlocal equalprg=shfmt
+autocmd FileType vim,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+let g:project_vimrc = '.project.vim'
+" do not add too much root marks, it will slow down search performance
+let g:RootMarks = ['.git', g:project_vimrc, '.root']
+
+" vimplug.vim 可能会改变g:no_vimplug的值
+let g:no_vimplug = get(g:, 'no_vimplug', (glob(g:vim_plug_dir) == "") || &loadplugins == 0)
+" 显示空白字符
+" https://codepoints.net/U+23B5
+set list listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
+" set nowrap " 不折行
+set conceallevel=2
+if v:version >= 801
+	set signcolumn=yes " 同时显示git状态和行号
+	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+	" Set to auto read when a file is changed from the outside
+	set autoread
+	" Triger `autoread` when files changes on disk
+	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+	" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+	autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+	" Notification after file change
+	" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+	autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Noneau FocusGained,BufEnter * checktime
+	if has('patch-8.1.311')
+		" filter quickfix list, do not use vim-qf plugin
+		packadd cfilter
+	endif
+endif
+
+" Enable persistent undo so that undo history persists across vim sessions
+" NOTE: persistent_undo在文件丢失后无法恢复历史，需要开启backup
+if has("persistent_undo")
+	if has('nvim')
+		let target_path = expand('~/.vim/undodir/nvim')
+	else
+		let target_path = expand('~/.vim/undodir/vim')
+	endif
+	" create the directory and any parent directories
+	" if the location does not exist.
+	if !isdirectory(target_path)
+		call mkdir(target_path, "p", 0700)
+	endif
+	let &undodir=target_path
+	set undofile
+endif
+"""""""""""""""""""""""""""""""
+if has("patch-8.1.0360")
+	set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
+	if has("patch-9.1.1072") || has("nvim-0.11.0")
+		set diffopt+=linematch:60,inline:char
+	endif
+endif
+""""""""""""""""""""" termdebug
+set t_Co=256
+set t_ut=
+if v:version >= 801
+	autocmd Filetype c,cpp,rust,cuda ++once if !exists(':Termdebug') | packadd termdebug | endif
+	if exists('&termwinsize')
+		autocmd Filetype termdebug setlocal termwinsize=0*10000
+	endif
+	" wide: 设置一个较大的宽度，防止termdebug gdb窗口折行
+	let g:termdebug_config = {'command': 'gdb', 'wide': 1}
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""" Netrw Plugin
+" http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/
+"  open explorer :Ex :Sex :Vex
+" close explorer :Rex
+if has('nvim')
+	" do not load netrw
+	let g:loaded_netrw = 1
+	let g:loaded_netrwPlugin = 1
+else
+	let g:netrw_browse_split = 0 " open the file using netrw buffer
+	let g:netrw_liststyle = 3 " tree style listing
+	let g:netrw_preview = 0 " preview window horizontally
+	let g:netrw_hide = 1 " show not-hidden files
+	let g:netrw_keepdir = 0
+endif
+" see netrw-v
+" 新的窗口出现在当前窗口的右边
+set splitright
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 20
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Reference: vim.fandom.com/wiki/Searching_for_files
+" find files and populate the quickfix list
+" :find :new :edit :open 只能找一个文件，需要配合wildmenu逐级搜索文件夹
+" :new 开新的window
+" :edit 在当前buffer
+" :open 无法使用通配符，不能使用wildmode
+" :next 可以打开多个文件
+command! -nargs=1 FindFilesToQf call noplug#SystemToQf('find . -name "*' . <q-args> . '*" | xargs file | sed "s/:/:1:/"')
+command! -nargs=1 FdToQf call noplug#SystemToQf('fd ' . <q-args> . ' | xargs file | sed "s/:/:1:/"')
+" neovim 0.10.0 uses ripgrep as greppg by default
+command! -nargs=1 RgToQf call noplug#SystemToQf('rg --vimgrep ' . <q-args>)
+nnoremap <leader>q :call noplug#ToggleQuickfix('c')<CR>
+nnoremap <leader>lf :call noplug#ToggleQuickfix('l')<CR>
+
+" [[palette]]执行系统命令并输出到quickfix list			:SystemToQf
+command! -nargs=1 SystemToQf call noplug#SystemToQf(<q-args>)
+command! -nargs=1 QfSave call writefile([json_encode(getqflist())], <q-args>)
+command! -nargs=1 -complete=file QfLoad call setqflist([], 'a', {'title': <q-args>, 'items': json_decode(readfile(<q-args>)[0])})
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 添加高亮一行
+nnoremap <Leader>ll :call matchadd('Todo', '\%.l')<cr>
+vnoremap <Leader>ll :call matchadd('Todo', '\%V')<cr>
+" 清空高亮
+nnoremap <Leader>lc :call clearmatches()<cr>
+
+if v:version >= 740 || &readonly == 0
+	" 需要从终端复制文字，（如调用豆包桌面版API时），可以
+	" set mouse=vi，禁用normal模式下的鼠标功能
+	set mouse=a
+	if !has('nvim') && has('unix') && exists('$TMUX')
+		set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
+	endif
+
+	if has('nvim')
+		set foldmethod=expr
+		set foldexpr=nvim_treesitter#foldexpr()
+	else
+		set foldmethod=marker
+		autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
+		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)
+		autocmd FileType tex setlocal foldmethod=manual
+		" zpr mapping https://www.zhihu.com/question/30782510/answer/70078216,
+		" 可以用:vim /keyword/ % 替代
+		" 打开所有折叠: zR
+	endif
+	set foldmarker={,}
+
+	" 默认打开所有折叠，将foldlevelstart设置为较大的值
+	"" set foldlevel=-1 " 默认关闭所有折叠
+	set foldlevelstart=99
+endif
+" command -nargs=0 GitBlame !git blame -L line(".") + 1, line(".") + 1 -- %
+" [[palette]]git-blame						:GitBlame
+command -range -nargs=0 GitBlame :!git blame -n -L <line1>,<line2> -- %
+
+if &loadplugins
+	if has('nvim')
+		runtime lazy.lua
+	else
+		source ~/.vim/vimrc.d/vimplug.vim
+		source ~/.vim/vimrc.d/vim_config.vim
+	endif
+endif
+
+if exists("+omnifunc")
+	autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+endif
+if g:no_vimplug && has("patch-7.4.1649")
+	packadd! matchit
+endif
+
+command! -nargs=1 -complete=file Read call noplug#MyRead(<f-args>)
+
+function! CheckFileSize()
+	" 获取当前文件的大小（单位：字节）
+	let l:filesize = getfsize(expand('%:p'))
+	" 设置大小阈值为5MB
+	let l:maxsize = 5 * 1024 * 1024
+	if l:filesize > l:maxsize
+		echom "文件 " . expand('%:p') . " 超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
+		" 关闭当前缓冲区，但不退出Vim
+		" 如果你想让Vim退出，可以用：quit 或 similar
+		bdelete
+	endif
+endfunction
+" 在读取文件之前检查文件大小
+autocmd BufReadPre * call CheckFileSize()
+
+""""""""""""""""""" Yank """""""""""""""""""""""
+" 复制pathline用于gF文件跳转
+" See rffv() in fzf/fzf.bash
+" [[palette]]复制当前文件:行的pathline				:YankPathLine
+command! -nargs=0 YankPathLine call yank#YankPathLine()
+" [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
+command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
+command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
+""""""""""""""""""" Marks """"""""""""""""""""""
+" 为小写字母 a 到 z 创建映射
+for mark in range(char2nr('a'), char2nr('z'))
+	let sign_name = 'mark' . nr2char(mark)
+	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
+endfor
+" 为大写字母 A 到 Z 创建映射
+for mark in range(char2nr('A'), char2nr('Z'))
+	let sign_name = 'mark' . nr2char(mark)
+	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
+endfor
