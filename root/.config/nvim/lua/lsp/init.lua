@@ -165,17 +165,15 @@ function M.lspconfig()
 	setup_lsp(M.get_capabilities())
 
 	-- remove default nvim lsp keymap
-	if vim.version.gt(vim.version(), { 0, 11, 0 }) then
-		vim.keymap.del("n", "]d")
-		vim.keymap.del("n", "[d")
-		vim.keymap.del("n", "]D")
-		vim.keymap.del("n", "[D")
-		vim.keymap.del({ "x", "n" }, "gra")
-		vim.keymap.del("n", "gri")
-		vim.keymap.del("n", "grn")
-		vim.keymap.del("n", "grr")
-		vim.keymap.del("n", "grt")
-	end
+	vim.keymap.del("n", "]d")
+	vim.keymap.del("n", "[d")
+	vim.keymap.del("n", "]D")
+	vim.keymap.del("n", "[D")
+	vim.keymap.del({ "x", "n" }, "gra")
+	vim.keymap.del("n", "gri")
+	vim.keymap.del("n", "grn")
+	vim.keymap.del("n", "grr")
+	vim.keymap.del("n", "grt")
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd("LspAttach", {

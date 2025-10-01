@@ -33,7 +33,6 @@ if vim.g.nvim_lsp_diagnostic_enable_auto_floating_window then
 	create_floating_window_autocmd()
 end
 
--- local USE_VIRTUAL_LINE = vim.version.gt(vim.version(), { 0, 10, 3 })
 local USE_VIRTUAL_LINE = false
 if USE_VIRTUAL_LINE then
 	vim.keymap.set("n", "<leader>da", function()
