@@ -154,7 +154,7 @@ https://github.com/zed-industries/agent-client-protocol
 
 Gemini CLI
 Claude Code: 有两种SDK实现。
-https://github.com/zed-industries/claude-code-acp npm install @zed-industries/claude-code-acp
+https://github.com/zed-industries/claude-code-acp npm install -g @zed-industries/claude-code-acp
 https://github.com/Xuanwo/acp-claude-code
 
 =======================================================
