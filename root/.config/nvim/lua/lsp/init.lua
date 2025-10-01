@@ -149,6 +149,8 @@ function M.get_capabilities()
 end
 
 function M.lspconfig()
+	-- Neovim >= 0.12.0
+	vim.lsp.inline_completion.enable()
 	local diagnostic = require("lsp.diagnostic")
 
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍

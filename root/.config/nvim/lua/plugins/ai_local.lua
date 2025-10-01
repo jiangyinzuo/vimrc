@@ -231,7 +231,8 @@ return {
 					keymap = {
 						-- minuet-ai.nvim无法fallback tab键
 						-- accept whole completion
-						accept = "<M-p>",
+						-- Do not map here, see nvim-cmp configuration
+						accept = nil,
 						-- accept one line
 						accept_line = "<M-l>",
 						-- accept n lines (prompts for number)

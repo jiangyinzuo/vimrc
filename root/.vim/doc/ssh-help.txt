@@ -32,13 +32,27 @@ sshconfig示例
 别再笨笨地使用SSH了 - Pavinberg的文章 - 知乎 https://zhuanlan.zhihu.com/p/716963359
 
 *ssh生成key*
-1) ssh-keygen -t rsa -C '邮件地址@youremail.com'
+1) (不推荐) ssh-keygen -t rsa -C '邮件地址@youremail.com'
+1) ssh-keygen -t ed25519 -C '邮件地址@youremail.com'
 2) cat ~/.ssh/id_rsa.pub
 3) 将公钥复制到远程服务器
 >
   ssh-copy-id username@remote_host
 <
 
+NOTE: 在SSH协议中，ssh-rsa签名算法是SHA-1的哈希算法和RSA公钥算法的结合使用。由于目前SHA-1的哈希算法容易受到攻击，OpenSSH从8.7以后版本开始默认不支持ssh-rsa签名方案。
+
+默认不支持ssh-rsa签名方案并不意味着停止使用RSA密钥，密钥可以通过多种算法进行签名，RSA密钥可以使用rsa-sha2-256（rsa/SHA256）、rsa-sha2-512（rsa/SHA512）等多种签名算法来进行签名，只有ssh-rsa（rsa/SHA1）签名算法被默认禁用。
+
+参考链接： https://help.aliyun.com/zh/ecs/user-guide/resolve-an-rsa-key-based-connection-failure-to-an-instance
+
+*测试ssh密钥登录*
+>bash
+    # debug1
+    ssh -v -o PreferredAuthentications=publickey user@server.example.com
+    # debug1 debug2 debug3
+    ssh -vvv -o PreferredAuthentications=publickey user@server.example.com
+<
 
 *ssh免yes登录* *scp免yes登录* *ssh-strict-hostkey-checking*
 用于第一次批量登录大量服务器

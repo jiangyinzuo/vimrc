@@ -4,11 +4,27 @@ local lualine = {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	priority = 1,
 	config = function()
-		local lualine_b = {}
+		local lualine_b = { "branch" }
 		local lualine_c = {}
 		local winbar = {}
+		if vim.g.ai_suggestion == "sidekick.nvim" then
+			table.insert(lualine_b, {
+				function()
+					return " "
+				end,
+				color = function()
+					local status = require("sidekick.status").get()
+					if status then
+						return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+					end
+				end,
+				cond = function()
+					local status = require("sidekick.status")
+					return status.get() ~= nil
+				end,
+			})
+		end
 		if vim.g.vimrc_lsp == "nvim-lsp" then
-			lualine_b = { "branch" }
 			lualine_c = {
 				"diagnostics",
 				-- invoke `progress` to get lsp progress status.
@@ -22,7 +38,6 @@ local lualine = {
 				},
 			}
 		elseif vim.g.vimrc_lsp == "coc.nvim" then
-			lualine_b = { "branch" }
 			lualine_c = {
 				-- invoke `coc#status` to get coc status.
 				[[%{exists("*coc#status")?coc#status():''}]],

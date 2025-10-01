@@ -106,6 +106,8 @@ AIDER ~
 https://aider.chat/
 不支持MCP、tool call
 
+SourceGraph AMPCode https://ampcode.com/manual#cli
+
 Amazon Q ~
 仅支持MacOS https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-getting-started-installing.html
 

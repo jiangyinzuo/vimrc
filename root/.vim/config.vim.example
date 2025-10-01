@@ -1,6 +1,7 @@
 " vim:ft=vim
 " copy this file to config.vim
 
+" sidekick.nvim
 let g:ai_suggestion = 'copilot.vim'
 
 let g:openai_endpoint = "https://api.deepseek.com/v1"
