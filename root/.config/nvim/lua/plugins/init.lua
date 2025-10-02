@@ -329,4 +329,16 @@ return {
 			},
 		},
 	},
+	{
+		"jonathanforhan/nvim-glyph",
+		dependencies = {
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		opts = {},
+		init = function()
+			vim.keymap.set("i", "<C-k><C-k>", function()
+				require("nvim-glyph").pick_glyph()
+			end)
+		end,
+	},
 }
