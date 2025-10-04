@@ -162,6 +162,23 @@ perf: 只能做函数级别的分析，函数内部无法分析
     # $out: 输出的svg图片，如flame.svg
     perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > $out
 <
+Perf两种主要的栈回溯 (Stack Unwinding) 方式 ~
+
+1. fp (Frame Pointer - 帧指针)
+
+原理：通过CPU寄存器中的帧指针（rbp 寄存器 on x86-64）来遍历调用栈。
+优点：开销非常低，速度快。
+缺点：现在的编译器为了优化性能，默认会禁用帧指针（例如 gcc 的 -fomit-frame-pointer 优化）。如果你的程序编译时没有保留帧指针，perf 将无法正确回溯，导致调用栈不完整。
+解决方法：在编译你的应用程序时，需要加上编译选项 -fno-omit-frame-pointer 来保留帧指针。
+
+2. dwarf (DWARF Debug Info)
+
+原理：利用保存在可执行文件中的 DWARF 调试信息来回溯调用栈。这些信息精确地描述了如何在任何指令地址上回溯堆栈。
+优点：非常精确，即使帧指针被优化掉也能工作。
+缺点：
+- 开销比 fp 模式大。
+- 要求可执行文件和库在编译时必须包含调试信息（例如 gcc 的 -g 选项）。
+- 需要指定一个栈的抓取大小，如果调用栈太深，超过了这个大小，仍然会被截断。
 
 Intel VTune Profiler ~
 

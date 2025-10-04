@@ -32,7 +32,6 @@ local M = {
 		end,
 	},
 	"jiangyinzuo/z.vim",
-	{ "heavenshell/vim-pydocstring", ft = "python" },
 	"voldikss/vim-floaterm",
 	{
 		"voldikss/fzf-floaterm",
@@ -54,7 +53,12 @@ local M = {
 	},
 	"justinmk/vim-sneak",
 	"matze/vim-move",
-	"norcalli/nvim-colorizer.lua",
+	{
+		"norcalli/nvim-colorizer.lua",
+		opts = {},
+		-- LSP document_color
+		cond = false,
+	},
 	{
 		"LunarWatcher/auto-pairs",
 		config = function()
