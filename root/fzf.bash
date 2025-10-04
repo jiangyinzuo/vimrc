@@ -2,6 +2,10 @@
 
 # We install fzf via vim-plug
 export PATH=$PATH:$HOME/plugged/fzf/bin
+
+# Reference: https://github.com/junegunn/fzf#fzf-tmux-script
+export FZF_TMUX=1
+
 # Extended-search-mode
 # 
 # 'wild	exact-match
@@ -13,17 +17,17 @@ export PATH=$PATH:$HOME/plugged/fzf/bin
 source $HOME/plugged/fzf/shell/key-bindings.bash
 source $HOME/plugged/fzf/shell/completion.bash
 
-# Reference: https://github.com/junegunn/fzf#fzf-tmux-script
-export FZF_TMUX=1
-
 # Reference: https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
-
 # Use ** as the trigger sequence
 export FZF_COMPLETION_TRIGGER='**'
-
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
+# Options for path completion (e.g. vim **<TAB>)
+export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
+# Options for directory completion (e.g. cd **<TAB>)
+export FZF_COMPLETION_DIR_OPTS='--walker dir,follow'
 
+### Customizing completion source for paths and directories
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -136,5 +140,13 @@ fz() {
 	local d=$(awk -f $VIMRC_ROOT/z.awk regex=$1 ~/.z | fzf --query "$1")
 	if [ -n "$d" ]; then
 		cd $d
+	fi
+}
+
+zt() {
+	local d;
+	d=$(z -t | fzf +s --tac | awk '{print $2}')
+	if [[ -n $d ]]; then
+		cd "$d"
 	fi
 }

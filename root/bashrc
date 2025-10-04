@@ -6,7 +6,9 @@ export EDITOR=vim
 export BASH_ENV=$HOME/vimrc/root/bashrc_noi
 source $HOME/vimrc/root/bashrc_noi
 
-source "$VIMRC_ROOT"/fzf.bash
+if [ -d "$HOME/plugged/fzf" ]; then
+	source "$VIMRC_ROOT"/fzf.bash
+fi
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
@@ -16,14 +18,6 @@ alias rgi="rg -i -z --max-columns-preview --max-columns 500 --hidden --no-ignore
 
 # pygments支持更多语言
 # export GTAGSLABEL=native-pygments
-
-zt() {
-	local d;
-	d=$(z -t | fzf +s --tac | awk '{print $2}')
-	if [[ -n $d ]]; then
-		cd "$d"
-	fi
-}
 
 if [[ $(uname -a) == *WSL* ]]; then
 	. "$VIMRC_ROOT"/wsl-init.bash
