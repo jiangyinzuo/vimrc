@@ -134,7 +134,7 @@ local M = {
 	"jiangyinzuo/img-paste.vim",
 	"skywind3000/vim-quickui",
 	"pechorin/any-jump.vim",
-	{ "jiangyinzuo/vim-markdown", ft = "markdown" },
+	{ "jiangyinzuo/vim-markdown", ft = {"markdown", "quarto"} },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {
