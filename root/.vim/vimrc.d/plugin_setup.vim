@@ -180,3 +180,9 @@ if !empty($USE_VIM_MERGETOOL)
 	autocmd BufEnter * if get(g:, 'mergetool_in_merge_mode', 0) | :GitGutterBufferDisable | endif
 endif
 
+" automatically opens the location-list
+augroup doctest
+	autocmd! *
+	autocmd QuickFixCmdPost lDoctest nested lwindow
+augroup END
+let g:doctest#runner#python = 'python3'

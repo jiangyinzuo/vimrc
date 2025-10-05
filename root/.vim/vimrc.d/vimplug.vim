@@ -248,11 +248,7 @@ if has('patch-8.2.5072') && g:has_go_executable == 1
 endif
 
 Plug 'alepez/vim-gtest', {'for': ['c', 'cpp', 'cuda']}
-Plug 'lambdalisue/doctest.vim', {'for': 'python'}
-augroup doctest
-	autocmd! *
-		autocmd QuickFixCmdPost lDoctest nested lwindow
-augroup END
+Plug 'lambdalisue/vim-doctest', {'for': 'python'}
 
 " paste img in markdown/latex style
 " Alternative: HakonHarnes/img-clip.nvim
