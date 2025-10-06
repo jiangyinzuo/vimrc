@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -o vi
-export EDITOR=vim
+export EDITOR=${EDITOR:-vim}
 
 export BASH_ENV=$HOME/vimrc/root/bashrc_noi
 source $HOME/vimrc/root/bashrc_noi
