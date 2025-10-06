@@ -4,3 +4,11 @@ vim:ft=help
 
 `source xxx.sh` 和 `. xxx.sh` 是在当前进程中执行。此时文件中的 `export` 环境变量会起作用。
 直接./xxx.sh是另开一个进程执行。此时文件中的 `export` 环境变量不会在当前shell环境起作用。
+
+*bash查看alias*
+
+alias
+
+*bash查看函数定义*
+
+declare -F | grep -oP '(?<=declare -f )[a-zA-Z]+\w+'

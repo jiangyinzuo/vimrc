@@ -136,17 +136,26 @@ rga-fzf() {
 	start "$file"
 }
 
-fz() {
-	local d=$(awk -f $VIMRC_ROOT/z.awk regex=$1 ~/.z | fzf --query "$1")
+zf() {
+	if [[ $1 == '-h' ]]; then
+		z -h
+		return 0
+	fi
+	local d;
+	d=$(z $1 | fzf +s --tac | awk '{print $2}')
 	if [ -n "$d" ]; then
 		cd $d
 	fi
 }
 
-zt() {
+gotof() {
+	if [[ $1 == '-h' ]]; then
+		goto -h
+		return 0
+	fi
 	local d;
-	d=$(z -t | fzf +s --tac | awk '{print $2}')
-	if [[ -n $d ]]; then
-		cd "$d"
+	d=$(goto -l | fzf +s --tac | awk '{print $2}')
+	if [ -n "$d" ]; then
+		cd $d
 	fi
 }
