@@ -158,6 +158,10 @@ https://github.com/zed-industries/claude-code-acp npm install -g @zed-industries
 https://github.com/Xuanwo/acp-claude-code
 
 =======================================================
+HTTP操作Claude Code等code agent
+
+https://github.com/coder/agentapi
+=======================================================
 Use Cases
 
 PostgreSQL项目代码理解 ~
