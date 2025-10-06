@@ -3,7 +3,6 @@
 set -o vi
 export EDITOR=${EDITOR:-vim}
 
-export BASH_ENV=$HOME/vimrc/root/bashrc_noi
 source $HOME/vimrc/root/bashrc_noi
 
 if [ -d "$HOME/plugged/fzf" ]; then
