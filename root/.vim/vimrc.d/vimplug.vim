@@ -118,6 +118,10 @@ if v:version >= 800
 	if v:version >= 801
 		Plug 'ap/vim-css-color'
 		Plug 'LunarWatcher/auto-pairs'
+		let g:AutoPairs = {'```': '```',  '"': '"', '[': ']', '''''': '''''', '(': ')', '''''''''''': '''''''''''', '{': '}', '"""': '"""'}
+		let g:AutoPairsMapSpace = 0
+		" 只在后面有空格或者是行尾时，才补全右括号
+		let g:AutoPairsCompleteOnlyOnSpace = 1
 
 		" See: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
 		" fix conflict with autopairs

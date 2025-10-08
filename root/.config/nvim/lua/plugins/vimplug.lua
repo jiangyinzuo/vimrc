@@ -60,17 +60,6 @@ local M = {
 		cond = false,
 	},
 	{
-		"LunarWatcher/auto-pairs",
-		config = function()
-			-- 设置特定于文件类型的自动配对
-			vim.g.AutoPairs = vim.fn["autopairs#AutoPairsDefine"]({
-				{ open = "<", close = ">", filetype = { "html" } },
-			})
-			-- 设置 vifm 的自动配对与 vim 相同
-			vim.g.AutoPairsLanguagePairs["vifm"] = vim.g.AutoPairsLanguagePairs["vim"]
-		end,
-	},
-	{
 		"jiangyinzuo/vim-visual-multi",
 		branch = "master",
 	},

@@ -186,11 +186,45 @@ function M.lspconfig()
 			-- Mappings.
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 			local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+			local function jump_to_tab_on_list(opts)
+				local items = opts.items or {}
+				if #items == 0 then
+					vim.notify("No item found", vim.log.levels.INFO)
+					return
+				end
+
+				if #items == 1 then
+					-- 单一结果：新开 tab 并跳转
+					local it = items[1]
+					local fname = it.filename or vim.api.nvim_buf_get_name(it.bufnr)
+					vim.cmd("tabnew " .. vim.fn.fnameescape(fname))
+					-- 跳到精确位置（lnum/col 从 1 开始；win col 从 0 开始）
+					local lnum = it.lnum or 1
+					local col = (it.col or 1) - 1
+					vim.api.nvim_win_set_cursor(0, { lnum, col })
+					-- 打开折叠并稍微居中一下
+					vim.cmd("normal! zvzz")
+				else
+					-- 多个结果：塞进 quickfix 并打开
+					vim.fn.setqflist({}, " ", { title = opts.title, items = items })
+					vim.cmd("copen")
+				end
+			end
 			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
+			vim.keymap.set("n", "<C-w><leader>gD", function()
+				vim.lsp.buf.declaration({ on_list = jump_to_tab_on_list })
+			end, bufopts)
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
+			vim.keymap.set("n", "<C-w><leader>gd", function()
+				vim.lsp.buf.definition({ on_list = jump_to_tab_on_list })
+			end, bufopts)
 			-- neovim默认映射: K
 			-- vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
+			vim.keymap.set("n", "<C-w><leader>gi", function()
+				vim.lsp.buf.implementation({ on_list = jump_to_tab_on_list })
+			end, bufopts)
+			-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 			vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, bufopts)
 			-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 			-- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -203,8 +237,19 @@ function M.lspconfig()
 				vim.lsp.buf.type_definition,
 				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.type_definition" }
 			)
+			vim.keymap.set("n", "<C-w><leader>gt", function()
+				vim.lsp.buf.type_definition({ on_list = jump_to_tab_on_list })
+			end, { noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.type_definition" })
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
+			vim.keymap.set(
+				"n",
+				"<leader>gr",
+				vim.lsp.buf.references,
+				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.references" }
+			)
+			vim.keymap.set("n", "<C-w><leader>gr", function()
+				vim.lsp.buf.references(nil, { on_list = jump_to_tab_on_list })
+			end, { noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.references" })
 			-- range_code_action and range_formatting are deprecated
 			vim.keymap.set(
 				{ "n", "x" },

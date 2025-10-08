@@ -380,6 +380,29 @@ Ubuntu 16.04: 5.4.0
 使用std::copy拷贝std::vector，而非memcpy
 
 ======================================================================================
-利用readelf和addr2line获取堆栈对应的源码位置 ~
+利用readelf或nm获取地址，利用addr2line获取对应的源码位置与汇编 ~
+
+*nm列出符号*
+
+列出原始符号 `nm -an ./your-program`
+
+列出demangle符号 `nm -anC ./your-program`
 
 *addr2line*
+
+如果想从报错堆栈查到对应源码位置，堆栈上还会有相对函数起始地址的偏移，可以加上。
+
+>bash
+  # -e 指定二进制或者.so
+  # -f 打印函数名
+  # -C demangle符号
+  # -i 显示内联栈
+  addr2line -e ./your-program -f -C -i 0x314cc64
+<
+
+*二进制获取汇编*
+
+>bash
+  # -C demangle符号
+  objdump -dS -C --disassemble='foo::bar(unsigned int)' ./your-program | less
+<
