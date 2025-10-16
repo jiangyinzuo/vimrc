@@ -1,0 +1,6 @@
+# 统一为 LF（常见于类 Unix 项目）
+* text eol=lf
+
+# 如果某些文件必须 CRLF：
+*.bat text eol=crlf
+terminal/.wezterm.lua text eol=crlf
