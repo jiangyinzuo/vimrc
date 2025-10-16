@@ -38,6 +38,20 @@ https://cloud.tencent.com/developer/article/2020334
 <
 
 -------------------------------------------------------------------------------
+*Docker导入导出镜像*
+
+docker save / load
+
+-------------------------------------------------------------------------------
+将一台机器上的docker login凭证导出到另一台机器上 ~
+
+.docker文件夹可能包含config.json, root.key和common_shared.key
+>bash
+    tar -czf /tmp/docker-auth.tgz .docker
+    scp /tmp/root-docker-auth.tgz user@TARGET:/tmp/
+<
+
+-------------------------------------------------------------------------------
 *nvidia-docker*
 
 Container Runtime ~

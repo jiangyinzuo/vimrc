@@ -161,6 +161,10 @@ https://cliutils.gitlab.io/modern-cmake/README.html
     pip install cmake-language-server cmakelang
 <
 
+CMake的三个阶段：配置、生成、构建 ~
+
+https://www.cnblogs.com/ljx-null/p/15941115.html
+
 CMake 4种编译类型 ~
 
 Debug, Release, RelWithDebInfo, MinSizeRel

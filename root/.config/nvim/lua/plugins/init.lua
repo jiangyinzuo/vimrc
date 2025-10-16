@@ -65,7 +65,7 @@ return {
 		config = true,
 		opts = {
 			map_bs = false,
-		}
+		},
 	},
 	{
 		"sindrets/diffview.nvim",
@@ -374,5 +374,31 @@ return {
 				["shiftwidth"] = "detected",
 			},
 		},
+	},
+	{
+		"chrisgrieser/nvim-origami",
+		event = "VeryLazy",
+		opts = {
+			useLspFoldsWithTreesitterFallback = true,
+			pauseFoldsOnSearch = true,
+			foldtext = {
+				enabled = true,
+				padding = 3,
+				lineCount = {
+					template = "%d lines", -- `%d` is replaced with the number of folded lines
+					hlgroup = "Comment",
+				},
+				diagnosticsCount = true, -- uses hlgroups and icons from `vim.diagnostic.config().signs`
+				gitsignsCount = true, -- requires `gitsigns.nvim`
+			},
+			autoFold = {
+				enabled = false,
+				kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
+			},
+			foldKeymaps = {
+				setup = false, -- modifies `h`, `l`, and `$`
+				hOnlyOpensOnFirstColumn = false,
+			},
+		}, -- needed even when using default config
 	},
 }

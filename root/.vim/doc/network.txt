@@ -39,6 +39,9 @@ lsof -i :5000
 	wget --no-check-certificate https://your-server.com/file
 <
 
+"Error response from daemon: Get "https://xxx.com:80/v2/": http: server gave
+HTTP response to HTTPS client"
+
 docker: `/etc/docker/daemon.json`中写入
 >json
 	{

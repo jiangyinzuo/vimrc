@@ -291,10 +291,8 @@ if v:version >= 740 || &readonly == 0
 		set ttymouse=xterm2 " Windows termimal 可以用鼠标改变窗口大小
 	endif
 
-	if has('nvim')
-		set foldmethod=expr
-		set foldexpr=nvim_treesitter#foldexpr()
-	else
+	" neovim uses 'chrisgrieser/nvim-origami'
+	if !has('nvim')
 		set foldmethod=marker
 		autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
 		" zfip折叠当前段落   zf%折叠匹配括号内的内容 zfie折叠\begin{}\end{}之间的内容(vimtex)

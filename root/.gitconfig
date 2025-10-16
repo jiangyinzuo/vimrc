@@ -13,9 +13,12 @@
 	path = ~/vimrc/root/.gitconfig-delta
 
 [diff]
-	tool = vimdiff
+	# tool = vimdiff
+	tool = nvim_difftool
 [difftool]
 	prompt = false
+[difftool "nvim_difftool"]
+	cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 
 #################################################
 # See: https://github.com/samoshkin/vim-mergetool

@@ -17,10 +17,6 @@ Plug 'andymass/vim-matchup'
 " Test wrapper
 Plug 'vim-test/vim-test'
 
-" Plug 'mbbill/undotree'
-" let g:undotree_WindowLayout = 4
-Plug 'simnalamburt/vim-mundo'
-
 " suda is a plugin to read or write files with sudo command.
 Plug 'lambdalisue/vim-suda'
 Plug 'aperezdc/vim-template'
@@ -113,6 +109,9 @@ if v:version >= 800
 	Plug 'lifepillar/vim-solarized8'
 	if has('python3') || has('python')
 		source ~/.vim/vimrc.d/leaderf.vim
+		" Plug 'mbbill/undotree'
+		" let g:undotree_WindowLayout = 4
+		Plug 'simnalamburt/vim-mundo'
 	endif
 
 	if v:version >= 801
