@@ -66,10 +66,10 @@ let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
 " let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
 let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
 
-let g:clangd_path = get(g:, 'clangd_path', '/usr/bin/clangd')
+let g:clangd_path = get(g:, 'clangd_path', 'clangd')
 " use CompilationDatabase instead (absolute path)
 " See: https://clangd.llvm.org/config#compilationdatabase
-" let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--compile-commands-dir=build", "--pretty", "--background-index", "--header-insertion=iwyu"])
+" Other options: "--compile-commands-dir=build"
 let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--pretty", "--background-index", "--header-insertion=iwyu"])
 let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 let g:clang_format = get(g:, 'clang_format', 'clang-format')

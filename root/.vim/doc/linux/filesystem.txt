@@ -157,6 +157,11 @@ $TMPDIR  设置临时文件目录
     # g=u: 先将组权限设置为与所有者权限相同 (通常是 rwx)。
     # g+s: 然后，为组添加 (+) setgid (s) 权限。这确保了所有子目录都成为有效的共享目录。
     find foo -type d -exec chmod g=u,g+s {} +
+    # o=u: 先将其它人权限设置为与所有者权限相同 (通常是 rwx)。
+    find foo -type d -exec chmod o=u,g+s {} +
+    find foo -type d -exec chmod g=u,o=u,g+s {} +
     # 递归设置所有文件的权限
     find foo -type f -exec chmod g=u {} +
+    find foo -type f -exec chmod o=u {} +
+    find foo -type f -exec chmod g=u,o=u {} +
 <
