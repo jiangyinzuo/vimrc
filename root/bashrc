@@ -8,6 +8,9 @@ source $HOME/vimrc/root/bashrc_noi
 if [ -d "$HOME/plugged/fzf" ]; then
 	source "$VIMRC_ROOT"/fzf.bash
 fi
+if [ -d "$HOME/plugged/gdb-bt-forest" ]; then
+	export PATH="$PATH:$HOME/plugged/gdb-bt-forest"
+fi
 
 # 还有rga
 # https://github.com/phiresky/ripgrep-all
