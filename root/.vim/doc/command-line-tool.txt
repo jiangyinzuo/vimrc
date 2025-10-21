@@ -244,11 +244,15 @@ https://onefetch.dev/
 >bash
 	apt install git-quick-stats
 <
-*cloc* 统计代码行数
+统计代码行数
+
+*cloc*
 >bash
 	cloc $(git ls-files)
 	cloc .
 <
+
+*scc* https://github.com/boyter/scc
 
 显示当前用户登录状态 finger
 对话框 dialog
