@@ -101,6 +101,13 @@ micromamba创建新环境，使用python3.10.6
     micromamba self-update
 <
 
+Micromamba安装其它软件 ~
+
+*micromamba安装gdb16*
+>bash
+	micromamba create -n gdb16 -c conda-forge gdb=16 python=3.12
+<
+
 ----------------------------------------------------------------
 Modern Python Package Manager ~
 

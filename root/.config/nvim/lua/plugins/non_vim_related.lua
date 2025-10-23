@@ -6,4 +6,9 @@ return {
 		lazy = true, -- so neovim doesn't try to load it
 		enabled = true,
 	},
+	{
+		"jiangyinzuo/gdb-scripts",
+		lazy = true, -- so neovim doesn't try to load it
+		enabled = true,
+	}
 }
