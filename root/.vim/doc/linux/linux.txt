@@ -151,6 +151,26 @@ perf: 只能做函数级别的分析，函数内部无法分析
 来源：知乎
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
+*perf统计函数被调用堆栈*
+
+用于调用路径统计、代码逻辑理解
+
+>bash
+    # 统计正在运行的24114进程，统计调用次数而非运行时间
+    sudo perf probe -x /proc/24114/exe 'function_to_probe'
+    # 查看现有的probe事件
+    sudo perf probe -l
+    sudo perf record -p 24114 -e probe_myprogram:function_to_probe --call-graph dwarf -g -- sleep 20
+    # 查看报告，默认加载perf.data
+    sudo perf report
+    # or
+    sudo perf report -i perf.data --stdio --header --sort comm,dso,symbol --children > perf-report.txt
+    # 或者用FlameGraph处理
+
+    # 删除probe事件
+    sudo perf probe -d probe_myprogram:function_to_probe
+<
+
 *perf打火焰图*
 
 >bash
