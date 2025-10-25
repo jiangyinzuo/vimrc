@@ -351,7 +351,6 @@ autocmd BufReadPre * call CheckFileSize()
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
-command! -range -nargs=0 YankGDB <line1>,<line2>call yank#YankGDB()
 """"""""""""""""""" Marks """"""""""""""""""""""
 " 为小写字母 a 到 z 创建映射
 for mark in range(char2nr('a'), char2nr('z'))

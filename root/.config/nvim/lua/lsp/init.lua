@@ -1,10 +1,44 @@
 local M = {}
 
+local function setup_jdtls()
+	-- See: https://github.com/mfussenegger/nvim-jdtls
+	local root_dir = vim.env.PWD
+
+	local config = {
+		cmd = { vim.g.jdtls_exe, "--java-executable", vim.g.jdtls_java_exe },
+		root_dir = root_dir,
+		init_options = {
+			bundles = {
+				-- vscode java debug
+				vim.fn.glob(
+					vim.fn.stdpath("data")
+						.. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin*.jar"
+				),
+			},
+		},
+		settings = {
+			java = {
+				configuration = {
+					-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+					-- And search for `interface RuntimeOption`
+					-- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
+					runtimes = vim.g.jdtls_java_runtimes,
+				},
+			},
+		},
+	}
+	vim.lsp.config("jdtls", config)
+	vim.lsp.enable("jdtls")
+end
+
 local function setup_lsp(capabilities)
 	vim.lsp.config("*", {
 		capabilities = capabilities,
 		root_markers = { ".project.vim" },
 	})
+	if require("config").load_plugin.java then
+		setup_jdtls()
+	end
 	vim.lsp.config("ccls", {
 		init_options = vim.g.ccls_init_options,
 	})
