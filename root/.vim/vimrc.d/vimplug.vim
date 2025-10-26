@@ -355,7 +355,7 @@ hi link QuickPreview Normal
 """""""""""""""""" end colorscheme
 
 if v:version >= 801
-	if v:version >= 900 && g:vimrc_lsp == 'coc.nvim'
+	if v:version >= 900
 		source ~/.vim/vimrc.d/coc.vim
 	endif
 	let g:AutoPairs = autopairs#AutoPairsDefine([

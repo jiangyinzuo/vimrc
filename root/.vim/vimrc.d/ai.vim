@@ -1,5 +1,4 @@
 if v:version >= 900 || has('nvim')
-	let g:vim_ai_roles_config_file = '~/.vim/vim-ai-roles.ini'
 
 	" alternatives: https://github.com/codota/tabnine-nvim
 	if g:ai_suggestion == 'copilot.vim'
@@ -85,6 +84,8 @@ if has('python3')
 				\  },
 				\}
 	let g:vim_ai_complete = g:vim_ai_edit
+
+	let g:ai_git_commit_message_prompt = get(g:, "ai_git_commit_message_prompt", "generate a short git commit message from the diff below, using conventional commit format:\n")
 
 	if !has('nvim')
 		Plug 'madox2/vim-ai'

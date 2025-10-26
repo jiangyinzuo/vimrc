@@ -16,10 +16,9 @@ function ai#RunWithInitialPrompt(func, prompt, range, ...) range
 	let l:prompt = a:0 ? a:1 : ''
 	call call(a:func, [a:range, l:config, l:prompt])
 endfunction
-function ai#GitCommitMessage()
+function ai#GitCommitMessage(diffmsg)
 	let l:range = 0
-	let l:diff = system('git --no-pager diff --staged')
-	let l:prompt = "generate a short git commit message from the diff below, using conventional commit format:\n" . l:diff
+	let l:prompt = g:ai_git_commit_message_prompt . "\nThe following are `git diff` output:\n" . a:diffmsg
 	let l:config = {
 				\  "engine": "chat",
 				\  "options": {

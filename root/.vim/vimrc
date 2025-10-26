@@ -12,9 +12,6 @@ endif
 if has('nvim')
 	set runtimepath^=~/.vim runtimepath+=~/.vim/after
 	let &packpath = &runtimepath
-	" autopair with nvim may has bug
-	" https://github.com/neovim/neovim/issues/23666
-	let g:AutoPairsMapCR = 0
 	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'nvim-lsp')
 	let g:jdtls_exe = get(g:, 'jdtls_exe', 'jdtls')
 	let g:jdtls_java_exe = get(g:, 'jdtls_java_exe', '/usr/bin/java')
@@ -23,7 +20,6 @@ if has('nvim')
 	let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
 	" WARN: DO NOT use copilot provider, it will cause abuse.
 else
-	let g:vimrc_lsp = get(g:, 'vimrc_lsp', 'coc.nvim')
 	if exists(":Man") != 2
 		" copied from ftplugin/man.vim
 		command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
@@ -346,7 +342,7 @@ autocmd BufReadPre * call CheckFileSize()
 
 """"""""""""""""""" Yank """""""""""""""""""""""
 " 复制pathline用于gF文件跳转
-" See rffv() in fzf/fzf.bash
+" See rffv() in fzf.bash
 " [[palette]]复制当前文件:行的pathline				:YankPathLine
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
