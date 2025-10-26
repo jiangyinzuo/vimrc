@@ -1,10 +1,18 @@
 os:
-  editCommand: 'vim'
+  editCommand: "nvim"
+
 gui:
   editor:
-    program: vim
+    program: nvim
     args: []
+
 git:
+  # —— diffs 用 delta（可选）——
   paging:
     colorArg: always
     pager: delta --dark --paging=never
+  # —— 下面三项控制自动 fetch/快进 —— 
+  autoFetch: false            # 关闭周期性自动 fetch
+  autoForwardBranches: none   # 不在 fetch 后自动快进任何本地分支
+  fetchAll: false             # fetch 时不加 --all
+
