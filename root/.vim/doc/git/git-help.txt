@@ -258,7 +258,7 @@ git stash适用于藏匿当前正在修改，但尚未commit的工作区。适�
 *git复制某一分支*				git remote set-url
 *git合并commit* 				方法1)	git reset	方法2)	 git rebase -i HEAD~2
 
--------------------------------------------------------------------------------
+===============================================================================
 
 *difftools*
 
@@ -298,6 +298,7 @@ Git Diff ~
 查看commit 11ad9622 下的当前文件
 :Gedit 11ad9622:%
 
+-------------------------------------------------------------------------------
 Git Merge ~
 
 Local和Remote ~
@@ -382,12 +383,16 @@ NOTE: merge之后可以多按几次`]c`或`[c`, 防止有diff漏下
 
 其它命令
 :MergetoolDiffExchangeLeft       把右边的buffer应用到左边的MERGED文件
-:GitUnmergedRaw FZF打开unmerged文件，直接编辑
-:GitUnmerged    FZF打开unmerged文件，然后:MergetoolStart
+:GitUnmergedRawFzf FZF打开unmerged文件，直接编辑
+:GitUnmergedFzf    FZF打开unmerged文件，然后:MergetoolStart
 
 *clean-LOCAL-BASE-REMOTE-files*			git clean -i
 
--------------------------------------------------------------------------------
+基于抽象语法树（AST）级别进行Git冲突的自动合并 ~
+
+*mergiraf* https://mergiraf.org/
+
+===============================================================================
 *git-clean*
 *git-untracked-file*
 

@@ -50,14 +50,20 @@ command -bang -nargs=* History call s:history(<q-args>, <bang>0)
 " [[palette]]FZF搜索当前项目目录下的文件并打开			:Files
 command -nargs=0 ProjectFiles execute 'Files' asyncrun#current_root()
 
-command! -nargs=0 GitUnmergedRaw call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': 'e'}))
-command! -nargs=0 GitUnmerged call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf_custom#fzf#mergetool_start')}))
-command! -nargs=0 GitUntracked call fzf#run(fzf#wrap({'source': 'git ls-files --others --exclude-standard', 'sink': 'e'}))
-command! -nargs=0 GitStaged call fzf#run(fzf#wrap({'source': 'git diff --name-only --cached', 'sink': 'e'}))
-command! -nargs=0 GitModified call fzf#run(fzf#wrap({'source': 'git ls-files -m', 'sink': 'e'}))
-command! -nargs=0 GitDeleted call fzf#run(fzf#wrap({'source': 'git ls-files -d', 'sink': 'e'}))
-command! -nargs=0 GitRenamed call fzf#run(fzf#wrap({'source': 'git ls-files -t', 'sink': 'e'}))
-command! -nargs=0 GitUnstaged call fzf#run(fzf#wrap({'source': 'git ls-files -o --exclude-standard', 'sink': 'e'}))
+command! -nargs=0 GitUnmergedRawFzf call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': 'e'}))
+command! -nargs=0 GitUnmergedFzf call fzf#run(fzf#wrap({'source': 'git diff --name-only --diff-filter=U', 'sink': function('fzf_custom#fzf#mergetool_start')}))
+command! -nargs=0 GitUntrackedFzf call fzf#run(fzf#wrap({'source': 'git ls-files --others --exclude-standard', 'sink': 'e'}))
+command! -nargs=0 GitStagedFzf call fzf#run(fzf#wrap({'source': 'git diff --name-only --cached', 'sink': 'e'}))
+command! -nargs=0 GitModifiedFzf call fzf#run(fzf#wrap({'source': 'git ls-files -m', 'sink': 'e'}))
+command! -nargs=0 GitDeletedFzf call fzf#run(fzf#wrap({'source': 'git ls-files -d', 'sink': 'e'}))
+command! -nargs=0 GitUnstagedFzf call fzf#run(fzf#wrap({'source': 'git ls-files -o --exclude-standard', 'sink': 'e'}))
+
+command! -nargs=0 GitUnmergedQf call noplug#SystemToQf('git diff --name-only --diff-filter=U |  sed "s/\(.*\)/\1:1:f/"')
+command! -nargs=0 GitUntrackedQf call noplug#SystemToQf('git ls-files --others --exclude-standard |  sed "s/\(.*\)/\1:1:f/"')
+command! -nargs=0 GitStagedQf call noplug#SystemToQf('git diff --name-only --cached |  sed "s/\(.*\)/\1:1:f/"')
+command! -nargs=0 GitModifiedQf call noplug#SystemToQf('git ls-files -m |  sed "s/\(.*\)/\1:1:f/"')
+command! -nargs=0 GitDeletedQf call noplug#SystemToQf('git ls-files -d |  sed "s/\(.*\)/\1:1:f/"')
+command! -nargs=0 GitUnstagedQf call noplug#SystemToQf('git ls-files -o --exclude-standard |  sed "s/\(.*\)/\1:1:f/"')
 
 " See https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzf-inside-terminal-buffer
 " On :LS!, <bang> evaluates to '!', and '!0' becomes 1

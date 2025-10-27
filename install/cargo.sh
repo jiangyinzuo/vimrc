@@ -6,3 +6,6 @@ cargo install ripgrep --features 'pcre2'
 cargo install fd-find
 cargo install git-delta
 cargo install stylua
+# 基于AST而非文本行的git conflict merger
+# https://mergiraf.org/installation.html
+cargo install mergiraf
