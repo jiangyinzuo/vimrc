@@ -1,0 +1,21 @@
+vim:ft=help
+
+*monitor.txt*
+
+top中按c可以查看command详情；u可以筛选user进程
+>bash
+    # 只看jiangyinzuo用户的进程
+    top -u jiangyinzuo
+<
+
+IO Monitor ~
+
+*iotop* 查看进程I/O
+
+sysstat套件 (yum install sysstat)
+>bash
+    pidstat -d -p <PID> 1
+<
+
+终端monitor ~
+https://github.com/nicolargo/glances

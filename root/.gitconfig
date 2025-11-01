@@ -100,3 +100,5 @@
 	# git status, but exclude some files
 	status-ex = "!f() { git ls-files | grep -v \"^$1/\" | xargs git status; }; f"
 	rm-file-in-history = !git-rm-file-in-history
+[rerere]
+	enabled = true

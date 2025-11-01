@@ -173,15 +173,26 @@ perf: 只能做函数级别的分析，函数内部无法分析
 
 *perf打火焰图*
 
+https://www.brendangregg.com/Slides/KernelRecipes_Perf_Events/
+
 >bash
     # $perf_pid: 进程
     # $perf_time: 抓取时间
     perf record -F 999 --call-graph dwarf -g -p $perf_pid -- sleep $perf_time
+    # 对OLTP数据库来说，stack size最好设为8192字节，防止栈不完整
+    perf record -F 999 --call-graph dwarf,8192 -g -p $perf_pid -- sleep $perf_time
+    # fp开销更低，但要求带有-fno-omit-frame-pointer编译选项
+    perf record -F 999 --call-graph fp -g -p $perf_pid -- sleep $perf_time
 
     # 依赖FlameGraph perl脚本：https://github.com/brendangregg/FlameGraph
     # $out: 输出的svg图片，如flame.svg
     perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > $out
 <
+stackcollapse-perf.pl脚本处理C++函数时，会截断函数名中的"(...)"
+https://github.com/brendangregg/FlameGraph/pull/215
+可以使用这个Patch修复该问题
+
+
 Perf两种主要的栈回溯 (Stack Unwinding) 方式 ~
 
 1. fp (Frame Pointer - 帧指针)

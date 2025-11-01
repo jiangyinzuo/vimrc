@@ -495,6 +495,13 @@ git gc, git 减小.git目录大小                        *git-gc*
 *git-flow*
 *git-branch-model*
 
+在旧版本上的功能开发（用于POC）、bug修复等，需要首先在master上开发，然后cherry-pick到旧版本。
+好处：
+1. 十分忙碌紧急的时候，防止在旧版本开发完，忘记cherry-pick到master。
+2. 旧版本上的功能开发或bug修复commit B，可能依赖master中的过去某个commit A。如果直接在旧版本上实现，可能不会注意到
+   commit A已经在新版本中实现了，导致重复写代码。
+3. 平时一些master上的commit也会视情况cherry-pick到旧版本。保持cherry-pick关系的单向性，逻辑更加清晰。
+
 *trunk-based-development*
 https://trunkbaseddevelopment.com/
 $DOC2/cs/system/software_engineering/tools-open-source/git-github/git-branch-model/note.md

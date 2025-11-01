@@ -73,13 +73,6 @@ Ubuntu22.04下均可通过apt安装
 邮件: *himalaya* , 但其vim插件存在bug
 目录树: tree
 
-*进程查看top* top -> htop
-top中按c可以查看command详情；u可以筛选user进程
->bash
-    # 只看jiangyinzuo用户的进程
-    top -u jiangyinzuo
-<
-
 查找: find -> fd                             *find-fd* *fd-find* *fd*
 fd默认会ignore .gitignore下的文件，要取消.gitignore可以添加`-I`flag >
 	fd -I data_v2.csv
