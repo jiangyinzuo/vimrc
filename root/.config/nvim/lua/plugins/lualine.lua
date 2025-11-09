@@ -77,6 +77,11 @@ local lualine = {
 						"AvanteInput",
 						"oil",
 					},
+					statusline = {
+						"Avante",
+						"AvanteSelectedFiles",
+						"AvanteInput",
+					}
 				},
 				ignore_focus = {},
 				always_divide_middle = true,

@@ -1,0 +1,101 @@
+vim:ft=help
+
+*linux-performance-analysis*
+
+============================================
+perf
+
+只能做函数级别的分析，函数内部无法分析
+
+虽然使用 perf 可以很方便的对程序进行性能评估，但是使用 perf 会对程序的运行产生比较大的 overhead，导致程序运行比较慢；并且 perf 生成的数据量非常大，其后处理需要花费很长的时间，在 brandon 的博客里面也有提到。因此，perf 实际上是不能用在生产环境中的，只能在测试场景下对程序做性能评估。
+
+作者：xxxwwxxx
+链接：https://zhuanlan.zhihu.com/p/672082073
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+*perf统计函数被调用堆栈*
+
+用于调用路径统计、代码逻辑理解
+
+>bash
+    # 统计正在运行的24114进程，统计调用次数而非运行时间
+    sudo perf probe -x /proc/24114/exe 'function_to_probe'
+    # 查看现有的probe事件
+    sudo perf probe -l
+    sudo perf record -p 24114 -e probe_myprogram:function_to_probe --call-graph dwarf -g -- sleep 20
+    # 查看报告，默认加载perf.data
+    sudo perf report
+    # or
+    sudo perf report -i perf.data --stdio --header --sort comm,dso,symbol --children > perf-report.txt
+    # 或者用FlameGraph处理
+
+    # 删除probe事件
+    sudo perf probe -d probe_myprogram:function_to_probe
+<
+
+*perf打火焰图*
+
+https://www.brendangregg.com/Slides/KernelRecipes_Perf_Events/
+
+>bash
+    # $perf_pid: 进程
+    # $perf_time: 抓取时间
+    perf record -F 999 --call-graph dwarf -g -p $perf_pid -- sleep $perf_time
+    # 对OLTP数据库来说，stack size最好设为8192字节，防止栈不完整
+    perf record -F 999 --call-graph dwarf,8192 -g -p $perf_pid -- sleep $perf_time
+    # fp开销更低，但要求带有-fno-omit-frame-pointer编译选项
+    perf record -F 999 --call-graph fp -g -p $perf_pid -- sleep $perf_time
+
+    # 依赖FlameGraph perl脚本：https://github.com/brendangregg/FlameGraph
+    # $out: 输出的svg图片，如flame.svg
+    perf script -i perf.data | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > $out
+<
+stackcollapse-perf.pl脚本处理C++函数时，会截断函数名中的"(...)"
+https://github.com/brendangregg/FlameGraph/pull/215
+可以使用这个Patch修复该问题
+
+
+Perf两种主要的栈回溯 (Stack Unwinding) 方式 ~
+
+1. fp (Frame Pointer - 帧指针)
+
+原理：通过CPU寄存器中的帧指针（rbp 寄存器 on x86-64）来遍历调用栈。
+优点：开销非常低，速度快。
+缺点：现在的编译器为了优化性能，默认会禁用帧指针（例如 gcc 的 -fomit-frame-pointer 优化）。如果你的程序编译时没有保留帧指针，perf 将无法正确回溯，导致调用栈不完整。
+解决方法：在编译你的应用程序时，需要加上编译选项 -fno-omit-frame-pointer 来保留帧指针。
+
+2. dwarf (DWARF Debug Info)
+
+原理：利用保存在可执行文件中的 DWARF 调试信息来回溯调用栈。这些信息精确地描述了如何在任何指令地址上回溯堆栈。
+优点：非常精确，即使帧指针被优化掉也能工作。
+缺点：
+- 开销比 fp 模式大。
+- 要求可执行文件和库在编译时必须包含调试信息（例如 gcc 的 -g 选项）。
+- 需要指定一个栈的抓取大小，如果调用栈太深，超过了这个大小，仍然会被截断。
+
+============================================
+Intel VTune Profiler
+
+*intel-vtune-profiler*
+
+2025后续版本不支持旧的Intel CPU。需要下载2024版本
+
+============================================
+gperftools (libprofiler, pprof)
+
+*gperftools* 侵入式profiler
+
+============================================
+eBPF
+
+eBPF打on-CPU time和off-CPU time结合的火焰图 ~
+
+编译运行该tutorial下的工具
+https://eunomia.dev/tutorials/32-wallclock-profiler/ ⭐
+
+eBPF 教程：结合 On-CPU 和 Off-CPU 分析的挂钟时间分析 - 云微的文章 - 知乎
+https://zhuanlan.zhihu.com/p/1957046030014066935
+
+记一次深入内核的数据库高并发性能优化实践 - DolphinDB的文章 - 知乎
+https://zhuanlan.zhihu.com/p/669173594

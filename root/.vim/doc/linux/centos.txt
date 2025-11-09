@@ -6,6 +6,7 @@ vim:ft=help
 yum whatprovides */lspci 查看包含 lspci 的软件包
 yum clean all 清除所有缓存
 yum makecache 重新构建缓存
+yum downgrade xxx 降级软件
 
 2024年6月30日，CentOS 7停止服务后, mirrorlist.centos.org无法访问
 

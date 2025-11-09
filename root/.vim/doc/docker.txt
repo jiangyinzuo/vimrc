@@ -256,6 +256,7 @@ Docker build 过程中 apt-get update ~
     --group-add 1005 \
     --shm-size=64g \
     -v /sys/kernel/debug:/sys/kernel/debug \
+    -v /sys/kernel/tracing:/sys/kernel/tracing \
     -v /lib/modules:/lib/modules:ro \
     -v /usr/src:/usr/src:ro \
     -v /data1/jiangyinzuo/jiangyinzuo-dev2-data/:/jiangyinzuo-dev2-data \
@@ -307,10 +308,25 @@ Docker build 过程中 apt-get update ~
 -v /sys/kernel/debug:/sys/kernel/debug
 在某些Linux发行版可能是 `/sys/kernel/tracefs` ，容器内可以使用perf工具
 
+*docker容器内运行eBPF*
+
 -v /lib/modules:/lib/modules:ro \
+-v /sys/kernel/tracing:/sys/kernel/tracing \
 -v /usr/src:/usr/src:ro \
+
 绑定 kernel headers（/lib/modules、/usr/src）方便 bcc/bpftrace 编译 BPF 程序。
 可以看内核/模块函数名
+
+进入容器后设置
+>bash
+    # 1) 栈深/权限（只在安全可控机器上）
+    sudo sysctl -w kernel.kptr_restrict=0
+    sudo sysctl -w kernel.perf_event_paranoid=-1
+    sudo sysctl -w kernel.perf_event_max_stack=2048
+
+    # 2) sched_switch tracepoint 存在
+    test -e /sys/kernel/tracing/events/sched/sched_switch/enable && echo OK
+<
 
 ----------------
 开发OpenGauss使用的创建容器命令
