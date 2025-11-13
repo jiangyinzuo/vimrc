@@ -94,8 +94,14 @@ eBPF打on-CPU time和off-CPU time结合的火焰图 ~
 编译运行该tutorial下的工具
 https://eunomia.dev/tutorials/32-wallclock-profiler/ ⭐
 
+火焰图顶部unknown：缺乏linux内核调试信息
+火焰图底部unknown：缺乏用户程序调试信息
+
 eBPF 教程：结合 On-CPU 和 Off-CPU 分析的挂钟时间分析 - 云微的文章 - 知乎
 https://zhuanlan.zhihu.com/p/1957046030014066935
 
 记一次深入内核的数据库高并发性能优化实践 - DolphinDB的文章 - 知乎
 https://zhuanlan.zhihu.com/p/669173594
+
+性能分析之off-cpu - Yanfei Xu的文章 - 知乎
+https://zhuanlan.zhihu.com/p/162375221
