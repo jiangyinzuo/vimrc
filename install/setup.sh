@@ -13,6 +13,7 @@ soft_link_files=(
 	.config/mods
 	.config/nvim
 	.config/zellij
+	.dircolors
 	# 企业需要用企业邮箱、github代理，防止误操作覆盖网络代理
 	# .gitconfig
 	# .gitconfig-ict
