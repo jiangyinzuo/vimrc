@@ -77,9 +77,14 @@ wezterm.on('augment-command-palette', function(window, pane)
       },
     },
     {
-      brief = 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..',
+      brief = 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .. 【cmake生成compile_commands.json】',
       icon = 'cod_terminal_bash',
       action = wezterm.action.SendString 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..'
+    },
+    {
+      brief = 'split -l 100 -d sift1b_10m.csv sift1b_10m.csv.part 【split分割文件，每个文件100行，数字命名后缀】',
+      icon = 'cod_terminal_bash',
+      action = wezterm.action.SendString 'split -l 100 -d sift1b_10m.csv sift1b_10m.csv.part'
     }
   }
 end)
