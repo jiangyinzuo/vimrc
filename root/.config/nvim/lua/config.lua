@@ -15,10 +15,12 @@ return {
 		public_network = false,
 		development = {
 			cpp = true,
+			coq = false,
 			extra = false,
 			golang = false,
 			java = false,
 			jupyter = false,
+			lean = false,
 			rust = false,
 			writing = false,
 		},
