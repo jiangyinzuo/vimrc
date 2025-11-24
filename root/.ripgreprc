@@ -1,6 +1,6 @@
 # Reference: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
 
---max-columns=50
+--max-columns=500
 --max-columns-preview
 
 --glob=!.git/*
