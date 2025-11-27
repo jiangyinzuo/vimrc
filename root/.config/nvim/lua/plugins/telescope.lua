@@ -24,6 +24,7 @@ return {
 			"<leader>fh",
 			"<leader>ft",
 			"<leader>rg",
+			"<leader>sym",
 		},
 		cmd = { "Telescope" },
 		dependencies = telescope_dependencies,
@@ -43,6 +44,18 @@ return {
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", function()
 				builtin.oldfiles({ layout_strategy = layout_strategy })
+			end, {})
+			vim.keymap.set("n", "<leader>sym", function()
+				local fname_width
+				if vim.o.columns <= 125 then
+					fname_width = 30
+				else
+					fname_width = 50
+				end
+				builtin.lsp_dynamic_workspace_symbols({
+					fname_width = fname_width,
+					layout_strategy = layout_strategy
+				})
 			end, {})
 
 			local telescope = require("telescope")
