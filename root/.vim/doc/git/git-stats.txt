@@ -4,37 +4,22 @@ vim:ft=help
 
 *git统计代码行数*
 
-1. 工作区相对当前分支（HEAD）改了多少行（只算 modified 文件） ~
+同时查看每一行文件和汇总的修改行数 ~
+>bash
+  git diff --numstat --shortstat
+<
+查看每一个文件的增加/删除行数 --numstat ~
 
 >bash
+  git diff --numstat
   git diff --diff-filter=M --numstat
-<
-
-
-如果你想把所有 modified 文件的增加/删除行数加总：
-
->bash
+  # 如果你想把所有 modified 文件的增加/删除行数加总
   git diff --diff-filter=M --numstat  | awk '{add+=$1; del+=$2} END {print "added:", add, "deleted:", del, "total-changed:", add+del}'
-<
-
-2. 指定两个提交之间的 modified 行数 ~
-
-比如统计 `commitA` 到 `commitB` 之间：
-
->bash
-  git diff --diff-filter=M --numstat commitA commitB | awk '{add+=$1; del+=$2} END {print "added:", add, "deleted:", del, "total-changed:", add+del}'
-<
-
-如果只是看每个文件的行数（不汇总）：
-
->bash
+  # 指定两个提交
   git diff --diff-filter=M --numstat commitA commitB
 <
 
-3. 统计某个时间段 / 某个作者的修改行数（按提交历史） ~
-
-比如：统计从 2025-11-01 以来，你这个作者的 modified 行数：
-
+统计从 2025-11-01 以来，你这个作者的 modified 行数：
 >bash
   git log --since="2025-11-01" --author="你的名字或邮箱" \
   --diff-filter=M --numstat --pretty="%H" \
@@ -53,10 +38,7 @@ vim:ft=help
   --diff-filter=M --numstat --stat
 <
 
-4. 快速看统计摘要（不区分 M / A / D） ~
-
-如果不强制只看 modified 文件，而是想快速看本地相对 HEAD 的总改动（新增、删除）：
-
+查看汇总的统计摘要，不细分每个文件 ~
 >bash
   git diff --shortstat
   # 或者指定范围

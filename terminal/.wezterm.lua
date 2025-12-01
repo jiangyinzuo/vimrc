@@ -87,9 +87,14 @@ wezterm.on("augment-command-palette", function(window, pane)
 			action = wezterm.action.SendString("split -l 100 -d sift1b_10m.csv sift1b_10m.csv.part"),
 		},
 		{
-			brief = "git diff --shortstat 【git统计代码行数】",
+			brief = "git diff --shortstat 【git统计代码行数，汇总统计】",
 			icon = "cod_terminal_bash",
 			action = wezterm.action.SendString("git diff --shortstat"),
+		},
+		{
+			brief = "git diff --numstat --shortstat 【git统计代码行数，细分每个文件+汇总统计】",
+			icon = "cod_terminal_bash",
+			action = wezterm.action.SendString("git diff --numstat --shortstat"),
 		},
 	}
 end)
