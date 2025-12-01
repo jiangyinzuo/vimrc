@@ -1,0 +1,64 @@
+vim:ft=help
+
+*git-stat*
+
+*git统计代码行数*
+
+1. 工作区相对当前分支（HEAD）改了多少行（只算 modified 文件） ~
+
+>bash
+  git diff --diff-filter=M --numstat
+<
+
+
+如果你想把所有 modified 文件的增加/删除行数加总：
+
+>bash
+  git diff --diff-filter=M --numstat  | awk '{add+=$1; del+=$2} END {print "added:", add, "deleted:", del, "total-changed:", add+del}'
+<
+
+2. 指定两个提交之间的 modified 行数 ~
+
+比如统计 `commitA` 到 `commitB` 之间：
+
+>bash
+  git diff --diff-filter=M --numstat commitA commitB | awk '{add+=$1; del+=$2} END {print "added:", add, "deleted:", del, "total-changed:", add+del}'
+<
+
+如果只是看每个文件的行数（不汇总）：
+
+>bash
+  git diff --diff-filter=M --numstat commitA commitB
+<
+
+3. 统计某个时间段 / 某个作者的修改行数（按提交历史） ~
+
+比如：统计从 2025-11-01 以来，你这个作者的 modified 行数：
+
+>bash
+  git log --since="2025-11-01" --author="你的名字或邮箱" \
+  --diff-filter=M --numstat --pretty="%H" \
+  | awk 'NF==3 {add+=$1; del+=$2} END {print "added:", add, "deleted:", del, "total-changed:", add+del}'
+<
+
+说明：
+
+* `--pretty="%H"`：只打印提交哈希，方便 `--numstat` 列表后面被 awk 识别；
+* `NF==3`：只处理有 3 列（新增/删除/文件名）的行，过滤掉提交哈希那行。
+
+如果你只想看每个 commit 的文件改动，不做总和，可以去掉 `awk`，直接：
+
+>bash
+  git log --since="2025-11-01" --author="你的名字或邮箱" \
+  --diff-filter=M --numstat --stat
+<
+
+4. 快速看统计摘要（不区分 M / A / D） ~
+
+如果不强制只看 modified 文件，而是想快速看本地相对 HEAD 的总改动（新增、删除）：
+
+>bash
+  git diff --shortstat
+  # 或者指定范围
+  git diff --shortstat commitA commitB
+<
