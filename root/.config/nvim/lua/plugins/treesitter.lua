@@ -1,5 +1,5 @@
 branch = "main",
-2eturn {
+return {
 	{
 		"nvim-tree/nvim-web-devicons",
 	},
