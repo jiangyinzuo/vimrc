@@ -34,6 +34,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
 		config = function()
 			-- configuration
 			require("nvim-treesitter-textobjects").setup({
@@ -87,7 +88,6 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		branch = "main",
 		opts = {
 			max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
 			min_window_height = 30, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
