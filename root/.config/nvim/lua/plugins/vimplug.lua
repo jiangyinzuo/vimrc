@@ -5,8 +5,6 @@ if vim.g.vimrc_lsp == "coc.nvim" then
 	table.insert(leaderf_dependencies, "skywind3000/Leaderf-snippet")
 end
 
-local detect = require("detect")
-
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
 	-- let g:omni_sql_default_compl_type = 'syntax'

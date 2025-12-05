@@ -4,99 +4,94 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
 		build = ":TSUpdate",
-		branch = "master",
 		config = function()
+			require("nvim-treesitter").setup({
+				-- Directory to install parsers and queries to
+				install_dir = vim.fn.stdpath("data") .. "/site",
+			})
 			local ensure_installed = require("config").treesitter_ensure_installed
-			if vim.fn.has("wsl") == 1 then
-				-- add "r" to ensure_installed
-				table.insert(ensure_installed, "r")
-			end
-			require("nvim-treesitter.configs").setup({
-				-- 安装 language parser，有些parser在neovim中已经内置，如"vim", "lua", "markdown", "c"等
-				-- :TSInstallInfo 命令查看支持的语言
-				ensure_installed = ensure_installed,
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				sync_install = false,
-				-- 启用代码高亮模块
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-				-- https://github.com/RRethy/nvim-treesitter-endwise
-				endwise = {
-					enable = false, -- nvim-treesitter-endwise is not maintained
-				},
-				-- https://github.com/andymass/vim-matchup
-				matchup = {
-					enable = true, -- mandatory, false will disable the whole extension
-					-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
-					-- [options]
-				},
+			require("nvim-treesitter").install(ensure_installed):wait(300000) -- wait max. 5 minutes
+			-- https://www.reddit.com/r/neovim/comments/1lo6bd7/how_resolve_issue_with_treesitter_throwing_e5108/
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "*",
+				callback = function(ev)
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats = pcall(vim.uv.fs_stat, vim.fs.normalize(ev.file))
+					if ok and stats and stats.size < max_filesize then
+						pcall(vim.treesitter.start, ev.buf)
+						-- vim.bo[ev.buf].syntax = "on" -- Use regex based syntax-highlighting as fallback as some plugins might need it
+						-- vim.wo.foldlevel = 99
+						-- vim.wo.foldmethod = "expr"
+						-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use treesitter for folds
+						vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- Use treesitter for indentation
+					end
+				end,
 			})
 		end,
-		dependencies = {
-			-- "RRethy/nvim-treesitter-endwise",
-		},
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		opts = {
-			max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
-			min_window_height = 30, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
-			vim.api.nvim_del_keymap("n", "]b")
-			vim.api.nvim_del_keymap("n", "[b")
-			vim.api.nvim_del_keymap("n", "]B")
-			vim.api.nvim_del_keymap("n", "[B")
-			require("nvim-treesitter.configs").setup({
-				textobjects = {
-					select = {
-						enable = true,
-
-						-- Automatically jump forward to textobj, similar to targets.vim
-						lookahead = true,
-						keymaps = {
-							ib = "@block.inner",
-							ab = "@block.outer",
-							ic = "@class.inner",
-							ac = "@class.outer",
-							["if"] = "@function.inner",
-							af = "@function.outer",
-						},
+			-- configuration
+			require("nvim-treesitter-textobjects").setup({
+				select = {
+					-- Automatically jump forward to textobj, similar to targets.vim
+					lookahead = true,
+					-- You can choose the select mode (default is charwise 'v')
+					--
+					-- Can also be a function which gets passed a table with the keys
+					-- * query_string: eg '@function.inner'
+					-- * method: eg 'v' or 'o'
+					-- and should return the mode ('v', 'V', or '<c-v>') or a table
+					-- mapping query_strings to modes.
+					selection_modes = {
+						["@parameter.outer"] = "v", -- charwise
+						["@function.outer"] = "V", -- linewise
+						["@class.outer"] = "<c-v>", -- blockwise
 					},
-					move = {
-						enable = true,
-						set_jumps = true, -- whether to set jumps in the jumplist
-						goto_next_start = {
-							["]b"] = "@block.outer",
-							["]f"] = "@function.outer",
-							["]]"] = { query = "@class.outer", desc = "Next class start" },
-						},
-						goto_next_end = {
-							["]B"] = "@block.outer",
-							["]F"] = "@function.outer",
-							["]["] = "@class.outer",
-						},
-						goto_previous_start = {
-							["[b"] = "@block.outer",
-							["[f"] = "@function.outer",
-							["[["] = "@class.outer",
-						},
-						goto_previous_end = {
-							["[B"] = "@block.outer",
-							["[F"] = "@function.outer",
-							["[]"] = "@class.outer",
-						},
-					},
+					-- If you set this to `true` (default is `false`) then any textobject is
+					-- extended to include preceding or succeeding whitespace. Succeeding
+					-- whitespace has priority in order to act similarly to eg the built-in
+					-- `ap`.
+					--
+					-- Can also be a function which gets passed a table with the keys
+					-- * query_string: eg '@function.inner'
+					-- * selection_mode: eg 'v'
+					-- and should return true of false
+					include_surrounding_whitespace = false,
 				},
 			})
+
+			-- keymaps
+			-- You can use the capture groups defined in `textobjects.scm`
+			vim.keymap.set({ "x", "o" }, "af", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "if", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ac", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ic", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+			end)
+			-- You can also use captures from other query groups like `locals.scm`
+			vim.keymap.set({ "x", "o" }, "as", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
+			end)
 		end,
-		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		branch = "main",
+		opts = {
+			max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
+			min_window_height = 30, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+		},
 	},
 	{
 		"windwp/nvim-ts-autotag",

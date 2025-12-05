@@ -96,6 +96,11 @@ wezterm.on("augment-command-palette", function(window, pane)
 			icon = "cod_terminal_bash",
 			action = wezterm.action.SendString("git diff --numstat --shortstat"),
 		},
+		{
+			brief = "git add -u 【git只add git正在跟踪的文件】",
+			icon = "cod_terminal_bash",
+			action = wezterm.action.SendString("git add -u"),
+		},
 	}
 end)
 
