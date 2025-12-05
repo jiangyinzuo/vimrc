@@ -1,4 +1,5 @@
-return {
+branch = "main",
+2eturn {
 	{
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -12,8 +13,8 @@ return {
 				-- Directory to install parsers and queries to
 				install_dir = vim.fn.stdpath("data") .. "/site",
 			})
-			local ensure_installed = require("config").treesitter_ensure_installed
-			require("nvim-treesitter").install(ensure_installed):wait(300000) -- wait max. 5 minutes
+			-- local ensure_installed = require("config").treesitter_ensure_installed
+			-- require("nvim-treesitter").install(ensure_installed):wait(300000) -- wait max. 5 minutes
 			-- https://www.reddit.com/r/neovim/comments/1lo6bd7/how_resolve_issue_with_treesitter_throwing_e5108/
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "*",
