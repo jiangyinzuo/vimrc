@@ -167,16 +167,17 @@ if v:version >= 800
 					call echoraw("\<Esc>]52;c;" ..
 						\ base64_encode(str2blob(a:lines)) .. "\<Esc>\\")
 				endfunc
-				let v:clipproviders["myosc"] = {
-						\   "available": function("Available"),
-						\   "paste": {
-						\     '*': function("Paste")
-						\   },
-						\   "copy": {
-						\     '*': function("Copy")
-						\   },
-						\ }
-				set clipmethod=myosc
+				" wait for https://github.com/vim/vim/pull/18781
+				" let v:clipproviders["myosc"] = {
+				" 		\   "available": function("Available"),
+				" 		\   "paste": {
+				" 		\     '*': function("Paste")
+				" 		\   },
+				" 		\   "copy": {
+				" 		\     '*': function("Copy")
+				" 		\   },
+				" 		\ }
+				" set clipmethod=myosc
 			else
 				Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 			endif
