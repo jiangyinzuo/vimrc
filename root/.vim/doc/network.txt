@@ -34,6 +34,8 @@ lsof -i :5000
 	curl -k https://your-server.com
 	# 或
 	curl --insecure https://your-server.com
+	# 或者在全局配置文件中写入
+	echo insecure > .curlrc
 
 	# wget
 	wget --no-check-certificate https://your-server.com/file
