@@ -128,10 +128,6 @@ local function setup_lsp(capabilities)
 	-- "pylyzer": report too many diagnostics
 	-- use "neocmake" instead of "cmake"
 	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls", "leanls", "ts_ls" }
-	if vim.g.python_formatter == "ruff" then
-		-- pip install ruff-lsp ruff
-		table.insert(enabled_servers, "ruff_lsp")
-	end
 	if require("detect").has_typst_executable then
 		table.insert(enabled_servers, "tinymist")
 	end
@@ -291,9 +287,6 @@ function M.lspconfig()
 				vim.lsp.buf.code_action,
 				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.code_action" }
 			)
-			vim.keymap.set({ "n", "x" }, "<leader>fmt", function()
-				vim.lsp.buf.format({ async = true })
-			end, bufopts)
 			diagnostic.setup_vim_diagnostic_on_attach()
 
 			local client = vim.lsp.get_client_by_id(ev.data.client_id)
