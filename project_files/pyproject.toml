@@ -1,2 +1,19 @@
 [tool.basedpyright]
 pythonVersion = "3.10"
+
+[tool.pylint.main]
+load-plugins = [
+    # 检测最大圈复杂度
+    "pylint.extensions.mccabe"
+]
+
+[tool.pylint.design]
+# 最大单函数代码语句数
+max-statements = 100
+# 最大圈复杂度
+max-complexity = 10
+
+[tool.pylint.refactoring]
+# 最大代码嵌套深度
+max-nested-blocks = 8
+
