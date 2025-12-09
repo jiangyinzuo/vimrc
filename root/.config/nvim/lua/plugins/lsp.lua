@@ -1,5 +1,3 @@
-local detect = require("detect")
-
 if vim.g.vimrc_lsp == "nvim-lsp" then
 	local lsp = require("lsp.init")
 	-- try plugins in https://nvimdev.github.io
@@ -10,6 +8,14 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				local null_ls = require("null-ls")
 				local sources = {
 					null_ls.builtins.diagnostics.pylint,
+					null_ls.builtins.diagnostics.cppcheck.with({
+						args = {
+							"--enable=warning,style,performance,portability",
+							"--suppress=missingIncludeSystem",
+							"--template=gcc",
+							"$FILENAME",
+						},
+					}),
 				}
 				null_ls.setup({
 					sources = sources,
