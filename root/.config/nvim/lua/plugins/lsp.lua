@@ -12,6 +12,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 						args = {
 							"--enable=warning,style,performance,portability",
 							"--suppress=missingIncludeSystem",
+							"--language=c++",
 							"--template=gcc",
 							"$FILENAME",
 						},

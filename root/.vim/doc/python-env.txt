@@ -169,23 +169,8 @@ Deprecated:
 	# 连接console或qtconsole
 	:JupyterConnect
 <
-
-*jupyter-notebook*
-
-基于 *jupyter-ascending* https://github.com/imbue-ai/jupyter_ascending
-
-必须要求notebook version 6，暂不支持version 7
-`jupyter --version`可以查看notebook版本
->
-	# 创建pair notebook
-	:JupyterAscendingOpenPairNotebook
-<
-
 ----------------------------------------------------------------
 *ipython*
 
 使用vim-slime时，在terminal中使用：`ipython --no-autoindent` 防止自动缩进
-
-========================================================================
-setup.py ~
 
