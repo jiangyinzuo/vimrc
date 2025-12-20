@@ -132,52 +132,9 @@ if v:version >= 800
 			" See:
 			" https://github.com/vim/vim/pull/9639
 			" https://github.com/vim/vim/releases/tag/v9.1.0064
-			if has('patch-9.1.1860')
-				func Available()
-					return "*"
-				endfunc
-				
-				func Paste(reg, type)
-					" If implicit access, don't do anything
-					if a:type == "implicit"
-						return "previous"
-					endif
-				
-					augroup OSC
-						autocmd!
-						autocmd TermResponseAll osc ++once call feedkeys("\<F30>", '!')
-					augroup END
-				
-					" Send command
-					call echoraw("\<Esc>]52;;?\<Esc>\\")
-				
-					" Wait until autocmd is triggered
-					while getchar(-1) != "\<F30>"
-					endwhile
-				
-					autocmd! OSC
-				
-					" Extract the base64 stuff
-					let l:stuff = matchstr(v:termosc, '52;.\+;\zs[A-Za-z0-9+/=]\+')
-				
-					return ("", blob2str(base64_decode(l:stuff)))
-				endfunc
-
-				func Copy(reg, type, lines)
-					call echoraw("\<Esc>]52;c;" ..
-						\ base64_encode(str2blob(a:lines)) .. "\<Esc>\\")
-				endfunc
-				" wait for https://github.com/vim/vim/pull/18781
-				" let v:clipproviders["myosc"] = {
-				" 		\   "available": function("Available"),
-				" 		\   "paste": {
-				" 		\     '*': function("Paste")
-				" 		\   },
-				" 		\   "copy": {
-				" 		\     '*': function("Copy")
-				" 		\   },
-				" 		\ }
-				" set clipmethod=myosc
+			if has('patch-9.1.1999')
+				packadd osc52
+				set clipmethod+=osc52
 			else
 				Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 			endif

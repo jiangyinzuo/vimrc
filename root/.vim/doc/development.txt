@@ -1,0 +1,37 @@
+vim:ft=help
+
+*development.txt*
+
+源码阅读技巧 ~
+
+- gdb跟踪
+  - 调试SQL
+- 阅读单元测试、集成测试中的例子
+  - 集成测试中有一些SQL方言，可以学习
+- 翻阅文档、**用户手册**
+- 求助他人
+    - 部分代码可能同时有新旧两个版本存在于项目仓库中，看新不看旧。
+
+调试技巧 ~
+
+- SQL可视化工具
+- 基于readelf和addr2line获取错误堆栈对应的源代码位置
+
+内存泄漏调试技巧 ~
+
+Q：buffer pool manager page引用计数泄漏，但代码执行流程过于复杂，不知道如何从茫茫多的代码函数中定位哪里发生了泄漏，如何快速定位？ ~
+
+如果是buffer pool manager的引用计数泄漏，可以在buffer_pin和buffer_release内部打印日志，
+查看引用计数变化情况，是否成对申请-释放。
+
+性能分析方法 ~
+
+|linux-performane-analysis|
+
+- 监控平台、可观测性metrics/statistics
+  - pg的监控数据基于pg_stat，可以通过SQL查询
+- SQL explain
+- 火焰图
+    - 数据库系统内置的火焰图
+    - https://github.com/brendangregg/FlameGraph
+    - eBPF工具
