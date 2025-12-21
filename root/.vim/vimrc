@@ -25,6 +25,7 @@ else
 		command -nargs=+ -complete=shellcmd Man call dist#man#GetPage(<q-mods>, <f-args>)
 	endif
 	set showcmd " show pressed keys
+	set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 endif
 let g:openai_endpoint = get(g:, 'openai_endpoint', "https://api.deepseek.com/v1")
 let g:openai_model = get(g:, 'openai_model', "deepseek-chat")
@@ -127,7 +128,6 @@ set autowrite " 自动保存
 set scrolloff=7 " 光标离底部或顶部保持7行
 set hlsearch " Highlight search results
 set incsearch " 输入搜索内容时就显示搜索结果
-set magic "模式匹配时 ^ $ . * ~ [] 具有特殊含义
 set lazyredraw " 不要在宏的中间重绘屏幕。使它们更快完成。
 if filereadable('/usr/share/dict/words')
 	set dictionary+=/usr/share/dict/words
