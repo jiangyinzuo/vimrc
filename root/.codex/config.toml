@@ -1,8 +1,9 @@
-[model_providers.deepseek]
-name = "DeepSeek"
-base_url = "https://api.deepseek.com/v1"
-env_key = "DEEPSEEK_API_KEY"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "medium"
+[otel]
+environment = "staging"   # defaults to "dev"
+exporter = "none"         # set to otlp-http or otlp-grpc to send events
+log_user_prompt = false   # redact user prompts unless explicitly enabled
 
-[profiles.deepseek]
-model_provider = "deepseek"
-model = "deepseek-chat"
+[projects."/root/bitmap"]
+trust_level = "untrusted"

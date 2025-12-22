@@ -196,6 +196,17 @@ finish和continue为什么不是单步命令 ~
 coredumpctl 生成backtrace |dev-tools-backtrace|
 https://neovim.io/doc/user/dev_tools.html#dev-tools-backtrace
 
+*gdb-非交互模式*
+
+启动你的测试程序，自动运行到结束（或崩溃），然后打印调用栈
+-batch：批处理模式。
+-ex bt：
+    打印当前线程的调用栈。
+    如果程序崩溃（SIGSEGV 等），bt 会显示崩溃点的栈。
+    如果程序正常退出，bt 通常会显示程序退出时/停止时的栈（有时信息不大）。
+>bash
+    gdb -batch -ex run -ex bt --args ./build/tests/bitmap_tests --gtest_filter=BitmapTest.EmptyBitmap
+<
 -------------------------------------------------------------------------------
 *debug-adapter*
 
