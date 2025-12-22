@@ -1,9 +1,0 @@
-model = "gpt-5.2-codex"
-model_reasoning_effort = "medium"
-[otel]
-environment = "staging"   # defaults to "dev"
-exporter = "none"         # set to otlp-http or otlp-grpc to send events
-log_user_prompt = false   # redact user prompts unless explicitly enabled
-
-[projects."/root/bitmap"]
-trust_level = "untrusted"
