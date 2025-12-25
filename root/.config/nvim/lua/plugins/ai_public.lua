@@ -85,32 +85,18 @@ return {
 		cond = vim.g.ai_suggestion == "copilot.vim" or vim.g.ai_suggestion == "sidekick.nvim",
 	},
 	{
-		"copilotlsp-nvim/copilot-lsp",
-		-- cond = vim.g.ai_suggestion == "copilot.vim",
-		cond = false,
-		init = function()
-			vim.g.copilot_nes_debounce = 500
-			vim.lsp.enable("copilot_ls")
-			vim.keymap.set("n", "<tab>", function()
-				-- Try to jump to the start of the suggestion edit.
-				-- If already at the start, then apply the pending suggestion and jump to the end of the edit.
-				local _ = require("copilot-lsp.nes").walk_cursor_start_edit()
-					or (require("copilot-lsp.nes").apply_pending_nes() and require("copilot-lsp.nes").walk_cursor_end_edit())
-			end)
-			-- Clear copilot suggestion with Esc if visible, otherwise preserve default Esc behavior
-			vim.keymap.set("n", "<esc>", function()
-				if not require("copilot-lsp.nes").clear() then
-					-- fallback to other functionality
-				end
-			end, { desc = "Clear Copilot suggestion or fallback" })
-		end,
-	},
-	{
 		"folke/sidekick.nvim",
-		cond = vim.g.ai_suggestion == "sidekick.nvim",
 		opts = {
-			-- add any options here
+			nes = {
+				enabled = vim.g.ai_suggestion == "sidekick.nvim",
+			},
+			cli = {
+				prompts = {
+					this = "{this}"
+				}
+			}
 		},
+		cmd = { "Sidekick" },
 		keys = {
 			{
 				"<tab>",
@@ -134,14 +120,14 @@ return {
 				expr = true,
 				desc = "Goto/Apply Next Edit Suggestion",
 			},
-			-- {
-			-- 	"<leader>aa",
-			-- 	function()
-			-- 		require("sidekick.cli").toggle({ focus = true })
-			-- 	end,
-			-- 	desc = "Sidekick Toggle CLI",
-			-- 	mode = { "n", "v" },
-			-- },
+			{
+				"<leader>aa",
+				function()
+					require("sidekick.cli").toggle({ focus = true })
+				end,
+				desc = "Sidekick Toggle CLI",
+				mode = { "n", "v" },
+			},
 			-- {
 			-- 	"<leader>ac",
 			-- 	function()
@@ -150,22 +136,14 @@ return {
 			-- 	end,
 			-- 	desc = "Sidekick Claude Toggle",
 			-- },
-			-- {
-			-- 	"<leader>ap",
-			-- 	function()
-			-- 		require("sidekick.cli").select_prompt()
-			-- 	end,
-			-- 	desc = "Sidekick Ask Prompt",
-			-- 	mode = { "n", "v" },
-			-- },
-			-- {
-			-- 	"<leader>ag",
-			-- 	function()
-			-- 		-- Jump straight into Grok with the current context
-			-- 		require("sidekick.cli").toggle({ name = "grok", focus = true })
-			-- 	end,
-			-- 	desc = "Sidekick Grok Toggle",
-			-- },
+			{
+				"<leader>ap",
+				function()
+					require("sidekick.cli").prompt()
+				end,
+				mode = { "n", "x" },
+				desc = "Sidekick Select Prompt",
+			},
 		},
 	},
 	{

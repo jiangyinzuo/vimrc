@@ -6,6 +6,7 @@ return {
 	-- https://github.com/magicalne/nvim.ai
 	{
 		"olimorris/codecompanion.nvim",
+		cond = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
@@ -15,53 +16,6 @@ return {
 			log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
 			adapters = {
 				acp = {
-					-- TODO: check if iflow and qwen-code can work with codecompanion.nvim
-					--
-					-- iflow = function()
-					-- 	return require("codecompanion.adapters").extend("gemini_cli", {
-					-- 		name = "iflow",
-					-- 		formatted_name = "iFlow CLI",
-					-- 		commands = {
-					-- 			default = {
-					-- 				"iflow",
-					-- 				"--yolo",
-					-- 				"false",
-					-- 				"--experimental-acp",
-					-- 			},
-					-- 			yolo = {
-					-- 				"iflow",
-					-- 				"--experimental-acp",
-					-- 			},
-					-- 		},
-					-- 		defaults = {},
-					-- 		env = {},
-					-- 		parameters = {
-					-- 			protocolVersion = "0.0.9",
-					-- 		},
-					-- 	})
-					-- end,
-					-- ["qwen-code"] = function()
-					-- 	return require("codecompanion.adapters").extend("gemini_cli", {
-					-- 		name = "qwen-code",
-					-- 		formatted_name = "Qwen-Code",
-					-- 		commands = {
-					-- 			default = {
-					-- 				"qwen",
-					-- 				"--yolo",
-					-- 				"false",
-					-- 				"--experimental-acp",
-					-- 			},
-					-- 			yolo = {
-					-- 				"qwen",
-					-- 				"--yolo",
-					-- 				"true",
-					-- 				"--experimental-acp",
-					-- 			},
-					-- 		},
-					-- 		defaults = {},
-					-- 		env = {},
-					-- 	})
-					-- end,
 				},
 				http = {
 					opts = {
@@ -325,6 +279,7 @@ return {
 	},
 	{
 		"yetone/avante.nvim",
+		cond = false,
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		-- ⚠️ must add this setting! ! !
 		build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
@@ -469,14 +424,6 @@ return {
 		"huggingface/llm.nvim",
 		cond = vim.g.ai_suggestion == "llm.nvim",
 	},
-	-- {
-	-- 	"aweis89/ai-terminals.nvim",
-	-- 	dependencies = { "folke/snacks.nvim" },
-	-- 	config = function()
-	-- 		require("ai-terminals").setup({})
-	-- 	end,
-	-- },
-	-- {
 	-- goose.nvim只支持对整个项目查看diff，不支持对某个修改查看diff并决定是否接受
 	{
 		"azorng/goose.nvim",
@@ -513,7 +460,7 @@ return {
 		opts = {
 			terminal_cmd = "claude", -- ccr code
 		},
-		cond = vim.fn.executable("claude") == 1,
+		cond = false and vim.fn.executable("claude") == 1,
 		lazy = true,
 		keys = {
 			{ "<leader>ccc", "<cmd>ClaudeCode<cr>", desc = "ClaudeCode toggle" },
@@ -531,6 +478,7 @@ return {
 	},
 	{
 		"pittcat/claude-fzf.nvim",
+		cond = false,
 		dependencies = {
 			"ibhagwan/fzf-lua",
 			"coder/claudecode.nvim",
