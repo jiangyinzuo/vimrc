@@ -92,9 +92,16 @@ return {
 			},
 			cli = {
 				prompts = {
-					this = "{this}"
-				}
-			}
+					this = "{this}",
+				},
+				mux = {
+					enabled = true,
+					create = "split",
+				},
+				tools = {
+					hac = { cmd = { "hac" } },
+				},
+			},
 		},
 		cmd = { "Sidekick" },
 		keys = {
@@ -123,10 +130,17 @@ return {
 			{
 				"<leader>aa",
 				function()
-					require("sidekick.cli").toggle({ focus = true })
+					require("sidekick.cli").toggle()
 				end,
 				desc = "Sidekick Toggle CLI",
-				mode = { "n", "v" },
+			},
+			{
+				"<leader>at",
+				function()
+					require("sidekick.cli").send({ msg = "{this}" })
+				end,
+				mode = { "x", "n" },
+				desc = "Sidekick send This",
 			},
 			-- {
 			-- 	"<leader>ac",
