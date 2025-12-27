@@ -516,4 +516,80 @@ return {
 	-- https://github.com/dpayne/CodeGPT.nvim
 	-- https://github.com/Robitx/gp.nvim
 	{ "madox2/vim-ai", event = "VeryLazy", cond = vim.fn.has("python3") == 1 },
+	{
+		"folke/sidekick.nvim",
+		opts = {
+			nes = {
+				enabled = vim.g.ai_suggestion == "sidekick.nvim" and require("config").load_plugin.ai_public,
+			},
+			cli = {
+				prompts = {
+					this = "{this}",
+				},
+				mux = {
+					enabled = true,
+					create = "split",
+				},
+				tools = {
+					hac = { cmd = { "hac" } },
+				},
+			},
+		},
+		cmd = { "Sidekick" },
+		keys = {
+			{
+				"<tab>",
+				function()
+					-- if there is a next edit, jump to it, otherwise apply it if any
+					if require("sidekick").nes_jump_or_apply() then
+						return -- jumped or applied
+					end
+
+					-- if you are using Neovim's native inline completions
+					if vim.lsp.inline_completion.get() then
+						return
+					end
+
+					-- any other things (like snippets) you want to do on <tab> go here.
+
+					-- fall back to normal tab
+					return "<tab>"
+				end,
+				mode = { "i", "n" },
+				expr = true,
+				desc = "Goto/Apply Next Edit Suggestion",
+			},
+			{
+				"<leader>aa",
+				function()
+					require("sidekick.cli").toggle()
+				end,
+				desc = "Sidekick Toggle CLI",
+			},
+			{
+				"<leader>at",
+				function()
+					require("sidekick.cli").send({ msg = "{this}" })
+				end,
+				mode = { "x", "n" },
+				desc = "Sidekick send This",
+			},
+			-- {
+			-- 	"<leader>ac",
+			-- 	function()
+			-- 		-- Same as above, but opens Claude directly
+			-- 		require("sidekick.cli").toggle({ name = "claude", focus = true })
+			-- 	end,
+			-- 	desc = "Sidekick Claude Toggle",
+			-- },
+			{
+				"<leader>ap",
+				function()
+					require("sidekick.cli").prompt()
+				end,
+				mode = { "n", "x" },
+				desc = "Sidekick Select Prompt",
+			},
+		},
+	},
 }
