@@ -101,6 +101,24 @@ wezterm.on("augment-command-palette", function(window, pane)
 			icon = "cod_terminal_bash",
 			action = wezterm.action.SendString("git add -u"),
 		},
+		{
+			brief = "GaussDB rsync停机冷备（根据mtime和文件大小判断文件是否一致）",
+			icon = "cod_terminal_bash",
+			action = wezterm.action.SendString([[
+rsync -aHAX --numeric-ids --delete --info=progress2 \
+  --exclude='postmaster.pid' \
+  --exclude='postmaster.opts' \
+  --exclude='pg_ctl.lock' \
+  --exclude='pg_log/*' \
+  --exclude='pg_stat_tmp/*' \
+  --exclude='pgsql_tmp/*' \
+  <datanode目录> <目标目录>]]),
+		},
+		{
+			brief = "GaussDB cm_ctl query -Cvidp",
+			icon = "cod_terminal_bash",
+			action = wezterm.action.SendString("cm_ctl query -Cvidp")
+		}
 	}
 end)
 
