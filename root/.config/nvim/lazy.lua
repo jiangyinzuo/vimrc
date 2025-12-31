@@ -68,6 +68,8 @@ local function config_clipboard()
 	end
 end
 
+-- terminal能显示的行数上限
+vim.opt.scrollback = 100000
 -- lazy.nvim has reset packpath, so we need to add ~/.vim back
 --
 -- make winbar background transparent
