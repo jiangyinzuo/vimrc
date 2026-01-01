@@ -76,11 +76,13 @@ local lualine = {
 						"AvanteSelectedFiles",
 						"AvanteInput",
 						"oil",
+						"neo-tree",
 					},
 					statusline = {
 						"Avante",
 						"AvanteSelectedFiles",
 						"AvanteInput",
+						"neo-tree",
 					}
 				},
 				ignore_focus = {},

@@ -66,8 +66,20 @@ return {
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
+			source_selector = {
+				winbar = true,
+				statusline = false,
+			},
 			filesystem = {
 				hijack_netrw_behavior = "disabled",
+			},
+		},
+		keys = {
+			{
+				"<leader>nt",
+				mode = { "n" },
+				"<cmd>Neotree toggle<cr>",
+				desc = ":Neotree toggle",
 			},
 		},
 	},
