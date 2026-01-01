@@ -174,13 +174,6 @@ json: jq
 补全父目录 -> bd CentOS手动安装bd时，注意补全脚本名为/etc/bash_completion.d/bd-bash-completion.sh
 
 -------------------------------------------------------------------------------
-*file-explorer*
-
-- Vim内部: |netrw|, coc-explorer, fern
-- 命令行工具: ranger, lf, broot, vifm, nnn, yazi ⭐
-fm脚本, vifm和nnn配置文件自v0.22.0后已删除，见历史版本 33971ca1627be8031dcb67ee6537387b9aa3acf9
-
--------------------------------------------------------------------------------
 *image* 终端查看图片
 
 - *timg*

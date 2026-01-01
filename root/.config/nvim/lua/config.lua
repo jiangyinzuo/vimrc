@@ -16,7 +16,6 @@ return {
 		development = {
 			cpp = true,
 			coq = false,
-			extra = false,
 			golang = false,
 			java = false,
 			jupyter = false,

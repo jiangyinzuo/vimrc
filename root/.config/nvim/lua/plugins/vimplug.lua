@@ -136,41 +136,6 @@ local M = {
 		},
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
-	"lambdalisue/vim-fern",
-	{
-		"jiangyinzuo/fern-oil.nvim",
-		dependencies = {
-			"lambdalisue/vim-fern",
-		},
-	},
-	{
-		"lambdalisue/fern-renderer-nerdfont.vim",
-		dependencies = {
-			"lambdalisue/vim-fern",
-			"lambdalisue/nerdfont.vim",
-		},
-	},
-	{
-		"lambdalisue/fern-hijack.vim",
-		dependencies = {
-			"lambdalisue/vim-fern",
-		},
-	},
-	{
-		"LumaKernel/fern-mapping-fzf.vim",
-		dependencies = {
-			"lambdalisue/vim-fern",
-		},
-	},
-	{
-		"Yggdroot/LeaderF",
-		build = ":LeaderfInstallCExtension",
-		init = function()
-			vim.api.nvim_command("source ~/.vim/vimrc.d/leaderf.vim")
-		end,
-		dependencies = leaderf_dependencies,
-		cond = require("config").load_plugin.development.extra,
-	},
 	{
 		"SirVer/ultisnips",
 		cond = vim.g.vimrc_lsp == "coc.nvim",

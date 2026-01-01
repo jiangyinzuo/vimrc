@@ -133,136 +133,8 @@ return {
 			},
 		},
 	},
-	{
-		"echasnovski/mini.files",
-		version = false,
-		opts = {
-			-- General options
-			options = {
-				-- Whether to delete permanently or move into module-specific trash
-				permanent_delete = true,
-				-- Whether to use for editing directories
-				use_as_default_explorer = false,
-			},
-		},
-		config = function()
-			local MiniFiles = require("mini.files")
-			-- create a custom command to open the file explorer
-			vim.api.nvim_create_user_command("MiniFiles", function()
-				MiniFiles.open(vim.fn.expand("%:p:h"))
-			end, { desc = "Open file explorer in current directory" })
-
-			local show_dotfiles = true
-
-			local filter_show = function(fs_entry)
-				return true
-			end
-
-			local filter_hide = function(fs_entry)
-				return not vim.startswith(fs_entry.name, ".")
-			end
-
-			local toggle_dotfiles = function()
-				show_dotfiles = not show_dotfiles
-				local new_filter = show_dotfiles and filter_show or filter_hide
-				MiniFiles.refresh({ content = { filter = new_filter } })
-			end
-
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "MiniFilesBufferCreate",
-				callback = function(args)
-					local buf_id = args.data.buf_id
-					-- Tweak left-hand side of mapping to your liking
-					vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle dotfiles" })
-					vim.keymap.set("n", "<leader>ff", function()
-						MiniFiles.close()
-						require("telescope.builtin").find_files({ search_dirs = { MiniFiles.get_latest_path() } })
-					end, {
-						buffer = buf_id,
-						desc = "Telescope find files",
-					})
-				end,
-			})
-		end,
-	},
-	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
-	-- See also:
-	-- https://github.com/neovim/neovim/issues/20784
-	-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_willRenameFiles
-	{
-		"stevearc/oil.nvim",
-		cmd = { "Oil" },
-		config = function()
-			local detail = false
-			require("oil").setup({
-				default_file_explorer = false,
-				view_options = {
-					-- Show files and directories that start with "."
-					show_hidden = false,
-				},
-				keymaps = {
-					["gd"] = {
-						desc = "Toggle file detail view",
-						callback = function()
-							detail = not detail
-							if detail then
-								require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
-							else
-								require("oil").set_columns({ "icon" })
-							end
-						end,
-					},
-				},
-				win_options = {
-					winbar = "%!v:lua.get_oil_winbar()",
-				},
-			})
-		end,
-	},
-	-- A graphical display window manager in neovim
-	-- {'altermo/nxwm',branch='x11'},
-	-- {
-	-- 	"sourcegraph/sg.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
-	-- 	},
-	-- 	config = function()
-	-- 		vim.keymap.set("n", "<leader>sg", function()
-	-- 			require("sg.extensions.telescope").fuzzy_search_results()
-	-- 		end)
-	-- 	end,
-	-- 	-- If you have a recent version of lazy.nvim, you don't need to add this!
-	-- 	build = "nvim -l build/init.lua",
-	-- },
-
 	-- find and replace
-	-- alternatives: brooth/far.vim, nvim-pack/nvim-spectre
-	{
-		"MagicDuck/grug-far.nvim",
-		-- Note (lazy loading): grug-far.lua defers all it's requires so it's lazy by default
-		-- additional lazy config to defer loading is not really needed...
-		config = function()
-			-- optional setup call to override plugin options
-			-- alternatively you can set options with vim.g.grug_far = { ... }
-			require("grug-far").setup({
-				-- options, see Configuration section below
-				-- there are no required options atm
-			})
-		end,
-	},
-	{
-		"ray-x/sad.nvim",
-		dependencies = {
-			"ray-x/guihua.lua",
-		},
-		cmd = { "Sad" },
-		config = function()
-			require("sad").setup({
-				height_ratio = 0.8, -- height ratio of sad window when split horizontally
-				width_ratio = 0.8, -- height ratio of sad window when split vertically
-			})
-		end,
-	},
+	{ "nvim-pack/nvim-spectre", opts = {} },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		opts = {
@@ -273,16 +145,6 @@ return {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 	},
-	-- {
-	-- 	"amitds1997/remote-nvim.nvim",
-	-- 	version = "*", -- Pin to GitHub releases
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim", -- For standard functions
-	-- 		"MunifTanjim/nui.nvim", -- To build the plugin UI
-	-- 		"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-	-- 	},
-	-- 	config = true,
-	-- },
 	{
 		"gregorias/coerce.nvim",
 		event = "VeryLazy",
@@ -350,32 +212,6 @@ return {
 		end,
 	},
 	{
-		"nmac427/guess-indent.nvim",
-		opts = {
-			auto_cmd = true, -- Set to false to disable automatic execution
-			override_editorconfig = false, -- Set to true to override settings set by .editorconfig
-			filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
-				"netrw",
-				"tutor",
-			},
-			buftype_exclude = { -- A list of buffer types for which the auto command gets disabled
-				"help",
-				"nofile",
-				"terminal",
-				"prompt",
-			},
-			on_tab_options = { -- A table of vim options when tabs are detected
-				["expandtab"] = false,
-			},
-			on_space_options = { -- A table of vim options when spaces are detected
-				["expandtab"] = true,
-				["tabstop"] = "detected", -- If the option value is 'detected', The value is set to the automatically detected indent size.
-				["softtabstop"] = "detected",
-				["shiftwidth"] = "detected",
-			},
-		},
-	},
-	{
 		"chrisgrieser/nvim-origami",
 		event = "VeryLazy",
 		opts = {
@@ -388,14 +224,5 @@ return {
 				hOnlyOpensOnFirstColumn = false,
 			},
 		}, -- needed even when using default config
-	},
-	{
-		"RutaTang/quicknote.nvim",
-		config = function()
-			-- you must call setup to let quicknote.nvim works correctly
-			require("quicknote").setup({})
-		end,
-		dependencies = { "nvim-lua/plenary.nvim" },
-		enable = false,
 	},
 }
