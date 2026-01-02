@@ -199,13 +199,16 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 			end,
 		},
-		-- {
-		-- 	"jmbuhr/otter.nvim",
-		-- 	dependencies = {
-		-- 		"nvim-treesitter/nvim-treesitter",
-		-- 	},
-		-- 	opts = {},
-		-- },
+		{
+			"antosha417/nvim-lsp-file-operations",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				"nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
+			},
+			config = function()
+				require("lsp-file-operations").setup()
+			end,
+		},
 	}
 else
 	return {
