@@ -18,7 +18,7 @@ if has('nvim')
 	let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-11', 'path': '/usr/lib/jvm/java-11-openjdk-amd64'}, {'name': 'JavaSE-17', 'path': '/usr/lib/jvm/java-17-openjdk-amd64'}])
 	" speed up loading
 	let g:python3_host_prog = get(g:, 'python3_host_prog', '/usr/bin/python3')
-	" WARN: DO NOT use copilot provider, it will cause abuse.
+" WARN: DO NOT use copilot provider, it will cause abuse.
 else
 	if exists(":Man") != 2
 		" copied from ftplugin/man.vim
@@ -103,9 +103,11 @@ set matchtime=1 " showmatch的时间0.1s
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set wildmenu " command自动补全时显示菜单
-if v:version >= 900 || has('nvim')
-	if has('patch-9.1.503') || has('nvim-0.11.0')
-		set completeopt+=fuzzy
+if v:version >= 901 || has('nvim-0.11')
+	set completeopt+=fuzzy
+	set wildmode=noselect:lastused,full
+	if !has('nvim') && exists("*wildtrigger")
+		autocmd CmdlineChanged [:\/\?] if !(getcmdtype() ==# ':' && getcmdline() =~# '^!') | call wildtrigger() | endif
 	endif
 	set wildoptions=pum " 显示popup window
 	" save
@@ -341,8 +343,6 @@ endfunction
 autocmd BufReadPre * call CheckFileSize()
 
 """"""""""""""""""" Yank """""""""""""""""""""""
-" 复制pathline用于gF文件跳转
-" See rffv() in fzf.bash
 " [[palette]]复制当前文件:行的pathline				:YankPathLine
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent

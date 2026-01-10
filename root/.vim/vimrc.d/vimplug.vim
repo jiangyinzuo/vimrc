@@ -1,6 +1,3 @@
-" run
-" :source %
-" to update
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -78,8 +75,6 @@ else
 endif
 Plug 'tpope/vim-endwise'
 
-" Remove ~/.vim/autoload/detect_indent.vim
-" Since: v0.12.0
 if v:version >= 901
 	packadd! editorconfig
 else
@@ -184,9 +179,6 @@ if v:version >= 800
 
 				if v:version >= 901
 					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
-					" Alternative: https://github.com/gelguy/wilder.nvim
-					Plug 'girishji/vimsuggest'
-					autocmd VimEnter * ++once if exists('*g:VimSuggestSetOptions') | call g:VimSuggestSetOptions({ 'cmd': { 'exclude': ['!', '^Git\s', '^Floaterm', '^Far', '^Man'] }}) | endif
 					
 					if g:has_pdflatex_executable == 1
 						" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
