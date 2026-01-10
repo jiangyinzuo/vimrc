@@ -35,3 +35,6 @@ Q：buffer pool manager page引用计数泄漏，但代码执行流程过于复�
     - 数据库系统内置的火焰图
     - https://github.com/brendangregg/FlameGraph
     - eBPF工具
+
+trace file查看器
+https://ui.perfetto.dev/

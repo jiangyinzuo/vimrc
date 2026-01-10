@@ -1,8 +1,8 @@
 vim:set ft=help:
 
-*python-env*
+*python-development*
 
-----------------------------------------------------------------------------
+================================================================
 *编译安装python3.8*
 
 2024年生产环境，CentOS7.1上的python版本为3.6.8，比较阴间。
@@ -130,47 +130,12 @@ poetry vs. hatch vs. pdm vs. rye https://dev.to/adamghill/python-package-manager
 <
 
 ----------------------------------------------------------------
-JUPYTER
-
-Deprecated:
-
-*jupyter-qtconsole*
->
-	pip install PyQt5 qtconsole
-	# 或者
-	pip install PyQt6 qtconsole
-<
-
-设置初始窗口、字体大小
->
-	## The height of the console at start time in number
-	#          of characters (will double with `vsplit` paging)
-	#  Default: 25
-	c.ConsoleWidget.console_height = 40
-
-	## The width of the console at start time in number
-	#          of characters (will double with `hsplit` paging)
-	#  Default: 81
-	c.ConsoleWidget.console_width = 75
-	
-	## The font size. If unconfigured, Qt will be entrusted
-	#          with the size of the font.
-	#  Default: 0
-	c.ConsoleWidget.font_size = 18
-<
-
-基于 *jupyter-vim* https://github.com/jupyter-vim/jupyter-vim
->
-	# 打开jupyter console
-	:JupyterConsole
-	# 或在命令行中打开jupyter qtconsole
-	juypter qtconsole
-
-	# 连接console或qtconsole
-	:JupyterConnect
-<
-----------------------------------------------------------------
 *ipython*
 
 使用vim-slime时，在terminal中使用：`ipython --no-autoindent` 防止自动缩进
 
+================================================================
+Python Profiler
+
+py-spy  python火焰图
+torch-profiler

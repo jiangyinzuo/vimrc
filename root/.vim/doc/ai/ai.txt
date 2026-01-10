@@ -232,6 +232,8 @@ https://blog.csdn.net/dinaxuejie/article/details/146195104
 
 https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard
 
+notebooklm.google
+
 =========================
 Benchmark Leaderboard
 

@@ -741,6 +741,13 @@ git应用patch ~
 方法一: *git-apply-patch*
 >bash
     git apply /path/to/my_changes.patch
+    # 统计会改哪些文件
+    git apply --check /path/to/my_changes.patch
+    git apply --stat /path/to/my_changes.patch
+    # 无视空白符差异 或者 --ignore-space-change --ignore-whitespace
+    git apply --whitespace=nowarn /path/to/my_changes.patch
+    # 反向apply
+    git apply -R /path/to/my_changes.patch
 <
 
 方法二: *git-am*

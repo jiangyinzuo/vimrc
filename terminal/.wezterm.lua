@@ -118,6 +118,11 @@ rsync -aHAX --numeric-ids --delete --info=progress2 \
 			brief = "GaussDB cm_ctl query -Cvidp",
 			icon = "cod_terminal_bash",
 			action = wezterm.action.SendString("cm_ctl query -Cvidp")
+		},
+		{
+			brief = "patch -F3 patch允许3行上下文不匹配",
+			icon = "cod_terminal_bash",
+			action = wezterm.action.SendString("patch -F3")
 		}
 	}
 end)
