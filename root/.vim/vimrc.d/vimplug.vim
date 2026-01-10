@@ -178,8 +178,6 @@ if v:version >= 800
 				let g:GIT_LENS_ENABLED = 0
 
 				if v:version >= 901
-					Plug 'girishji/devdocs.vim', {'on': ['DevdocsFind', 'DevdocsInstrall', 'DevdocsUninstall', 'DevdocsTagStack']}
-					
 					if g:has_pdflatex_executable == 1
 						" 直接vim paper.tex打开文件时，需要手动:e 重新打开一次，才能加载vimtex的syntax
 						" do not lazy load vimtex
