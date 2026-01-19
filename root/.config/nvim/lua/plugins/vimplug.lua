@@ -84,18 +84,6 @@ local M = {
 	"andrewradev/linediff.vim",
 	"tpope/vim-surround",
 	"tpope/vim-eunuch",
-	-- replace "AndrewRadev/splitjoin.vim"
-	{
-		"Wansmer/treesj",
-		keys = { "gJ" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("treesj").setup({ use_default_keymaps = false })
-			vim.keymap.set("n", "gJ", function()
-				require("treesj").toggle({ split = { recursive = true } })
-			end)
-		end,
-	},
 	{
 		"tpope/vim-abolish",
 		init = function()

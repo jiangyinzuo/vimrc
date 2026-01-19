@@ -97,4 +97,45 @@ return {
 		"windwp/nvim-ts-autotag",
 		opts = {},
 	},
+	{
+		"Wansmer/treesj",
+		keys = { "gJ" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({ use_default_keymaps = false })
+			vim.keymap.set("n", "gJ", function()
+				local function get_pos_lang()
+					local buf = vim.api.nvim_get_current_buf()
+					local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+					row = row - 1
+
+					local ok, parser = pcall(vim.treesitter.get_parser, buf)
+					if not ok or not parser then
+						return vim.bo.filetype
+					end
+
+					-- 兼容新版 API，处理注入语言
+					local tree = parser:language_for_range({ row, col, row, col })
+					return tree:lang()
+				end
+
+				vim.keymap.set("n", "gJ", function()
+					-- 使用 pcall 安全加载模块，防止插件未安装时报错
+					local ok_tsj, tsj = pcall(require, "treesj")
+					local ok_langs, langs_mod = pcall(require, "treesj.langs")
+
+					local lang = get_pos_lang()
+					local tsj_langs = ok_langs and langs_mod["presets"] or {}
+
+					-- 判断：如果有 TSJ 预设则执行 Toggle，否则 Fallback
+					if ok_tsj and lang ~= "" and tsj_langs[lang] then
+						tsj.toggle({ split = { recursive = true } })
+					else
+						-- 核心：normal! gJ 绝对不会触发这个 Lua 函数本身
+						vim.cmd("normal! gJ")
+					end
+				end, { desc = "TreeSJ toggle or fallback to default gJ" })
+			end)
+		end,
+	},
 }
