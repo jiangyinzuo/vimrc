@@ -15,8 +15,7 @@ return {
 		opts = {
 			log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
 			adapters = {
-				acp = {
-				},
+				acp = {},
 				http = {
 					opts = {
 						show_defaults = false,
@@ -591,5 +590,19 @@ return {
 				desc = "Sidekick Select Prompt",
 			},
 		},
+	},
+	{
+		"leonardcser/cursortab.nvim",
+		cond = vim.g.has_go_executable ~= 0 and vim.g.ai_suggestion == "cursortab.nvim",
+		build = "cd server && go build",
+		config = function()
+			require("cursortab").setup({
+				provider = {
+					type = "sweep",
+					url = "http://localhost:8000",
+					model = "sweep-next-edit-1.5b",
+				},
+			})
+		end,
 	},
 }
