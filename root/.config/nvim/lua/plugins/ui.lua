@@ -1,12 +1,10 @@
 local mini_clue_trigger_table = {
-	{ mode = "n", keys = "<leader>a", desc = "Avante" },
-	{ mode = "n", keys = "<leader>cc", desc = "Claude" },
+	{ mode = "n", keys = "<leader>a", desc = "Sidekick" },
 	{ mode = "n", keys = "<leader>cs", desc = "Cscope" },
 	{ mode = "n", keys = "<leader>s", desc = "Iron REPL" },
 	{ mode = "n", keys = "cr", desc = "Case" },
 	{ mode = "n", keys = "\\", desc = "<localleader>" },
-	{ mode = "x", keys = "<leader>a", desc = "Avante" },
-	{ mode = "x", keys = "<leader>cc", desc = "Claude" },
+	{ mode = "x", keys = "<leader>a", desc = "Sidekick" },
 	{ mode = "x", keys = "<leader>s", desc = "Iron REPL" },
 }
 
@@ -66,7 +64,44 @@ return {
 	{
 		"chentoast/marks.nvim",
 		event = "VeryLazy",
-		opts = {},
+		pts = {
+			-- which builtin marks to show. default {}
+			builtin_marks = { ".", "<", ">", "^" },
+			-- how often (in ms) to redraw signs/recompute mark positions.
+			-- higher values will have better performance but may cause visual lag,
+			-- while lower values may cause performance penalties. default 150.
+			refresh_interval = 250,
+			bookmark_0 = {
+				sign = "0",
+			},
+			bookmark_1 = {
+				sign = "1",
+			},
+			bookmark_2 = {
+				sign = "2",
+			},
+			bookmark_3 = {
+				sign = "3",
+			},
+			bookmark_4 = {
+				sign = "4",
+			},
+			bookmark_5 = {
+				sign = "5"
+			},
+			bookmark_6 = {
+				sign = "6",
+			},
+			bookmark_7 = {
+				sign = "7",
+			},
+			bookmark_8 = {
+				sign = "8",
+			},
+			bookmark_9 = {
+				sign = "9",
+			},
+		},
 	},
 	-- {
 	-- 	"3rd/image.nvim",
