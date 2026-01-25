@@ -4,7 +4,6 @@ if !has('autocmd') " vim-tiny does not have autocmd
 	finish
 endif
 set nocp "no Vi-compatible
-"""""""""""""""""""""" CONFIG """""""""""""""""""""""""""""""""
 
 if filereadable(expand('~/.vim/config.vim'))
 	source ~/.vim/config.vim
@@ -38,8 +37,6 @@ let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { 
 let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 " tmux2.2以上才支持true color
 let g:vimrc_use_true_color = get(g:, 'vimrc_use_true_color', 1)
-" 'vimspector' | 'nvim-dap' | ''
-let g:vim_dap = get(g:, 'vim_dap', has('nvim') ? 'nvim-dap' : 'vimspector')
 if v:version >= 800
 	" show [x/y] instead of search hit BOTTOM, continuing at TOP
 	set shortmess-=S
@@ -50,6 +47,8 @@ else
 	hi SignColumn ctermfg=None ctermbg=None guifg=None guibg=None
 	hi Search ctermbg=143 ctermfg=0
 	hi Folded ctermbg=0
+	set t_Co=256 "终端有256色
+	set t_ut=
 endif
 let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
@@ -198,6 +197,12 @@ if v:version >= 801
 		" filter quickfix list, do not use vim-qf plugin
 		packadd cfilter
 	endif
+	if has("patch-8.1.0360")
+		set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
+		if has("patch-9.1.1072") || has("nvim-0.11.0")
+			set diffopt+=linematch:60,inline:char
+		endif
+	endif
 endif
 
 " Enable persistent undo so that undo history persists across vim sessions
@@ -216,16 +221,7 @@ if has("persistent_undo")
 	let &undodir=target_path
 	set undofile
 endif
-"""""""""""""""""""""""""""""""
-if has("patch-8.1.0360")
-	set diffopt=vertical,filler,context:3,indent-heuristic,algorithm:patience,internal
-	if has("patch-9.1.1072") || has("nvim-0.11.0")
-		set diffopt+=linematch:60,inline:char
-	endif
-endif
 """"""""""""""""""""" termdebug
-set t_Co=256
-set t_ut=
 if v:version >= 801
 	autocmd Filetype c,cpp,rust,cuda ++once if !exists(':Termdebug') | packadd termdebug | endif
 	if exists('&termwinsize')
@@ -336,7 +332,7 @@ function! CheckFileSize()
 		echom "文件 " . expand('%:p') . " 超过5MB，建议使用less等工具查看以避免性能问题(vim和view都不如less高效)。(Press CTRL-C)"
 		" 关闭当前缓冲区，但不退出Vim
 		" 如果你想让Vim退出，可以用：quit 或 similar
-		bdelete
+		bwipeout!
 	endif
 endfunction
 " 在读取文件之前检查文件大小
@@ -347,14 +343,3 @@ autocmd BufReadPre * call CheckFileSize()
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
-""""""""""""""""""" Marks """"""""""""""""""""""
-" 为小写字母 a 到 z 创建映射
-for mark in range(char2nr('a'), char2nr('z'))
-	let sign_name = 'mark' . nr2char(mark)
-	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-endfor
-" 为大写字母 A 到 Z 创建映射
-for mark in range(char2nr('A'), char2nr('Z'))
-	let sign_name = 'mark' . nr2char(mark)
-	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
-endfor

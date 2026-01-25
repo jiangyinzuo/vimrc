@@ -137,3 +137,15 @@ if has("cscope")
 		set csprg=gtags-cscope
 	endif
 endif
+
+""""""""""""""""""" Marks """"""""""""""""""""""
+" 为小写字母 a 到 z 创建映射。Neovim使用marks.nvim
+for mark in range(char2nr('a'), char2nr('z'))
+	let sign_name = 'mark' . nr2char(mark)
+	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
+endfor
+" 为大写字母 A 到 Z 创建映射
+for mark in range(char2nr('A'), char2nr('Z'))
+	let sign_name = 'mark' . nr2char(mark)
+	execute 'nnoremap m' . nr2char(mark) . ' m' . nr2char(mark) . ':call marks#SignMark("' . sign_name . '")<CR>'
+endfor

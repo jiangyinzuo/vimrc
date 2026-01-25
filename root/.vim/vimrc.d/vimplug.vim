@@ -186,29 +186,27 @@ if v:version >= 800
 					endif
 				endif
 			endif
-			if g:vim_dap == 'vimspector'
-				Plug 'puremourning/vimspector'
-				let g:vimspector_enable_mappings='VISUAL_STUDIO'
+			Plug 'puremourning/vimspector'
+			let g:vimspector_enable_mappings='VISUAL_STUDIO'
 
-				" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
-				" There are two locations for debug configurations for a project:
-				" 
-				" g:vimspector_configurations vim variable (dict)
-				" <vimspector home>/configurations/<OS>/<filetype>/*.json
-				" .vimspector.json in the project source
-				"
-				" json配置位于.vim/configurationsw目录下
-				let g:vimspector_base_dir = $HOME . '/.vim'
-				let g:vimspector_sign_priority = {
-							\    'vimspectorBP':          20,
-							\    'vimspectorBPCond':      20,
-							\    'vimspectorBPLog':       20,
-							\    'vimspectorBPDisabled':  20,
-							\    'vimspectorNonActivePC': 20,
-							\    'vimspectorPC':          999,
-							\    'vimspectorPCBP':        999,
-							\ }
-			endif
+			" See: https://puremourning.github.io/vimspector/configuration.html#configuration-format
+			" There are two locations for debug configurations for a project:
+			" 
+			" g:vimspector_configurations vim variable (dict)
+			" <vimspector home>/configurations/<OS>/<filetype>/*.json
+			" .vimspector.json in the project source
+			"
+			" json配置位于.vim/configurationsw目录下
+			let g:vimspector_base_dir = $HOME . '/.vim'
+			let g:vimspector_sign_priority = {
+						\    'vimspectorBP':          20,
+						\    'vimspectorBPCond':      20,
+						\    'vimspectorBPLog':       20,
+						\    'vimspectorBPDisabled':  20,
+						\    'vimspectorNonActivePC': 20,
+						\    'vimspectorPC':          999,
+						\    'vimspectorPCBP':        999,
+						\ }
 			" Plug 'jiangyinzuo/term-debugger'
 		endif
 	endif
