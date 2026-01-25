@@ -598,6 +598,8 @@ return {
 		config = function()
 			require("cursortab").setup({
 				provider = {
+					-- https://huggingface.co/sweepai/sweep-next-edit-1.5B
+					-- https://blog.sweep.dev/posts/oss-next-edit
 					type = "sweep",
 					url = "http://localhost:8000",
 					model = "sweep-next-edit-1.5b",
