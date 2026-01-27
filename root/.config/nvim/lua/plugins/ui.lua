@@ -64,7 +64,7 @@ return {
 	{
 		"chentoast/marks.nvim",
 		event = "VeryLazy",
-		pts = {
+		opts = {
 			-- which builtin marks to show. default {}
 			builtin_marks = { ".", "<", ">", "^" },
 			-- how often (in ms) to redraw signs/recompute mark positions.
