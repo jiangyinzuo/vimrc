@@ -84,5 +84,11 @@ hi link QuickPreview Normal
 ]])
 config_clipboard()
 
--- https://github.com/neovim/neovim/pull/27855
-require("vim._extui").enable({ enable = true, msg = { target = "cmd" } })
+require('vim._core.ui2').enable({
+ enable = true, -- Whether to enable or disable the UI.
+ msg = { -- Options related to the message module.
+	 ---@type 'cmd'|'msg' Where to place regular messages, either in the
+	 ---cmdline or in a separate ephemeral message window.
+	 target = 'cmd',
+ },
+	})
