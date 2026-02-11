@@ -1,0 +1,2 @@
+gdb打印某oid对应的类型
+p format_type_be(oid)
