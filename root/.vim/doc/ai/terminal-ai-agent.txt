@@ -121,6 +121,10 @@ https://github.com/oraios/serena  *serena*
 https://github.com/upstash/context7
 
 =======================================================
+Skills ~
+https://skills.sh/
+
+=======================================================
 Context
 
 Codebase Indexing & Semantic Code Search ~
