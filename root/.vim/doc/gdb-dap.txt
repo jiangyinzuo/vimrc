@@ -76,23 +76,35 @@ gdb 处理 signal ~
     (gdb) handle <signal> <keywords…>
 <
 
+gdb查看栈: bt 数字
+gdb切换某个栈: f[rame] 数字
+
 *gdb多线程调试*
 
 set scheduler-locking on: 只允许当前线程运行，其他线程完全冻结。
 set scheduler-locking step: 仅在单步执行 (next, step 等) 时锁定当前线程。
 set scheduler-locking off: GDB 不干涉调度，所有线程自由运行。默认模式。用于观察线程间的自然交互。
 
-set non-step off: 一旦中断，所有线程都会被暂停（默认）
-set non-stop on: 命中断点时只暂停该线程，其他线程继续运行。: 调试复杂的实时交互、竞争条件等高级场景。
-
 thread <ID> 切换到ID线程
 info threads 查看所有线程
 thread apply all <command> 对所有线程执行command
 thread apply <ID> <command> 对ID线程执行command
 
-gdb查看栈: bt 数字
-gdb切换某个栈: f[rame] 数字
+continue -a & 所有线程继续
+interrupt -a & 所有线程停止
+&: 命令放在后台执行，不阻塞gdb用户界面（需要set target-async on，set target-async on默认启用）
 
+non-stop模式 ~
+
+non-stop必须在启动被调试进程之前启用。
+set non-stop off: 一旦中断，所有线程都会被暂停（默认）
+set non-stop on: 命中断点时只暂停该线程，其他线程继续运行。: 调试复杂的实时交互、竞争条件等高级场景。
+
+>gdb
+    set target-async on
+    set non-stop on
+    set pagination off
+<
 -------------------------------------------------------------------------------
 *gdb-time-travel*
 
