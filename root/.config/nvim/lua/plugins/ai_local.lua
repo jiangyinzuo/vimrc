@@ -440,9 +440,33 @@ return {
 	-- 无法滚动，查看前面的对话记录
 	-- 无法查看diff并决定是否接受
 	{
-		"NickvanDyke/opencode.nvim",
+		"nickjvandyke/opencode.nvim",
 		cond = false,
 		dependencies = { "folke/snacks.nvim" },
+		config = function()
+			---@type opencode.Opts
+			vim.g.opencode_opts = {
+				-- Your configuration, if any; goto definition on the type or field for details
+			}
+
+			-- Recommended/example keymaps
+			vim.keymap.set({ "n", "x" }, "<leader>aa", function()
+				require("opencode").ask("@this: ", { submit = true })
+			end, { desc = "Ask opencode…" })
+			vim.keymap.set({ "n", "x" }, "<leader>as", function()
+				require("opencode").select()
+			end, { desc = "Execute opencode action…" })
+			vim.keymap.set({ "n", "t" }, "<leader>at", function()
+				require("opencode").toggle()
+			end, { desc = "Toggle opencode" })
+
+			vim.keymap.set({ "n", "x" }, "<leader>ar", function()
+				return require("opencode").operator("@this ")
+			end, { desc = "Add range to opencode", expr = true })
+			vim.keymap.set("n", "<leader>al", function()
+				return require("opencode").operator("@this ") .. "_"
+			end, { desc = "Add line to opencode", expr = true })
+		end,
 	},
 	-- 需要连接huggingface，可能报错
 	-- 使用不擅长处理代码的embedding模型，会导致vector search不是很准
@@ -517,6 +541,7 @@ return {
 	{ "madox2/vim-ai", event = "VeryLazy", cond = vim.fn.has("python3") == 1 },
 	{
 		"folke/sidekick.nvim",
+		cond = true,
 		opts = {
 			nes = {
 				enabled = vim.g.ai_suggestion == "sidekick.nvim" and require("config").load_plugin.ai_public,
@@ -524,6 +549,7 @@ return {
 			cli = {
 				prompts = {
 					this = "{this}",
+					diagnostics = "{file}\n{diagnostics}",
 				},
 				mux = {
 					enabled = true,

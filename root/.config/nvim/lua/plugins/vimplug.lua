@@ -79,7 +79,7 @@ local M = {
 	"honza/vim-snippets",
 	{
 		"voldikss/vim-translator",
-		cond = require("config").load_plugin.public_network
+		cond = require("config").load_plugin.public_network,
 	},
 	"andrewradev/linediff.vim",
 	"tpope/vim-surround",
@@ -108,8 +108,17 @@ local M = {
 	-- Alternatives: https://github.com/HakonHarnes/img-clip.nvim
 	"jiangyinzuo/img-paste.vim",
 	"skywind3000/vim-quickui",
-	"pechorin/any-jump.vim",
-	{ "jiangyinzuo/vim-markdown", ft = {"markdown", "quarto"} },
+	{
+		"pechorin/any-jump.vim",
+		init = function()
+			vim.g.any_jump_disable_default_keybindings = 1
+			vim.keymap.set({ "n" }, "<leader>j", "<cmd>AnyJump<CR>", { desc = ":AnyJump" })
+			vim.keymap.set({ "v" }, "<leader>j", "<cmd>AnyJumpVisual<CR>", { desc = ":AnyJumpVisual" })
+			vim.keymap.set({ "n" }, "<leader>ab", "<cmd>AnyJumpBack<CR>", { desc = ":AnyJumpBack" })
+			vim.keymap.set({ "n" }, "<leader>ao", "<cmd>AnyJumpLastResults<CR>", { desc = ":AnyJumpLastResults" })
+		end,
+	},
+	{ "jiangyinzuo/vim-markdown", ft = { "markdown", "quarto" } },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {

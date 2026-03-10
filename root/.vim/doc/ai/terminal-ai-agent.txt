@@ -89,6 +89,7 @@ opencode.ai ~
 
 社区开源Agent
 暂时不支持手动编辑diff
+https://github.com/code-yeongyu/oh-my-openagent
 
 charm CRUSH ~
 
