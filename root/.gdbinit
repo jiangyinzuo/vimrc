@@ -1,4 +1,5 @@
-source ~/vimrc/root/gdb-dashboard.gdb
+set auto-load safe-path /
+source /root/vimrc/root/gdb-dashboard.gdb
 # 重新定义布局，剔除 source 模块，保留其他常用底层模块
 dashboard -layout assembly registers stack threads memory expressions
 # 将 prompt 修改为醒目的高亮青色
