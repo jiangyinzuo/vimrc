@@ -63,15 +63,29 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
+			"jiangyinzuo/neo-tree-hierarchy.nvim",
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
+			sources = {
+				"filesystem",
+				"buffers",
+				"git_status",
+				"call_hierarchy",
+				"type_hierarchy",
+			},
 			source_selector = {
 				winbar = true,
 				statusline = false,
 			},
 			filesystem = {
 				hijack_netrw_behavior = "disabled",
+			},
+			call_hierarchy = {
+				client_filters = "first",
+			},
+			type_hierarchy = {
+				client_filters = "first",
 			},
 		},
 		keys = {
