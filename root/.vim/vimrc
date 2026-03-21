@@ -70,7 +70,7 @@ let g:clangd_args = get(g:, 'clangd_args', ["--clang-tidy", "--pretty", "--backg
 let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 let g:clang_format = get(g:, 'clang_format', 'clang-format')
 " black, ruff
-let g:python_formatter = get(g:, 'python_formatter', 'black')
+let g:python_formatter = get(g:, 'python_formatter', 'ruff')
 let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
 let g:omni_sql_no_default_maps = 1
 " copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim

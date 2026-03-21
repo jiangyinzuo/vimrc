@@ -15,7 +15,7 @@ return {
 					cpp = { "clang-format" },
 					lua = { "stylua" },
 					-- Conform will run multiple formatters sequentially
-					python = { "isort", vim.g.python_formatter },
+					python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 					-- You can customize some of the format options for the filetype (:help conform.format)
 					rust = { "rustfmt" },
 					go = { "gofmt" },
