@@ -66,6 +66,24 @@ local function config_clipboard()
 			},
 		}
 	end
+	-- https://github.com/neovim/neovim/discussions/34076
+	vim.keymap.set("n", "gy", function()
+		local copy = vim.fn.getreg('"')
+		if copy == "" then
+			return
+		end
+		vim.fn.setreg("+", copy)
+		-- Notify
+		local msg = ""
+		local _, ln = string.gsub(copy, "\n", "")
+		if ln > 0 then
+			msg = string.format('%s %s yanked into "+', ln, ln > 1 and "lines" or "line")
+		else
+			local ch = vim.fn.strdisplaywidth(copy)
+			msg = string.format('%s %s yanked into "+', ch, ch > 1 and "chars" or "char")
+		end
+		vim.api.nvim_echo({ { msg } }, false, {})
+	end, { desc = "Yank last into clipboard" })
 end
 
 -- terminal能显示的行数上限
@@ -84,11 +102,11 @@ hi link QuickPreview Normal
 ]])
 config_clipboard()
 
-require('vim._core.ui2').enable({
- enable = true, -- Whether to enable or disable the UI.
- msg = { -- Options related to the message module.
-	 ---@type 'cmd'|'msg' Where to place regular messages, either in the
-	 ---cmdline or in a separate ephemeral message window.
-	 target = 'cmd',
- },
-	})
+require("vim._core.ui2").enable({
+	enable = true, -- Whether to enable or disable the UI.
+	msg = { -- Options related to the message module.
+		---@type 'cmd'|'msg' Where to place regular messages, either in the
+		---cmdline or in a separate ephemeral message window.
+		target = "cmd",
+	},
+})
