@@ -1,9 +1,3 @@
-local function send_prompt_to_tmux_pane(input)
-	require("tmux_send").send_to_pane({ count_is_uid = true, content = require("sidekick.cli").render(input) })
-	-- (Optional) exit visual mode after sending
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
-end
-
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -230,29 +224,5 @@ return {
 				hOnlyOpensOnFirstColumn = false,
 			},
 		}, -- needed even when using default config
-	},
-	{
-		"kiyoon/tmux-send.nvim",
-		keys = {
-			{
-				"<leader>ts",
-				function()
-					require("tmux_send").send_to_pane({ count_is_uid = true })
-					-- (Optional) exit visual mode after sending
-					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
-				end,
-				mode = { "n", "x" },
-				desc = "Send to tmux pane",
-			},
-			{
-				"<leader>tf",
-
-				function()
-					send_prompt_to_tmux_pane("{this}")
-				end,
-				mode = { "n", "x" },
-				desc = "Send file to tmux pane",
-			},
-		},
 	},
 }
