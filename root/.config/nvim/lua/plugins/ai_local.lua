@@ -618,7 +618,7 @@ return {
 		},
 	},
 	{
-		"leonardcser/cursortab.nvim",
+		"cursortab/cursortab.nvim",
 		cond = vim.g.has_go_executable ~= 0 and vim.g.ai_suggestion == "cursortab.nvim",
 		build = "cd server && go build",
 		config = function()
