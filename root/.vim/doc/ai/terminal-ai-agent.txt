@@ -119,12 +119,6 @@ https://github.com/oraios/serena  *serena*
 https://github.com/upstash/context7
 
 =======================================================
-Skills ~
-https://skills.sh/
-
-github/awesome-copilot/gh-cli
-
-=======================================================
 Context
 
 Codebase Indexing & Semantic Code Search ~
