@@ -84,6 +84,20 @@ local function config_clipboard()
 		end
 		vim.api.nvim_echo({ { msg } }, false, {})
 	end, { desc = "Yank last into clipboard" })
+
+	-- Edit clipboard in neovim
+	-- https://github.com/neovim/neovim/discussions/38256
+	vim.api.nvim_create_user_command("Clipboard", function()
+		vim.api.nvim_buf_set_name(0, "Clipboard")
+		vim.cmd("put + | 1d")
+		vim.api.nvim_create_autocmd("BufWriteCmd", {
+			buffer = 0,
+			callback = function(ev)
+				vim.cmd("%y +")
+				vim.bo[ev.buf].modified = false
+			end,
+		})
+	end, {})
 end
 
 -- terminal能显示的行数上限
