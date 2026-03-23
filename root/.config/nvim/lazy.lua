@@ -124,3 +124,4 @@ require("vim._core.ui2").enable({
 		target = "cmd",
 	},
 })
+require("yank_screen")
