@@ -6,30 +6,23 @@ local function current_win_info()
   return winid, info
 end
 
--- 不用 visualmode()，直接看当前实时 mode
 local function get_current_visual_type()
   local m = vim.fn.mode(1)
 
-  -- 常见情况：
-  -- v / vs / vS / CTRL-V / CTRL-S / V / Vs / VS
   if m:sub(1, 1) == "V" then
     return "V"
   end
 
-  -- Ctrl-V / blockwise，mode() 里通常是 ^V（ASCII 22）
   if m:byte(1) == 22 then
     return vim.api.nvim_replace_termcodes("<C-v>", true, true, true)
   end
 
-  -- 默认按字符选区处理
   return "v"
 end
 
 local function get_current_visual_region()
-  local visual_type = get_current_visual_type()
-
   return vim.fn.getregionpos(vim.fn.getpos("v"), vim.fn.getpos("."), {
-    type = visual_type,
+    type = get_current_visual_type(),
     exclusive = false,
     eol = false,
   })
@@ -50,6 +43,28 @@ local function get_current_visual_line_range()
 
   return start_line, end_line, region
 end
+
+local function leave_visual_mode()
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+    "n",
+    false
+  )
+end
+
+local function yank_lines(lines, copy_to_plus)
+  local text = table.concat(lines, "\n")
+  vim.fn.setreg('"', text)
+  if copy_to_plus then
+    vim.fn.setreg("+", text)
+  end
+  vim.notify(string.format("%d line%s yanked", #lines, #lines == 1 and "" or "s"))
+  return text
+end
+
+----------------------------------------------------------------------
+-- yv: exact screen text
+----------------------------------------------------------------------
 
 local function read_screen_row_text(row, include_gutter)
   local _, info = current_win_info()
@@ -111,12 +126,8 @@ function M.yank_visual_exact_screen_text(opts)
   local copy_to_plus = opts.copy_to_plus ~= false
   local leave_visual = opts.leave_visual ~= false
 
-  local ok, start_line, end_line = pcall(function()
-    local s, e = get_current_visual_line_range()
-    return s, e
-  end)
-
-  if not ok or not start_line or not end_line then
+  local start_line, end_line = get_current_visual_line_range()
+  if not start_line or not end_line then
     vim.notify("Failed to get current visual region", vim.log.levels.ERROR)
     return
   end
@@ -146,30 +157,63 @@ function M.yank_visual_exact_screen_text(opts)
     end
   end
 
-  local text = table.concat(out, "\n")
-  vim.fn.setreg('"', text)
-  if copy_to_plus then
-    vim.fn.setreg("+", text)
-  end
+  yank_lines(out, copy_to_plus)
 
   if leave_visual then
-    vim.api.nvim_feedkeys(
-      vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
-      "n",
-      false
-    )
+    leave_visual_mode()
   end
 
-  local n = #out
-  vim.notify(string.format("%d line%s yanked", n, n == 1 and "" or "s"))
-
-  return {
-    text = text,
-    line_count = n,
-    start_line = start_line,
-    end_line = end_line,
-  }
+  return out
 end
+
+----------------------------------------------------------------------
+-- yz: folded text, no virtual text
+-- 普通行: getline()
+-- 折叠行: foldtextresult()
+----------------------------------------------------------------------
+
+function M.yank_visual_folded_text_no_virtual(opts)
+  opts = opts or {}
+  local copy_to_plus = opts.copy_to_plus ~= false
+  local leave_visual = opts.leave_visual ~= false
+
+  local start_line, end_line = get_current_visual_line_range()
+  if not start_line or not end_line then
+    vim.notify("Failed to get current visual region", vim.log.levels.ERROR)
+    return
+  end
+
+  local out = {}
+  local seen_fold_start = {}
+  local lnum = start_line
+
+  while lnum <= end_line do
+    local fc = vim.fn.foldclosed(lnum)
+
+    if fc ~= -1 then
+      if not seen_fold_start[fc] then
+        seen_fold_start[fc] = true
+        out[#out + 1] = vim.fn.foldtextresult(fc)
+      end
+      lnum = vim.fn.foldclosedend(lnum) + 1
+    else
+      out[#out + 1] = vim.fn.getline(lnum)
+      lnum = lnum + 1
+    end
+  end
+
+  yank_lines(out, copy_to_plus)
+
+  if leave_visual then
+    leave_visual_mode()
+  end
+
+  return out
+end
+
+----------------------------------------------------------------------
+-- mappings
+----------------------------------------------------------------------
 
 vim.keymap.set("x", "yv", function()
   M.yank_visual_exact_screen_text({
@@ -177,6 +221,13 @@ vim.keymap.set("x", "yv", function()
     copy_to_plus = true,
     leave_visual = true,
   })
-end, { desc = "Yank exact screen text from current visual selection" })
+end, { desc = "Yank exact visible screen text" })
+
+vim.keymap.set("x", "yz", function()
+  M.yank_visual_folded_text_no_virtual({
+    copy_to_plus = true,
+    leave_visual = true,
+  })
+end, { desc = "Yank folded text without virtual text" })
 
 return M
