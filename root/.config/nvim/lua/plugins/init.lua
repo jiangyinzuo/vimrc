@@ -70,12 +70,11 @@ return {
 	{
 		"sindrets/diffview.nvim",
 	},
-	-- neovim 0.10.0 has builtin comments, but Comment.nvim is better
 	-- :h commenting
-	{
-		"numToStr/Comment.nvim",
-		opts = {},
-	},
+	-- {
+	-- 	"numToStr/Comment.nvim",
+	-- 	opts = {},
+	-- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

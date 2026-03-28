@@ -16,6 +16,12 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 							"--template=gcc",
 							"$FILENAME",
 						},
+						runtime_condition = function(params)
+							if not params.bufname or params.bufname == "" then
+								return false
+							end
+							return #params.content <= 2000
+						end,
 					}),
 				}
 				null_ls.setup({

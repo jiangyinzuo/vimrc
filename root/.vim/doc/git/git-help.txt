@@ -273,6 +273,9 @@ https://github.com/so-fancy/diff-so-fancy
 *git-diff/merge*
 
 Git Diff ~
+
+git diff --check 检查格式问题，触发pre-commit hook
+
 将当前文件和它倒数第3次提交历史版本diff |:Gdiffsplit|  >
 	:Gdiffsplit HEAD~3:%
 <

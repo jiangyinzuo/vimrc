@@ -77,6 +77,9 @@ return {
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 			end,
 			base = vim.g.gitsign_default_base,
+			current_line_blame_opts = {
+				delay = 100,
+			},
 		},
 	},
 	"tpope/vim-fugitive",

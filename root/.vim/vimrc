@@ -343,3 +343,4 @@ autocmd BufReadPre * call CheckFileSize()
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
+command! -range Tab2Table <line1>,<line2>!tab2table.py
