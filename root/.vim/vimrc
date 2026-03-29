@@ -321,8 +321,6 @@ if g:no_vimplug && has("patch-7.4.1649")
 	packadd! matchit
 endif
 
-command! -nargs=1 -complete=file Read call noplug#MyRead(<f-args>)
-
 function! CheckFileSize()
 	" 获取当前文件的大小（单位：字节）
 	let l:filesize = getfsize(expand('%:p'))
