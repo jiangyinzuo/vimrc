@@ -215,7 +215,7 @@ end
 -- mappings
 ----------------------------------------------------------------------
 
-vim.keymap.set("x", "yv", function()
+vim.keymap.set("x", "<leader>yv", function()
   M.yank_visual_exact_screen_text({
     include_gutter = false,
     copy_to_plus = true,
@@ -223,7 +223,7 @@ vim.keymap.set("x", "yv", function()
   })
 end, { desc = "Yank exact visible screen text" })
 
-vim.keymap.set("x", "yz", function()
+vim.keymap.set("x", "<leader>yz", function()
   M.yank_visual_folded_text_no_virtual({
     copy_to_plus = true,
     leave_visual = true,
