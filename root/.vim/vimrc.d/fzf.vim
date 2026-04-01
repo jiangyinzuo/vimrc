@@ -10,6 +10,8 @@ let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
 " - To learn more about preview window options, see `--preview-window` section of `man fzf`.
 let g:fzf_preview_window = ['up,40%,', 'ctrl-/']
 
+autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 " An action can be a reference to a function that processes selected lines
 function! FzfActionBuildQf(lines)
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
