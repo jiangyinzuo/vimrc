@@ -68,6 +68,21 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 			},
 		},
 		{
+			"jiangyinzuo/nvim-navic-note",
+			dependencies = {
+				"neovim/nvim-lspconfig",
+				"SmiteshP/nvim-navic",
+			},
+			config = function()
+				require("navic_note").setup({
+					notes_root = vim.fn.expand("~/.notes"),
+					keymap = "<leader>nv",
+					create_default_keymap = true,
+					auto_set_winbar = true,
+				})
+			end,
+		},
+		{
 			"neovim/nvim-lspconfig",
 			-- event 若设为"VimEnter"，可能导致
 			-- 1) 启动时打开的文件无法自动启动lsp，需要:e才能启动

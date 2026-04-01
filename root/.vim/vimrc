@@ -336,9 +336,9 @@ endfunction
 " 在读取文件之前检查文件大小
 autocmd BufReadPre * call CheckFileSize()
 
-""""""""""""""""""" Yank """""""""""""""""""""""
 " [[palette]]复制当前文件:行的pathline				:YankPathLine
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
 command! -range Tab2Table <line1>,<line2>!tab2table.py
+command! -range -nargs=1 JoinWrappedLine <line1>,<line2>call noplug#JoinWrappedLine(<line1>, <line2>, <q-args>)

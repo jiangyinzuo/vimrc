@@ -20,7 +20,7 @@ return {
 			java = false,
 			jupyter = false,
 			lean = false,
-			rust = false,
+			rust = true,
 			writing = false,
 		},
 	},

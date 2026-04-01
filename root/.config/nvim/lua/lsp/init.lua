@@ -132,17 +132,6 @@ local function setup_lsp(capabilities)
 		table.insert(enabled_servers, "tinymist")
 	end
 	vim.lsp.enable(enabled_servers)
-
-	vim.g.rustaceanvim = {
-		-- Plugin configuration
-		tools = {},
-		-- LSP configuration
-		server = {
-			capabilities = capabilities,
-		},
-		-- DAP configuration
-		dap = {},
-	}
 end
 
 M.attach_navic = function(client, bufnr)
@@ -168,14 +157,9 @@ local function attach_codelens(client, bufnr)
 		})
 	end
 end
-
--- Set up lspconfig.
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
--- capabilities = capabilities,
--- }
 function M.get_capabilities()
-	return require("cmp_nvim_lsp").default_capabilities()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	capabilities.completion.completionItem.preselectSupported = false
 end
 
 function M.lspconfig()

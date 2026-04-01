@@ -88,3 +88,42 @@ function noplug#BackupFile()
 	endif
 	call noplug#AsyncRunOrSystem('cp ' . expand('%:p') . ' ' . b:backup_dir . '/' . expand('%:t') . strftime("~~%Y-%m%d-%H:%M:%S") . '.bak')
 endfunction
+
+function noplug#JoinWrappedLine(first, last, pat) range
+	let l:lines = getline(a:first, a:last)
+	let l:out = []
+	let l:cur = ''
+
+	if a:pat =~# '^/.*/$'
+		let l:re = a:pat[1:-2]
+	else
+		let l:re = '^' . escape(a:pat, '\.^$~[]')
+	endif
+
+	for l:line in l:lines
+		if l:line =~# l:re
+			if !empty(l:cur)
+				call add(l:out, l:cur)
+			endif
+			let l:cur = l:line
+		else
+			if empty(l:cur)
+				let l:cur = l:line
+			else
+				let l:cur .= substitute(l:line, '^\s*', '', '')
+			endif
+		endif
+	endfor
+
+	if !empty(l:cur)
+		call add(l:out, l:cur)
+	endif
+
+	call setline(a:first, l:out)
+
+	let l:old_count = a:last - a:first + 1
+	let l:new_count = len(l:out)
+	if l:new_count < l:old_count
+		execute (a:first + l:new_count) . ',' . a:last . 'delete _'
+	endif
+endfunction
