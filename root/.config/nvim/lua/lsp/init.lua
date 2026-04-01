@@ -127,7 +127,8 @@ local function setup_lsp(capabilities)
 	-- "pylsp": too slow
 	-- "pylyzer": report too many diagnostics
 	-- use "neocmake" instead of "cmake"
-	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls", "leanls", "ts_ls" }
+	local enabled_servers =
+		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "lua_ls", "leanls", "ts_ls" }
 	if require("detect").has_typst_executable then
 		table.insert(enabled_servers, "tinymist")
 	end
@@ -159,6 +160,8 @@ local function attach_codelens(client, bufnr)
 end
 function M.get_capabilities()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	capabilities.completion = capabilities.completion or {}
+	capabilities.completion.completionItem = capabilities.completion.completionItem or {}
 	capabilities.completion.completionItem.preselectSupported = false
 end
 
