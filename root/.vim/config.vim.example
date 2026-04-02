@@ -23,3 +23,9 @@ else
 	set grepformat=%f:%l:%c:%m
 endif
 set bg=dark
+
+" 设置需要持久化保存fold的目录
+" autocmd BufWinEnter /foo/bar/* silent! loadview
+" autocmd BufWinLeave /foo/bar/* silent! mkview
+" autocmd BufWinEnter */notes/todo.md silent! loadview
+" autocmd BufWinLeave */notes/todo.md silent! mkview

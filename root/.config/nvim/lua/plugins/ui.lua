@@ -6,6 +6,7 @@ local mini_clue_trigger_table = {
 	{ mode = "n", keys = "\\", desc = "<localleader>" },
 	{ mode = "x", keys = "<leader>a", desc = "Sidekick" },
 	{ mode = "x", keys = "<leader>s", desc = "Iron REPL" },
+	{ mode = "x", keys = "<leader>y", desc = "" },
 	{ mode = "n", keys = "`", desc = "Tmux Send" },
 }
 
