@@ -53,11 +53,6 @@ Plug 'kaarmu/typst.vim', { 'for': 'typst' }
 Plug 'inkarkat/vim-ingo-library' " dependency of vim-AdvancedSorters
 Plug 'inkarkat/vim-AdvancedSorters'
 
-" Plug 'nordtheme/vim', { 'as': 'nordtheme' }
-" Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'tomasiser/vim-code-dark'
-" Plug 'morhetz/gruvbox'
-
 " Commenting blocks of code.
 " 可以选中多行后，用:norm i# 在所有行前面添加#
 " :norm 0i 在所有行前面添加
@@ -66,7 +61,6 @@ Plug 'inkarkat/vim-AdvancedSorters'
 " :norm ^x删除所有行的第一个字母(不包括空格)
 "
 " Replace custom commands for commenting.
-" Since: v0.12.0
 " See Also: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
 if has('patch-9.1.375')
 	packadd comment
@@ -82,8 +76,6 @@ else
 endif
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
-" vim-sleuth does not behave as expected.
-" Plug 'tpope/vim-sleuth'
 
 Plug 'dhruvasagar/vim-table-mode'
 if v:version >= 800
@@ -97,7 +89,6 @@ if v:version >= 800
 
 	Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 
-	" Alternative: https://github.com/sindrets/diffview.nvim
 	Plug 'jiangyinzuo/open-gitdiff.vim'
 	Plug 'andrewradev/linediff.vim'
 
@@ -123,10 +114,6 @@ if v:version >= 800
 		if v:version >= 802
 			" neovim 内置了 inccommand, 无需该插件
 			Plug 'markonm/traces.vim'
-			" Alternative? https://github.com/jasonccox/vim-wayland-clipboard
-			" See:
-			" https://github.com/vim/vim/pull/9639
-			" https://github.com/vim/vim/releases/tag/v9.1.0064
 			if has('patch-9.1.1999')
 				packadd osc52
 				set clipmethod+=osc52
@@ -265,22 +252,18 @@ if g:no_vimplug
 	finish
 endif
 
-" 默认主题不要显示colorcolumn
-set colorcolumn=80,120
-autocmd FileType org,markdown,text setlocal colorcolumn=
-
 source ~/.vim/vimrc.d/slime.vim
 
 """""""""""""""""" begin colorscheme
-" 防止neovim启动时屏幕暂时变成黑色
-if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vimrc_use_true_color)
+if has("termguicolors") && ($COLORTERM == 'truecolor' || g:vim_use_true_color)
 	set termguicolors
 endif
 
 let g:nord_uniform_diff_background = 1
 let g:dracula_high_contrast_diff = 1
-" 防止neovim启动时屏幕暂时变成黑色
 if v:version >= 800
+	set colorcolumn=80,120
+	autocmd FileType org,markdown,text setlocal colorcolumn=
 	" true color support
 	" https://github.com/lifepillar/vim-solarized8#troubleshooting
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
