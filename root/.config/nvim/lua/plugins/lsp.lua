@@ -1,5 +1,5 @@
 if vim.g.vimrc_lsp == "nvim-lsp" then
-	local lsp = require("lsp.init")
+	local lsp_init = require("lsp.init")
 	-- try plugins in https://nvimdev.github.io
 	return {
 		{
@@ -94,9 +94,8 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				"SmiteshP/nvim-navic",
 				"p00f/clangd_extensions.nvim",
 			},
-			config = lsp.lspconfig,
+			config = lsp_init.lspconfig,
 		},
-		-- 目前缺乏type hierarchy tree UI
 		{
 			"nvimdev/lspsaga.nvim",
 			event = "LspAttach",
@@ -183,8 +182,7 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				end,
 				-- Format (final) message.
 				format = function(client_messages)
-					local sign = " LSP" -- nf-fa-gear \uf013
-					return #client_messages > 0 and (sign .. " " .. table.concat(client_messages, " ")) or sign
+					return #client_messages > 0 and (table.concat(client_messages, " ")) or ""
 				end,
 				--- Enable debug.
 				debug = false,
@@ -197,15 +195,6 @@ if vim.g.vimrc_lsp == "nvim-lsp" then
 				-- For *NIX: `~/.local/share/nvim/lsp-progress.log`.
 				file_log_name = "lsp-progress.log",
 			},
-		},
-		{
-			"retran/meow.yarn.nvim",
-			dependencies = { "MunifTanjim/nui.nvim" },
-			config = function()
-				require("meow.yarn").setup({
-					-- Your custom configuration goes here
-				})
-			end,
 		},
 		-- alternative: "hedyhli/outline.nvim",
 		{

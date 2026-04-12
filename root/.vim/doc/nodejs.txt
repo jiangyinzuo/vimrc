@@ -2,10 +2,9 @@ vim:ft=help
 
 *nodejs*
 
-coc.nvim, copilot.vim and qwen-code depend on nodejs.
-
 Installation ~
 
+- https://github.com/nodejs/unofficial-builds ⭐  glibc-2.17
 - Ubuntu18.04: https://github.com/nodesource/distributions#debian-and-ubuntu-based-distributions
 - https://github.com/tj/n
 - https://github.com/nvm-sh/nvm ⭐
