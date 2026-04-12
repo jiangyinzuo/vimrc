@@ -6,7 +6,7 @@ return {
 	-- https://github.com/magicalne/nvim.ai
 	{
 		"olimorris/codecompanion.nvim",
-		cond = true,
+		cond = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
