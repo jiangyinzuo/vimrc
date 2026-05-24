@@ -142,22 +142,6 @@ M.attach_navic = function(client, bufnr)
 	end
 end
 
-local function attach_codelens(client, bufnr)
-	-- 作者：贺呵呵
-	-- 链接：https://www.zhihu.com/question/656229461/answer/3506519415
-	-- 来源：知乎
-	-- 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-	-- code lens
-	if client:supports_method("textDocument/codeLens", { bufnr = bufnr }) then
-		vim.lsp.codelens.enable(true, { bufnr = bufnr })
-		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.codelens.enable(true, { bufnr = bufnr })
-			end,
-		})
-	end
-end
 function M.get_capabilities()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	capabilities.completion = capabilities.completion or {}
@@ -166,7 +150,7 @@ function M.get_capabilities()
 end
 
 function M.lspconfig()
-	-- Neovim >= 0.12.0
+	vim.lsp.codelens.enable()
 	vim.lsp.inline_completion.enable()
 	vim.lsp.document_color.enable()
 	vim.lsp.inlay_hint.enable()
@@ -279,8 +263,6 @@ function M.lspconfig()
 
 			local client = vim.lsp.get_client_by_id(ev.data.client_id)
 			M.attach_navic(client, ev.buf)
-
-			attach_codelens(client, ev.buf)
 		end,
 	})
 	vim.api.nvim_create_user_command("OutgoingCalls", function(_)
