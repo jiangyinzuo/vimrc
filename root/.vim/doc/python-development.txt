@@ -58,6 +58,13 @@ make altinstall: 安装编译python，安装到/usr/local/bin/python3.8
 	uv pip install "package @ ."        # Install the current project from disk
 	uv pip install "flask[dotenv]"      # Install Flask with "dotenv" extra.
 <
+
+清理空间
+>bash
+	uv cache clean           # 清空 uv 缓存
+	rm -rf /root/.cache/pip  # 清空 pip 缓存
+	rm -rf /root/.cache/uv   # 如果 uv cache clean 不行，直接删
+<
 ----------------------------------------------------------------------------
 *pip批量升级所有package*
 >

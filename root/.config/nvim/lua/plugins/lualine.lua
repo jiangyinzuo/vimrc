@@ -24,28 +24,16 @@ local lualine = {
 				end,
 			})
 		end
-		if vim.g.vimrc_lsp == "nvim-lsp" then
+		lualine_c = {
+			"diagnostics",
+			-- invoke `progress` to get lsp progress status.
+			require("lsp-progress").progress,
+		}
+		winbar = {
 			lualine_c = {
-				"diagnostics",
-				-- invoke `progress` to get lsp progress status.
-				require("lsp-progress").progress,
-			}
-			winbar = {
-				lualine_c = {
-					"navic_note",
-				},
-			}
-		elseif vim.g.vimrc_lsp == "coc.nvim" then
-			lualine_c = {
-				-- invoke `coc#status` to get coc status.
-				[[%{exists("*coc#status")?coc#status():''}]],
-			}
-			winbar = {
-				lualine_c = {
-					[[%{%get(b:, 'coc_symbol_line', '')%}]],
-				},
-			}
-		end
+				"navic_note",
+			},
+		}
 
 		local filename = {
 			"filename",
@@ -121,11 +109,7 @@ local lualine = {
 
 -- WARN: DO NOT USE AndreM222/copilot-lualine
 
-if vim.g.vimrc_lsp == "nvim-lsp" then
-	table.insert(lualine.dependencies, "neovim/nvim-lspconfig")
-	table.insert(lualine.dependencies, "linrongbin16/lsp-progress.nvim")
-else
-	table.insert(lualine.dependencies, "neoclide/coc.nvim")
-end
+table.insert(lualine.dependencies, "neovim/nvim-lspconfig")
+table.insert(lualine.dependencies, "linrongbin16/lsp-progress.nvim")
 
 return lualine

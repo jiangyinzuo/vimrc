@@ -4,8 +4,6 @@ if require("config").load_plugin.development.jupyter then
 			"SUSTech-data/neopyter",
 			cond = vim.fn.has('wsl') == 1,
 			dependencies = {
-				"nvim-lua/plenary.nvim",
-				"nvim-treesitter/nvim-treesitter", -- neopyter don't depend on `nvim-treesitter`, but does depend on treesitter parser of python
 				"AbaoFromCUG/websocket.nvim", -- for mode='direct'
 			},
 

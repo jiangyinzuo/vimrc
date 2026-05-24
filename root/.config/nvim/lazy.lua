@@ -105,13 +105,10 @@ vim.opt.scrollback = 100000
 -- lazy.nvim has reset packpath, so we need to add ~/.vim back
 --
 -- make winbar background transparent
--- Reset coc.nvim highlight after colorscheme loaded
--- See: https://github.com/neoclide/coc.nvim/issues/4857
 vim.cmd([[
 set packpath+=~/.vim
 set termguicolors
 hi WinBar guibg=NONE
-hi! link CocInlayHint LspInlayHint
 hi link QuickPreview Normal
 ]])
 config_clipboard()
@@ -119,8 +116,6 @@ config_clipboard()
 require("vim._core.ui2").enable({
 	enable = true, -- Whether to enable or disable the UI.
 	msg = { -- Options related to the message module.
-		---@type 'cmd'|'msg' Where to place regular messages, either in the
-		---cmdline or in a separate ephemeral message window.
 		target = "cmd",
 	},
 })

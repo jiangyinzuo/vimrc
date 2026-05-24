@@ -8,7 +8,6 @@ if require("config").load_plugin.development.golang then
 			dependencies = { -- optional packages
 				"ray-x/guihua.lua",
 				"neovim/nvim-lspconfig",
-				"nvim-treesitter/nvim-treesitter",
 				"nvimtools/none-ls.nvim",
 			},
 			config = function()

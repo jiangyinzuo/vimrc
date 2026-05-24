@@ -1,9 +1,6 @@
 local leaderf_dependencies = {
 	"voldikss/LeaderF-emoji",
 }
-if vim.g.vimrc_lsp == "coc.nvim" then
-	table.insert(leaderf_dependencies, "skywind3000/Leaderf-snippet")
-end
 
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
@@ -129,10 +126,6 @@ local M = {
 		},
 	},
 	{ dir = "~/.vim/pack/my_plugins/start/diffbuffer.vim" },
-	{
-		"SirVer/ultisnips",
-		cond = vim.g.vimrc_lsp == "coc.nvim",
-	},
 }
 
 return M
