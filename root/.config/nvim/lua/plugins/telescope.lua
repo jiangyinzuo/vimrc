@@ -23,8 +23,8 @@ return {
 			"<leader>ff",
 			"<leader>fh",
 			"<leader>ft",
-			"<leader>rg",
-			"<leader>sym",
+			"<leader>fg",
+			"<leader>fs",
 		},
 		cmd = { "Telescope" },
 		dependencies = telescope_dependencies,
@@ -39,13 +39,13 @@ return {
 			vim.keymap.set("n", "<leader>ff", function()
 				builtin.find_files({ layout_strategy = layout_strategy })
 			end, {})
-			vim.keymap.set("n", "<leader>rg", builtin.grep_string, {})
-			vim.keymap.set("x", "<leader>rg", builtin.grep_string, {})
+			vim.keymap.set("n", "<leader>fg", builtin.grep_string, {})
+			vim.keymap.set("x", "<leader>fg", builtin.grep_string, {})
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", function()
 				builtin.oldfiles({ layout_strategy = layout_strategy })
 			end, {})
-			vim.keymap.set("n", "<leader>sym", function()
+			vim.keymap.set("n", "<leader>fs", function()
 				local fname_width
 				if vim.o.columns <= 125 then
 					fname_width = 30

@@ -224,4 +224,184 @@ return {
 			},
 		}, -- needed even when using default config
 	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			require("toggleterm").setup()
+			-- ToggleTerm REPL sender
+			--
+			-- 用法：
+			--   <leader>s{motion}   发送 motion 范围
+			--   <leader>ss          发送当前行，类似 dd
+			--   vip<leader>s        visual 精确选区发送
+			--   Vjj<leader>S        visual 整行发送
+			--
+			--   2<leader>ss         发送当前行到 terminal 2
+			--   3<leader>sip        发送 inner paragraph 到 terminal 3
+
+			local terminal = require("toggleterm.terminal")
+			local Terminal = terminal.Terminal
+
+			local trim_spaces = false
+			local default_repl_cmd = "bash"
+
+			local repl_cmd_by_ft = {
+				python = "ipython --no-autoindent",
+				lua = "lua",
+				sh = "bash",
+				bash = "bash",
+				zsh = "zsh",
+				javascript = "node",
+				typescript = "ts-node",
+				sql = "duckdb",
+				r = "R",
+			}
+
+			local pending_tid = nil
+
+			local function repl_tid()
+				return vim.v.count > 0 and vim.v.count or 1
+			end
+
+			local function repl_cmd_for_current_buffer()
+				return repl_cmd_by_ft[vim.bo.filetype] or default_repl_cmd
+			end
+
+			local function ensure_repl_terminal(tid)
+				local term = terminal.get(tid, true)
+
+				if term ~= nil then
+					return term
+				end
+
+				term = Terminal:new({
+					count = tid,
+					cmd = repl_cmd_for_current_buffer(),
+					direction = "horizontal",
+					hidden = true,
+					close_on_exit = false,
+					size = 15,
+				})
+
+				-- 这里不能在 expr mapping 阶段调用。
+				-- 但在 vim.schedule() 之后调用是安全的。
+				term:spawn()
+
+				return term
+			end
+
+			local function send_to_repl(tid, selection_type)
+				local term = ensure_repl_terminal(tid)
+
+				if term == nil then
+					return
+				end
+
+				require("toggleterm").send_lines_to_terminal(selection_type, trim_spaces, { args = tid })
+			end
+
+			function _G.toggleterm_repl_operator(motion_type)
+				local tid = pending_tid or 1
+				pending_tid = nil
+
+				-- 关键：不要在 operatorfunc 当前调用栈里直接 spawn/send。
+				-- 延后到安全时机，避开 E565。
+				vim.schedule(function()
+					send_to_repl(tid, motion_type)
+				end)
+			end
+
+			-- Normal mode:
+			--   <leader>s{motion}
+			--
+			-- 这里绝对不要 ensure_repl_terminal()。
+			-- expr mapping 阶段只能返回按键，不要改窗口/改 buffer/termopen。
+			vim.keymap.set("n", "<leader>s", function()
+				pending_tid = repl_tid()
+				vim.go.operatorfunc = "v:lua.toggleterm_repl_operator"
+				return "g@"
+			end, {
+				expr = true,
+				desc = "REPL send motion to ToggleTerm",
+			})
+
+			-- Normal mode:
+			--   <leader>ss
+			--
+			-- 类似 dd，发送当前行。
+			vim.keymap.set("n", "<leader>ss", function()
+				pending_tid = repl_tid()
+				vim.go.operatorfunc = "v:lua.toggleterm_repl_operator"
+				return "g@_"
+			end, {
+				expr = true,
+				desc = "REPL send current line to ToggleTerm",
+			})
+
+			-- Visual mode:
+			--   vip<leader>s
+			--
+			-- visual mapping 虽然不是 expr，但为了避免 visual 状态/selection 状态下
+			-- termopen 触发类似问题，也统一 schedule。
+			vim.keymap.set("x", "<leader>s", function()
+				local tid = repl_tid()
+
+				vim.schedule(function()
+					send_to_repl(tid, "visual_selection")
+				end)
+			end, {
+				desc = "REPL send visual selection to ToggleTerm",
+			})
+
+			-- Visual mode:
+			--   Vjj<leader>S
+			--
+			-- 整行发送。
+			vim.keymap.set("x", "<leader>S", function()
+				local tid = repl_tid()
+
+				vim.schedule(function()
+					send_to_repl(tid, "visual_lines")
+				end)
+			end, {
+				desc = "REPL send visual lines to ToggleTerm",
+			})
+
+			-- 可选：打开当前 tid 对应的 terminal 窗口
+			--
+			--   <leader>so
+			--   2<leader>so
+			--
+			-- 这个是普通 normal mapping，不是 expr mapping，所以可以 open。
+			vim.keymap.set("n", "<leader>so", function()
+				local tid = repl_tid()
+				local term = ensure_repl_terminal(tid)
+
+				if term ~= nil then
+					term:open(15, "horizontal")
+				end
+			end, {
+				desc = "REPL open ToggleTerm terminal",
+			})
+
+			-- 可选：重启当前 tid 对应的 terminal
+			--
+			--   <leader>sr
+			--   2<leader>sr
+			vim.keymap.set("n", "<leader>sr", function()
+				local tid = repl_tid()
+				local term = terminal.get(tid, true)
+
+				if term ~= nil then
+					term:shutdown()
+				end
+
+				-- 普通 mapping，可以直接 spawn。
+				ensure_repl_terminal(tid)
+			end, {
+				desc = "REPL restart ToggleTerm terminal",
+			})
+		end,
+	},
 }

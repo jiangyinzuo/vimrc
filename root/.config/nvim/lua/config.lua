@@ -39,5 +39,4 @@ return {
 	},
 	avante_provider = "openai",
 	avante_auto_suggestions_provider = "openai",
-	iron_repl_sql_command = { "duckdb" },
 }
