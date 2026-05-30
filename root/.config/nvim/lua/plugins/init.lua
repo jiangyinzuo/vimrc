@@ -208,8 +208,10 @@ return {
 			end)
 		end,
 	},
+	-- 性能可能下降
 	{
 		"chrisgrieser/nvim-origami",
+		cond = false,
 		event = "VeryLazy",
 		opts = {
 			autoFold = {

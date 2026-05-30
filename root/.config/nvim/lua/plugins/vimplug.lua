@@ -27,15 +27,6 @@ local M = {
 		end,
 	},
 	"jiangyinzuo/z.vim",
-	"voldikss/vim-floaterm",
-	{
-		"voldikss/fzf-floaterm",
-		event = "VeryLazy",
-		dependencies = {
-			"junegunn/fzf",
-			"voldikss/vim-floaterm",
-		},
-	},
 	{
 		"skywind3000/asynctasks.vim",
 		event = "VeryLazy",

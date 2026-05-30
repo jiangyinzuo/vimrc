@@ -125,6 +125,18 @@ if v:version >= 800
 
 			Plug 'voldikss/vim-floaterm'
 			Plug 'voldikss/LeaderF-floaterm'
+			"""""""""""""""""" floaterm
+			" The popup window always has focus, it is not possible to switch to another window.
+			" See *popup-terminal*
+			let g:floaterm_opener = 'vsplit'
+			let g:floaterm_width = 0.95
+			let g:floaterm_height = 0.95
+			let g:floaterm_position = 'right'
+			let g:floaterm_rootmarkers = g:RootMarks
+			let g:floaterm_keymap_toggle = '<F2>'
+			" imap中F12被映射为UltiSnipsExpandTrigger, see plugin_setup.vim
+			let g:floaterm_title='<F9> kill | <F10> new | <F11> prev | <F12> next | <F2> toggle ($1/$2)'
+			""""""""""""""""""
 			Plug 'voldikss/fzf-floaterm'
 			Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 			Plug 'junegunn/fzf.vim'

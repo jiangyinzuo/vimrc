@@ -150,19 +150,6 @@ if has('nvim') || v:version >= 802
 	let g:quickui_context = [['hello', 'echo "hello world!"']]
 	let g:quickui_border_style = 2
 
-	"""""""""""""""""" floaterm
-	" The popup window always has focus, it is not possible to switch to another window.
-	" See *popup-terminal*
-	let g:floaterm_opener = 'vsplit'
-	let g:floaterm_width = 0.95
-	let g:floaterm_height = 0.95
-	let g:floaterm_position = 'right'
-	let g:floaterm_rootmarkers = g:RootMarks
-	let g:floaterm_keymap_toggle = '<F2>'
-	" imap中F12被映射为UltiSnipsExpandTrigger, see plugin_setup.vim
-	let g:floaterm_title='<F9> kill | <F10> new | <F11> prev | <F12> next | <F2> toggle ($1/$2)'
-	""""""""""""""""""
-
 	let g:pydocstring_doq_path = 'doq'
 	let g:pydocstring_formatter = 'numpy'
 endif
