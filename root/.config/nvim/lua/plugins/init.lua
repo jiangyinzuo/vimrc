@@ -268,7 +268,7 @@ return {
 				zsh = "zsh",
 				javascript = "node",
 				typescript = "ts-node",
-				sql = "gsql -d postgres -p 8000 -r",
+				sql = "duckdb",
 				r = "R",
 			}
 
