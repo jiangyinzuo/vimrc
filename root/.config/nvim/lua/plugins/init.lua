@@ -262,7 +262,6 @@ return {
 			local Terminal = terminal.Terminal
 
 			local trim_spaces = false
-			local default_repl_cmd = "bash"
 
 			-- pending_tid 在 keymap 阶段设置。
 			-- operatorfunc 阶段不要再读 vim.v.count。
@@ -271,10 +270,6 @@ return {
 
 			local function count_as_tid()
 				return vim.v.count > 0 and vim.v.count or 1
-			end
-
-			local function repl_cmd_for_current_buffer()
-				return require("config").repl_cmd_by_ft[vim.bo.filetype] or default_repl_cmd
 			end
 
 			local function term_is_open(term)
@@ -300,14 +295,26 @@ return {
 
 				local term = terminal.get(tid, true)
 
+				local function repl_for_ft()
+					local entry = require("config").repl_cmd_by_ft[vim.bo.filetype]
+					if type(entry) == "table" then
+						return unpack(entry)
+					end
+					return entry, nil
+				end
+
 				if term == nil then
+					local cmd, syntax = repl_for_ft()
 					term = Terminal:new({
 						id = tid,
-						cmd = repl_cmd_for_current_buffer(),
+						cmd = cmd,
 						direction = "vertical",
 						hidden = true,
 						close_on_exit = false,
 						size = 80,
+						on_create = function(terminal)
+							vim.b[term.bufnr].toggleterm_custom_syntax = syntax
+						end,
 					})
 				end
 
