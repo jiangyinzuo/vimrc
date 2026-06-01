@@ -264,18 +264,6 @@ return {
 			local trim_spaces = false
 			local default_repl_cmd = "bash"
 
-			local repl_cmd_by_ft = {
-				python = "ipython --no-autoindent",
-				lua = "lua",
-				sh = "bash",
-				bash = "bash",
-				zsh = "zsh",
-				javascript = "node",
-				typescript = "ts-node",
-				sql = "duckdb",
-				r = "R",
-			}
-
 			-- pending_tid 在 keymap 阶段设置。
 			-- operatorfunc 阶段不要再读 vim.v.count。
 			local pending_tid = 1
@@ -286,7 +274,7 @@ return {
 			end
 
 			local function repl_cmd_for_current_buffer()
-				return repl_cmd_by_ft[vim.bo.filetype] or default_repl_cmd
+				return require("config").repl_cmd_by_ft[vim.bo.filetype] or default_repl_cmd
 			end
 
 			local function term_is_open(term)

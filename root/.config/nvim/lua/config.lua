@@ -39,4 +39,15 @@ return {
 	},
 	avante_provider = "openai",
 	avante_auto_suggestions_provider = "openai",
+	repl_cmd_by_ft = {
+		python = "ipython --no-autoindent",
+		lua = "lua",
+		sh = "bash",
+		bash = "bash",
+		zsh = "zsh",
+		javascript = "node",
+		typescript = "ts-node",
+		sql = "duckdb",
+		r = "R",
+	},
 }
