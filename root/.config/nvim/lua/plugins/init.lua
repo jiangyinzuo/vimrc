@@ -231,8 +231,8 @@ return {
 			-- ToggleTerm REPL sender
 			--
 			-- 语义：
-			--   <leader>ss       当前行 -> terminal 1
-			--   2<leader>ss      当前行 -> terminal 2
+			--   <leader>sl       当前行 -> terminal 1
+			--   2<leader>sl      当前行 -> terminal 2
 			--
 			--   <leader>s_       当前行 -> terminal 1
 			--   2<leader>s_      当前行 -> terminal 2
@@ -243,14 +243,18 @@ return {
 			--   visual <leader>s 精确发送 visual selection
 			--   visual <leader>S 按整行发送 visual lines
 			--
-			-- 注意：
-			--   这里把 count 当 terminal id，不再保留 Vim operator 的 count 重复语义。
+			-- 设计：
+			--   1. normal mode 的 count 被解释为 terminal id。
+			--   2. 不支持 Vim operator 的 count 重复语义。
+			--   3. operatorfunc 里只发送，不打开 terminal，避免 E565。
+			--   4. terminal 在进入 g@ operator 前打开。
 
 			require("toggleterm").setup({
 				direction = "vertical",
 				size = 80,
 				persist_size = false,
 				shade_terminals = false,
+				start_in_insert = false,
 			})
 
 			local toggleterm = require("toggleterm")
@@ -272,9 +276,10 @@ return {
 				r = "R",
 			}
 
-			-- operatorfunc 运行时不要再读 vim.v.count。
-			-- count 在 keymap 触发时已经被我们消费成 terminal id。
+			-- pending_tid 在 keymap 阶段设置。
+			-- operatorfunc 阶段不要再读 vim.v.count。
 			local pending_tid = 1
+			local pending_ready = false
 
 			local function count_as_tid()
 				return vim.v.count > 0 and vim.v.count or 1
@@ -299,7 +304,6 @@ return {
 					end
 				end
 
-				-- fallback: 有 job_id 一般说明 terminal job 已经起来
 				return term.job_id ~= nil
 			end
 
@@ -319,14 +323,11 @@ return {
 					})
 				end
 
-				-- 关键点：
-				-- 只能在 keymap 函数里 open terminal，不能在 operatorfunc 里 open。
-				-- 否则 operatorfunc/textlock 阶段会触发 E565。
 				if not term_is_open(term) then
 					term:open()
 
-					-- term:open() 会切到 terminal 窗口。
-					-- 这里切回原窗口，让后续 g@ motion 仍然作用在源码 buffer 上。
+					-- term:open() 可能切到 terminal 窗口。
+					-- 切回源码窗口，保证后续 g@ motion 在源码 buffer 上执行。
 					if vim.api.nvim_win_is_valid(src_win) then
 						vim.api.nvim_set_current_win(src_win)
 					end
@@ -337,38 +338,50 @@ return {
 
 			local function prepare_repl_for_tid(tid)
 				pending_tid = tid
+				pending_ready = false
 
-				local ok, term = pcall(function()
+				local ok, term_or_err = pcall(function()
 					return ensure_repl_terminal(tid)
 				end)
 
 				if not ok then
-					vim.notify(("Failed to open ToggleTerm terminal %d: %s"):format(tid, term), vim.log.levels.ERROR)
+					vim.notify(("Failed to open ToggleTerm terminal %d: %s"):format(tid, term_or_err), vim.log.levels.ERROR)
 					return false
 				end
 
-				if term == nil then
+				local term = term_or_err
+
+				if term == nil or not term_is_open(term) then
 					vim.notify(("Failed to open ToggleTerm terminal %d"):format(tid), vim.log.levels.ERROR)
 					return false
 				end
 
+				pending_ready = true
 				return true
 			end
 
-			local function send_to_terminal(selection_type, tid)
-				tid = tid or count_as_tid()
-				if not prepare_repl_for_tid(tid) then
-					return
+			-- 这个函数由 mapping RHS 里的 :lua 调用。
+			-- 注意：这里允许打开 terminal，因为它发生在进入 g@ operator 之前。
+			function _G.toggleterm_repl_prepare_operator()
+				local tid = pending_tid
+
+				if prepare_repl_for_tid(tid) then
+					vim.go.operatorfunc = "v:lua.toggleterm_repl_operator"
+				else
+					-- 即使失败，也设置一个空 operator，避免报错。
+					vim.go.operatorfunc = "v:lua.toggleterm_repl_operator"
 				end
-				toggleterm.send_lines_to_terminal(selection_type, trim_spaces, { args = tid })
 			end
 
+			-- 这个函数由 g@ 在 motion 解析完成后调用。
+			-- 注意：这里绝对不要 open/split/vsplit。
 			function _G.toggleterm_repl_operator(motion_type)
 				local tid = pending_tid
 
-				-- 这里故意不调用 ensure_repl_terminal(tid)。
-				-- operatorfunc 阶段不能开 split/vsplit，否则会报：
-				--   E565: Not allowed to change text or change window
+				if not pending_ready then
+					return
+				end
+
 				local term = terminal.get(tid, true)
 
 				if term == nil or not term_is_open(term) then
@@ -379,48 +392,74 @@ return {
 				toggleterm.send_lines_to_terminal(motion_type, trim_spaces, { args = tid })
 			end
 
-			-- Normal mode: <leader>s{motion}
-			--
-			-- 例如：
-			--   <leader>sip   -> terminal 1
-			--   2<leader>sip  -> terminal 2
-			vim.keymap.set("n", "<leader>s", function()
-				local tid = count_as_tid()
+			local function send_to_terminal(selection_type, tid)
+				tid = tid or count_as_tid()
 
 				if not prepare_repl_for_tid(tid) then
 					return
 				end
 
-				vim.go.operatorfunc = "v:lua.toggleterm_repl_operator"
+				toggleterm.send_lines_to_terminal(selection_type, trim_spaces, { args = tid })
+			end
 
-				-- 不用 expr=true 返回 g@，避免 count 继续污染 operator。
-				-- 这里 count 已经被我们吃掉作为 terminal id。
-				vim.api.nvim_feedkeys(vim.keycode("g@"), "n", false)
+			-- Normal mode: <leader>s{motion}
+			--
+			-- 关键点：
+			--   expr=true 只负责先保存 count 到 pending_tid。
+			--   RHS 使用 :<C-u> 清掉 Vim count/range。
+			--   然后进入 g@ operator。
+			--
+			-- 这样：
+			--   2<leader>sip
+			-- 不会变成 2g@ip，而是：
+			--   pending_tid = 2
+			--   g@ip
+			vim.keymap.set("n", "<leader>s", function()
+				pending_tid = count_as_tid()
+				return ":<C-u>lua toggleterm_repl_prepare_operator()<CR>g@"
 			end, {
+				expr = true,
+				silent = true,
 				desc = "REPL send motion to ToggleTerm",
 			})
 
-			-- Normal mode: <leader>ss
+			-- Normal mode: <leader>sl
 			--
-			-- 这个不要写成 g@_，否则 2<leader>ss 会变成发送 2 行。
-			-- 直接调用 single_line API 最稳。
-			vim.keymap.set("n", "<leader>ss", function()
+			-- 不走 g@_，避免 2<leader>sl 发送 2 行。
+			vim.keymap.set("n", "<leader>sl", function()
 				send_to_terminal("single_line", count_as_tid())
 			end, {
 				desc = "REPL send current line to ToggleTerm",
 			})
 
-			-- Visual mode: 精确发送 visual selection
+			-- 可选：显式 <leader>s_，等价于 operator + _。
+			-- 这里也用 :<C-u> 清掉 count。
+			vim.keymap.set("n", "<leader>s_", function()
+				pending_tid = count_as_tid()
+				return ":<C-u>lua toggleterm_repl_prepare_operator()<CR>g@_"
+			end, {
+				expr = true,
+				silent = true,
+				desc = "REPL send current line by motion to ToggleTerm",
+			})
+
+			-- Visual mode: 精确 visual selection
 			vim.keymap.set("x", "<leader>s", function()
 				send_to_terminal("visual_selection", count_as_tid())
 			end, {
 				desc = "REPL send visual selection to ToggleTerm",
 			})
 
+			-- Visual mode: 按整行发送 visual lines
+			vim.keymap.set("x", "<leader>S", function()
+				send_to_terminal("visual_lines", count_as_tid())
+			end, {
+				desc = "REPL send visual lines to ToggleTerm",
+			})
+
 			-- 手动打开当前 tid 的 terminal。
 			vim.keymap.set("n", "<leader>so", function()
-				local tid = count_as_tid()
-				prepare_repl_for_tid(tid)
+				prepare_repl_for_tid(count_as_tid())
 			end, {
 				desc = "REPL open ToggleTerm terminal",
 			})
