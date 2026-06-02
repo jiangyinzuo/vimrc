@@ -29,13 +29,13 @@ syntax keyword gsqlDml contained
       \ select insert update delete merge replace copy
 
 syntax keyword gsqlDdl contained
-      \ create alter drop truncate rename comment grant revoke
+      \ create alter drop truncate rename comment grant revoke vacuum
 
 syntax keyword gsqlTxn contained
       \ begin start commit rollback savepoint release transaction
 
 syntax keyword gsqlClause contained
-      \ from where group by having order limit offset
+      \ from where group by having order limit offset table
       \ into values set returning
       \ join inner left right full outer cross on using
       \ union intersect except all distinct
