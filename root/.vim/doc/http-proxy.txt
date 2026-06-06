@@ -50,21 +50,32 @@ http转发到能连外网的跳板机 ~
 	ssh -NR 3128:localhost:3128 kiwi
 <
 
-http转发到个人电脑 ~
+http和git ssh转发到个人电脑 ~
 
 假设目标机器为kiwi-nf，跳板机为cherry01，个人电脑启动squid，端口号为3128.
 服务器http proxy也转发到3128
+
+个人电脑.ssh/config
+>sshconfig
+    Host kiwi-nf
+            HostName 10.208.130.1
+            User jiangyinzuo
+            Port 3527
+            # 防止长时间断连
+            ServerAliveInterval 60
+            # ProxyJump grape
+            ProxyJump cherry00
+            # 服务器端口:本地端口
+            RemoteForward 3128 localhost:3128
+            RemoteForward 127.0.0.1:1080
+            ExitOnForwardFailure yes
+<
+kiwi服务器.ssh/config
 >
-	Host kiwi-nf
-	HostName 10.208.130.1
-	User jiangyinzuo
-	Port 3527
-	# 防止长时间断连
-	ServerAliveInterval 60
-	# ProxyJump grape
-	ProxyJump cherry01
-	# 服务器端口:本地端口
-	RemoteForward 3128 localhost:3128
+    Host github.com
+        HostName github.com
+        User git
+        ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
 <
 
 Warning: remote port forwarding failed for listen port 3128 ~
