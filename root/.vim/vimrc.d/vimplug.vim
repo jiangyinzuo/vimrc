@@ -87,8 +87,6 @@ if v:version >= 800
 	Plug 'honza/vim-snippets'
 	Plug 'voldikss/vim-translator'
 
-	Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-
 	Plug 'jiangyinzuo/open-gitdiff.vim'
 	Plug 'andrewradev/linediff.vim'
 

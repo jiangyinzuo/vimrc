@@ -92,15 +92,6 @@ if v:version >= 800
 	" 这样的补全，使用F12
 	let g:UltiSnipsExpandTrigger="<f12>"
 	
-	" 默认csv带有header
-	let g:rbql_with_headers = 1
-	let g:rainbow_comment_prefix = '#'
-	" 不显示行列位置，防止覆盖search mode下的shortmess提示信息
-	let g:disable_rainbow_hover = 1
-	if has('patch-9.1.497') || has('nvim-0.11.0')
-		" 禁用rainbow_csv的高亮
-		let g:rcsv_colorlinks = ['NONE', 'NONE']
-	endif
 	let g:open_gitdiff_exclude_patterns = ['\.pdf$', '\.jpg$', '\.png$', '\.eps$']
 	let g:open_gitdiff_qf_nmaps = {'open': '<leader>df', 'next': '<leader>dn', 'prev': '<leader>dp'}
 	let command_def = 'command -nargs=* '

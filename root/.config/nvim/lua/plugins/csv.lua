@@ -21,8 +21,4 @@ return {
 		},
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 	},
-	{
-		"mechatroner/rainbow_csv",
-		ft = "csv",
-	},
 }
