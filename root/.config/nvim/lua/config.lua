@@ -8,6 +8,7 @@ return {
 		-- "html",
 	},
 	load_plugin = {
+		non_vim_related = false,
 		-- AI plugins that can run locally
 		ai_local = true,
 		-- AI plugins that send data to public servers
