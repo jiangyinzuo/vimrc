@@ -1,4 +1,4 @@
-if require("config").load_plugin.non_vim_related then
+if not require("config").load_plugin.non_vim_related then
 	return {}
 end
 --- Using lazy.nvim to manage non Neovim related repositories
