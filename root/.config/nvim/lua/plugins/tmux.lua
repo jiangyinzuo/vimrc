@@ -185,10 +185,32 @@ local function send_to_tmux_pane()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
 end
 
+local pane_identifier = "run `:TmuxSend %id` first!"
+vim.api.nvim_create_user_command("TmuxSend", function(opts)
+	pane_identifier = opts.args
+	print("pane_identifier = " .. pane_identifier)
+end, {
+	nargs = 1,
+})
+
 local function send_prompt_to_tmux_pane(input)
-	require("tmux_send").send_to_pane({ count_is_uid = true, content = require("sidekick.cli").render(input) })
-	-- (Optional) exit visual mode after sending
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", true)
+	local opts = {
+		content = require("sidekick.cli").render(input),
+		add_newline = false,
+	}
+
+	if vim.v.count > 0 then
+		opts.count_is_uid = true
+	else
+		opts.pane_identifier = pane_identifier
+	end
+
+	require("tmux_send").send_to_pane(opts)
+	vim.api.nvim_feedkeys(
+		vim.api.nvim_replace_termcodes("<esc>", true, false, true),
+		"x",
+		true
+	)
 end
 return {
 	{
