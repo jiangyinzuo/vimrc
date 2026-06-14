@@ -223,35 +223,9 @@ return {
 		opts = {
 			profiles = {
 				{
-					name = "claude-3-7",
-					provider = "anthropic",
-					model = "claude-3-7-sonnet-latest",
-					fastModel = "claude-3-5-haiku-latest", -- optional, defaults provided
 					apiKeyEnvVar = "ANTHROPIC_API_KEY",
 					baseUrl = vim.g.claude_endpoint,
 				},
-			},
-			editPrediction = {
-				-- Use a dedicated profile for predictions (independent of main profiles)
-				profile = {
-					provider = "anthropic",
-					model = "claude-4-sonnet-latest",
-					apiKeyEnvVar = "ANTHROPIC_API_KEY",
-					baseUrl = vim.g.claude_endpoint,
-				},
-
-				-- Maximum number of changes to track for context (default: 10)
-				changeTrackerMaxChanges = 20,
-
-				-- Token budget for including recent changes (default: 1000)
-				-- Higher values include more history but use more tokens
-				recentChangeTokenBudget = 1500,
-
-				-- Replace the default system prompt entirely
-				-- systemPrompt = "Your custom prediction system prompt here...",
-
-				-- Append to the default system prompt instead of replacing it
-				-- systemPromptAppend = "Additional instructions to improve predictions...",
 			},
 		},
 	},
@@ -422,20 +396,6 @@ return {
 	{
 		"huggingface/llm.nvim",
 		cond = vim.g.ai_suggestion == "llm.nvim",
-	},
-	-- goose.nvim只支持对整个项目查看diff，不支持对某个修改查看diff并决定是否接受
-	{
-		"azorng/goose.nvim",
-		cond = false,
-		config = function()
-			require("goose").setup({
-				default_global_keymaps = false,
-			})
-		end,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"MeanderingProgrammer/render-markdown.nvim",
-		},
 	},
 	-- 无法滚动，查看前面的对话记录
 	-- 无法查看diff并决定是否接受
