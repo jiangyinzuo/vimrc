@@ -120,3 +120,5 @@ require("vim._core.ui2").enable({
 	},
 })
 require("yank_screen")
+
+require("pdb")
