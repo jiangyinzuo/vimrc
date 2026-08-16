@@ -27,8 +27,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	{
-		"neovim-treesitter/nvim-treesitter",
-		dependencies = { "neovim-treesitter/treesitter-parser-registry" },
+		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		config = function()
 			require("nvim-treesitter").setup({

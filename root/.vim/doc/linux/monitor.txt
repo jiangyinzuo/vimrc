@@ -10,7 +10,7 @@ top中按c可以查看command详情；u可以筛选user进程
 
 IO Monitor ~
 
-*iotop* 查看进程I/O
+*iotop* 查看进程I/O  Ubuntu下建议安装iotop-c
 
 sysstat套件 (yum install sysstat)
 >bash
