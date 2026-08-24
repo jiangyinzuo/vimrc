@@ -134,9 +134,38 @@ return {
 	{ "nvim-pack/nvim-spectre", opts = {} },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		opts = {
-			file_types = { "markdown", "Avante" },
-		},
+		config = function()
+			require("render-markdown").setup({
+				file_types = { "markdown", "Avante" },
+				code = {
+					enabled = true,
+					sign = false,
+					disable_background = true,
+					border = "thin",
+					-- Used above code blocks to fill remaining space around language.
+					language_border = "─",
+					-- Used above code blocks for thin border.
+					above = "─",
+					-- Used below code blocks for thin border.
+					below = "─",
+					width = "block",
+					left_margin = 0,
+					left_pad = 0,
+					highlight_language = "RenderMarkdownCodeLanguage",
+					highlight_border = "RenderMarkdownCodeBorder",
+				},
+			})
+			vim.cmd([[
+				highlight RenderMarkdownCodeLanguage ctermfg=145 ctermbg=104 guifg=#002b36 guibg=#6c71c4 cterm=reverse gui=reverse
+				highlight RenderMarkdownCodeBorder ctermbg=104 guibg=#6c71c4
+			]])
+			-- https://www.starrytool.com/zh-cn/color-picker.html 在线取色器
+			vim.api.nvim_set_hl(
+				0,
+				"@markup.raw.block.markdown",
+				{ ctermfg = 135, ctermbg = 23, fg = "#7F9494", bg = "#002b36" }
+			)
+		end,
 		ft = { "markdown", "Avante" },
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
