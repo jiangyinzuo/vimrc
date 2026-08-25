@@ -51,16 +51,6 @@ else
 endif
 let g:vim_plug_dir = get(g:, 'vim_plug_dir', '~/plugged')
 
-let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
-" See Also: https://github.com/neoclide/coc-sources
-" All Coc Extensions:
-" coc-explorer will kill neovim's intro, quickly type <space> or other key
-" when starting can avoid it.
-" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
-" Note: 'coc-basedpyright' is a fork of pyright https://github.com/fannheyward/coc-basedpyright
-" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
-let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
-
 let g:clangd_path = get(g:, 'clangd_path', 'clangd')
 " use CompilationDatabase instead (absolute path)
 " See: https://clangd.llvm.org/config#compilationdatabase
@@ -70,7 +60,7 @@ let g:clangd_cmd = [g:clangd_path] + g:clangd_args
 let g:clang_format = get(g:, 'clang_format', 'clang-format')
 " black, ruff
 let g:python_formatter = get(g:, 'python_formatter', 'ruff')
-let g:python_lsp = get(g:, 'python_lsp', 'basedpyright')
+let g:python_lsp = get(g:, 'python_lsp', 'pyrefly')
 let g:omni_sql_no_default_maps = 1
 " copilot.vim, avante.nvim, fittencode, tabnine-nvim, windsurf.vim, llm.nvim, augment.vim
 " minuet-ai.nvim

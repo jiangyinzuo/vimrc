@@ -1,3 +1,13 @@
+let g:coc_data_home = get(g:, 'coc_data_home', '~/coc')
+" See Also: https://github.com/neoclide/coc-sources
+" All Coc Extensions:
+" coc-explorer will kill neovim's intro, quickly type <space> or other key
+" when starting can avoid it.
+" https://github.com/neoclide/coc.nvim/issues/3409#issuecomment-1337825854
+" Note: 'coc-basedpyright' is a fork of pyright https://github.com/fannheyward/coc-basedpyright
+" let g:coc_global_extensions = ['coc-lists', 'coc-ultisnips', 'coc-json', 'coc-vimtex', 'coc-ltex', 'coc-texlab', 'coc-stylua', 'coc-lua', 'coc-rust-analyzer', 'coc-clangd', 'coc-pyright', 'coc-java', 'coc-java-debug', 'coc-go', 'coc-tsserver', 'coc-tag', '@yaegassy/coc-marksman', 'coc-html', 'coc-symbol-line']
+let g:coc_global_extensions = get(g:, 'coc_global_extensions', [])
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
