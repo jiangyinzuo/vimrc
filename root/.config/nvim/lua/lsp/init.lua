@@ -128,8 +128,7 @@ local function setup_lsp(capabilities)
 	-- "pylyzer": report too many diagnostics
 	-- use "neocmake" instead of "cmake"
 	-- "lua_ls"
-	local enabled_servers =
-		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls" }
+	local enabled_servers = { "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls" }
 	if require("detect").has_typst_executable then
 		table.insert(enabled_servers, "tinymist")
 	end
@@ -177,6 +176,7 @@ function M.lspconfig()
 	vim.keymap.del("n", "grr")
 	vim.keymap.del("n", "grt")
 	vim.keymap.del("n", "grx")
+	vim.keymap.del("n", "K")
 	-- Use LspAttach autocommand to only map the following keys
 	-- after the language server attaches to the current buffer
 	vim.api.nvim_create_autocmd("LspAttach", {
@@ -259,6 +259,12 @@ function M.lspconfig()
 				"<leader>ac",
 				vim.lsp.buf.code_action,
 				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.code_action" }
+			)
+			vim.keymap.set(
+				{ "n" },
+				"<leader>K",
+				vim.lsp.buf.hover,
+				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.hover" }
 			)
 			diagnostic.setup_vim_diagnostic_on_attach()
 
