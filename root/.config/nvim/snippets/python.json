@@ -1,0 +1,27 @@
+{
+    "PriorityQueue": {
+        "prefix": "xx_priorityqueue",
+        "body": ["from queue import PriorityQueue"],
+        "description": "PriorityQueue"
+    },
+    "ascii-of-char": {
+        "prefix": "xx_ascii-of-char",
+        "body": ["ord('A')"],
+        "description": "ascii of char"
+    },
+    "ascii-to-char": {
+        "prefix": "xx_ascii-to-char",
+        "body": ["chr(65)"],
+        "description": "ascii to char"
+    },
+    "zfill": {
+        "prefix": "xx_zfill",
+        "body": ["'123'.zfill(5)"],
+        "description": "zfill"
+    },
+    "zfill-fstr": {
+        "prefix": "xx_zfill_fstr",
+        "body": ["f'{hour:02d}:{minute:02d}'"],
+        "description": "zfill fstring"
+    }
+}
