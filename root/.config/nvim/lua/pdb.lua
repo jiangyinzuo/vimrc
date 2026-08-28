@@ -598,25 +598,7 @@ function M.break_at_current_line()
   M.send(("break %s:%d"):format(filename, linenr))
 end
 
-vim.api.nvim_create_user_command("Pdb", function(opts)
-  M.start(opts.fargs)
-end, {
-  nargs = "+",
-  complete = "file",
-  desc = "Start pdb and follow source locations",
-})
-
-vim.api.nvim_create_user_command("PdbSend", function(opts)
-  M.send(opts.args)
-end, {
-  nargs = "+",
-  desc = "Send a command to pdb",
-})
-
-vim.api.nvim_create_user_command("Break", function()
-  M.break_at_current_line()
-end, {
-  desc = "Set a pdb breakpoint at the current source line",
-})
+-- Pdb / PdbSend / Break 命令在 ftplugin/python.lua 中注册（buffer-local），
+-- 仅在 filetype 为 python 的 buffer 中才存在这些命令。
 
 return M
