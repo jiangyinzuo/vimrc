@@ -494,11 +494,6 @@ return {
 			{ "<leader>ccfd", "<cmd>ClaudeFzfDirectory<cr>", desc = "Claude: Add directory files" },
 		},
 	},
-	-- Alternatives:
-	-- https://github.com/jackMort/ChatGPT.nvim
-	-- https://github.com/dpayne/CodeGPT.nvim
-	-- https://github.com/Robitx/gp.nvim
-	{ "madox2/vim-ai", event = "VeryLazy", cond = vim.fn.has("python3") == 1 },
 	{
 		"folke/sidekick.nvim",
 		cond = true,

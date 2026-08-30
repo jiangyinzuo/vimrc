@@ -14,36 +14,6 @@ end
 -- - avante.nvim with copilot provider
 -- See: https://support.github.com/ticket/personal/0/3165529
 
--- local copilot_lua = {
--- 	"zbirenbaum/copilot.lua",
--- 	event = "InsertEnter",
--- 	config = function()
--- 		require("copilot").setup({
--- 			suggestion = {
--- 				enabled = true,
--- 				auto_trigger = true,
--- 				hide_during_completion = false,
--- 				debounce = 75,
--- 				keymap = {
--- 					accept = false,
--- 					accept_word = "<M-w>",
--- 					accept_line = "<M-l>",
--- 					next = "<M-]>",
--- 					prev = "<M-[>",
--- 					dismiss = "<C-]>",
--- 				},
--- 			},
--- 		})
--- 		vim.keymap.set("i", "<Tab>", function()
--- 			if require("copilot.suggestion").is_visible() then
--- 				require("copilot.suggestion").accept()
--- 			else
--- 				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
--- 			end
--- 		end, { desc = "Super Tab" })
--- 	end,
--- }
-
 return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -80,9 +50,11 @@ return {
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 	{
-		-- See ~/.vim/vimrc.d/ai.vim
 		"github/copilot.vim",
 		cond = vim.g.ai_suggestion == "copilot.vim" or vim.g.ai_suggestion == "sidekick.nvim",
+		init = function()
+			vim.api.nvim_command("source ~/.vim/vimrc.d/copilot.vim")
+		end,
 	},
 	{
 		"luozhiya/fittencode.nvim",

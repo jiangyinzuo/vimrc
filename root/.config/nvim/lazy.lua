@@ -17,8 +17,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_command("source ~/.vim/vimrc.d/plugin_setup.vim")
-vim.api.nvim_command("source ~/.vim/vimrc.d/ai.vim")
-
 -- https://gist.github.com/BlueDrink9/474b150c44d41b80934990c0acfb00be
 require("lazy").setup({
 	{ import = "plugins" },
