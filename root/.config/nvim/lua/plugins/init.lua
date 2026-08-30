@@ -18,6 +18,8 @@ return {
 		priority = 2000,
 		config = function()
 			vim.cmd("colorscheme solarized")
+			-- 大面积的删除线不好看
+			vim.api.nvim_set_hl(0, 'DiagnosticDeprecated', {})
 		end,
 	},
 	{

@@ -96,27 +96,12 @@ return {
 		config = lsp_init.lspconfig,
 	},
 	{
-		"nvimdev/lspsaga.nvim",
-		event = "LspAttach",
-		config = function()
-			require("lspsaga").setup({
-				symbol_in_winbar = {
-					-- use lsp-progress.nvim
-					enable = false,
-				},
-				lightbulb = {
-					enable = true,
-					sign = true,
-					virtual_text = false,
-					ignore = {
-						clients = { "jdtls", "marksman" },
-					},
-				},
-			})
-		end,
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter", -- optional
-			"nvim-tree/nvim-web-devicons", -- optional
+		"kosayoda/nvim-lightbulb",
+		opts = {
+			autocmd = {
+				enabled = true,
+				updatetime = 100,
+			},
 		},
 	},
 	{
