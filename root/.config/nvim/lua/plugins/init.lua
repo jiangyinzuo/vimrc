@@ -160,6 +160,7 @@ return {
 			vim.cmd([[
 				highlight RenderMarkdownCodeLanguage ctermfg=145 ctermbg=104 guifg=#002b36 guibg=#6c71c4 cterm=reverse gui=reverse
 				highlight RenderMarkdownCodeBorder ctermbg=104 guibg=#6c71c4
+    highlight RenderMarkdownH5Bg ctermfg=100 ctermbg=23 guifg=#238564 guibg=#073642 guisp=#859900
 			]])
 			-- https://www.starrytool.com/zh-cn/color-picker.html 在线取色器
 			vim.api.nvim_set_hl(
