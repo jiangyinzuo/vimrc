@@ -45,10 +45,6 @@ local M = {
 		-- LSP document_color
 		cond = false,
 	},
-	{
-		"jiangyinzuo/vim-visual-multi",
-		branch = "master",
-	},
 	-- TODO: see https://github.com/nvim-neotest/neotest
 	{
 		"vim-test/vim-test",
