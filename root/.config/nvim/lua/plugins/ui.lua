@@ -49,7 +49,7 @@ return {
 		},
 		config = function(_, opts)
 			require("mini.clue").setup(opts)
-
+   vim.keymap.del("n", "Q")
 			-- create keymap <leader>? to show all the triggers in floating window
 			vim.keymap.set("n", "<leader>?", function()
 				local lines = {}
