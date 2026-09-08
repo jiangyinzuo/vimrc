@@ -33,6 +33,14 @@ vim:ft=help
 	set grepprg=rg\ --vimgrep
 <
 
+使用tgrep ~
+
+https://github.com/microsoft/tgrep
+
+基于BM25的搜索 ~
+
+https://github.com/boyter/cs
+
 查找文件 ~
 >
 	:find **/*.py
@@ -46,6 +54,9 @@ vim:ft=help
 使用fd ~
 可以添加.fdignore/.ignore文件, 用于忽略文件
 https://github.com/sharkdp/fd
+
+重复代码检测 ~
+https://github.com/boyter/dcd
 
 其它 ~
 `tldr find`
@@ -158,7 +169,6 @@ doxygen https://www.doxygen.nl/
 -------------------------------------------------------------------------------
 补全
 See: complete.md
-
 -------------------------------------------------------------------------------
 SCIP
 SCIP - a better code indexing format than LSIF https://sourcegraph.com/blog/announcing-scip

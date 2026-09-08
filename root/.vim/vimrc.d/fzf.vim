@@ -125,6 +125,11 @@ command! -bang -nargs=* Rgdoc
 			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' ~/.vim/doc/*', 1,
 			\ fzf#vim#with_preview(), <bang>0)
 
+command! -bang -nargs=* Tgrep
+			\ call fzf#vim#grep(
+			\   'tgrep --column --line-number --no-heading --color=always '. <q-args>, 1,
+			\ fzf#vim#with_preview(), <bang>0)
+
 command! -bang -nargs=? -complete=custom,fzf_custom#rg#ListDocs HelpRg call fzf_custom#rg#HelpRg(<q-args>, <bang>0)
 command! -bang -nargs=0 HelpRgCword call fzf_custom#rg#HelpRg(expand('<cword>'), <bang>0)
 autocmd FileType help nnoremap <buffer> <silent> <leader>gr :HelpRgCword<CR>
