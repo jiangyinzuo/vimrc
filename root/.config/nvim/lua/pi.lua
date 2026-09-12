@@ -67,17 +67,14 @@ function M.run(args)
 					local ok, event = pcall(vim.json.decode, line)
 					if ok and event.type == "agent_start" then
 						task:report({ message = "Working" })
-						notify("Pi: Working")
 					elseif ok and event.type == "tool_execution_start" then
 						local tool = event.toolName or "tool"
 						task:report({ message = "Running " .. tool })
 						notify("Pi: Running " .. tool)
 					elseif ok and event.type == "tool_execution_end" then
 						task:report({ message = "Generating response" })
-						notify("Pi: Tool finished")
 					elseif ok and event.type == "message_start" then
 						task:report({ message = "Generating response" })
-						notify("Pi: Generating response")
 					elseif ok and event.type == "agent_end" then
 						finish("Done", true)
 						notify("Pi: Done")
