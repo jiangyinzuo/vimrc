@@ -16,14 +16,17 @@ return {
 		build = "cd lua/fzy && make",
 	},
 	"MunifTanjim/nui.nvim",
-	-- {
-	-- 	"j-hui/fidget.nvim",
-	-- 	opts = {
-	-- 		notification = {
-	-- 			override_vim_notify = false, -- Automatically override vim.notify() with Fidget
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"j-hui/fidget.nvim",
+		event = "VeryLazy",
+		opts = {
+			notification = {
+				override_vim_notify = false,
+				window = { winblend = 0, align = "bottom", x_padding = 1, y_padding = 1 },
+			},
+			progress = { poll_rate = 0, display = { done_ttl = 3, done_icon = "✓" } },
+		},
+	},
 	{
 		"echasnovski/mini.clue",
 		version = false,
@@ -86,7 +89,7 @@ return {
 				sign = "4",
 			},
 			bookmark_5 = {
-				sign = "5"
+				sign = "5",
 			},
 			bookmark_6 = {
 				sign = "6",
