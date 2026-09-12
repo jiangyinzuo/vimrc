@@ -138,25 +138,11 @@ API集合 https://openrouter.ai/
     " 见火山引擎控制台
     let g:openai_model = "..."
 
-    " aiproxy (2025年8月后停用)
-    let g:openai_endpoint = "https://api.aiproxy.io/v1"
-    let g:openai_model = "gpt-4"
-
     " openrouter
-
-    " ppinfra https://ppinfra.com/
-    let g:openai_endpoint = "https://api.ppinfra.com/v3/openai"
-
-    " uiuiapi https://sg.uiuiapi.com/
-    let g:openai_endpoint = "https://sg.uiuiapi.com/v1"
 
     " kimichat
     let g:openai_endpoint = "https://api.moonshot.cn/v1"
     let g:openai_model = "moonshot-v1-8k"
-
-    " 01ai: https://platform.lingyiwanwu.com/docs
-    let g:openai_endpoint = "https://api.lingyiwanwu.com/v1"
-    let g:openai_model = "yi-34b-chat-0205"
 
     " 阿里云Qwen
     let g:openai_endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -166,13 +152,6 @@ API集合 https://openrouter.ai/
     let g:openai_endpoint = "https://api.siliconflow.cn/v1"
     let g:openai_model = "deepseek-ai/DeepSeek-V3"
     let g:openai_token_file = "~/.config/siliconflow.token"
-
-    " https://4.0.wokaai.com/topup
-<
-
-Claude 兼容 API ~
-
-https://api.mjdjourney.cn
 
 -------------------------------------------------------------------------------
 本地部署大模型
