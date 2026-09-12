@@ -50,11 +50,9 @@ return {
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 	{
+		-- See ~/.vim/vimrc.d/ai.vim
 		"github/copilot.vim",
 		cond = vim.g.ai_suggestion == "copilot.vim" or vim.g.ai_suggestion == "sidekick.nvim",
-		init = function()
-			vim.api.nvim_command("source ~/.vim/vimrc.d/copilot.vim")
-		end,
 	},
 	{
 		"luozhiya/fittencode.nvim",
