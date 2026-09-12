@@ -31,6 +31,7 @@ function M.run(args)
 
 		local pending, output, output_line_count = "", "", 0
 		local progress = require("fidget.progress")
+		local notify = require("fidget").notify
 		local task = progress.handle.create({ title = "Pi", message = "Starting" })
 		local finished = false
 		local function finish(message, ok)
@@ -66,14 +67,20 @@ function M.run(args)
 					local ok, event = pcall(vim.json.decode, line)
 					if ok and event.type == "agent_start" then
 						task:report({ message = "Working" })
+						notify("Pi: Working")
 					elseif ok and event.type == "tool_execution_start" then
-						task:report({ message = "Running " .. (event.toolName or "tool") })
+						local tool = event.toolName or "tool"
+						task:report({ message = "Running " .. tool })
+						notify("Pi: Running " .. tool)
 					elseif ok and event.type == "tool_execution_end" then
 						task:report({ message = "Generating response" })
+						notify("Pi: Tool finished")
 					elseif ok and event.type == "message_start" then
 						task:report({ message = "Generating response" })
+						notify("Pi: Generating response")
 					elseif ok and event.type == "agent_end" then
 						finish("Done", true)
+						notify("Pi: Done")
 					end
 					local update = ok and event.type == "message_update" and event.assistantMessageEvent
 					if update and update.type == "text_delta" then
@@ -85,6 +92,7 @@ function M.run(args)
 		}, function(result)
 			if result.code ~= 0 then
 				finish("Failed", false)
+				notify("Pi: Failed")
 				vim.schedule(function()
 					vim.notify("pi failed: " .. result.stderr, vim.log.levels.ERROR)
 				end)
