@@ -57,6 +57,7 @@ local M = {
 	"tpope/vim-characterize",
 	"tpope/vim-speeddating",
 	"honza/vim-snippets",
+	"madox2/vim-ai",
 	{
 		"voldikss/vim-translator",
 		cond = require("config").load_plugin.public_network,

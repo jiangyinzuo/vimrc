@@ -27,6 +27,12 @@ return {
 			},
 			progress = {
 				poll_rate = 0,
+				lsp = { progress_ringbuf_size = 0 },
+				ignore = {
+					function(_)
+						return true
+					end,
+				},
 				display = { render_limit = 3, done_ttl = 3, done_icon = "✓" },
 			},
 		},
