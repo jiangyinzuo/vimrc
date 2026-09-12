@@ -19,7 +19,7 @@ return {
 		config = function()
 			vim.cmd("colorscheme solarized")
 			-- 大面积的删除线不好看
-			vim.api.nvim_set_hl(0, 'DiagnosticDeprecated', {})
+			vim.api.nvim_set_hl(0, "DiagnosticDeprecated", {})
 		end,
 	},
 	-- nerdfont cheatsheet: https://www.nerdfonts.com/cheat-sheet
@@ -158,6 +158,9 @@ return {
 		},
 		config = function()
 			require("coerce").setup()
+			vim.keymap.set("n", "cr", "<Plug>(coerce-normal)", { desc = "Coerce word" })
+			vim.keymap.set("n", "gcr", "<Plug>(coerce-motion)", { desc = "Coerce motion" })
+			vim.keymap.set("x", "gcr", "<Plug>(coerce-visual)", { desc = "Coerce visual" })
 			local split_keyword = require("coerce.case").split_keyword
 			require("coerce").register_case({
 				keymap = "t",
@@ -183,6 +186,10 @@ return {
 						"with",
 					}
 					parts = vim.tbl_map(function(part)
+						-- 全大写的单词（如 API、HTTP）保持不变
+						if part:match("%a") and part == part:upper() then
+							return part
+						end
 						-- 如果单词在no_cap_words列表中且不是第一个单词，保持小写
 						if vim.tbl_contains(no_cap_words, part:lower()) and part ~= parts[1] then
 							return part:lower()
