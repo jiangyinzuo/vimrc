@@ -30,6 +30,16 @@ function M.run(args)
 		table.insert(command, prompt_text)
 
 		local pending, output, output_line_count = "", "", 0
+		local progress = require("fidget.progress")
+		local task = progress.handle.create({ title = "Pi", message = "Starting" })
+		local finished = false
+		local function finish(message, ok)
+			if finished then
+				return
+			end
+			finished = true
+			task:finish({ message = message, success = ok })
+		end
 		local function append(text)
 			output = output .. text
 			vim.schedule(function()
@@ -47,24 +57,39 @@ function M.run(args)
 			stdout = function(_, data)
 				pending = pending .. (data or "")
 				while true do
-					local finish = pending:find("\n", 1, true)
-					if not finish then
+					local line_end = pending:find("\n", 1, true)
+					if not line_end then
 						break
 					end
-					local line = pending:sub(1, finish - 1)
-					pending = pending:sub(finish + 1)
+					local line = pending:sub(1, line_end - 1)
+					pending = pending:sub(line_end + 1)
 					local ok, event = pcall(vim.json.decode, line)
+					if ok and event.type == "agent_start" then
+						task:report({ message = "Working" })
+					elseif ok and event.type == "tool_execution_start" then
+						task:report({ message = "Running " .. (event.toolName or "tool") })
+					elseif ok and event.type == "tool_execution_end" then
+						task:report({ message = "Generating response" })
+					elseif ok and event.type == "message_start" then
+						task:report({ message = "Generating response" })
+					elseif ok and event.type == "agent_end" then
+						finish("Done", true)
+					end
 					local update = ok and event.type == "message_update" and event.assistantMessageEvent
 					if update and update.type == "text_delta" then
+						task:report({ message = "Streaming response" })
 						append(update.delta or "")
 					end
 				end
 			end,
 		}, function(result)
 			if result.code ~= 0 then
+				finish("Failed", false)
 				vim.schedule(function()
 					vim.notify("pi failed: " .. result.stderr, vim.log.levels.ERROR)
 				end)
+			elseif not finished then
+				finish("Done", true)
 			end
 		end)
 	end
