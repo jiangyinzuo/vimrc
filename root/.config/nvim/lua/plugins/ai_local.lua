@@ -2,6 +2,8 @@ if not require("config").load_plugin.ai_local then
 	return {}
 end
 
+require("pi").setup()
+
 return {
 	{
 		"milanglacier/minuet-ai.nvim",
