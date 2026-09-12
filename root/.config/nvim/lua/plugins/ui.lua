@@ -24,7 +24,10 @@ return {
 				override_vim_notify = false,
 				window = { winblend = 0, align = "bottom", x_padding = 1, y_padding = 1 },
 			},
-			progress = { poll_rate = 0, display = { done_ttl = 3, done_icon = "✓" } },
+			progress = {
+				poll_rate = 0,
+				display = { render_limit = 3, done_ttl = 3, done_icon = "✓" },
+			},
 		},
 	},
 	{
