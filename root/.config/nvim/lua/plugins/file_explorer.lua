@@ -1,3 +1,5 @@
+vim.g.loaded_nvim_dir_plugin = 1
+
 return {
 	-- oil.nvim implements WillRenameFiles Request that neovim LSP does not support.
 	-- See also:
@@ -36,7 +38,7 @@ return {
 		"mikavilpas/yazi.nvim",
 		version = "*", -- use the latest stable version
 		event = "VeryLazy",
-		cond = vim.fn.executable("yazi") == 1,
+		cond = false and vim.fn.executable("yazi") == 1,
 		dependencies = {
 			{ "nvim-lua/plenary.nvim", lazy = true },
 		},
@@ -80,6 +82,20 @@ return {
 			},
 			filesystem = {
 				hijack_netrw_behavior = "disabled",
+				window = {
+					mappings = {
+						["O"] = {
+							command = function(state)
+								local node = state.tree:get_node()
+								local path = node and node:get_id()
+								if path then
+									require("oil").open(vim.fs.dirname(path))
+								end
+							end,
+							desc = "打开目录",
+						},
+					},
+				},
 			},
 			call_hierarchy = {
 				client_filters = "first",
