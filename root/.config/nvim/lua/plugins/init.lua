@@ -1,3 +1,6 @@
+require("live_diff")
+vim.keymap.set("n", "<leader>ad", require("live_diff").toggle, { desc = "Toggle live diff" })
+
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)

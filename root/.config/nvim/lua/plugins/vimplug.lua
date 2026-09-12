@@ -59,6 +59,41 @@ local M = {
 	"honza/vim-snippets",
 	"madox2/vim-ai",
 	{
+		"echasnovski/mini.diff",
+		version = false,
+		config = function()
+			require("mini.diff").setup({
+				source = { name = "live-memory", attach = function() return true end },
+				mappings = {
+					apply = "",
+					reset = "",
+					textobject = "",
+					goto_first = "",
+					goto_prev = "",
+					goto_next = "",
+					goto_last = "",
+				},
+				view = {
+					style = "sign",
+					signs = { add = "▎", change = "▎", delete = "▁" },
+					overlay = { style = "default", ref_text = true, context_lines = 3 },
+				},
+			})
+			local function set_diff_colors()
+				vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { fg = "#89d185" })
+				vim.api.nvim_set_hl(0, "MiniDiffSignChange", { fg = "#e2c08d" })
+				vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { fg = "#f14c4c" })
+				vim.api.nvim_set_hl(0, "MiniDiffOverAdd", { bg = "#1e4429" })
+				vim.api.nvim_set_hl(0, "MiniDiffOverChange", { bg = "#632525", underline = true })
+				vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { bg = "#1e4429", underline = true })
+				vim.api.nvim_set_hl(0, "MiniDiffOverDelete", { bg = "#632525", fg = "#ff8b8b", strikethrough = true })
+				vim.api.nvim_set_hl(0, "MiniDiffOverContext", { fg = "#808080" })
+			end
+			set_diff_colors()
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = set_diff_colors })
+		end,
+	},
+	{
 		"voldikss/vim-translator",
 		cond = require("config").load_plugin.public_network,
 	},
