@@ -22,6 +22,7 @@ return {
 		opts = {
 			notification = {
 				override_vim_notify = false,
+				view = { stack_upwards = false }, -- 最新的通知放下面
 				window = { winblend = 0, align = "bottom", x_padding = 1, y_padding = 1 },
 			},
 			progress = {

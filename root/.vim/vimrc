@@ -28,9 +28,6 @@ endif
 let g:openai_endpoint = get(g:, 'openai_endpoint', "https://api.deepseek.com/v1")
 let g:openai_model = get(g:, 'openai_model', "deepseek-chat")
 let g:openai_token_file = get(g:, 'openai_token_file', "~/.config/deepseek.token")
-let g:openai_disable_tools = get(g:, 'openai_disable_tools', 1)
-let g:claude_endpoint = get(g:, 'claude_endpoint', "https://api.anthropic.com")
-let g:claude_model = get(g:, "claude_model", "claude-3-7-sonnet-latest")
 let g:ccls_init_options = { "compilationDatabaseDirectory": "build", "index": { "threads": 0 }, "clang": { "excludeArgs": ["-frounding-math"] }}
 " gtags-cscope | cscope
 let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')

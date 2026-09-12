@@ -1,4 +1,4 @@
-if has('python3')
-	command! -nargs=0 -buffer AICommitMessageStaged call ai#GitCommitMessage(system('git --no-pager diff --staged'))
-	command! -nargs=0 -buffer AICommitMessageAmend call ai#GitCommitMessage(system('git --no-pager show HEAD'))
+if has('python3') && !has('nvim')
+	command! -nargs=0 -buffer AICommitMessage call ai#GitCommitMessage(
+		\ system('git --no-pager diff ' . (getenv('GIT_REFLOG_ACTION') =~# 'amend' ? 'HEAD^ --cached' : '--staged')))
 endif
