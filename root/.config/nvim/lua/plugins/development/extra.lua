@@ -1,4 +1,4 @@
-if vim.g.vimrc_lsp == "nvim-lsp" and require("config").load_plugin.development.extra then
+if require("config").load_plugin.development.extra then
 	return {
 		{
 			"folke/lazydev.nvim",

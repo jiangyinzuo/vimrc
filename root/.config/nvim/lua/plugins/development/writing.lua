@@ -4,7 +4,7 @@ if require("config").load_plugin.development.writing then
 	return {
 		{
 			"quarto-dev/quarto-nvim",
-			cond = vim.g.vimrc_lsp == "nvim-lsp" and has_quarto_executable,
+			cond = has_quarto_executable,
 			dependencies = {
 				"jmbuhr/otter.nvim",
 				"nvim-treesitter/nvim-treesitter",

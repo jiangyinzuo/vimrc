@@ -2,6 +2,10 @@ vim:ft=help
 
 *golang.txt*
 
+golang版本管理器
+
+curl https://mise.run | sh
+
 LSP
 
 1. `godef`：godef 是 Go 语言的一个老工具，可以快速找到定义的位置。它的优点是简单快捷，但缺点是功能相对单一，不支持如代码提示、重构和诊断等功能。
