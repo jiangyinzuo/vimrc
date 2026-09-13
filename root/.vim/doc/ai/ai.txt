@@ -122,7 +122,9 @@ OpenAI 兼容 API ~
 temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
 
 API集合 https://openrouter.ai/
-
+中转站查询 https://www.hvoyai.com/leaderboard?tab=gpt6astra
+https://sudocode.chat
+https://www.packyapi.ai
 >vim
     " vim-ai
     let g:openai_token_file = "~/.config/openai.token"
@@ -137,8 +139,6 @@ API集合 https://openrouter.ai/
     let g:openai_endpoint = "https://ark.cn-beijing.volces.com/api/v3"
     " 见火山引擎控制台
     let g:openai_model = "..."
-
-    " openrouter
 
     " kimichat
     let g:openai_endpoint = "https://api.moonshot.cn/v1"

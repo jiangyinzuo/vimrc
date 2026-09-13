@@ -5,6 +5,7 @@ vim:ft=help
 golang版本管理器
 
 curl https://mise.run | sh
+mise settings set go.download_mirror "https://mirrors.ustc.edu.cn/golang/"
 
 LSP
 
