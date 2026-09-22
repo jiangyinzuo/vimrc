@@ -37,6 +37,8 @@ vim:ft=help
 
 https://github.com/microsoft/tgrep
 
+jgrep: 基于jev语义判断模型的grep https://github.com/keltokhy/jgrep
+
 基于BM25的搜索 ~
 
 https://github.com/boyter/cs

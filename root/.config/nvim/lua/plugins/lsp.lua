@@ -180,19 +180,6 @@ return {
 			file_log_name = "lsp-progress.log",
 		},
 	},
-	-- alternative: "hedyhli/outline.nvim",
-	{
-		"stevearc/aerial.nvim",
-		-- Optional dependencies
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("aerial").setup({})
-			vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
-		end,
-	},
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {

@@ -73,6 +73,7 @@ return {
 				"filesystem",
 				"buffers",
 				"git_status",
+				"document_symbols",
 				"call_hierarchy",
 				"type_hierarchy",
 			},
@@ -111,6 +112,12 @@ return {
 				"<cmd>Neotree toggle<cr>",
 				desc = ":Neotree toggle",
 			},
+			{
+				"<leader>o",
+				mode = { "n" },
+				"<cmd>Neotree document_symbols<cr>",
+				desc = ":Neotree document_symbols",
+			}
 		},
 	},
 }
