@@ -22,7 +22,7 @@ return {
 			jupyter = false,
 			lean = false,
 			rust = true,
-			writing = false,
+			writing = true,
 		},
 	},
 	minuet_opt = {

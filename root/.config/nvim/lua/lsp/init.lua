@@ -129,7 +129,7 @@ local function setup_lsp(capabilities)
 	-- use "neocmake" instead of "cmake"
 	-- "lua_ls"
 	local enabled_servers =
-		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls", "gopls" }
+		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls", "gopls", "markdown_oxide" }
 	if require("detect").has_typst_executable then
 		table.insert(enabled_servers, "tinymist")
 	end

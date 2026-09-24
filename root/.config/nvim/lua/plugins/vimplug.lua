@@ -134,7 +134,6 @@ local M = {
 			vim.keymap.set({ "n" }, "<leader>ao", "<cmd>AnyJumpLastResults<CR>", { desc = ":AnyJumpLastResults" })
 		end,
 	},
-	{ "jiangyinzuo/vim-markdown", ft = { "markdown", "quarto" } },
 	{
 		dir = "~/.vim/pack/my_plugins/start/project.vim",
 		dependencies = {

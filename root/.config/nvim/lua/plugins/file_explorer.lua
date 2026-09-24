@@ -115,7 +115,7 @@ return {
 			{
 				"<leader>o",
 				mode = { "n" },
-				"<cmd>Neotree document_symbols<cr>",
+				"<cmd>Neotree toggle document_symbols<cr>",
 				desc = ":Neotree document_symbols",
 			}
 		},
