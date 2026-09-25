@@ -36,6 +36,7 @@ let g:vim_use_true_color = get(g:, 'vim_use_true_color', 1)
 if v:version >= 800
 	" show [x/y] instead of search hit BOTTOM, continuing at TOP
 	set shortmess-=S
+	set fillchars+=diff:╱
 else
 	set bg=light
 	hi ColorColumn ctermbg=0
@@ -164,7 +165,7 @@ let g:RootMarks = ['.git', g:project_vimrc, '.root']
 let g:no_vimplug = get(g:, 'no_vimplug', (glob(g:vim_plug_dir) == "") || &loadplugins == 0)
 " 显示空白字符
 " https://codepoints.net/U+23B5
-set list listchars=tab:¦\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
+set list listchars=tab:┊\ ,trail:␠,nbsp:⎵,extends:»,precedes:«
 " set nowrap " 不折行
 set conceallevel=2
 if v:version >= 801

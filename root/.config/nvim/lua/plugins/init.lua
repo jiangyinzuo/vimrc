@@ -46,9 +46,6 @@ return {
 			map_bs = false,
 		},
 	},
-	{
-		"sindrets/diffview.nvim",
-	},
 	-- :h commenting
 	-- {
 	-- 	"numToStr/Comment.nvim",

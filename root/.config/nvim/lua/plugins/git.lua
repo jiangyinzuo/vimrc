@@ -20,8 +20,29 @@ return {
 	{
 		"aaronhallaert/advanced-git-search.nvim",
 		dependencies = {
-			"sindrets/diffview.nvim",
+			"dlyongemallo/diffview-plus.nvim",
 		},
+	},
+	-- Lazy
+	-- {
+	-- 	"esmuellert/codediff.nvim",
+	-- 	cmd = "CodeDiff",
+	-- },
+	{
+		"dlyongemallo/diffview-plus.nvim",
+		version = "*",
+		opts = {
+			enhanced_diff_hl = true,
+			diffopt = { algorithm = "histogram" },
+		},
+		-- optional: lazy-load on command
+		-- cmd = {
+		--     "DiffviewOpen",
+		--     "DiffviewToggle",
+		--     "DiffviewFileHistory",
+		--     "DiffviewDiffFiles",
+		--     "DiffviewLog",
+		-- },
 	},
 	-- take place of 'airblade/vim-gitgutter',
 	{
