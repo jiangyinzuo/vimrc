@@ -50,7 +50,6 @@ local M = {
 		"vim-test/vim-test",
 		event = "VeryLazy",
 	},
-	"simnalamburt/vim-mundo",
 	"aperezdc/vim-template",
 	"szw/vim-maximizer",
 	"wesQ3/vim-windowswap",
