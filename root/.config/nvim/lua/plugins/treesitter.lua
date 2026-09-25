@@ -106,30 +106,30 @@ return {
 
 			vim.keymap.set({ "n", "x", "o" }, "]f", function()
 				require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
-			end)
+			end, { desc = "下个函数起点" })
 			vim.keymap.set({ "n", "x", "o" }, "]x", function()
 				require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
-			end)
+			end, { desc = "下个类起点" })
 			vim.keymap.set({ "n", "x", "o" }, "]F", function()
 				require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
-			end)
+			end, { desc = "下个函数终点" })
 			vim.keymap.set({ "n", "x", "o" }, "]X", function()
 				require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
-			end)
+			end, { desc = "下个类终点" })
 
 			vim.keymap.set({ "n", "x", "o" }, "[f", function()
 				require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
-			end)
+			end, { desc = "上个函数起点" })
 			vim.keymap.set({ "n", "x", "o" }, "[x", function()
 				require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
-			end)
+			end, { desc = "上个类起点" })
 
 			vim.keymap.set({ "n", "x", "o" }, "[F", function()
 				require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
-			end)
+			end, { desc = "上个函数终点" })
 			vim.keymap.set({ "n", "x", "o" }, "[X", function()
 				require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
-			end)
+			end, { desc = "上个类终点" })
 		end,
 	},
 	{
