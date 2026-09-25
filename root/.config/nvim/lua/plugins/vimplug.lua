@@ -106,9 +106,6 @@ local M = {
 			vim.g.abolish_no_mappings = true
 		end,
 	},
-	"preservim/tagbar",
-	"liuchengxu/vista.vim",
-	"samoshkin/vim-mergetool",
 	"godlygeek/tabular",
 	{ "axvr/org.vim", ft = "org" },
 	{

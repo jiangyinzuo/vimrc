@@ -15,7 +15,7 @@ return {
 		},
 	},
 	{
-		"tronikelis/conflict-marker.nvim",
+		"jiangyinzuo/conflict-marker.nvim",
 	},
 	{
 		"aaronhallaert/advanced-git-search.nvim",
@@ -34,6 +34,16 @@ return {
 		opts = {
 			enhanced_diff_hl = true,
 			diffopt = { algorithm = "histogram" },
+			view = {
+				merge_tool = {
+					layout = "diff4_mixed",
+					disable_diagnostics = true,
+					winbar_info = true,
+				},
+				cycle_layouts = {
+					merge_tool = { "diff4_mixed", "diff3_mixed", "diff3_horizontal", "diff1_plain" },
+				},
+			},
 		},
 		-- optional: lazy-load on command
 		-- cmd = {
