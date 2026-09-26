@@ -1,0 +1,90 @@
+vim:set ft=help:
+=======================================================
+Claude Code                           *claude-code*
+
+Claude code不要访问不必要的外部网络 ~
+
+|tshark抓包|
+
+参考资料：
+https://docs.anthropic.com/en/docs/claude-code/settings
+https://docs.anthropic.com/en/docs/claude-code/corporate-proxy#network-access-requirements
+
+>bash
+    # 设置NPM_CONFIG_REGISTRY=invalid，防止访问registry.npmjs.org
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 DISABLE_AUTOUPDATER=1 DISABLE_BUG_COMMAND=1 NPM_CONFIG_REGISTRY=invalid claude
+<
+
+=======================================================
+GitHub CLI ~
+*github-copilot-cli* |github-cli|
+
+https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
+
+Usage:
+  copilot [command]
+
+Examples:
+
+$ gh copilot suggest "Install git"
+$ gh copilot explain "traceroute github.com"
+
+终端登录使用github copilot的方法（必须选择浏览器登录） ~
+
+BROWSER=nonexistent gh auth login
+https://github.com/cli/cli/issues/297
+
+=======================================================
+Other Products ~
+
+perplexity
+
+cursor.com
+- Code Generation
+- Multi-Line Edits
+- Smart Rewrites
+- Cursor Prediction
+
+notion.so 文档管理APP
+
+Github Copilot
+tabnine
+codegeex
+codeium https://codeium.com/
+- windsurf https://codeium.com/windsurf
+CodiumAI https://www.codium.ai/
+阿里 通义灵码 https://tongyi.aliyun.com/lingma/download
+百度 文心快码 https://comate.baidu.com/zh
+字节 豆包MarsCode https://www.marscode.cn/
+
+💁 需要从终端复制Vim屏幕的文字，调用豆包桌面版功能时，可以先`set mouse=vi`
+（没有n，normal模式下禁用鼠标）来禁用Vim的鼠标响应。
+
+fitten code
+- https://github.com/FittenTech
+- https://github.com/luozhiya/fittencode.nvim
+
+continue.dev https://github.com/continuedev
+SuperMaven https://github.com/supermaven-inc/supermaven-nvim
+sourcegraph
+cline https://github.com/cline/cline
+
+devin
+https://www.cognition.ai/
+https://www.cognition-labs.com/blog
+全球首个AI程序员诞生，码农饭碗一夜被砸，10块IOI金牌华人团队震撼打造，996写代码训练模型
+https://36kr.com/p/2687396960595333
+首个AI程序员造假被抓，Devin再次“震撼”硅谷！扒皮详解附上
+https://baijiahao.baidu.com/s?id=1796288440437763473&wfr=spider&for=pc
+
+gpt-pilot
+https://github.com/Pythagora-io/gpt-pilot
+
+aichat cli
+https://github.com/sigoden/aichat
+
+https://www.swebench.com/
+
+https://www.kajetandomagala.com/codeium-vs-copilot/
+
+Poe https://poe.com/

@@ -1,0 +1,48 @@
+vim:set ft=help:
+*llm-deploy.txt*
+
+*huggingface镜像* https://hf-mirror.com/
+
+API ~
+
+*g:openai_token_file* *g:openai_endpoint* *g:openai_model*
+
+temperature越高，生成的文本越随机。chatgpt默认temperature值为0.7
+
+API集合 https://openrouter.ai/
+中转站查询 https://www.hvoyai.com/leaderboard?tab=gpt6astra
+https://sudocode.chat
+https://www.packyapi.ai
+>vim
+    " vim-ai
+    let g:openai_token_file = "~/.config/openai.token"
+    " avante.nvim
+    export OPENAI_API_KEY=...
+
+    " deepseek
+    let g:openai_endpoint = "https://api.deepseek.com/v1"
+    let g:openai_model = "deepseek-chat"
+
+    " doubao
+    let g:openai_endpoint = "https://ark.cn-beijing.volces.com/api/v3"
+    " 见火山引擎控制台
+    let g:openai_model = "..."
+
+    " kimichat
+    let g:openai_endpoint = "https://api.moonshot.cn/v1"
+    let g:openai_model = "moonshot-v1-8k"
+
+    " 阿里云Qwen
+    let g:openai_endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    let g:openai_model = "qwen-plus"
+
+    " 硅基流动
+    let g:openai_endpoint = "https://api.siliconflow.cn/v1"
+    let g:openai_model = "deepseek-ai/DeepSeek-V3"
+    let g:openai_token_file = "~/.config/siliconflow.token"
+
+-------------------------------------------
+本地部署大模型
+
+*ollama* https://github.com/ollama/ollama
+

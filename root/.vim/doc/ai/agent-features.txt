@@ -1,0 +1,106 @@
+vim:set ft=help:
+
+*agent-features.txt*
+
+Benchmark ~
+
+https://artificialanalysis.ai/
+swe-bench (ICLR 2024) https://www.swebench.com/
+https://livebench.ai/
+https://lmarena.ai/leaderboard
+https://www.designarena.ai/
+
+Chat & Inline Edit ~
+
+Slash Commands ~
+
+Next Edit Suggestion & Completion ~
+
+Vscode 1.99 agent、MCP模式、next edit suggestions https://www.youtube.com/watch?v=dutyOc_cAEU
+https://docs.cursor.com/get-started/usage
+
+Completion
+- fill in the middle (给定前缀和后缀，补全中间)
+- 多位置complete (nest edit suggestion / speculative edits / edit prediction / Editing By Rewriting)
+  - https://github.com/milanglacier/minuet-ai.nvim/issues/26
+  - Zed开源了一个edit-prediction model https://zed.dev/blog/edit-prediction
+    - https://github.com/boltlessengineer/zeta.nvim [WIP]
+  - Vscode Next Edit Suggestions https://code.visualstudio.com/blogs/2025/02/12/next-edit-suggestions
+
+补全插件:
+- gergap/vim-ollama
+Sub-agents ~
+
+https://github.com/VoltAgent/awesome-claude-code-subagents
+https://docs.anthropic.com/en/docs/claude-code/sub-agents
+
+Deep Research Agent ~
+
+目前国内有哪些类似Manus的deep research应用？ - 三白有话说的回答 - 知乎
+https://www.zhihu.com/question/15684801110/answer/1892597238397657591
+
+https://blog.csdn.net/dinaxuejie/article/details/146195104
+
+- OpenAI Deep Research
+- Gemini Deep Research
+- Qwen
+- Doubao
+- https://www.wenxiaobai.com/chat/xiaobaiyanbao
+
+https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard
+
+notebooklm.google
+
+MCP & Skills ~
+
+https://github.com/oraios/serena  *serena*
+https://github.com/upstash/context7
+
+Context ~
+
+- codebase indexing: cursor提前建索引/cline Agent查询
+    - https://github.com/Davidyz/VectorCode
+        - 需要连接huggingface.io使用sentence transformer，可能会有网络问题
+    - https://cocoindex.io/
+    - cursor的codebase indexing功能背后的原理是什么？有平替吗？ - 小橘子的回答 - 知乎 https://www.zhihu.com/question/11166707580/answer/1908670259566712126
+Codebase Indexing & Semantic Code Search ~
+
+需要注意embedding model的能力，有些embedding model仅仅适用于自然语言，不适用于代码。
+
+Features:
+
+- 属性过滤，对文件路径、文件后缀等进行过滤
+- 基于treesitter自定义chunk level
+
+Repository Outline
+
+整个代码仓库的结构化大纲，可以用ctags生成的tags。 |tags.txt|
+
+>bash
+    # python项目
+    ctags  --extras=+q --kinds-python=-iY -R --sort=no .
+    # postgresql项目
+    ctags --languages=C,C++ --kinds-c=-hl --extras=+q -R --sort=no -o tags-nosort  .
+<
+
+LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
+
+RAG
+
+Agent Client Protocol (ACP) ~
+*agent-client-protocol* *acp*
+
+https://agentclientprotocol.com/overview/introduction
+https://github.com/zed-industries/agent-client-protocol
+
+Gemini CLI
+Claude Code: 有两种SDK实现。
+https://github.com/zed-industries/claude-code-acp npm install -g @zed-industries/claude-code-acp
+https://github.com/Xuanwo/acp-claude-code
+
+Computer Use & Browser Use ~
+
+System One Model ~
+
+jev
+https://huggingface.co/convaiinnovations/laya
