@@ -1,15 +1,14 @@
 vim:ft=help
 *clean-disk*
 
-rust ~
+ccache -C
 cargo install cargo-cache
 cargo-cache -a
-
-ocaml ~
 opam clean
-
-go ~
+npm cache clean --force
 go clean -cache
+bun pm cache rm
+uv cache clean
 
 系统 ~
 寻找当前文件夹下最大的10个文件目录

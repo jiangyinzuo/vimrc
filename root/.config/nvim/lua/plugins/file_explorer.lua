@@ -66,6 +66,7 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
 			"jiangyinzuo/neo-tree-hierarchy.nvim",
+			"jiangyinzuo/neo-tree-treesitter-symbols.nvim"
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
@@ -74,12 +75,20 @@ return {
 				"buffers",
 				"git_status",
 				"document_symbols",
+				"neo-tree-treesitter-symbols",
 				"call_hierarchy",
 				"type_hierarchy",
 			},
 			source_selector = {
 				winbar = true,
 				statusline = false,
+				sources = {
+					{ source = "filesystem" },
+					{ source = "buffers" },
+					{ source = "git_status" },
+					{ source = "document_symbols" },
+					{ source = "treesitter_symbols" },
+				},
 			},
 			filesystem = {
 				hijack_netrw_behavior = "disabled",
@@ -115,9 +124,13 @@ return {
 			{
 				"<leader>o",
 				mode = { "n" },
-				"<cmd>Neotree toggle document_symbols<cr>",
-				desc = ":Neotree document_symbols",
-			}
+				function()
+					local source = #vim.lsp.get_clients({ bufnr = 0 }) > 0 and "document_symbols"
+						or "treesitter_symbols"
+					vim.cmd("Neotree toggle " .. source)
+				end,
+				desc = ":Neotree {document | treesitter}_symbols",
+			},
 		},
 	},
 }
