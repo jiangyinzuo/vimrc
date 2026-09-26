@@ -127,5 +127,6 @@ rsync -aHAX --numeric-ids --delete --info=progress2 \
 	}
 end)
 
+config.notification_handling = "AlwaysShow"
 -- and finally, return the configuration to wezterm
 return config

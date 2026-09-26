@@ -100,6 +100,11 @@ https://github.com/Xuanwo/acp-claude-code
 
 Computer Use & Browser Use ~
 
+Browser Use的底层依赖浏览器自动化引擎：
+- Playwright：由Microsoft维护，支持Chromium、Firefox、WebKit三大内核。其内置的无障碍快照（Accessibility Snapshot） 特性对AI集成尤其关键，能让AI通过结构化树理解页面，而非仅依赖视觉识别。它是新项目做浏览器自动化的首选。
+- Puppeteer：Google官方维护，仅支持Chrome/Chromium。它的优势是启动快、资源占用低，适合追求轻量和启动速度的纯Chrome场景，如PDF生成或截图。
+- Selenium：浏览器自动化领域的元老，最大优势是语言支持广泛（Java、Python、C#等）和企业生态成熟。它基于WebDriver协议，支持Grid分布式执行，适合Java/C#技术栈或需要维护遗留系统的企业环境。
+
 System One Model ~
 
 jev
