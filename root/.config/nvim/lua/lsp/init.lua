@@ -31,6 +31,42 @@ local function setup_jdtls()
 	vim.lsp.enable("jdtls")
 end
 
+local function setup_codeql_lsp()
+	-- CodeQL's CLI includes an LSP server for QL query files.
+	vim.filetype.add({
+		extension = {
+			ql = "ql",
+		},
+	})
+
+	-- Set `g:codeql_cmd` to override the executable; otherwise resolve it from PATH.
+	local codeql_cmd = vim.g.codeql_cmd or vim.fn.exepath("codeql")
+	if codeql_cmd == "" then
+		return false
+	end
+
+	local codeql_root = vim.fn.fnamemodify(codeql_cmd, ":p:h")
+	local search_paths = {
+		vim.fn.stdpath("data") .. "/codeql/packages",
+		vim.fn.expand("~/.codeql/packages"),
+		codeql_root .. "/qlpacks",
+	}
+	vim.lsp.config("codeql", {
+		cmd = {
+			codeql_cmd,
+			"execute",
+			"language-server",
+			"--check-errors",
+			"ON_CHANGE",
+			"--search-path",
+			table.concat(search_paths, vim.fn.has("win32") == 1 and ";" or ":"),
+		},
+		filetypes = { "ql" },
+		root_markers = { "qlpack.yml", "codeql-pack.yml", ".git" },
+	})
+	return true
+end
+
 local function setup_lsp(capabilities)
 	vim.lsp.config("*", {
 		capabilities = capabilities,
@@ -45,7 +81,6 @@ local function setup_lsp(capabilities)
 	vim.lsp.config("clangd", {
 		cmd = vim.g.clangd_cmd,
 	})
-
 	vim.lsp.config("lua_ls", {
 		settings = {
 			Lua = {
@@ -130,6 +165,10 @@ local function setup_lsp(capabilities)
 	-- "lua_ls"
 	local enabled_servers =
 		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls", "gopls", "markdown_oxide" }
+	-- codeql服务器有点消耗资源
+	-- if setup_codeql_lsp() then
+	-- 	table.insert(enabled_servers, 2, "codeql")
+	-- end
 	if require("detect").has_typst_executable then
 		table.insert(enabled_servers, "tinymist")
 	end

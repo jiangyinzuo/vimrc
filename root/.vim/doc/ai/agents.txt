@@ -2,7 +2,7 @@ vim:set ft=help:
 =======================================================
 Claude Code                           *claude-code*
 
----------------------------------------
+-------------------------------------------------------
 Claude code不要访问不必要的外部网络
 
 |tshark抓包|
@@ -17,7 +17,12 @@ https://docs.anthropic.com/en/docs/claude-code/corporate-proxy#network-access-re
 <
 
 =======================================================
-GitHub CLI ~
+OpenCode
+
+可以免费用一些flash模型
+
+=======================================================
+GitHub CLI
 *github-copilot-cli* |github-cli|
 
 https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli
@@ -36,7 +41,7 @@ BROWSER=nonexistent gh auth login
 https://github.com/cli/cli/issues/297
 
 =======================================================
-Other Products ~
+Other Products
 
 perplexity
 

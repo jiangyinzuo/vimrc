@@ -1,6 +1,9 @@
 vim:ft=help
 *code-search* *novimrc* *noplugged* *code-navigation.txt*
 
+==============================
+文件搜索
+
 打开历史文件 ~
 |:oldfiles| 查看oldfiles
 |c_#<|
@@ -10,12 +13,32 @@ vim:ft=help
 <
 打开第3个历史文件
 
+查找文件 ~
+>
+	:find **/*.py
+<
+按Tab键自动补全
+
+`find . -name 'scheduler*.py'`
+`find -type f`  查找文件
+`find -type d`  查找目录
+
+使用fd ~
+可以添加.fdignore/.ignore文件, 用于忽略文件
+https://github.com/sharkdp/fd
+
+
+==============================
+基于grep的文本搜索
+
 查找文本 ~
-:vim /func main/ **/*.txt
-:grep def foo.py
-:grep 'def foo' foo.py
-全字匹配
-:grep -w def foo.py
+>
+	:vim /func main/ **/*.txt
+	:grep def foo.py
+	:grep 'def foo' foo.py
+	全字匹配
+	:grep -w def foo.py
+<
 
 文件内case insensitive search
 /\chello
@@ -37,34 +60,21 @@ vim:ft=help
 
 https://github.com/microsoft/tgrep
 
+==============================
+基于system-one model的搜索
 jgrep: 基于jev语义判断模型的grep https://github.com/keltokhy/jgrep
 
-基于BM25的搜索 ~
+==============================
+基于BM25的搜索
 
 https://github.com/boyter/cs
 
-查找文件 ~
->
-	:find **/*.py
-<
-按Tab键自动补全
-
-`find . -name 'scheduler*.py'`
-`find -type f`  查找文件
-`find -type d`  查找目录
-
-使用fd ~
-可以添加.fdignore/.ignore文件, 用于忽略文件
-https://github.com/sharkdp/fd
-
-重复代码检测 ~
+==============================
+重复代码检测
 https://github.com/boyter/dcd
 
-其它 ~
-`tldr find`
-`tldr grep`
-
--------------------------------------------------------------------------------
+==============================
+基于tag的搜索
 *tagsystem* *tags.txt*
 
 Vim 8 中 C/C++ 符号索引：GTags 篇 - 韦易笑的文章 - 知乎
@@ -88,7 +98,7 @@ Install on Ubuntu: >
   sudo apt install universal-ctags
   # sudo apt insatll exuberant-ctags
 <
--------------------------------------------------------------------------------
+-----------------------------------------------------------
 CTags
 
 直接下载二进制程序
@@ -159,22 +169,39 @@ GTAGSLABEL=native-pygments gtags
 
 也可以用`:cstag <ident>`命令查找符号
 
--------------------------------------------------------------------------------
-代码质量检查 ~
+==============
+代码质量检查
 
 https://www.sonarsource.com/
 
--------------------------------------------------------------------------------
-文档生成 ~
+==============
+文档生成
 
 doxygen https://www.doxygen.nl/
--------------------------------------------------------------------------------
-补全
+==============
+代码补全
 See: complete.md
--------------------------------------------------------------------------------
+
+==============
 SCIP
 SCIP - a better code indexing format than LSIF https://sourcegraph.com/blog/announcing-scip
-===============================================================================
+
+======================
+基于静态分析工具的搜索
+
+CodeQL
+Joern
+semgrep
+
+======================
+基于动态分析的搜索
+
+eBPF
+gdb
+pgtracer: 根据postgres定制
+https://github.com/yosefk/funtrace
+
+==============
 NOTE: 搭环境考验
 
 大型单文件考验 ~

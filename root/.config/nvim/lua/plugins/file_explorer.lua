@@ -125,6 +125,17 @@ return {
 				"<leader>o",
 				mode = { "n" },
 				function()
+					for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+						local bufnr = vim.api.nvim_win_get_buf(winid)
+						local neo_tree_source = vim.b[bufnr].neo_tree_source
+						if
+							vim.bo[bufnr].filetype == "neo-tree"
+							and (neo_tree_source == "document_symbols" or neo_tree_source == "treesitter_symbols")
+						then
+							require("neo-tree.command").execute({ action = "close" })
+							return
+						end
+					end
 					local source = #vim.lsp.get_clients({ bufnr = 0 }) > 0 and "document_symbols"
 						or "treesitter_symbols"
 					vim.cmd("Neotree toggle " .. source)
