@@ -1,7 +1,6 @@
 local mini_clue_trigger_table = {
 	{ mode = "n", keys = "<leader>a", desc = "Sidekick" },
 	{ mode = "n", keys = "<leader>cs", desc = "Cscope" },
-	{ mode = "n", keys = "cr", desc = "Case" },
 	{ mode = "n", keys = "\\", desc = "<localleader>" },
 	{ mode = "x", keys = "<leader>a", desc = "Sidekick" },
 	{ mode = "x", keys = "<leader>y", desc = "" },

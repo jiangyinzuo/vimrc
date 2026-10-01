@@ -2,7 +2,8 @@ vim:set ft=help:
 
 *agent-features.txt*
 
-Benchmark ~
+--------------
+Benchmark
 
 https://artificialanalysis.ai/
 swe-bench (ICLR 2024) https://www.swebench.com/
@@ -10,11 +11,14 @@ https://livebench.ai/
 https://lmarena.ai/leaderboard
 https://www.designarena.ai/
 
-Chat & Inline Edit ~
+--------------
+Chat and Inline Edit
 
-Slash Commands ~
+--------------
+Slash Commands
 
-Next Edit Suggestion & Completion ~
+--------------
+Next Edit Suggestion and Completion
 
 Vscode 1.99 agent、MCP模式、next edit suggestions https://www.youtube.com/watch?v=dutyOc_cAEU
 https://docs.cursor.com/get-started/usage
@@ -30,14 +34,19 @@ Completion
 补全插件:
 - gergap/vim-ollama
 
-Sub-agents & Tasks ~
+--------------
+Sub Agents and Tasks
+
+todo tools
+https://tonylee.im/en/blog/why-claude-code-dropped-todos-slash-commands/
 
 https://github.com/VoltAgent/awesome-claude-code-subagents
 https://docs.anthropic.com/en/docs/claude-code/sub-agents
 
 基于DAG的task分配
 
-Deep Research Agent ~
+--------------
+Deep Research Agent
 
 目前国内有哪些类似Manus的deep research应用？ - 三白有话说的回答 - 知乎
 https://www.zhihu.com/question/15684801110/answer/1892597238397657591
@@ -54,12 +63,24 @@ https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard
 
 notebooklm.google
 
-MCP & Skills ~
+--------------
+Tool Call
+
+Code Mode ~
+
+传统的工具调用可能返回大量无用信息。
+code mode让工具调用可以被编程。Agent可以自行写代码组合工具调用结果、提前filter不必要的信息
+
+--------------
+MCP and Skills
+
+https://earendil.com/posts/you-said-no-mcp/
 
 https://github.com/oraios/serena  *serena*
 https://github.com/upstash/context7
 
-Context ~
+---------------------
+Context Engineering
 
 - codebase indexing: cursor提前建索引/cline Agent查询
     - https://github.com/Davidyz/VectorCode
@@ -75,7 +96,7 @@ Features:
 - 属性过滤，对文件路径、文件后缀等进行过滤
 - 基于treesitter自定义chunk level
 
-Repository Outline
+Repository Outline ~
 
 整个代码仓库的结构化大纲，可以用ctags生成的tags。 |tags.txt|
 
@@ -88,9 +109,10 @@ Repository Outline
 
 LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
 
-RAG
+RAG ~
 
-Agent Client Protocol (ACP) ~
+---------------------------
+Agent Client Protocol (acp)
 *agent-client-protocol* *acp*
 
 https://agentclientprotocol.com/overview/introduction
@@ -101,14 +123,16 @@ Claude Code: 有两种SDK实现。
 https://github.com/zed-industries/claude-code-acp npm install -g @zed-industries/claude-code-acp
 https://github.com/Xuanwo/acp-claude-code
 
-Terminal Use & Computer Use & Browser Use ~
+---------------------------
+Terminal Use, Computer Use and Browser Use
 
 Browser Use的底层依赖浏览器自动化引擎：
 - Playwright：由Microsoft维护，支持Chromium、Firefox、WebKit三大内核。其内置的无障碍快照（Accessibility Snapshot） 特性对AI集成尤其关键，能让AI通过结构化树理解页面，而非仅依赖视觉识别。它是新项目做浏览器自动化的首选。
 - Puppeteer：Google官方维护，仅支持Chrome/Chromium。它的优势是启动快、资源占用低，适合追求轻量和启动速度的纯Chrome场景，如PDF生成或截图。
 - Selenium：浏览器自动化领域的元老，最大优势是语言支持广泛（Java、Python、C#等）和企业生态成熟。它基于WebDriver协议，支持Grid分布式执行，适合Java/C#技术栈或需要维护遗留系统的企业环境。
 
-System One Model ~
+----------------
+System One model
 
 jev
 https://huggingface.co/convaiinnovations/laya
