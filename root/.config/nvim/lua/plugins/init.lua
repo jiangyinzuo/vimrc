@@ -223,22 +223,6 @@ return {
 			end)
 		end,
 	},
-	-- 性能可能下降
-	{
-		"chrisgrieser/nvim-origami",
-		cond = false,
-		event = "VeryLazy",
-		opts = {
-			autoFold = {
-				enabled = false,
-				kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
-			},
-			foldKeymaps = {
-				setup = false, -- modifies `h`, `l`, and `$`
-				hOnlyOpensOnFirstColumn = false,
-			},
-		}, -- needed even when using default config
-	},
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",

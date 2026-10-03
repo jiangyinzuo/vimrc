@@ -87,7 +87,6 @@ endif
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'gitdiff://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
-Plug 'dhruvasagar/vim-table-mode'
 if v:version >= 800
 	Plug 'brooth/far.vim', {'on': ['Far', 'Farf', 'Farp', 'Farr']}
 	if executable('tmux')

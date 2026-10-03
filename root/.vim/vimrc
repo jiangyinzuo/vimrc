@@ -89,7 +89,7 @@ set matchtime=1 " showmatch的时间0.1s
 set backspace=indent,eol,start "indent: BS可以删除缩进; eol: BS可以删除行末回车; start: BS可以删除原先存在的字符
 set hidden " 未保存文本就可以隐藏buffer
 set wildmenu " command自动补全时显示菜单
-if v:version >= 901 || has('nvim-0.11')
+if v:version >= 902 || has('nvim-0.11')
 	set completeopt+=fuzzy
 	set wildmode=noselect:lastused,full
 	if !has('nvim') && exists("*wildtrigger")

@@ -114,7 +114,6 @@ local M = {
 			"inkarkat/vim-ingo-library",
 		},
 	},
-	"dhruvasagar/vim-table-mode",
 	"tpope/vim-endwise",
 	"junegunn/gv.vim",
 	-- Alternatives: https://github.com/HakonHarnes/img-clip.nvim

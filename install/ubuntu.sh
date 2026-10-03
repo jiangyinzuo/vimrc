@@ -88,7 +88,6 @@ function install_fd() {
 }
 
 function install_other_apt_packages() {
-	# apt install -y golang
 	# Leaderf needs python3-dev and python3-distutils
 	# wamerican: American English字典文件，安装后位于/usr/share/dict/words, 用于vim dictionary
 	# wordnet: nvim cmp dictionary 可以用wordnet解释单词
@@ -108,33 +107,6 @@ function install_vim() {
 	./install/build_vim.sh $VIM_COMMIT
 }
 
-_go_installged=false
-function install_go() {
-	if [ "$_go_installed" = false ]; then
-		_go_installed=true
-		$SUDO snap install go --classic
-		prompt=$prompt"
-		=== Go ===
-		必须确保GOPATH/bin在环境变量，保证gopls能找到。
-		不要用apt安装gopls/delve，该版本为unknown，影响go.nvim插件解析。
-
-		"
-	fi
-}
-
-function install_gvm() {
-	install_go
-	$SUDO apt-get -y install curl git mercurial make binutils bison gcc build-essential
-	bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-	prompt=$prompt"
-		=== GVM ===
-		source ~/.bashrc
-		gvm install go1.16.3
-		gvm use go1.16.3
-
-	"
-}
-
 set -v
 
 # install_tmux
@@ -150,7 +122,6 @@ install_other_apt_packages
 install_git_delta
 # option: $VIM_COMMIT
 # install_vim
-# install_go
 # install_gvm
 
 # 加上双引号才能echo换行符

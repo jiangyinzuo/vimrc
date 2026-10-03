@@ -9,6 +9,3 @@ cargo install fd-find
 cargo install git-delta
 cargo install stylua
 cargo install yazi-build
-# 基于AST而非文本行的git conflict merger
-# https://mergiraf.org/installation.html
-cargo install mergiraf
