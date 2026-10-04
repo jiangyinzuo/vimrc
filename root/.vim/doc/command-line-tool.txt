@@ -107,7 +107,7 @@ diff comm
 >
 	rsync -avz --delete user@remote:/path/to/repo/ /local/path/to/repo
 	# 把minuet-ai.nvim插件同步到远程服务器
-        rsync -avz --delete  ./plugged remote-machine:~/jiangyinzuo-dev1-data/ --exclude='LeaderF/autoload/leaderf/python/leaderf/__pycache__'
+	rsync -avz --delete  ./plugged remote-machine:~/jiangyinzuo-dev1-data/
 
 <
 *rsync远程同步到本地*

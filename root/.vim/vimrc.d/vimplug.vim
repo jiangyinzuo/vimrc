@@ -101,7 +101,6 @@ if v:version >= 800
 
 	Plug 'lifepillar/vim-solarized8'
 	if has('python3') || has('python')
-		source ~/.vim/vimrc.d/leaderf.vim
 		" Plug 'mbbill/undotree'
 		" let g:undotree_WindowLayout = 4
 		Plug 'simnalamburt/vim-mundo'
@@ -131,7 +130,6 @@ if v:version >= 800
 			Plug 'pechorin/any-jump.vim'
 
 			Plug 'voldikss/vim-floaterm'
-			Plug 'voldikss/LeaderF-floaterm'
 			"""""""""""""""""" floaterm
 			" The popup window always has focus, it is not possible to switch to another window.
 			" See *popup-terminal*
@@ -190,6 +188,11 @@ if v:version >= 800
 						Plug 'lervag/vimtex'
 						source ~/.vim/vimrc.d/latex.vim
 					endif
+					Plug 'vim-fuzzbox/fuzzbox.vim'
+					nnoremap <silent> <leader>fb <cmd>FuzzyBuffers<CR>
+					nnoremap <silent> <leader>ff <cmd>FuzzyFiles<CR>
+					nnoremap <silent> <leader>fg <cmd>FuzzyGrep<CR>
+					nnoremap <silent> <leader>fh <cmd>FuzzyMru<CR>
 				endif
 			endif
 			Plug 'puremourning/vimspector'

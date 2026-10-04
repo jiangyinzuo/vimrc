@@ -37,10 +37,6 @@
 *开启自动保存(vim)*					:call timer#startAutoSave()
 *关闭自动保存(vim)*					:call timer#stopAutoSave()
 *neovim打开dap调试界面*					:DapContinue
-*leaderf通过rg搜索所有c文件*				:Leaderf rg -g *.c <word>
-*leaderf通过rg全字匹配*					:Leaderf rg -w 'func main'
-*leaderf通过rg大小写敏感*				:Leaderf rg -s <word>
-*leaderf通过rg搜索，不使用正则表达式*			:Leaderf rg -F <word>
 *tab分隔的表格转md-table*				:'<,'>!tab2table.py
 *查看某个option是在什么位置设置的*			:verbose set <option>?
 *Tabular格式化，按照=对齐*				:Tabularize /=
