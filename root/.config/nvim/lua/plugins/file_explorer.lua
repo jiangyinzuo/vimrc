@@ -93,6 +93,11 @@ return {
 					{ source = "diagnostics", display_name = "" },
 				},
 			},
+			window = {
+				mappings = {
+					["<space>"] = { "toggle_node", nowait = true, desc = "展开/折叠节点" },
+				},
+			},
 			filesystem = {
 				hijack_netrw_behavior = "disabled",
 				window = {

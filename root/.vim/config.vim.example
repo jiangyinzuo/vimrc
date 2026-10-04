@@ -9,9 +9,6 @@ let g:openai_model = "deepseek-chat"
 let g:openai_disable_tools = 1
 let g:openai_token_file = "~/.config/deepseek.token"
 
-let g:claude_endpoint = "https://api.mjdjourney.cn"
-let g:claude_model = "claude-3-7-sonnet-20250219"
-
 let g:jdtls_java_runtimes = get(g:, 'jdtls_java_runtimes', [{'name': 'JavaSE-21', 'path': '/usr/lib/jvm/java-21-openjdk-amd64'}])
 
 if has('nvim')
@@ -22,7 +19,6 @@ else
 	set grepprg=rg\ --vimgrep\ -uu
 	set grepformat=%f:%l:%c:%m
 endif
-set bg=dark
 
 " 设置需要持久化保存fold的目录
 " autocmd BufWinEnter /foo/bar/* silent! loadview

@@ -34,6 +34,7 @@ let g:tag_system = get(g:, 'tag_system', 'gtags-cscope')
 " tmux2.2以上才支持true color
 let g:vim_use_true_color = get(g:, 'vim_use_true_color', 1)
 if v:version >= 800
+	set bg=dark
 	" show [x/y] instead of search hit BOTTOM, continuing at TOP
 	set shortmess-=S
 	set fillchars+=diff:╱
