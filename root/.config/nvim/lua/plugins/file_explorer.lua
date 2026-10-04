@@ -66,7 +66,8 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
 			"jiangyinzuo/neo-tree-hierarchy.nvim",
-			"jiangyinzuo/neo-tree-treesitter-symbols.nvim"
+			"jiangyinzuo/neo-tree-treesitter-symbols.nvim",
+			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
@@ -78,16 +79,18 @@ return {
 				"neo-tree-treesitter-symbols",
 				"call_hierarchy",
 				"type_hierarchy",
+				"diagnostics",
 			},
 			source_selector = {
 				winbar = true,
 				statusline = false,
 				sources = {
-					{ source = "filesystem" },
-					{ source = "buffers" },
-					{ source = "git_status" },
-					{ source = "document_symbols" },
-					{ source = "treesitter_symbols" },
+					{ source = "filesystem", display_name = "" },
+					{ source = "buffers", display_name = "" },
+					{ source = "git_status", display_name = "󰊢" },
+					{ source = "document_symbols", display_name = "" },
+					{ source = "treesitter_symbols", display_name = "󰔱" },
+					{ source = "diagnostics", display_name = "" },
 				},
 			},
 			filesystem = {

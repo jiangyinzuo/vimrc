@@ -52,6 +52,8 @@ local function setup_vim_diagnostic()
 		-- virtual text is too noisy!
 		virtual_text = false,
 		virtual_lines = USE_VIRTUAL_LINE and { current_line = true },
+		-- 手动浮窗和诊断跳转浮窗始终显示诊断来源。
+		float = { source = "always" },
 		-- ERROR 比 INFO优先级更高显示
 		severity_sort = true,
 	})
