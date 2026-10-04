@@ -9,6 +9,7 @@ local telescope_dependencies = {
 	"2kabhishek/nerdy.nvim",
 	"albenisolmos/telescope-oil.nvim",
 	"nvim-telescope/telescope-ui-select.nvim",
+	'nvim-telescope/telescope-symbols.nvim',
 }
 
 if config.load_plugin.development.writing then

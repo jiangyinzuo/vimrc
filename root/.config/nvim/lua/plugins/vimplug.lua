@@ -1,7 +1,3 @@
-local leaderf_dependencies = {
-	"voldikss/LeaderF-emoji",
-}
-
 local M = {
 	-- SQLComplete: the dbext plugin must be loaded for dynamic SQL completion https://github.com/neovim/neovim/issues/14433
 	-- let g:omni_sql_default_compl_type = 'syntax'
