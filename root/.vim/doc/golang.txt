@@ -2,10 +2,7 @@ vim:ft=help
 
 *golang.txt*
 
-golang版本管理器
-
-curl https://mise.run | sh
-mise settings set go.download_mirror "https://mirrors.ustc.edu.cn/golang/"
+golang版本管理器 |mise|
 
 LSP
 

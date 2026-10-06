@@ -1,0 +1,15 @@
+vim:ft=help
+
+*mise.txt*
+
+curl https://mise.run | sh
+mise settings set go.download_mirror "https://mirrors.ustc.edu.cn/golang/"
+
+.bashrc
+>bash
+    # Load global mise tools once; do not install prompt or directory-change hooks.
+    # 不要让mise在cd的时候自动修改PATH选择特定版本工具，这会让ls命令和cd命令变得很慢
+    export MISE_GLOBAL_CONFIG_ONLY=1
+    eval "$(/root/.local/bin/mise env -s bash)"
+<
+
