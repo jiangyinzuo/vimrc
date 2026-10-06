@@ -1,0 +1,117 @@
+*network-interface-card.txt* *nic.txt*
+*网卡*
+
+网卡，全称网络接口卡（Network Interface Card，NIC），也叫网络适配器、网络接口控制器。
+网卡是计算机（或设备）连接网络的“出入口”，负责把主机里的数据发到网络上，也把网络上的数据收给主机。
+
+网卡的分类 ~
+
+- 物理网卡：工作在OSI七层模型的物理层和数据链路层
+	- 以太Ethernet物理网卡：RJ45 电口网卡（俗称水晶头），遵循IEEE 802.3 以太网协议
+	- InfiniBand网卡，遵循InfiniBand 协议
+	- 无线网卡，接入无线局域网（WLAN）的网卡
+		- Wi-Fi
+	- USB 网络适配器，USB协议
+		- 手机通过USB网络共享，让服务器连接外网
+- 虚拟网卡
+	- 工作在数据链路层（2层）的虚拟网卡
+		- Hyper-V：vEthernet
+	- 工作在数据链路层（3层）虚拟网卡
+		- Clash 的 TUN 模式，Windows 下常通过 Wintun 实现
+		- WireGuard
+			- Tailscale Tunnel
+		- lo：本地回环
+	- Linux `ip -d link`
+		- 显示 link/ether：通常是以太网类二层接口
+		- 显示 link/none：通常是三层接口
+
+查看网卡 ~
+
+Windows Powershell `Get-NetAdapter` 列出所有网卡，包括物理网卡和虚拟网卡。
+>
+	PS C:\Users\Jiang Yinzuo> Get-NetAdapter
+
+	Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
+	----                      --------------------                    ------- ------       ----------             ---------
+	WLAN                      Intel(R) Wireless-AC 9560 160MHz             29 Up           48-F1-7F-B9-3F-20     866.7 Mbps
+	以太网                    Sangfor SSL VPN CS Support System VNIC       27 Disconnected 00-FF-E1-64-1D-19       1.1 Gbps
+	vEthernet (WSL (Hyper-... Hyper-V Virtual Ethernet Adapter #2          38 Up           00-15-5D-3C-75-C6        10 Gbps
+	本地连接                  Wintun Userspace Tunnel                      23 Disconnected                         100 Gbps
+	vEthernet (Default Swi... Hyper-V Virtual Ethernet Adapter             15 Up           00-15-5D-29-26-BC        10 Gbps
+	Clash                     Clash Tunnel                                 71 Up                                   100 Gbps
+	Tailscale                 Tailscale Tunnel                             59 Up                                   100 Gbps
+	蓝牙网络连接              Bluetooth Device (Personal Area Netw...       7 Disconnected 48-F1-7F-B9-3F-24         3 Mbps
+<
+
+蓝牙不属于 OSI 网络模型，蓝牙是一种短距离无线通信技术标准/协议栈，同时它能用来组建无线个人区域网（WPAN）。
+“蓝牙网络连接”是虚拟出来的接口。
+
+Linux `ip link show`
+
+>
+	server@jyz2:~$ ip link show
+	1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+		link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+	2: eno1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+		link/ether a0:42:3f:56:8b:a7 brd ff:ff:ff:ff:ff:ff
+		altname enp4s0
+	3: eno2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+		link/ether a0:42:3f:56:8b:a8 brd ff:ff:ff:ff:ff:ff
+		altname enp5s0
+	4: ibp65s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 4092 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+		link/infiniband 00:00:10:27:fe:80:00:00:00:00:00:00:98:03:9b:03:00:96:9a:a0 brd 00:ff:ff:ff:ff:12:40:1b:ff:ff:00:00:00:00:00:00:ff:ff:ff:ff
+	5: tailscale0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 500
+		link/none
+	6: wlxec1ac305b226: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DORMANT group default qlen 1000
+		link/ether ec:1a:c3:05:b2:26 brd ff:ff:ff:ff:ff:ff
+	10: xray0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 500
+		link/none
+<
+
+lo: 本地回环
+eno: Ethernet onboard，即主板/固件上的板载以太网口。上面的机器有两个板载以太网口，但没插网线，所以是DOWN
+	- p4: PCI bus 4，s0: slot 0
+		- eno1 是板载以太网口 1，PCI 位置约等于 bus 4 slot 0
+		- eno2 是板载以太网口 2，PCI 位置约等于 bus 5 slot 0
+ib: InfiniBand
+	- p65：PCI bus 65
+	s0：slot 0
+wl: WLAN，无线网卡，UP表明当前服务器通过无线网卡网络连接
+
+手机通过USB共享网络：
+>
+	5: enxbacb773c8bb4: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+		link/ether ba:cb:77:3c:8b:b4 brd ff:ff:ff:ff:ff:ff
+<
+
+enx bacb773c8bb4
+│   │
+│   └── 接口 MAC 地址去掉冒号：ba:cb:77:3c:8b:b4
+└── en = Ethernet，x = 按 MAC 地址命名
+
+-------------------------------------
+Netplan: Ubuntu 的 YAML 网络配置工具
+
+内核驱动将网卡识别成一个网络接口，比如 eno1、eno2、enxbacb...。Netplan 的任务就是给这些接口分配 IP、路由、DNS、VLAN、桥接等配置。
+
+让服务器通过手机USB共享网络上网 ~
+
+`ip link show`查询手机USB 网络接口名: enxbacb773c8bb4
+
+编辑 `/etc/netplan/99-usb-tether.yaml`
+>yaml
+	network:
+	  version: 2
+	  renderer: networkd
+	  ethernets:
+		enxbacb773c8bb4:
+		  dhcp4: true
+		  optional: true
+<
+执行 `sudo netplan apply`
+
+- `renderer: networkd`：指定底层由 systemd-networkd 来实际管理网络。
+- `dhcp4: true`：启用 IPv4 的 DHCP 客户端。
+- `optional: true`：如果开机时这个网卡没插网线，networkd不会一直等它。（对手机临时共享USB很重要）
+
+vim:tw=78:ts=4:ft=help:norl:noet:fen:
