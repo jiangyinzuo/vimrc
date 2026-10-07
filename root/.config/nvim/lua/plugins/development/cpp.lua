@@ -4,7 +4,7 @@ if require("config").load_plugin.development.cpp then
 		{
 			"ranjithshegde/ccls.nvim",
 			event = "VimEnter",
-			cond = require("detect").has_ccls_executable,
+			cond = false,
 			dependencies = {
 				"neovim/nvim-lspconfig",
 			},

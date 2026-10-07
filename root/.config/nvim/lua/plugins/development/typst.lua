@@ -1,4 +1,4 @@
-if require("detect").has_typst_executable and require("config").load_plugin.development.writing then
+if require("config").load_plugin.development.writing then
 	return {
 		-- based on tinymist
 		{

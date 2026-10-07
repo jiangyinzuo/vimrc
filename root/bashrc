@@ -2,7 +2,8 @@
 
 set -o vi
 export EDITOR=${EDITOR:-vim}
-
+# history命令展示时间
+export HISTTIMEFORMAT='%F %T '
 source $HOME/vimrc/root/bashrc_noi
 
 if [ -d "$HOME/plugged/fzf" ]; then

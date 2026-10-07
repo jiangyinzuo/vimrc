@@ -216,6 +216,7 @@ return {
 		dependencies = {
 			{ "nvim-telescope/telescope.nvim" },
 		},
+		lazy = true,
 		opts = {},
 		init = function()
 			vim.keymap.set("i", "<C-k><C-k>", function()

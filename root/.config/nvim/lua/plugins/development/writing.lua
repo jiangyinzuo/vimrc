@@ -1,6 +1,5 @@
 if require("config").load_plugin.development.writing then
-	local detect = require("detect")
-	local has_quarto_executable = detect.has_quarto_executable
+	local has_quarto_executable = false
 	return {
 		{
 			"quarto-dev/quarto-nvim",

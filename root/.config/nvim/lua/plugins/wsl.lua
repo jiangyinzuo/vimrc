@@ -15,13 +15,13 @@ if vim.fn.has("wsl") == 1 then
 			ft = { "markdown" },
 			opts = {},
 		},
-		{
-			"brianhuster/live-preview.nvim",
-			dependencies = {
-				-- You can choose one of the following pickers
-				"nvim-telescope/telescope.nvim",
-			},
-		},
+		-- {
+		-- 	"brianhuster/live-preview.nvim",
+		-- 	dependencies = {
+		-- 		-- You can choose one of the following pickers
+		-- 		"nvim-telescope/telescope.nvim",
+		-- 	},
+		-- },
 	}
 else
 	return {}
