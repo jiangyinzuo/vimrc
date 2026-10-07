@@ -76,7 +76,7 @@ let g:has_coqtop_executable = executable("coqtop")
 " set relativenumber
 " 开启模式行, 读取文件开头结尾类似于 /* vim: set ts=2 sw=2 et: */ 的配置
 set modeline
-set noexrc " 不读取当前文件夹的.vimrc
+set exrc " 不读取当前文件夹的.vimrc
 
 set history=500 " Sets how many lines of history VIM has to remember
 filetype indent plugin on

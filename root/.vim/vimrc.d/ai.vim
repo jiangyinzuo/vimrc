@@ -21,7 +21,7 @@ if v:version >= 900 || has('nvim')
 		imap <M-l> <Plug>(copilot-accept-line)
 		imap <M-s> <Plug>(copilot-suggest)
 		" copilot workspace folder
-		autocmd BufReadPost,BufNewFile * ++once let b:workspace_folder = asyncrun#current_root()
+		" autocmd BufReadPost,BufNewFile * ++once let b:workspace_folder = asyncrun#current_root()
 
 	elseif g:ai_suggestion == 'windsurf.vim'
 		if !has('nvim')

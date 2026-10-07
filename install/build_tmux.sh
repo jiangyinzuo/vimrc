@@ -25,5 +25,6 @@ function _install() {
 	./configure && make
 	$SUDO make install
 }
-
+# tmux3.4中打开nvim，会瞬间显示`SIXEL IMAGE (1x1)` https://github.com/tmux/tmux/issues/4499
+# 该bug在tmux3.6+修复
 main https://github.com/tmux/tmux.git tmux $commit

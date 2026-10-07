@@ -70,7 +70,6 @@ end
 local function setup_lsp(capabilities)
 	vim.lsp.config("*", {
 		capabilities = capabilities,
-		root_markers = { ".project.vim" },
 	})
 	if require("config").load_plugin.java then
 		setup_jdtls()

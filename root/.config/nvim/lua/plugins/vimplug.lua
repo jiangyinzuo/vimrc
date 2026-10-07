@@ -126,13 +126,6 @@ local M = {
 		end,
 	},
 	{
-		dir = "~/.vim/pack/my_plugins/start/project.vim",
-		dependencies = {
-			"skywind3000/asynctasks.vim",
-		},
-		priority = 2000,
-	},
-	{
 		"jiangyinzuo/codenote",
 		dependencies = {
 			"tpope/vim-fugitive",

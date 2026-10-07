@@ -26,7 +26,6 @@ require("lazy").setup({
 }, {
 	root = vim.g.vim_plug_dir,
 	performance = {
-		-- allow packadd <package name> in .project.vim
 		reset_packpath = false,
 		rtp = {
 			paths = {
