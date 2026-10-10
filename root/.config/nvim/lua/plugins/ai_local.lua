@@ -63,6 +63,9 @@ return {
 	-- },
 	{
 		"folke/sidekick.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
 		cond = true,
 		opts = {
 			nes = {

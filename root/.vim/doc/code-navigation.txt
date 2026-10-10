@@ -75,6 +75,12 @@ jgrep: 基于jev语义判断模型的grep https://github.com/keltokhy/jgrep
 https://github.com/boyter/cs
 
 ==============================
+基于AI的搜索
+
+https://github.com/yoanbernabeu/grepai
+omp find
+
+==============================
 重复代码检测
 https://github.com/boyter/dcd
 
