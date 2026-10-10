@@ -1,0 +1,3 @@
+*environment-variables.txt*
+
+通过读取 `/proc/<PID>/environ` 查看一个进程的环境变量，排查和环境变量相关的问题

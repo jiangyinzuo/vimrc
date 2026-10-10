@@ -45,7 +45,7 @@ sshconfig示例 ~
 GitHub代理: GitHub 的 SSH over 443 方案。如果网络屏蔽了 SSH 的标准端口 22，可以尝试通过 ssh.github.com 的 443 端口建立 SSH 连接。
 443 是 HTTPS 的默认端口。
 https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port
->
+>sshconfig
     Host github.com
         HostName ssh.github.com
         Port 443
