@@ -7,6 +7,7 @@ local mini_clue_trigger_table = {
 	{ mode = "n", keys = "`", desc = "Tmux Send" },
 	{ mode = "n", keys = "]", desc = "Next" },
 	{ mode = "n", keys = "[", desc = "Previous" },
+	{ mode = "n", keys = "<leader>r", desc = "review.nvim" },
 }
 
 return {
