@@ -32,15 +32,6 @@ function install_tmux() {
 	fi
 }
 
-function install_nvim() {
-	if [[ $UBUNTU_VERSION == "18.04" ]]; then
-		./install/build_nvim.sh $NVIM_COMMIT
-	else
-		$SUDO add-apt-repository ppa:neovim-ppa/unstable
-		$SUDO apt-get install -y neovim
-	fi
-}
-
 function install_llvm() {
 	local LLVM_URL=http://apt.llvm.org
 
@@ -95,16 +86,7 @@ function install_other_apt_packages() {
 
 	# ripgrep-all（master分支）
 	# See: https://github.com/phiresky/ripgrep-all/issues/113
-	# apt install ripgrep pandoc poppler-utils ffmpeg
-}
-
-function install_vim() {
-	# install vim-gtk3
-	# apt-get install -y libgtk-3-dev libxt-dev vim-gtk3
-	# update-alternatives --config vim
-	# update-alternatives  --install /usr/bin/vim vim /usr/local/bin/vim 100
-	$SUDO apt-get -y install libgtk-3-dev libxt-dev
-	./install/build_vim.sh $VIM_COMMIT
+	# apt install pandoc poppler-utils ffmpeg
 }
 
 set -v
@@ -113,16 +95,11 @@ set -v
 # snap install --classic zellij
 
 # option: $NVIM_COMMIT
-install_nvim
 # LLVM_VERSION=${LLVM_VERSION:="-18"}
 # install_llvm
-install_rg
-install_fd
+# install_rg
+# install_fd
 install_other_apt_packages
-install_git_delta
-# option: $VIM_COMMIT
-# install_vim
-# install_gvm
 
 # 加上双引号才能echo换行符
 echo "$prompt"
