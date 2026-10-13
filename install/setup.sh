@@ -1,28 +1,22 @@
 #!/bin/bash
 
 soft_link_files=(
-	.claude
-	.claude-code-router
 	.condarc
-	.config/avante
 	.config/clangd
-	.config/crush
 	.config/ctags
 	.config/himalaya
 	.config/lazygit
-	.config/mcphub
 	.config/mods
 	.config/nvim
 	.config/zellij
 	.dircolors
 	# 企业需要用企业邮箱、github代理，防止误操作覆盖网络代理
-	# .gitconfig
+	.gitconfig
 	# .gitconfig-ict
 	.globalrc
 	.ripgreprc
 	.tmux.conf
 	.vim
-	.qwen
 )
 
 echo_green() {
@@ -73,9 +67,7 @@ do_setup() {
 
 	echo_green "Add the following to your .bashrc if you want to use pygments for gtags:"
 	echo "export GTAGSLABEL=native-pygments"
-
 	echo_yellow "NOTE: Change name and email in .gitconfig if needed."
-
 	echo_green "Done!"
 }
 

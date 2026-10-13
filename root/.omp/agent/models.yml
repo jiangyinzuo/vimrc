@@ -1,0 +1,9 @@
+providers:
+  sudocode:
+    baseUrl: https://api.sudocode.chat/v1
+    # Resolve the key from the environment; export SUDOCODE_API_KEY before starting omp.
+    apiKey: SUDOCODE_API_KEY
+    authHeader: true
+    api: openai-responses
+    discovery:
+      type: proxy
