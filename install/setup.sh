@@ -27,6 +27,35 @@ echo_yellow() {
 	echo -e "\033[33m$1\033[0m"
 }
 
+_copy_file() {
+	local src=$1
+	local target=$2
+	local result="target did not exist"
+	if [[ ! -f "$src" ]]; then
+		echo "File $src does not exist or is not a regular file, copy failed." >&2
+		return 1
+	fi
+	local target_dir
+	target_dir=$(dirname -- "$target")
+	if ! mkdir -p -- "$target_dir"; then
+		echo "Create directory $target_dir failed, copy skipped." >&2
+		return 1
+	fi
+	if [[ -e "$target" || -L "$target" ]]; then
+		if ! mv -T -- "$target" "${target}.bak"; then
+			echo "Backup $target to ${target}.bak failed, copy skipped." >&2
+			return 1
+		fi
+		result="target existed and was backed up to ${target}.bak"
+	fi
+	if cp -- "$src" "$target"; then
+		echo "cp $src $target success ($result)."
+	else
+		echo "cp $src $target failed ($result)." >&2
+		return 1
+	fi
+}
+
 _make_soft_link() {
 	local src=$1
 	local target=$2
@@ -61,6 +90,8 @@ do_setup() {
 
 	mkdir -p ~/gadgets
 	_make_soft_link ~/gadgets ~/.vim/gadgets
+	_copy_file "$VIMRC_ROOT"/.codex/config.toml ~/.codex/config.toml
+	_copy_file "$VIMRC_ROOT"/ root/.omp/agent/models.yml ~/.omp/agent/models.yml
 
 	echo_green "Environment variables used:"
 	echo DOC2="$DOC2"
