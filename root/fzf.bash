@@ -63,6 +63,24 @@ _fzf_comprun() {
 
 # https://github.com/phiresky/ripgrep-all
 
+# ./**<TAB>: select an executable under the current directory.
+_fzf_complete_executable() {
+  COMPREPLY=()
+  local cur=${COMP_WORDS[COMP_CWORD]} trigger=${FZF_COMPLETION_TRIGGER-'**'}
+  [[ $COMP_CWORD -eq 0 && $cur == ./* && $cur == *"$trigger" ]] || return 0
+
+  _fzf_complete --no-multi -- "$@" < <(
+    fd --type x --hidden --no-ignore --follow --exclude ".git" . .
+  )
+}
+
+_fzf_complete_executable_post() {
+  local executable
+  while IFS= read -r executable; do
+    printf '%q\n' "$executable"
+  done
+}
+
 # z **<TAB>: select a history directory, then press Enter to jump.
 _fzf_complete_z() {
   if [[ ${COMP_WORDS[COMP_CWORD]} != *"${FZF_COMPLETION_TRIGGER-'**'}" ]]; then
@@ -93,6 +111,7 @@ _fzf_complete_goto_post() {
   awk '{print $1}'
 }
 
+complete -o bashdefault -o default -I -F _fzf_complete_executable
 complete -o nospace -F _fzf_complete_z z
 __fzf_orig_completion < <(complete -p goto 2>/dev/null)
 __fzf_defc goto _fzf_complete_goto '-o nospace'
