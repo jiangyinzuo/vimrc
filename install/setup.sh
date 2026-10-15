@@ -91,7 +91,7 @@ do_setup() {
 	mkdir -p ~/gadgets
 	_make_soft_link ~/gadgets ~/.vim/gadgets
 	_copy_file "$VIMRC_ROOT"/.codex/config.toml ~/.codex/config.toml
-	_copy_file "$VIMRC_ROOT"/ root/.omp/agent/models.yml ~/.omp/agent/models.yml
+	_copy_file "$VIMRC_ROOT"/.omp/agent/models.yml ~/.omp/agent/models.yml
 
 	echo_green "Environment variables used:"
 	echo DOC2="$DOC2"
