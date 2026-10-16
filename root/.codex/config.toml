@@ -7,3 +7,6 @@ base_url = "https://api.sudocode.chat/v1"
 wire_api = "responses"
 env_key = "OPENAI_API_KEY"
 supports_websockets = false
+
+[tui]
+alternate_screen = "never"
