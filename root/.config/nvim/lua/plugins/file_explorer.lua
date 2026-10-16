@@ -62,6 +62,7 @@ return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = {
+			"jiangyinzuo/neo-tree-regex.nvim",
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
@@ -70,59 +71,66 @@ return {
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		lazy = false, -- neo-tree will lazily load itself
-		opts = {
-			close_if_last_window = true,
-			sources = {
-				"filesystem",
-				"buffers",
-				"git_status",
-				"document_symbols",
-				"neo-tree-treesitter-symbols",
-				"call_hierarchy",
-				"type_hierarchy",
-				"diagnostics",
-			},
-			source_selector = {
-				winbar = true,
-				statusline = false,
+		opts = function()
+			return {
+				close_if_last_window = true,
 				sources = {
-					{ source = "filesystem", display_name = "" },
-					{ source = "buffers", display_name = "" },
-					{ source = "git_status", display_name = "󰊢" },
-					{ source = "document_symbols", display_name = "" },
-					{ source = "treesitter_symbols", display_name = "󰔱" },
-					{ source = "diagnostics", display_name = "" },
+					"filesystem",
+					"buffers",
+					"git_status",
+					"document_symbols",
+					"neo-tree-treesitter-symbols",
+					"call_hierarchy",
+					"type_hierarchy",
+					"diagnostics",
+					"neo-tree-regex",
+					require("neo-tree-regex").register("omp-answer", {
+						pattern = [[^\s*###\s\+\S]],
+					}),
 				},
-			},
-			window = {
-				mappings = {
-					["<space>"] = { "toggle_node", nowait = true, desc = "展开/折叠节点" },
+				source_selector = {
+					winbar = true,
+					statusline = false,
+					sources = {
+						{ source = "filesystem", display_name = "" },
+						{ source = "buffers", display_name = "" },
+						{ source = "git_status", display_name = "󰊢" },
+						{ source = "document_symbols", display_name = "" },
+						{ source = "treesitter_symbols", display_name = "󰔱" },
+						{ source = "diagnostics", display_name = "" },
+						{ source = "omp-answer", display_name = "###" },
+					},
 				},
-			},
-			filesystem = {
-				hijack_netrw_behavior = "disabled",
 				window = {
 					mappings = {
-						["O"] = {
-							command = function(state)
-								local node = state.tree:get_node()
-								local path = node and node:get_id()
-								if path then
-									require("oil").open(vim.fs.dirname(path))
-								end
-							end,
-							desc = "打开目录",
+						["<space>"] = { "toggle_node", nowait = true, desc = "展开/折叠节点" },
+					},
+				},
+				filesystem = {
+					hijack_netrw_behavior = "disabled",
+					window = {
+						mappings = {
+							["O"] = {
+								command = function(state)
+									local node = state.tree:get_node()
+									local path = node and node:get_id()
+									if path then
+										require("oil").open(vim.fs.dirname(path))
+									end
+								end,
+								desc = "打开目录",
+							},
 						},
 					},
 				},
-			},
-			call_hierarchy = {
-				client_filters = "first",
-			},
-			type_hierarchy = {
-				client_filters = "first",
-			},
-		},
+				call_hierarchy = {
+					client_filters = "first",
+				},
+				type_hierarchy = {
+					client_filters = "first",
+				},
+			}
+		end,
 		keys = {
 			{
 				"<leader>nt",
