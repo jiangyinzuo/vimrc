@@ -347,3 +347,15 @@ LANG/LC_ALL变量：解决中文乱码，见 https://blog.csdn.net/listen_wq/art
 >bash
     docker exec -it -e TERM=$TERM jyz-starrocks bash
 <
+
+----------------
+*podman*
+
+*podman加载镜像*
+>bash
+    # 从docker导入
+    IMAGE='vllm-ascend:dev-26.2.0.day20261013-800I-A3-py311-openEuler24.03-lts-aarch64'
+    docker save "$IMAGE" | podman load
+    # 从本地tar.gz包导入
+    podman load -i vllm-ascend_dev-26.2.0.day20261014-800I-A3-py311-openEuler24.03-lts-aarch64.tar.gz
+<

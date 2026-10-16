@@ -190,7 +190,7 @@ vim.api.nvim_create_user_command("TmuxSend", function(opts)
 	pane_identifier = opts.args
 	print("pane_identifier = " .. pane_identifier)
 end, {
-	nargs = 1,
+nargs = 1,
 })
 
 local function send_prompt_to_tmux_pane(input)
@@ -241,4 +241,8 @@ return {
 		"preservim/vimux",
 		cond = cond,
 	},
+	{
+		'jiangyinzuo/wezterm.nvim',
+		config = true
+	}
 }

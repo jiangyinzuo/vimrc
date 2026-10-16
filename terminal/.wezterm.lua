@@ -128,5 +128,9 @@ rsync -aHAX --numeric-ids --delete --info=progress2 \
 end)
 
 config.notification_handling = "AlwaysShow"
+config.keys = {
+		{ key = "u", mods = "ALT", action = act.ScrollByPage(-0.5) },
+		{ key = "d", mods = "ALT", action = act.ScrollByPage(0.5) },
+}
 -- and finally, return the configuration to wezterm
 return config
