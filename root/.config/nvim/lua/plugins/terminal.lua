@@ -242,7 +242,31 @@ return {
 		cond = cond,
 	},
 	{
-		'jiangyinzuo/wezterm.nvim',
-		config = true
-	}
+		"jiangyinzuo/wezterm.nvim",
+		config = function()
+			local wezterm = require("wezterm")
+			if not wezterm.setup({}) then
+				return
+			end
+			if vim.fn.has("wsl") == 1 and vim.fn.executable("wezterm") == 0 then
+				-- Windows WezTerm runs explicit programs in its Windows domain.
+				local spawn = wezterm.spawn
+				wezterm.spawn = function(program, opts)
+					if not program or program:lower():match("%.exe$") then
+						return spawn(program, opts)
+					end
+					opts = vim.deepcopy(opts or {})
+					local args = {}
+					if vim.env.WSL_DISTRO_NAME then
+						vim.list_extend(args, { "--distribution", vim.env.WSL_DISTRO_NAME })
+					end
+					vim.list_extend(args, { "--cd", opts.cwd or vim.fn.getcwd(), "--exec", program })
+					vim.list_extend(args, opts.args or {})
+					opts.cwd = nil
+					opts.args = args
+					return spawn("wsl.exe", opts)
+				end
+			end
+		end,
+	},
 }

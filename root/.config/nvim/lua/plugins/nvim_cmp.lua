@@ -257,7 +257,10 @@ return {
 				},
 			})
 
-			local cmp_cmdline_ignore_cmds = vim.fn.has("wsl") == 1 and { "Man", "!", "terminal", "read" } or { "Man" }
+			-- Shell command completion can block on Windows PATH entries under WSL.
+			local cmp_cmdline_ignore_cmds = vim.fn.has("wsl") == 1
+				and { "Man", "!", "terminal", "read", "WeztermSpawn" }
+				or { "Man" }
 			-- Use cmdline & async_path source for ':' (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
