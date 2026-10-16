@@ -267,6 +267,7 @@ return {
 					return spawn("wsl.exe", opts)
 				end
 			end
+			require("wezterm_spawn").setup(wezterm)
 		end,
 	},
 }

@@ -132,6 +132,5 @@ config.keys = {
 		{ key = "u", mods = "ALT", action = act.ScrollByPage(-0.5) },
 		{ key = "d", mods = "ALT", action = act.ScrollByPage(0.5) },
 }
-config.exit_behavior = "Hold"
 -- and finally, return the configuration to wezterm
 return config
