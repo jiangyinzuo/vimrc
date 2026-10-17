@@ -6,6 +6,7 @@ vim:set ft=help:
 Benchmark
 
 https://artificialanalysis.ai/
+https://bughunt.productcompass.pm/?preset=featured
 swe-bench (ICLR 2024) https://www.swebench.com/
 https://livebench.ai/
 https://lmarena.ai/leaderboard
