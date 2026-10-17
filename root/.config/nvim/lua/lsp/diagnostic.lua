@@ -59,7 +59,8 @@ local function setup_vim_diagnostic()
 	})
 end
 
-local function setup_vim_diagnostic_on_attach()
+local function setup_vim_diagnostic_on_attach(bufnr)
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	setup_vim_diagnostic()
 	vim.keymap.set("n", "]da", function()
 		vim.diagnostic.jump({ count = 1, float = not USE_VIRTUAL_LINE })

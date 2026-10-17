@@ -1,35 +1,5 @@
 local M = {}
 
-local function setup_jdtls()
-	-- See: https://github.com/mfussenegger/nvim-jdtls
-	local root_dir = vim.env.PWD
-
-	local config = {
-		cmd = { vim.g.jdtls_exe, "--java-executable", vim.g.jdtls_java_exe },
-		root_dir = root_dir,
-		init_options = {
-			bundles = {
-				-- vscode java debug
-				vim.fn.glob(
-					vim.fn.stdpath("data")
-						.. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin*.jar"
-				),
-			},
-		},
-		settings = {
-			java = {
-				configuration = {
-					-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-					-- And search for `interface RuntimeOption`
-					-- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
-					runtimes = vim.g.jdtls_java_runtimes,
-				},
-			},
-		},
-	}
-	vim.lsp.config("jdtls", config)
-	vim.lsp.enable("jdtls")
-end
 
 local function setup_codeql_lsp()
 	-- CodeQL's CLI includes an LSP server for QL query files.
@@ -71,105 +41,27 @@ local function setup_lsp(capabilities)
 	vim.lsp.config("*", {
 		capabilities = capabilities,
 	})
+
+	local enabled_servers = {
+		"clangd",
+		"jsonls",
+		vim.g.python_lsp,
+		"neocmake",
+		"html",
+		"texlab",
+		"leanls",
+		"ts_ls",
+		"astro",
+		"gopls",
+		"markdown_oxide",
+		"tinymist",
+	}
 	if require("config").load_plugin.java then
-		setup_jdtls()
+		table.insert(enabled_servers, "jdtls")
 	end
-	vim.lsp.config("ccls", {
-		init_options = vim.g.ccls_init_options,
-	})
-	vim.lsp.config("clangd", {
-		cmd = vim.g.clangd_cmd,
-	})
-	vim.lsp.config("lua_ls", {
-		settings = {
-			Lua = {
-				codeLens = {
-					enable = true,
-				},
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-				},
-				format = {
-					enable = false,
-					-- Put format options here
-					-- NOTE: the value should be STRING!!
-					defaultConfig = {
-						indent_style = "tab",
-						indent_size = "2",
-					},
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = vim.api.nvim_get_runtime_file("", true),
-				},
-				-- Do not send telemetry data containing a randomized but unique identifier
-				telemetry = {
-					enable = false,
-				},
-				completion = {
-					callSnippet = "Replace",
-				},
-			},
-		},
-	})
-	vim.lsp.config("texlab", {
-		settings = {
-			texlab = {
-				latexFormatter = "latexindent",
-				latexindent = {
-					["local"] = os.getenv("HOME") .. "/vimrc/root/latexindent.yaml", -- local is a reserved keyword
-					modifyLineBreaks = false,
-				},
-				bibtexFormatter = "texlab",
-				formatterLineLength = 80,
-			},
-		},
-	})
-
-	-- ltex-ls.nvim似乎也不支持add to dictionary命令，建议使用coc.nvim
-	-- vim.lsp.config("ltex", {
-	-- 	filetypes = { "bib", "tex", "latex" },
-	-- 	settings = {
-	-- 		ltex = {
-	-- 			language = "en-US",
-	-- 		},
-	-- 	},
-	-- })
-
-	-- tinymist: lsp for typst. See https://github.com/Myriad-Dreamin/tinymist
-	vim.lsp.config("tinymist", {
-		-- Installed via 'chomosuke/typst-preview.nvim'
-		cmd = { vim.fn.stdpath("data") .. "/typst-preview/tinymist-linux-x64" },
-	})
-
-	vim.lsp.config("ts_ls", {
-		init_options = {
-			hostInfo = "neovim",
-			preferences = {
-				includeInlayVariableTypeHints = true,
-			},
-		},
-	})
-
-	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
-	-- npm i -g vscode-langservers-extracted
-	-- "pylsp": too slow
-	-- "pylyzer": report too many diagnostics
-	-- use "neocmake" instead of "cmake"
-	-- "lua_ls"
-	local enabled_servers =
-		{ "clangd", "jsonls", vim.g.python_lsp, "neocmake", "html", "texlab", "leanls", "ts_ls", "gopls", "markdown_oxide", "tinymist" }
-	-- codeql服务器有点消耗资源
-	-- if setup_codeql_lsp() then
-	-- 	table.insert(enabled_servers, 2, "codeql")
-	-- end
 	vim.lsp.enable(enabled_servers)
 end
+
 
 M.attach_navic = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
@@ -183,13 +75,44 @@ function M.get_capabilities()
 	capabilities.completion = capabilities.completion or {}
 	capabilities.completion.completionItem = capabilities.completion.completionItem or {}
 	capabilities.completion.completionItem.preselectSupported = false
+	return capabilities
 end
 
+local preferred_formatters = {
+	astro = "astro",
+	c = "clangd",
+	cpp = "clangd",
+	html = "html",
+	javascript = "ts_ls",
+	javascriptreact = "ts_ls",
+	typescript = "ts_ls",
+	typescriptreact = "ts_ls",
+	tex = "texlab",
+	plaintex = "texlab",
+	typst = "tinymist",
+}
+
+local function configure_client_features(client, bufnr)
+	if client:supports_method("textDocument/codeLens") then
+		vim.lsp.codelens.enable(true, { bufnr = bufnr, client_id = client.id })
+	end
+	if client:supports_method("textDocument/inlineCompletion") then
+		vim.lsp.inline_completion.enable(true, { bufnr = bufnr, client_id = client.id })
+	end
+	if client:supports_method("textDocument/documentColor") then
+		vim.lsp.document_color.enable(true, { bufnr = bufnr, client_id = client.id })
+	end
+	if client:supports_method("textDocument/inlayHint") then
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr, client_id = client.id })
+	end
+
+	local preferred = preferred_formatters[vim.bo[bufnr].filetype]
+	if preferred and client:supports_method("textDocument/formatting") and client.name ~= preferred then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
+	end
+end
 function M.lspconfig()
-	vim.lsp.codelens.enable()
-	vim.lsp.inline_completion.enable()
-	vim.lsp.document_color.enable()
-	vim.lsp.inlay_hint.enable()
 
 	local diagnostic = require("lsp.diagnostic")
 
@@ -295,9 +218,9 @@ function M.lspconfig()
 				vim.lsp.buf.code_action,
 				{ noremap = true, silent = true, buffer = ev.buf, desc = "vim.lsp.buf.code_action" }
 			)
-			diagnostic.setup_vim_diagnostic_on_attach()
-
+			diagnostic.setup_vim_diagnostic_on_attach(ev.buf)
 			local client = vim.lsp.get_client_by_id(ev.data.client_id)
+			configure_client_features(client, ev.buf)
 			M.attach_navic(client, ev.buf)
 		end,
 	})
