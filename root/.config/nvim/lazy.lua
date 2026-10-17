@@ -121,3 +121,32 @@ require("vim._core.ui2").enable({
 require("yank_screen")
 
 require("pdb")
+-- Match Vim's fixed-size Visual repeat semantics for Normal-mode `.`.
+local visual_repeat
+vim.api.nvim_create_autocmd("CmdAtom", {
+	callback = function(event)
+		local data = event.data
+		if data.type == "visual" then
+			local atoms = data.atoms
+			visual_repeat = atoms and atoms[#atoms].keys or nil
+		elseif data.changed then
+			visual_repeat = nil
+		end
+	end,
+})
+
+
+vim.keymap.set("x", ">", function()
+	visual_repeat = ">"
+	return ">"
+end, { expr = true, desc = "Shift selection right" })
+vim.keymap.set("x", "<", function()
+	visual_repeat = "<"
+	return "<"
+end, { expr = true, desc = "Shift selection left" })
+
+vim.keymap.set("n", ".", function()
+	vim.schedule(function()
+		vim.api.nvim_feedkeys(visual_repeat and ("1v" .. visual_repeat) or ".", "n", false)
+	end)
+end, { desc = "Repeat Visual changes at a fixed size" })
