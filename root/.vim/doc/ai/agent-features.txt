@@ -115,6 +115,10 @@ LSP的方案还是使用terminal-agent或者MCP（如 |serena|）更好。
 
 RAG ~
 
+Memory ~
+
+hindsight.vectorize.io/
+
 ---------------------------
 Agent Client Protocol (acp)
 *agent-client-protocol* *acp*

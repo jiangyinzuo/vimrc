@@ -1,0 +1,22 @@
+modelRoles:
+  default: sudocode/gpt-6-astra:max
+symbolPreset: unicode
+composer:
+  shape: band
+theme:
+  dark: titanium
+setupVersion: 2
+dev:
+  autoqaConsent: granted
+memory:
+  backend: hindsight
+hindsight:
+  apiUrl: https://api.hindsight.vectorize.io
+  apiToken: ${HINDSIGHT_API_TOKEN}
+  bankId: my-personal-memory
+  scoping: per-project-tagged
+  autoRecall: true
+  autoRetain: true
+autolearn:
+  enabled: true
+hideThinkingBlock: false
