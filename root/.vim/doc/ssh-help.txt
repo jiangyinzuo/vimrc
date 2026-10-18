@@ -52,6 +52,8 @@ https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the
         User git
         ProxyCommand ncat --proxy 172.23.125.152:3128 --proxy-type http %h %p
 <
+NOTE: 也可以直接设置环境变量 GIT_SSH_COMMAND
+
 别再笨笨地使用SSH了 - Pavinberg的文章 - 知乎 https://zhuanlan.zhihu.com/p/716963359
 
 SSH生成Key ~
