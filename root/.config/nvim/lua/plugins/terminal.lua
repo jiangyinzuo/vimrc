@@ -243,6 +243,7 @@ return {
 	},
 	{
 		"jiangyinzuo/wezterm.nvim",
+		cond = vim.fn.has("wsl") == 1,
 		config = function()
 			local wezterm = require("wezterm")
 			if not wezterm.setup({}) then
