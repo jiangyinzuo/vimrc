@@ -156,7 +156,50 @@ See: https://blog.csdn.net/webrx/article/details/135091731
     sudo systemctl restart docker
 <
 
-然后退出ssh terminal，重新登录
+加入组后，选择以下方式使组权限生效（sg/newgrp 不会将用户加入组）：
+>
+    命令                      用途                       作用范围
+    ------------------------  -------------------------  ------------------------------
+    sg docker -c 'docker ps'   以 docker 组执行指定命令   该命令及其子进程
+    newgrp docker             进入以 docker 为组的新 shell  直到 exit 退出该 shell
+    退出 SSH 后重新登录       重新加载主组、附加组       新登录会话
+<
+
+Snap Docker socket 权限排查 ~
+
+以下为 server 用户执行 docker ps 报 permission denied 时的排查记录。
+
+1. 检查用户组和 socket 权限
+>bash
+    id server
+    getent group docker
+    stat -c '%U %G %a %n' /var/run/docker.sock
+<
+结果：server 已在 docker 组中，但 socket 属于 root:root，权限为 660。
+
+2. 检查 Snap Docker 服务
+>bash
+    snap services docker
+    systemctl status snap.docker.dockerd.service --no-pager
+<
+结果：Docker 服务已启动，并设置为开机启动。
+
+3. 修复 socket 所属组
+>bash
+    sudo chgrp docker /var/run/docker.sock
+    docker ps
+<
+所属组修改成功；但当前会话尚未刷新组权限，直接执行 docker ps 仍报权限错误。
+
+4. 使用 docker 组身份验证
+>bash
+    stat -c '%U %G %a %n' /var/run/docker.sock
+    sg docker -c 'docker ps'
+<
+结果：socket 为 root:docker 660，docker ps 执行成功。
+
+注意：chgrp 只修改当前 socket；服务重建 socket 后可能需要进一步排查。
+      docker 组具有近似 root 的主机控制权限，只应加入可信用户。
 
 -------------------------------------------------------------------------------
 *docker国内镜像*
