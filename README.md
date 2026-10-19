@@ -37,6 +37,18 @@ See [install/README.md](./install/README.md).
 | terminal          | configurations for terminal emulators |
 | wsl               | scripts for WSL, `:h wsl.txt`         |
 
+### Docker Mirror Benchmark
+
+Run `./test-docker-mirror.py` with Python 3 to compare GHCR and the Nanjing
+University mirror for `vectorize-io/hindsight:latest` (Linux amd64). No Docker
+daemon or third-party packages are required. Each host downloads at most 8 MiB
+from the largest layer; results include timings, throughput, and image/layer
+digests. This is a sample benchmark, not a full image pull or signature check.
+
+Use `./test-docker-mirror.py --help` for repository, tag, architecture, timeout,
+and custom registry host options. Failed hosts or differing digests produce a
+nonzero exit status.
+
 ### Vimrc Files
 
 - `root/.vim/vimrc`
