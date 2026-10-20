@@ -11,3 +11,7 @@ cargo install stylua
 cargo install yazi-build
 # 日志查看器
 curl -fsSL https://github.com/pauloremoli/logana/releases/latest/download/logana-installer.sh
+
+# jscpd
+curl -fsSL https://jscpd.dev/install.sh | bash
+# cargo install jscpd
