@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Query Windows network interfaces and their IPv4 default gateways from WSL.
+exec powershell.exe -NoProfile -Command 'Get-NetIPConfiguration | Where-Object { $null -ne $_.IPv4DefaultGateway } | Select-Object InterfaceAlias,@{Name="IPv4Address";Expression={$_.IPv4Address.IPAddress}},@{Name="Gateway";Expression={$_.IPv4DefaultGateway.NextHop}} | Format-Table -AutoSize'
