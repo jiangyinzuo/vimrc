@@ -86,7 +86,8 @@ function M.dapconfig()
 		dap.configurations[language] = dap.configurations["cpp"]
 	end
 
-	require("dap-python").setup("python3")
+	local adapter = vim.fn.executable("uv") == 1 and "uv" or "python3"
+	require("dap-python").setup(adapter)
 	vim.api.nvim_create_user_command("DapPytestMethod", function(_)
 		local dap_python = require("dap-python")
 		dap_python.test_runner = "pytest"
