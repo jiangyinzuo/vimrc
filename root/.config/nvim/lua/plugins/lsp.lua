@@ -2,6 +2,11 @@ local lsp_init = require("lsp.init")
 -- try plugins in https://nvimdev.github.io
 return {
 	{
+		"jiangyinzuo/pyrefly-enhanced",
+		cmd = "PyreflyEnhanced",
+		ft = "python",
+	},
+	{
 		"nvimtools/none-ls.nvim",
 		config = function()
 			local null_ls = require("null-ls")
