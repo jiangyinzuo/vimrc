@@ -267,7 +267,7 @@ if v:version >= 740 || &readonly == 0
 	endif
 
 	set foldmethod=manual
-	autocmd FileType vim,lua,go,sh,json setlocal foldmethod=indent
+	autocmd FileType vim,lua,go,sh,json,python setlocal foldmethod=indent
 	set foldmarker={,}
 
 	" 默认打开所有折叠，将foldlevelstart设置为较大的值
