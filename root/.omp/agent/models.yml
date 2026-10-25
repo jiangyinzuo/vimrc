@@ -7,3 +7,10 @@ providers:
     api: openai-responses
     discovery:
       type: proxy
+  zhaomoxing:
+    baseUrl: https://api.zhaomoxing.com/v1
+    apiKey: ZHAOMOXING_API_KEY
+    authHeader: true
+    api: openai-responses
+    discovery:
+      type: proxy
