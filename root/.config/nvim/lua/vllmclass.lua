@@ -62,8 +62,8 @@ local function define_highlights()
 	vim.api.nvim_set_hl(0, "vllmClassRequestColor", { fg = "#d787ff", ctermfg = 177 })
 	-- 通用框架基类用灰色斜体弱化，与具体模型实现的职责色区分。
 	vim.api.nvim_set_hl(0, "vllmClassModuleColor", { fg = "#949494", ctermfg = 246 })
-	-- 辅助信息用正体灰色，弱化路径与统计，不改变源码及类名的语义颜色。
-	vim.api.nvim_set_hl(0, "vllmClassMetadata", { fg = "#949494", ctermfg = 246 })
+	-- 辅助信息使用独立灰色，不跟随偏亮的 LSP 内联提示配色。
+	vim.api.nvim_set_hl(0, "vllmClassMetadata", { fg = "#706865", ctermfg = 243 })
 	for _, group in ipairs(groups) do
 		local source = vim.api.nvim_get_hl(0, { name = group[2], link = false })
 		-- 默认仅复制前景色；数据类与框架基类额外用斜体，不覆盖 Markdown 背景/下划线。
@@ -154,6 +154,13 @@ function M.setup()
 		[[
     "class" @keyword.type.python
     "def" @keyword.function.python
+    ["if" "elif" "else"] @keyword.conditional.python
+    ["for" "while" "break" "continue"] @keyword.repeat.python
+    ["and" "not" "or" "in" "is"] @keyword.operator.python
+    ["return" "yield"] @keyword.return.python
+    ["try" "except" "finally" "raise" "assert"] @keyword.exception.python
+    ["import" "from"] @keyword.import.python
+    ["as" "with" "pass" "del" "global" "nonlocal" "lambda" "async" "await"] @keyword.python
     ((identifier) @variable.builtin.python
       (#any-of? @variable.builtin.python "self" "cls"))
     (comment) @comment.python
