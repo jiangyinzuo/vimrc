@@ -30,6 +30,11 @@ local groups = {
 		"DeepseekV2ForCausalLM DeepseekV32ForCausalLM DeepseekV32Model DeepseekV32DecoderLayer DeepseekV32Attention",
 	},
 	{
+		"AttentionBackend",
+		"vllmClassAttentionBackendColor",
+		"AttentionBackend AttentionImplBase AttentionImpl MLAAttentionImpl AttentionMetadataBuilder FlashAttentionBackend FlashAttentionImpl FlashAttentionMetadataBuilder FlashInferBackend FlashInferImpl FlashInferMetadataBuilder MLACommonBackend MLACommonBaseImpl MLACommonImpl MLACommonMetadataBuilder SparseMLACommonImpl SparseMLACommonMetadataBuilder FlashAttnMLABackend FlashAttnMLAImpl FlashAttnMLAMetadataBuilder FlashInferMLABackend FlashInferMLAImpl FlashInferMLAMetadataBuilder FlashInferMLASparseSM120Backend FlashInferMLASparseSM120Impl FlashInferMLASparseMetadataBuilder CPUMLABackend CPUMLAImpl",
+	},
+	{
 		"HiSparseCoordinator",
 		"Special",
 		"HiSparseCoordinator HiSparseSourceManager HiSparseHotManager HiSparseResidentManager _HiSparseAuxiliaryManager",
@@ -65,6 +70,8 @@ local function define_highlights()
 	vim.api.nvim_set_hl(0, "vllmClassConnectorColor", { fg = "#ff5f5f", ctermfg = 203 })
 	-- 模型执行编排独立于 Worker 环境管理及具体模型实现，用淡青色标出边界。
 	vim.api.nvim_set_hl(0, "vllmClassModelRunnerColor", { fg = "#87d7d7", ctermfg = 116 })
+	-- 后端描述、执行实现与元数据构建同属 Attention 子系统，区别于具体模型层。
+	vim.api.nvim_set_hl(0, "vllmClassAttentionBackendColor", { fg = "#d787af", ctermfg = 175 })
 	-- 请求数据跨模块流动，用独立紫色与斜体区分职责组件，不绑定某棵树的追踪目标。
 	vim.api.nvim_set_hl(0, "vllmClassRequestColor", { fg = "#d787ff", ctermfg = 177 })
 	-- 通用框架基类用灰色斜体弱化，与具体模型实现的职责色区分。
