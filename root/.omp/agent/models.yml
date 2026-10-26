@@ -22,3 +22,10 @@ providers:
     api: openai-responses
     discovery:
       type: proxy
+  灵算:
+    baseUrl: https://edge.lingsuan.org
+    apiKey: LINGSUAN_API_KEY
+    authHeader: true
+    api: openai-responses
+    discovery:
+      type: proxy
