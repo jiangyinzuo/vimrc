@@ -67,6 +67,7 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons", -- optional, but recommended
 			"jiangyinzuo/neo-tree-hierarchy.nvim",
+			"jiangyinzuo/neo-tree-python-class-relation.nvim",
 			"jiangyinzuo/neo-tree-treesitter-symbols.nvim",
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
@@ -83,6 +84,7 @@ return {
 					"call_hierarchy",
 					"type_hierarchy",
 					"diagnostics",
+					"class_relation",
 					"neo-tree-regex",
 					require("neo-tree-regex").register("omp-answer", {
 						pattern = [[^\s*###\s\+\S]],
@@ -98,6 +100,7 @@ return {
 						{ source = "document_symbols", display_name = "" },
 						{ source = "treesitter_symbols", display_name = "󰔱" },
 						{ source = "diagnostics", display_name = "" },
+						{ source = "class_relation", display_name = "󰌗" },
 						{ source = "omp-answer", display_name = "###" },
 					},
 				},
@@ -129,6 +132,12 @@ return {
 				type_hierarchy = {
 					client_filters = "first",
 				},
+				class_relation = {
+					python = vim.env.PYTHON_CLASS_RELATION_PYTHON
+						or vim.fn.expand("~/ai-infra-dev/code/vllm-workspace/vllm/.venv/bin/python"),
+					database = vim.env.PYTHON_CLASS_RELATION_DB or "/tmp/vllm-class-relations.sqlite3",
+					direction = "incoming",
+				},
 			}
 		end,
 		keys = {
@@ -153,8 +162,7 @@ return {
 							return
 						end
 					end
-					local source = #vim.lsp.get_clients({ bufnr = 0 }) > 0 and "document_symbols"
-						or "treesitter_symbols"
+					local source = #vim.lsp.get_clients({ bufnr = 0 }) > 0 and "document_symbols" or "treesitter_symbols"
 					vim.cmd("Neotree toggle " .. source)
 				end,
 				desc = ":Neotree {document | treesitter}_symbols",
