@@ -15,7 +15,7 @@ providers:
     api: openai-responses
     discovery:
       type: proxy
-  zhaomoxing:
+  找模型:
     baseUrl: https://api.zhaomoxing.com/v1
     apiKey: ZHAOMOXING_API_KEY
     authHeader: true
@@ -27,5 +27,7 @@ providers:
     apiKey: LINGSUAN_API_KEY
     authHeader: true
     api: openai-responses
+    compat:
+      supportsReasoningEffort: true
     discovery:
       type: proxy

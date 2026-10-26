@@ -85,8 +85,14 @@ return {
 				},
 			})
 
-			-- keymaps
-			-- You can use the capture groups defined in `textobjects.scm`
+			-- Markdown 的 fenced_code_block 已由插件内置 query 暴露为 @block.outer/@block.inner。
+			vim.keymap.set({ "x", "o" }, "ab", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@block.outer", "textobjects")
+			end, { desc = "选择当前代码块（含围栏）" })
+			vim.keymap.set({ "x", "o" }, "ib", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@block.inner", "textobjects")
+			end, { desc = "选择当前代码块内容" })
+
 			vim.keymap.set({ "x", "o" }, "af", function()
 				require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
 			end)
