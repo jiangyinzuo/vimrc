@@ -30,7 +30,7 @@ local function ranges(buf)
 					local prefix = text:match("^(.-)├─") or text:match("^(.-)└─")
 					if prefix and prefix:gsub("│", ""):match("^%s*$") then
 						current = math.floor(vim.fn.strdisplaywidth(prefix) / 2) + 1
-						lines[row] = { first = first + 1, depth = current, start = true }
+						lines[row] = { first = first + 1, depth = current, start = true, node = true }
 					elseif current and not text:match("^%s*[`~][`~][`~]") then
 						lines[row] = { first = first + 1, depth = current }
 					end
@@ -45,18 +45,90 @@ local function ranges(buf)
 	if trees[1] then
 		walk(trees[1]:root())
 	end
+	local nodes = {}
+	for row, entry in pairs(lines) do
+		if entry.start then
+			nodes[#nodes + 1] = { row = row, entry = entry }
+		end
+	end
+	table.sort(nodes, function(left, right)
+		return left.row < right.row
+	end)
+	for index, node in ipairs(nodes) do
+		local next_node = nodes[index + 1]
+		if next_node and next_node.entry.depth > node.entry.depth then
+			lines[node.row].start = true
+		else
+			lines[node.row].start = false
+		end
+	end
 	cache[buf] = { tick = tick, lines = lines }
 	return lines
 end
 
+local function configure_window(win, buf)
+	local window = vim.wo[win]
+	window.foldexpr = "v:lua.require'vllmclass.fold'.expr()"
+	window.foldtext = ""
+	window.foldmethod = "expr"
+end
+
+
+local focus = {}
+
+local function reset_folds(win)
+	local window = vim.wo[win]
+	local method = window.foldmethod
+	window.foldmethod = "manual"
+	window.foldmethod = method
+	vim.api.nvim_win_call(win, function()
+		vim.cmd("normal! zX")
+	end)
+end
+
+function M.toggle()
+	local buf, win = vim.api.nvim_get_current_buf(), vim.api.nvim_get_current_win()
+	local row = vim.api.nvim_win_get_cursor(win)[1]
+	local entry = ranges(buf)[row]
+	if entry and entry.node then
+		if not entry.start then
+			return
+		end
+	elseif not entry then
+		return vim.cmd("normal! za")
+	end
+	local was_closed = vim.fn.foldclosed(row) == row
+	if focus[buf] == row then
+		focus[buf] = nil
+	else
+		focus[buf] = row
+	end
+	reset_folds(win)
+	vim.cmd(was_closed and "normal! zO" or "normal! za")
+end
+
 function M.expr(lnum)
 	lnum = lnum or vim.v.lnum
-	local entry = ranges(vim.api.nvim_get_current_buf())[lnum]
+	local buf = vim.api.nvim_get_current_buf()
+	local lines = ranges(buf)
+	local entry = lines[lnum]
+	local selected = focus[buf]
+	local target = selected and lines[selected]
+	if target and entry and entry.first == target.first and lnum >= selected then
+		local base = tonumber(tostring(vim.treesitter.foldexpr(entry.first)):match("%d+")) or 0
+		if lnum == selected then
+			return ">" .. (base + 1)
+		elseif entry.depth > target.depth then
+			return tostring(base + math.min(entry.depth - target.depth + 1, 19))
+		else
+			return tostring(base)
+		end
+	end
 	if not entry then
 		return vim.treesitter.foldexpr(lnum)
 	end
 	local base = tonumber(tostring(vim.treesitter.foldexpr(entry.first)):match("%d+")) or 0
-	local level = base + entry.depth
+	local level = base + math.min(entry.depth, 19)
 	return entry.start and (">" .. level) or tostring(level)
 end
 
@@ -65,16 +137,17 @@ function M.attach(buf)
 		M.cleanup_registered = true
 		vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 			callback = function()
-				if vim.bo.filetype ~= "markdown" and vim.wo.foldexpr == "v:lua.require'vllm_tree_fold'.expr()" then
+				if vim.bo.filetype ~= "markdown" and vim.wo.foldexpr == "v:lua.require'vllmclass.fold'.expr()" then
 					vim.wo.foldexpr = "0"
 				end
 			end,
 		})
 	end
+	vim.keymap.set("n", "za", M.toggle, { buffer = buf, desc = "Toggle vLLM call-tree fold" })
 	vim.api.nvim_create_autocmd("BufWinLeave", {
 		buffer = buf,
 		callback = function()
-			if vim.wo.foldexpr == "v:lua.require'vllm_tree_fold'.expr()" then
+			if vim.wo.foldexpr == "v:lua.require'vllmclass.fold'.expr()" then
 				vim.wo.foldexpr = "0"
 				vim.wo.foldmethod = "manual"
 				vim.wo.foldtext = "foldtext()"
@@ -85,10 +158,8 @@ function M.attach(buf)
 		buffer = buf,
 		callback = function()
 			if vim.bo.filetype == "markdown" then
-				vim.wo.foldmethod = "expr"
-				vim.wo.foldexpr = "v:lua.require'vllm_tree_fold'.expr()"
 				-- 空 foldtext 原样显示首行及其高亮，不重新着色或拼接行数。
-				vim.wo.foldtext = ""
+				configure_window(vim.api.nvim_get_current_win(), buf)
 			end
 		end,
 	})
@@ -103,9 +174,7 @@ function M.attach(buf)
 	vim.schedule(function()
 		for _, win in ipairs(vim.fn.win_findbuf(buf)) do
 			if vim.bo[buf].filetype == "markdown" then
-				vim.wo[win].foldmethod = "expr"
-				vim.wo[win].foldexpr = "v:lua.require'vllm_tree_fold'.expr()"
-				vim.wo[win].foldtext = ""
+				configure_window(win, buf)
 			end
 		end
 	end)

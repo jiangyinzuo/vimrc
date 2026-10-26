@@ -119,7 +119,6 @@ require("vim._core.ui2").enable({
 	},
 })
 require("yank_screen")
-require('vllmclass').setup()
 
 require("pdb")
 -- Match Vim's fixed-size Visual repeat semantics for Normal-mode `.`.
@@ -135,7 +134,6 @@ vim.api.nvim_create_autocmd("CmdAtom", {
 		end
 	end,
 })
-
 
 vim.keymap.set("x", ">", function()
 	visual_repeat = ">"

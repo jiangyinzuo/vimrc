@@ -126,5 +126,5 @@ local cleanup_id = vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-require('vllm_tree_fold').attach(vim.api.nvim_get_current_buf())
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '|setlocal foldexpr< foldmethod< foldtext<'
+require("vllmclass.fold").attach(vim.api.nvim_get_current_buf())
+vim.b.undo_ftplugin = (vim.b.undo_ftplugin or "") .. "|setlocal foldexpr< foldmethod< foldtext<"

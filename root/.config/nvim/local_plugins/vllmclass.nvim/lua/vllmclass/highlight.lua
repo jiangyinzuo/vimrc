@@ -39,10 +39,11 @@ local groups = {
 		"Special",
 		"HiSparseCoordinator HiSparseSourceManager HiSparseHotManager HiSparseResidentManager _HiSparseAuxiliaryManager",
 	},
+	{ "KVConnector", "vllmClassKVConnectorColor", "KVConnectorBase_V1 ActiveKVConnector HiSparseConnector" },
 	{
 		"HiSparseConnector",
 		"vllmClassConnectorColor",
-		"KVConnectorBase_V1 HiSparseConnector HiSparseConnectorScheduler HiSparseConnectorWorker",
+		"HiSparseConnectorScheduler HiSparseConnectorWorker",
 	},
 	{
 		"HiSparseRuntime",
@@ -66,6 +67,8 @@ local pattern = "\\C\\<\\%(" .. table.concat(names, "\\|") .. "\\)\\>"
 local function define_highlights()
 	-- 配置集合跨模块使用独立浅蓝色；固定色避免与当前主题各职责颜色重合。
 	vim.api.nvim_set_hl(0, "vllmClassConfigColor", { fg = "#87afff", ctermfg = 111 })
+	-- 通用 KV 传输接口用亮橙色，与本地 KV 管理及 HiSparse 实现区分。
+	vim.api.nvim_set_hl(0, "vllmClassKVConnectorColor", { fg = "#ffaf5f", ctermfg = 215 })
 	-- 当前主题 Special 与 PreProc 同色；Connector 单独用珊瑚红区分 Coordinator。
 	vim.api.nvim_set_hl(0, "vllmClassConnectorColor", { fg = "#ff5f5f", ctermfg = 203 })
 	-- 模型执行编排独立于 Worker 环境管理及具体模型实现，用淡青色标出边界。

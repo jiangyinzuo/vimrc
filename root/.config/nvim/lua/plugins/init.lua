@@ -460,4 +460,11 @@ return {
 			})
 		end,
 	},
+	{
+		dir = vim.fn.stdpath("config") .. "/local_plugins/vllmclass.nvim",
+		name = "vllmclass.nvim",
+		config = function()
+			require("vllmclass").setup()
+		end,
+	},
 }
