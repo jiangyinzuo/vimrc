@@ -18,7 +18,12 @@ local groups = {
 		"Type",
 		"KVCacheManager KVCacheCoordinator UnitaryKVCacheCoordinator HybridKVCacheCoordinator SingleTypeKVCacheManager FullAttentionManager BlockPool KVCacheBlock KVCacheBlocks EncoderCacheManager",
 	},
-	{ "Worker", "Todo", "UniProcExecutor MultiprocExecutor WorkerWrapperBase Worker GPUModelRunner" },
+	{ "Worker", "Todo", "UniProcExecutor MultiprocExecutor WorkerWrapperBase Worker" },
+	{
+		"ModelRunner",
+		"vllmClassModelRunnerColor",
+		"ModelRunner GPUModelRunner XPUModelRunner CPUModelRunner NPUModelRunner NPUModelRunner310 NPUModelRunner310V2",
+	},
 	{
 		"Model",
 		"Constant",
@@ -58,6 +63,8 @@ local function define_highlights()
 	vim.api.nvim_set_hl(0, "vllmClassConfigColor", { fg = "#87afff", ctermfg = 111 })
 	-- 当前主题 Special 与 PreProc 同色；Connector 单独用珊瑚红区分 Coordinator。
 	vim.api.nvim_set_hl(0, "vllmClassConnectorColor", { fg = "#ff5f5f", ctermfg = 203 })
+	-- 模型执行编排独立于 Worker 环境管理及具体模型实现，用淡青色标出边界。
+	vim.api.nvim_set_hl(0, "vllmClassModelRunnerColor", { fg = "#87d7d7", ctermfg = 116 })
 	-- 请求数据跨模块流动，用独立紫色与斜体区分职责组件，不绑定某棵树的追踪目标。
 	vim.api.nvim_set_hl(0, "vllmClassRequestColor", { fg = "#d787ff", ctermfg = 177 })
 	-- 通用框架基类用灰色斜体弱化，与具体模型实现的职责色区分。
