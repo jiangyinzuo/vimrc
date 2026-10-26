@@ -32,7 +32,7 @@ local function ranges(buf)
 						current = math.floor(vim.fn.strdisplaywidth(prefix) / 2) + 1
 						lines[row] = { first = first + 1, depth = current, start = true, node = true }
 					elseif current and not text:match("^%s*[`~][`~][`~]") then
-						lines[row] = { first = first + 1, depth = current }
+						lines[row] = { first = first + 1, depth = current + 1 }
 					end
 				end
 			end
@@ -56,11 +56,9 @@ local function ranges(buf)
 	end)
 	for index, node in ipairs(nodes) do
 		local next_node = nodes[index + 1]
-		if next_node and next_node.entry.depth > node.entry.depth then
-			lines[node.row].start = true
-		else
-			lines[node.row].start = false
-		end
+		local continuation = lines[node.row + 1]
+		local has_continuation = continuation and not continuation.node
+		lines[node.row].start = (next_node and next_node.entry.depth > node.entry.depth) or has_continuation or false
 	end
 	cache[buf] = { tick = tick, lines = lines }
 	return lines
@@ -72,7 +70,6 @@ local function configure_window(win, buf)
 	window.foldtext = ""
 	window.foldmethod = "expr"
 end
-
 
 local focus = {}
 
