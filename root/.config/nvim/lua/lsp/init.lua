@@ -1,6 +1,5 @@
 local M = {}
 
-
 local function setup_codeql_lsp()
 	-- CodeQL's CLI includes an LSP server for QL query files.
 	vim.filetype.add({
@@ -62,7 +61,6 @@ local function setup_lsp(capabilities)
 	vim.lsp.enable(enabled_servers)
 end
 
-
 M.attach_navic = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		local navic = require("nvim-navic")
@@ -113,7 +111,6 @@ local function configure_client_features(client, bufnr)
 	end
 end
 function M.lspconfig()
-
 	local diagnostic = require("lsp.diagnostic")
 
 	-- NOTE: 某个不知名的地方会重新设置diagnostic，故在此重新设置一遍
@@ -123,6 +120,7 @@ function M.lspconfig()
 	})
 
 	setup_lsp(M.get_capabilities())
+	require("lsp.python").setup()
 
 	-- remove default nvim lsp keymap
 	vim.keymap.del("n", "]d")

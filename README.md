@@ -54,3 +54,16 @@ nonzero exit status.
 - `root/.vim/vimrc`
     - For Neovim: init.vim(`root/.config/nvim/init.vim`) is a soft link to `root/.vim/vimrc`, you can run `install/setup.sh` to create it.
 - Custom vim configuration file: `~/.vim/config.vim` (Vim / Neovim) and `~/.config/nvim/lua/config.lua` (Neovim). See `root/.vim/config.vim.example`.
+
+### Python LSP (Neovim)
+
+Use `:PythonLspSwitch pyrefly`, `:PythonLspSwitch ty`,
+`:PythonLspSwitch pyright`, or `:PythonLspSwitch basedpyright` to switch the
+Python language server in the running Neovim instance, including already-open
+Python buffers. Without an argument, `:PythonLspSwitch` opens a selection list.
+The server must already be installed and available on `PATH`.
+
+The selection is saved as `g:python_lsp` at the end of `~/.vim/config.vim`
+and used on subsequent starts. Other configuration is preserved; save any
+unsaved edits to that file before switching. Other language servers and
+formatters are not changed.
