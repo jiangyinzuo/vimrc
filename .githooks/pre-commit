@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""提交前格式化 Lua 暂存版本；不把未暂存修改混入提交。"""
+
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+
+def run(*args: str, data: bytes | None = None) -> bytes:
+    print('+ ' + ' '.join(args), flush=True)
+    return subprocess.run(args, input=data, stdout=subprocess.PIPE, check=True).stdout
+
+
+def main() -> None:
+    if shutil.which('stylua') is None:
+        print('pre-commit: stylua not found; skipping Lua formatting')
+        return
+    root = Path(run('git', 'rev-parse', '--show-toplevel').decode().strip())
+    paths = run('git', 'diff', '--cached', '--name-only', '--diff-filter=ACM', '-z').split(b'\0')
+    changes = []
+    for raw in paths:
+        if not raw.endswith(b'.lua'):
+            continue
+        path = raw.decode('utf-8', 'surrogateescape')
+        entry = run('git', 'ls-files', '--stage', '-z', '--', path).split(b'\0')[0]
+        mode, oid, stage = entry.split(b'\t', 1)[0].split()
+        # 符号链接存的是目标路径，不是 Lua 源码，不能交给格式化器。
+        if mode not in (b'100644', b'100755') or stage != b'0':
+            continue
+        original = run('git', 'cat-file', 'blob', oid.decode())
+        formatted = original
+        # StyLua 2.5.2 的多行条件可能需要第二遍才稳定；收敛后才写入暂存区。
+        for _ in range(3):
+            result = run('stylua', '--stdin-filepath', path, '-', data=formatted)
+            if result == formatted:
+                break
+            formatted = result
+        else:
+            raise RuntimeError(f'StyLua output did not stabilize: {path}')
+        if formatted != original:
+            changes.append((raw, mode, root / path, original, formatted))
+
+    records = []
+    for raw, mode, path, original, formatted in changes:
+        oid = run('git', 'hash-object', '-w', '--stdin', data=formatted).strip()
+        records.append(mode + b' ' + oid + b'\t' + raw + b'\0')
+    if records:
+        run('git', 'update-index', '-z', '--index-info', data=b''.join(records))
+    for raw, mode, path, original, formatted in changes:
+        # 完整暂存时同步工作区；部分暂存时保留工作区的每一个字节。
+        if not path.is_symlink() and path.is_file() and path.read_bytes() == original:
+            path.write_bytes(formatted)
+        else:
+            print(f'Kept unstaged working-tree changes: {path}')
+        print(f'Formatted staged Lua: {path}')
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except (OSError, subprocess.CalledProcessError, RuntimeError) as error:
+        print(f'pre-commit: {error}', file=sys.stderr)
+        sys.exit(1)
