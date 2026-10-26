@@ -66,10 +66,10 @@ return {
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 		},
-		cond = true,
+		cond = false,
 		opts = {
 			nes = {
-				enabled = vim.g.ai_suggestion == "sidekick.nvim" and require("config").load_plugin.ai_public,
+				enabled = vim.g.ai_suggestion == "sidekick.nvim",
 			},
 			cli = {
 				prompts = {

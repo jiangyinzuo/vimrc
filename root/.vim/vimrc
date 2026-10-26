@@ -313,5 +313,28 @@ autocmd BufReadPre * call CheckFileSize()
 command! -nargs=0 YankPathLine call yank#YankPathLine()
 " [[palette]]复制当前文件:行的pathline+content			:YankPathLineAndContent
 command! -nargs=0 -range YankPathLineAndContent '<,'>call yank#YankPathLineAndContent()
+" Normal 复制当前行，Visual 复制选区行范围；均写入系统剪贴板。
+if has('nvim')
+	" 使用 Neovim 原生诊断，复制当前行或选区内的全部诊断。
+lua << EOF
+vim.keymap.set({'n', 'x'}, '<leader>ay', ':call yank#YankLineAndContent()<CR>', {
+  silent = true,
+  desc = 'yank pathline+text to system clipboard',
+})
+vim.keymap.set({'n', 'x'}, '<leader>al', ':call yank#YankAbsolutePathLine()<CR>', {
+  silent = true,
+  desc = 'yank pathline to system clipboard',
+})
+vim.keymap.set({'n', 'x'}, '<leader>ad', ':call yank#YankDiagnostics()<CR>', {
+  silent = true,
+  desc = 'yank pathline + diag to system clipboard',
+})
+EOF
+else
+	nnoremap <silent> <leader>ay :call yank#YankLineAndContent()<CR>
+	xnoremap <silent> <leader>ay :call yank#YankLineAndContent()<CR>
+	nnoremap <silent> <leader>al :call yank#YankAbsolutePathLine()<CR>
+	xnoremap <silent> <leader>al :call yank#YankAbsolutePathLine()<CR>
+endif
 command! -range Tab2Table <line1>,<line2>!tab2table.py
 command! -range -nargs=1 JoinWrappedLine <line1>,<line2>call noplug#JoinWrappedLine(<line1>, <line2>, <q-args>)
