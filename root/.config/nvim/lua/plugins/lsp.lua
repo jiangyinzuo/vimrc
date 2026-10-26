@@ -2,8 +2,8 @@ local lsp_init = require("lsp.init")
 -- try plugins in https://nvimdev.github.io
 return {
 	{
-		"jiangyinzuo/pyrefly-enhanced",
-		cmd = "PyreflyEnhanced",
+		"jiangyinzuo/python-lsp-enhanced",
+		cmd = "PythonLspEnhanced",
 		ft = "python",
 	},
 	{

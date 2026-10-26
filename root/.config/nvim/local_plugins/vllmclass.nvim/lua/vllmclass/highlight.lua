@@ -39,7 +39,11 @@ local groups = {
 		"Special",
 		"HiSparseCoordinator HiSparseSourceManager HiSparseHotManager HiSparseResidentManager _HiSparseAuxiliaryManager",
 	},
-	{ "KVConnector", "vllmClassKVConnectorColor", "KVConnectorBase_V1 ActiveKVConnector HiSparseConnector" },
+	{
+		"KVConnector",
+		"vllmClassKVConnectorColor",
+		"KVConnector KVConnectorBase_V1 ActiveKVConnector HiSparseConnector MooncakeConnector MooncakeStoreConnector",
+	},
 	{
 		"HiSparseConnector",
 		"vllmClassConnectorColor",
@@ -122,40 +126,45 @@ local function refresh(buf)
 	if vim.bo[buf].buftype ~= "" or not has_marker(buf) then
 		return
 	end
-	local fence, fence_length, in_tree = nil, 0, false
+	local fence, fence_length, in_tree, in_python = nil, 0, false, false
 	for i, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
 		local delimiter, info = line:match("^%s*([`~]+)(.*)$")
 		if delimiter and #delimiter >= 3 and delimiter:match("^" .. delimiter:sub(1, 1) .. "+$") then
 			if not fence then
 				fence, fence_length = delimiter:sub(1, 1), #delimiter
+				local language = info:match("^%s*([%w_+-]+)")
+				language = language and language:lower() or ""
+				in_python = language == "python" or language == "python3" or language == "py"
 				in_tree = info:match("^%s*vllmclass%s*$") ~= nil
 			elseif delimiter:sub(1, 1) == fence and #delimiter >= fence_length and info:match("^%s*$") then
-				fence, in_tree = nil, false
+				fence, in_tree, in_python = nil, false, false
 			end
 		end
-		local metadata = in_tree and metadata_start(line) or nil
-		if metadata then
-			vim.api.nvim_buf_set_extmark(buf, ns, i - 1, metadata - 1, {
-				end_row = i - 1,
-				end_col = #line,
-				hl_group = "vllmClassMetadata",
-				priority = 10011,
-			})
-		end
-		local offset = 0
-		while offset < #line do
-			local match = vim.fn.matchstrpos(line, pattern, offset)
-			if match[2] < 0 then
-				break
+		if not in_python then
+			local metadata = in_tree and metadata_start(line) or nil
+			if metadata then
+				vim.api.nvim_buf_set_extmark(buf, ns, i - 1, metadata - 1, {
+					end_row = i - 1,
+					end_col = #line,
+					hl_group = "vllmClassMetadata",
+					priority = 10011,
+				})
 			end
-			vim.api.nvim_buf_set_extmark(buf, ns, i - 1, match[2], {
-				end_row = i - 1,
-				end_col = match[3],
-				hl_group = keywords[match[1]],
-				-- 高于 render-markdown 的内置优先级。
-				priority = 10010,
-			})
-			offset = match[3]
+			local offset = 0
+			while offset < #line do
+				local match = vim.fn.matchstrpos(line, pattern, offset)
+				if match[2] < 0 then
+					break
+				end
+				vim.api.nvim_buf_set_extmark(buf, ns, i - 1, match[2], {
+					end_row = i - 1,
+					end_col = match[3],
+					hl_group = keywords[match[1]],
+					-- 高于 render-markdown 的内置优先级。
+					priority = 10010,
+				})
+				offset = match[3]
+			end
 		end
 	end
 end

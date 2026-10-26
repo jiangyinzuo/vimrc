@@ -40,3 +40,28 @@ assert(
 )
 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("za", true, false, true), "mx", false)
 assert(vim.fn.foldclosed(multiline) == -1, "second za did not reopen the multiline node")
+
+require("vllmclass.highlight").setup()
+local highlight_buf = vim.api.nvim_create_buf(true, false)
+vim.api.nvim_set_current_buf(highlight_buf)
+vim.api.nvim_buf_set_lines(highlight_buf, 0, -1, false, {
+	"<!-- vllmclass -->",
+	"Request outside",
+	"```python",
+	"Request inside",
+	"```",
+	"Request after",
+	"~~~py",
+	"Request alias",
+	"~~~",
+	"Request final",
+})
+vim.api.nvim_exec_autocmds("BufEnter", { buffer = highlight_buf })
+local namespace = vim.api.nvim_get_namespaces().vllmclass
+local rows = {}
+for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(highlight_buf, namespace, 0, -1, {})) do
+	rows[mark[2] + 1] = true
+end
+assert(not rows[4] and not rows[8], "Python code block received a vllmclass extmark")
+assert(rows[2] and rows[6] and rows[10], "vllmclass extmarks were not restored outside Python code blocks")
+print("PASS: Python code blocks suppress vllmclass extmarks")
