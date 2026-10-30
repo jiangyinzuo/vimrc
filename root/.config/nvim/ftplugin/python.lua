@@ -8,39 +8,42 @@ pcall(vim.api.nvim_buf_del_user_command, 0, "Pdb")
 pcall(vim.api.nvim_buf_del_user_command, 0, "PdbSend")
 pcall(vim.api.nvim_buf_del_user_command, 0, "Break")
 
+-- Keep Python comment leaders when Enter creates the next line.
+vim.opt_local.formatoptions:append({ "r", "o" })
+
 local pdb = require("pdb")
 
 vim.api.nvim_buf_create_user_command(0, "Pdb", function(opts)
-  pdb.start(opts.fargs)
+	pdb.start(opts.fargs)
 end, {
-  nargs = "+",
-  complete = "file",
-  desc = "Start pdb and follow source locations",
+	nargs = "+",
+	complete = "file",
+	desc = "Start pdb and follow source locations",
 })
 
 vim.api.nvim_buf_create_user_command(0, "PdbSend", function(opts)
-  pdb.send(opts.args)
+	pdb.send(opts.args)
 end, {
-  nargs = "+",
-  desc = "Send a command to pdb",
+	nargs = "+",
+	desc = "Send a command to pdb",
 })
 
 vim.api.nvim_buf_create_user_command(0, "Break", function()
-  pdb.break_at_current_line()
+	pdb.break_at_current_line()
 end, {
-  desc = "Set a pdb breakpoint at the current source line",
+	desc = "Set a pdb breakpoint at the current source line",
 })
 
 -- buffer-local 命令在 buffer 存活期间不会自动消失：同一 buffer 的
 -- filetype 被切换为非 python 时，清理命令并移除本 autocmd。
 local cleanup_id = vim.api.nvim_create_autocmd("FileType", {
-  buffer = 0,
-  callback = function(args)
-    if vim.bo[args.buf].filetype ~= "python" then
-      pcall(vim.api.nvim_buf_del_user_command, args.buf, "Pdb")
-      pcall(vim.api.nvim_buf_del_user_command, args.buf, "PdbSend")
-      pcall(vim.api.nvim_buf_del_user_command, args.buf, "Break")
-      pcall(vim.api.nvim_del_autocmd, cleanup_id)
-    end
-  end,
+	buffer = 0,
+	callback = function(args)
+		if vim.bo[args.buf].filetype ~= "python" then
+			pcall(vim.api.nvim_buf_del_user_command, args.buf, "Pdb")
+			pcall(vim.api.nvim_buf_del_user_command, args.buf, "PdbSend")
+			pcall(vim.api.nvim_buf_del_user_command, args.buf, "Break")
+			pcall(vim.api.nvim_del_autocmd, cleanup_id)
+		end
+	end,
 })

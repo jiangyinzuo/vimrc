@@ -19,7 +19,7 @@ return {
 			coq = false,
 			golang = false,
 			java = false,
-			jupyter = false,
+			jupyter = true,
 			lean = false,
 			rust = true,
 			writing = true,

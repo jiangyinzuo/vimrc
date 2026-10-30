@@ -2,7 +2,7 @@ if require("config").load_plugin.development.jupyter then
 	return {
 		{
 			"SUSTech-data/neopyter",
-			cond = vim.fn.has('wsl') == 1,
+			cond = vim.fn.has("wsl") == 1,
 			dependencies = {
 				"AbaoFromCUG/websocket.nvim", -- for mode='direct'
 			},
@@ -95,8 +95,24 @@ if require("config").load_plugin.development.jupyter then
 			},
 		},
 		{
-			"goerz/jupytext.nvim",
-			opts = {},
+			"nghiant03/jove.nvim",
+			opts = {
+				lsp = {
+					auto_attach = true,
+					servers = { python = { vim.g.python_lsp } },
+				},
+			},
+		},
+		{
+			"jiangyinzuo/jupytext-render.nvim",
+			main = "jupytext-render",
+			event = "VeryLazy",
+			dependencies = { "nghiant03/jove.nvim", "MeanderingProgrammer/render-markdown.nvim" },
+			opts = {
+				render_markdown = true,
+				cell_decorations = false,
+				ipynb_only = true,
+			},
 		},
 	}
 else
