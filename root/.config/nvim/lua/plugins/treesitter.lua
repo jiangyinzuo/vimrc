@@ -30,6 +30,21 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		config = function()
+			local function register_markdown_parser()
+				-- TSUpdate 会重载解析器表，必须在官方覆盖事件中保留 fork 来源。
+				require("nvim-treesitter.parsers").markdown.install_info = {
+					url = "https://github.com/jiangyinzuo/tree-sitter-markdown",
+					location = "tree-sitter-markdown",
+					revision = "510bc2ab4c3b1d208fde7475c7428ac02acd7a0b",
+				}
+			end
+			vim.api.nvim_create_autocmd("User", {
+				group = vim.api.nvim_create_augroup("MarkdownMathParser", { clear = true }),
+				pattern = "TSUpdate",
+				callback = register_markdown_parser,
+			})
+			register_markdown_parser()
+
 			require("nvim-treesitter").setup({
 				-- Directory to install parsers and queries to
 				install_dir = vim.fn.stdpath("data") .. "/site",

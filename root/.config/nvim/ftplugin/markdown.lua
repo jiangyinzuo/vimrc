@@ -127,4 +127,6 @@ local cleanup_id = vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("vllmclass.fold").attach(vim.api.nvim_get_current_buf())
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or "") .. "|setlocal foldexpr< foldmethod< foldtext<"
+-- 首个清理命令不能以 | 开头，否则空 Ex 命令会执行 :print，空文件报 E749。
+local undo_ftplugin = vim.b.undo_ftplugin or ""
+vim.b.undo_ftplugin = (undo_ftplugin ~= "" and undo_ftplugin .. "|" or "") .. "setlocal foldexpr< foldmethod< foldtext<"
