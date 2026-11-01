@@ -132,6 +132,9 @@ return {
 					highlight_language = "RenderMarkdownCodeLanguage",
 					highlight_border = "RenderMarkdownCodeBorder",
 				},
+				latex = {
+					enabled = false,
+				},
 			})
 			vim.cmd([[
 				highlight RenderMarkdownCodeLanguage ctermfg=145 ctermbg=104 guifg=#002b36 guibg=#6c71c4 cterm=reverse gui=reverse
