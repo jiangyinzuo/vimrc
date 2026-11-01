@@ -1,11 +1,12 @@
 update EulerOS installation guide and SQL tooling, vim:ft=help
-6writing.txt*
+*writing.txt*
 
 ===============================================================================
-gq和=的区别 ~
+gq和=的区别
 
 |gq|: 格式化文本或段落
 |=|: 缩进代码
+
 ===============================================================================
 *markdown*
 
@@ -19,6 +20,17 @@ Alternatives:
 - https://github.com/epwalsh/obsidian.nvim
 
 Markdown转PDF: |quarto|
+
+实时查看渲染markdown ~
+
+1. 安装轻量静态服务器
+>bash
+  npm install -g live-server
+  live-server --watch=llama_attention.md
+<
+2. 谷歌浏览器下载markdown viewer插件，并打开markdown localhost网页。
+这个方案能解决WSL中的文件无法被markdown viewer插件感知到更新的问题。
+
 -------------------------------------------------------------------------------
 *slides*
 
