@@ -246,14 +246,21 @@ return {
 		cond = vim.fn.has("wsl") == 1,
 		config = function()
 			local wezterm = require("wezterm")
-			if not wezterm.setup({}) then
+			if not wezterm.setup({ hold_on_exit = true }) then
 				return
 			end
-			if vim.fn.has("wsl") == 1 and vim.fn.executable("wezterm") == 0 then
-				-- Windows WezTerm runs explicit programs in its Windows domain.
+			if vim.fn.has("wsl") == 1 then
+				-- Probe PATH only when a task needs Linux-to-Windows routing.
+				local needs_wsl
 				local spawn = wezterm.spawn
 				wezterm.spawn = function(program, opts)
 					if not program or program:lower():match("%.exe$") then
+						return spawn(program, opts)
+					end
+					if needs_wsl == nil then
+						needs_wsl = vim.fn.executable("wezterm") == 0
+					end
+					if not needs_wsl then
 						return spawn(program, opts)
 					end
 					opts = vim.deepcopy(opts or {})
@@ -268,7 +275,6 @@ return {
 					return spawn("wsl.exe", opts)
 				end
 			end
-			require("wezterm_spawn").setup(wezterm)
 		end,
 	},
 }
