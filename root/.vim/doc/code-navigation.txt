@@ -149,7 +149,7 @@ GTags
 
 *gtags-cscope*
 
-可以在本地.project.vim/.vimrc中添加
+可以在本地.exrc中添加
 >
 	packadd! gtags_asyncrun
 	" 自动加载gtags db

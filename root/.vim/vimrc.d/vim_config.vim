@@ -33,7 +33,6 @@ nnoremap <silent> ]a :next<CR>
 " .txt的helpfile，第一行必须都是英文，不能包含中文，否则报 mixed encoding的错误
 " set helplang=cn
 helptags ~/.vim/doc
-helptags ~/.vim/pack/my_plugins/start/project.vim/doc
 
 if exists('&viminfofile')
 	set viminfofile=$HOME/.vim/.viminfo

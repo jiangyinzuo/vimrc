@@ -158,9 +158,8 @@ command -nargs=1 IndentSizeLocal :setlocal tabstop=<args> shiftwidth=<args> soft
 autocmd FileType sh,bash setlocal equalprg=shfmt
 autocmd FileType vim,html,sh,zsh,lua,json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
-let g:project_vimrc = '.project.vim'
 " do not add too much root marks, it will slow down search performance
-let g:RootMarks = ['.git', g:project_vimrc, '.root']
+let g:RootMarks = ['.git', '.root']
 
 " vimplug.vim 可能会改变g:no_vimplug的值
 let g:no_vimplug = get(g:, 'no_vimplug', (glob(g:vim_plug_dir) == "") || &loadplugins == 0)
