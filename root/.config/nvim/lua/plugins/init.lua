@@ -37,6 +37,21 @@ return {
 	},
 	{
 		"brianhuster/unnest.nvim",
+		lazy = false,
+		init = function()
+			-- tmux can retain $NVIM after the parent editor has exited.
+			local parent = vim.env.NVIM
+			if not parent then
+				return
+			end
+			local ok, chan = pcall(vim.fn.sockconnect, "pipe", parent, { rpc = true })
+			if ok and chan > 0 then
+				vim.fn.chanclose(chan)
+			else
+				-- unnest currently treats sockconnect's error string as a channel ID.
+				vim.env.NVIM = nil
+			end
+		end,
 	},
 	{
 		"windwp/nvim-autopairs",
