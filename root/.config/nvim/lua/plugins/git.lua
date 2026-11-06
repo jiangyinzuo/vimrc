@@ -16,6 +16,65 @@ return {
 	},
 	{
 		"jiangyinzuo/conflict-marker.nvim",
+		opts = {
+			on_attach = function(conflict)
+				local buf = conflict.bufnr
+				local ns = vim.api.nvim_create_namespace("conflict-marker-keymaps")
+				local leader = vim.fn.keytrans(vim.g.mapleader or "\\")
+				local hints = {}
+				local actions = {
+					{ "co", "ours", "Keep upper" },
+					{ "ct", "theirs", "Keep lower" },
+					{ "cb", "both", "Keep both" },
+					{ "cn", "none", "Discard both" },
+				}
+				for _, action in ipairs(actions) do
+					vim.keymap.set("n", "<leader>" .. action[1], "<cmd>Conflict " .. action[2] .. "<cr>", {
+						buffer = buf,
+						silent = true,
+						desc = "Conflict: " .. action[3],
+					})
+					hints[action[2]] = { "  [" .. leader .. action[1] .. "] " .. action[3], "Special" }
+				end
+
+				local markers = require("conflict-marker").config.markers
+				local start_pattern = vim.regex(markers.start)
+				local mid_pattern = vim.regex(markers.mid)
+				local end_pattern = vim.regex(markers.ending)
+				local function annotate(row, ...)
+					vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+						virt_text = { ... },
+						virt_text_pos = "eol",
+						hl_mode = "combine",
+					})
+				end
+				local function refresh_hints()
+					if not vim.api.nvim_buf_is_loaded(buf) then
+						return
+					end
+					vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+					local start, mid
+					for i, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+						if start_pattern:match_str(line) then
+							start, mid = i - 1, nil
+						elseif start and mid_pattern:match_str(line) then
+							mid = i - 1
+						elseif start and mid and end_pattern:match_str(line) then
+							annotate(start, hints.ours)
+							annotate(mid, hints.both, hints.none)
+							annotate(i - 1, hints.theirs)
+							start, mid = nil, nil
+						end
+					end
+				end
+				vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP", "BufEnter" }, {
+					group = vim.api.nvim_create_augroup("ConflictMarkerKeymaps" .. buf, { clear = true }),
+					buffer = buf,
+					callback = refresh_hints,
+				})
+				refresh_hints()
+			end,
+		},
 	},
 	{
 		"aaronhallaert/advanced-git-search.nvim",

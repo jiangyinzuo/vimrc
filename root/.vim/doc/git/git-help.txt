@@ -325,6 +325,23 @@ NOTE: merge之后可以多按几次`]c`或`[c`, 防止有diff漏下
 通用vim命令 `:Git mergetool` , 在quickfix list加载所有unmerged file
 可以用:SaveList 和 :LoadList 保存/加载quickfix list(在quickfix buffer下命令生效)
 
+*neovim-conflict-shortcuts*
+
+Neovim conflict shortcuts ~
+
+jiangyinzuo/conflict-marker.nvim provides buffer-local mappings for the conflict
+under the cursor. The default <leader> is Space.
+
+    <<<<<<<   <leader>co   Keep upper (ours)
+    =======   <leader>cb   Keep both (upper, then lower)
+              <leader>cn   Discard both
+    >>>>>>>   <leader>ct   Keep lower (theirs)
+
+Each complete conflict block shows these English shortcut hints as virtual text
+on its marker lines. Both and none share the ======= line; ours and theirs stay
+on their own lines. Hints display the actual leader key, do not change file
+contents, and refresh after edits, conflict resolution, or undo.
+
 方案0: 直接修改unmerged文件 ~
 
 例子来源于上面的tutorial
