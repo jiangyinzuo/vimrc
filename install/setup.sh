@@ -88,6 +88,7 @@ do_setup() {
 	# soft links for neovim
 	_make_soft_link ~/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 	_make_soft_link ~/.vim/vimrc ~/.config/nvim/init.vim
+	_make_soft_link "$VIMRC_ROOT"/.config/nvim ~/.config/nvim-remote
 
 	mkdir -p ~/gadgets
 	_make_soft_link ~/gadgets ~/.vim/gadgets

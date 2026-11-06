@@ -1,6 +1,7 @@
 local lualine = {
 	"nvim-lualine/lualine.nvim",
-	event = "UIEnter",
+	-- 首帧前完成 tabline 初始化，避免 UIEnter 后增行和换色。
+	lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	priority = 1,
 	config = function()
@@ -34,6 +35,18 @@ local lualine = {
 				"navic_note",
 			},
 		}
+
+		local identity = vim.uv.os_get_passwd().username .. "@" .. vim.fn.hostname()
+		-- 预先创建配色表，重绘时只按背景模式选择，避免反复分配。
+		local function solarized_color(fg)
+			local colors = {
+				dark = { fg = fg, bg = "#073642", gui = "NONE" },
+				light = { fg = fg, bg = "#eee8d5", gui = "NONE" },
+			}
+			return function()
+				return colors[vim.o.background]
+			end
+		end
 
 		local filename = {
 			"filename",
@@ -69,11 +82,12 @@ local lualine = {
 						"AvanteSelectedFiles",
 						"AvanteInput",
 						"neo-tree",
-					}
+					},
 				},
 				ignore_focus = {},
 				always_divide_middle = true,
 				globalstatus = false,
+				always_show_tabline = true,
 				refresh = {
 					statusline = 1200,
 					tabline = 1000,
@@ -99,11 +113,31 @@ local lualine = {
 				lualine_y = {},
 				lualine_z = {},
 			},
-			tabline = {},
+			tabline = {
+				lualine_a = {
+					{
+						function()
+							return identity
+						end,
+						color = solarized_color("#2aa198"),
+					},
+				},
+				-- 与 :pwd 一致，包含窗口和标签页的局部工作目录。
+				lualine_b = {
+					{
+						function()
+							return vim.fn.getcwd()
+						end,
+						color = solarized_color("#268bd2"),
+					},
+				},
+				lualine_c = { { "tabs", mode = 1 } },
+			},
 			winbar = winbar,
 			inactive_winbar = {},
 			extensions = { "fern", "quickfix", "nvim-dap-ui" },
 		})
+		require("lualine").refresh({ force = true })
 	end,
 }
 
