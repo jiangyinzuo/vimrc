@@ -122,8 +122,19 @@ local lualine = {
 						color = solarized_color("#2aa198"),
 					},
 				},
+				lualine_b = {},
+				lualine_c = {
+					{
+						"tabs",
+						mode = 1,
+						tabs_color = {
+							active = { gui = "bold" },
+							inactive = solarized_color("#839496"),
+						},
+					},
+				},
 				-- 与 :pwd 一致，包含窗口和标签页的局部工作目录。
-				lualine_b = {
+				lualine_z = {
 					{
 						function()
 							return vim.fn.getcwd()
@@ -131,7 +142,6 @@ local lualine = {
 						color = solarized_color("#268bd2"),
 					},
 				},
-				lualine_c = { { "tabs", mode = 1 } },
 			},
 			winbar = winbar,
 			inactive_winbar = {},
