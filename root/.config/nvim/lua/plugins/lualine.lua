@@ -48,6 +48,10 @@ local lualine = {
 			end
 		end
 
+		local function tabs_width()
+			return math.max(1, vim.o.columns - vim.fn.strdisplaywidth(identity) - vim.fn.strdisplaywidth(vim.fn.getcwd()) - 4)
+		end
+
 		local filename = {
 			"filename",
 			path = 4,
@@ -127,6 +131,21 @@ local lualine = {
 					{
 						"tabs",
 						mode = 1,
+						-- 用满两侧信息之间的空间，不再限制为窗口宽度的 1/3。
+						max_length = tabs_width,
+						fmt = function(name)
+							-- 仅在剩余空间不足时缩短名称，保留文件名尾部。
+							name = name:gsub("%%%%", "%%")
+							local max_width = math.max(1, tabs_width() - 2)
+							if vim.fn.strdisplaywidth(name) > max_width then
+								name = vim.fn.strcharpart(name, math.max(0, vim.fn.strchars(name) - max_width + 1))
+								while vim.fn.strdisplaywidth(name) > max_width - 1 do
+									name = vim.fn.strcharpart(name, 1)
+								end
+								name = "…" .. name
+							end
+							return (name:gsub("%%", "%%%%"))
+						end,
 						tabs_color = {
 							active = { gui = "bold" },
 							inactive = solarized_color("#839496"),
