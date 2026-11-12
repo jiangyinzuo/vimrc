@@ -133,7 +133,11 @@ local lualine = {
 						mode = 1,
 						-- 用满两侧信息之间的空间，不再限制为窗口宽度的 1/3。
 						max_length = tabs_width,
-						fmt = function(name)
+						fmt = function(name, context)
+							-- 目录等 buffer 的文件名尾部可能为空，用该标签的文件类型兜底。
+							if name == "" then
+								name = context.filetype ~= "" and context.filetype or "[No Name]"
+							end
 							-- 仅在剩余空间不足时缩短名称，保留文件名尾部。
 							name = name:gsub("%%%%", "%%")
 							local max_width = math.max(1, tabs_width() - 2)
